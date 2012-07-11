@@ -337,7 +337,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     // display attributes
     private final TextPaint mTextPaint;
     private boolean mUserSetTextScaleX;
-    private Layout mLayout;
+    protected Layout mLayout;
 
     private int mGravity = Gravity.TOP | Gravity.START;
     private boolean mHorizontallyScrolling;
