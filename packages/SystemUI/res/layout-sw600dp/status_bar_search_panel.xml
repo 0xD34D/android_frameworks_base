@@ -29,8 +29,9 @@
         android:id="@+id/glow_pad_view"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/navbar_search_panel_height"
-        android:layout_gravity="center_horizontal|bottom"
-        android:gravity="center_horizontal|top"
+        android:layout_gravity="left|bottom"
+        android:gravity="top|right"
+        android:layout_marginLeft="-150dip"
 
         prvandroid:targetDrawables="@array/navbar_search_targets"
         prvandroid:targetDescriptions="@array/navbar_search_target_descriptions"
