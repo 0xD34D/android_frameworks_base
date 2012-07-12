@@ -131,6 +131,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.ScaleAnimation;
+import android.content.ContentResolver;
+import android.database.ContentObserver;
 
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -933,6 +935,9 @@ public class WindowManagerService extends IWindowManager.Stub
         Surface.openTransaction();
         createWatermark();
         Surface.closeTransaction();
+
+        SettingsObserver settingsObserver = new SettingsObserver(new Handler());
+        settingsObserver.observe();
     }
 
     public InputManagerService getInputManagerService() {
@@ -10150,5 +10155,25 @@ public class WindowManagerService extends IWindowManager.Stub
     void bulkSetParameters(final int bulkUpdateParams, int pendingLayoutChanges) {
         mH.sendMessage(mH.obtainMessage(H.BULK_UPDATE_PARAMETERS, bulkUpdateParams,
                 pendingLayoutChanges));
+    }
+
+    class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.UI_MODE), false,
+                    this);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+			Log.d(TAG, "UI mode changed");
+            mDisplay = null;
+			displayReady();
+        }
     }
 }

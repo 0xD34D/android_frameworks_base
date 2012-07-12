@@ -1025,7 +1025,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 * DisplayMetrics.DENSITY_DEFAULT
                 / DisplayMetrics.DENSITY_DEVICE;
 
-        if (shortSizeDp < 600) {
+		boolean usePhoneUI = Settings.System.getInt(mContext.getContentResolver(),
+								Settings.System.UI_MODE, 0) == 1;
+
+        if (usePhoneUI || shortSizeDp < 600) {
             // 0-599dp: "phone" UI with a separate status & navigation bar
             mHasSystemNavBar = false;
             mNavigationBarCanMove = true;

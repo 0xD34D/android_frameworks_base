@@ -31,6 +31,10 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.util.Slog;
 import android.view.IWindowManager;
+import android.content.ContentResolver;
+import android.database.ContentObserver;
+import android.provider.Settings;
+import android.os.Handler;
 
 public class SystemUIService extends Service {
     static final String TAG = "SystemUIService";
@@ -48,6 +52,8 @@ public class SystemUIService extends Service {
      * Hold a reference on the stuff we start.
      */
     SystemUI[] mServices;
+
+	Context mContext;
 
     private Class chooseClass(Object o) {
         if (o instanceof Integer) {
@@ -93,6 +99,10 @@ public class SystemUIService extends Service {
             Slog.d(TAG, "running: " + mServices[i]);
             mServices[i].start();
         }
+
+		mContext = this;
+        SettingsObserver settingsObserver = new SettingsObserver(new Handler());
+        settingsObserver.observe();
     }
 
     @Override
@@ -125,6 +135,25 @@ public class SystemUIService extends Service {
                     ui.dump(fd, pw, args);
                 }
             }
+        }
+    }
+
+    class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.UI_MODE), false,
+                    this);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+			Slog.d(TAG, "UI mode changed");
+            System.exit(1);
         }
     }
 }

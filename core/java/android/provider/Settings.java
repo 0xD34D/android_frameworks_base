@@ -1165,6 +1165,12 @@ public final class Settings {
         public static final String END_BUTTON_BEHAVIOR = "end_button_behavior";
 
         /**
+         * Used to override the normal system UI based on user preference
+         * @hide
+         */
+		public static final String UI_MODE = "ui_mode";
+
+        /**
          * END_BUTTON_BEHAVIOR value for "go home".
          * @hide
          */
@@ -4221,6 +4227,7 @@ public final class Settings {
          */
         public static final String SCREENSAVER_ACTIVATE_ON_DOCK = "screensaver_activate_on_dock";
 
+				
         /** {@hide} */
         public static final String NETSTATS_ENABLED = "netstats_enabled";
         /** {@hide} */
