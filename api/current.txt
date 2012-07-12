@@ -28830,6 +28830,7 @@ package android.widget {
     method public void setTypeface(android.graphics.Typeface, int);
     method public void setTypeface(android.graphics.Typeface);
     method public void setWidth(int);
+    field protected android.text.Layout mLayout;
   }
 
   public static final class TextView.BufferType extends java.lang.Enum {
