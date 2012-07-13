@@ -865,4 +865,6 @@
 
     <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
     <bool name="config_cellBroadcastAppLinks">false</bool>
+
+    <string name="config_legacyUmsLunFile">@null</string>
 </resources>
