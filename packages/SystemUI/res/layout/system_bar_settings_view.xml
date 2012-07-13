@@ -26,6 +26,7 @@
     <!-- Airplane mode -->
     <LinearLayout
             android:id="@+id/airplane"
+			android:visibility="gone"
             style="@style/StatusBarPanelSettingsRow"
             >
         <ImageView
@@ -62,6 +63,13 @@
                 android:id="@+id/network_label"
                 style="@style/StatusBarPanelSettingsContents"
                 android:text="@string/status_bar_settings_wifi_button"
+                />
+        <Switch
+                android:id="@+id/wifi_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
                 />
     </LinearLayout>
     <View style="@style/StatusBarPanelSettingsPanelSeparator" />

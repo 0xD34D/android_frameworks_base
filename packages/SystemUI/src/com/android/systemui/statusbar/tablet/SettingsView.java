@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.android.systemui.R;
 import com.android.systemui.statusbar.policy.AirplaneModeController;
+import com.android.systemui.statusbar.policy.WifiModeController;
 import com.android.systemui.statusbar.policy.AutoRotateController;
 import com.android.systemui.statusbar.policy.BrightnessController;
 import com.android.systemui.statusbar.policy.DoNotDisturbController;
@@ -40,6 +41,7 @@ public class SettingsView extends LinearLayout implements View.OnClickListener {
     static final String TAG = "SettingsView";
 
     AirplaneModeController mAirplane;
+	WifiModeController mWifi;
     AutoRotateController mRotate;
     BrightnessController mBrightness;
     VolumeController mVolume;
@@ -64,6 +66,9 @@ public class SettingsView extends LinearLayout implements View.OnClickListener {
         mAirplane = new AirplaneModeController(context,
                 (CompoundButton)findViewById(R.id.airplane_checkbox));
         findViewById(R.id.network).setOnClickListener(this);
+
+		mWifi = new WifiModeController(context,
+				(CompoundButton)findViewById(R.id.wifi_checkbox));
 
         mRotationLockContainer = findViewById(R.id.rotate);
         mRotationLockSeparator = findViewById(R.id.rotate_separator);
