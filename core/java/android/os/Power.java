@@ -73,15 +73,6 @@ public class Power
     public static final int LOW_BATTERY_THRESHOLD = 10;
 
     /**
-     * Turn the screen on or off
-     *
-     * @param on Whether you want the screen on or off
-     */
-    public static native int setScreenState(boolean on);
-
-    public static native int setLastUserActivityTimeout(long ms);
-
-    /**
      * Low-level function turn the device off immediately, without trying
      * to be clean.  Most people should use
      * {@link android.internal.app.ShutdownThread} for a clean shutdown.

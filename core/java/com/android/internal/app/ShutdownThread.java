@@ -118,8 +118,9 @@ public final class ShutdownThread extends Thread {
 
                                 String actions[] = context.getResources().getStringArray(com.android.internal.R.array.shutdown_reboot_actions);
 
-                                if (actions != null && which < actions.length)
+                                if (actions != null && which < actions.length) {
                                     mRebootReason = actions[which];
+                                }
                             }
                         })
                         .setPositiveButton(com.android.internal.R.string.yes, new DialogInterface.OnClickListener() {
