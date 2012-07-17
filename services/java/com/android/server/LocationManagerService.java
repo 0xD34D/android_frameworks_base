@@ -1224,8 +1224,13 @@ public class LocationManagerService extends ILocationManager.Stub implements Run
 
         LocationProviderInterface p = mProvidersByName.get(provider);
         if (p == null) {
-            throw new IllegalArgumentException("requested provider " + provider +
+            //throw new IllegalArgumentException("requested provider " + provider +
+                    //" doesn't exisit");
+            p = mProvidersByName.get(LocationManager.PASSIVE_PROVIDER);
+            if (p == null) {
+                throw new IllegalArgumentException("requested provider " + provider +
                     " doesn't exisit");
+            }
         }
         receiver.mRequiredPermissions = checkPermissionsSafe(provider,
                 receiver.mRequiredPermissions);
