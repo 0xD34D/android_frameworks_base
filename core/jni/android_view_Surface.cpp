@@ -512,7 +512,7 @@ public:
     }
 
     status_t update(int width, int height, int minLayer, int maxLayer, bool allLayers) {
-        ALOGD(LOG_TAG, "ScreenshotPixelRef::update(%d, %d, %d, %d)", 
+        ALOGD("ScreenshotPixelRef::update(%d, %d, %d, %d)", 
             width, height, minLayer, maxLayer);
 
         status_t res = (width > 0 && height > 0)
@@ -565,6 +565,8 @@ static jobject doScreenshot(JNIEnv* env, jobject clazz, jint width, jint height,
 {
     ScreenshotPixelRef* pixels = new ScreenshotPixelRef(NULL);
     if (pixels->update(width, height, minLayer, maxLayer, allLayers) != NO_ERROR) {
+        ALOGE("pixels->update(%d, %d, %d, %d) returned an error.",
+                width, height, minLayer, maxLayer);
         delete pixels;
         return 0;
     }
@@ -575,7 +577,7 @@ static jobject doScreenshot(JNIEnv* env, jobject clazz, jint width, jint height,
     uint32_t f = pixels->getFormat();
     ssize_t bpr = s * android::bytesPerPixel(f);
 
-    ALOGD(LOG_TAG, "doScreenshot (%d, %d, %d, %d, %d)", 
+    ALOGD("doScreenshot (%d, %d, %d, %d, %d)", 
         w, h, s, f, bpr);
 
     SkBitmap* bitmap = new SkBitmap();
