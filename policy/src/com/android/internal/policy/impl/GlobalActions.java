@@ -37,6 +37,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -134,6 +135,14 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 mAirplaneModeObserver);
         Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         mHasVibrator = vibrator != null && vibrator.hasVibrator();
+        IWindowManager wm = IWindowManager.Stub.asInterface(
+                ServiceManager.getService(Context.WINDOW_SERVICE));
+        try {
+            mEnableNavBarHideToggle = wm.hasSystemNavBar();
+        } catch (RemoteException e) {
+            Slog.w(TAG, "Failing checking whether status bar can hide", e);
+            mEnableNavBarHideToggle = false;
+        }
     }
 
     /**
@@ -865,6 +874,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         private final Handler mHandler;
         private IWindowManager mWindowManager;
         private int mInjectKeycode;
+        private long mDownTime;
 
         NavBarAction(Handler handler) {
         	mHandler = handler;  
@@ -946,17 +956,19 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
      
         public void injectKeyDelayed(int keycode){
         	mInjectKeycode = keycode;
+            mDownTime = SystemClock.uptimeMillis();
         	mHandler.removeCallbacks(onInjectKeyDelayed);
-        	mHandler.postDelayed(onInjectKeyDelayed, 50);
+        	mHandler.postDelayed(onInjectKeyDelayed, 100);
         }
 
         final Runnable onInjectKeyDelayed = new Runnable() {
         	public void run() {
+                final long eventTime = SystemClock.uptimeMillis();
                 InputManager.getInstance().injectInputEvent(
-                        new KeyEvent(KeyEvent.ACTION_DOWN, mInjectKeycode),
+                        new KeyEvent(mDownTime, eventTime - 100, KeyEvent.ACTION_DOWN, mInjectKeycode, 0),
                         InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
                 InputManager.getInstance().injectInputEvent(
-                        new KeyEvent(KeyEvent.ACTION_UP, mInjectKeycode),
+                        new KeyEvent(mDownTime, eventTime - 50, KeyEvent.ACTION_UP, mInjectKeycode, 0),
                         InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
         	}
         };

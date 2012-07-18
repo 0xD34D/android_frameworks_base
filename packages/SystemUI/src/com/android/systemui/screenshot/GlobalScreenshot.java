@@ -46,6 +46,7 @@ import android.os.Environment;
 import android.os.Process;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Slog;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -268,6 +269,7 @@ class GlobalScreenshot {
     private static final float SCREENSHOT_DROP_OUT_MIN_SCALE = SCREENSHOT_SCALE * 0.45f;
     private static final float SCREENSHOT_FAST_DROP_OUT_MIN_SCALE = SCREENSHOT_SCALE * 0.6f;
     private static final float SCREENSHOT_DROP_OUT_MIN_SCALE_OFFSET = 0f;
+    private static final String TAG = "GlobalScreenshot";
 
     private Context mContext;
     private WindowManager mWindowManager;
@@ -396,6 +398,7 @@ class GlobalScreenshot {
         // Take the screenshot
         mScreenBitmap = Surface.screenshot((int) dims[0], (int) dims[1]);
         if (mScreenBitmap == null) {
+            Slog.e(TAG, "Surface.screenshot returned a null bitmap!");
             notifyScreenshotError(mContext, mNotificationManager);
             finisher.run();
             return;

@@ -1065,7 +1065,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mNavigationBarHeightForRotation[mUpsideDownRotation] = 
             mNavigationBarHeightForRotation[mLandscapeRotation] =
             mNavigationBarHeightForRotation[mSeascapeRotation] = 0;
-            mHasSystemNavBar = false;
+            //mHasSystemNavBar = false;
         }
 
         if (mHasSystemNavBar) {
