@@ -66,6 +66,12 @@ interface IWindowManager
     // Is the device configured to have a full system bar for larger screens?
     boolean hasSystemNavBar();
 
+    // These can only be called when injecting events to your own window,
+    // or by holding the INJECT_EVENTS permission.  These methods may block
+    // until pending input events are finished being dispatched even when 'sync' is false.
+    // Avoid calling these methods on your UI thread or use the 'NoWait' version instead.
+    //boolean injectKeyEvent(in KeyEvent ev, boolean sync);
+
     // These can only be called when holding the MANAGE_APP_TOKENS permission.
     void pauseKeyDispatching(IBinder token);
     void resumeKeyDispatching(IBinder token);

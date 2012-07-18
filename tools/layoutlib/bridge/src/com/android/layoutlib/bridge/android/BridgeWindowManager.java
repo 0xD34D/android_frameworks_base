@@ -455,4 +455,25 @@ public class BridgeWindowManager implements IWindowManager {
     public void lockNow() {
         // TODO Auto-generated method stub
     }
+
+    public boolean injectInputEventNoWait(InputEvent arg0) throws RemoteException {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean injectKeyEvent(KeyEvent arg0, boolean arg1) throws RemoteException {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean injectPointerEvent(MotionEvent arg0, boolean arg1) throws RemoteException {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public boolean injectTrackballEvent(MotionEvent arg0, boolean arg1) throws RemoteException {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

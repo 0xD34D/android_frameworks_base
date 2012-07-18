@@ -48,6 +48,7 @@ public class KeyButtonView extends ImageView {
     final float GLOW_MAX_SCALE_FACTOR = 1.8f;
     final float BUTTON_QUIESCENT_ALPHA = 0.70f;
 
+    public IWindowManager mWindowManager;
     long mDownTime;
     int mCode;
     int mTouchSlop;
@@ -57,6 +58,7 @@ public class KeyButtonView extends ImageView {
     boolean mSupportsLongpress = true;
     RectF mRect = new RectF(0f,0f,0f,0f);
     AnimatorSet mPressedAnim;
+    protected boolean mHandlingLongpress = false;
 
     Runnable mCheckLongPress = new Runnable() {
         public void run() {
@@ -95,6 +97,9 @@ public class KeyButtonView extends ImageView {
         }
         
         a.recycle();
+
+        mWindowManager = IWindowManager.Stub.asInterface(
+                ServiceManager.getService(Context.WINDOW_SERVICE));
 
         setClickable(true);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
@@ -283,6 +288,23 @@ public class KeyButtonView extends ImageView {
         InputManager.getInstance().injectInputEvent(ev,
                 InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
     }
+
+    public void setSupportsLongPress(boolean supports) {
+        mSupportsLongpress = supports;
+    }
+
+    public void setHandlingLongpress(boolean handling) {
+        mHandlingLongpress = handling;
+    }
+
+    public void setCode(int code) {
+        mCode = code;
+    }
+
+    public int getCode() {
+        return mCode;
+    }
+
 }
 
 

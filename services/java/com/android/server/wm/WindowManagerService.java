@@ -10167,11 +10167,13 @@ public class WindowManagerService extends IWindowManager.Stub
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.UI_MODE), false,
                     this);
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_BUTTONS_SHOW), false,
+                    this);
         }
 
         @Override
         public void onChange(boolean selfChange) {
-			Log.d(TAG, "UI mode changed");
             mDisplay = null;
 			displayReady();
         }

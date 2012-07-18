@@ -1056,6 +1056,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mHasNavigationBar = false;
         }
 
+        int showByDefault = 1;
+
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.NAVIGATION_BAR_BUTTONS_SHOW, showByDefault) == 0 &&
+                mHasSystemNavBar == true) {
+            mNavigationBarHeightForRotation[mPortraitRotation] =
+            mNavigationBarHeightForRotation[mUpsideDownRotation] = 
+            mNavigationBarHeightForRotation[mLandscapeRotation] =
+            mNavigationBarHeightForRotation[mSeascapeRotation] = 0;
+            mHasSystemNavBar = false;
+        }
+
         if (mHasSystemNavBar) {
             // The system bar is always at the bottom.  If you are watching
             // a video in landscape, we don't need to hide it if we can still

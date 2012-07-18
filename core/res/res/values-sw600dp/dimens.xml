@@ -27,7 +27,7 @@
          showAsAction="ifRoom" items can fit. "always" items can override this. -->
     <integer name="max_action_buttons">5</integer>
     <!-- Default height of an action bar. -->
-    <dimen name="action_bar_default_height">56dip</dimen>
+    <dimen name="action_bar_default_height">48dip</dimen>
     <!-- Vertical padding around action bar icons. -->
     <dimen name="action_bar_icon_vertical_padding">4dip</dimen>
     <!-- Text size for action bar titles -->
@@ -67,10 +67,13 @@
          (the screen is in landscape). This may be either a fraction or a dimension.-->
     <item type="dimen" name="dialog_fixed_height_minor">90%</item>
 
+    <!-- Height of the bottom navigation / system bar. -->
+    <dimen name="navigation_bar_height">48dp</dimen>
     <!-- Height of the bottom navigation bar in portrait; on sw600dp devices
          this is a bit taller -->
-    <dimen name="navigation_bar_height_portrait">56dp</dimen>
+    <dimen name="navigation_bar_height_portrait">48dp</dimen>
 
+    <dimen name="status_bar_height">@dimen/navigation_bar_height</dimen>
     <!-- Preference fragment padding, sides -->
     <dimen name="preference_fragment_padding_side">24dp</dimen>
     <dimen name="preference_screen_header_padding_side">24dip</dimen>

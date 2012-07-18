@@ -1171,6 +1171,12 @@ public final class Settings {
 		public static final String UI_MODE = "ui_mode";
 
         /**
+         * Used to override the normal system UI based on user preference
+         * @hide
+         */
+		public static final String NAVIGATION_BAR_BUTTONS_SHOW = "navigation_bar_buttons_show";
+
+        /**
          * END_BUTTON_BEHAVIOR value for "go home".
          * @hide
          */
