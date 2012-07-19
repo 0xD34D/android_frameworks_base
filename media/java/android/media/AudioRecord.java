@@ -553,7 +553,8 @@ public class AudioRecord
     public void stop()
     throws IllegalStateException {
         if (mState != STATE_INITIALIZED) {
-            throw(new IllegalStateException("stop() called on an uninitialized AudioRecord."));
+            //throw(new IllegalStateException("stop() called on an uninitialized AudioRecord."));
+            return;
         }
 
         // stop recording
