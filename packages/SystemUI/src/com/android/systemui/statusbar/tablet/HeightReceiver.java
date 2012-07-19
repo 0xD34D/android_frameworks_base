@@ -93,7 +93,7 @@ public class HeightReceiver extends BroadcastReceiver {
         }
 
         final int minHeight
-                = res.getDimensionPixelSize(com.android.internal.R.dimen.status_bar_height);
+                = res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height);
         if (height < minHeight) {
             height = minHeight;
         }

@@ -73,7 +73,6 @@
          this is a bit taller -->
     <dimen name="navigation_bar_height_portrait">48dp</dimen>
 
-    <dimen name="status_bar_height">@dimen/navigation_bar_height</dimen>
     <!-- Preference fragment padding, sides -->
     <dimen name="preference_fragment_padding_side">24dp</dimen>
     <dimen name="preference_screen_header_padding_side">24dip</dimen>
