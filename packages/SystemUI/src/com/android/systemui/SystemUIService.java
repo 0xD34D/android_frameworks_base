@@ -148,6 +148,9 @@ public class SystemUIService extends Service {
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.UI_MODE), false,
                     this);
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_USE_SLIDER), false,
+                    this);
         }
 
         @Override

@@ -73,6 +73,13 @@
          this is a bit taller -->
     <dimen name="navigation_bar_height_portrait">48dp</dimen>
 
+    <!-- Height of the bottom navigation / system bar when the slider is used. -->
+    <dimen name="navigation_bar_height_slider">58dp</dimen>
+    <dimen name="navigation_bar_height_portrait_slider">58dp</dimen>
+
+    <!-- Height of the slider when sliding navigation bar is enabled -->
+    <dimen name="navigation_bar_slider_height">10dp</dimen>
+
     <!-- Preference fragment padding, sides -->
     <dimen name="preference_fragment_padding_side">24dp</dimen>
     <dimen name="preference_screen_header_padding_side">24dip</dimen>

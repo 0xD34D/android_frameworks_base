@@ -26,9 +26,9 @@ import android.util.AttributeSet;
 import android.util.Slog;
 import android.view.View;
 import android.view.MotionEvent;
-import android.widget.FrameLayout;
+import android.widget.SlidingDrawer;
 
-public class TabletStatusBarView extends FrameLayout {
+public class SlidingTabletStatusBarView extends SlidingDrawer {
     private static final boolean DEBUG = true;
     private Handler mHandler;
 
@@ -38,11 +38,11 @@ public class TabletStatusBarView extends FrameLayout {
     private final int[] mPos = new int[2];
     private DelegateViewHelper mDelegateHelper;
 
-    public TabletStatusBarView(Context context) {
+    public SlidingTabletStatusBarView(Context context) {
         this(context, null);
     }
 
-    public TabletStatusBarView(Context context, AttributeSet attrs) {
+    public SlidingTabletStatusBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mDelegateHelper = new DelegateViewHelper(this);
     }

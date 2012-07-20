@@ -103,7 +103,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mIsWaitingForEcmExit = false;
     private boolean mHasTelephony;
     private boolean mHasVibrator;
-    private boolean mEnableNavBarHideToggle = true;
+    private boolean mEnableNavBarHideToggle = false;
     private boolean mEnableScreenshotToggle = true;
 
     private IWindowManager mIWindowManager;

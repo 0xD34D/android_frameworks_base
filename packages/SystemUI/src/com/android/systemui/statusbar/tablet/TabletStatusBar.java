@@ -64,6 +64,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.ScrollView;
+import android.widget.SlidingDrawer;
+import android.widget.SlidingDrawer.OnDrawerScrollListener;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
+import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
 
 import com.android.internal.statusbar.StatusBarIcon;
@@ -94,7 +98,7 @@ public class TabletStatusBar extends BaseStatusBar implements
         HeightReceiver.OnBarHeightChangedListener,
         InputMethodsPanel.OnHardKeyboardEnabledChangeListener,
         RecentsPanelView.OnRecentsPanelVisibilityChangedListener {
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     public static final boolean DEBUG_COMPAT_HELP = false;
     public static final String TAG = "TabletStatusBar";
 
@@ -134,6 +138,8 @@ public class TabletStatusBar extends BaseStatusBar implements
     IWindowManager mWindowManager;
 
     TabletStatusBarView mStatusBarView;
+    boolean mIsSlidingDrawer = false;
+    SlidingDrawer mSlider = null;
     View mNotificationArea;
     View mNotificationTrigger;
     NotificationIconArea mNotificationIconArea;
@@ -346,6 +352,7 @@ public class TabletStatusBar extends BaseStatusBar implements
         mInputMethodsPanel.setOnTouchListener(new TouchOutsideListener(
                 MSG_CLOSE_INPUT_METHODS_PANEL, mInputMethodsPanel));
         mInputMethodsPanel.setImeSwitchButton(mInputMethodSwitchButton);
+
         mStatusBarView.setIgnoreChildren(2, mInputMethodSwitchButton, mInputMethodsPanel);
         lp = new WindowManager.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -501,14 +508,48 @@ public class TabletStatusBar extends BaseStatusBar implements
 
         loadDimens();
 
+        mIsSlidingDrawer = Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_USE_SLIDER, 0) == 1;
+        int layout = mIsSlidingDrawer
+                    ? R.layout.system_bar_slider : R.layout.system_bar;
         final TabletStatusBarView sb = (TabletStatusBarView)View.inflate(
-                context, R.layout.system_bar, null);
+                context, layout, null);
         mStatusBarView = sb;
 
         sb.setHandler(mHandler);
 
         mHeightReceiver = new HeightReceiver(mContext);
         mHeightReceiver.registerReceiver();
+
+        mSlider = (SlidingDrawer)sb.findViewById(R.id.slidingDrawer1);
+        if (mSlider != null) {
+            mSlider.setOnDrawerOpenListener(new OnDrawerOpenListener() {
+                @Override
+                public void onDrawerOpened() {
+                    mHeightReceiver.updateHeight(false);
+                    //mSlider.open();
+                }
+            });
+            mSlider.setOnDrawerCloseListener(new OnDrawerCloseListener() {
+                @Override
+                public void onDrawerClosed() {
+                    mHeightReceiver.updateHeight(true);
+                    //mSlider.close();
+                }
+            });
+            mSlider.setOnDrawerScrollListener(new OnDrawerScrollListener() {
+			
+			    @Override
+			    public void onScrollStarted() {
+				    Slog.d(TAG, "Starting to scroll, we should do something here");
+			    }
+			
+			    @Override
+			    public void onScrollEnded() {
+				    Slog.d(TAG, "All done scrolling, we should do something here");
+			    }
+		    });
+        }
 
         try {
             // Sanity-check that someone hasn't set up the config wrong and asked for a navigation
@@ -718,7 +759,6 @@ public class TabletStatusBar extends BaseStatusBar implements
     protected void updateSearchPanel() {
         super.updateSearchPanel();
         mSearchPanelView.setStatusBarView(mStatusBarView);
-        mStatusBarView.setDelegateView(mSearchPanelView);
     }
 
     @Override
@@ -1814,12 +1854,13 @@ public class TabletStatusBar extends BaseStatusBar implements
         makeNavBar();
 */
         mShowStatusBar = (Settings.System.getInt(resolver,
-                Settings.System.NAVIGATION_BAR_BUTTONS_SHOW, 1) == 1);
+               Settings.System.NAVIGATION_BAR_BUTTONS_SHOW, 1) == 1);
        if (mShowStatusBar) {
     	   mHeightReceiver.updateHeight(); // reset back to normal	   
        } else {
     	   onBarHeightChanged(0); // force StatusBar to 0 height.
        }
+
     }
 }
 

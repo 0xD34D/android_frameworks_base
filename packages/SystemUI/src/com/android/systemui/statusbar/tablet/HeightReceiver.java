@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Slog;
 import android.view.Display;
@@ -93,7 +94,43 @@ public class HeightReceiver extends BroadcastReceiver {
         }
 
         final int minHeight
-                = res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height);
+                = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_USE_SLIDER, 0) == 0
+                ? res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height)
+                : res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height);
+        if (height < minHeight) {
+            height = minHeight;
+        }
+        Slog.i(TAG, "Resizing status bar plugged=" + mPlugged + " height="
+                + height + " old=" + mHeight);
+        mHeight = height;
+
+        final int N = mListeners.size();
+        for (int i=0; i<N; i++) {
+            mListeners.get(i).onBarHeightChanged(height);
+        }
+    }
+
+    public void updateHeight(boolean collapsed) {
+        final Resources res = mContext.getResources();
+
+        int height = -1;
+        if (mPlugged) {
+            final DisplayMetrics metrics = new DisplayMetrics();
+            Display display = mWindowManager.getDefaultDisplay();
+            display.getRealMetrics(metrics);
+
+            //Slog.i(TAG, "updateHeight: display metrics=" + metrics);
+            final int shortSide = Math.min(metrics.widthPixels, metrics.heightPixels);
+            final int externalShortSide = Math.min(display.getRawExternalWidth(),
+                    display.getRawExternalHeight());
+            height = shortSide - externalShortSide;
+        }
+
+        final int minHeight
+                = collapsed
+                ? res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height)
+                : res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height_slider);
         if (height < minHeight) {
             height = minHeight;
         }

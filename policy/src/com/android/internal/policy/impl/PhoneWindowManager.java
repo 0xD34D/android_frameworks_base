@@ -158,8 +158,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final boolean DEBUG = false;
     static final boolean localLOGV = false;
     static final boolean DEBUG_LAYOUT = false;
-    static final boolean DEBUG_INPUT = false;
-    static final boolean DEBUG_STARTING_WINDOW = false;
+    static final boolean DEBUG_INPUT = true;
+    static final boolean DEBUG_STARTING_WINDOW = true;
     static final boolean SHOW_STARTING_ANIMATIONS = true;
     static final boolean SHOW_PROCESSES_ON_ALT_MENU = false;
 
@@ -306,6 +306,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     WindowState mStatusBar = null;
     boolean mHasSystemNavBar;
     int mStatusBarHeight;
+    boolean mHasSlidingNavbar = false;
     WindowState mNavigationBar = null;
     boolean mHasNavigationBar = false;
     boolean mCanHideNavigationBar = false;
@@ -572,6 +573,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     "fancy_rotation_anim"), false, this);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.SCREENSAVER_ENABLED), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_USE_SLIDER), false, this);
             if (SEPARATE_TIMEOUT_FOR_SCREEN_SAVER) {
                 resolver.registerContentObserver(Settings.Secure.getUriFor(
                         "screensaver_timeout"), false, this);
@@ -1069,6 +1072,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (mHasSystemNavBar) {
+            mHasSlidingNavbar = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_USE_SLIDER, 0) == 1;
+
+            if (mHasSlidingNavbar) {
+                mNavigationBarHeightForRotation[mPortraitRotation] =
+                mNavigationBarHeightForRotation[mUpsideDownRotation] = 
+                mNavigationBarHeightForRotation[mLandscapeRotation] =
+                mNavigationBarHeightForRotation[mSeascapeRotation] = 
+                mContext.getResources().getDimensionPixelSize(
+                        com.android.internal.R.dimen.navigation_bar_slider_height);
+            }
             // The system bar is always at the bottom.  If you are watching
             // a video in landscape, we don't need to hide it if we can still
             // show a 16:9 aspect ratio with it.
@@ -1084,6 +1098,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // the navigation bar will provide more useful space for wide
             // screen movies.
             mCanHideNavigationBar = aspect < 9;
+
         } else if (mHasNavigationBar) {
             // The navigation bar is at the right in landscape; it seems always
             // useful to hide it for showing a video.
@@ -1433,6 +1448,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     public int getNonDecorDisplayHeight(int fullWidth, int fullHeight, int rotation) {
         if (mHasSystemNavBar) {
             // For the system navigation bar, we always place it at the bottom.
+            if (mHasSlidingNavbar) {
+                int h = fullHeight - mContext.getResources().getDimensionPixelSize(
+                        com.android.internal.R.dimen.navigation_bar_slider_height); 
+                Slog.d(TAG, String.format("getNonDecorDisplayHeight() = %d", h));
+                return h;
+            }
             return fullHeight - mNavigationBarHeightForRotation[rotation];
         }
         if (mHasNavigationBar) {
@@ -2385,6 +2406,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (mNavigationBarOnBottom) {
                 // It's a system nav bar or a portrait screen; nav bar goes on bottom.
                 int top = displayHeight - mNavigationBarHeightForRotation[displayRotation];
+                if (mHasSlidingNavbar)
+                    top = displayHeight - mContext.getResources().getDimensionPixelSize(
+                        com.android.internal.R.dimen.navigation_bar_height_slider); 
+
                 if (mHdmiPlugged) {
                     // Move the nav bar up if the external display is the same aspect ratio
                     // but shorter.  This avoids clipping on the external display.
@@ -2400,6 +2425,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 if (navVisible) {
                     mNavigationBar.showLw(true);
                     mDockBottom = mTmpNavigationFrame.top;
+                    if (mHasSlidingNavbar)
+                        mDockBottom = displayHeight - mContext.getResources().getDimensionPixelSize(
+                            com.android.internal.R.dimen.navigation_bar_slider_height); 
                     mRestrictedScreenHeight = mDockBottom - mDockTop;
                 } else {
                     // We currently want to hide the navigation UI.
@@ -2410,6 +2438,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     // and not in the process of animating on or off, then
                     // we can tell the app that it is covered by it.
                     mSystemBottom = mTmpNavigationFrame.top;
+                    if (mHasSlidingNavbar)
+                        mSystemBottom = displayHeight - mContext.getResources().getDimensionPixelSize(
+                            com.android.internal.R.dimen.navigation_bar_slider_height); 
                 }
             } else {
                 // Landscape screen; nav bar goes to the right.

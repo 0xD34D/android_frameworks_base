@@ -1171,6 +1171,12 @@ public final class Settings {
 		public static final String UI_MODE = "ui_mode";
 
         /**
+         * Used to allow the sysbar to be slid in and out of view when enabled
+         * @hide
+         */
+		public static final String NAVIGATION_BAR_USE_SLIDER = "navigation_bar_use_slider";
+
+        /**
          * Used to override the normal system UI based on user preference
          * @hide
          */

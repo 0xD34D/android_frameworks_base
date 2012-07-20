@@ -10170,6 +10170,9 @@ public class WindowManagerService extends IWindowManager.Stub
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_BUTTONS_SHOW), false,
                     this);
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_USE_SLIDER), false,
+                    this);
         }
 
         @Override
