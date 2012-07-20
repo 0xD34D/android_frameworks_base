@@ -111,6 +111,9 @@ public class HeightReceiver extends BroadcastReceiver {
         }
     }
 
+    /**
+     * This version of update is used with the collapsible tablet status bar.
+     */
     public void updateHeight(boolean collapsed) {
         final Resources res = mContext.getResources();
 
@@ -130,7 +133,7 @@ public class HeightReceiver extends BroadcastReceiver {
         final int minHeight
                 = collapsed
                 ? res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height)
-                : res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height_slider);
+                : res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height);
         if (height < minHeight) {
             height = minHeight;
         }

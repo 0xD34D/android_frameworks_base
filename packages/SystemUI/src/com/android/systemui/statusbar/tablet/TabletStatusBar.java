@@ -254,7 +254,7 @@ public class TabletStatusBar extends BaseStatusBar implements
                 // We use a pixel format of RGB565 for the status bar to save memory bandwidth and
                 // to ensure that the layer can be handled by HWComposer.  On some devices the
                 // HWComposer is unable to handle SW-rendered RGBX_8888 layers.
-                PixelFormat.RGB_565);
+                PixelFormat.RGBA_8888);
 
         // We explicitly leave FLAG_HARDWARE_ACCELERATED out of the flags.  The status bar occupies
         // very little screen real-estate and is updated fairly frequently.  By using CPU rendering
@@ -526,7 +526,7 @@ public class TabletStatusBar extends BaseStatusBar implements
             mSlider.setOnDrawerOpenListener(new OnDrawerOpenListener() {
                 @Override
                 public void onDrawerOpened() {
-                    mHeightReceiver.updateHeight(false);
+                    //mHeightReceiver.updateHeight(false);
                     //mSlider.open();
                 }
             });
@@ -541,12 +541,13 @@ public class TabletStatusBar extends BaseStatusBar implements
 			
 			    @Override
 			    public void onScrollStarted() {
-				    Slog.d(TAG, "Starting to scroll, we should do something here");
+                    if (mSlider.isOpened() == false) {
+                        mHeightReceiver.updateHeight(false);
+                    }
 			    }
 			
 			    @Override
 			    public void onScrollEnded() {
-				    Slog.d(TAG, "All done scrolling, we should do something here");
 			    }
 		    });
         }

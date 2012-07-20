@@ -137,12 +137,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mHasVibrator = vibrator != null && vibrator.hasVibrator();
         IWindowManager wm = IWindowManager.Stub.asInterface(
                 ServiceManager.getService(Context.WINDOW_SERVICE));
-        try {
-            mEnableNavBarHideToggle = wm.hasSystemNavBar();
-        } catch (RemoteException e) {
-            Slog.w(TAG, "Failing checking whether status bar can hide", e);
-            mEnableNavBarHideToggle = false;
-        }
     }
 
     /**
