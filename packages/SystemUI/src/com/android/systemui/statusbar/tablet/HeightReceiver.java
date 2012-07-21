@@ -133,7 +133,7 @@ public class HeightReceiver extends BroadcastReceiver {
         final int minHeight
                 = collapsed
                 ? res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height)
-                : res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height);
+                : res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height_slider);
         if (height < minHeight) {
             height = minHeight;
         }

@@ -37,6 +37,7 @@ public class TabletStatusBarView extends FrameLayout {
     private final View[] mPanels = new View[MAX_PANELS];
     private final int[] mPos = new int[2];
     private DelegateViewHelper mDelegateHelper;
+    private TabletStatusBar mStatusBar;
 
     public TabletStatusBarView(Context context) {
         this(context, null);
@@ -52,6 +53,7 @@ public class TabletStatusBarView extends FrameLayout {
     }
 
     public void setBar(BaseStatusBar phoneStatusBar) {
+        mStatusBar = (TabletStatusBar)phoneStatusBar;
         mDelegateHelper.setBar(phoneStatusBar);
     }
 
@@ -96,6 +98,10 @@ public class TabletStatusBarView extends FrameLayout {
             mHandler.sendEmptyMessage(TabletStatusBar.MSG_CLOSE_INPUT_METHODS_PANEL);
             mHandler.removeMessages(TabletStatusBar.MSG_STOP_TICKER);
             mHandler.sendEmptyMessage(TabletStatusBar.MSG_STOP_TICKER);
+            
+            // in case this is a sliding tablet status bar, update the auto-hide timer
+            // so that the timer is reset since the user touched us
+            mStatusBar.updateAutoHideTimer();
 
             for (int i=0; i < mPanels.length; i++) {
                 if (mPanels[i] != null && mPanels[i].getVisibility() == View.VISIBLE) {

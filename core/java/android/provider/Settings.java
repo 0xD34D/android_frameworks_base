@@ -1177,6 +1177,18 @@ public final class Settings {
 		public static final String NAVIGATION_BAR_USE_SLIDER = "navigation_bar_use_slider";
 
         /**
+         * Used to auto-hide the sliding navbar
+         * @hide
+         */
+		public static final String NAVIGATION_BAR_AUTOHIDE_SLIDER = "navigation_bar_autohide_slider";
+
+        /**
+         * Time in seconds for the auto-hide to kick in
+         * @hide
+         */
+		public static final String NAVIGATION_BAR_AUTOHIDE_TIME = "navigation_bar_autohide_time";
+
+        /**
          * Used to override the normal system UI based on user preference
          * @hide
          */

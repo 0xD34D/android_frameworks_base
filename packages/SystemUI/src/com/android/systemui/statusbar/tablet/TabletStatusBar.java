@@ -20,6 +20,9 @@ import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.ActivityManager;
 import android.app.ActivityManagerNative;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.StatusBarManager;
@@ -93,6 +96,7 @@ import com.android.systemui.statusbar.policy.Prefs;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TabletStatusBar extends BaseStatusBar implements
         HeightReceiver.OnBarHeightChangedListener,
@@ -139,7 +143,9 @@ public class TabletStatusBar extends BaseStatusBar implements
 
     TabletStatusBarView mStatusBarView;
     boolean mIsSlidingDrawer = false;
-    SlidingDrawer mSlider = null;
+    static SlidingDrawer mSlider = null;
+    static boolean mAutoHide = false;
+    static long mAutoHideTime = 10000;
     View mNotificationArea;
     View mNotificationTrigger;
     NotificationIconArea mNotificationIconArea;
@@ -523,33 +529,9 @@ public class TabletStatusBar extends BaseStatusBar implements
 
         mSlider = (SlidingDrawer)sb.findViewById(R.id.slidingDrawer1);
         if (mSlider != null) {
-            mSlider.setOnDrawerOpenListener(new OnDrawerOpenListener() {
-                @Override
-                public void onDrawerOpened() {
-                    //mHeightReceiver.updateHeight(false);
-                    //mSlider.open();
-                }
-            });
-            mSlider.setOnDrawerCloseListener(new OnDrawerCloseListener() {
-                @Override
-                public void onDrawerClosed() {
-                    mHeightReceiver.updateHeight(true);
-                    //mSlider.close();
-                }
-            });
-            mSlider.setOnDrawerScrollListener(new OnDrawerScrollListener() {
-			
-			    @Override
-			    public void onScrollStarted() {
-                    if (mSlider.isOpened() == false) {
-                        mHeightReceiver.updateHeight(false);
-                    }
-			    }
-			
-			    @Override
-			    public void onScrollEnded() {
-			    }
-		    });
+            mSlider.setOnDrawerCloseListener(mSliderCloseListener);
+            mSlider.setOnDrawerOpenListener(mSliderOpenListener);
+            mSlider.setOnDrawerScrollListener(mSliderScrollListener);
         }
 
         try {
@@ -1770,38 +1752,18 @@ public class TabletStatusBar extends BaseStatusBar implements
             // Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_BUTTONS),
             // false,
             // this);
-//            resolver.registerContentObserver(
-//                    Settings.System.getUriFor(Settings.System.MENU_LOCATION), false,
-//                    this);
-//            resolver.registerContentObserver(
-//                    Settings.System.getUriFor(Settings.System.MENU_VISIBILITY), false,
-//                    this);
-
-//            resolver.registerContentObserver(
-//                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_BUTTONS_QTY), false,
-//                    this);
-//            resolver.registerContentObserver(
-//                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_BUTTON_MARGIN), false,
-//                    this);
             resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_BUTTONS_SHOW), false,
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_USE_SLIDER), false,
                     this);
 
-//            for (int j = 0; j < 5; j++) { // watch all 5 settings for changes.
-//                resolver.registerContentObserver(
-//                        Settings.System.getUriFor(Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[j]),
-//                        false,
-//                        this);
-//                resolver.registerContentObserver(
-//                        Settings.System
-//                                .getUriFor(Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[j]),
-//                        false,
-//                        this);
-//                resolver.registerContentObserver(
-//                        Settings.System.getUriFor(Settings.System.NAVIGATION_CUSTOM_APP_ICONS[j]),
-//                        false,
-//                        this);
-//            }
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_AUTOHIDE_SLIDER), false,
+                    this);
+
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_AUTOHIDE_TIME), false,
+                    this);
+
             updateSettings();
         }
 
@@ -1813,55 +1775,88 @@ public class TabletStatusBar extends BaseStatusBar implements
 
     protected void updateSettings() {
         ContentResolver resolver = mContext.getContentResolver();
-/*
-        mNumberOfButtons = Settings.System.getInt(resolver,
-                Settings.System.NAVIGATION_BAR_BUTTONS_QTY, 0);
-        if (mNumberOfButtons == 0){
-        	mNumberOfButtons = StockButtonsQty;
-        	Settings.System.putInt(resolver,
-            		Settings.System.NAVIGATION_BAR_BUTTONS_QTY, StockButtonsQty);
+
+        boolean hide = Settings.System.getInt(resolver,
+                    Settings.System.NAVIGATION_BAR_AUTOHIDE_SLIDER, 0) == 1;
+
+        if (hide != mAutoHide) {
+            mAutoHide = hide;
+            if (hide)
+                updateAutoHideTimer();
+            else
+                cancelAutoHideTimer();
         }
 
-        mBackButton = null;
-        mHomeButton = null;
-        mMenuButton = null;
-        mRecentButton = null;
-        mTempMenuButton = null;
+        mAutoHideTime = (long)Settings.System.getInt(resolver,
+                    Settings.System.NAVIGATION_BAR_AUTOHIDE_TIME, 10) * 1000;
+    }
 
-        for (int j = 0; j < mNumberOfButtons; j++) {
-            mClickActions[j] = Settings.System.getString(resolver,
-                    Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[j]);
-            if (mClickActions[j] == null){
-                mClickActions[j] = StockClickActions[j];
-                Settings.System.putString(resolver,
-                		Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[j], mClickActions[j]);
-            }
-
-            mLongpressActions[j] = Settings.System.getString(resolver,
-                    Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[j]);
-            if (mLongpressActions[j] == null) {
-                mLongpressActions[j] = StockLongpress[j];
-                Settings.System.putString(resolver,
-                		Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[j], mLongpressActions[j]);
-            }
-            mPortraitIcons[j] = Settings.System.getString(resolver,
-                    Settings.System.NAVIGATION_CUSTOM_APP_ICONS[j]);
-            if (mPortraitIcons[j] == null) {
-                mPortraitIcons[j] = "";
-                Settings.System.putString(resolver,
-                		Settings.System.NAVIGATION_CUSTOM_APP_ICONS[j], "");
+    OnDrawerScrollListener mSliderScrollListener = new OnDrawerScrollListener() {
+        @Override
+        public void onScrollStarted() {
+            // if the drawer is not opened then the user is most likely attempting
+            // to expand it so adjust the TabletStatusBarView height to match the   
+            // tablet status bar height plus the height of the drawer handle
+            if (mSlider.isOpened() == false) {
+                mHeightReceiver.updateHeight(false);
             }
         }
-        makeNavBar();
-*/
-        mShowStatusBar = (Settings.System.getInt(resolver,
-               Settings.System.NAVIGATION_BAR_BUTTONS_SHOW, 1) == 1);
-       if (mShowStatusBar) {
-    	   mHeightReceiver.updateHeight(); // reset back to normal	   
-       } else {
-    	   onBarHeightChanged(0); // force StatusBar to 0 height.
-       }
+			
+        @Override
+        public void onScrollEnded() {
+        }
+    };
 
+    OnDrawerCloseListener mSliderCloseListener = new OnDrawerCloseListener() {
+        @Override
+        public void onDrawerClosed() {
+            // Drawer is now closed so change the height of the TabletStatusBarView
+            // to match the height of the sliding drawer handle
+            mHeightReceiver.updateHeight(true);
+        }
+    };
+
+    OnDrawerOpenListener mSliderOpenListener = new OnDrawerOpenListener() {
+        @Override
+        public void onDrawerOpened() {
+            // Drawer is now open so start the auto-hide timer if enabled
+            if (mAutoHide)
+                updateAutoHideTimer();
+        }
+    };
+
+    public void updateAutoHideTimer() {
+        if (mSlider == null || mAutoHide == false)
+            return;
+        AlarmManager am = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(mContext, AutoHideReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            am.cancel(pi);
+        } catch (Exception e) {
+        }
+        Calendar time = Calendar.getInstance();
+        time.setTimeInMillis(System.currentTimeMillis() + mAutoHideTime);
+        am.set(AlarmManager.RTC, time.getTimeInMillis(), pi);
+    }
+
+    public void cancelAutoHideTimer() {
+        AlarmManager am = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(mContext, AutoHideReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            am.cancel(pi);
+        } catch (Exception e) {
+        }
+    }
+
+    public static class AutoHideReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (mAutoHide && mSlider != null) {
+                mSlider.close();
+            }
+        }
     }
 }
 
