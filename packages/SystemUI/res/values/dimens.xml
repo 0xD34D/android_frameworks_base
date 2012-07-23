@@ -150,4 +150,14 @@
 
     <!-- Height of the carrier/wifi name label -->
     <dimen name="carrier_label_height">24dp</dimen>
+
+    <dimen name="qc_radius_start">65dip</dimen>
+    <dimen name="qc_radius_increment">80dip</dimen>
+    <dimen name="qc_slop">10dip</dimen>
+    <dimen name="qc_touch_offset">15dip</dimen>
+    <dimen name="qc_tab_title_height">24dip</dimen>
+    <dimen name="qc_thumb_width">150dip</dimen>
+    <dimen name="qc_thumb_height">100dip</dimen>
+    <dimen name="qc_item_size">40dip</dimen>
+
 </resources>

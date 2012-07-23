@@ -33,4 +33,11 @@
     <drawable name="system_bar_background">#ff000000</drawable>
     <!-- the darkening filter applied to notifications -->
     <drawable name="notification_icon_area_smoke">#aa000000</drawable>
+
+
+    <color name="qcMenuBackground">#C0000000</color>
+    <color name="qc_normal">#E0000000</color>
+    <color name="qc_selected">#E0FF8800</color>
+    <color name="qc_sub">#E0222222</color>
+    <color name="qc_tab_nr">#F033B5E5</color>
 </resources>
