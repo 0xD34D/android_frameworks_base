@@ -51,6 +51,7 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
     public static final String HOME_BUTTON = "##home##";
     public static final String MENU_BUTTON = "##menu##";
     public static final String RECENT_BUTTON = "##recent##";
+    public static final String SEARCH_BUTTON = "##search##";
     public static final String NOTIFICATION_BUTTON = "##notification##";
     public static final String SETTINGS_BUTTON = "##settings##";
     public static final String SCREENSHOT_BUTTON = "##screenshot##";
@@ -63,6 +64,7 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
     private PieItem mHome;
     private PieItem mMenu;
     private PieItem mRecent;
+    private PieItem mSearch;
     private PieItem mMore;
     private PieItem mNotifications;
     private PieItem mSettings;
@@ -117,19 +119,20 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         mHome = makeItem(R.drawable.ic_sysbar_home, 1);
         mRecent = makeItem(R.drawable.ic_sysbar_recent, 1);
         mMenu = makeItem(R.drawable.ic_sysbar_menu, 1);
+        mSearch = makeItem(R.drawable.ic_sysbar_search, 1);
         mMore = makeItem(R.drawable.stat_notify_more, 1);
         mNotifications = makeItem(R.drawable.ic_notification_open, 1);
         mSettings = makeItem(R.drawable.ic_notify_quicksettings_normal, 1);
         mScreenshot = makeItem(R.drawable.stat_notify_image, 1);
         	
         setClickListener(this, mBack, mHome, mRecent, mMenu,
-                mNotifications, mSettings, mScreenshot);
+                mNotifications, mSettings, mScreenshot, mSearch);
         // level 1
         mPie.addItem(mMore);
         mMore.addItem(mNotifications);
         mMore.addItem(mSettings);
         mMore.addItem(mScreenshot);
-        mMore.addItem(makeFiller());
+        mMore.addItem(mSearch);
 
         mPie.addItem(mMenu);
 
@@ -151,6 +154,8 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
             buttonName = RECENT_BUTTON;
         } else if (v == mMenu.getView()) {
             buttonName = MENU_BUTTON;
+        } else if (v == mSearch.getView()) {
+            buttonName = SEARCH_BUTTON;
         } else if (v == mNotifications.getView()) {
             buttonName = NOTIFICATION_BUTTON;
         } else if (v == mSettings.getView()) {

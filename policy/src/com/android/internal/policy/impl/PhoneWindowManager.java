@@ -306,7 +306,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     WindowState mStatusBar = null;
     boolean mHasSystemNavBar;
     int mStatusBarHeight;
-    boolean mHasSlidingNavbar = false;
+    boolean mUseLowProfileNavbar = false;
     WindowState mNavigationBar = null;
     boolean mHasNavigationBar = false;
     boolean mCanHideNavigationBar = false;
@@ -1028,8 +1028,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 * DisplayMetrics.DENSITY_DEFAULT
                 / DisplayMetrics.DENSITY_DEVICE;
 
-		boolean usePhoneUI = Settings.System.getInt(mContext.getContentResolver(),
-								Settings.System.UI_MODE, 0) == 1;
+		String barType = Settings.System.getString(mContext.getContentResolver(),
+								Settings.System.NAVIGATION_BAR_TYPE);
+        boolean usePhoneUI = false;
+        if (barType != null)
+            usePhoneUI = barType.equals("phone_statusbar");
 
         if (usePhoneUI || shortSizeDp < 600) {
             // 0-599dp: "phone" UI with a separate status & navigation bar
@@ -1072,10 +1075,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (mHasSystemNavBar) {
-            mHasSlidingNavbar = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.NAVIGATION_BAR_USE_SLIDER, 0) == 1;
+            barType = Settings.System.getString(mContext.getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_TYPE);
+            if (barType != null) {
+                if (!barType.equals("system_bar_normal"))
+                    mUseLowProfileNavbar = true;
+            } else 
+                mUseLowProfileNavbar = false;
 
-            if (mHasSlidingNavbar) {
+            if (mUseLowProfileNavbar) {
                 mNavigationBarHeightForRotation[mPortraitRotation] =
                 mNavigationBarHeightForRotation[mUpsideDownRotation] = 
                 mNavigationBarHeightForRotation[mLandscapeRotation] =
@@ -1448,7 +1456,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     public int getNonDecorDisplayHeight(int fullWidth, int fullHeight, int rotation) {
         if (mHasSystemNavBar) {
             // For the system navigation bar, we always place it at the bottom.
-            if (mHasSlidingNavbar) {
+            if (mUseLowProfileNavbar) {
                 int h = fullHeight - mContext.getResources().getDimensionPixelSize(
                         com.android.internal.R.dimen.navigation_bar_slider_height); 
                 Slog.d(TAG, String.format("getNonDecorDisplayHeight() = %d", h));
@@ -2406,7 +2414,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (mNavigationBarOnBottom) {
                 // It's a system nav bar or a portrait screen; nav bar goes on bottom.
                 int top = displayHeight - mNavigationBarHeightForRotation[displayRotation];
-                if (mHasSlidingNavbar)
+                if (mUseLowProfileNavbar)
                     top = displayHeight - mContext.getResources().getDimensionPixelSize(
                         com.android.internal.R.dimen.navigation_bar_height_slider); 
 
@@ -2425,7 +2433,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 if (navVisible) {
                     mNavigationBar.showLw(true);
                     mDockBottom = mTmpNavigationFrame.top;
-                    if (mHasSlidingNavbar)
+                    if (mUseLowProfileNavbar)
                         mDockBottom = displayHeight - mContext.getResources().getDimensionPixelSize(
                             com.android.internal.R.dimen.navigation_bar_slider_height); 
                     mRestrictedScreenHeight = mDockBottom - mDockTop;
@@ -2438,7 +2446,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     // and not in the process of animating on or off, then
                     // we can tell the app that it is covered by it.
                     mSystemBottom = mTmpNavigationFrame.top;
-                    if (mHasSlidingNavbar)
+                    if (mUseLowProfileNavbar)
                         mSystemBottom = displayHeight - mContext.getResources().getDimensionPixelSize(
                             com.android.internal.R.dimen.navigation_bar_slider_height); 
                 }

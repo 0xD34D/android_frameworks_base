@@ -66,11 +66,13 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SlidingDrawer;
 import android.widget.SlidingDrawer.OnDrawerScrollListener;
 import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
+import android.widget.Space;
 import android.widget.TextView;
 
 import com.android.internal.statusbar.StatusBarIcon;
@@ -103,9 +105,13 @@ public class TabletStatusBar extends BaseStatusBar implements
         HeightReceiver.OnBarHeightChangedListener,
         InputMethodsPanel.OnHardKeyboardEnabledChangeListener,
         RecentsPanelView.OnRecentsPanelVisibilityChangedListener {
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static final boolean DEBUG_COMPAT_HELP = false;
     public static final String TAG = "TabletStatusBar";
+
+    private static final String TYPE_SYSTEM_BAR_NORMAL = "system_bar_normal";
+    private static final String TYPE_SYSTEM_BAR_SLIDER = "system_bar_slider";
+    private static final String TYPE_SYSTEM_BAR_QUICKNAV = "system_bar_quicknav";
 
 
     public static final int MSG_OPEN_NOTIFICATION_PANEL = 1000;
@@ -144,6 +150,8 @@ public class TabletStatusBar extends BaseStatusBar implements
     int mMenuNavIconWidth = -1;
     private int mMaxNotificationIcons = 5;
 
+    private String mBarType = TYPE_SYSTEM_BAR_NORMAL;
+
     IWindowManager mWindowManager;
 
     TabletStatusBarView mStatusBarView;
@@ -151,7 +159,7 @@ public class TabletStatusBar extends BaseStatusBar implements
     static SlidingDrawer mSlider = null;
     static boolean mAutoHide = false;
     static long mAutoHideTime = 10000;
-    static boolean mIsDrawerOpen = true;
+    static boolean mIsDrawerOpen = false;
     View mNotificationArea;
     View mNotificationTrigger;
     NotificationIconArea mNotificationIconArea;
@@ -292,6 +300,14 @@ public class TabletStatusBar extends BaseStatusBar implements
         mNotificationPanel.setOnTouchListener(
                 new TouchOutsideListener(MSG_CLOSE_NOTIFICATION_PANEL, mNotificationPanel));
 
+        // remove the spacer if we are using quicknav
+        if (TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType)) {
+            Space space = (Space)mNotificationPanel.findViewById(R.id.system_bar_notification_panel_bottom_space);
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)space.getLayoutParams();
+            lp.height = res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height);
+            space.setLayoutParams(lp);
+        }
+
         // the battery icon
         mBatteryController.addIconView((ImageView)mNotificationPanel.findViewById(R.id.battery));
         mBatteryController.addLabelView(
@@ -420,7 +436,6 @@ public class TabletStatusBar extends BaseStatusBar implements
                     | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
                     | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 PixelFormat.TRANSLUCENT);
-        //lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
         lp.setTitle("QuickNavbarPanel");
         lp.windowAnimations = android.R.style.Animation;
 
@@ -467,6 +482,7 @@ public class TabletStatusBar extends BaseStatusBar implements
     protected void onConfigurationChanged(Configuration newConfig) {
         loadDimens();
         mNotificationPanelParams.height = getNotificationPanelHeight();
+        mNotificationPanelParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
         WindowManagerImpl.getDefault().updateViewLayout(mNotificationPanel,
                 mNotificationPanelParams);
         mRecentsPanel.updateValuesFromResources();
@@ -544,11 +560,20 @@ public class TabletStatusBar extends BaseStatusBar implements
                 ServiceManager.getService(Context.WINDOW_SERVICE));
 
         loadDimens();
+        
+        mBarType = Settings.System.getString(context.getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_TYPE);
+        if (mBarType == null)
+            mBarType = TYPE_SYSTEM_BAR_NORMAL;
 
-        mIsSlidingDrawer = Settings.System.getInt(context.getContentResolver(),
-                    Settings.System.NAVIGATION_BAR_USE_SLIDER, 0) == 1;
-        int layout = mIsSlidingDrawer
-                    ? R.layout.system_bar_slider_popup : R.layout.system_bar;
+        int layout;
+        if (TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType))
+            layout = R.layout.system_bar_quicknav;
+        else if (TYPE_SYSTEM_BAR_SLIDER.equals(mBarType))
+            layout = R.layout.system_bar_slider;
+        else
+            layout = R.layout.system_bar;
+
         final TabletStatusBarView sb = (TabletStatusBarView)View.inflate(
                 context, layout, null);
         mStatusBarView = sb;
@@ -563,12 +588,12 @@ public class TabletStatusBar extends BaseStatusBar implements
             mSlider.setOnDrawerCloseListener(mSliderCloseListener);
             mSlider.setOnDrawerOpenListener(mSliderOpenListener);
             mSlider.setOnDrawerScrollListener(mSliderScrollListener);
-            mQuickNavbarTrigger = (View)sb.findViewById(R.id.popup_area1);
-            //quicknavArea.setOnTouchListener(mQuickNavbartouchListener);
-            //quicknavArea = (ImageView)sb.findViewById(R.id.popup_area2);
-            //quicknavArea.setOnTouchListener(mQuickNavbartouchListener);
-            mQuickNavbarTrigger.setOnTouchListener(new QuickNavbarTouchListener());
         }
+
+        mQuickNavbarTrigger = (View)sb.findViewById(R.id.popup_area);
+        if (mQuickNavbarTrigger != null)
+            mQuickNavbarTrigger.setOnTouchListener(new QuickNavbarTouchListener());
+
 
         try {
             // Sanity-check that someone hasn't set up the config wrong and asked for a navigation
@@ -1614,6 +1639,9 @@ public class TabletStatusBar extends BaseStatusBar implements
             final int action = event.getAction();
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
+                    if (mQuickNavbarPanel.isShowing())
+                        mQuickNavbarPanel.show(false, true);
+
                     WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
                             300,
                             150,

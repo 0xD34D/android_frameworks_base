@@ -149,7 +149,7 @@ public class SystemUIService extends Service {
                     Settings.System.getUriFor(Settings.System.UI_MODE), false,
                     this);
             resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_USE_SLIDER), false,
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_TYPE), false,
                     this);
         }
 

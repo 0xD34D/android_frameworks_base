@@ -23,37 +23,20 @@
     >
     
     <ImageView
-            android:id="@+id/popup_area1"
+            android:id="@+id/popup_area"
             android:layout_width="match_parent"
             android:layout_height="@*android:dimen/navigation_bar_slider_height"
             android:scaleType="fitXY"
             android:layout_weight="1"
-            android:background="#00000000" />
+            android:background="#FF000000" />
 	    	
-  <SlidingDrawer
-      android:id="@+id/slidingDrawer1"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentTop="true"
-      android:layout_marginTop="1dp"
-      android:allowSingleTap="true"
-      android:content="@+id/bar_contents_holder"
-      android:handle="@+id/handle" >
-    
-    <ImageView
-        android:id="@+id/handle"
-        android:layout_width="wrap_content"
-        android:layout_height="@*android:dimen/navigation_bar_slider_height"
-        android:src="@drawable/drag_handle"
-        android:scaleType="fitXY" />
-
     <FrameLayout
         android:id="@+id/bar_contents_holder"
         android:layout_width="match_parent"
-        android:layout_height="@*android:dimen/system_bar_height"
+        android:layout_height="@*android:dimen/navigation_bar_slider_height"
         android:layout_gravity="bottom"
         android:background="@drawable/system_bar_background"
+        android:visibility="gone"
         >
         <RelativeLayout
             android:id="@+id/bar_contents"
@@ -175,5 +158,4 @@
                 />
         </RelativeLayout>
     </FrameLayout>
-  </SlidingDrawer>
 </com.android.systemui.statusbar.tablet.TabletStatusBarView>

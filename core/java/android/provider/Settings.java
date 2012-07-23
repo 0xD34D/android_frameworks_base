@@ -1195,6 +1195,12 @@ public final class Settings {
 		public static final String NAVIGATION_BAR_BUTTONS_SHOW = "navigation_bar_buttons_show";
 
         /**
+         * Used to determine the UI type
+         * @hide
+         */
+		public static final String NAVIGATION_BAR_TYPE = "navigation_bar_type";
+
+        /**
          * END_BUTTON_BEHAVIOR value for "go home".
          * @hide
          */

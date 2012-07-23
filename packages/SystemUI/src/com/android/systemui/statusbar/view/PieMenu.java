@@ -385,7 +385,7 @@ public class PieMenu extends FrameLayout {
                 if (!mAnimating) {
                     deselect();
                 }
-                show(false);
+                //show(false);
                 if (!handled && (item != null) && (item.getView() != null)) {
                     if ((item == mOpenItem) || !mAnimating) {
                         item.getView().performClick();
@@ -395,7 +395,7 @@ public class PieMenu extends FrameLayout {
             }
         } else if (MotionEvent.ACTION_CANCEL == action) {
             if (mOpen) {
-                show(false);
+                //show(false);
             }
             if (!mAnimating) {
                 deselect();
@@ -425,7 +425,7 @@ public class PieMenu extends FrameLayout {
             }
             if (polar.y > maxr) {
                 deselect();
-                show(false);
+                //show(false);
                 evt.setAction(MotionEvent.ACTION_DOWN);
                 if (getParent() != null) {
                     ((ViewGroup) getParent()).dispatchTouchEvent(evt);

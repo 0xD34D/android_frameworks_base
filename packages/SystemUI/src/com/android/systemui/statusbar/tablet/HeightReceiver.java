@@ -93,11 +93,15 @@ public class HeightReceiver extends BroadcastReceiver {
             height = shortSide - externalShortSide;
         }
 
-        final int minHeight
-                = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.NAVIGATION_BAR_USE_SLIDER, 0) == 0
-                ? res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height)
-                : res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height);
+        String barType = Settings.System.getString(mContext.getContentResolver(),
+                Settings.System.NAVIGATION_BAR_TYPE);
+        int minHeight = res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height);
+        if (barType != null) {
+            if (!barType.equals("system_bar_normal"))
+                minHeight = res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height);
+        } else 
+            minHeight = res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height);
+
         if (height < minHeight) {
             height = minHeight;
         }
