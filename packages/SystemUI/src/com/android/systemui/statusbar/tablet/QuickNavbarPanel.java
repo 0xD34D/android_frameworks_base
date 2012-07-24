@@ -29,10 +29,12 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Slog;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.InputDevice;
+import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 /**
@@ -54,6 +56,7 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
     private int mInjectKeycode;
     private long mDownTime;
     private Context mContext;
+    private boolean mHideOnPress = false;
     
     ViewGroup mContentFrame;
     Rect mContentArea = new Rect();
@@ -77,6 +80,7 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        mStatusBar.updateAutoHideTimer();
         return mPieControl.onTouchEvent(event);
         //return super.onTouchEvent(event);
     }
@@ -131,6 +135,10 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
         return mContentArea.contains(x, y);
     }
 
+    public void setHideOnPress(boolean hide) {
+        mHideOnPress = hide;
+    }
+
     public void onNavButtonPressed(String buttonName) {
         if (buttonName.equals(PieControl.BACK_BUTTON)) {
             injectKeyDelayed(KeyEvent.KEYCODE_BACK);
@@ -151,8 +159,10 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
             mHandler.sendMessage(peekMsg);
         } else if (buttonName.equals(PieControl.SCREENSHOT_BUTTON)) {
             takeScreenshot();
+            show(false, false);
         }
-        show(false, false);
+        if (mHideOnPress)
+            show(false, false);
     }
 
     public void injectKeyDelayed(int keycode){
@@ -166,11 +176,17 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
     	public void run() {
             final long eventTime = SystemClock.uptimeMillis();
             InputManager.getInstance().injectInputEvent(
-                    new KeyEvent(mDownTime, eventTime - 100, KeyEvent.ACTION_DOWN, mInjectKeycode, 0),
-                    InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
+                    new KeyEvent(mDownTime, eventTime - 100, KeyEvent.ACTION_DOWN, mInjectKeycode, 0,
+                            0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                            KeyEvent.FLAG_FROM_SYSTEM | KeyEvent.FLAG_VIRTUAL_HARD_KEY,
+                            InputDevice.SOURCE_KEYBOARD),
+                        InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
             InputManager.getInstance().injectInputEvent(
-                    new KeyEvent(mDownTime, eventTime - 50, KeyEvent.ACTION_UP, mInjectKeycode, 0),
-                    InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
+                    new KeyEvent(mDownTime, eventTime - 50, KeyEvent.ACTION_UP, mInjectKeycode, 0,
+                            0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                            KeyEvent.FLAG_FROM_SYSTEM | KeyEvent.FLAG_VIRTUAL_HARD_KEY,
+                            InputDevice.SOURCE_KEYBOARD),
+                        InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
     	}
     };
 

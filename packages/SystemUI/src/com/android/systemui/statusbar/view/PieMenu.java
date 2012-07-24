@@ -384,12 +384,16 @@ public class PieMenu extends FrameLayout {
                 PieItem item = mCurrentItem;
                 if (!mAnimating) {
                     deselect();
+                    invalidate();
                 }
                 //show(false);
                 if (!handled && (item != null) && (item.getView() != null)) {
                     if ((item == mOpenItem) || !mAnimating) {
                         item.getView().performClick();
                     }
+                }
+                if (mOpenItem != null) {
+                    closeSub();
                 }
                 return true;
             }

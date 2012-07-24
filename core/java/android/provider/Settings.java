@@ -1183,6 +1183,18 @@ public final class Settings {
 		public static final String NAVIGATION_BAR_AUTOHIDE_SLIDER = "navigation_bar_autohide_slider";
 
         /**
+         * Used to auto-hide the sliding navbar
+         * @hide
+         */
+		public static final String NAVIGATION_BAR_AUTOHIDE_QUICKNAV = "navigation_bar_autohide_quicknav";
+
+        /**
+         * Used to auto-hide the sliding navbar
+         * @hide
+         */
+		public static final String NAVIGATION_BAR_QUICKNAV_HIDE_ON_PRESS = "navigation_bar_quicknav_hide_on_press";
+
+        /**
          * Time in seconds for the auto-hide to kick in
          * @hide
          */

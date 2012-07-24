@@ -574,7 +574,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.SCREENSAVER_ENABLED), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.NAVIGATION_BAR_USE_SLIDER), false, this);
+                    Settings.System.NAVIGATION_BAR_TYPE), false, this);
             if (SEPARATE_TIMEOUT_FOR_SCREEN_SAVER) {
                 resolver.registerContentObserver(Settings.Secure.getUriFor(
                         "screensaver_timeout"), false, this);
@@ -1080,6 +1080,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (barType != null) {
                 if (!barType.equals("system_bar_normal"))
                     mUseLowProfileNavbar = true;
+                else mUseLowProfileNavbar = false;
             } else 
                 mUseLowProfileNavbar = false;
 
@@ -1459,7 +1460,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (mUseLowProfileNavbar) {
                 int h = fullHeight - mContext.getResources().getDimensionPixelSize(
                         com.android.internal.R.dimen.navigation_bar_slider_height); 
-                Slog.d(TAG, String.format("getNonDecorDisplayHeight() = %d", h));
                 return h;
             }
             return fullHeight - mNavigationBarHeightForRotation[rotation];
