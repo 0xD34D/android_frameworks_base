@@ -162,7 +162,7 @@
     <dimen name="qc_item_size">40dip</dimen>
 
     <!-- Dimensions used for volume and brightness panels -->
-    <dimen name="toggle_slider_trigger_area">30dp</dimen>
+    <dimen name="toggle_slider_trigger_area">50dp</dimen>
     <dimen name="toggle_slider_panel_width">400dp</dimen>
     <dimen name="toggle_slider_panel_height">64dp</dimen>
 </resources>
