@@ -32,7 +32,7 @@ public class TabletStatusBarView extends FrameLayout {
     private static final boolean DEBUG = true;
     private Handler mHandler;
 
-    private final int MAX_PANELS = 5;
+    private final int MAX_PANELS = 7;
     private final View[] mIgnoreChildren = new View[MAX_PANELS];
     private final View[] mPanels = new View[MAX_PANELS];
     private final int[] mPos = new int[2];

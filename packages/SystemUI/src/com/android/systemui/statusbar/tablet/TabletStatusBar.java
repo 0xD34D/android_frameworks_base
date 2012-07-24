@@ -112,6 +112,7 @@ public class TabletStatusBar extends BaseStatusBar implements
     private static final String TYPE_SYSTEM_BAR_NORMAL = "system_bar_normal";
     private static final String TYPE_SYSTEM_BAR_SLIDER = "system_bar_slider";
     private static final String TYPE_SYSTEM_BAR_QUICKNAV = "system_bar_quicknav";
+    private static final String TYPE_SYSTEM_BAR_QUICKNAV_V2 = "system_bar_quicknav_v2";
 
 
     public static final int MSG_OPEN_NOTIFICATION_PANEL = 1000;
@@ -122,6 +123,10 @@ public class TabletStatusBar extends BaseStatusBar implements
     public static final int MSG_CLOSE_QUICKNAVBAR_PANEL = 1005;
     public static final int MSG_TOGGLE_RECENTS_PANEL = 1006;
     public static final int MSG_OPEN_SETTINGS_PANEL = 1007;
+    public static final int MSG_OPEN_VOLUME_PANEL = 1008;
+    public static final int MSG_CLOSE_VOLUME_PANEL = 1009;
+    public static final int MSG_OPEN_BRIGHTNESS_PANEL = 1010;
+    public static final int MSG_CLOSE_BRIGHTNESS_PANEL = 1011;
     // 1020-1029 reserved for BaseStatusBar
     public static final int MSG_SHOW_CHROME = 1030;
     public static final int MSG_HIDE_CHROME = 1031;
@@ -196,6 +201,13 @@ public class TabletStatusBar extends BaseStatusBar implements
 
     QuickNavbarPanel mQuickNavbarPanel;
     View mQuickNavbarTrigger;
+    int mQuickNavbarOffset = 0;
+
+    VolumeView mVolumePanel;
+    View mVolumeTrigger;
+
+    BrightnessView mBrightnessPanel;
+    View mBrightnessTrigger;
 
     BatteryController mBatteryController;
     BluetoothController mBluetoothController;
@@ -301,7 +313,7 @@ public class TabletStatusBar extends BaseStatusBar implements
                 new TouchOutsideListener(MSG_CLOSE_NOTIFICATION_PANEL, mNotificationPanel));
 
         // remove the spacer if we are using quicknav
-        if (TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType)) {
+        if (TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType) || TYPE_SYSTEM_BAR_QUICKNAV_V2.equals(mBarType)) {
             Space space = (Space)mNotificationPanel.findViewById(R.id.system_bar_notification_panel_bottom_space);
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)space.getLayoutParams();
             lp.height = res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height);
@@ -423,6 +435,7 @@ public class TabletStatusBar extends BaseStatusBar implements
 
         mRecentButton.setOnTouchListener(mRecentsPanel);
 
+        // setup QuickNavbarPanel
         mQuickNavbarPanel = (QuickNavbarPanel)View.inflate(context,
                 R.layout.system_bar_navigation_panel, null);
         lp = new WindowManager.LayoutParams(
@@ -448,6 +461,56 @@ public class TabletStatusBar extends BaseStatusBar implements
             mStatusBarView.setIgnoreChildren(4, mQuickNavbarTrigger, mQuickNavbarPanel);
         }
         mQuickNavbarPanel.setHandler(mHandler);
+
+        // setup VolumePanel
+        mVolumePanel = (VolumeView)View.inflate(context,
+                R.layout.system_bar_volume_view, null);
+        lp = new WindowManager.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.TYPE_STATUS_BAR_PANEL,
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                    | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
+                    | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                PixelFormat.TRANSLUCENT);
+        lp.setTitle("VolumePanel");
+        lp.windowAnimations = android.R.style.Animation;
+        lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+
+        WindowManagerImpl.getDefault().addView(mVolumePanel, lp);
+        mVolumePanel.show(false, false);
+        mVolumePanel.setOnTouchListener(
+                new TouchOutsideListener(MSG_CLOSE_VOLUME_PANEL, mVolumePanel));
+        if (mVolumeTrigger != null) {
+            mStatusBarView.setIgnoreChildren(5, mVolumeTrigger, mVolumePanel);
+        }
+        mVolumePanel.setHandler(mHandler);
+
+        // setup BrightnessPanel
+        mBrightnessPanel = (BrightnessView)View.inflate(context,
+                R.layout.system_bar_brightness_view, null);
+        lp = new WindowManager.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.TYPE_STATUS_BAR_PANEL,
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                    | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
+                    | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                PixelFormat.TRANSLUCENT);
+        lp.setTitle("BrightnessPanel");
+        lp.windowAnimations = android.R.style.Animation;
+        lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
+
+        WindowManagerImpl.getDefault().addView(mBrightnessPanel, lp);
+        mBrightnessPanel.show(false, false);
+        mBrightnessPanel.setOnTouchListener(
+                new TouchOutsideListener(MSG_CLOSE_BRIGHTNESS_PANEL, mBrightnessPanel));
+        if (mBrightnessTrigger != null) {
+            mStatusBarView.setIgnoreChildren(6, mBrightnessTrigger, mBrightnessPanel);
+            mQuickNavbarOffset = res.getDimensionPixelSize(R.dimen.toggle_slider_trigger_area);
+        }
 
         mPile = (NotificationRowLayout)mNotificationPanel.findViewById(R.id.content);
         mPile.removeAllViews();
@@ -567,7 +630,9 @@ public class TabletStatusBar extends BaseStatusBar implements
             mBarType = TYPE_SYSTEM_BAR_NORMAL;
 
         int layout;
-        if (TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType))
+        if (TYPE_SYSTEM_BAR_QUICKNAV_V2.equals(mBarType))
+            layout = R.layout.system_bar_quicknav_v2;
+        else if (TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType))
             layout = R.layout.system_bar_quicknav;
         else if (TYPE_SYSTEM_BAR_SLIDER.equals(mBarType))
             layout = R.layout.system_bar_slider;
@@ -593,6 +658,14 @@ public class TabletStatusBar extends BaseStatusBar implements
         mQuickNavbarTrigger = (View)sb.findViewById(R.id.popup_area);
         if (mQuickNavbarTrigger != null)
             mQuickNavbarTrigger.setOnTouchListener(new QuickNavbarTouchListener());
+
+        mVolumeTrigger = (View)sb.findViewById(R.id.volume_popup);
+        if (mVolumeTrigger != null)
+            mVolumeTrigger.setOnTouchListener(new VolumeTouchListener());
+
+        mBrightnessTrigger = (View)sb.findViewById(R.id.brightness_popup);
+        if (mBrightnessTrigger != null) 
+            mBrightnessTrigger.setOnTouchListener(new BrightnessTouchListener());
 
 
         try {
@@ -966,6 +1039,32 @@ public class TabletStatusBar extends BaseStatusBar implements
                    //if (mQuickNavbarPanel.isShowing()) {
                         mQuickNavbarPanel.show(false, true);
                     //}
+                    break;
+                case MSG_OPEN_VOLUME_PANEL:
+                    if (DEBUG) Slog.d(TAG, "opening volume panel");
+                    if (!mVolumePanel.isShowing()) {
+                        mVolumePanel.show(true, true);
+                        // if brightness panel is showing, hide it
+                        if (mBrightnessPanel.isShowing())
+                            mBrightnessPanel.show(false, true);
+                    }
+                    break;
+                case MSG_CLOSE_VOLUME_PANEL:
+                    if (DEBUG) Slog.d(TAG, "closing volume panel");
+                    mVolumePanel.show(false, true);
+                    break;
+                case MSG_OPEN_BRIGHTNESS_PANEL:
+                    if (DEBUG) Slog.d(TAG, "opening brightness panel");
+                    if (!mBrightnessPanel.isShowing()) {
+                        mBrightnessPanel.show(true, true);
+                        // if volume panel is showing, hide it
+                        if (mVolumePanel.isShowing())
+                            mVolumePanel.show(false, true);
+                    }
+                    break;
+                case MSG_CLOSE_BRIGHTNESS_PANEL:
+                    if (DEBUG) Slog.d(TAG, "closing brightness panel");
+                    mBrightnessPanel.show(false, true);
                     break;
                 case MSG_TOGGLE_RECENTS_PANEL:
                     if ((mDisabled & StatusBarManager.DISABLE_EXPAND) == 0) {
@@ -1645,7 +1744,7 @@ public class TabletStatusBar extends BaseStatusBar implements
                     WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
                             300,
                             150,
-                            (int)event.getX() - 150,
+                            (int)event.getX() + mQuickNavbarOffset - 150,
                             0,
                             WindowManager.LayoutParams.TYPE_STATUS_BAR_PANEL,
                             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
@@ -1662,6 +1761,66 @@ public class TabletStatusBar extends BaseStatusBar implements
                     Message peekMsg = mHandler.obtainMessage(MSG_OPEN_QUICKNAVBAR_PANEL);
                     mHandler.sendMessage(peekMsg);
                     if(DEBUG) Slog.d(TAG, "Sending MSG_OPEN_QUICKNAVBAR_PANEL");
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    break;
+            }
+            return false;
+        }
+    }
+
+    private class VolumeTouchListener implements View.OnTouchListener {
+        float mInitialTouchX, mInitialTouchY;
+        int mTouchSlop;
+
+        public VolumeTouchListener() {
+            mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        }
+
+        public boolean onTouch(View v, MotionEvent event) {
+            boolean panelShowing = mVolumePanel.isShowing();
+            //if (panelShowing) return false;
+
+            final int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    if (mVolumePanel.isShowing())
+                        mVolumePanel.show(false, true);
+
+                    Message peekMsg = mHandler.obtainMessage(MSG_OPEN_VOLUME_PANEL);
+                    mHandler.sendMessage(peekMsg);
+                    if(DEBUG) Slog.d(TAG, "Sending MSG_OPEN_VOLUME_PANEL");
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    break;
+            }
+            return false;
+        }
+    }
+
+    private class BrightnessTouchListener implements View.OnTouchListener {
+        float mInitialTouchX, mInitialTouchY;
+        int mTouchSlop;
+
+        public BrightnessTouchListener() {
+            mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        }
+
+        public boolean onTouch(View v, MotionEvent event) {
+            boolean panelShowing = mBrightnessPanel.isShowing();
+            //if (panelShowing) return false;
+
+            final int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    if (mBrightnessPanel.isShowing())
+                        mBrightnessPanel.show(false, true);
+
+                    Message peekMsg = mHandler.obtainMessage(MSG_OPEN_BRIGHTNESS_PANEL);
+                    mHandler.sendMessage(peekMsg);
+                    if(DEBUG) Slog.d(TAG, "Sending MSG_OPEN_BRIGHTNESS_PANEL");
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
