@@ -1935,6 +1935,13 @@ public class TabletStatusBar extends BaseStatusBar implements
         }
     }
 
+    public int getNotificationCount() {
+        if (mNotificationData == null)
+            return 0;
+
+        return mNotificationData.size();
+    }
+
     private void loadNotificationPanel() {
         int N = mNotificationData.size();
 
@@ -2064,6 +2071,10 @@ public class TabletStatusBar extends BaseStatusBar implements
 
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_AUTOHIDE_SLIDER), false,
+                    this);
+
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_AUTOHIDE_QUICKNAV), false,
                     this);
 
             resolver.registerContentObserver(

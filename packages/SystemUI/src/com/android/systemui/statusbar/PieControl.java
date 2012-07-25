@@ -59,7 +59,7 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
     protected Context mContext;
     protected PieMenu mPie;
     protected int mItemSize;
-    protected TextView mTabsCount;
+    protected TextView mNotificationsCount;
     private PieItem mBack;
     private PieItem mHome;
     private PieItem mMenu;
@@ -70,6 +70,7 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
     private PieItem mSettings;
     private PieItem mScreenshot;
     private OnNavButtonPressedListener mListener;
+    private int mNumNotifications = 0;
 
     public PieControl(Context context) {
         mContext = context;
@@ -105,8 +106,18 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         }
     }
 
+    public void setNotificationsCount(int count) {
+        mNumNotifications = count;
+    }
+
     @Override
     public boolean onOpen() {
+        if (mNumNotifications <= 0)
+            mNotificationsCount.setVisibility(View.GONE);
+        else {
+            mNotificationsCount.setVisibility(View.VISIBLE);
+            mNotificationsCount.setText(Integer.toString(mNumNotifications));
+        }
         return true;
     }
 
@@ -121,7 +132,7 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         mMenu = makeItem(R.drawable.ic_sysbar_menu, 1);
         mSearch = makeItem(R.drawable.ic_sysbar_search, 1);
         mMore = makeItem(R.drawable.stat_notify_more, 1);
-        mNotifications = makeItem(R.drawable.ic_notification_open, 1);
+        mNotifications = new PieItem(makeNotificationsView(), 1);//makeItem(R.drawable.ic_notification_open, 1);
         mSettings = makeItem(R.drawable.ic_notify_quicksettings_normal, 1);
         mScreenshot = makeItem(R.drawable.stat_notify_image, 1);
         	
@@ -166,6 +177,18 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
 
         if (mListener != null)
             mListener.onNavButtonPressed(buttonName);
+    }
+
+    protected View makeNotificationsView() {
+        View v = View.inflate(mContext, R.layout.qc_notifications_view, null);
+        mNotificationsCount = (TextView) v.findViewById(R.id.label);
+        mNotificationsCount.setText("0");
+        ImageView image = (ImageView) v.findViewById(R.id.icon);
+        image.setImageResource(R.drawable.ic_notification_open);
+        image.setScaleType(ScaleType.CENTER);
+        LayoutParams lp = new LayoutParams(mItemSize, mItemSize);
+        v.setLayoutParams(lp);
+        return v;
     }
 
     protected PieItem makeItem(int image, int l) {

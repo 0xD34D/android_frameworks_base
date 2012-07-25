@@ -121,8 +121,11 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
     public void show(boolean show, boolean animate) {
         mShowing = show;
         setVisibility(show ? View.VISIBLE : View.GONE);
-        if (show)
+        if (show) {
+            mPieControl.setNotificationsCount(mStatusBar.getNotificationCount());
             mPieControl.setCenter(this.getWidth() / 2, this.getHeight());
+        }
+    
         mPieControl.show(show);
     }
 
