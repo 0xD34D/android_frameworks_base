@@ -6,5 +6,15 @@
   	android:layout_height="150dp"
     android:background="#00000000" >
 
+    <com.android.systemui.statusbar.policy.Clock
+        android:id="@+id/clock"
+        android:textAppearance="@style/TextAppearance.StatusBar.Clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_marginBottom="8dip"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center_horizontal|bottom"
+        />
 
 </com.android.systemui.statusbar.tablet.QuickNavbarPanel>
