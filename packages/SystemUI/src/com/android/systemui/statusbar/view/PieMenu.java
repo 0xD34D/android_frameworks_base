@@ -152,7 +152,7 @@ public class PieMenu extends FrameLayout {
         mNormalPaint.setColor(res.getColor(R.color.qc_normal));
         mNormalPaint.setAntiAlias(true);
         mSelectedPaint = new Paint();
-        mSelectedPaint.setColor(res.getColor(R.color.qc_selected));
+        mSelectedPaint.setColor(res.getColor(android.R.color.holo_blue_light));
         mSelectedPaint.setAntiAlias(true);
         mSubPaint = new Paint();
         mSubPaint.setAntiAlias(true);
