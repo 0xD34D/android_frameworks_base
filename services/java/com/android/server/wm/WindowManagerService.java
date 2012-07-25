@@ -6840,6 +6840,44 @@ public class WindowManagerService extends IWindowManager.Stub
         }
     }
 
+    public void updateUI() {
+        synchronized(mWindowMap) {
+            if (mDisplay != null) {
+                throw new IllegalStateException("Display already initialized");
+            }
+            WindowManager wm = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
+            mDisplay = wm.getDefaultDisplay();
+            mIsTouchDevice = mContext.getPackageManager().hasSystemFeature(
+                    PackageManager.FEATURE_TOUCHSCREEN);
+            synchronized(mDisplaySizeLock) {
+                mInitialDisplayWidth = mDisplay.getRawWidth();
+                mInitialDisplayHeight = mDisplay.getRawHeight();
+                int rot = mDisplay.getRotation();
+                if (rot == Surface.ROTATION_90 || rot == Surface.ROTATION_270) {
+                    // If the screen is currently rotated, we need to swap the
+                    // initial width and height to get the true natural values.
+                    int tmp = mInitialDisplayWidth;
+                    mInitialDisplayWidth = mInitialDisplayHeight;
+                    mInitialDisplayHeight = tmp;
+                }
+                mBaseDisplayWidth = mCurDisplayWidth = mAppDisplayWidth = mInitialDisplayWidth;
+                mBaseDisplayHeight = mCurDisplayHeight = mAppDisplayHeight = mInitialDisplayHeight;
+                mAnimator.setDisplayDimensions(mCurDisplayWidth, mCurDisplayHeight,
+                        mAppDisplayWidth, mAppDisplayHeight);
+            }
+            mPolicy.setInitialDisplaySize(mDisplay, mInitialDisplayWidth, mInitialDisplayHeight);
+        }
+
+        try {
+            mActivityManager.updateConfiguration(null);
+        } catch (RemoteException e) {
+        }
+        
+        synchronized (mWindowMap) {
+            readForcedDisplaySizeLocked();
+        }
+    }
+
     public void systemReady() {
         mPolicy.systemReady();
     }
@@ -10168,9 +10206,6 @@ public class WindowManagerService extends IWindowManager.Stub
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.UI_MODE), false,
-                    this);
-            resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_TYPE), false,
                     this);
         }
@@ -10178,7 +10213,7 @@ public class WindowManagerService extends IWindowManager.Stub
         @Override
         public void onChange(boolean selfChange) {
             mDisplay = null;
-			displayReady();
+			updateUI();
         }
     }
 }
