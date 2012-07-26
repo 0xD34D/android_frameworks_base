@@ -63,6 +63,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.WindowManagerImpl;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
@@ -80,6 +81,7 @@ import com.android.internal.statusbar.StatusBarNotification;
 import com.android.systemui.R;
 import com.android.systemui.recent.RecentTasksLoader;
 import com.android.systemui.recent.RecentsPanelView;
+import com.android.systemui.recent.StatusBarTouchProxy;
 import com.android.systemui.statusbar.BaseStatusBar;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.DoNotDisturb;
@@ -874,6 +876,14 @@ public class TabletStatusBar extends BaseStatusBar implements
 
     protected void updateRecentsPanel() {
         super.updateRecentsPanel(R.layout.system_bar_recent_panel);
+        // remove the spacer if we are using quicknav
+        if (TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType) || TYPE_SYSTEM_BAR_QUICKNAV_V2.equals(mBarType)) {
+            FrameLayout panel = (FrameLayout)mRecentsPanel.findViewById(R.id.recents_bg_protect);
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)panel.getLayoutParams();
+            lp.bottomMargin = mContext.getResources().getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_slider_height);
+            panel.setLayoutParams(lp);
+        }
+
         mRecentsPanel.setStatusBarView(mStatusBarView);
     }
 
