@@ -183,9 +183,9 @@ public final class ThemeInfo extends BaseThemeInfo {
                 }
             }
         }
-        if (numberOfCompulsoryAttributes < compulsoryAttributes.length) {
-            throw new XmlPullParserException("Not all compulsory attributes are specified in <theme>");
-        }
+//        if (numberOfCompulsoryAttributes < compulsoryAttributes.length) {
+//            throw new XmlPullParserException("Not all compulsory attributes are specified in <theme>");
+//        }
     }
 
     public static final Parcelable.Creator<ThemeInfo> CREATOR
