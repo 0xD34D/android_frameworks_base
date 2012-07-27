@@ -502,9 +502,9 @@ Asset* AssetManager::open(const char* fileName, AccessMode mode)
     while (i > 0) {
         i--;
         const asset_path& ap = mAssetPaths.itemAt(i);
-        if (ap.asSkin) {
-            continue;
-        }
+//        if (ap.asSkin) {
+//            continue;
+//        }
         ALOGV("Looking for asset '%s' in '%s'\n",
                 assetName.string(), ap.path.string());
         Asset* pAsset = openNonAssetInPathLocked(assetName.string(), mode, ap);

@@ -33,6 +33,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.CustomTheme;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.PixelFormat;
@@ -163,6 +164,8 @@ public class TabletStatusBar extends BaseStatusBar implements
     private String mBarType = TYPE_SYSTEM_BAR_NORMAL;
 
     IWindowManager mWindowManager;
+
+    CustomTheme mCurrentTheme;
 
     TabletStatusBarView mStatusBarView;
     boolean mIsSlidingDrawer = false;
@@ -550,6 +553,12 @@ public class TabletStatusBar extends BaseStatusBar implements
 
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
+        // check if the theme has changed and if so kill ourself
+        CustomTheme newTheme = mContext.getResources().getConfiguration().customTheme;
+        if (newTheme != null &&
+            (mCurrentTheme == null || !mCurrentTheme.equals(newTheme))) {
+            System.exit(0);
+        }
         loadDimens();
         mNotificationPanelParams.height = getNotificationPanelHeight();
         mNotificationPanelParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
@@ -628,6 +637,11 @@ public class TabletStatusBar extends BaseStatusBar implements
 
         mWindowManager = IWindowManager.Stub.asInterface(
                 ServiceManager.getService(Context.WINDOW_SERVICE));
+
+        CustomTheme currentTheme = mContext.getResources().getConfiguration().customTheme;
+        if (currentTheme != null) {
+            mCurrentTheme = (CustomTheme)currentTheme.clone();
+        }
 
         loadDimens();
         

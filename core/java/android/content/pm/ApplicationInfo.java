@@ -438,7 +438,7 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
      */
     public boolean isThemeable = false;
 
-    private static final String PLUTO_SCHEMA="http://ww.w3.org/2001/pluto.html";
+    private static final String PLUTO_SCHEMA="http://www.w3.org/2001/pluto.html";
 
     /** @hide */
     public static final String PLUTO_IS_THEMEABLE_ATTRIBUTE_NAME = "isThemeable";
