@@ -158,4 +158,9 @@
                 />
         </RelativeLayout>
     </FrameLayout>
+    <com.android.systemui.statusbar.BatteryBarView
+        android:id="@+id/battery_bar"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="bottom" />
 </com.android.systemui.statusbar.tablet.TabletStatusBarView>

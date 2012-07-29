@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.systemui.R;
+import com.android.systemui.statusbar.BatteryBarView;
 
 public class BatteryController extends BroadcastReceiver {
     private static final String TAG = "StatusBar.BatteryController";
@@ -35,6 +36,7 @@ public class BatteryController extends BroadcastReceiver {
     private Context mContext;
     private ArrayList<ImageView> mIconViews = new ArrayList<ImageView>();
     private ArrayList<TextView> mLabelViews = new ArrayList<TextView>();
+    private ArrayList<BatteryBarView> mBarViews = new ArrayList<BatteryBarView>();
 
     public BatteryController(Context context) {
         mContext = context;
@@ -50,6 +52,10 @@ public class BatteryController extends BroadcastReceiver {
 
     public void addLabelView(TextView v) {
         mLabelViews.add(v);
+    }
+
+    public void addBarView(BatteryBarView v) {
+        mBarViews.add(v);
     }
 
     public void onReceive(Context context, Intent intent) {
@@ -72,6 +78,11 @@ public class BatteryController extends BroadcastReceiver {
                 TextView v = mLabelViews.get(i);
                 v.setText(mContext.getString(R.string.status_bar_settings_battery_meter_format,
                         level));
+            }
+            N = mBarViews.size();
+            for (int i=0; i<N; i++) {
+                BatteryBarView v = mBarViews.get(i);
+                v.setLevel(level);
             }
         }
     }

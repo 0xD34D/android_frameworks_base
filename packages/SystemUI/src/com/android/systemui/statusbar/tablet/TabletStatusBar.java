@@ -84,6 +84,7 @@ import com.android.systemui.recent.RecentTasksLoader;
 import com.android.systemui.recent.RecentsPanelView;
 import com.android.systemui.recent.StatusBarTouchProxy;
 import com.android.systemui.statusbar.BaseStatusBar;
+import com.android.systemui.statusbar.BatteryBarView;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.DoNotDisturb;
 import com.android.systemui.statusbar.NotificationData;
@@ -211,6 +212,7 @@ public class TabletStatusBar extends BaseStatusBar implements
     View mQuickNavbarTrigger;
     int mQuickNavbarOffset = 0;
     boolean mHideOnPress = false;
+    boolean mShowBatteryBar = false;
 
     VolumeView mVolumePanel;
     View mVolumeTrigger;
@@ -472,6 +474,9 @@ public class TabletStatusBar extends BaseStatusBar implements
         mQuickNavbarPanel.setHandler(mHandler);
         mQuickNavbarPanel.setHideOnPress(mHideOnPress);
 
+        // the battery icon
+        mBatteryController.addIconView((ImageView)mQuickNavbarPanel.findViewById(R.id.battery));
+
         // setup VolumePanel
         mVolumePanel = (VolumeView)View.inflate(context,
                 R.layout.system_bar_volume_view, null);
@@ -727,6 +732,12 @@ public class TabletStatusBar extends BaseStatusBar implements
 
         mBatteryController = new BatteryController(mContext);
         mBatteryController.addIconView((ImageView)sb.findViewById(R.id.battery));
+        mBatteryController.addBarView((BatteryBarView)sb.findViewById(R.id.battery_bar));
+
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.SHOW_BATTERY_BAR, 0) == 0)
+            sb.findViewById(R.id.battery_bar).setVisibility(View.GONE);
+
         mBluetoothController = new BluetoothController(mContext);
         mBluetoothController.addIconView((ImageView)sb.findViewById(R.id.bluetooth));
 
@@ -2109,6 +2120,10 @@ public class TabletStatusBar extends BaseStatusBar implements
                     Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_QUICKNAV_HIDE_ON_PRESS), false,
                     this);
 
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.SHOW_BATTERY_BAR), false,
+                    this);
+
             updateSettings();
         }
 
@@ -2142,6 +2157,13 @@ public class TabletStatusBar extends BaseStatusBar implements
                 updateAutoHideTimer();
             else
                 cancelAutoHideTimer();
+        }
+
+        mShowBatteryBar = Settings.System.getInt(resolver,
+                Settings.System.SHOW_BATTERY_BAR, 0) == 1;
+        if (mStatusBarView != null) {
+            mStatusBarView.findViewById(R.id.battery_bar).setVisibility(
+                mShowBatteryBar ? View.VISIBLE : View.GONE);
         }
 
         mAutoHideTime = (long)Settings.System.getInt(resolver,

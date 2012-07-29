@@ -1213,6 +1213,12 @@ public final class Settings {
 		public static final String NAVIGATION_BAR_TYPE = "navigation_bar_type";
 
         /**
+         * User setting for displaying battery bar
+         * @hide
+         */
+        public static final String SHOW_BATTERY_BAR = "show_battery_bar";
+
+        /**
          * END_BUTTON_BEHAVIOR value for "go home".
          * @hide
          */
