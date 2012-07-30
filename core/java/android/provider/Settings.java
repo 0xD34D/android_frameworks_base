@@ -1219,6 +1219,12 @@ public final class Settings {
         public static final String SHOW_BATTERY_BAR = "show_battery_bar";
 
         /**
+         * User setting for displaying battery % over icon
+         * @hide
+         */
+        public static final String SHOW_BATTERY_PERCENTAGE = "show_battery_percentage";
+
+        /**
          * END_BUTTON_BEHAVIOR value for "go home".
          * @hide
          */

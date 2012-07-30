@@ -122,12 +122,23 @@
                 android:paddingLeft="4dip"
                 android:visibility="gone"
                 />
-            <ImageView
-                android:id="@+id/battery"
-                android:layout_height="wrap_content"
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:paddingLeft="4dip"
-                />
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dip" >
+                <ImageView
+                    android:id="@+id/battery"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center" />
+                <TextView
+                    android:id="@+id/battery_text"
+                    android:textAppearance="@style/TextAppearance.StatusBar.BatteryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 </com.android.systemui.statusbar.tablet.NotificationArea>

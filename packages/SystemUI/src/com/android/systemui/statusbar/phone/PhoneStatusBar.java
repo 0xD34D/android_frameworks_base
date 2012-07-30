@@ -475,6 +475,7 @@ public class PhoneStatusBar extends BaseStatusBar {
         mLocationController = new LocationController(mContext); // will post a notification
         mBatteryController = new BatteryController(mContext);
         mBatteryController.addIconView((ImageView)mStatusBarView.findViewById(R.id.battery));
+        mBatteryController.addLabelView((TextView)mStatusBarView.findViewById(R.id.battery_text));
         mBatteryController.addBarView((BatteryBarView)mStatusBarView.findViewById(R.id.battery_bar));
         mNetworkController = new NetworkController(mContext);
         final SignalClusterView signalCluster =
@@ -2487,6 +2488,10 @@ public class PhoneStatusBar extends BaseStatusBar {
                     Settings.System.getUriFor(Settings.System.SHOW_BATTERY_BAR), false,
                     this);
 
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.SHOW_BATTERY_PERCENTAGE), false,
+                    this);
+
             updateSettings();
         }
 
@@ -2505,6 +2510,14 @@ public class PhoneStatusBar extends BaseStatusBar {
             mStatusBarView.findViewById(R.id.battery_bar).setVisibility(
                 showBatteryBar ? View.VISIBLE : View.GONE);
         }
+
+        boolean showBatteryPercentage = Settings.System.getInt(resolver,
+                Settings.System.SHOW_BATTERY_PERCENTAGE, 0) == 1;
+        if (mStatusBarView != null) {
+            mStatusBarView.findViewById(R.id.battery_text).setVisibility(
+                showBatteryPercentage ? View.VISIBLE : View.GONE);
+        }
+
 
     }
 }

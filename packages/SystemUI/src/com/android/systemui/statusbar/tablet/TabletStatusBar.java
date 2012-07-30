@@ -476,6 +476,7 @@ public class TabletStatusBar extends BaseStatusBar implements
 
         // the battery icon
         mBatteryController.addIconView((ImageView)mQuickNavbarPanel.findViewById(R.id.battery));
+        mBatteryController.addLabelView((TextView)mQuickNavbarPanel.findViewById(R.id.battery_text));
 
         // setup VolumePanel
         mVolumePanel = (VolumeView)View.inflate(context,
@@ -732,6 +733,7 @@ public class TabletStatusBar extends BaseStatusBar implements
 
         mBatteryController = new BatteryController(mContext);
         mBatteryController.addIconView((ImageView)sb.findViewById(R.id.battery));
+        mBatteryController.addLabelView((TextView)sb.findViewById(R.id.battery_text));
         mBatteryController.addBarView((BatteryBarView)sb.findViewById(R.id.battery_bar));
 
         if (Settings.System.getInt(mContext.getContentResolver(),
@@ -2124,6 +2126,10 @@ public class TabletStatusBar extends BaseStatusBar implements
                     Settings.System.getUriFor(Settings.System.SHOW_BATTERY_BAR), false,
                     this);
 
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.SHOW_BATTERY_PERCENTAGE), false,
+                    this);
+
             updateSettings();
         }
 
@@ -2164,6 +2170,18 @@ public class TabletStatusBar extends BaseStatusBar implements
         if (mStatusBarView != null) {
             mStatusBarView.findViewById(R.id.battery_bar).setVisibility(
                 mShowBatteryBar ? View.VISIBLE : View.GONE);
+        }
+
+        boolean showBatteryPercentage = Settings.System.getInt(resolver,
+                Settings.System.SHOW_BATTERY_PERCENTAGE, 0) == 1;
+        if (mStatusBarView != null) {
+            mStatusBarView.findViewById(R.id.battery_text).setVisibility(
+                showBatteryPercentage ? View.VISIBLE : View.GONE);
+        }
+
+        if (mQuickNavbarPanel != null) {
+            mQuickNavbarPanel.findViewById(R.id.battery_text).setVisibility(
+                showBatteryPercentage ? View.VISIBLE : View.GONE);
         }
 
         mAutoHideTime = (long)Settings.System.getInt(resolver,

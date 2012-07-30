@@ -67,6 +67,12 @@
         <item name="android:textColor">#999999</item>
 	</style>
 
+    <style name="TextAppearance.StatusBar.BatteryText" parent="@*android:style/TextAppearance.StatusBar" >
+        <item name="android:textSize">12dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+    
     <style name="Animation" />
 
     <style name="Animation.ShirtPocketPanel">
@@ -93,5 +99,5 @@
         <!-- Note: must be dp to fit in status bar -->
         <item name="android:textSize">14dp</item>
     </style>
-    
+
 </resources>
