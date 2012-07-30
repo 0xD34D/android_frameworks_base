@@ -23,8 +23,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.MotionEvent;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewConfiguration;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
@@ -46,7 +48,8 @@ import java.util.List;
 /**
  * Controller for Quick Controls pie menu
  */
-public class PieControl implements PieMenu.PieController, OnClickListener {
+public class PieControl implements PieMenu.PieController, OnClickListener,
+        OnLongClickListener {
     public static final String BACK_BUTTON = "##back##";
     public static final String HOME_BUTTON = "##home##";
     public static final String MENU_BUTTON = "##menu##";
@@ -106,6 +109,12 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         }
     }
 
+    protected void setLongClickListener(OnLongClickListener listener, PieItem... items) {
+        for (PieItem item : items) {
+            item.getView().setOnLongClickListener(listener);
+        }
+    }
+
     public void setNotificationsCount(int count) {
         mNumNotifications = count;
     }
@@ -132,12 +141,13 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
         mMenu = makeItem(R.drawable.ic_sysbar_menu, 1);
         mSearch = makeItem(R.drawable.ic_sysbar_search, 1);
         mMore = makeItem(R.drawable.stat_notify_more, 1);
-        mNotifications = new PieItem(makeNotificationsView(), 1);//makeItem(R.drawable.ic_notification_open, 1);
+        mNotifications = new PieItem(makeNotificationsView(), 1);
         mSettings = makeItem(R.drawable.ic_notify_quicksettings_normal, 1);
         mScreenshot = makeItem(R.drawable.stat_notify_image, 1);
         	
         setClickListener(this, mBack, mHome, mRecent, mMenu,
                 mNotifications, mSettings, mScreenshot, mSearch);
+        setLongClickListener(this, mBack);
         // level 1
         mPie.addItem(mMore);
         mMore.addItem(mNotifications);
@@ -177,6 +187,34 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
 
         if (mListener != null)
             mListener.onNavButtonPressed(buttonName);
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        String buttonName = "";
+        if (v == mBack.getView()) {
+            buttonName = BACK_BUTTON;
+        } else if (v == mHome.getView()) {
+            buttonName = HOME_BUTTON;
+        } else if (v == mRecent.getView()) {
+            buttonName = RECENT_BUTTON;
+        } else if (v == mMenu.getView()) {
+            buttonName = MENU_BUTTON;
+        } else if (v == mSearch.getView()) {
+            buttonName = SEARCH_BUTTON;
+        } else if (v == mNotifications.getView()) {
+            buttonName = NOTIFICATION_BUTTON;
+        } else if (v == mSettings.getView()) {
+            buttonName = SETTINGS_BUTTON;
+        } else if (v == mScreenshot.getView()) {
+            buttonName = SCREENSHOT_BUTTON;
+        }
+
+        if (mListener != null) {
+            mListener.onNavButtonLongPressed(buttonName);
+            return true;
+        }
+        return false;
     }
 
     protected View makeNotificationsView() {
@@ -226,6 +264,7 @@ public class PieControl implements PieMenu.PieController, OnClickListener {
 
     public interface OnNavButtonPressedListener {
         public void onNavButtonPressed(String buttonName);
+        public void onNavButtonLongPressed(String buttonName);
     }
 
 }

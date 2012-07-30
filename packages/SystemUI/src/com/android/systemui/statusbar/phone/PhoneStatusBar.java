@@ -2492,6 +2492,10 @@ public class PhoneStatusBar extends BaseStatusBar {
                     Settings.System.getUriFor(Settings.System.SHOW_BATTERY_PERCENTAGE), false,
                     this);
 
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.LONGPRESS_BACK_KILLS_APP), false,
+                    this);
+
             updateSettings();
         }
 
@@ -2517,7 +2521,12 @@ public class PhoneStatusBar extends BaseStatusBar {
             mStatusBarView.findViewById(R.id.battery_text).setVisibility(
                 showBatteryPercentage ? View.VISIBLE : View.GONE);
         }
+        
+        boolean longpressKillsApp = Settings.System.getInt(resolver,
+                Settings.System.LONGPRESS_BACK_KILLS_APP, 0) == 1;
 
+        if (mNavigationBarView != null)
+            mNavigationBarView.setLongpressKillsApp(longpressKillsApp);
 
     }
 }

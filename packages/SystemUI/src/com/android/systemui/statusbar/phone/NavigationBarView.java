@@ -51,6 +51,7 @@ import com.android.internal.statusbar.IStatusBarService;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.BaseStatusBar;
 import com.android.systemui.statusbar.DelegateViewHelper;
+import com.android.systemui.statusbar.policy.KeyButtonView;
 
 public class NavigationBarView extends LinearLayout {
     final static boolean DEBUG = false;
@@ -257,6 +258,10 @@ public class NavigationBarView extends LinearLayout {
         mShowMenu = show;
 
         getMenuButton().setVisibility(mShowMenu ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    public void setLongpressKillsApp(boolean kill) {
+        ((KeyButtonView)getBackButton()).setLongpressKillsApp(kill);
     }
 
     public void setLowProfile(final boolean lightsOut) {

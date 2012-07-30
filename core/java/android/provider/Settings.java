@@ -1225,6 +1225,12 @@ public final class Settings {
         public static final String SHOW_BATTERY_PERCENTAGE = "show_battery_percentage";
 
         /**
+         * User setting for using longpress of back key to kill active app
+         * @hide
+         */
+        public static final String LONGPRESS_BACK_KILLS_APP = "longpress_back_kills_app";
+
+        /**
          * END_BUTTON_BEHAVIOR value for "go home".
          * @hide
          */

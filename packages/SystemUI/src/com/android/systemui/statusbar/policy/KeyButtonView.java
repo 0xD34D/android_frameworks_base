@@ -18,6 +18,9 @@ package com.android.systemui.statusbar.policy;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.ActivityManager.RunningAppProcessInfo;
+import android.app.ActivityManagerNative;
+import android.app.IActivityManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -26,6 +29,7 @@ import android.graphics.RectF;
 import android.hardware.input.InputManager;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.os.Process;
 import android.os.ServiceManager;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityEvent;
@@ -39,6 +43,9 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import com.android.systemui.R;
 
@@ -56,6 +63,7 @@ public class KeyButtonView extends ImageView {
     int mGlowWidth, mGlowHeight;
     float mGlowAlpha = 0f, mGlowScale = 1f, mDrawingAlpha = 1f;
     boolean mSupportsLongpress = true;
+    boolean mLongpressKillsApp = true;
     RectF mRect = new RectF(0f,0f,0f,0f);
     AnimatorSet mPressedAnim;
     protected boolean mHandlingLongpress = false;
@@ -65,8 +73,13 @@ public class KeyButtonView extends ImageView {
             if (isPressed()) {
                 // Slog.d("KeyButtonView", "longpressed: " + this);
                 if (mCode != 0) {
-                    sendEvent(KeyEvent.ACTION_DOWN, KeyEvent.FLAG_LONG_PRESS);
-                    sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_LONG_CLICKED);
+                    // check for the back key and if longpress to kill is enabled
+                    if (mCode == KeyEvent.KEYCODE_BACK && mLongpressKillsApp) {
+                        postDelayed(mKillTask, 0);
+                    } else {
+                        sendEvent(KeyEvent.ACTION_DOWN, KeyEvent.FLAG_LONG_PRESS);
+                        sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_LONG_CLICKED);
+                    }
                 } else {
                     // Just an old-fashioned ImageView
                     performLongClick();
@@ -304,6 +317,40 @@ public class KeyButtonView extends ImageView {
     public int getCode() {
         return mCode;
     }
+
+    public void setLongpressKillsApp(boolean kills) {
+        mLongpressKillsApp = kills;
+    }
+
+    Runnable mKillTask = new Runnable() {
+        public void run() {
+            try {
+                IActivityManager mgr = ActivityManagerNative.getDefault();
+                List<RunningAppProcessInfo> apps = mgr.getRunningAppProcesses();
+                final int myPid = Process.myPid();
+                for (RunningAppProcessInfo appInfo : apps) {
+                    int uid = appInfo.uid;
+                    // Make sure it's a foreground user application (not system,
+                    // root, phone, etc.)
+                    if (uid >= Process.FIRST_APPLICATION_UID && uid <= Process.LAST_APPLICATION_UID
+                            && appInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+                            && appInfo.pid != myPid) {
+                        // Kill the entire pid
+                        if (appInfo.pkgList != null && (apps.size() > 0)) {
+                            mgr.forceStopPackage(appInfo.pkgList[0]);
+                        } else {
+                            Process.killProcess(appInfo.pid);
+                        }
+                        Toast.makeText(getContext(), 
+                                String.format("Killed %s", appInfo.processName), Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            } catch (RemoteException remoteException) {
+                // Do nothing; just let it go.
+            }
+        }
+    };
 
 }
 

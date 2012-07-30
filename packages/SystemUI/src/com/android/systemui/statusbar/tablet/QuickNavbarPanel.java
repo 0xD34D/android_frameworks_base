@@ -21,11 +21,15 @@ import com.android.systemui.statusbar.PieControl;
 import com.android.systemui.statusbar.PieControl.OnNavButtonPressedListener;
 import com.android.systemui.statusbar.BaseStatusBar;
 
+import android.app.ActivityManager.RunningAppProcessInfo;
+import android.app.ActivityManagerNative;
+import android.app.IActivityManager;
 import android.content.Context;
 import android.graphics.Rect;
 import android.hardware.input.InputManager;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Process;
 import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Slog;
@@ -34,8 +38,12 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import java.util.List;
 
 /**
  * Needed for takeScreenshot
@@ -57,6 +65,7 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
     private long mDownTime;
     private Context mContext;
     private boolean mHideOnPress = false;
+    private boolean mLongpressKillsApp = false;
     
     ViewGroup mContentFrame;
     Rect mContentArea = new Rect();
@@ -142,6 +151,10 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
         mHideOnPress = hide;
     }
 
+    public void setLongpressKillsApp(boolean kill) {
+        mLongpressKillsApp = kill;
+    }
+
     public void onNavButtonPressed(String buttonName) {
         if (buttonName.equals(PieControl.BACK_BUTTON)) {
             injectKeyDelayed(KeyEvent.KEYCODE_BACK);
@@ -163,6 +176,15 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
         } else if (buttonName.equals(PieControl.SCREENSHOT_BUTTON)) {
             takeScreenshot();
             show(false, false);
+        }
+        if (mHideOnPress)
+            show(false, false);
+    }
+
+    public void onNavButtonLongPressed(String buttonName) {
+        if (buttonName.equals(PieControl.BACK_BUTTON)) {
+            if (mLongpressKillsApp)
+                postDelayed(mKillTask, 0);
         }
         if (mHideOnPress)
             show(false, false);
@@ -191,6 +213,36 @@ public class QuickNavbarPanel extends FrameLayout implements StatusBarPanel, OnN
                             InputDevice.SOURCE_KEYBOARD),
                         InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
     	}
+    };
+
+    Runnable mKillTask = new Runnable() {
+        public void run() {
+            try {
+                IActivityManager mgr = ActivityManagerNative.getDefault();
+                List<RunningAppProcessInfo> apps = mgr.getRunningAppProcesses();
+                final int myPid = Process.myPid();
+                for (RunningAppProcessInfo appInfo : apps) {
+                    int uid = appInfo.uid;
+                    // Make sure it's a foreground user application (not system,
+                    // root, phone, etc.)
+                    if (uid >= Process.FIRST_APPLICATION_UID && uid <= Process.LAST_APPLICATION_UID
+                            && appInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+                            && appInfo.pid != myPid) {
+                        // Kill the entire pid
+                        if (appInfo.pkgList != null && (apps.size() > 0)) {
+                            mgr.forceStopPackage(appInfo.pkgList[0]);
+                        } else {
+                            Process.killProcess(appInfo.pid);
+                        }
+                        Toast.makeText(getContext(), 
+                                String.format("Killed %s", appInfo.processName), Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+            } catch (RemoteException remoteException) {
+                // Do nothing; just let it go.
+            }
+        }
     };
 
     /**

@@ -34,6 +34,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -103,6 +104,8 @@ public class PieMenu extends FrameLayout {
 
     // touch handling
     private PieItem mCurrentItem;
+
+    private PieItem mPressedItem;
 
     private boolean mUseBackground;
     private boolean mAnimating;
@@ -475,6 +478,10 @@ public class PieMenu extends FrameLayout {
             if ((mCurrentItem != mOpenItem) && mCurrentItem.hasItems()) {
                 openSub(mCurrentItem);
                 mOpenItem = item;
+            } else {
+                removeCallbacks(mCheckLongPress);
+                postDelayed(mCheckLongPress, ViewConfiguration.getLongPressTimeout());
+                mPressedItem = mCurrentItem;
             }
         } else {
             mCurrentItem = null;
@@ -583,6 +590,8 @@ public class PieMenu extends FrameLayout {
     }
 
     private void deselect() {
+        removeCallbacks(mCheckLongPress);
+        mPressedItem = null;
         if (mCurrentItem != null) {
             mCurrentItem.setSelected(false);
         }
@@ -633,5 +642,17 @@ public class PieMenu extends FrameLayout {
         && (item.getStartAngle() < polar.x)
         && (item.getStartAngle() + item.getSweep() > polar.x);
     }
+
+    Runnable mCheckLongPress = new Runnable() {
+        public void run() {
+            if (mCurrentItem != null && mPressedItem == mCurrentItem) {
+                try {
+                    mCurrentItem.getView().performLongClick();
+                } catch (Exception e) {
+                    // just carry on and disregard the exception
+                }
+            }
+        }
+    };
 
 }

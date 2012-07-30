@@ -94,6 +94,7 @@ import com.android.systemui.statusbar.NotificationData.Entry;
 import com.android.systemui.statusbar.policy.BatteryController;
 import com.android.systemui.statusbar.policy.BluetoothController;
 import com.android.systemui.statusbar.policy.CompatModeButton;
+import com.android.systemui.statusbar.policy.KeyButtonView;
 import com.android.systemui.statusbar.policy.LocationController;
 import com.android.systemui.statusbar.policy.NetworkController;
 import com.android.systemui.statusbar.policy.NotificationRowLayout;
@@ -2130,6 +2131,10 @@ public class TabletStatusBar extends BaseStatusBar implements
                     Settings.System.getUriFor(Settings.System.SHOW_BATTERY_PERCENTAGE), false,
                     this);
 
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.LONGPRESS_BACK_KILLS_APP), false,
+                    this);
+
             updateSettings();
         }
 
@@ -2172,25 +2177,29 @@ public class TabletStatusBar extends BaseStatusBar implements
                 mShowBatteryBar ? View.VISIBLE : View.GONE);
         }
 
-        boolean showBatteryPercentage = Settings.System.getInt(resolver,
-                Settings.System.SHOW_BATTERY_PERCENTAGE, 0) == 1;
-        if (mStatusBarView != null) {
-            mStatusBarView.findViewById(R.id.battery_text).setVisibility(
-                showBatteryPercentage ? View.VISIBLE : View.GONE);
-        }
-
-        if (mQuickNavbarPanel != null) {
-            mQuickNavbarPanel.findViewById(R.id.battery_text).setVisibility(
-                showBatteryPercentage ? View.VISIBLE : View.GONE);
-        }
-
         mAutoHideTime = (long)Settings.System.getInt(resolver,
                     Settings.System.NAVIGATION_BAR_AUTOHIDE_TIME, 10) * 1000;
 
         mHideOnPress = Settings.System.getInt(resolver,
                     Settings.System.NAVIGATION_BAR_QUICKNAV_HIDE_ON_PRESS, 1) == 1;
-        if (mQuickNavbarPanel != null)
+        boolean showBatteryPercentage = Settings.System.getInt(resolver,
+                Settings.System.SHOW_BATTERY_PERCENTAGE, 0) == 1;
+
+        boolean longpressKillsApp = Settings.System.getInt(resolver,
+                Settings.System.LONGPRESS_BACK_KILLS_APP, 0) == 1;
+
+        if (mStatusBarView != null) {
+            mStatusBarView.findViewById(R.id.battery_text).setVisibility(
+                showBatteryPercentage ? View.VISIBLE : View.GONE);
+            ((KeyButtonView)mBackButton).setLongpressKillsApp(longpressKillsApp);
+        }
+
+        if (mQuickNavbarPanel != null) {
+            mQuickNavbarPanel.findViewById(R.id.battery_text).setVisibility(
+                showBatteryPercentage ? View.VISIBLE : View.GONE);
             mQuickNavbarPanel.setHideOnPress(mHideOnPress);
+            mQuickNavbarPanel.setLongpressKillsApp(longpressKillsApp);
+        }
 
     }
 
