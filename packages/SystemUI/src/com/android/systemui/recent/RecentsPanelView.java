@@ -94,6 +94,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
     private RecentTasksLoader mRecentTasksLoader;
     private ArrayList<TaskDescription> mRecentTaskDescriptions;
     private Runnable mPreloadTasksRunnable;
+    private Runnable mUpdateMemInfoRunnable;
     private boolean mRecentTasksDirty = true;
     private TaskDescriptionAdapter mListAdapter;
     private int mThumbnailWidth;
@@ -101,6 +102,8 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
     private int mRecentItemLayoutId;
     private boolean mFirstScreenful = true;
     private boolean mHighEndGfx;
+
+    private MemoryInfoView mMemoryInfoView;
 
     public static interface OnRecentsPanelVisibilityChangedListener {
         public void onRecentsPanelVisibilityChanged(boolean visible);
@@ -283,7 +286,9 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
             mWaitingToShow = true;
             mWaitingToShowAnimated = animate;
             showIfReady();
+            postDelayed(mUpdateMemInfoRunnable, 500);
         } else {
+            removeCallbacks(mUpdateMemInfoRunnable);
             show(show, animate, null, false);
         }
     }
@@ -481,6 +486,8 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
             throw new IllegalArgumentException("missing Recents[Horizontal]ScrollView");
         }
 
+        mMemoryInfoView = (MemoryInfoView)findViewById(R.id.memory_info);
+
         mRecentsScrim = findViewById(R.id.recents_bg_protect);
         mRecentsNoApps = findViewById(R.id.recents_no_apps);
         mChoreo = new Choreographer(this, mRecentsScrim, mRecentsContainer, mRecentsNoApps, this);
@@ -506,6 +513,14 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
                     setVisibility(INVISIBLE);
                     refreshRecentTasksList();
                 }
+            }
+        };
+
+        mUpdateMemInfoRunnable = new Runnable() {
+            public void run() {
+                mMemoryInfoView.update();
+                if (mShowing)
+                    postDelayed(mUpdateMemInfoRunnable, 500);
             }
         };
     }
