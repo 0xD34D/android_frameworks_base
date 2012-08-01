@@ -70,6 +70,42 @@
 
         </com.android.systemui.recent.RecentsHorizontalScrollView>
 
+        <com.android.systemui.recent.MemoryInfoView
+            android:id="@+id/memory_info"
+            android:layout_width="350dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom" >
+
+            <com.android.systemui.recent.BarGraphView
+                android:id="@+id/bar_graph"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/used_memory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="2dp"
+                android:textColor="#ff000000" />
+
+            <TextView
+                android:id="@+id/free_memory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_marginRight="2dp"
+                android:textColor="#ff000000" />
+
+        </com.android.systemui.recent.MemoryInfoView>
+
     </FrameLayout>
 
     <include layout="@layout/status_bar_no_recent_apps"
