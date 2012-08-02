@@ -68,8 +68,8 @@ public class MemoryInfoView extends RelativeLayout {
         mMemInfoReader.readMemInfo();
         long free = mMemInfoReader.getFreeSize() + mMemInfoReader.getCachedSize();
         long used = mMemInfoReader.getTotalSize() - free;
-        mMemFree.setText(String.format("%d MB", free/1024));
-        mMemUsed.setText(String.format("%d MB", used/1024));
+        mMemFree.setText(String.format("%d MB", free/1048576));
+        mMemUsed.setText(String.format("%d MB", used/1048576));
         if (DEBUG)
             Slog.i(TAG, String.format("Memory: %d/%d", free, free+used));
         mBarGraphView.setLevels(free, used);
@@ -79,8 +79,8 @@ public class MemoryInfoView extends RelativeLayout {
         mMemInfoReader.readMemInfo();
         long free = mMemInfoReader.getFreeSize() + mMemInfoReader.getCachedSize();
         long used = mMemInfoReader.getTotalSize() - free;
-        mMemFree.setText(String.format("%d MB", free/1024));
-        mMemUsed.setText(String.format("%d MB", used/1024));
+        mMemFree.setText(String.format("%d MB", free/1048576));
+        mMemUsed.setText(String.format("%d MB", used/1048576));
         if (DEBUG)
             Slog.i(TAG, String.format("Memory: %d/%d", free, free+used));
         mBarGraphView.setLevels(free, used);
