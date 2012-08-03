@@ -98,6 +98,8 @@ public class TabletStatusBarView extends FrameLayout {
             mHandler.sendEmptyMessage(TabletStatusBar.MSG_CLOSE_INPUT_METHODS_PANEL);
             mHandler.removeMessages(TabletStatusBar.MSG_STOP_TICKER);
             mHandler.sendEmptyMessage(TabletStatusBar.MSG_STOP_TICKER);
+            mHandler.removeMessages(TabletStatusBar.MSG_CLOSE_QUICKNAVBAR_PANEL);
+            mHandler.sendEmptyMessage(TabletStatusBar.MSG_CLOSE_QUICKNAVBAR_PANEL);
             
             // in case this is a sliding tablet status bar, update the auto-hide timer
             // so that the timer is reset since the user touched us

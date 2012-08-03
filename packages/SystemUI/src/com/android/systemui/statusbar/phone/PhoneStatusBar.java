@@ -26,6 +26,7 @@ import android.app.ActivityManagerNative;
 import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.app.Notification;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.StatusBarManager;
 import android.content.BroadcastReceiver;
@@ -66,6 +67,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.view.WindowManagerImpl;
 import android.view.animation.AccelerateInterpolator;
@@ -97,15 +99,24 @@ import com.android.systemui.statusbar.policy.OnSizeChangedListener;
 import com.android.systemui.statusbar.policy.NetworkController;
 import com.android.systemui.statusbar.policy.NotificationRowLayout;
 
+import com.android.systemui.statusbar.tablet.BrightnessView;
+import com.android.systemui.statusbar.tablet.VolumeView;
+
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class PhoneStatusBar extends BaseStatusBar {
     static final String TAG = "PhoneStatusBar";
     public static final boolean DEBUG = false;
     public static final boolean SPEW = DEBUG;
     public static final boolean DUMPTRUCK = true; // extra dumpsys info
+
+    private static final String TYPE_STATUSBAR_NORMAL = "phone_statusbar";
+    private static final String TYPE_STATUSBAR_QUICKNAV = "phone_statusbar_quicknav";
+
+    private static final String ACTION_HIDE_QUICKNAV_PANEL = "hide_system_bar";
 
     // additional instrumentation for testing purposes; intended to be left on during development
     public static final boolean CHATTY = DEBUG;
@@ -118,6 +129,12 @@ public class PhoneStatusBar extends BaseStatusBar {
 
     private static final int MSG_OPEN_NOTIFICATION_PANEL = 1000;
     private static final int MSG_CLOSE_NOTIFICATION_PANEL = 1001;
+    public static final int MSG_OPEN_QUICKNAVBAR_PANEL = 1004;
+    public static final int MSG_CLOSE_QUICKNAVBAR_PANEL = 1005;
+    public static final int MSG_OPEN_VOLUME_PANEL = 1008;
+    public static final int MSG_CLOSE_VOLUME_PANEL = 1009;
+    public static final int MSG_OPEN_BRIGHTNESS_PANEL = 1010;
+    public static final int MSG_CLOSE_BRIGHTNESS_PANEL = 1011;
     // 1020-1030 reserved for BaseStatusBar
 
     // will likely move to a resource or other tunable param at some point
@@ -144,6 +161,19 @@ public class PhoneStatusBar extends BaseStatusBar {
                                                     // faster than mSelfCollapseVelocityPx)
 
     PhoneStatusBarPolicy mIconPolicy;
+
+    private String mBarType = TYPE_STATUSBAR_NORMAL;
+
+    static QuickNavbarPanel mQuickNavbarPanel;
+    View mQuickNavbarTrigger;
+    int mQuickNavbarOffset = 0;
+    boolean mHideOnPress = false;
+
+    VolumeView mVolumePanel;
+    View mVolumeTrigger;
+
+    BrightnessView mBrightnessPanel;
+    View mBrightnessTrigger;
 
     // These are no longer handled by the policy, because we need custom strategies for them
     BatteryController mBatteryController;
@@ -218,6 +248,9 @@ public class PhoneStatusBar extends BaseStatusBar {
     private View mTickerView;
     private boolean mTicking;
 
+    static boolean mAutoHide = false;
+    static long mAutoHideTime = 10000;
+
     // Tracking finger for opening/closing.
     int mEdgeBorder; // corresponds to R.dimen.status_bar_edge_ignore
     boolean mTracking;
@@ -247,6 +280,8 @@ public class PhoneStatusBar extends BaseStatusBar {
     int mSystemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE;
 
     DisplayMetrics mDisplayMetrics = new DisplayMetrics();
+
+    public Context getContext() { return mContext; }
 
     private int mNavigationIconHints = 0;
     private final Animator.AnimatorListener mMakeIconsInvisible = new AnimatorListenerAdapter() {
@@ -347,6 +382,12 @@ public class PhoneStatusBar extends BaseStatusBar {
 
         Resources res = context.getResources();
 
+        mBarType = null;//Settings.System.getString(context.getContentResolver(),
+                    //Settings.System.NAVIGATION_BAR_TYPE);
+        if (mBarType == null)
+            mBarType = TYPE_STATUSBAR_NORMAL;
+
+
         CustomTheme currentTheme = res.getConfiguration().customTheme;
         if (currentTheme != null) {
             mCurrentTheme = (CustomTheme)currentTheme.clone();
@@ -410,11 +451,26 @@ public class PhoneStatusBar extends BaseStatusBar {
             boolean showNav = mWindowManager.hasNavigationBar();
             if (DEBUG) Slog.v(TAG, "hasNavigationBar=" + showNav);
             if (showNav) {
+                int layout;
+                if (TYPE_STATUSBAR_QUICKNAV.equals(mBarType))
+                    layout = R.layout.navigation_bar_quicknav;
+                else
+                    layout = R.layout.navigation_bar;
+
                 mNavigationBarView =
-                    (NavigationBarView) View.inflate(context, R.layout.navigation_bar, null);
+                    (NavigationBarView) View.inflate(context, layout, null);
 
                 mNavigationBarView.setDisabledFlags(mDisabled);
                 mNavigationBarView.setBar(this);
+/*        
+                final WindowManager.LayoutParams lp
+                        = (WindowManager.LayoutParams)mNavigationBarView.getLayoutParams();
+                if (lp != null) {
+                    lp.height = 10;
+                    final WindowManager wm = WindowManagerImpl.getDefault();
+                    wm.updateViewLayout(mNavigationBarView, lp);
+                }
+*/
             }
         } catch (RemoteException ex) {
             // no window manager? good luck with that
@@ -502,6 +558,93 @@ public class PhoneStatusBar extends BaseStatusBar {
         // Recents Panel
         mRecentTasksLoader = new RecentTasksLoader(context);
         updateRecentsPanel();
+
+        mQuickNavbarTrigger = (View)mNavigationBarView.findViewById(R.id.popup_area);
+        if (mQuickNavbarTrigger != null)
+            mQuickNavbarTrigger.setOnTouchListener(new QuickNavbarTouchListener());
+
+        mVolumeTrigger = (View)mNavigationBarView.findViewById(R.id.volume_popup);
+        if (mVolumeTrigger != null)
+            mVolumeTrigger.setOnTouchListener(new VolumeTouchListener());
+
+        mBrightnessTrigger = (View)mNavigationBarView.findViewById(R.id.brightness_popup);
+        if (mBrightnessTrigger != null) 
+            mBrightnessTrigger.setOnTouchListener(new BrightnessTouchListener());
+
+        // setup QuickNavbarPanel
+        mQuickNavbarPanel = (QuickNavbarPanel)View.inflate(context,
+                R.layout.status_bar_navigation_panel, null);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
+                200,
+                200,
+                20,
+                0,
+                WindowManager.LayoutParams.TYPE_STATUS_BAR_PANEL,
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
+                    | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                PixelFormat.TRANSLUCENT);
+        lp.setTitle("QuickNavbarPanel");
+        lp.windowAnimations = android.R.style.Animation;
+
+        WindowManagerImpl.getDefault().addView(mQuickNavbarPanel, lp);
+        mQuickNavbarPanel.setBar(this);
+        mQuickNavbarPanel.show(false, false);
+        mQuickNavbarPanel.setOnTouchListener(
+                new TouchOutsideListener(MSG_CLOSE_QUICKNAVBAR_PANEL, mQuickNavbarPanel));
+        mQuickNavbarPanel.setHandler(mHandler);
+        mQuickNavbarPanel.setHideOnPress(mHideOnPress);
+
+        // the battery icon
+        mBatteryController.addIconView((ImageView)mQuickNavbarPanel.findViewById(R.id.battery));
+        mBatteryController.addLabelView((TextView)mQuickNavbarPanel.findViewById(R.id.battery_text));
+
+        // setup VolumePanel
+        mVolumePanel = (VolumeView)View.inflate(context,
+                R.layout.system_bar_volume_view, null);
+        lp = new WindowManager.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.TYPE_STATUS_BAR_PANEL,
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                    | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
+                    | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                PixelFormat.TRANSLUCENT);
+        lp.setTitle("VolumePanel");
+        lp.windowAnimations = android.R.style.Animation;
+        lp.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+
+        WindowManagerImpl.getDefault().addView(mVolumePanel, lp);
+        mVolumePanel.show(false, false);
+        mVolumePanel.setOnTouchListener(
+                new TouchOutsideListener(MSG_CLOSE_VOLUME_PANEL, mVolumePanel));
+        mVolumePanel.setHandler(mHandler);
+
+        // setup BrightnessPanel
+        mBrightnessPanel = (BrightnessView)View.inflate(context,
+                R.layout.system_bar_brightness_view, null);
+        lp = new WindowManager.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.TYPE_STATUS_BAR_PANEL,
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                    | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
+                    | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                PixelFormat.TRANSLUCENT);
+        lp.setTitle("BrightnessPanel");
+        lp.windowAnimations = android.R.style.Animation;
+        lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
+
+        WindowManagerImpl.getDefault().addView(mBrightnessPanel, lp);
+        mBrightnessPanel.show(false, false);
+        mBrightnessPanel.setOnTouchListener(
+                new TouchOutsideListener(MSG_CLOSE_BRIGHTNESS_PANEL, mBrightnessPanel));
+        if (mBrightnessTrigger != null) {
+            mQuickNavbarOffset = res.getDimensionPixelSize(R.dimen.toggle_slider_trigger_area);
+        }
 
         // receive broadcasts
         IntentFilter filter = new IntentFilter();
@@ -682,8 +825,13 @@ public class PhoneStatusBar extends BaseStatusBar {
     }
 
     private WindowManager.LayoutParams getNavigationBarLayoutParams() {
+        int h;
+        if (mBarType.equals(TYPE_STATUSBAR_QUICKNAV))
+            h = 12;
+        else
+            h = LayoutParams.MATCH_PARENT;
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
-                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT, h,
                 WindowManager.LayoutParams.TYPE_NAVIGATION_BAR,
                     0
                     | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
@@ -1175,6 +1323,46 @@ public class PhoneStatusBar extends BaseStatusBar {
                 case MSG_HIDE_INTRUDER:
                     setIntruderAlertVisibility(false);
                     mCurrentlyIntrudingNotification = null;
+                    break;
+                case MSG_OPEN_QUICKNAVBAR_PANEL:
+                    if (DEBUG) Slog.d(TAG, "opening quicknavbar panel");
+                    if (!mQuickNavbarPanel.isShowing()) {
+                        mQuickNavbarPanel.show(true, true);
+                        if (mAutoHide)
+                            updateAutoHideTimer();
+                    }
+                    break;
+                case MSG_CLOSE_QUICKNAVBAR_PANEL:
+                    if (DEBUG) Slog.d(TAG, "closing quicknavbar panel");
+                   //if (mQuickNavbarPanel.isShowing()) {
+                        mQuickNavbarPanel.show(false, true);
+                    //}
+                    break;
+                case MSG_OPEN_VOLUME_PANEL:
+                    if (DEBUG) Slog.d(TAG, "opening volume panel");
+                    if (!mVolumePanel.isShowing()) {
+                        mVolumePanel.show(true, true);
+                        // if brightness panel is showing, hide it
+                        if (mBrightnessPanel.isShowing())
+                            mBrightnessPanel.show(false, true);
+                    }
+                    break;
+                case MSG_CLOSE_VOLUME_PANEL:
+                    if (DEBUG) Slog.d(TAG, "closing volume panel");
+                    mVolumePanel.show(false, true);
+                    break;
+                case MSG_OPEN_BRIGHTNESS_PANEL:
+                    if (DEBUG) Slog.d(TAG, "opening brightness panel");
+                    if (!mBrightnessPanel.isShowing()) {
+                        mBrightnessPanel.show(true, true);
+                        // if volume panel is showing, hide it
+                        if (mVolumePanel.isShowing())
+                            mVolumePanel.show(false, true);
+                    }
+                    break;
+                case MSG_CLOSE_BRIGHTNESS_PANEL:
+                    if (DEBUG) Slog.d(TAG, "closing brightness panel");
+                    mBrightnessPanel.show(false, true);
                     break;
             }
         }
@@ -2473,6 +2661,153 @@ public class PhoneStatusBar extends BaseStatusBar {
         }
     }
 
+    private class QuickNavbarTouchListener implements View.OnTouchListener {
+        VelocityTracker mVT;
+        int mPeekIndex;
+        float mInitialTouchX, mInitialTouchY;
+        int mTouchSlop;
+
+        public QuickNavbarTouchListener() {
+            mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        }
+
+        public boolean onTouch(View v, MotionEvent event) {
+            boolean panelShowing = mQuickNavbarPanel.isShowing();
+            //if (panelShowing) return false;
+
+            final int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    if (mQuickNavbarPanel.isShowing())
+                        mQuickNavbarPanel.show(false, true);
+
+                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
+                            300,
+                            150,
+                            (int)event.getX() + mQuickNavbarOffset - 150,
+                            0,
+                            WindowManager.LayoutParams.TYPE_STATUS_BAR_PANEL,
+                            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
+                                | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
+                                | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                            PixelFormat.TRANSLUCENT);
+                    lp.gravity = Gravity.BOTTOM | Gravity.LEFT;
+                    lp.setTitle("QuickNavbarPanel");
+                    lp.windowAnimations = android.R.style.Animation;
+                    final WindowManager wm = WindowManagerImpl.getDefault();
+                    wm.updateViewLayout(mQuickNavbarPanel, lp);
+
+                    Message peekMsg = mHandler.obtainMessage(MSG_OPEN_QUICKNAVBAR_PANEL);
+                    mHandler.sendMessage(peekMsg);
+                    if(DEBUG) Slog.d(TAG, "Sending MSG_OPEN_QUICKNAVBAR_PANEL");
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    break;
+            }
+            return false;
+        }
+    }
+
+    private class VolumeTouchListener implements View.OnTouchListener {
+        float mInitialTouchX, mInitialTouchY;
+        int mTouchSlop;
+
+        public VolumeTouchListener() {
+            mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        }
+
+        public boolean onTouch(View v, MotionEvent event) {
+            boolean panelShowing = mVolumePanel.isShowing();
+            //if (panelShowing) return false;
+
+            final int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    if (mVolumePanel.isShowing())
+                        mVolumePanel.show(false, true);
+
+                    Message peekMsg = mHandler.obtainMessage(MSG_OPEN_VOLUME_PANEL);
+                    mHandler.sendMessage(peekMsg);
+                    if(DEBUG) Slog.d(TAG, "Sending MSG_OPEN_VOLUME_PANEL");
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    break;
+            }
+            return false;
+        }
+    }
+
+    private class BrightnessTouchListener implements View.OnTouchListener {
+        float mInitialTouchX, mInitialTouchY;
+        int mTouchSlop;
+
+        public BrightnessTouchListener() {
+            mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        }
+
+        public boolean onTouch(View v, MotionEvent event) {
+            boolean panelShowing = mBrightnessPanel.isShowing();
+            //if (panelShowing) return false;
+
+            final int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    if (mBrightnessPanel.isShowing())
+                        mBrightnessPanel.show(false, true);
+
+                    Message peekMsg = mHandler.obtainMessage(MSG_OPEN_BRIGHTNESS_PANEL);
+                    mHandler.sendMessage(peekMsg);
+                    if(DEBUG) Slog.d(TAG, "Sending MSG_OPEN_BRIGHTNESS_PANEL");
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    break;
+            }
+            return false;
+        }
+    }
+
+    public void updateAutoHideTimer() {
+        if (mAutoHide == false)
+            return;
+        AlarmManager am = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(mContext, AutoHideReceiver.class);
+        i.setAction(ACTION_HIDE_QUICKNAV_PANEL);
+
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            am.cancel(pi);
+        } catch (Exception e) {
+        }
+        Calendar time = Calendar.getInstance();
+        time.setTimeInMillis(System.currentTimeMillis() + mAutoHideTime);
+        am.set(AlarmManager.RTC, time.getTimeInMillis(), pi);
+    }
+
+    public void cancelAutoHideTimer() {
+        AlarmManager am = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(mContext, AutoHideReceiver.class);
+
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            am.cancel(pi);
+        } catch (Exception e) {
+        }
+    }
+
+    public static class AutoHideReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (mAutoHide) {
+                String action = intent.getAction();
+                mQuickNavbarPanel.show(false, true);
+            }
+        }
+    }
     class SettingsObserver extends ContentObserver {
         SettingsObserver(Handler handler) {
             super(handler);
@@ -2494,6 +2829,18 @@ public class PhoneStatusBar extends BaseStatusBar {
 
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.LONGPRESS_BACK_KILLS_APP), false,
+                    this);
+
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_AUTOHIDE_QUICKNAV), false,
+                    this);
+
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_AUTOHIDE_TIME), false,
+                    this);
+
+            resolver.registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_QUICKNAV_HIDE_ON_PRESS), false,
                     this);
 
             updateSettings();
@@ -2528,5 +2875,35 @@ public class PhoneStatusBar extends BaseStatusBar {
         if (mNavigationBarView != null)
             mNavigationBarView.setLongpressKillsApp(longpressKillsApp);
 
+        mBarType = null;//Settings.System.getString(mContext.getContentResolver(),
+                    //Settings.System.NAVIGATION_BAR_TYPE);
+        if (mBarType == null)
+            mBarType = TYPE_STATUSBAR_NORMAL;
+
+        boolean hide;
+        if (TYPE_STATUSBAR_QUICKNAV.equals(mBarType))
+            hide = Settings.System.getInt(resolver,
+                    Settings.System.NAVIGATION_BAR_AUTOHIDE_QUICKNAV, 0) == 1;
+        else
+            hide = false;
+
+        if (hide != mAutoHide) {
+            mAutoHide = hide;
+            if (hide)
+                updateAutoHideTimer();
+            else
+                cancelAutoHideTimer();
+        }
+
+        mAutoHideTime = (long)Settings.System.getInt(resolver,
+                    Settings.System.NAVIGATION_BAR_AUTOHIDE_TIME, 10) * 1000;
+
+        mHideOnPress = Settings.System.getInt(resolver,
+                    Settings.System.NAVIGATION_BAR_QUICKNAV_HIDE_ON_PRESS, 1) == 1;
+
+        if (mQuickNavbarPanel != null) {
+            mQuickNavbarPanel.setHideOnPress(mHideOnPress);
+            mQuickNavbarPanel.setLongpressKillsApp(longpressKillsApp);
+        }
     }
 }

@@ -1,0 +1,55 @@
+<com.android.systemui.statusbar.phone.QuickNavbarPanel
+    xmlns:android="http://schemas.android.com/apk/res/android"
+ 	xmlns:tools="http://schemas.android.com/tools"
+ 	android:id="@+id/content_frame"
+  	android:layout_width="150dp"
+  	android:layout_height="150dp"
+    android:background="#00000000" >
+
+    <RelativeLayout
+        android:id="@+id/inner_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/battery_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/clock"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dip" >
+
+            <com.android.systemui.statusbar.policy.Clock
+                android:id="@+id/clock"
+                android:textAppearance="@style/TextAppearance.StatusBar.Clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="8dip" >
+                <ImageView
+                    android:id="@+id/battery"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:scaleType="centerInside"
+                    android:layout_gravity="center" />
+                <TextView
+                    android:id="@+id/battery_text"
+                    android:textAppearance="@style/TextAppearance.StatusBar.BatteryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/status_bar_settings_settings_button" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.android.systemui.statusbar.phone.QuickNavbarPanel>

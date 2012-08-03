@@ -1032,13 +1032,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 								Settings.System.NAVIGATION_BAR_TYPE);
         boolean usePhoneUI = false;
         if (barType != null)
-            usePhoneUI = barType.equals("phone_statusbar");
+            usePhoneUI = barType.equals("phone_statusbar") || barType.equals("phone_statusbar_quicknav");
 
         if (usePhoneUI || shortSizeDp < 600) {
             // 0-599dp: "phone" UI with a separate status & navigation bar
             mHasSystemNavBar = false;
             mNavigationBarCanMove = false;
-            mUseLowProfileNavbar = false;
+            if (barType != null) {
+                if (barType.equals("phone_statusbar_quicknav"))
+                    mUseLowProfileNavbar = true;
+                else mUseLowProfileNavbar = false;
+            } else 
+                mUseLowProfileNavbar = false;
         } else if (shortSizeDp < 720) {
             // 600-719dp: "phone" UI with modifications for larger screens
             mHasSystemNavBar = true;
@@ -1059,6 +1064,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 if      (navBarOverride.equals("1")) mHasNavigationBar = false;
                 else if (navBarOverride.equals("0")) mHasNavigationBar = true;
             }
+
         } else {
             mHasNavigationBar = false;
         }
@@ -1073,6 +1079,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mNavigationBarHeightForRotation[mLandscapeRotation] =
             mNavigationBarHeightForRotation[mSeascapeRotation] = 0;
             //mHasSystemNavBar = false;
+        }
+
+        if (mUseLowProfileNavbar) {
+            mNavigationBarHeightForRotation[mPortraitRotation] =
+            mNavigationBarHeightForRotation[mUpsideDownRotation] = 
+            mNavigationBarHeightForRotation[mLandscapeRotation] =
+            mNavigationBarHeightForRotation[mSeascapeRotation] = 
+            mContext.getResources().getDimensionPixelSize(
+                    com.android.internal.R.dimen.navigation_bar_slider_height);
         }
 
         if (mHasSystemNavBar) {
@@ -1468,6 +1483,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (mHasNavigationBar) {
             // For a basic navigation bar, when we are in portrait mode we place
             // the navigation bar to the bottom.
+            if (mUseLowProfileNavbar) {
+                int h = fullHeight - mContext.getResources().getDimensionPixelSize(
+                        com.android.internal.R.dimen.navigation_bar_slider_height); 
+                return h;
+            }
             if (!mNavigationBarCanMove || fullWidth < fullHeight) {
                 return fullHeight - mNavigationBarHeightForRotation[rotation];
             }
