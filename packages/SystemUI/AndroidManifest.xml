@@ -81,8 +81,6 @@
 
         <receiver android:name=".statusbar.tablet.TabletStatusBar$AutoHideReceiver" />
 
-        <receiver android:name=".statusbar.phone.PhoneStatusBar$AutoHideReceiver" />
-
         <receiver android:name=".BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
