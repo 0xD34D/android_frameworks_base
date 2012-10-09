@@ -73,6 +73,9 @@
         <item name="android:textColor">#ffffffff</item>
     </style>
     
+    <style name="TextAppearance.StatusBar.Expanded.Network.EmergencyOnly">
+    </style>
+
     <style name="Animation" />
 
     <style name="Animation.ShirtPocketPanel">
