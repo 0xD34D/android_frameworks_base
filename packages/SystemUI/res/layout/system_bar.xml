@@ -34,7 +34,6 @@
             android:layout_height="match_parent"
             android:clipChildren="false"
             >
-
             <!-- notification icons & panel access -->
             <include layout="@layout/system_bar_notification_area" 
                 android:layout_width="wrap_content"
@@ -154,5 +153,37 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_gravity="bottom" />
+
+    <LinearLayout
+        android:id="@+id/quick_controls"
+        android:layout_width="match_parent"
+        android:layout_height="@*android:dimen/navigation_bar_slider_height"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+        
+        <ImageView
+            android:id="@+id/brightness_popup"
+            android:layout_width="@dimen/toggle_slider_trigger_area"
+            android:layout_height="@*android:dimen/navigation_bar_slider_height"
+            android:scaleType="fitXY"
+            android:background="#FFFF1111" />
+	    	
+        <ImageView
+            android:id="@+id/popup_area"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="@*android:dimen/navigation_bar_slider_height"
+            android:scaleType="fitXY"
+            android:background="#FF000000"
+            android:visibility="invisible" />
+	    	
+        <ImageView
+            android:id="@+id/volume_popup"
+            android:layout_width="@dimen/toggle_slider_trigger_area"
+            android:layout_height="@*android:dimen/navigation_bar_slider_height"
+            android:scaleType="fitXY"
+            android:background="#FFFF1111" />
+    </LinearLayout>
 
 </com.android.systemui.statusbar.tablet.TabletStatusBarView>
