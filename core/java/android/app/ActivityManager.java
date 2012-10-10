@@ -27,7 +27,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.ConfigurationInfo;
 import android.content.pm.IPackageDataObserver;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -1805,27 +1804,6 @@ public class ActivityManager {
             Log.w(TAG, "Could not query launch counts", e);
             return new HashMap<String, Integer>();
         }
-    }
-
-    /** @hide */
-    public Configuration getConfiguration() {
-        try {
-            return ActivityManagerNative.getDefault().getConfiguration();
-        } catch (RemoteException e) {
-            return null;
-        }
-    }
-
-    /**
-     * @throws SecurityException Throws SecurityException if the caller does
-     * not hold the {@link android.Manifest.permission#CHANGE_CONFIGURATION} permission.
-     *
-     * @hide
-     */
-    public void updateConfiguration(Configuration config) throws SecurityException {
-        try {
-            ActivityManagerNative.getDefault().updateConfiguration(config);
-        } catch (RemoteException e) {}
     }
 
     /** @hide */

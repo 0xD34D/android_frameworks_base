@@ -243,17 +243,6 @@ public class PackageParser {
         return name.endsWith(".apk");
     }
 
-    public static String getLockedZipFilePath(String path) {
-        if (path == null) {
-            return null;
-        }
-        if (isPackageFilename(path)) {
-            return path.substring(0, path.length() - 4) + ".locked.zip";
-        } else {
-            return path + ".locked.zip";
-        }
-    }
-
     public static PackageInfo generatePackageInfo(PackageParser.Package p,
             int gids[], int flags, long firstInstallTime, long lastUpdateTime,
             HashSet<String> grantedPermissions) {
@@ -287,21 +276,6 @@ public class PackageParser {
         pi.versionName = p.mVersionName;
         pi.sharedUserId = p.mSharedUserId;
         pi.sharedUserLabel = p.mSharedUserLabel;
-        pi.isThemeApk = p.mIsThemeApk;
-        pi.setDrmProtectedThemeApk(false);
-        if (pi.isThemeApk) {
-            int N = p.mThemeInfos.size();
-            if (N > 0) {
-                pi.themeInfos = new ThemeInfo[N];
-                for (int i = 0; i < N; i++) {
-                    pi.themeInfos[i] = p.mThemeInfos.get(i);
-                    pi.setDrmProtectedThemeApk(pi.isDrmProtectedThemeApk() || pi.themeInfos[i].isDrmProtected);
-                }
-                if (pi.isDrmProtectedThemeApk()) {
-                    pi.setLockedZipFilePath(PackageParser.getLockedZipFilePath(p.mPath));
-                }
-            }
-        }
         pi.applicationInfo = generateApplicationInfo(p, flags, stopped, enabledState, userId);
         pi.installLocation = p.installLocation;
         pi.firstInstallTime = firstInstallTime;
@@ -1294,10 +1268,7 @@ public class PackageParser {
                 // Just skip this tag
                 XmlUtils.skipCurrentTag(parser);
                 continue;
-            } else if (tagName.equals("theme")) {
-                // this is a theme apk.
-                pkg.mIsThemeApk = true;
-                pkg.mThemeInfos.add(new ThemeInfo(parser, res, attrs));                
+                
             } else if (RIGID_PARSER) {
                 outError[0] = "Bad element under <manifest>: "
                     + parser.getName();
@@ -1387,9 +1358,6 @@ public class PackageParser {
                 && pkg.applicationInfo.targetSdkVersion
                         >= android.os.Build.VERSION_CODES.DONUT)) {
             pkg.applicationInfo.flags |= ApplicationInfo.FLAG_SUPPORTS_SCREEN_DENSITIES;
-        }
-        if (pkg.mIsThemeApk) {
-            pkg.applicationInfo.isThemeable = false;
         }
 
         return pkg;
@@ -1692,42 +1660,11 @@ public class PackageParser {
         return a;
     }
 
-    private void parseApplicationThemeAttributes(XmlPullParser parser, AttributeSet attrs,
-            ApplicationInfo appInfo) {
-        for (int i = 0; i < attrs.getAttributeCount(); i++) {
-            if (!ApplicationInfo.isPlutoNamespace(parser.getAttributeNamespace(i))) {
-                continue;
-            }
-            String attrName = attrs.getAttributeName(i);
-            if (attrName.equalsIgnoreCase(ApplicationInfo.PLUTO_IS_THEMEABLE_ATTRIBUTE_NAME)) {
-                appInfo.isThemeable = attrs.getAttributeBooleanValue(i, false);
-                return;
-            }
-        }
-    }
-
-    private void parseActivityThemeAttributes(XmlPullParser parser, AttributeSet attrs,
-            ActivityInfo ai) {
-        for (int i = 0; i < attrs.getAttributeCount(); i++) {
-            if (!ApplicationInfo.isPlutoNamespace(parser.getAttributeNamespace(i))) {
-                continue;
-            }
-            String attrName = attrs.getAttributeName(i);
-            if (attrName.equalsIgnoreCase(ApplicationInfo.PLUTO_HANDLE_THEME_CONFIG_CHANGES_ATTRIBUTE_NAME)) {
-                ai.configChanges |= ActivityInfo.CONFIG_THEME_RESOURCE;
-            }
-        }
-    }
-
     private boolean parseApplication(Package owner, Resources res,
             XmlPullParser parser, AttributeSet attrs, int flags, String[] outError)
         throws XmlPullParserException, IOException {
         final ApplicationInfo ai = owner.applicationInfo;
         final String pkgName = owner.applicationInfo.packageName;
-
-        // assume that this package is themeable unless explicitly set to false.
-        ai.isThemeable = true;
-        parseApplicationThemeAttributes(parser, attrs, ai);
 
         TypedArray sa = res.obtainAttributes(attrs,
                 com.android.internal.R.styleable.AndroidManifestApplication);
@@ -2242,8 +2179,6 @@ public class PackageParser {
         if (outError[0] != null) {
             return null;
         }
-
-        parseActivityThemeAttributes(parser, attrs, a.info);
 
         int outerDepth = parser.getDepth();
         int type;
@@ -3202,12 +3137,6 @@ public class PackageParser {
         
         // For use by package manager to keep track of where it has done dexopt.
         public boolean mDidDexOpt;
-
-        // Is Theme Apk
-        public boolean mIsThemeApk = false;
-
-        // Theme info
-        public final ArrayList<ThemeInfo> mThemeInfos = new ArrayList<ThemeInfo>(0);
         
         // // User set enabled state.
         // public int mSetEnabled = PackageManager.COMPONENT_ENABLED_STATE_DEFAULT;

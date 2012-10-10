@@ -21,7 +21,6 @@
 #define _LIBS_UTILS_RESOURCE_TYPES_H
 
 #include <androidfw/Asset.h>
-#include <androidfw/PackageRedirectionMap.h>
 #include <utils/ByteOrder.h>
 #include <utils/Errors.h>
 #include <utils/String16.h>
@@ -1277,9 +1276,6 @@ public:
                  bool copyData=false, const void* idmap = NULL);
     status_t add(ResTable* src);
 
-    void addRedirections(PackageRedirectionMap* resMap);
-    void clearRedirections();
-
     status_t getError() const;
 
     void uninit();
@@ -1326,8 +1322,6 @@ public:
                              uint32_t* outLastRef = NULL,
                              uint32_t* inoutTypeSpecFlags = NULL,
                              ResTable_config* outConfig = NULL) const;
-
-    uint32_t lookupRedirectionMap(uint32_t resID) const;
 
     enum {
         TMP_BUFFER_SIZE = 16
@@ -1540,8 +1534,6 @@ public:
     status_t createIdmap(const ResTable& overlay, uint32_t originalCrc, uint32_t overlayCrc,
                          void** outData, size_t* outSize) const;
 
-    void removeAssetsByCookie(const String8 &packageName, void* cookie);
-
     enum {
         IDMAP_HEADER_SIZE_BYTES = 3 * sizeof(uint32_t),
     };
@@ -1593,11 +1585,6 @@ private:
     // Mapping from resource package IDs to indices into the internal
     // package array.
     uint8_t                     mPackageMap[256];
-
-    // Resource redirection mapping provided by the applied theme (if there is
-    // one).  Resources requested which are found in this map will be
-    // automatically redirected to the appropriate themed value.
-    Vector<PackageRedirectionMap*> mRedirectionMap;
 };
 
 }   // namespace android

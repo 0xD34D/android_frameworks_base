@@ -1244,11 +1244,11 @@ public class LocationManagerService extends ILocationManager.Stub implements Run
         if (p == null) {
             //throw new IllegalArgumentException("requested provider " + provider +
                     //" doesn't exisit");
-            p = mProvidersByName.get(LocationManager.PASSIVE_PROVIDER);
-            if (p == null) {
+//            p = mProvidersByName.get(LocationManager.PASSIVE_PROVIDER);
+//            if (p == null) {
                 throw new IllegalArgumentException("requested provider " + provider +
                     " doesn't exisit");
-            }
+//            }
         }
         receiver.mRequiredPermissions = checkPermissionsSafe(provider,
                 receiver.mRequiredPermissions);
