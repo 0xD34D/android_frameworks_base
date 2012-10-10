@@ -43,7 +43,6 @@
 #include <android_runtime/android_view_Surface.h>
 #include <android_runtime/android_graphics_SurfaceTexture.h>
 #include <utils/misc.h>
-#include <cutils/log.h>
 
 
 // ----------------------------------------------------------------------------
@@ -512,9 +511,6 @@ public:
     }
 
     status_t update(int width, int height, int minLayer, int maxLayer, bool allLayers) {
-        ALOGD("ScreenshotPixelRef::update(%d, %d, %d, %d)", 
-            width, height, minLayer, maxLayer);
-
         status_t res = (width > 0 && height > 0)
                 ? (allLayers
                         ? mScreenshot.update(width, height)
@@ -565,8 +561,6 @@ static jobject doScreenshot(JNIEnv* env, jobject clazz, jint width, jint height,
 {
     ScreenshotPixelRef* pixels = new ScreenshotPixelRef(NULL);
     if (pixels->update(width, height, minLayer, maxLayer, allLayers) != NO_ERROR) {
-        ALOGE("pixels->update(%d, %d, %d, %d) returned an error.",
-                width, height, minLayer, maxLayer);
         delete pixels;
         return 0;
     }
@@ -576,9 +570,6 @@ static jobject doScreenshot(JNIEnv* env, jobject clazz, jint width, jint height,
     uint32_t s = pixels->getStride();
     uint32_t f = pixels->getFormat();
     ssize_t bpr = s * android::bytesPerPixel(f);
-
-    ALOGD("doScreenshot (%d, %d, %d, %d, %d)", 
-        w, h, s, f, bpr);
 
     SkBitmap* bitmap = new SkBitmap();
     bitmap->setConfig(convertPixelFormat(f), w, h, bpr);
