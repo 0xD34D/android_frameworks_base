@@ -34,7 +34,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.content.res.CustomTheme;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.Canvas;
@@ -156,8 +155,6 @@ public class PhoneStatusBar extends BaseStatusBar {
     Display mDisplay;
 
     IWindowManager mWindowManager;
-
-    CustomTheme mCurrentTheme;
 
     StatusBarWindowView mStatusBarWindow;
     PhoneStatusBarView mStatusBarView;
@@ -321,11 +318,6 @@ public class PhoneStatusBar extends BaseStatusBar {
         mWindowManager = IWindowManager.Stub.asInterface(
                 ServiceManager.getService(Context.WINDOW_SERVICE));
 
-        CustomTheme currentTheme = mContext.getResources().getConfiguration().customTheme;
-        if (currentTheme != null) {
-            mCurrentTheme = (CustomTheme)currentTheme.clone();
-        }
-
         super.start(); // calls createAndAddWindows()
 
         addNavigationBar();
@@ -346,11 +338,6 @@ public class PhoneStatusBar extends BaseStatusBar {
         final Context context = mContext;
 
         Resources res = context.getResources();
-
-        CustomTheme currentTheme = res.getConfiguration().customTheme;
-        if (currentTheme != null) {
-            mCurrentTheme = (CustomTheme)currentTheme.clone();
-        }
 
         updateDisplaySize(); // populates mDisplayMetrics
         loadDimens();
@@ -679,13 +666,7 @@ public class PhoneStatusBar extends BaseStatusBar {
 
     private void repositionNavigationBar() {
         if (mNavigationBarView == null) return;
- 
-        CustomTheme newTheme = mContext.getResources().getConfiguration().customTheme;
-        if (newTheme != null &&
-                (mCurrentTheme == null || !mCurrentTheme.equals(newTheme))) {
-            // Nevermind, this will be re-created
-            return;
-        }
+
         prepareNavigationBarView();
 
         WindowManagerImpl.getDefault().updateViewLayout(
@@ -813,6 +794,13 @@ public class PhoneStatusBar extends BaseStatusBar {
                 notification.notification.fullScreenIntent.send();
             } catch (PendingIntent.CanceledException e) {
             }
+        } else {
+            // usual case: status bar visible & not immersive
+
+            // show the ticker if there isn't an intruder too
+            if (mCurrentlyIntrudingNotification == null) {
+                tick(null, notification, true);
+            }
         }
 
         // Recalculate the position of the sliding windows and the titles.
@@ -845,11 +833,6 @@ public class PhoneStatusBar extends BaseStatusBar {
 
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
-        CustomTheme newTheme = mContext.getResources().getConfiguration().customTheme;
-        if (newTheme != null &&
-                (mCurrentTheme == null || !mCurrentTheme.equals(newTheme))) {
-            System.exit(0);
-        }
         updateRecentsPanel();
         updateShowSearchHoldoff();
     }
