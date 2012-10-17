@@ -22,14 +22,34 @@
     android:background="@android:color/transparent"
     >
     
-    <ImageView
-            android:id="@+id/popup_area"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/quick_controls"
+        android:layout_width="match_parent"
+        android:layout_height="@*android:dimen/navigation_bar_slider_height" >
+        
+        <ImageView
+            android:id="@+id/brightness_popup"
+            android:layout_width="@dimen/toggle_slider_trigger_area"
             android:layout_height="@*android:dimen/navigation_bar_slider_height"
             android:scaleType="fitXY"
+            android:background="#FF111111" />
+	    	
+        <ImageView
+            android:id="@+id/popup_area"
             android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="@*android:dimen/navigation_bar_slider_height"
+            android:scaleType="fitXY"
             android:background="#FF000000" />
 	    	
+        <ImageView
+            android:id="@+id/volume_popup"
+            android:layout_width="@dimen/toggle_slider_trigger_area"
+            android:layout_height="@*android:dimen/navigation_bar_slider_height"
+            android:scaleType="fitXY"
+            android:background="#FF111111" />
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/bar_contents_holder"
         android:layout_width="match_parent"

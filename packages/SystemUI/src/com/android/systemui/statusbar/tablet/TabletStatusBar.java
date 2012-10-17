@@ -644,9 +644,7 @@ public class TabletStatusBar extends BaseStatusBar implements
             mBarType = TYPE_SYSTEM_BAR_NORMAL;
 
         int layout;
-        if (TYPE_SYSTEM_BAR_QUICKNAV_V2.equals(mBarType))
-            layout = R.layout.system_bar_quicknav_v2;
-        else if (TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType))
+        if (TYPE_SYSTEM_BAR_QUICKNAV_V2.equals(mBarType) || TYPE_SYSTEM_BAR_QUICKNAV.equals(mBarType))
             layout = R.layout.system_bar_quicknav;
         else if (TYPE_SYSTEM_BAR_SLIDER.equals(mBarType))
             layout = R.layout.system_bar_slider;
