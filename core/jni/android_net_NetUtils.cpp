@@ -1,7 +1,6 @@
 /*
  * Copyright 2008, The Android Open Source Project
  *
-<<<<<<< HEAD
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,18 +11,6 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
-=======
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- *
- *     http://www.apache.org/licenses/LICENSE-2.0 
- *
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
->>>>>>> 54b6cfa... Initial Contribution
  * limitations under the License.
  */
 
@@ -34,7 +21,6 @@
 #include <android_runtime/AndroidRuntime.h>
 #include <utils/Log.h>
 #include <arpa/inet.h>
-<<<<<<< HEAD
 #include <cutils/properties.h>
 
 extern "C" {
@@ -64,28 +50,6 @@ int dhcp_do_request_renew(const char *ifname,
 
 int dhcp_stop(const char *ifname);
 int dhcp_release_lease(const char *ifname);
-=======
-
-extern "C" {
-int ifc_disable(const char *ifname);
-int ifc_add_host_route(const char *ifname, uint32_t addr);
-int ifc_remove_host_routes(const char *ifname);
-int ifc_set_default_route(const char *ifname, uint32_t gateway);
-int ifc_get_default_route(const char *ifname);
-int ifc_remove_default_route(const char *ifname);
-int ifc_reset_connections(const char *ifname);
-int ifc_configure(const char *ifname, in_addr_t ipaddr, in_addr_t netmask, in_addr_t gateway, in_addr_t dns1, in_addr_t dns2);
-
-int dhcp_do_request(const char *ifname,
-                    in_addr_t *ipaddr,
-                    in_addr_t *gateway,
-                    in_addr_t *mask,
-                    in_addr_t *dns1,
-                    in_addr_t *dns2,
-                    in_addr_t *server,
-                    uint32_t  *lease);
-int dhcp_stop(const char *ifname);
->>>>>>> 54b6cfa... Initial Contribution
 char *dhcp_get_errmsg();
 }
 
@@ -99,96 +63,51 @@ namespace android {
  * to look them up every time.
  */
 static struct fieldIds {
-<<<<<<< HEAD
     jmethodID constructorId;
     jfieldID ipaddress;
     jfieldID prefixLength;
-=======
-    jclass dhcpInfoClass;
-    jmethodID constructorId;
-    jfieldID ipaddress;
-    jfieldID gateway;
-    jfieldID netmask;
->>>>>>> 54b6cfa... Initial Contribution
     jfieldID dns1;
     jfieldID dns2;
     jfieldID serverAddress;
     jfieldID leaseDuration;
-<<<<<<< HEAD
     jfieldID vendorInfo;
 } dhcpInfoInternalFieldIds;
 
 static jint android_net_utils_enableInterface(JNIEnv* env, jobject clazz, jstring ifname)
-=======
-} dhcpInfoFieldIds;
-
-static jint android_net_utils_disableInterface(JNIEnv* env, jobject clazz, jstring ifname)
->>>>>>> 54b6cfa... Initial Contribution
 {
     int result;
 
     const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-<<<<<<< HEAD
     result = ::ifc_enable(nameStr);
-=======
-    result = ::ifc_disable(nameStr);
->>>>>>> 54b6cfa... Initial Contribution
     env->ReleaseStringUTFChars(ifname, nameStr);
     return (jint)result;
 }
 
-<<<<<<< HEAD
 static jint android_net_utils_disableInterface(JNIEnv* env, jobject clazz, jstring ifname)
-=======
-static jint android_net_utils_addHostRoute(JNIEnv* env, jobject clazz, jstring ifname, jint addr)
->>>>>>> 54b6cfa... Initial Contribution
 {
     int result;
 
     const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-<<<<<<< HEAD
     result = ::ifc_disable(nameStr);
-=======
-    result = ::ifc_add_host_route(nameStr, addr);
->>>>>>> 54b6cfa... Initial Contribution
     env->ReleaseStringUTFChars(ifname, nameStr);
     return (jint)result;
 }
 
-<<<<<<< HEAD
 static jint android_net_utils_resetConnections(JNIEnv* env, jobject clazz,
       jstring ifname, jint mask)
-=======
-static jint android_net_utils_removeHostRoutes(JNIEnv* env, jobject clazz, jstring ifname)
->>>>>>> 54b6cfa... Initial Contribution
 {
     int result;
 
     const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-<<<<<<< HEAD
 
     ALOGD("android_net_utils_resetConnections in env=%p clazz=%p iface=%s mask=0x%x\n",
           env, clazz, nameStr, mask);
 
     result = ::ifc_reset_connections(nameStr, mask);
-=======
-    result = ::ifc_remove_host_routes(nameStr);
     env->ReleaseStringUTFChars(ifname, nameStr);
     return (jint)result;
 }
 
-static jint android_net_utils_setDefaultRoute(JNIEnv* env, jobject clazz, jstring ifname, jint gateway)
-{
-    int result;
-
-    const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-    result = ::ifc_set_default_route(nameStr, gateway);
->>>>>>> 54b6cfa... Initial Contribution
-    env->ReleaseStringUTFChars(ifname, nameStr);
-    return (jint)result;
-}
-
-<<<<<<< HEAD
 static jboolean android_net_utils_runDhcpCommon(JNIEnv* env, jobject clazz, jstring ifname,
         jobject info, bool renew)
 {
@@ -273,70 +192,11 @@ static jboolean android_net_utils_stopDhcp(JNIEnv* env, jobject clazz, jstring i
 }
 
 static jboolean android_net_utils_releaseDhcpLease(JNIEnv* env, jobject clazz, jstring ifname)
-=======
-static jint android_net_utils_getDefaultRoute(JNIEnv* env, jobject clazz, jstring ifname)
 {
     int result;
 
     const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-    result = ::ifc_get_default_route(nameStr);
-    env->ReleaseStringUTFChars(ifname, nameStr);
-    return (jint)result;
-}
-
-static jint android_net_utils_removeDefaultRoute(JNIEnv* env, jobject clazz, jstring ifname)
-{
-    int result;
-
-    const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-    result = ::ifc_remove_default_route(nameStr);
-    env->ReleaseStringUTFChars(ifname, nameStr);
-    return (jint)result;
-}
-
-static jint android_net_utils_resetConnections(JNIEnv* env, jobject clazz, jstring ifname)
-{
-    int result;
-
-    const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-    result = ::ifc_reset_connections(nameStr);
-    env->ReleaseStringUTFChars(ifname, nameStr);
-    return (jint)result;
-}
-
-static jboolean android_net_utils_runDhcp(JNIEnv* env, jobject clazz, jstring ifname, jobject info)
-{
-    int result;
-    in_addr_t ipaddr, gateway, mask, dns1, dns2, server;
-    uint32_t lease;
-
-    const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-    result = ::dhcp_do_request(nameStr, &ipaddr, &gateway, &mask,
-                                        &dns1, &dns2, &server, &lease);
-    env->ReleaseStringUTFChars(ifname, nameStr);
-    if (result == 0 && dhcpInfoFieldIds.dhcpInfoClass != NULL) {
-        env->SetIntField(info, dhcpInfoFieldIds.ipaddress, ipaddr);
-        env->SetIntField(info, dhcpInfoFieldIds.gateway, gateway);
-        env->SetIntField(info, dhcpInfoFieldIds.netmask, mask);
-        env->SetIntField(info, dhcpInfoFieldIds.dns1, dns1);
-        env->SetIntField(info, dhcpInfoFieldIds.dns2, dns2);
-        env->SetIntField(info, dhcpInfoFieldIds.serverAddress, server);
-        env->SetIntField(info, dhcpInfoFieldIds.leaseDuration, lease);
-    }
-    return (jboolean)(result == 0);
-}
-
-static jboolean android_net_utils_stopDhcp(JNIEnv* env, jobject clazz, jstring ifname, jobject info)
->>>>>>> 54b6cfa... Initial Contribution
-{
-    int result;
-
-    const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-<<<<<<< HEAD
     result = ::dhcp_release_lease(nameStr);
-=======
-    result = ::dhcp_stop(nameStr);
->>>>>>> 54b6cfa... Initial Contribution
     env->ReleaseStringUTFChars(ifname, nameStr);
     return (jboolean)(result == 0);
 }
@@ -346,27 +206,6 @@ static jstring android_net_utils_getDhcpError(JNIEnv* env, jobject clazz)
     return env->NewStringUTF(::dhcp_get_errmsg());
 }
 
-<<<<<<< HEAD
-=======
-static jboolean android_net_utils_configureInterface(JNIEnv* env,
-        jobject clazz,
-        jstring ifname,
-        jint ipaddr,
-        jint mask,
-        jint gateway,
-        jint dns1,
-        jint dns2)
-{
-    int result;
-    uint32_t lease;
-
-    const char *nameStr = env->GetStringUTFChars(ifname, NULL);
-    result = ::ifc_configure(nameStr, ipaddr, mask, gateway, dns1, dns2);
-    env->ReleaseStringUTFChars(ifname, nameStr);
-    return (jboolean)(result == 0);
-}
-
->>>>>>> 54b6cfa... Initial Contribution
 // ----------------------------------------------------------------------------
 
 /*
@@ -375,7 +214,6 @@ static jboolean android_net_utils_configureInterface(JNIEnv* env,
 static JNINativeMethod gNetworkUtilMethods[] = {
     /* name, signature, funcPtr */
 
-<<<<<<< HEAD
     { "enableInterface", "(Ljava/lang/String;)I",  (void *)android_net_utils_enableInterface },
     { "disableInterface", "(Ljava/lang/String;)I",  (void *)android_net_utils_disableInterface },
     { "resetConnections", "(Ljava/lang/String;I)I",  (void *)android_net_utils_resetConnections },
@@ -383,24 +221,11 @@ static JNINativeMethod gNetworkUtilMethods[] = {
     { "runDhcpRenew", "(Ljava/lang/String;Landroid/net/DhcpInfoInternal;)Z",  (void *)android_net_utils_runDhcpRenew },
     { "stopDhcp", "(Ljava/lang/String;)Z",  (void *)android_net_utils_stopDhcp },
     { "releaseDhcpLease", "(Ljava/lang/String;)Z",  (void *)android_net_utils_releaseDhcpLease },
-=======
-    { "disableInterface", "(Ljava/lang/String;)I",  (void *)android_net_utils_disableInterface },
-    { "addHostRoute", "(Ljava/lang/String;I)I",  (void *)android_net_utils_addHostRoute },
-    { "removeHostRoutes", "(Ljava/lang/String;)I",  (void *)android_net_utils_removeHostRoutes },
-    { "setDefaultRoute", "(Ljava/lang/String;I)I",  (void *)android_net_utils_setDefaultRoute },
-    { "getDefaultRoute", "(Ljava/lang/String;)I",  (void *)android_net_utils_getDefaultRoute },
-    { "removeDefaultRoute", "(Ljava/lang/String;)I",  (void *)android_net_utils_removeDefaultRoute },
-    { "resetConnections", "(Ljava/lang/String;)I",  (void *)android_net_utils_resetConnections },
-    { "runDhcp", "(Ljava/lang/String;Landroid/net/DhcpInfo;)Z",  (void *)android_net_utils_runDhcp },
-    { "stopDhcp", "(Ljava/lang/String;)Z",  (void *)android_net_utils_stopDhcp },
-    { "configureNative", "(Ljava/lang/String;IIIII)Z",  (void *)android_net_utils_configureInterface },
->>>>>>> 54b6cfa... Initial Contribution
     { "getDhcpError", "()Ljava/lang/String;", (void*) android_net_utils_getDhcpError },
 };
 
 int register_android_net_NetworkUtils(JNIEnv* env)
 {
-<<<<<<< HEAD
     jclass dhcpInfoInternalClass = env->FindClass("android/net/DhcpInfoInternal");
     LOG_FATAL_IF(dhcpInfoInternalClass == NULL, "Unable to find class android/net/DhcpInfoInternal");
     dhcpInfoInternalFieldIds.constructorId = env->GetMethodID(dhcpInfoInternalClass, "<init>", "()V");
@@ -411,22 +236,6 @@ int register_android_net_NetworkUtils(JNIEnv* env)
     dhcpInfoInternalFieldIds.serverAddress = env->GetFieldID(dhcpInfoInternalClass, "serverAddress", "Ljava/lang/String;");
     dhcpInfoInternalFieldIds.leaseDuration = env->GetFieldID(dhcpInfoInternalClass, "leaseDuration", "I");
     dhcpInfoInternalFieldIds.vendorInfo = env->GetFieldID(dhcpInfoInternalClass, "vendorInfo", "Ljava/lang/String;");
-=======
-    jclass netutils = env->FindClass(NETUTILS_PKG_NAME);
-    LOG_FATAL_IF(netutils == NULL, "Unable to find class " NETUTILS_PKG_NAME);
-
-    dhcpInfoFieldIds.dhcpInfoClass = env->FindClass("android/net/DhcpInfo");
-    if (dhcpInfoFieldIds.dhcpInfoClass != NULL) {
-        dhcpInfoFieldIds.constructorId = env->GetMethodID(dhcpInfoFieldIds.dhcpInfoClass, "<init>", "()V");
-        dhcpInfoFieldIds.ipaddress = env->GetFieldID(dhcpInfoFieldIds.dhcpInfoClass, "ipAddress", "I");
-        dhcpInfoFieldIds.gateway = env->GetFieldID(dhcpInfoFieldIds.dhcpInfoClass, "gateway", "I");
-        dhcpInfoFieldIds.netmask = env->GetFieldID(dhcpInfoFieldIds.dhcpInfoClass, "netmask", "I");
-        dhcpInfoFieldIds.dns1 = env->GetFieldID(dhcpInfoFieldIds.dhcpInfoClass, "dns1", "I");
-        dhcpInfoFieldIds.dns2 = env->GetFieldID(dhcpInfoFieldIds.dhcpInfoClass, "dns2", "I");
-        dhcpInfoFieldIds.serverAddress = env->GetFieldID(dhcpInfoFieldIds.dhcpInfoClass, "serverAddress", "I");
-        dhcpInfoFieldIds.leaseDuration = env->GetFieldID(dhcpInfoFieldIds.dhcpInfoClass, "leaseDuration", "I");
-    }
->>>>>>> 54b6cfa... Initial Contribution
 
     return AndroidRuntime::registerNativeMethods(env,
             NETUTILS_PKG_NAME, gNetworkUtilMethods, NELEM(gNetworkUtilMethods));

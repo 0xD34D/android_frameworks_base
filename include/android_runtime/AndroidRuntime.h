@@ -20,11 +20,7 @@
 #define _RUNTIME_ANDROID_RUNTIME_H
 
 #include <utils/Errors.h>
-<<<<<<< HEAD
 #include <binder/IBinder.h>
-=======
-#include <utils/IBinder.h>
->>>>>>> 54b6cfa... Initial Contribution
 #include <utils/String8.h>
 #include <utils/String16.h>
 #include <utils/Vector.h>
@@ -34,18 +30,13 @@
 
 
 namespace android {
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
 class AndroidRuntime
 {
 public:
     AndroidRuntime();
     virtual ~AndroidRuntime();
 
-<<<<<<< HEAD
     enum StartMode {
         Zygote,
         SystemServer,
@@ -53,8 +44,6 @@ public:
         Tool,
     };
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Register a set of methods in the specified class.
      */
@@ -62,7 +51,6 @@ public:
         const char* className, const JNINativeMethod* gMethods, int numMethods);
 
     /**
-<<<<<<< HEAD
      * Call a class's static main method with the given arguments,
      */
     status_t callMain(const char* className, jclass clazz, int argc,
@@ -70,26 +58,12 @@ public:
 
     /**
      * Find a class, with the input either of the form
-=======
-     * Call a static Java function that takes no arguments and returns void.
-     */
-    status_t callStatic(const char* className, const char* methodName);
-
-    /**
-     * Call a class's static main method with the given arguments,
-     */
-    status_t callMain(const char* className, int argc, const char* const argv[]);
-
-    /**
-     * Find a class, with the input either of the form 
->>>>>>> 54b6cfa... Initial Contribution
      * "package/class" or "package.class".
      */
     static jclass findClass(JNIEnv* env, const char* className);
 
     int addVmArguments(int argc, const char* const argv[]);
 
-<<<<<<< HEAD
     void start(const char *classname, const char* options);
 
     void exit(int code);
@@ -107,13 +81,6 @@ public:
      */
     virtual void onVmCreated(JNIEnv* env);
 
-=======
-    void start(const char *classname, const bool startSystemServer);
-    void start();       // start in android.util.RuntimeInit
-
-    static AndroidRuntime* getRuntime();
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * This gets called after the JavaVM has initialized.  Override it
      * with the system's native entry point.
@@ -125,7 +92,6 @@ public:
      * fork. Override it to initialize threads, etc. Upon return, the
      * correct static main will be invoked.
      */
-<<<<<<< HEAD
     virtual void onZygoteInit() { }
 
     /**
@@ -136,19 +102,6 @@ public:
 
     /** create a new thread that is visible from Java */
     static android_thread_id_t createJavaThread(const char* name, void (*start)(void *),
-=======
-    virtual void onZygoteInit() {};
-
-
-    /**
-     * Called when the Java application exits.  The default
-     * implementation calls exit(code).
-     */
-    virtual void onExit(int code);
-
-    /** create a new thread that is visible from Java */
-    static void createJavaThread(const char* name, void (*start)(void *),
->>>>>>> 54b6cfa... Initial Contribution
         void* arg);
 
     /** return a pointer to the VM running in this process */
@@ -157,7 +110,6 @@ public:
     /** return a pointer to the JNIEnv pointer for this thread */
     static JNIEnv* getJNIEnv();
 
-<<<<<<< HEAD
     /** return a new string corresponding to 'className' with all '.'s replaced by '/'s. */
     static char* toSlashClassName(const char* className);
 
@@ -168,12 +120,6 @@ private:
 
     Vector<JavaVMOption> mOptions;
     bool mExitWithoutCleanup;
-=======
-private:
-    static int startReg(JNIEnv* env);
-
-    Vector<JavaVMOption> mOptions;
->>>>>>> 54b6cfa... Initial Contribution
 
     /* JNI JavaVM pointer */
     static JavaVM* mJavaVM;
@@ -182,11 +128,7 @@ private:
      * Thread creation helpers.
      */
     static int javaCreateThreadEtc(
-<<<<<<< HEAD
                                 android_thread_func_t entryFunction,
-=======
-                                android_thread_func_t entryFunction, 
->>>>>>> 54b6cfa... Initial Contribution
                                 void* userData,
                                 const char* threadName,
                                 int32_t threadPriority,
@@ -195,12 +137,6 @@ private:
     static int javaThreadShell(void* args);
 };
 
-<<<<<<< HEAD
-=======
-// Returns the Unix file descriptor for a ParcelFileDescriptor object
-extern int getParcelFileDescriptorFD(JNIEnv* env, jobject object);
-
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 #endif

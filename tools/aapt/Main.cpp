@@ -6,15 +6,10 @@
 #include "Main.h"
 #include "Bundle.h"
 
-<<<<<<< HEAD
 #include <utils/Log.h>
 #include <utils/threads.h>
 #include <utils/List.h>
 #include <utils/Errors.h>
-=======
-#include <utils.h>
-#include <utils/ZipFile.h>
->>>>>>> 54b6cfa... Initial Contribution
 
 #include <stdlib.h>
 #include <getopt.h>
@@ -52,19 +47,14 @@ void usage(void)
         " %s l[ist] [-v] [-a] file.{zip,jar,apk}\n"
         "   List contents of Zip-compatible archive.\n\n", gProgName);
     fprintf(stderr,
-<<<<<<< HEAD
         " %s d[ump] [--values] WHAT file.{apk} [asset [asset ...]]\n"
         "   badging          Print the label and icon for the app declared in APK.\n"
-=======
-        " %s d[ump] WHAT file.{apk} [asset [asset ...]]\n"
->>>>>>> 54b6cfa... Initial Contribution
         "   permissions      Print the permissions from the APK.\n"
         "   resources        Print the resource table from the APK.\n"
         "   configurations   Print the configurations in the APK.\n"
         "   xmltree          Print the compiled xmls in the given assets.\n"
         "   xmlstrings       Print the strings of the given compiled xml assets.\n\n", gProgName);
     fprintf(stderr,
-<<<<<<< HEAD
         " %s p[ackage] [-d][-f][-m][-u][-v][-x][-z][-M AndroidManifest.xml] \\\n"
         "        [-0 extension [-0 extension ...]] [-g tolerance] [-j jarfile] \\\n"
         "        [--debug-mode] [--min-sdk-version VAL] [--target-sdk-version VAL] \\\n"
@@ -80,12 +70,6 @@ void usage(void)
         "        [--product product1,product2,...] \\\n"
         "        [-c CONFIGS] [--preferred-configurations CONFIGS] \\\n"
         "        [-o] \\\n"
-=======
-        " %s p[ackage] [-f][-u][-m][-v][-x][-M AndroidManifest.xml] \\\n"
-        "        [-I base-package [-I base-package ...]] \\\n"
-        "        [-A asset-source-dir] [-P public-definitions-file] \\\n"
-        "        [-S resource-sources] [-F apk-file] [-J R-file-dir] \\\n"
->>>>>>> 54b6cfa... Initial Contribution
         "        [raw-files-dir [raw-files-dir] ...]\n"
         "\n"
         "   Package the android resources.  It will read assets and resources that are\n"
@@ -100,12 +84,9 @@ void usage(void)
         " %s a[dd] [-v] file.{zip,jar,apk} file1 [file2 ...]\n"
         "   Add specified files to Zip-compatible archive.\n\n", gProgName);
     fprintf(stderr,
-<<<<<<< HEAD
         " %s c[runch] [-v] -S resource-sources ... -C output-folder ...\n"
         "   Do PNG preprocessing and store the results in output folder.\n\n", gProgName);
     fprintf(stderr,
-=======
->>>>>>> 54b6cfa... Initial Contribution
         " %s v[ersion]\n"
         "   Print program version.\n\n", gProgName);
     fprintf(stderr,
@@ -125,16 +106,11 @@ void usage(void)
         "            port,land,zz_ZZ\n"
         "   -d  one or more device assets to include, separated by commas\n"
         "   -f  force overwrite of existing files\n"
-<<<<<<< HEAD
         "   -g  specify a pixel tolerance to force images to grayscale, default 0\n"
         "   -j  specify a jar or zip file containing classes to include\n"
         "   -k  junk path of file(s) added\n"
         "   -m  make package directories under location specified by -J\n"
         "   -o  create overlay package (ie only resources; expects <overlay-package> in manifest)\n"
-=======
-        "   -j  specify a jar or zip file containing classes to include\n"
-        "   -m  make package directories under location specified by -J\n"
->>>>>>> 54b6cfa... Initial Contribution
 #if 0
         "   -p  pseudolocalize the default configuration\n"
 #endif
@@ -144,16 +120,12 @@ void usage(void)
         "   -z  require localization of resource attributes marked with\n"
         "       localization=\"suggested\"\n"
         "   -A  additional directory in which to find raw asset files\n"
-<<<<<<< HEAD
         "   -G  A file to output proguard options into.\n"
-=======
->>>>>>> 54b6cfa... Initial Contribution
         "   -F  specify the apk file to output\n"
         "   -I  add an existing package to base include set\n"
         "   -J  specify where to output R.java resource constant definitions\n"
         "   -M  specify full path to AndroidManifest.xml to include in zip\n"
         "   -P  specify where to output public resource definitions\n"
-<<<<<<< HEAD
         "   -S  directory in which to find resources.  Multiple directories will be scanned\n"
         "       and the first match found (left to right) will take precedence.\n"
         "   -0  specifies an additional extension for which such files will not\n"
@@ -211,10 +183,6 @@ void usage(void)
         "       Assets to be ignored. Default pattern is:\n"
         "       %s\n",
         gDefaultIgnoreAssets);
-=======
-        "   -S  directory in which to find resources\n"
-        "   -0  don't compress files we're adding\n");
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 /*
@@ -234,10 +202,7 @@ int handleCommand(Bundle* bundle)
     case kCommandAdd:       return doAdd(bundle);
     case kCommandRemove:    return doRemove(bundle);
     case kCommandPackage:   return doPackage(bundle);
-<<<<<<< HEAD
     case kCommandCrunch:    return doCrunch(bundle);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     default:
         fprintf(stderr, "%s: requested command not yet supported\n", gProgName);
         return 1;
@@ -249,17 +214,11 @@ int handleCommand(Bundle* bundle)
  */
 int main(int argc, char* const argv[])
 {
-<<<<<<< HEAD
     char *prog = argv[0];
     Bundle bundle;
     bool wantUsage = false;
     int result = 1;    // pessimistically assume an error.
     int tolerance = 0;
-=======
-    Bundle bundle;
-    bool wantUsage = false;
-    int result = 1;    // pessimistically assume an error.
->>>>>>> 54b6cfa... Initial Contribution
 
     /* default to compression */
     bundle.setCompressionMethod(ZipEntry::kCompressDeflated);
@@ -281,11 +240,8 @@ int main(int argc, char* const argv[])
         bundle.setCommand(kCommandRemove);
     else if (argv[1][0] == 'p')
         bundle.setCommand(kCommandPackage);
-<<<<<<< HEAD
     else if (argv[1][0] == 'c')
         bundle.setCommand(kCommandCrunch);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     else {
         fprintf(stderr, "ERROR: Unknown command '%s'\n", argv[1]);
         wantUsage = true;
@@ -322,7 +278,6 @@ int main(int argc, char* const argv[])
             case 'f':
                 bundle.setForce(true);
                 break;
-<<<<<<< HEAD
             case 'g':
                 argc--;
                 argv++;
@@ -344,11 +299,6 @@ int main(int argc, char* const argv[])
             case 'o':
                 bundle.setIsOverlayPackage(true);
                 break;
-=======
-            case 'm':
-                bundle.setMakePackageDirs(true);
-                break;
->>>>>>> 54b6cfa... Initial Contribution
 #if 0
             case 'p':
                 bundle.setPseudolocalize(true);
@@ -385,7 +335,6 @@ int main(int argc, char* const argv[])
                 convertPath(argv[0]);
                 bundle.setAssetSourceDir(argv[0]);
                 break;
-<<<<<<< HEAD
             case 'G':
                 argc--;
                 argv++;
@@ -397,8 +346,6 @@ int main(int argc, char* const argv[])
                 convertPath(argv[0]);
                 bundle.setProguardFile(argv[0]);
                 break;
-=======
->>>>>>> 54b6cfa... Initial Contribution
             case 'I':
                 argc--;
                 argv++;
@@ -463,7 +410,6 @@ int main(int argc, char* const argv[])
                     goto bail;
                 }
                 convertPath(argv[0]);
-<<<<<<< HEAD
                 bundle.addResourceSourceDir(argv[0]);
                 break;
             case 'C':
@@ -629,12 +575,6 @@ int main(int argc, char* const argv[])
                     goto bail;
                 }
                 cp += strlen(cp) - 1;
-=======
-                bundle.setResourceSourceDir(argv[0]);
-                break;
-            case '0':
-                bundle.setCompressionMethod(ZipEntry::kCompressStored);
->>>>>>> 54b6cfa... Initial Contribution
                 break;
             default:
                 fprintf(stderr, "ERROR: Unknown flag '-%c'\n", *cp);

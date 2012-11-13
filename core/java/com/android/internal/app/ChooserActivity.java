@@ -18,17 +18,13 @@ package com.android.internal.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.os.Parcelable;
 import android.util.Log;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 public class ChooserActivity extends ResolverActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
-<<<<<<< HEAD
         Parcelable targetParcelable = intent.getParcelableExtra(Intent.EXTRA_INTENT);
         if (!(targetParcelable instanceof Intent)) {
             Log.w("ChooseActivity", "Target is not an intent: " + targetParcelable);
@@ -36,14 +32,10 @@ public class ChooserActivity extends ResolverActivity {
             return;
         }
         Intent target = (Intent)targetParcelable;
-=======
-        Intent target = (Intent)intent.getParcelableExtra(Intent.EXTRA_INTENT);
->>>>>>> 54b6cfa... Initial Contribution
         CharSequence title = intent.getCharSequenceExtra(Intent.EXTRA_TITLE);
         if (title == null) {
             title = getResources().getText(com.android.internal.R.string.chooseActivity);
         }
-<<<<<<< HEAD
         Parcelable[] pa = intent.getParcelableArrayExtra(Intent.EXTRA_INITIAL_INTENTS);
         Intent[] initialIntents = null;
         if (pa != null) {
@@ -59,8 +51,5 @@ public class ChooserActivity extends ResolverActivity {
             }
         }
         super.onCreate(savedInstanceState, target, title, initialIntents, null, false);
-=======
-        super.onCreate(savedInstanceState, target, title, false);
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

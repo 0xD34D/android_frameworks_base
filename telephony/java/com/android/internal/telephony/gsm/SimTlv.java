@@ -34,14 +34,8 @@ public class SimTlv
     int curDataOffset;
     int curDataLength;
     boolean hasValidTlvObject;
-<<<<<<< HEAD
 
     public SimTlv(byte[] record, int offset, int length) {
-=======
-    
-    public SimTlv(byte[] record, int offset, int length)
-    {
->>>>>>> 54b6cfa... Initial Contribution
         this.record = record;
 
         this.tlvOffset = offset;
@@ -51,7 +45,6 @@ public class SimTlv
         hasValidTlvObject = parseCurrentTlvObject();
     }
 
-<<<<<<< HEAD
     public boolean nextObject() {
         if (!hasValidTlvObject) return false;
         curOffset = curDataOffset + curDataLength;
@@ -60,21 +53,6 @@ public class SimTlv
     }
 
     public boolean isValidObject() {
-=======
-    public boolean
-    nextObject()
-    {
-        if (!hasValidTlvObject) return false;
-
-        curOffset = curDataOffset + curDataLength;
-        hasValidTlvObject = parseCurrentTlvObject(); 
-        return hasValidTlvObject;
-    }
-
-    public boolean
-    isValidObject()
-    {
->>>>>>> 54b6cfa... Initial Contribution
         return hasValidTlvObject;
     }
 
@@ -84,13 +62,7 @@ public class SimTlv
      * 0 and 0xff are invalid tag values
      * valid tags range from 1 - 0xfe
      */
-<<<<<<< HEAD
     public int getTag() {
-=======
-    public int
-    getTag()
-    {
->>>>>>> 54b6cfa... Initial Contribution
         if (!hasValidTlvObject) return 0;
         return record[curOffset] & 0xff;
     }
@@ -99,15 +71,8 @@ public class SimTlv
      * Returns data associated with current TLV object
      * returns null if !isValidObject()
      */
-<<<<<<< HEAD
 
     public byte[] getData() {
-=======
-    
-    public byte[]
-    getData()
-    {
->>>>>>> 54b6cfa... Initial Contribution
         if (!hasValidTlvObject) return null;
 
         byte[] ret = new byte[curDataLength];
@@ -120,7 +85,6 @@ public class SimTlv
      * @return false on invalid record, true on valid record
      */
 
-<<<<<<< HEAD
     private boolean parseCurrentTlvObject() {
         // 0x00 and 0xff are invalid tag values
 
@@ -129,17 +93,6 @@ public class SimTlv
                 return false;
             }
 
-=======
-    private boolean
-    parseCurrentTlvObject()
-    {   
-        // 0x00 and 0xff are invalid tag values
-        if (record[curOffset] == 0 || (record[curOffset] & 0xff) == 0xff) {
-            return false;
-        }
-        
-        try {
->>>>>>> 54b6cfa... Initial Contribution
             if ((record[curOffset + 1] & 0xff) < 0x80) {
                 // one byte length 0 - 0x7f
                 curDataLength = record[curOffset + 1] & 0xff;

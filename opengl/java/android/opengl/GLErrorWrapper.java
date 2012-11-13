@@ -958,7 +958,6 @@ class GLErrorWrapper extends GLWrapperBase {
         checkError();
         return valid;
     }
-<<<<<<< HEAD
 
     public void glBindBuffer(int target, int buffer) {
         checkThread();
@@ -1661,6 +1660,4 @@ class GLErrorWrapper extends GLWrapperBase {
         mgl11ExtensionPack.glTexGenxv(coord, pname, params);
         checkError();
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

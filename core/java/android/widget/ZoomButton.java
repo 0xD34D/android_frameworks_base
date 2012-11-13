@@ -19,43 +19,24 @@ package android.widget;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-<<<<<<< HEAD
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
-import android.view.GestureDetector;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.View.OnLongClickListener;
-
->>>>>>> 54b6cfa... Initial Contribution
 
 public class ZoomButton extends ImageButton implements OnLongClickListener {
 
     private final Handler mHandler;
     private final Runnable mRunnable = new Runnable() {
         public void run() {
-<<<<<<< HEAD
             if (hasOnClickListeners() && mIsInLongpress && isEnabled()) {
                 callOnClick();
-=======
-            if ((mOnClickListener != null) && mIsInLongpress && isEnabled()) {
-                mOnClickListener.onClick(ZoomButton.this);
->>>>>>> 54b6cfa... Initial Contribution
                 mHandler.postDelayed(this, mZoomSpeed);
             }
         }
     };
-<<<<<<< HEAD
-=======
-    private final GestureDetector mGestureDetector;
->>>>>>> 54b6cfa... Initial Contribution
     
     private long mZoomSpeed = 1000;
     private boolean mIsInLongpress;
@@ -71,24 +52,11 @@ public class ZoomButton extends ImageButton implements OnLongClickListener {
     public ZoomButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mHandler = new Handler();
-<<<<<<< HEAD
-=======
-        mGestureDetector = new GestureDetector(new SimpleOnGestureListener() {
-            @Override
-            public void onLongPress(MotionEvent e) {
-                onLongClick(ZoomButton.this);
-            }
-        });
->>>>>>> 54b6cfa... Initial Contribution
         setOnLongClickListener(this);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-<<<<<<< HEAD
-=======
-        mGestureDetector.onTouchEvent(event);
->>>>>>> 54b6cfa... Initial Contribution
         if ((event.getAction() == MotionEvent.ACTION_CANCEL)
                 || (event.getAction() == MotionEvent.ACTION_UP)) {
             mIsInLongpress = false;
@@ -130,7 +98,6 @@ public class ZoomButton extends ImageButton implements OnLongClickListener {
         clearFocus();
         return super.dispatchUnhandledMove(focused, direction);
     }
-<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -143,6 +110,4 @@ public class ZoomButton extends ImageButton implements OnLongClickListener {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(ZoomButton.class.getName());
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

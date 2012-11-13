@@ -65,11 +65,7 @@ public class GLDebugHelper {
     public static final int CONFIG_CHECK_THREAD = (1 << 1);
 
     /**
-<<<<<<< HEAD
      * Print argument names when logging GL Calls.
-=======
-     * Check if all calls are on the same thread.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int CONFIG_LOG_ARGUMENT_NAMES = (1 << 2);
 

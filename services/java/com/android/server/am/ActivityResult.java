@@ -24,15 +24,9 @@ import android.os.Bundle;
  * Pending result information to send back to an activity.
  */
 class ActivityResult extends ResultInfo {
-<<<<<<< HEAD
     final ActivityRecord mFrom;
     
     public ActivityResult(ActivityRecord from, String resultWho,
-=======
-    final HistoryRecord mFrom;
-    
-    public ActivityResult(HistoryRecord from, String resultWho,
->>>>>>> 54b6cfa... Initial Contribution
             int requestCode, int resultCode, Intent data) {
         super(resultWho, requestCode, resultCode, data);
         mFrom = from;

@@ -17,17 +17,11 @@
 package android.text.method;
 
 import android.text.Layout;
-<<<<<<< HEAD
 import android.text.Layout.Alignment;
 import android.text.NoCopySpan;
 import android.text.Spannable;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-=======
-import android.text.Spannable;
-import android.view.MotionEvent;
-import android.view.View;
->>>>>>> 54b6cfa... Initial Contribution
 import android.view.ViewConfiguration;
 import android.widget.TextView;
 
@@ -41,7 +35,6 @@ public class Touch {
      * Y position.
      */
     public static void scrollTo(TextView widget, Layout layout, int x, int y) {
-<<<<<<< HEAD
         final int horizontalPadding = widget.getTotalPaddingLeft() + widget.getTotalPaddingRight();
         final int availableWidth = widget.getWidth() - horizontalPadding;
 
@@ -82,25 +75,6 @@ public class Touch {
             x = Math.min(x, right - availableWidth);
             x = Math.max(x, left);
         }
-=======
-        int padding = widget.getTotalPaddingTop() +
-                      widget.getTotalPaddingBottom();
-        int top = layout.getLineForVertical(y);
-        int bottom = layout.getLineForVertical(y + widget.getHeight() -
-                                               padding);
-
-        int left = Integer.MAX_VALUE;
-        int right = 0;
-
-        for (int i = top; i <= bottom; i++) {
-            left = (int) Math.min(left, layout.getLineLeft(i));
-            right = (int) Math.max(right, layout.getLineRight(i));
-        }
-
-        padding = widget.getTotalPaddingLeft() + widget.getTotalPaddingRight();
-        x = Math.min(x, right - (widget.getWidth() - padding));
-        x = Math.max(x, left);
->>>>>>> 54b6cfa... Initial Contribution
 
         widget.scrollTo(x, y);
     }
@@ -113,7 +87,6 @@ public class Touch {
                                        MotionEvent event) {
         DragState[] ds;
 
-<<<<<<< HEAD
         switch (event.getActionMasked()) {
         case MotionEvent.ACTION_DOWN:
             ds = buffer.getSpans(0, buffer.length(), DragState.class);
@@ -125,12 +98,6 @@ public class Touch {
             buffer.setSpan(new DragState(event.getX(), event.getY(),
                             widget.getScrollX(), widget.getScrollY()),
                     0, 0, Spannable.SPAN_MARK_MARK);
-=======
-        switch (event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            buffer.setSpan(new DragState(event.getX(), event.getY()),
-                           0, 0, Spannable.SPAN_MARK_MARK);
->>>>>>> 54b6cfa... Initial Contribution
             return true;
 
         case MotionEvent.ACTION_UP:
@@ -151,11 +118,7 @@ public class Touch {
 
             if (ds.length > 0) {
                 if (ds[0].mFarEnough == false) {
-<<<<<<< HEAD
                     int slop = ViewConfiguration.get(widget.getContext()).getScaledTouchSlop();
-=======
-                    int slop = ViewConfiguration.getTouchSlop();
->>>>>>> 54b6cfa... Initial Contribution
 
                     if (Math.abs(event.getX() - ds[0].mX) >= slop ||
                         Math.abs(event.getY() - ds[0].mY) >= slop) {
@@ -165,7 +128,6 @@ public class Touch {
 
                 if (ds[0].mFarEnough) {
                     ds[0].mUsed = true;
-<<<<<<< HEAD
                     boolean cap = (event.getMetaState() & KeyEvent.META_SHIFT_ON) != 0
                             || MetaKeyKeyListener.getMetaState(buffer,
                                     MetaKeyKeyListener.META_SHIFT_ON) == 1
@@ -182,19 +144,12 @@ public class Touch {
                         dx = ds[0].mX - event.getX();
                         dy = ds[0].mY - event.getY();
                     }
-=======
-
-                    float dx = ds[0].mX - event.getX();
-                    float dy = ds[0].mY - event.getY();
-
->>>>>>> 54b6cfa... Initial Contribution
                     ds[0].mX = event.getX();
                     ds[0].mY = event.getY();
 
                     int nx = widget.getScrollX() + (int) dx;
                     int ny = widget.getScrollY() + (int) dy;
 
-<<<<<<< HEAD
                     int padding = widget.getTotalPaddingTop() + widget.getTotalPaddingBottom();
                     Layout layout = widget.getLayout();
 
@@ -211,18 +166,6 @@ public class Touch {
                         widget.cancelLongPress();
                     }
 
-=======
-                    int padding = widget.getTotalPaddingTop() +
-                                  widget.getTotalPaddingBottom();
-                    Layout layout = widget.getLayout();
-
-                    ny = Math.min(ny, layout.getHeight() - (widget.getHeight() -
-                                                            padding));
-                    ny = Math.max(ny, 0);
-        
-                    scrollTo(widget, layout, nx, ny);
-                    widget.cancelLongPress();
->>>>>>> 54b6cfa... Initial Contribution
                     return true;
                 }
             }
@@ -231,7 +174,6 @@ public class Touch {
         return false;
     }
 
-<<<<<<< HEAD
     /**
      * @param widget The text view.
      * @param buffer The text buffer.
@@ -263,17 +205,6 @@ public class Touch {
             mY = y;
             mScrollX = scrollX;
             mScrollY = scrollY;
-=======
-    private static class DragState {
-        public float mX;
-        public float mY;
-        public boolean mFarEnough;
-        public boolean mUsed;
-
-        public DragState(float x, float y) {
-            mX = x;
-            mY = y;
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 }

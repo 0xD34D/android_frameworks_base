@@ -19,19 +19,11 @@ package android.media;
 
 
 /**
-<<<<<<< HEAD
  * This class provides methods to play DTMF tones (ITU-T Recommendation Q.23),
  * call supervisory tones (3GPP TS 22.001, CEPT) and proprietary tones (3GPP TS 31.111).
  * Depending on call state and routing options, tones are mixed to the downlink audio
  * or output to the speaker phone or headset.
  * This API is not for generating tones over the uplink audio path.
-=======
- * This class provides methods to play DTMF tones (ITU-T Recommendation Q.23), 
- * call supervisory tones (3GPP TS 22.001, CEPT) and proprietary tones (3GPP TS 31.111). 
- * Depending on call state and routing options, tones are mixed to the downlink audio
- * or output to the speaker phone or headset. 
- * This API is not for generating tones over the uplink audio path.   
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class ToneGenerator
 {
@@ -41,31 +33,20 @@ public class ToneGenerator
      * List of all available tones: These constants must be kept consistant with
      * the enum in ToneGenerator C++ class.     */
 
-<<<<<<< HEAD
     /**
      * DTMF tone for key 0: 1336Hz, 941Hz, continuous</p>
      *
-=======
-	/**
-     * DTMF tone for key 0: 1336Hz, 941Hz, continuous</p>
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_0 = 0;
     /**
      * DTMF tone for key 1: 1209Hz, 697Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_1 = 1;
     /**
      * DTMF tone for key 2: 1336Hz, 697Hz, continuous
-<<<<<<< HEAD
      *
      * @see #ToneGenerator(int, int)
      */
@@ -79,278 +60,164 @@ public class ToneGenerator
     /**
      * DTMF tone for key 4: 1209Hz, 770Hz, continuous
      *
-=======
-     * 
-     * @see #ToneGenerator(int, int)
-     */
-   public static final int TONE_DTMF_2 = 2;
-   /**
-    * DTMF tone for key 3: 1477Hz, 697Hz, continuous
-    * 
-    * @see #ToneGenerator(int, int)
-    */
-    public static final int TONE_DTMF_3 = 3;
-    /**
-     * DTMF tone for key 4: 1209Hz, 770Hz, continuous
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_4 = 4;
     /**
      * DTMF tone for key 5: 1336Hz, 770Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_5 = 5;
     /**
      * DTMF tone for key 6: 1477Hz, 770Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_6 = 6;
     /**
      * DTMF tone for key 7: 1209Hz, 852Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_7 = 7;
     /**
      * DTMF tone for key 8: 1336Hz, 852Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_8 = 8;
     /**
      * DTMF tone for key 9: 1477Hz, 852Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_9 = 9;
     /**
      * DTMF tone for key *: 1209Hz, 941Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_S = 10;
     /**
      * DTMF tone for key #: 1477Hz, 941Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_P = 11;
     /**
      * DTMF tone for key A: 1633Hz, 697Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_A = 12;
     /**
      * DTMF tone for key B: 1633Hz, 770Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_B = 13;
     /**
      * DTMF tone for key C: 1633Hz, 852Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_C = 14;
     /**
      * DTMF tone for key D: 1633Hz, 941Hz, continuous
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_DTMF_D = 15;
     /**
-<<<<<<< HEAD
      * Call supervisory tone, Dial tone:
      *      CEPT:           425Hz, continuous
      *      ANSI (IS-95):   350Hz+440Hz, continuous
      *      JAPAN:          400Hz, continuous
      *
-=======
-     * Call supervisory tone, Dial tone: 425Hz, continuous
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_SUP_DIAL = 16;
     /**
-<<<<<<< HEAD
      * Call supervisory tone, Busy:
      *      CEPT:           425Hz, 500ms ON, 500ms OFF...
      *      ANSI (IS-95):   480Hz+620Hz, 500ms ON, 500ms OFF...
      *      JAPAN:          400Hz, 500ms ON, 500ms OFF...
      *
-=======
-     * Call supervisory tone, Busy: 425Hz, 500ms ON, 500ms OFF...
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_SUP_BUSY = 17;
     /**
-<<<<<<< HEAD
      * Call supervisory tone, Congestion:
      *      CEPT, JAPAN:    425Hz, 200ms ON, 200ms OFF...
      *      ANSI (IS-95):   480Hz+620Hz, 250ms ON, 250ms OFF...
      *
-=======
-     * Call supervisory tone, Congestion: 425Hz, 200ms ON, 200ms OFF...
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_SUP_CONGESTION = 18;
     /**
-<<<<<<< HEAD
      * Call supervisory tone, Radio path acknowlegment :
      *      CEPT, ANSI:    425Hz, 200ms ON
      *      JAPAN:         400Hz, 1s ON, 2s OFF...
      *
-=======
-     * Call supervisory tone, Radio path acknowlegment : 425Hz, 200ms ON
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_SUP_RADIO_ACK = 19;
     /**
      * Call supervisory tone, Radio path not available: 425Hz, 200ms ON, 200 OFF 3 bursts
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_SUP_RADIO_NOTAVAIL = 20;
     /**
      * Call supervisory tone, Error/Special info: 950Hz+1400Hz+1800Hz, 330ms ON, 1s OFF...
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_SUP_ERROR = 21;
     /**
-<<<<<<< HEAD
      * Call supervisory tone, Call Waiting:
      *      CEPT, JAPAN:    425Hz, 200ms ON, 600ms OFF, 200ms ON, 3s OFF...
      *      ANSI (IS-95):   440 Hz, 300 ms ON, 9.7 s OFF,
      *                      (100 ms ON, 100 ms OFF, 100 ms ON, 9.7s OFF ...)
      *
-=======
-     * Call supervisory tone, Call Waiting: 425Hz, 200ms ON, 600ms OFF, 200ms ON, 3s OFF...
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_SUP_CALL_WAITING = 22;
     /**
-<<<<<<< HEAD
      * Call supervisory tone, Ring Tone:
      *      CEPT, JAPAN:    425Hz, 1s ON, 4s OFF...
      *      ANSI (IS-95):   440Hz + 480Hz, 2s ON, 4s OFF...
      *
-=======
-     * Call supervisory tone, Ring Tone: 425Hz, 1s ON, 4s OFF...
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_SUP_RINGTONE = 23;
     /**
      * Proprietary tone, general beep: 400Hz+1200Hz, 35ms ON
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_PROP_BEEP = 24;
     /**
      * Proprietary tone, positive acknowlegement: 1200Hz, 100ms ON, 100ms OFF 2 bursts
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_PROP_ACK = 25;
     /**
      * Proprietary tone, negative acknowlegement: 300Hz+400Hz+500Hz, 400ms ON
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int TONE_PROP_NACK = 26;
     /**
      * Proprietary tone, prompt tone: 400Hz+1200Hz, 200ms ON
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #ToneGenerator(int, int)
      */
     public static final int  TONE_PROP_PROMPT = 27;
     /**
      * Proprietary tone, general double beep: twice 400Hz+1200Hz, 35ms ON, 200ms OFF, 35ms ON
-<<<<<<< HEAD
      *
      * @see #ToneGenerator(int, int)
      */
@@ -860,32 +727,14 @@ public class ToneGenerator
     public static final int MAX_VOLUME = 100;
     /** Minimum volume setting, for use with {@link #ToneGenerator(int,int)} */
     public static final int MIN_VOLUME = 0;
-=======
-     * 
-     * @see #ToneGenerator(int, int)
-     */
-    public static final int TONE_PROP_BEEP2 = 28;
-
-    /** Maximum volume, for use with {@link #ToneGenerator(int,int)} */
-    public static final int MAX_VOLUME = AudioSystem.MAX_VOLUME;
-    /** Minimum volume setting, for use with {@link #ToneGenerator(int,int)} */
-    public static final int MIN_VOLUME = AudioSystem.MIN_VOLUME;
->>>>>>> 54b6cfa... Initial Contribution
 
 
     /**
      * ToneGenerator class contructor specifying output stream type and volume.
-<<<<<<< HEAD
      *
      * @param streamType The streame type used for tone playback (e.g. STREAM_MUSIC).
      * @param volume     The volume of the tone, given in percentage of maximum volume (from 0-100).
      *
-=======
-     * 
-     * @param streamType The streame type used for tone playback (e.g. STREAM_MUSIC).
-     * @param volume     The volume of the tone, given in percentage of maximum volume (from 0-100).
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      */
     public ToneGenerator(int streamType, int volume) {
         native_setup(streamType, volume);
@@ -893,15 +742,9 @@ public class ToneGenerator
 
     /**
      * This method starts the playback of a tone of the specified type.
-<<<<<<< HEAD
      * only one tone can play at a time: if a tone is playing while this method is called,
      * this tone is stopped and replaced by the one requested.
      * @param toneType   The type of tone generated chosen from the following list:
-=======
-     * only one tone can play at a time: if a tone is playing while this method is called, 
-     * this tone is stopped and replaced by the one requested.
-     * @param toneType   The type of tone generate chosen from the following list:
->>>>>>> 54b6cfa... Initial Contribution
      * <ul>
      * <li>{@link #TONE_DTMF_0}
      * <li>{@link #TONE_DTMF_1}
@@ -930,7 +773,6 @@ public class ToneGenerator
      * <li>{@link #TONE_PROP_NACK}
      * <li>{@link #TONE_PROP_PROMPT}
      * <li>{@link #TONE_PROP_BEEP2}
-<<<<<<< HEAD
      * <li>{@link #TONE_SUP_INTERCEPT}
      * <li>{@link #TONE_SUP_INTERCEPT_ABBREV}
      * <li>{@link #TONE_SUP_CONGESTION_ABBREV}
@@ -1016,12 +858,6 @@ public class ToneGenerator
      * is equivalent to calling {@link #startTone(int)}.
     */
     public native boolean startTone(int toneType, int durationMs);
-=======
-     * </ul>
-     * @see #ToneGenerator(int, int)
-    */
-    public native boolean startTone(int toneType);
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * This method stops the tone currently playing playback.
@@ -1038,7 +874,6 @@ public class ToneGenerator
     private native final void native_setup(int streamType, int volume);
 
     private native final void native_finalize();
-<<<<<<< HEAD
 
     /**
     * Returns the audio session ID.
@@ -1053,11 +888,4 @@ public class ToneGenerator
 
     @SuppressWarnings("unused")
     private int mNativeContext; // accessed by native methods
-=======
-    protected void finalize() { native_finalize(); }
-
-    private int mNativeContext; // accessed by native methods
-
-
->>>>>>> 54b6cfa... Initial Contribution
 }

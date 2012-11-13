@@ -18,7 +18,6 @@ package android.widget;
 
 import android.annotation.Widget;
 import android.content.Context;
-<<<<<<< HEAD
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -67,32 +66,10 @@ import java.util.TimeZone;
  * @attr ref android.R.styleable#DatePicker_minDate
  * @attr ref android.R.styleable#DatePicker_spinnersShown
  * @attr ref android.R.styleable#DatePicker_calendarViewShown
-=======
-import android.content.res.TypedArray;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.pim.DateFormat;
-import android.util.AttributeSet;
-import android.util.SparseArray;
-import android.view.LayoutInflater;
-
-import com.android.internal.R;
-import com.android.internal.widget.NumberPicker;
-import com.android.internal.widget.NumberPicker.OnChangedListener;
-
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
-
-/**
- * A view for selecting a month / year / day based on a calendar like layout.
- *
- * For a dialog using this view, see {@link android.app.DatePickerDialog}.
->>>>>>> 54b6cfa... Initial Contribution
  */
 @Widget
 public class DatePicker extends FrameLayout {
 
-<<<<<<< HEAD
     private static final String LOG_TAG = DatePicker.class.getSimpleName();
 
     private static final String DATE_FORMAT = "MM/dd/yyyy";
@@ -145,47 +122,16 @@ public class DatePicker extends FrameLayout {
 
     /**
      * The callback used to indicate the user changes\d the date.
-=======
-    private static final int DEFAULT_START_YEAR = 1900;
-    private static final int DEFAULT_END_YEAR = 2100;
-    
-    /* UI Components */
-    private final NumberPicker mDayPicker;
-    private final NumberPicker mMonthPicker;
-    private final NumberPicker mYearPicker;    
-    
-    private final int mStartYear;
-    private final int mEndYear;
-    
-    /**
-     * How we notify users the date has changed.
-     */
-    private OnDateChangedListener mOnDateChangedListener;
-    
-    private int mDay;
-    private int mMonth;
-    private int mYear;
-
-    /**
-     * The callback used to indicate the user changes the date.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public interface OnDateChangedListener {
 
         /**
-<<<<<<< HEAD
          * Called upon a date change.
          *
          * @param view The view associated with this listener.
          * @param year The year that was set.
          * @param monthOfYear The month that was set (0-11) for compatibility
          *            with {@link java.util.Calendar}.
-=======
-         * @param view The view associated with this listener.
-         * @param year The year that was set.
-         * @param monthOfYear The month that was set (0-11) for compatibility
-         *  with {@link java.util.Calendar}.
->>>>>>> 54b6cfa... Initial Contribution
          * @param dayOfMonth The day of the month that was set.
          */
         void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth);
@@ -194,21 +140,14 @@ public class DatePicker extends FrameLayout {
     public DatePicker(Context context) {
         this(context, null);
     }
-<<<<<<< HEAD
 
     public DatePicker(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.datePickerStyle);
-=======
-    
-    public DatePicker(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public DatePicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-<<<<<<< HEAD
         // initialization based on locale
         setCurrentLocale(Locale.getDefault());
 
@@ -609,182 +548,6 @@ public class DatePicker extends FrameLayout {
     }
 
     // Override so we are in complete control of save / restore for this widget.
-=======
-        LayoutInflater inflater =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.date_picker,
-            this, // we are the parent
-            true);
-        
-        mDayPicker = (NumberPicker) findViewById(R.id.day);
-        mDayPicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
-        mDayPicker.setSpeed(100);
-        mDayPicker.setOnChangeListener(new OnChangedListener() {
-            public void onChanged(NumberPicker picker, int oldVal, int newVal) {
-                mDay = newVal;
-                if (mOnDateChangedListener != null) {
-                    mOnDateChangedListener.onDateChanged(DatePicker.this, mYear, mMonth, mDay);
-                }
-            }
-        });
-        mMonthPicker = (NumberPicker) findViewById(R.id.month);
-        mMonthPicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
-        DateFormatSymbols dfs = new DateFormatSymbols();
-        mMonthPicker.setRange(1, 12, dfs.getShortMonths());
-        mMonthPicker.setSpeed(200);
-        mMonthPicker.setOnChangeListener(new OnChangedListener() {
-            public void onChanged(NumberPicker picker, int oldVal, int newVal) {
-                
-                /* We display the month 1-12 but store it 0-11 so always
-                 * subtract by one to ensure our internal state is always 0-11
-                 */
-                mMonth = newVal - 1;
-                if (mOnDateChangedListener != null) {
-                    mOnDateChangedListener.onDateChanged(DatePicker.this, mYear, mMonth, mDay);
-                }
-                updateDaySpinner();
-            }
-        });
-        mYearPicker = (NumberPicker) findViewById(R.id.year);
-        mYearPicker.setSpeed(100);
-        mYearPicker.setOnChangeListener(new OnChangedListener() {
-            public void onChanged(NumberPicker picker, int oldVal, int newVal) {
-                mYear = newVal;
-                if (mOnDateChangedListener != null) {
-                    mOnDateChangedListener.onDateChanged(DatePicker.this, mYear, mMonth, mDay);
-                }
-            }
-        });
-        
-        // attributes
-        TypedArray a = context
-                .obtainStyledAttributes(attrs, R.styleable.DatePicker);
-
-        mStartYear = a.getInt(R.styleable.DatePicker_startYear, DEFAULT_START_YEAR);
-        mEndYear = a.getInt(R.styleable.DatePicker_endYear, DEFAULT_END_YEAR);
-        mYearPicker.setRange(mStartYear, mEndYear);
-        
-        a.recycle();
-        
-        // initialize to current date
-        Calendar cal = Calendar.getInstance();
-        init(cal.get(Calendar.YEAR), 
-                cal.get(Calendar.MONTH), 
-                cal.get(Calendar.DAY_OF_MONTH), null);
-        
-        // re-order the number pickers to match the current date format
-        reorderPickers();
-        
-        if (!isEnabled()) {
-            setEnabled(false);
-        }
-    }
-    
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        mDayPicker.setEnabled(enabled);
-        mMonthPicker.setEnabled(enabled);
-        mYearPicker.setEnabled(enabled);
-    }
-
-    private void reorderPickers() {
-        char[] order = DateFormat.getDateFormatOrder(mContext);
-        
-        /* Default order is month, date, year so if that's the order then
-         * do nothing.
-         */
-        if ((order[0] == DateFormat.MONTH) && (order[1] == DateFormat.DATE)) {
-            return;
-        }
-        
-        /* Remove the 3 pickers from their parent and then add them back in the
-         * required order.
-         */
-        LinearLayout parent = (LinearLayout) findViewById(R.id.parent);
-        parent.removeAllViews();
-        for (char c : order) {
-            if (c == DateFormat.DATE) {
-                parent.addView(mDayPicker);
-            } else if (c == DateFormat.MONTH) {
-                parent.addView(mMonthPicker);
-            } else {
-                parent.addView (mYearPicker);
-            }
-        }
-    }
-
-    public void updateDate(int year, int monthOfYear, int dayOfMonth) {
-        mYear = year;
-        mMonth = monthOfYear;
-        mDay = dayOfMonth;
-        updateSpinners();
-    }
-
-    private static class SavedState extends BaseSavedState {
-
-        private final int mYear;
-        private final int mMonth;
-        private final int mDay;
-
-        /**
-         * Constructor called from {@link DatePicker#onSaveInstanceState()}
-         */
-        private SavedState(Parcelable superState, int year, int month, int day) {
-            super(superState);
-            mYear = year;
-            mMonth = month;
-            mDay = day;
-        }
-        
-        /**
-         * Constructor called from {@link #CREATOR}
-         */
-        private SavedState(Parcel in) {
-            super(in);
-            mYear = in.readInt();
-            mMonth = in.readInt();
-            mDay = in.readInt();
-        }
-
-        public int getYear() {
-            return mYear;
-        }
-
-        public int getMonth() {
-            return mMonth;
-        }
-
-        public int getDay() {
-            return mDay;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeInt(mYear);
-            dest.writeInt(mMonth);
-            dest.writeInt(mDay);
-        }
-
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Creator<SavedState>() {
-
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
-
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                };
-    }
-
-
-    /**
-     * Override so we are in complete control of save / restore for this widget.
-     */
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container) {
         dispatchThawSelfOnly(container);
@@ -793,19 +556,13 @@ public class DatePicker extends FrameLayout {
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
-<<<<<<< HEAD
         return new SavedState(superState, getYear(), getMonth(), getDayOfMonth());
-=======
-        
-        return new SavedState(superState, mYear, mMonth, mDay);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
-<<<<<<< HEAD
         setDate(ss.mYear, ss.mMonth, ss.mDay);
         updateSpinners();
         updateCalendarView();
@@ -1058,56 +815,5 @@ public class DatePicker extends FrameLayout {
                 return new SavedState[size];
             }
         };
-=======
-        mYear = ss.getYear();
-        mMonth = ss.getMonth();
-        mDay = ss.getDay();
-    }
-
-    /**
-     * Initialize the state.
-     * @param year The initial year.
-     * @param monthOfYear The initial month.
-     * @param dayOfMonth The initial day of the month.
-     * @param onDateChangedListener How user is notified date is changed by user, can be null.
-     */
-    public void init(int year, int monthOfYear, int dayOfMonth,
-            OnDateChangedListener onDateChangedListener) {
-        mYear = year;
-        mMonth = monthOfYear;
-        mDay = dayOfMonth;
-        mOnDateChangedListener = onDateChangedListener;
-        updateSpinners();
-    }
-
-    private void updateSpinners() {
-        updateDaySpinner();
-        mYearPicker.setCurrent(mYear);
-        
-        /* The month display uses 1-12 but our internal state stores it
-         * 0-11 so add one when setting the display.
-         */
-        mMonthPicker.setCurrent(mMonth + 1);
-    }
-
-    private void updateDaySpinner() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(mYear, mMonth, mDay);
-        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        mDayPicker.setRange(1, max);
-        mDayPicker.setCurrent(mDay);
-    }
-
-    public int getYear() {
-        return mYear;
-    }
-
-    public int getMonth() {
-        return mMonth;
-    }
-
-    public int getDayOfMonth() {
-        return mDay;
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

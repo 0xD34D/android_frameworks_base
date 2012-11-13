@@ -23,16 +23,11 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-<<<<<<< HEAD
-=======
-import android.graphics.Canvas;
->>>>>>> 54b6cfa... Initial Contribution
 import android.os.SystemClock;
 import android.util.AttributeSet;
 
 /**
  * 
-<<<<<<< HEAD
  * An object used to create frame-by-frame animations, defined by a series of Drawable objects,
  * which can be used as a View object's background.
  * <p>
@@ -48,22 +43,6 @@ import android.util.AttributeSet;
  * <pre>&lt;!-- Animation frames are wheel0.png -- wheel5.png files inside the
  * res/drawable/ folder --&gt;
  * &lt;animation-list android:id=&quot;@+id/selected&quot; android:oneshot=&quot;false&quot;&gt;
-=======
- * An object used to define frame-by-frame animations that can be used as a View object's
- * background.
- * <p>Each frame in a frame-by-frame animation is a drawable 
- * <a href="{@docRoot}devel/resources-i18n.html">resource</a>.
- * The simplest way to create a frame-by-frame animation is to define the animation in an XML
- * file in the drawable/ folder, set it as the background to a View object, then call
- * AnimationDrawable.run() to start the animation, as shown here. More details about the
- * format of the animation XML file are given in
- * <a href="{@docRoot}reference/available-resources.html#animationdrawable">Frame by Frame
- * Animation</a>.
- * spin_animation.xml file in res/drawable/ folder:</p>
- * <pre>&lt;!-- Animation frames are wheel0.png -- wheel5.png files inside the
- * res/drawable/ folder --&gt;
- * &lt;animation-list android:id=&quot;selected&quot; android:oneshot=&quot;false&quot;&gt;
->>>>>>> 54b6cfa... Initial Contribution
  *    &lt;item android:drawable=&quot;@drawable/wheel0&quot; android:duration=&quot;50&quot; /&gt;
  *    &lt;item android:drawable=&quot;@drawable/wheel1&quot; android:duration=&quot;50&quot; /&gt;
  *    &lt;item android:drawable=&quot;@drawable/wheel2&quot; android:duration=&quot;50&quot; /&gt;
@@ -73,12 +52,8 @@ import android.util.AttributeSet;
  * &lt;/animation-list&gt;</pre>
  *
  * <p>Here is the code to load and play this animation.</p>
-<<<<<<< HEAD
  * <pre>
  * // Load the ImageView that will host the animation and
-=======
- * <pre>// Load the ImageView that will host the animation and
->>>>>>> 54b6cfa... Initial Contribution
  * // set its background to our AnimationDrawable XML resource.
  * ImageView img = (ImageView)findViewById(R.id.spinning_wheel_image);
  * img.setBackgroundResource(R.drawable.spin_animation);
@@ -87,7 +62,6 @@ import android.util.AttributeSet;
  * AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
  *
  * // Start the animation (looped playback by default).
-<<<<<<< HEAD
  * frameAnimation.start();
  * </pre>
  *
@@ -111,14 +85,6 @@ public class AnimationDrawable extends DrawableContainer implements Runnable, An
 
     public AnimationDrawable() {
         this(null, null);
-=======
- * frameAnimation.start()
- * </pre>
- */
-public class AnimationDrawable extends DrawableContainer implements Runnable {
-    public AnimationDrawable() {
-        this(null);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -136,16 +102,12 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
 
     /**
      * <p>Starts the animation, looping if necessary. This method has no effect
-<<<<<<< HEAD
      * if the animation is running. Do not call this in the {@link android.app.Activity#onCreate}
      * method of your activity, because the {@link android.graphics.drawable.AnimationDrawable} is
      * not yet fully attached to the window. If you want to play
      * the animation immediately, without requiring interaction, then you might want to call it
      * from the {@link android.app.Activity#onWindowFocusChanged} method in your activity,
      * which will get called when Android brings your window into focus.</p>
-=======
-     * if the animation is running.</p>
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @see #isRunning()
      * @see #stop()
@@ -240,12 +202,9 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
      */
     public void addFrame(Drawable frame, int duration) {
         mAnimationState.addFrame(frame, duration);
-<<<<<<< HEAD
         if (mCurFrame < 0) {
             setFrame(0, true, false);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     private void nextFrame(boolean unschedule) {
@@ -254,11 +213,7 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
         if (next >= N) {
             next = 0;
         }
-<<<<<<< HEAD
         setFrame(next, unschedule, !mAnimationState.mOneShot || next < (N - 1));
-=======
-        setFrame(next, unschedule, !mAnimationState.mOneShot || next < (N-1));
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private void setFrame(int frame, boolean unschedule, boolean animate) {
@@ -271,24 +226,14 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
             unscheduleSelf(this);
         }
         if (animate) {
-<<<<<<< HEAD
             // Unscheduling may have clobbered this value; restore it to record that we're animating
             mCurFrame = frame;
             scheduleSelf(this, SystemClock.uptimeMillis() + mAnimationState.mDurations[frame]);
-=======
-            scheduleSelf(this, SystemClock.uptimeMillis()
-                         + mAnimationState.mDurations[frame]);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     @Override
-<<<<<<< HEAD
     public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs)
-=======
-    public void inflate(Resources r, XmlPullParser parser,
-            AttributeSet attrs)
->>>>>>> 54b6cfa... Initial Contribution
             throws XmlPullParserException, IOException {
         
         TypedArray a = r.obtainAttributes(attrs,
@@ -309,14 +254,8 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
 
         final int innerDepth = parser.getDepth()+1;
         int depth;
-<<<<<<< HEAD
         while ((type=parser.next()) != XmlPullParser.END_DOCUMENT &&
                 ((depth = parser.getDepth()) >= innerDepth || type != XmlPullParser.END_TAG)) {
-=======
-        while ((type=parser.next()) != XmlPullParser.END_DOCUMENT
-               && ((depth=parser.getDepth()) >= innerDepth
-                       || type != XmlPullParser.END_TAG)) {
->>>>>>> 54b6cfa... Initial Contribution
             if (type != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -325,13 +264,7 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
                 continue;
             }
             
-<<<<<<< HEAD
             a = r.obtainAttributes(attrs, com.android.internal.R.styleable.AnimationDrawableItem);
-=======
-            a = r.obtainAttributes(attrs,
-                    com.android.internal.R.styleable.AnimationDrawableItem);
-            
->>>>>>> 54b6cfa... Initial Contribution
             int duration = a.getInt(
                     com.android.internal.R.styleable.AnimationDrawableItem_duration, -1);
             if (duration < 0) {
@@ -349,21 +282,12 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
                 dr = r.getDrawable(drawableRes);
             } else {
                 while ((type=parser.next()) == XmlPullParser.TEXT) {
-<<<<<<< HEAD
                     // Empty
                 }
                 if (type != XmlPullParser.START_TAG) {
                     throw new XmlPullParserException(parser.getPositionDescription() +
                             ": <item> tag requires a 'drawable' attribute or child tag" +
                             " defining a drawable");
-=======
-                }
-                if (type != XmlPullParser.START_TAG) {
-                    throw new XmlPullParserException(
-                            parser.getPositionDescription()
-                            + ": <item> tag requires a 'drawable' attribute or "
-                            + "child tag defining a drawable");
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 dr = Drawable.createFromXmlInner(r, parser, attrs);
             }
@@ -377,7 +301,6 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
         setFrame(0, true, false);
     }
 
-<<<<<<< HEAD
     @Override
     public Drawable mutate() {
         if (!mMutated && super.mutate() == this) {
@@ -394,13 +317,6 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
         AnimationState(AnimationState orig, AnimationDrawable owner,
                 Resources res) {
             super(orig, owner, res);
-=======
-    private final static class AnimationState extends DrawableContainerState
-    {
-        AnimationState(AnimationState orig, AnimationDrawable owner)
-        {
-            super(orig, owner);
->>>>>>> 54b6cfa... Initial Contribution
 
             if (orig != null) {
                 mDurations = orig.mDurations;
@@ -412,7 +328,6 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
         }
 
         @Override
-<<<<<<< HEAD
         public Drawable newDrawable() {
             return new AnimationDrawable(this, null);
         }
@@ -425,57 +340,26 @@ public class AnimationDrawable extends DrawableContainer implements Runnable {
         public void addFrame(Drawable dr, int dur) {
             // Do not combine the following. The array index must be evaluated before 
             // the array is accessed because super.addChild(dr) has a side effect on mDurations.
-=======
-        public Drawable newDrawable()
-        {
-            return new AnimationDrawable(this);
-        }
-
-        public void addFrame(Drawable dr, int dur)
-        {
->>>>>>> 54b6cfa... Initial Contribution
             int pos = super.addChild(dr);
             mDurations[pos] = dur;
         }
 
         @Override
-<<<<<<< HEAD
         public void growArray(int oldSize, int newSize) {
-=======
-        public void growArray(int oldSize, int newSize)
-        {
->>>>>>> 54b6cfa... Initial Contribution
             super.growArray(oldSize, newSize);
             int[] newDurations = new int[newSize];
             System.arraycopy(mDurations, 0, newDurations, 0, oldSize);
             mDurations = newDurations;
         }
-<<<<<<< HEAD
     }
 
     private AnimationDrawable(AnimationState state, Resources res) {
         AnimationState as = new AnimationState(state, this, res);
-=======
-
-        private int[]       mDurations;
-        private boolean     mOneShot;
-    }
-
-    private AnimationDrawable(AnimationState state) {
-        AnimationState as = new AnimationState(state, this);
->>>>>>> 54b6cfa... Initial Contribution
         mAnimationState = as;
         setConstantState(as);
         if (state != null) {
             setFrame(0, true, false);
         }
     }
-<<<<<<< HEAD
-=======
-
-    private final AnimationState mAnimationState;
-
-    private int mCurFrame = -1;
->>>>>>> 54b6cfa... Initial Contribution
 }
 

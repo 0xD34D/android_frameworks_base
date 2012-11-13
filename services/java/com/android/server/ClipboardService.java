@@ -16,7 +16,6 @@
 
 package com.android.server;
 
-<<<<<<< HEAD
 import android.app.ActivityManagerNative;
 import android.app.IActivityManager;
 import android.content.BroadcastReceiver;
@@ -43,16 +42,11 @@ import android.util.Slog;
 import android.util.SparseArray;
 
 import java.util.HashSet;
-=======
-import android.text.IClipboard;
-import android.content.Context;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Implementation of the clipboard for copy and paste.
  */
 public class ClipboardService extends IClipboard.Stub {
-<<<<<<< HEAD
 
     private static final String TAG = "ClipboardService";
 
@@ -78,14 +72,10 @@ public class ClipboardService extends IClipboard.Stub {
     }
 
     private SparseArray<PerUserClipboard> mClipboards = new SparseArray<PerUserClipboard>();
-=======
-    private CharSequence mClipboard = "";
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Instantiates the clipboard.
      */
-<<<<<<< HEAD
     public ClipboardService(Context context) {
         mContext = context;
         mAm = ActivityManagerNative.getDefault();
@@ -316,32 +306,6 @@ public class ClipboardService extends IClipboard.Stub {
         final int N = clipboard.primaryClip.getItemCount();
         for (int i=0; i<N; i++) {
             revokeItemLocked(clipboard.primaryClip.getItemAt(i));
-=======
-    public ClipboardService(Context context) { }
-
-    // javadoc from interface
-    public void setClipboardText(CharSequence text) {
-        synchronized (this) {
-            if (text == null) {
-                text = "";
-            }
-    
-            mClipboard = text;
-        }
-    }
-
-    // javadoc from interface
-    public CharSequence getClipboardText() {
-        synchronized (this) {
-            return mClipboard;
-        }
-    }
-
-    // javadoc from interface
-    public boolean hasClipboardText() {
-        synchronized (this) {
-            return mClipboard.length() > 0;
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 }

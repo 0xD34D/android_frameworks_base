@@ -25,7 +25,6 @@
 -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
-<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
@@ -35,13 +34,4 @@
     android:paddingLeft="14dip"
     android:paddingRight="15dip"
     android:ellipsize="marquee"
-=======
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:textAppearance="?android:attr/textAppearanceLargeInverse"
-    android:gravity="center_vertical"
-    android:paddingLeft="14dip"
-    android:paddingRight="15dip"
->>>>>>> 54b6cfa... Initial Contribution
 />

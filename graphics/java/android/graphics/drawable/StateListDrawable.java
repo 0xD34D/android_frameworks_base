@@ -20,10 +20,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-<<<<<<< HEAD
 import java.util.Arrays;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -31,7 +28,6 @@ import android.util.AttributeSet;
 import android.util.StateSet;
 
 /**
-<<<<<<< HEAD
  * Lets you assign a number of graphic images to a single Drawable and swap out the visible item by a string
  * ID value.
  * <p/>
@@ -77,29 +73,13 @@ public class StateListDrawable extends DrawableContainer {
 
     public StateListDrawable() {
         this(null, null);
-=======
- * 
- * Lets you assign a number of graphic images to a single Drawable and swap out the visible item by a string
- * ID value.
- *
- */
-public class StateListDrawable extends DrawableContainer {
-    public StateListDrawable()
-    {
-        this(null);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Add a new image/string ID to the set of images.
-<<<<<<< HEAD
      *
      * @param stateSet - An array of resource Ids to associate with the image.
      *                 Switch to this image by calling setState().
-=======
-     * @param stateSet - An array of resource Ids to associate with the image.
-     * Switch to this image by calling setState(). 
->>>>>>> 54b6cfa... Initial Contribution
      * @param drawable -The image to show.
      */
     public void addState(int[] stateSet, Drawable drawable) {
@@ -114,19 +94,12 @@ public class StateListDrawable extends DrawableContainer {
     public boolean isStateful() {
         return true;
     }
-<<<<<<< HEAD
 
     @Override
     protected boolean onStateChange(int[] stateSet) {
         int idx = mStateListState.indexOfStateSet(stateSet);
         if (DEBUG) android.util.Log.i(TAG, "onStateChange " + this + " states "
                 + Arrays.toString(stateSet) + " found " + idx);
-=======
-    
-    @Override
-    protected boolean onStateChange(int[] stateSet) {
-        int idx = mStateListState.indexOfStateSet(stateSet);
->>>>>>> 54b6cfa... Initial Contribution
         if (idx < 0) {
             idx = mStateListState.indexOfStateSet(StateSet.WILD_CARD);
         }
@@ -136,33 +109,21 @@ public class StateListDrawable extends DrawableContainer {
         return super.onStateChange(stateSet);
     }
 
-<<<<<<< HEAD
     @Override
     public void inflate(Resources r, XmlPullParser parser,
             AttributeSet attrs)
             throws XmlPullParserException, IOException {
 
-=======
-    @Override public void inflate(Resources r, XmlPullParser parser,
-            AttributeSet attrs)
-    throws XmlPullParserException, IOException {
-        
->>>>>>> 54b6cfa... Initial Contribution
         TypedArray a = r.obtainAttributes(attrs,
                 com.android.internal.R.styleable.StateListDrawable);
 
         super.inflateWithAttributes(r, parser, a,
                 com.android.internal.R.styleable.StateListDrawable_visible);
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         mStateListState.setVariablePadding(a.getBoolean(
                 com.android.internal.R.styleable.StateListDrawable_variablePadding, false));
         mStateListState.setConstantSize(a.getBoolean(
                 com.android.internal.R.styleable.StateListDrawable_constantSize, false));
-<<<<<<< HEAD
         mStateListState.setEnterFadeDuration(a.getInt(
                 com.android.internal.R.styleable.StateListDrawable_enterFadeDuration, 0));
         mStateListState.setExitFadeDuration(a.getInt(
@@ -180,18 +141,6 @@ public class StateListDrawable extends DrawableContainer {
         while ((type = parser.next()) != XmlPullParser.END_DOCUMENT
                 && ((depth = parser.getDepth()) >= innerDepth
                 || type != XmlPullParser.END_TAG)) {
-=======
-            
-        a.recycle();
-        
-        int type;
-
-        final int innerDepth = parser.getDepth()+1;
-        int depth;
-        while ((type=parser.next()) != XmlPullParser.END_DOCUMENT
-               && ((depth=parser.getDepth()) >= innerDepth
-                       || type != XmlPullParser.END_TAG)) {
->>>>>>> 54b6cfa... Initial Contribution
             if (type != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -199,15 +148,9 @@ public class StateListDrawable extends DrawableContainer {
             if (depth > innerDepth || !parser.getName().equals("item")) {
                 continue;
             }
-<<<<<<< HEAD
 
             int drawableRes = 0;
 
-=======
-            
-            int drawableRes = 0;
-            
->>>>>>> 54b6cfa... Initial Contribution
             int i;
             int j = 0;
             final int numAttrs = attrs.getAttributeCount();
@@ -219,49 +162,27 @@ public class StateListDrawable extends DrawableContainer {
                     drawableRes = attrs.getAttributeResourceValue(i, 0);
                 } else {
                     states[j++] = attrs.getAttributeBooleanValue(i, false)
-<<<<<<< HEAD
                             ? stateResId
                             : -stateResId;
                 }
             }
             states = StateSet.trimStateSet(states, j);
 
-=======
-                                  ? stateResId
-                                  : -stateResId;
-                }
-            }
-            states = StateSet.trimStateSet(states, j);
-            
->>>>>>> 54b6cfa... Initial Contribution
             Drawable dr;
             if (drawableRes != 0) {
                 dr = r.getDrawable(drawableRes);
             } else {
-<<<<<<< HEAD
                 while ((type = parser.next()) == XmlPullParser.TEXT) {
-=======
-                while ((type=parser.next()) == XmlPullParser.TEXT) {
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 if (type != XmlPullParser.START_TAG) {
                     throw new XmlPullParserException(
                             parser.getPositionDescription()
-<<<<<<< HEAD
                                     + ": <item> tag requires a 'drawable' attribute or "
                                     + "child tag defining a drawable");
                 }
                 dr = Drawable.createFromXmlInner(r, parser, attrs);
             }
 
-=======
-                            + ": <item> tag requires a 'drawable' attribute or "
-                            + "child tag defining a drawable");
-                }
-                dr = Drawable.createFromXmlInner(r, parser, attrs);
-            }
-            
->>>>>>> 54b6cfa... Initial Contribution
             mStateListState.addStateSet(states, dr);
         }
 
@@ -272,7 +193,6 @@ public class StateListDrawable extends DrawableContainer {
         return mStateListState;
     }
 
-<<<<<<< HEAD
     /**
      * Gets the number of states contained in this drawable.
      *
@@ -346,13 +266,6 @@ public class StateListDrawable extends DrawableContainer {
 
         StateListState(StateListState orig, StateListDrawable owner, Resources res) {
             super(orig, owner, res);
-=======
-    static final class StateListState extends DrawableContainerState
-    {
-        StateListState(StateListState orig, StateListDrawable owner)
-        {
-            super(orig, owner);
->>>>>>> 54b6cfa... Initial Contribution
 
             if (orig != null) {
                 mStateSets = orig.mStateSets;
@@ -367,18 +280,10 @@ public class StateListDrawable extends DrawableContainer {
             return pos;
         }
 
-<<<<<<< HEAD
         private int indexOfStateSet(int[] stateSet) {
             final int[][] stateSets = mStateSets;
             final int N = getChildCount();
             for (int i = 0; i < N; i++) {
-=======
-        private int indexOfStateSet(int[] stateSet)
-        {
-            final int[][] stateSets = mStateSets;
-            final int N = getChildCount();
-            for (int i=0; i<N; i++) {
->>>>>>> 54b6cfa... Initial Contribution
                 if (StateSet.stateSetMatches(stateSets[i], stateSet)) {
                     return i;
                 }
@@ -387,7 +292,6 @@ public class StateListDrawable extends DrawableContainer {
         }
 
         @Override
-<<<<<<< HEAD
         public Drawable newDrawable() {
             return new StateListDrawable(this, null);
         }
@@ -399,43 +303,18 @@ public class StateListDrawable extends DrawableContainer {
 
         @Override
         public void growArray(int oldSize, int newSize) {
-=======
-        public Drawable newDrawable()
-        {
-            return new StateListDrawable(this);
-        }
-
-        @Override
-        public void growArray(int oldSize, int newSize)
-        {
->>>>>>> 54b6cfa... Initial Contribution
             super.growArray(oldSize, newSize);
             final int[][] newStateSets = new int[newSize][];
             System.arraycopy(mStateSets, 0, newStateSets, 0, oldSize);
             mStateSets = newStateSets;
         }
-<<<<<<< HEAD
     }
 
     private StateListDrawable(StateListState state, Resources res) {
         StateListState as = new StateListState(state, this, res);
-=======
-
-        private int[][]         mStateSets;
-    }
-
-    private StateListDrawable(StateListState state)
-    {
-        StateListState as = new StateListState(state, this);
->>>>>>> 54b6cfa... Initial Contribution
         mStateListState = as;
         setConstantState(as);
         onStateChange(getState());
     }
-<<<<<<< HEAD
-=======
-
-    private final StateListState mStateListState;
->>>>>>> 54b6cfa... Initial Contribution
 }
 

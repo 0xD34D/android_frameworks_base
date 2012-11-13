@@ -5,10 +5,7 @@
 #include <vector>
 #include <set>
 #include <stdarg.h>
-<<<<<<< HEAD
 #include <stdio.h>
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 using namespace std;
 
@@ -25,11 +22,8 @@ enum {
     FINAL           = 0x00000020,
     ABSTRACT        = 0x00000040,
 
-<<<<<<< HEAD
     OVERRIDE        = 0x00000100,
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     ALL_MODIFIERS   = 0xffffffff
 };
 
@@ -60,7 +54,6 @@ struct LiteralExpression : public Expression
     virtual void Write(FILE* to);
 };
 
-<<<<<<< HEAD
 // TODO: also escape the contents.  not needed for now
 struct StringLiteralExpression : public Expression
 {
@@ -71,8 +64,6 @@ struct StringLiteralExpression : public Expression
     virtual void Write(FILE* to);
 };
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 struct Variable : public Expression
 {
     Type* type;
@@ -123,11 +114,7 @@ struct Statement
     virtual void Write(FILE* to) = 0;
 };
 
-<<<<<<< HEAD
 struct StatementBlock : public Statement
-=======
-struct StatementBlock
->>>>>>> 54b6cfa... Initial Contribution
 {
     vector<Statement*> statements;
 
@@ -169,10 +156,7 @@ struct MethodCall : public Expression
     vector<string> exceptions;
 
     MethodCall(const string& name);
-<<<<<<< HEAD
     MethodCall(const string& name, int argc, ...);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     MethodCall(Expression* obj, const string& name);
     MethodCall(Type* clazz, const string& name);
     MethodCall(Expression* obj, const string& name, int argc, ...);
@@ -201,17 +185,12 @@ struct NewExpression : public Expression
     vector<Expression*> arguments;
 
     NewExpression(Type* type);
-<<<<<<< HEAD
     NewExpression(Type* type, int argc, ...);
     virtual ~NewExpression();
     virtual void Write(FILE* to);
 
 private:
     void init(int n, va_list args);
-=======
-    virtual ~NewExpression();
-    virtual void Write(FILE* to);
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 struct NewArrayExpression : public Expression
@@ -328,7 +307,6 @@ struct SwitchStatement : public Statement
     virtual void Write(FILE* to);
 };
 
-<<<<<<< HEAD
 struct Break : public Statement
 {
     Break();
@@ -336,8 +314,6 @@ struct Break : public Statement
     virtual void Write(FILE* to);
 };
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 struct Method : public ClassElement
 {
     string comment;

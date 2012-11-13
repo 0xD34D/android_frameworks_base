@@ -16,22 +16,15 @@
 
 package android.graphics;
 
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.os.Parcelable;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.FloatMath;
 
 
 /**
  * PointF holds two float coordinates
  */
-<<<<<<< HEAD
 public class PointF implements Parcelable {
-=======
-public class PointF {
->>>>>>> 54b6cfa... Initial Contribution
     public float x;
     public float y;
     
@@ -93,7 +86,6 @@ public class PointF {
     public static float length(float x, float y) {
         return FloatMath.sqrt(x * x + y * y);
     }
-<<<<<<< HEAD
 
     /**
      * Parcelable interface methods
@@ -143,7 +135,3 @@ public class PointF {
         y = in.readFloat();
     }
 }
-=======
-}
-
->>>>>>> 54b6cfa... Initial Contribution

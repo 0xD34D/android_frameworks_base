@@ -17,30 +17,19 @@
 #include <stdio.h>
 
 //#define LOG_NDEBUG 0
-<<<<<<< HEAD
 #define LOG_TAG "SoundPool-JNI"
-=======
-#define LOG_TAG "SoundPool"
->>>>>>> 54b6cfa... Initial Contribution
 
 #include <utils/Log.h>
 #include <nativehelper/jni.h>
 #include <nativehelper/JNIHelp.h>
 #include <android_runtime/AndroidRuntime.h>
-<<<<<<< HEAD
 #include <media/SoundPool.h>
-=======
-#include "SoundPool.h"
->>>>>>> 54b6cfa... Initial Contribution
 
 using namespace android;
 
 static struct fields_t {
     jfieldID    mNativeContext;
-<<<<<<< HEAD
     jmethodID   mPostEvent;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     jclass      mSoundPoolClass;
 } fields;
 
@@ -52,11 +41,7 @@ static inline SoundPool* MusterSoundPool(JNIEnv *env, jobject thiz) {
 static int
 android_media_SoundPool_load_URL(JNIEnv *env, jobject thiz, jstring path, jint priority)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_load_URL");
-=======
-    LOGV("android_media_SoundPool_load_URL");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (path == NULL) {
         jniThrowException(env, "java/lang/IllegalArgumentException", NULL);
@@ -72,27 +57,16 @@ static int
 android_media_SoundPool_load_FD(JNIEnv *env, jobject thiz, jobject fileDescriptor,
         jlong offset, jlong length, jint priority)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_load_FD");
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return 0;
     return ap->load(jniGetFDFromFileDescriptor(env, fileDescriptor),
-=======
-    LOGV("android_media_SoundPool_load_FD");
-    SoundPool *ap = MusterSoundPool(env, thiz);
-    if (ap == NULL) return 0;
-    return ap->load(getParcelFileDescriptorFD(env, fileDescriptor),
->>>>>>> 54b6cfa... Initial Contribution
             int64_t(offset), int64_t(length), int(priority));
 }
 
 static bool
 android_media_SoundPool_unload(JNIEnv *env, jobject thiz, jint sampleID) {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_unload\n");
-=======
-    LOGV("android_media_SoundPool_unload\n");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return 0;
     return ap->unload(sampleID);
@@ -103,11 +77,7 @@ android_media_SoundPool_play(JNIEnv *env, jobject thiz, jint sampleID,
         jfloat leftVolume, jfloat rightVolume, jint priority, jint loop,
         jfloat rate)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_play\n");
-=======
-    LOGV("android_media_SoundPool_play\n");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return 0;
     return ap->play(sampleID, leftVolume, rightVolume, priority, loop, rate);
@@ -116,11 +86,7 @@ android_media_SoundPool_play(JNIEnv *env, jobject thiz, jint sampleID,
 static void
 android_media_SoundPool_pause(JNIEnv *env, jobject thiz, jint channelID)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_pause");
-=======
-    LOGV("android_media_SoundPool_pause");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return;
     ap->pause(channelID);
@@ -129,18 +95,13 @@ android_media_SoundPool_pause(JNIEnv *env, jobject thiz, jint channelID)
 static void
 android_media_SoundPool_resume(JNIEnv *env, jobject thiz, jint channelID)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_resume");
-=======
-    LOGV("android_media_SoundPool_resume");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return;
     ap->resume(channelID);
 }
 
 static void
-<<<<<<< HEAD
 android_media_SoundPool_autoPause(JNIEnv *env, jobject thiz)
 {
     ALOGV("android_media_SoundPool_autoPause");
@@ -162,11 +123,6 @@ static void
 android_media_SoundPool_stop(JNIEnv *env, jobject thiz, jint channelID)
 {
     ALOGV("android_media_SoundPool_stop");
-=======
-android_media_SoundPool_stop(JNIEnv *env, jobject thiz, jint channelID)
-{
-    LOGV("android_media_SoundPool_stop");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return;
     ap->stop(channelID);
@@ -176,11 +132,7 @@ static void
 android_media_SoundPool_setVolume(JNIEnv *env, jobject thiz, jint channelID,
         float leftVolume, float rightVolume)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_setVolume");
-=======
-    LOGV("android_media_SoundPool_setVolume");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return;
     ap->setVolume(channelID, leftVolume, rightVolume);
@@ -190,11 +142,7 @@ static void
 android_media_SoundPool_setPriority(JNIEnv *env, jobject thiz, jint channelID,
         int priority)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_setPriority");
-=======
-    LOGV("android_media_SoundPool_setPriority");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return;
     ap->setPriority(channelID, priority);
@@ -204,11 +152,7 @@ static void
 android_media_SoundPool_setLoop(JNIEnv *env, jobject thiz, jint channelID,
         int loop)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_setLoop");
-=======
-    LOGV("android_media_SoundPool_setLoop");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return;
     ap->setLoop(channelID, loop);
@@ -218,17 +162,12 @@ static void
 android_media_SoundPool_setRate(JNIEnv *env, jobject thiz, jint channelID,
         float rate)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_setRate");
-=======
-    LOGV("android_media_SoundPool_setRate");
->>>>>>> 54b6cfa... Initial Contribution
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap == NULL) return;
     ap->setRate(channelID, rate);
 }
 
-<<<<<<< HEAD
 static void android_media_callback(SoundPoolEvent event, SoundPool* soundPool, void* user)
 {
     ALOGV("callback: (%d, %d, %d, %p, %p)", event.mMsg, event.mArg1, event.mArg2, soundPool, user);
@@ -243,35 +182,20 @@ android_media_SoundPool_native_setup(JNIEnv *env, jobject thiz, jobject weakRef,
     SoundPool *ap = new SoundPool(maxChannels, (audio_stream_type_t) streamType, srcQuality);
     if (ap == NULL) {
         return -1;
-=======
-static void
-android_media_SoundPool_native_setup(JNIEnv *env, jobject thiz,
-        jobject weak_this, jint maxChannels, jint streamType, jint srcQuality)
-{
-    LOGV("android_media_SoundPool_native_setup");
-    SoundPool *ap = new SoundPool(weak_this, maxChannels, streamType, srcQuality);
-    if (ap == NULL) {
-        jniThrowException(env, "java/lang/RuntimeException", "Out of memory");
-        return;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     // save pointer to SoundPool C++ object in opaque field in Java object
     env->SetIntField(thiz, fields.mNativeContext, (int)ap);
-<<<<<<< HEAD
 
     // set callback with weak reference
     jobject globalWeakRef = env->NewGlobalRef(weakRef);
     ap->setCallback(android_media_callback, globalWeakRef);
     return 0;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 static void
 android_media_SoundPool_release(JNIEnv *env, jobject thiz)
 {
-<<<<<<< HEAD
     ALOGV("android_media_SoundPool_release");
     SoundPool *ap = MusterSoundPool(env, thiz);
     if (ap != NULL) {
@@ -284,11 +208,6 @@ android_media_SoundPool_release(JNIEnv *env, jobject thiz)
 
         // clear callback and native context
         ap->setCallback(NULL, NULL);
-=======
-    LOGV("android_media_SoundPool_release");
-    SoundPool *ap = MusterSoundPool(env, thiz);
-    if (ap != NULL) {
->>>>>>> 54b6cfa... Initial Contribution
         env->SetIntField(thiz, fields.mNativeContext, 0);
         delete ap;
     }
@@ -322,7 +241,6 @@ static JNINativeMethod gMethods[] = {
         "(I)V",
         (void *)android_media_SoundPool_resume
     },
-<<<<<<< HEAD
     {   "autoPause",
         "()V",
         (void *)android_media_SoundPool_autoPause
@@ -331,8 +249,6 @@ static JNINativeMethod gMethods[] = {
         "()V",
         (void *)android_media_SoundPool_autoResume
     },
-=======
->>>>>>> 54b6cfa... Initial Contribution
     {   "stop",
         "(I)V",
         (void *)android_media_SoundPool_stop
@@ -354,11 +270,7 @@ static JNINativeMethod gMethods[] = {
         (void *)android_media_SoundPool_setRate
     },
     {   "native_setup",
-<<<<<<< HEAD
         "(Ljava/lang/Object;III)I",
-=======
-        "(Ljava/lang/Object;III)V",
->>>>>>> 54b6cfa... Initial Contribution
         (void*)android_media_SoundPool_native_setup
     },
     {   "release",
@@ -376,28 +288,19 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved)
     jclass clazz;
 
     if (vm->GetEnv((void**) &env, JNI_VERSION_1_4) != JNI_OK) {
-<<<<<<< HEAD
         ALOGE("ERROR: GetEnv failed\n");
-=======
-        LOGE("ERROR: GetEnv failed\n");
->>>>>>> 54b6cfa... Initial Contribution
         goto bail;
     }
     assert(env != NULL);
 
     clazz = env->FindClass(kClassPathName);
     if (clazz == NULL) {
-<<<<<<< HEAD
         ALOGE("Can't find %s", kClassPathName);
-=======
-        LOGE("Can't find %s", kClassPathName);
->>>>>>> 54b6cfa... Initial Contribution
         goto bail;
     }
 
     fields.mNativeContext = env->GetFieldID(clazz, "mNativeContext", "I");
     if (fields.mNativeContext == NULL) {
-<<<<<<< HEAD
         ALOGE("Can't find SoundPool.mNativeContext");
         goto bail;
     }
@@ -413,12 +316,6 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved)
     // since it's a static object.
     fields.mSoundPoolClass = (jclass) env->NewGlobalRef(clazz);
 
-=======
-        LOGE("Can't find SoundPool.mNativeContext");
-        goto bail;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     if (AndroidRuntime::registerNativeMethods(env, kClassPathName, gMethods, NELEM(gMethods)) < 0)
         goto bail;
 

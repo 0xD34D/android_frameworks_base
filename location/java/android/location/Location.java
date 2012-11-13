@@ -19,10 +19,7 @@ package android.location;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-<<<<<<< HEAD
 import android.util.Printer;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 import java.text.DecimalFormat;
 import java.util.StringTokenizer;
@@ -85,7 +82,6 @@ public class Location implements Parcelable {
     // Scratchpad
     private float[] mResults = new float[2];
 
-<<<<<<< HEAD
     public void dump(Printer pw, String prefix) {
         pw.println(prefix + "mProvider=" + mProvider + " mTime=" + mTime);
         pw.println(prefix + "mLatitude=" + mLatitude + " mLongitude=" + mLongitude);
@@ -96,8 +92,6 @@ public class Location implements Parcelable {
         pw.println(prefix + "mExtras=" + mExtras);
     }
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Constructs a new Location.  By default, time, latitude,
      * longitude, and numSatellites are 0; hasAltitude, hasSpeed, and

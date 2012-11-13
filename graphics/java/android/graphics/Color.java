@@ -16,11 +16,8 @@
 
 package android.graphics;
 
-<<<<<<< HEAD
 import android.util.MathUtils;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -33,12 +30,8 @@ import java.util.Locale;
  * (green << 8) | blue. Each component ranges between 0..255 with 0
  * meaning no contribution for that component, and 255 meaning 100%
  * contribution. Thus opaque-black would be 0xFF000000 (100% opaque but
-<<<<<<< HEAD
  * no contributions from red, green, or blue), and opaque-white would be
  * 0xFFFFFFFF
-=======
- * no contributes from red, gree, blue, and opaque-white would be 0xFFFFFFFF
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class Color {
     public static final int BLACK       = 0xFF000000;
@@ -115,7 +108,6 @@ public class Color {
     }
 
     /**
-<<<<<<< HEAD
      * Returns the hue component of a color int.
      * 
      * @return A value between 0.0f and 1.0f
@@ -202,8 +194,6 @@ public class Color {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Parse the color string, and return the corresponding color-int.
      * If the string cannot be parsed, throws an IllegalArgumentException
      * exception. Supported formats are:
@@ -233,7 +223,6 @@ public class Color {
     }
 
     /**
-<<<<<<< HEAD
      * Convert HSB components to an ARGB color. Alpha set to 0xFF.
      *     hsv[0] is Hue [0 .. 1)
      *     hsv[1] is Saturation [0...1]
@@ -315,8 +304,6 @@ public class Color {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Convert RGB components to HSV.
      *     hsv[0] is Hue [0 .. 360)
      *     hsv[1] is Saturation [0...1]
@@ -376,18 +363,12 @@ public class Color {
         return nativeHSVToColor(alpha, hsv);
     }
 
-<<<<<<< HEAD
     private static native void nativeRGBToHSV(int red, int greed, int blue, float hsv[]); 
-=======
-    private static native void nativeRGBToHSV(int red, int greed, int blue,
-                                              float hsv[]);
->>>>>>> 54b6cfa... Initial Contribution
     private static native int nativeHSVToColor(int alpha, float hsv[]);
 
     private static final HashMap<String, Integer> sColorNameMap;
 
     static {
-<<<<<<< HEAD
         sColorNameMap = new HashMap<String, Integer>();
         sColorNameMap.put("black", BLACK);
         sColorNameMap.put("darkgray", DKGRAY);
@@ -400,20 +381,6 @@ public class Color {
         sColorNameMap.put("yellow", YELLOW);
         sColorNameMap.put("cyan", CYAN);
         sColorNameMap.put("magenta", MAGENTA);
-=======
-        sColorNameMap = new HashMap();
-        sColorNameMap.put("black", Integer.valueOf(BLACK));
-        sColorNameMap.put("darkgray", Integer.valueOf(DKGRAY));
-        sColorNameMap.put("gray", Integer.valueOf(GRAY));
-        sColorNameMap.put("lightgray", Integer.valueOf(LTGRAY));
-        sColorNameMap.put("white", Integer.valueOf(WHITE));
-        sColorNameMap.put("red", Integer.valueOf(RED));
-        sColorNameMap.put("green", Integer.valueOf(GREEN));
-        sColorNameMap.put("blue", Integer.valueOf(BLUE));
-        sColorNameMap.put("yellow", Integer.valueOf(YELLOW));
-        sColorNameMap.put("cyan", Integer.valueOf(CYAN));
-        sColorNameMap.put("magenta", Integer.valueOf(MAGENTA));
->>>>>>> 54b6cfa... Initial Contribution
     }
 }
 

@@ -18,7 +18,6 @@ package android.widget;
 
 import android.annotation.Widget;
 import android.content.Context;
-<<<<<<< HEAD
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -63,48 +62,11 @@ public class TimePicker extends FrameLayout {
     /**
      * A no-op callback used in the constructor to avoid null checks later in
      * the code.
-=======
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-
-import com.android.internal.R;
-import com.android.internal.widget.NumberPicker;
-
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
-
-/**
- * A view for selecting the time of day, in either 24 hour or AM/PM mode.
- *
- * The hour, each minute digit, and AM/PM (if applicable) can be conrolled by
- * vertical spinners.
- *
- * The hour can be entered by keyboard input.  Entering in two digit hours
- * can be accomplished by hitting two digits within a timeout of about a
- * second (e.g. '1' then '2' to select 12).
- *
- * The minutes can be entered by entering single digits.
- *
- * Under AM/PM mode, the user can hit 'a', 'A", 'p' or 'P' to pick.
- *
- * For a dialog using this view, see {@link android.app.TimePickerDialog}.
- */
-@Widget
-public class TimePicker extends FrameLayout {
-    
-    /**
-     * A no-op callback used in the constructor to avoid null checks
-     * later in the code.
->>>>>>> 54b6cfa... Initial Contribution
      */
     private static final OnTimeChangedListener NO_OP_CHANGE_LISTENER = new OnTimeChangedListener() {
         public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
         }
     };
-<<<<<<< HEAD
 
     // state
     private boolean mIs24HourView;
@@ -143,25 +105,6 @@ public class TimePicker extends FrameLayout {
 
     private Locale mCurrentLocale;
 
-=======
-    
-    // state
-    private int mCurrentHour = 0; // 0-23
-    private int mCurrentMinute = 0; // 0-59
-    private Boolean mIs24HourView = false;
-    private boolean mIsAm;
-
-    // ui components
-    private final NumberPicker mHourPicker;
-    private final NumberPicker mMinutePicker;
-    private final Button mAmPmButton;
-    private final String mAmText;
-    private final String mPmText;
-    
-    // callbacks
-    private OnTimeChangedListener mOnTimeChangedListener;
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * The callback interface used to indicate the time has been adjusted.
      */
@@ -178,21 +121,14 @@ public class TimePicker extends FrameLayout {
     public TimePicker(Context context) {
         this(context, null);
     }
-<<<<<<< HEAD
 
     public TimePicker(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.timePickerStyle);
-=======
-    
-    public TimePicker(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public TimePicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-<<<<<<< HEAD
         // initialization based on locale
         setCurrentLocale(Locale.getDefault());
 
@@ -217,34 +153,11 @@ public class TimePicker extends FrameLayout {
                             || (oldVal == HOURS_IN_HALF_DAY && newVal == HOURS_IN_HALF_DAY - 1)) {
                         mIsAm = !mIsAm;
                         updateAmPmControl();
-=======
-        LayoutInflater inflater =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.time_picker,
-            this, // we are the parent
-            true);
-
-        // hour
-        mHourPicker = (NumberPicker) findViewById(R.id.hour);
-        mHourPicker.setOnChangeListener(new NumberPicker.OnChangedListener() {
-            public void onChanged(NumberPicker spinner, int oldVal, int newVal) {
-                mCurrentHour = newVal;
-                if (!mIs24HourView) {
-                    // adjust from [1-12] to [0-11] internally, with the times
-                    // written "12:xx" being the start of the half-day
-                    if (mCurrentHour == 12) {
-                        mCurrentHour = 0;
-                    }
-                    if (!mIsAm) {
-                        // PM means 12 hours later than nominal
-                        mCurrentHour += 12;
->>>>>>> 54b6cfa... Initial Contribution
                     }
                 }
                 onTimeChanged();
             }
         });
-<<<<<<< HEAD
         mHourSpinnerInput = (EditText) mHourSpinner.findViewById(R.id.numberpicker_input);
         mHourSpinnerInput.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 
@@ -386,77 +299,6 @@ public class TimePicker extends FrameLayout {
         }
         mCurrentLocale = locale;
         mTempCalendar = Calendar.getInstance(locale);
-=======
-
-        // digits of minute
-        mMinutePicker = (NumberPicker) findViewById(R.id.minute);
-        mMinutePicker.setRange(0, 59);
-        mMinutePicker.setSpeed(100);
-        mMinutePicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
-        mMinutePicker.setOnChangeListener(new NumberPicker.OnChangedListener() {
-            public void onChanged(NumberPicker spinner, int oldVal, int newVal) {
-                mCurrentMinute = newVal;
-                onTimeChanged();
-            }
-        });
-
-        // am/pm
-        mAmPmButton = (Button) findViewById(R.id.amPm);
-
-        // now that the hour/minute picker objects have been initialized, set
-        // the hour range properly based on the 12/24 hour display mode.
-        configurePickerRanges();
-
-        // initialize to current time
-        Calendar cal = Calendar.getInstance();
-        setOnTimeChangedListener(NO_OP_CHANGE_LISTENER);
-        
-        // by default we're not in 24 hour mode
-        setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
-        setCurrentMinute(cal.get(Calendar.MINUTE));
-        
-        mIsAm = (mCurrentHour < 12);
-        
-        /* Get the localized am/pm strings and use them in the spinner */
-        DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] dfsAmPm = dfs.getAmPmStrings();
-        mAmText = dfsAmPm[Calendar.AM];
-        mPmText = dfsAmPm[Calendar.PM];
-        mAmPmButton.setText(mIsAm ? mAmText : mPmText);
-        mAmPmButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                requestFocus();
-                if (mIsAm) {
-                    
-                    // Currently AM switching to PM
-                    if (mCurrentHour < 12) {
-                        mCurrentHour += 12;
-                    }                
-                } else {
-                    
-                    // Currently PM switching to AM
-                    if (mCurrentHour >= 12) {
-                        mCurrentHour -= 12;
-                    }
-                }
-                mIsAm = !mIsAm;
-                mAmPmButton.setText(mIsAm ? mAmText : mPmText);
-                onTimeChanged();
-            }
-        });
-        
-        if (!isEnabled()) {
-            setEnabled(false);
-        }
-    }
-    
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        mMinutePicker.setEnabled(enabled);
-        mHourPicker.setEnabled(enabled);
-        mAmPmButton.setEnabled(enabled);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -465,10 +307,7 @@ public class TimePicker extends FrameLayout {
     private static class SavedState extends BaseSavedState {
 
         private final int mHour;
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         private final int mMinute;
 
         private SavedState(Parcelable superState, int hour, int minute) {
@@ -476,11 +315,7 @@ public class TimePicker extends FrameLayout {
             mHour = hour;
             mMinute = minute;
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         private SavedState(Parcel in) {
             super(in);
             mHour = in.readInt();
@@ -502,13 +337,8 @@ public class TimePicker extends FrameLayout {
             dest.writeInt(mMinute);
         }
 
-<<<<<<< HEAD
         @SuppressWarnings({"unused", "hiding"})
         public static final Parcelable.Creator<SavedState> CREATOR = new Creator<SavedState>() {
-=======
-        public static final Parcelable.Creator<SavedState> CREATOR
-                = new Creator<SavedState>() {
->>>>>>> 54b6cfa... Initial Contribution
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
             }
@@ -522,11 +352,7 @@ public class TimePicker extends FrameLayout {
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
-<<<<<<< HEAD
         return new SavedState(superState, getCurrentHour(), getCurrentMinute());
-=======
-        return new SavedState(superState, mCurrentHour, mCurrentMinute);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -539,10 +365,7 @@ public class TimePicker extends FrameLayout {
 
     /**
      * Set the callback that indicates the time has been adjusted by the user.
-<<<<<<< HEAD
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param onTimeChangedListener the callback, should not be null.
      */
     public void setOnTimeChangedListener(OnTimeChangedListener onTimeChangedListener) {
@@ -550,7 +373,6 @@ public class TimePicker extends FrameLayout {
     }
 
     /**
-<<<<<<< HEAD
      * @return The current hour in the range (0-23).
      */
     public Integer getCurrentHour() {
@@ -562,19 +384,12 @@ public class TimePicker extends FrameLayout {
         } else {
             return (currentHour % HOURS_IN_HALF_DAY) + HOURS_IN_HALF_DAY;
         }
-=======
-     * @return The current hour (0-23).
-     */
-    public Integer getCurrentHour() {
-        return mCurrentHour;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Set the current hour.
      */
     public void setCurrentHour(Integer currentHour) {
-<<<<<<< HEAD
         // why was Integer used in the first place?
         if (currentHour == null || currentHour == getCurrentHour()) {
             return;
@@ -596,15 +411,10 @@ public class TimePicker extends FrameLayout {
         }
         mHourSpinner.setValue(currentHour);
         onTimeChanged();
-=======
-        this.mCurrentHour = currentHour;
-        updateHourDisplay();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Set whether in 24 hour or AM/PM mode.
-<<<<<<< HEAD
      *
      * @param is24HourView True = 24 hour mode. False = AM/PM.
      */
@@ -619,16 +429,6 @@ public class TimePicker extends FrameLayout {
         // set value after spinner range is updated
         setCurrentHour(currentHour);
         updateAmPmControl();
-=======
-     * @param is24HourView True = 24 hour mode. False = AM/PM.
-     */
-    public void setIs24HourView(Boolean is24HourView) {
-        if (mIs24HourView != is24HourView) {
-            mIs24HourView = is24HourView;
-            configurePickerRanges();
-            updateHourDisplay();
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -637,41 +437,27 @@ public class TimePicker extends FrameLayout {
     public boolean is24HourView() {
         return mIs24HourView;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * @return The current minute.
      */
     public Integer getCurrentMinute() {
-<<<<<<< HEAD
         return mMinuteSpinner.getValue();
-=======
-        return mCurrentMinute;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Set the current minute (0-59).
      */
     public void setCurrentMinute(Integer currentMinute) {
-<<<<<<< HEAD
         if (currentMinute == getCurrentMinute()) {
             return;
         }
         mMinuteSpinner.setValue(currentMinute);
         onTimeChanged();
-=======
-        this.mCurrentMinute = currentMinute;
-        updateMinuteDisplay();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public int getBaseline() {
-<<<<<<< HEAD
         return mHourSpinner.getBaseline();
     }
 
@@ -797,49 +583,3 @@ public class TimePicker extends FrameLayout {
         }
     }
 }
-=======
-        return mHourPicker.getBaseline(); 
-    }
-
-    /**
-     * Set the state of the spinners appropriate to the current hour.
-     */
-    private void updateHourDisplay() {
-        int currentHour = mCurrentHour;
-        if (!mIs24HourView) {
-            // convert [0,23] ordinal to wall clock display
-            if (currentHour > 12) currentHour -= 12;
-            else if (currentHour == 0) currentHour = 12;
-        }
-        mHourPicker.setCurrent(currentHour);
-        mIsAm = mCurrentHour < 12;
-        mAmPmButton.setText(mIsAm ? mAmText : mPmText);
-        onTimeChanged();
-    }
-
-    private void configurePickerRanges() {
-        if (mIs24HourView) {
-            mHourPicker.setRange(0, 23);
-            mHourPicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
-            mAmPmButton.setVisibility(View.GONE);
-        } else {
-            mHourPicker.setRange(1, 12);
-            mHourPicker.setFormatter(null);
-            mAmPmButton.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void onTimeChanged() {
-        mOnTimeChangedListener.onTimeChanged(this, getCurrentHour(), getCurrentMinute());
-    }
-
-    /**
-     * Set the state of the spinners appropriate to the current minute.
-     */
-    private void updateMinuteDisplay() {
-        mMinutePicker.setCurrent(mCurrentMinute);
-        mOnTimeChangedListener.onTimeChanged(this, getCurrentHour(), getCurrentMinute());
-    }
-}
-
->>>>>>> 54b6cfa... Initial Contribution

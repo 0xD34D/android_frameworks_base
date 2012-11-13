@@ -1,9 +1,6 @@
 /*
  * Copyright (C) 2007 The Android Open Source Project
-<<<<<<< HEAD
  * Copyright (c) 2010-2011, Code Aurora Forum. All rights reserved.
-=======
->>>>>>> 54b6cfa... Initial Contribution
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +17,9 @@
 
 package android.os;
 
-<<<<<<< HEAD
 import java.io.IOException;
 import android.os.ServiceManager;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * Class that provides access to some of the power management functions.
  *
@@ -53,29 +47,6 @@ public class Power
     public static native void releaseWakeLock(String id);
 
     /**
-<<<<<<< HEAD
-=======
-     * Flag to turn on and off the keyboard light.
-     */
-    public static final int KEYBOARD_LIGHT = 0x00000001;
-
-    /**
-     * Flag to turn on and off the screen backlight.
-     */
-    public static final int SCREEN_LIGHT = 0x00000002;
-
-    /**
-     * Flag to turn on and off the button backlight.
-     */
-    public static final int BUTTON_LIGHT = 0x00000004;
-
-    /**
-     * Flags to turn on and off all the backlights.
-     */
-    public static final int ALL_LIGHTS = (KEYBOARD_LIGHT|SCREEN_LIGHT|BUTTON_LIGHT);
-
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * Brightness value for fully off
      */
     public static final int BRIGHTNESS_OFF = 0;
@@ -84,20 +55,12 @@ public class Power
      * Brightness value for dim backlight
      */
     public static final int BRIGHTNESS_DIM = 20;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Brightness value for fully on
      */
     public static final int BRIGHTNESS_ON = 255;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Brightness value to use when battery is low
      */
@@ -110,7 +73,6 @@ public class Power
     public static final int LOW_BATTERY_THRESHOLD = 10;
 
     /**
-<<<<<<< HEAD
      * Low-level function turn the device off immediately, without trying
      * to be clean.  Most people should use
      * {@link android.internal.app.ShutdownThread} for a clean shutdown.
@@ -143,40 +105,3 @@ public class Power
      */
     public static native int SetUnstableMemoryState(boolean on);
 }
-=======
-     * Set the brightness for one or more lights
-     *
-     * @param mask flags indicating which lights to change brightness
-     * @param brightness new brightness value (0 = off, 255 = fully bright)
-     */
-    public static native int setLightBrightness(int mask, int brightness);
-
-    /**
-     * Turn the screen on or off
-     *
-     * @param on Whether you want the screen on or off
-     */
-    public static native int setScreenState(boolean on);
-
-    public static native int setLastUserActivityTimeout(long ms);
-    
-    /**
-     * Turn the device off.
-     * 
-     * This method is considered deprecated in favor of 
-     * {@link android.policy.ShutdownThread.shutdownAfterDisablingRadio()}.
-     *
-     * @deprecated
-     * @hide
-     */
-    @Deprecated
-    public static native void shutdown();
-
-    /**
-     * Reboot the device.
-     * @param reason code to pass to the kernel (e.g. "recovery"), or null.
-     */
-    public static native void reboot(String reason);
-}
-
->>>>>>> 54b6cfa... Initial Contribution

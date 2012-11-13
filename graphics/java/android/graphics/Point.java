@@ -16,21 +16,14 @@
 
 package android.graphics;
 
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.os.Parcelable;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Point holds two integer coordinates
  */
-<<<<<<< HEAD
 public class Point implements Parcelable {
-=======
-public class Point {
->>>>>>> 54b6cfa... Initial Contribution
     public int x;
     public int y;
 
@@ -92,7 +85,6 @@ public class Point {
     @Override public String toString() {
         return "Point(" + x + ", " + y+ ")";
     }
-<<<<<<< HEAD
 
     /**
      * Parcelable interface methods
@@ -141,6 +133,4 @@ public class Point {
         x = in.readInt();
         y = in.readInt();
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -41,7 +41,6 @@ public class PermissionGroupInfo extends PackageItemInfo implements Parcelable {
      */
     public CharSequence nonLocalizedDescription;
 
-<<<<<<< HEAD
     /**
      * Flag for {@link #flags}, corresponding to <code>personalInfo</code>
      * value of {@link android.R.attr#permissionGroupFlags}.
@@ -62,8 +61,6 @@ public class PermissionGroupInfo extends PackageItemInfo implements Parcelable {
      */
     public int priority;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public PermissionGroupInfo() {
     }
 
@@ -71,11 +68,8 @@ public class PermissionGroupInfo extends PackageItemInfo implements Parcelable {
         super(orig);
         descriptionRes = orig.descriptionRes;
         nonLocalizedDescription = orig.nonLocalizedDescription;
-<<<<<<< HEAD
         flags = orig.flags;
         priority = orig.priority;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -105,11 +99,7 @@ public class PermissionGroupInfo extends PackageItemInfo implements Parcelable {
     public String toString() {
         return "PermissionGroupInfo{"
             + Integer.toHexString(System.identityHashCode(this))
-<<<<<<< HEAD
             + " " + name + " flgs=0x" + Integer.toHexString(flags) + "}";
-=======
-            + " " + name + "}";
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int describeContents() {
@@ -120,11 +110,8 @@ public class PermissionGroupInfo extends PackageItemInfo implements Parcelable {
         super.writeToParcel(dest, parcelableFlags);
         dest.writeInt(descriptionRes);
         TextUtils.writeToParcel(nonLocalizedDescription, dest, parcelableFlags);
-<<<<<<< HEAD
         dest.writeInt(flags);
         dest.writeInt(priority);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final Creator<PermissionGroupInfo> CREATOR =
@@ -141,10 +128,7 @@ public class PermissionGroupInfo extends PackageItemInfo implements Parcelable {
         super(source);
         descriptionRes = source.readInt();
         nonLocalizedDescription = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source);
-<<<<<<< HEAD
         flags = source.readInt();
         priority = source.readInt();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

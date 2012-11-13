@@ -22,10 +22,6 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.os.Handler;
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -137,24 +133,16 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
     /**
      * Sets the group Cursor.
      * 
-<<<<<<< HEAD
      * @param cursor The Cursor to set for the group. If there is an existing cursor 
      * it will be closed.
-=======
-     * @param cursor The Cursor to set for the group.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void setGroupCursor(Cursor cursor) {
         mGroupCursorHelper.changeCursor(cursor, false);
     }
     
     /**
-<<<<<<< HEAD
      * Sets the children Cursor for a particular group. If there is an existing cursor
      * it will be closed.
-=======
-     * Sets the children Cursor for a particular group.
->>>>>>> 54b6cfa... Initial Contribution
      * <p>
      * This is useful when asynchronously querying to prevent blocking the UI.
      * 
@@ -463,16 +451,9 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
         }
         
         void changeCursor(Cursor cursor, boolean releaseCursors) {
-<<<<<<< HEAD
             if (cursor == mCursor) return;
 
             deactivate();
-=======
-            if (mCursor != null) {
-                mCursor.unregisterContentObserver(mContentObserver);
-                mCursor.unregisterDataSetObserver(mDataSetObserver);
-            }
->>>>>>> 54b6cfa... Initial Contribution
             mCursor = cursor;
             if (cursor != null) {
                 cursor.registerContentObserver(mContentObserver);
@@ -496,11 +477,7 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
             
             mCursor.unregisterContentObserver(mContentObserver);
             mCursor.unregisterDataSetObserver(mDataSetObserver);
-<<<<<<< HEAD
             mCursor.close();
-=======
-            mCursor.deactivate();
->>>>>>> 54b6cfa... Initial Contribution
             mCursor = null;
         }
         
@@ -521,11 +498,7 @@ public abstract class CursorTreeAdapter extends BaseExpandableListAdapter implem
             @Override
             public void onChange(boolean selfChange) {
                 if (mAutoRequery && mCursor != null) {
-<<<<<<< HEAD
                     if (false) Log.v("Cursor", "Auto requerying " + mCursor +
-=======
-                    if (Config.LOGV) Log.v("Cursor", "Auto requerying " + mCursor +
->>>>>>> 54b6cfa... Initial Contribution
                             " due to update");
                     mDataValid = mCursor.requery();
                 }

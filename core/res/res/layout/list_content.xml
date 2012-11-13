@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-<<<<<<< HEAD
 /* Copyright 2010, The Android Open Source Project
-=======
-/* //device/apps/common/assets/res/layout/list_content.xml
-**
-** Copyright 2006, The Android Open Source Project
->>>>>>> 54b6cfa... Initial Contribution
 **
 ** Licensed under the Apache License, Version 2.0 (the "License"); 
 ** you may not use this file except in compliance with the License. 
@@ -21,7 +15,6 @@
 ** limitations under the License.
 */
 -->
-<<<<<<< HEAD
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -61,10 +54,3 @@
     </FrameLayout>
         
 </FrameLayout>
-=======
-<ListView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@android:id/list"
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent"
-    android:drawSelectorOnTop="false"
-    />
->>>>>>> 54b6cfa... Initial Contribution

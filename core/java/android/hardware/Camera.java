@@ -16,7 +16,6 @@
 
 package android.hardware;
 
-<<<<<<< HEAD
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
 import android.graphics.ImageFormat;
@@ -142,45 +141,11 @@ public class Camera {
     private static final int CAMERA_MSG_FOCUS_MOVE       = 0x800;
 
     private int mNativeContext; // accessed by native methods
-=======
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-
-import android.util.Log;
-import android.view.Surface;
-import android.view.SurfaceHolder;
-import android.graphics.PixelFormat;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-
-/**
- * The Camera class is used to connect/disconnect with the camera service,
- * set capture settings, start/stop preview, snap a picture, and retrieve
- * frames for encoding for video.
- * <p>There is no default constructor for this class. Use {@link #open()} to
- * get a Camera object.</p>
- */
-public class Camera {
-    private static final String TAG = "Camera";
-    
-    // These match the enum in libs/android_runtime/android_hardware_Camera.cpp
-    private static final int SHUTTER_CALLBACK = 0;
-    private static final int RAW_PICTURE_CALLBACK = 1;
-    private static final int JPEG_PICTURE_CALLBACK = 2;
-    private static final int PREVIEW_CALLBACK = 3;
-    private static final int AUTOFOCUS_CALLBACK = 4;
-    private static final int ERROR_CALLBACK = 5;
-
-    private int mNativeContext; // accessed by native methods
-    private int mListenerContext;
->>>>>>> 54b6cfa... Initial Contribution
     private EventHandler mEventHandler;
     private ShutterCallback mShutterCallback;
     private PictureCallback mRawImageCallback;
     private PictureCallback mJpegCallback;
     private PreviewCallback mPreviewCallback;
-<<<<<<< HEAD
     private PictureCallback mPostviewCallback;
     private AutoFocusCallback mAutoFocusCallback;
     private AutoFocusMoveCallback mAutoFocusMoveCallback;
@@ -322,28 +287,12 @@ public class Camera {
     }
 
     Camera(int cameraId) {
-=======
-    private AutoFocusCallback mAutoFocusCallback;
-    private ErrorCallback mErrorCallback;
-    
-    /**
-     * Returns a new Camera object.
-     */
-    public static Camera open() { 
-        return new Camera(); 
-    }
-
-    Camera() {
->>>>>>> 54b6cfa... Initial Contribution
         mShutterCallback = null;
         mRawImageCallback = null;
         mJpegCallback = null;
         mPreviewCallback = null;
-<<<<<<< HEAD
         mPostviewCallback = null;
         mZoomListener = null;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
         Looper looper;
         if ((looper = Looper.myLooper()) != null) {
@@ -354,7 +303,6 @@ public class Camera {
             mEventHandler = null;
         }
 
-<<<<<<< HEAD
         native_setup(new WeakReference<Camera>(this), cameraId);
     }
 
@@ -516,48 +464,10 @@ public class Camera {
      * @see #setOneShotPreviewCallback(Camera.PreviewCallback)
      * @see #setPreviewCallbackWithBuffer(Camera.PreviewCallback)
      * @see #startPreview()
-=======
-        native_setup(new WeakReference<Camera>(this));
-    }
-    
-    protected void finalize() { 
-        native_release(); 
-    }
-    
-    private native final void native_setup(Object camera_this);
-    private native final void native_release();
-    
-
-    /**
-     * Disconnects and releases the Camera object resources.
-     * <p>It is recommended that you call this as soon as you're done with the 
-     * Camera object.</p>
-     */
-    public final void release() { 
-        native_release();
-    }
-
-    /**
-     * Sets the SurfaceHolder to be used for a picture preview. If the surface
-     * changed since the last call, the screen will blank. Nothing happens
-     * if the same surface is re-set.
-     * 
-     * @param holder the SurfaceHolder upon which to place the picture preview
-     */
-    public final void setPreviewDisplay(SurfaceHolder holder) {
-        setPreviewDisplay(holder.getSurface());
-    }
-
-    private native final void setPreviewDisplay(Surface surface);
-
-    /**
-     * Used to get a copy of each preview frame.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public interface PreviewCallback
     {
         /**
-<<<<<<< HEAD
          * Called as preview frames are displayed.  This callback is invoked
          * on the event thread {@link #open(int)} was called from.
          *
@@ -794,39 +704,6 @@ public class Camera {
 
     private native final void _addCallbackBuffer(
                                 byte[] callbackBuffer, int msgType);
-=======
-         * The callback that delivers the preview frames.
-         *
-         * @param data The contents of the preview frame in getPreviewFormat()
-         *             format.
-         * @param camera The Camera service object.
-         */
-        void onPreviewFrame(byte[] data, Camera camera);
-    };
-    
-    /**
-     * Start drawing preview frames to the surface.
-     */
-    public native final void startPreview();
-    
-    /**
-     * Stop drawing preview frames to the surface.
-     */
-    public native final void stopPreview();
-    
-    /**
-     * Can be called at any time to instruct the camera to use a callback for
-     * each preview frame in addition to displaying it.
-     *
-     * @param cb A callback object that receives a copy of each preview frame.
-     *           Pass null to stop receiving callbacks at any time.
-     */
-    public final void setPreviewCallback(PreviewCallback cb) {
-        mPreviewCallback = cb;
-        setHasPreviewCallback(cb != null);
-    }
-    private native final void setHasPreviewCallback(boolean installed);
->>>>>>> 54b6cfa... Initial Contribution
 
     private class EventHandler extends Handler
     {
@@ -840,16 +717,11 @@ public class Camera {
         @Override
         public void handleMessage(Message msg) {
             switch(msg.what) {
-<<<<<<< HEAD
             case CAMERA_MSG_SHUTTER:
-=======
-            case SHUTTER_CALLBACK:
->>>>>>> 54b6cfa... Initial Contribution
                 if (mShutterCallback != null) {
                     mShutterCallback.onShutter();
                 }
                 return;
-<<<<<<< HEAD
 
             case CAMERA_MSG_RAW_IMAGE:
                 if (mRawImageCallback != null) {
@@ -921,32 +793,6 @@ public class Camera {
                 if (mAutoFocusMoveCallback != null) {
                     mAutoFocusMoveCallback.onAutoFocusMoving(msg.arg1 == 0 ? false : true, mCamera);
                 }
-=======
-            case RAW_PICTURE_CALLBACK:
-                if (mRawImageCallback != null)
-                    mRawImageCallback.onPictureTaken((byte[])msg.obj, mCamera);
-                return;
-
-            case JPEG_PICTURE_CALLBACK:
-                if (mJpegCallback != null)
-                    mJpegCallback.onPictureTaken((byte[])msg.obj, mCamera);
-                return;
-            
-            case PREVIEW_CALLBACK:
-                if (mPreviewCallback != null)
-                    mPreviewCallback.onPreviewFrame((byte[])msg.obj, mCamera);
-                return;
-
-            case AUTOFOCUS_CALLBACK:
-                if (mAutoFocusCallback != null)
-                    mAutoFocusCallback.onAutoFocus(msg.arg1 == 0 ? false : true, mCamera);
-                return;
-
-            case ERROR_CALLBACK:
-                Log.e(TAG, "Error " + msg.arg1);
-                if (mErrorCallback != null)
-                    mErrorCallback.onError(msg.arg1, mCamera);
->>>>>>> 54b6cfa... Initial Contribution
                 return;
 
             default:
@@ -970,7 +816,6 @@ public class Camera {
     }
 
     /**
-<<<<<<< HEAD
      * Callback interface used to notify on completion of camera auto focus.
      *
      * <p>Devices that do not support auto-focus will receive a "fake"
@@ -982,14 +827,10 @@ public class Camera {
      * manifest element.</p>
      *
      * @see #autoFocus(AutoFocusCallback)
-=======
-     * Handles the callback for the camera auto focus.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public interface AutoFocusCallback
     {
         /**
-<<<<<<< HEAD
          * Called when the camera auto focus completes.  If the camera
          * does not support auto-focus and autoFocus is called,
          * onAutoFocus will be called immediately with a fake value of
@@ -1053,30 +894,11 @@ public class Camera {
         synchronized (mAutoFocusCallbackLock) {
             mAutoFocusCallback = cb;
         }
-=======
-         * Callback for the camera auto focus.
-         * 
-         * @param success true if focus was successful, false if otherwise
-         * @param camera  the Camera service object
-         */
-        void onAutoFocus(boolean success, Camera camera);
-    };
-
-    /**
-     * Registers a callback to be invoked when the auto focus responds.
-     * 
-     * @param cb the callback to run
-     */
-    public final void autoFocus(AutoFocusCallback cb)
-    {
-        mAutoFocusCallback = cb;
->>>>>>> 54b6cfa... Initial Contribution
         native_autoFocus();
     }
     private native final void native_autoFocus();
 
     /**
-<<<<<<< HEAD
      * Cancels any auto-focus function in progress.
      * Whether or not auto-focus is currently in progress,
      * this function will return the focus position to the default.
@@ -1144,29 +966,20 @@ public class Camera {
      * Callback interface used to signal the moment of actual image capture.
      *
      * @see #takePicture(ShutterCallback, PictureCallback, PictureCallback, PictureCallback)
-=======
-     * An interface which contains a callback for the shutter closing after taking a picture.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public interface ShutterCallback
     {
         /**
-<<<<<<< HEAD
          * Called as near as possible to the moment when a photo is captured
          * from the sensor.  This is a good opportunity to play a shutter sound
          * or give other feedback of camera operation.  This may be some time
          * after the photo was triggered, but some time before the actual data
          * is available.
-=======
-         * Can be used to play a shutter sound as soon as the image has been captured, but before
-         * the data is available.
->>>>>>> 54b6cfa... Initial Contribution
          */
         void onShutter();
     }
 
     /**
-<<<<<<< HEAD
      * Callback interface used to supply image data from a photo capture.
      *
      * @see #takePicture(ShutterCallback, PictureCallback, PictureCallback, PictureCallback)
@@ -1177,14 +990,6 @@ public class Camera {
          * The format of the data depends on the context of the callback
          * and {@link Camera.Parameters} settings.
          *
-=======
-     * Handles the callback for when a picture is taken.
-     */
-    public interface PictureCallback {
-        /**
-         * Callback for when a picture is taken.
-         * 
->>>>>>> 54b6cfa... Initial Contribution
          * @param data   a byte array of the picture data
          * @param camera the Camera service object
          */
@@ -1192,7 +997,6 @@ public class Camera {
     };
 
     /**
-<<<<<<< HEAD
      * Equivalent to takePicture(shutter, raw, null, jpeg).
      *
      * @see #takePicture(ShutterCallback, PictureCallback, PictureCallback, PictureCallback)
@@ -1568,31 +1372,6 @@ public class Camera {
      * Callback interface for camera error notification.
      *
      * @see #setErrorCallback(ErrorCallback)
-=======
-     * Registers a callback to be invoked when a picture is taken.
-     * 
-     * @param raw  the callback to run for raw images, may be null
-     * @param jpeg the callback to run for jpeg images, may be null
-     */
-    public final void takePicture(ShutterCallback shutter, PictureCallback raw,
-            PictureCallback jpeg) {
-        mShutterCallback = shutter;
-        mRawImageCallback = raw;
-        mJpegCallback = jpeg;
-        native_takePicture();
-    }
-    private native final void native_takePicture();
-
-    // These match the enum in libs/android_runtime/android_hardware_Camera.cpp
-    /** Unspecified camerar error.  @see #ErrorCallback */
-    public static final int CAMERA_ERROR_UNKNOWN = 1;
-    /** Media server died. In this case, the application must release the
-     * Camera object and instantiate a new one. @see #ErrorCallback */
-    public static final int CAMERA_ERROR_SERVER_DIED = 100;
-    
-    /**
-     * Handles the camera error callback.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public interface ErrorCallback
     {
@@ -1610,26 +1389,17 @@ public class Camera {
 
     /**
      * Registers a callback to be invoked when an error occurs.
-<<<<<<< HEAD
      * @param cb The callback to run
-=======
-     * @param cb the callback to run
->>>>>>> 54b6cfa... Initial Contribution
      */
     public final void setErrorCallback(ErrorCallback cb)
     {
         mErrorCallback = cb;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     private native final void native_setParameters(String params);
     private native final String native_getParameters();
 
     /**
-<<<<<<< HEAD
      * Changes the settings for this Camera service.
      *
      * @param params the Parameters to use for this Camera service
@@ -1637,42 +1407,24 @@ public class Camera {
      * @see #getParameters()
      */
     public void setParameters(Parameters params) {
-=======
-     * Sets the Parameters for pictures from this Camera service.
-     * 
-     * @param params the Parameters to use for this Camera service
-     */
-    public void setParameters(Parameters params) {
-        Log.e(TAG, "setParameters()");
-        //params.dump();
->>>>>>> 54b6cfa... Initial Contribution
         native_setParameters(params.flatten());
     }
 
     /**
-<<<<<<< HEAD
      * Returns the current settings for this Camera service.
      * If modifications are made to the returned Parameters, they must be passed
      * to {@link #setParameters(Camera.Parameters)} to take effect.
      *
      * @see #setParameters(Camera.Parameters)
-=======
-     * Returns the picture Parameters for this Camera service.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public Parameters getParameters() {
         Parameters p = new Parameters();
         String s = native_getParameters();
-<<<<<<< HEAD
-=======
-        Log.e(TAG, "_getParameters: " + s);
->>>>>>> 54b6cfa... Initial Contribution
         p.unflatten(s);
         return p;
     }
 
     /**
-<<<<<<< HEAD
      * Returns an empty {@link Parameters} for testing purpose.
      *
      * @return a Parameter object.
@@ -1686,18 +1438,11 @@ public class Camera {
 
     /**
      * Image size (width and height dimensions).
-=======
-     * Handles the picture size (dimensions).
->>>>>>> 54b6cfa... Initial Contribution
      */
     public class Size {
         /**
          * Sets the dimensions for pictures.
-<<<<<<< HEAD
          *
-=======
-         * 
->>>>>>> 54b6cfa... Initial Contribution
          * @param w the photo width (pixels)
          * @param h the photo height (pixels)
          */
@@ -1705,7 +1450,6 @@ public class Camera {
             width = w;
             height = h;
         }
-<<<<<<< HEAD
         /**
          * Compares {@code obj} to this size.
          *
@@ -1725,8 +1469,6 @@ public class Camera {
         public int hashCode() {
             return width * 32713 + height;
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         /** width of the picture */
         public int width;
         /** height of the picture */
@@ -1734,7 +1476,6 @@ public class Camera {
     };
 
     /**
-<<<<<<< HEAD
      * <p>The Area class is used for choosing specific metering and focus areas for
      * the camera to use when calculating auto-exposure, auto-white balance, and
      * auto-focus.</p>
@@ -3911,280 +3652,3 @@ public class Camera {
         }
     };
 }
-=======
-     * Handles the parameters for pictures created by a Camera service.
-     */
-    public class Parameters {
-        private HashMap<String, String> mMap;
-
-        private Parameters() {
-            mMap = new HashMap<String, String>();
-        }
-
-        /**
-         * Writes the current Parameters to the log.
-         * @hide
-         * @deprecated
-         */
-        public void dump() {
-            Log.e(TAG, "dump: size=" + mMap.size());
-            for (String k : mMap.keySet()) {
-                Log.e(TAG, "dump: " + k + "=" + mMap.get(k));
-            }
-        }
-
-        /**
-         * Creates a single string with all the parameters set in
-         * this Parameters object.
-         * <p>The {@link #unflatten(String)} method does the reverse.</p>
-         * 
-         * @return a String with all values from this Parameters object, in
-         *         semi-colon delimited key-value pairs
-         */
-        public String flatten() {
-            StringBuilder flattened = new StringBuilder();
-            for (String k : mMap.keySet()) {
-                flattened.append(k);
-                flattened.append("=");
-                flattened.append(mMap.get(k));
-                flattened.append(";");
-            }
-            // chop off the extra semicolon at the end
-            flattened.deleteCharAt(flattened.length()-1);
-            return flattened.toString();
-        }
-
-        /**
-         * Takes a flattened string of parameters and adds each one to 
-         * this Parameters object.
-         * <p>The {@link #flatten()} method does the reverse.</p>
-         * 
-         * @param flattened a String of parameters (key-value paired) that 
-         *                  are semi-colon delimited
-         */
-        public void unflatten(String flattened) {
-            mMap.clear();
-            String[] pairs = flattened.split(";");
-            for (String p : pairs) {
-                String[] kv = p.split("=");
-                if (kv.length == 2)
-                    mMap.put(kv[0], kv[1]);
-            }
-        }
-        
-        public void remove(String key) {
-            mMap.remove(key);
-        }
-
-        /**
-         * Sets a String parameter.
-         * 
-         * @param key   the key name for the parameter
-         * @param value the String value of the parameter
-         */
-        public void set(String key, String value) {
-            if (key.indexOf('=') != -1 || key.indexOf(';') != -1) {
-                Log.e(TAG, "Key \"" + key + "\" contains invalid character (= or ;)");
-                return;
-            }
-            if (value.indexOf('=') != -1 || value.indexOf(';') != -1) {
-                Log.e(TAG, "Value \"" + value + "\" contains invalid character (= or ;)");
-                return;
-            }
-
-            mMap.put(key, value);
-        }
-
-        /**
-         * Sets an integer parameter.
-         * 
-         * @param key   the key name for the parameter
-         * @param value the int value of the parameter
-         */
-        public void set(String key, int value) {
-            mMap.put(key, Integer.toString(value));
-        }
-
-        /**
-         * Returns the value of a String parameter.
-         * 
-         * @param key the key name for the parameter
-         * @return the String value of the parameter
-         */
-        public String get(String key) {
-            return mMap.get(key);
-        }
-
-        /**
-         * Returns the value of an integer parameter.
-         * 
-         * @param key the key name for the parameter
-         * @return the int value of the parameter
-         */
-        public int getInt(String key) {
-            return Integer.parseInt(mMap.get(key));
-        }
-
-        /**
-         * Sets the dimensions for preview pictures.
-         * 
-         * @param width  the width of the pictures, in pixels
-         * @param height the height of the pictures, in pixels
-         */
-        public void setPreviewSize(int width, int height) {
-            String v = Integer.toString(width) + "x" + Integer.toString(height);
-            set("preview-size", v);
-        }
-
-        /**
-         * Returns the dimensions setting for preview pictures.
-         * 
-         * @return a Size object with the height and width setting 
-         *          for the preview picture
-         */
-        public Size getPreviewSize() {
-            String pair = get("preview-size");
-            if (pair == null)
-                return null;
-            String[] dims = pair.split("x");
-            if (dims.length != 2)
-                return null;
-
-            return new Size(Integer.parseInt(dims[0]),
-                            Integer.parseInt(dims[1]));
-
-        }
-
-        /**
-         * Sets the rate at which preview frames are received.
-         * 
-         * @param fps the frame rate (frames per second)
-         */
-        public void setPreviewFrameRate(int fps) {
-            set("preview-frame-rate", fps);
-        }
-
-        /**
-         * Returns the setting for the rate at which preview frames
-         * are received.
-         * 
-         * @return the frame rate setting (frames per second)
-         */
-        public int getPreviewFrameRate() {
-            return getInt("preview-frame-rate");
-        }
-
-        /**
-         * Sets the image format for preview pictures.
-         * 
-         * @param pixel_format the desired preview picture format 
-         *                     (<var>PixelFormat.YCbCr_422_SP</var>,
-         *                      <var>PixelFormat.RGB_565</var>, or
-         *                      <var>PixelFormat.JPEG</var>)
-         * @see android.graphics.PixelFormat
-         */
-        public void setPreviewFormat(int pixel_format) {
-            String s = cameraFormatForPixelFormat(pixel_format);
-            if (s == null) {
-                throw new IllegalArgumentException();
-            }
-
-            set("preview-format", s);
-        }
-
-        /**
-         * Returns the image format for preview pictures.
-         * 
-         * @return the PixelFormat int representing the preview picture format
-         */
-        public int getPreviewFormat() {
-            return pixelFormatForCameraFormat(get("preview-format"));
-        }
-
-        /**
-         * Sets the dimensions for pictures.
-         * 
-         * @param width  the width for pictures, in pixels
-         * @param height the height for pictures, in pixels
-         */
-        public void setPictureSize(int width, int height) {
-            String v = Integer.toString(width) + "x" + Integer.toString(height);
-            set("picture-size", v);
-        }
-
-        /**
-         * Returns the dimension setting for pictures.
-         * 
-         * @return a Size object with the height and width setting 
-         *          for pictures
-         */
-        public Size getPictureSize() {
-            String pair = get("picture-size");
-            if (pair == null)
-                return null;
-            String[] dims = pair.split("x");
-            if (dims.length != 2)
-                return null;
-
-            return new Size(Integer.parseInt(dims[0]),
-                            Integer.parseInt(dims[1]));
-
-        }
-
-        /**
-         * Sets the image format for pictures.
-         * 
-         * @param pixel_format the desired picture format 
-         *                     (<var>PixelFormat.YCbCr_422_SP</var>,
-         *                      <var>PixelFormat.RGB_565</var>, or
-         *                      <var>PixelFormat.JPEG</var>)
-         * @see android.graphics.PixelFormat
-         */
-        public void setPictureFormat(int pixel_format) {
-            String s = cameraFormatForPixelFormat(pixel_format);
-            if (s == null) {
-                throw new IllegalArgumentException();
-            }
-
-            set("picture-format", s);
-        }
-
-        /**
-         * Returns the image format for pictures.
-         * 
-         * @return the PixelFormat int representing the picture format
-         */
-        public int getPictureFormat() {
-            return pixelFormatForCameraFormat(get("picture-format"));
-        }
-
-        private String cameraFormatForPixelFormat(int pixel_format) {
-            switch(pixel_format) {
-            case PixelFormat.YCbCr_422_SP: return "yuv422sp";
-            case PixelFormat.RGB_565:      return "rgb565";
-            case PixelFormat.JPEG:         return "jpeg";
-            default:                       return null;
-            }
-        }
-
-        private int pixelFormatForCameraFormat(String format) {
-            if (format == null)
-                return PixelFormat.UNKNOWN;
-
-            if (format.equals("yuv422sp"))
-                return PixelFormat.YCbCr_422_SP;
-
-            if (format.equals("rgb565"))
-                return PixelFormat.RGB_565;
-
-            if (format.equals("jpeg"))
-                return PixelFormat.JPEG;
-
-            return PixelFormat.UNKNOWN;
-        }
-
-    };
-}
-
-
->>>>>>> 54b6cfa... Initial Contribution

@@ -16,7 +16,6 @@
 
 package android.net.wifi;
 
-<<<<<<< HEAD
 import android.net.NetworkInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -32,27 +31,14 @@ import com.android.internal.util.Protocol;
 import com.android.internal.util.StateMachine;
 
 import java.util.List;
-=======
-import android.util.Log;
-import android.util.Config;
-import android.net.NetworkInfo;
-import android.net.NetworkStateTracker;
-
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 /**
  * Listens for events from the wpa_supplicant server, and passes them on
-<<<<<<< HEAD
  * to the {@link StateMachine} for handling. Runs in its own thread.
  *
  * @hide
-=======
- * to the {@link WifiStateTracker} for handling. Runs in its own thread.
- *
- * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class WifiMonitor {
 
@@ -67,7 +53,6 @@ public class WifiMonitor {
     private static final int LINK_SPEED   = 5;
     private static final int TERMINATING  = 6;
     private static final int DRIVER_STATE = 7;
-<<<<<<< HEAD
     private static final int EAP_FAILURE  = 8;
     private static final int UNKNOWN      = 9;
 
@@ -99,19 +84,6 @@ public class WifiMonitor {
     private static final String WPS_OVERLAP_STR = "WPS-OVERLAP-DETECTED";
     private static final String WPS_TIMEOUT_STR = "WPS-TIMEOUT";
 
-=======
-    private static final int UNKNOWN      = 8;
-
-    /** All events coming from the supplicant start with this prefix */
-    private static final String eventPrefix = "CTRL-EVENT-";
-    private static final int eventPrefixLen = eventPrefix.length();
-
-    /** All WPA events coming from the supplicant start with this prefix */
-    private static final String wpaEventPrefix = "WPA:";
-    private static final String passwordKeyMayBeIncorrectEvent =
-       "pre-shared key may be incorrect";
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Names of events from wpa_supplicant (minus the prefix). In the
      * format descriptions, * &quot;<code>x</code>&quot;
@@ -124,42 +96,26 @@ public class WifiMonitor {
      * </pre>
      * <code>xx:xx:xx:xx:xx:xx</code> is the BSSID of the associated access point
      */
-<<<<<<< HEAD
     private static final String CONNECTED_STR =    "CONNECTED";
-=======
-    private static final String connectedEvent =    "CONNECTED";
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * <pre>
      * CTRL-EVENT-DISCONNECTED - Disconnect event - remove keys
      * </pre>
      */
-<<<<<<< HEAD
     private static final String DISCONNECTED_STR = "DISCONNECTED";
-=======
-    private static final String disconnectedEvent = "DISCONNECTED";
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * <pre>
      * CTRL-EVENT-STATE-CHANGE x
      * </pre>
      * <code>x</code> is the numerical value of the new state.
      */
-<<<<<<< HEAD
     private static final String STATE_CHANGE_STR =  "STATE-CHANGE";
-=======
-    private static final String stateChangeEvent =  "STATE-CHANGE";
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * <pre>
      * CTRL-EVENT-SCAN-RESULTS ready
      * </pre>
      */
-<<<<<<< HEAD
     private static final String SCAN_RESULTS_STR =  "SCAN-RESULTS";
-=======
-    private static final String scanResultsEvent =  "SCAN-RESULTS";
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * <pre>
@@ -167,27 +123,18 @@ public class WifiMonitor {
      * </pre>
      * {@code x} is the link speed in Mb/sec.
      */
-<<<<<<< HEAD
     private static final String LINK_SPEED_STR = "LINK-SPEED";
-=======
-    private static final String linkSpeedEvent = "LINK-SPEED";
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * <pre>
      * CTRL-EVENT-TERMINATING - signal x
      * </pre>
      * <code>x</code> is the signal that caused termination.
      */
-<<<<<<< HEAD
     private static final String TERMINATING_STR =  "TERMINATING";
-=======
-    private static final String terminatingEvent =  "TERMINATING";
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * <pre>
      * CTRL-EVENT-DRIVER-STATE state
      * </pre>
-<<<<<<< HEAD
      * <code>state</code> can be HANGED
      */
     private static final String DRIVER_STATE_STR = "DRIVER-STATE";
@@ -202,11 +149,6 @@ public class WifiMonitor {
      * This indicates an authentication failure on EAP FAILURE event
      */
     private static final String EAP_AUTH_FAILURE_STR = "EAP authentication failed";
-=======
-     * <code>state</code> is either STARTED or STOPPED
-     */
-    private static final String driverStateEvent = "DRIVER-STATE";
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Regex pattern for extracting an Ethernet-style MAC address from a string.
@@ -216,7 +158,6 @@ public class WifiMonitor {
     private static Pattern mConnectedEventPattern =
         Pattern.compile("((?:[0-9a-f]{2}:){5}[0-9a-f]{2}) .* \\[id=([0-9]+) ");
 
-<<<<<<< HEAD
     /** P2P events */
     private static final String P2P_EVENT_PREFIX_STR = "P2P";
 
@@ -404,36 +345,16 @@ public class WifiMonitor {
     public WifiMonitor(StateMachine wifiStateMachine, WifiNative wifiNative) {
         mStateMachine = wifiStateMachine;
         mWifiNative = wifiNative;
-=======
-    private final WifiStateTracker mWifiStateTracker;
-
-    private boolean supplicantConnected;
-
-    private boolean oneShot;
-
-    public WifiMonitor(WifiStateTracker tracker) {
-        mWifiStateTracker = tracker;
-        supplicantConnected = false;
-        oneShot = true;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void startMonitoring() {
         new MonitorThread().start();
     }
 
-<<<<<<< HEAD
-=======
-    public NetworkStateTracker getNetworkStateTracker() {
-        return mWifiStateTracker;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     class MonitorThread extends Thread {
         public MonitorThread() {
             super("WifiMonitor");
         }
-<<<<<<< HEAD
 
         public void run() {
 
@@ -470,50 +391,22 @@ public class WifiMonitor {
                         handleP2pEvents(eventStr);
                     } else if (eventStr.startsWith(HOST_AP_EVENT_PREFIX_STR)) {
                         handleHostApEvents(eventStr);
-=======
-        
-        public void run() {
-
-            //noinspection InfiniteLoopStatement
-            for (;;) {
-                ensureSupplicantConnection();
-
-                String eventStr = WifiNative.waitForEvent();
-
-                if (Config.LOGD) Log.v(TAG, "Event [" + eventStr +"]");
-                if (eventStr == null) {
-                    continue;
-                } else if (!eventStr.startsWith(eventPrefix)) {
-                    if (eventStr.startsWith(wpaEventPrefix)) {
-                        if (0 < eventStr.indexOf(passwordKeyMayBeIncorrectEvent)) {
-                            handlePasswordKeyMayBeIncorrect();
-                        }
->>>>>>> 54b6cfa... Initial Contribution
                     }
                     continue;
                 }
 
-<<<<<<< HEAD
                 String eventName = eventStr.substring(EVENT_PREFIX_LEN_STR);
-=======
-                String eventName = eventStr.substring(eventPrefixLen);
->>>>>>> 54b6cfa... Initial Contribution
                 int nameEnd = eventName.indexOf(' ');
                 if (nameEnd != -1)
                     eventName = eventName.substring(0, nameEnd);
                 if (eventName.length() == 0) {
-<<<<<<< HEAD
                     if (false) Log.i(TAG, "Received wpa_supplicant event with empty event name");
-=======
-                    if (Config.LOGD) Log.i(TAG, "Received wpa_supplicant event with empty event name");
->>>>>>> 54b6cfa... Initial Contribution
                     continue;
                 }
                 /*
                  * Map event name into event enum
                  */
                 int event;
-<<<<<<< HEAD
                 if (eventName.equals(CONNECTED_STR))
                     event = CONNECTED;
                 else if (eventName.equals(DISCONNECTED_STR))
@@ -530,34 +423,13 @@ public class WifiMonitor {
                     event = DRIVER_STATE;
                 else if (eventName.equals(EAP_FAILURE_STR))
                     event = EAP_FAILURE;
-=======
-                if (eventName.equals(connectedEvent))
-                    event = CONNECTED;
-                else if (eventName.equals(disconnectedEvent))
-                    event = DISCONNECTED;
-                else if (eventName.equals(stateChangeEvent))
-                    event = STATE_CHANGE;
-                else if (eventName.equals(scanResultsEvent))
-                    event = SCAN_RESULTS;
-                else if (eventName.equals(linkSpeedEvent))
-                    event = LINK_SPEED;
-                else if (eventName.equals(terminatingEvent))
-                    event = TERMINATING;
-                else if (eventName.equals(driverStateEvent)) {
-                    event = DRIVER_STATE;
-                }
->>>>>>> 54b6cfa... Initial Contribution
                 else
                     event = UNKNOWN;
 
                 String eventData = eventStr;
                 if (event == DRIVER_STATE || event == LINK_SPEED)
                     eventData = eventData.split(" ")[1];
-<<<<<<< HEAD
                 else if (event == STATE_CHANGE || event == EAP_FAILURE) {
-=======
-                else if (event == STATE_CHANGE) {
->>>>>>> 54b6cfa... Initial Contribution
                     int ind = eventStr.indexOf(" ");
                     if (ind != -1) {
                         eventData = eventStr.substring(ind + 1);
@@ -573,7 +445,6 @@ public class WifiMonitor {
                     handleSupplicantStateChange(eventData);
                 } else if (event == DRIVER_STATE) {
                     handleDriverEvent(eventData);
-<<<<<<< HEAD
                 } else if (event == TERMINATING) {
                     /**
                      * Close the supplicant connection if we see
@@ -617,63 +488,14 @@ public class WifiMonitor {
                 }
             }
             return false;
-=======
-                } else {
-                    handleEvent(event, eventData);
-                    // If supplicant is gone, exit the thread
-                    if (event == TERMINATING) {
-                        break;
-                    }
-                }
-            }
-        }
-
-        private void ensureSupplicantConnection() {
-            while (!supplicantConnected) {
-                boolean connected;
-                synchronized (mWifiStateTracker) {
-                    connected = WifiNative.connectToSupplicant();
-                }
-                if (!connected) {
-                    /*
-                     * If we fail to connect on the very first attempt, send a message
-                     * indicating a lost connection to the supplicant, so that the
-                     * receiver can initialize to the proper state.
-                     */
-                    if (oneShot) {
-                        oneShot = false;
-                        mWifiStateTracker.notifySupplicantLost();
-                    }
-                    nap(5);
-                } else {
-                    supplicantConnected = true;
-                    oneShot = false;
-                    // Send a message indicating that it is now possible to send commands
-                    // to the supplicant
-                    mWifiStateTracker.notifySupplicantConnection();
-
-                }
-            }
-        }
-
-        private void handlePasswordKeyMayBeIncorrect() {
-            mWifiStateTracker.notifyPasswordKeyMayBeIncorrect();
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         private void handleDriverEvent(String state) {
             if (state == null) {
                 return;
             }
-<<<<<<< HEAD
             if (state.equals("HANGED")) {
                 mStateMachine.sendMessage(DRIVER_HUNG_EVENT);
-=======
-            if (state.equals("STOPPED")) {
-                mWifiStateTracker.notifyDriverStopped();
-            } else if (state.equals("STARTED")) {
-                mWifiStateTracker.notifyDriverStarted();
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -694,7 +516,6 @@ public class WifiMonitor {
                     break;
 
                 case SCAN_RESULTS:
-<<<<<<< HEAD
                     mStateMachine.sendMessage(SCAN_RESULTS_EVENT);
                     break;
 
@@ -807,18 +628,6 @@ public class WifiMonitor {
             /* AP-STA-DISCONNECTED 42:fc:89:a8:96:09 p2p_dev_addr=02:90:4c:a0:92:54 */
             } else if (tokens[0].equals(AP_STA_DISCONNECTED_STR)) {
                 mStateMachine.sendMessage(AP_STA_DISCONNECTED_EVENT, new WifiP2pDevice(dataString));
-=======
-                    mWifiStateTracker.notifyScanResultsAvailable();
-                    break;
-
-                case TERMINATING:
-                    supplicantConnected = false;
-                    mWifiStateTracker.notifySupplicantLost();
-                    break;
-
-                case UNKNOWN:
-                    break;
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -828,17 +637,12 @@ public class WifiMonitor {
          * id=network-id state=new-state
          */
         private void handleSupplicantStateChange(String dataString) {
-<<<<<<< HEAD
             String SSID = null;
             int index = dataString.lastIndexOf("SSID=");
             if (index != -1) SSID = dataString.substring(index + 5);
             String[] dataTokens = dataString.split(" ");
 
             String BSSID = null;
-=======
-            String[] dataTokens = dataString.split(" ");
-
->>>>>>> 54b6cfa... Initial Contribution
             int networkId = -1;
             int newState  = -1;
             for (String token : dataTokens) {
@@ -847,22 +651,15 @@ public class WifiMonitor {
                     continue;
                 }
 
-<<<<<<< HEAD
                 if (nameValue[0].equals("BSSID")) {
                     BSSID = nameValue[1];
                     continue;
                 }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 int value;
                 try {
                     value = Integer.parseInt(nameValue[1]);
                 } catch (NumberFormatException e) {
-<<<<<<< HEAD
-=======
-                    Log.w(TAG, "STATE-CHANGE non-integer parameter: " + token);
->>>>>>> 54b6cfa... Initial Contribution
                     continue;
                 }
 
@@ -885,11 +682,7 @@ public class WifiMonitor {
             if (newSupplicantState == SupplicantState.INVALID) {
                 Log.w(TAG, "Invalid supplicant state: " + newState);
             }
-<<<<<<< HEAD
             notifySupplicantStateChange(networkId, SSID, BSSID, newSupplicantState);
-=======
-            mWifiStateTracker.notifyStateChange(networkId, newSupplicantState);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -899,11 +692,7 @@ public class WifiMonitor {
         if (newState == NetworkInfo.DetailedState.CONNECTED) {
             Matcher match = mConnectedEventPattern.matcher(data);
             if (!match.find()) {
-<<<<<<< HEAD
                 if (false) Log.d(TAG, "Could not find BSSID in CONNECTED event string");
-=======
-                if (Config.LOGD) Log.d(TAG, "Could not find BSSID in CONNECTED event string");
->>>>>>> 54b6cfa... Initial Contribution
             } else {
                 BSSID = match.group(1);
                 try {
@@ -913,7 +702,6 @@ public class WifiMonitor {
                 }
             }
         }
-<<<<<<< HEAD
         notifyNetworkStateChange(newState, BSSID, networkId);
     }
 
@@ -950,9 +738,6 @@ public class WifiMonitor {
     void notifySupplicantStateChange(int networkId, String SSID, String BSSID, SupplicantState newState) {
         mStateMachine.sendMessage(mStateMachine.obtainMessage(SUPPLICANT_STATE_CHANGE_EVENT,
                 new StateChangeResult(networkId, SSID, BSSID, newState)));
-=======
-        mWifiStateTracker.notifyStateChange(newState, BSSID, networkId);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -962,11 +747,7 @@ public class WifiMonitor {
     private static void nap(int secs) {
         try {
             Thread.sleep(secs * 1000);
-<<<<<<< HEAD
         } catch (InterruptedException ignore) {
-=======
-        } catch (InterruptedException e) {
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 }

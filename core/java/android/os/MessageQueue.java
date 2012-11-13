@@ -16,20 +16,10 @@
 
 package android.os;
 
-<<<<<<< HEAD
 import android.util.AndroidRuntimeException;
 import android.util.Log;
 
 import java.util.ArrayList;
-=======
-import java.util.ArrayList;
-
-import android.util.AndroidRuntimeException;
-import android.util.Config;
-import android.util.Log;
-
-import com.android.internal.os.RuntimeInit;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Low-level class holding the list of messages to be dispatched by a
@@ -40,7 +30,6 @@ import com.android.internal.os.RuntimeInit;
  * {@link Looper#myQueue() Looper.myQueue()}.
  */
 public class MessageQueue {
-<<<<<<< HEAD
     // True if the message queue can be quit.
     private final boolean mQuitAllowed;
 
@@ -64,13 +53,6 @@ public class MessageQueue {
     private native void nativePollOnce(int ptr, int timeoutMillis);
     private native void nativeWake(int ptr);
 
-=======
-    Message mMessages;
-    private final ArrayList mIdleHandlers = new ArrayList();
-    private boolean mQuiting = false;
-    boolean mQuitAllowed = true;
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Callback interface for discovering when a thread is going to block
      * waiting for more messages.
@@ -118,7 +100,6 @@ public class MessageQueue {
         }
     }
 
-<<<<<<< HEAD
     MessageQueue(boolean quitAllowed) {
         mQuitAllowed = quitAllowed;
         nativeInit();
@@ -390,144 +371,10 @@ public class MessageQueue {
 
         synchronized (this) {
             Message p = mMessages;
-=======
-    MessageQueue() {
-    }
-
-    final Message next() {
-        boolean tryIdle = true;
-
-        while (true) {
-            long now;
-            Object[] idlers = null;
-    
-            // Try to retrieve the next message, returning if found.
-            synchronized (this) {
-                now = SystemClock.uptimeMillis();
-                Message msg = pullNextLocked(now);
-                if (msg != null) return msg;
-                if (tryIdle && mIdleHandlers.size() > 0) {
-                    idlers = mIdleHandlers.toArray();
-                }
-            }
-    
-            // There was no message so we are going to wait...  but first,
-            // if there are any idle handlers let them know.
-            boolean didIdle = false;
-            if (idlers != null) {
-                for (Object idler : idlers) {
-                    boolean keep = false;
-                    try {
-                        didIdle = true;
-                        keep = ((IdleHandler)idler).queueIdle();
-                    } catch (Throwable t) {
-                        Log.e("MessageQueue",
-                              "IdleHandler threw exception", t);
-                        RuntimeInit.crash("MessageQueue", t);
-                    }
-
-                    if (!keep) {
-                        synchronized (this) {
-                            mIdleHandlers.remove(idler);
-                        }
-                    }
-                }
-            }
-            
-            // While calling an idle handler, a new message could have been
-            // delivered...  so go back and look again for a pending message.
-            if (didIdle) {
-                tryIdle = false;
-                continue;
-            }
-
-            synchronized (this) {
-                // No messages, nobody to tell about it...  time to wait!
-                try {
-                    if (mMessages != null) {
-                        if (mMessages.when-now > 0) {
-                            Binder.flushPendingCommands();
-                            this.wait(mMessages.when-now);
-                        }
-                    } else {
-                        Binder.flushPendingCommands();
-                        this.wait();
-                    }
-                }
-                catch (InterruptedException e) {
-                }
-            }
-        }
-    }
-
-    final Message pullNextLocked(long now) {
-        Message msg = mMessages;
-        if (msg != null) {
-            if (now >= msg.when) {
-                mMessages = msg.next;
-                if (Config.LOGV) Log.v(
-                    "MessageQueue", "Returning message: " + msg);
-                return msg;
-            }
-        }
-
-        return null;
-    }
-
-    final boolean enqueueMessage(Message msg, long when) {
-        if (msg.when != 0) {
-            throw new AndroidRuntimeException(msg
-                    + " This message is already in use.");
-        }
-        if (msg.target == null && !mQuitAllowed) {
-            throw new RuntimeException("Main thread not allowed to quit");
-        }
-        synchronized (this) {
-            if (mQuiting) {
-                RuntimeException e = new RuntimeException(
-                    msg.target + " sending message to a Handler on a dead thread");
-                Log.w("MessageQueue", e.getMessage(), e);
-                return false;
-            } else if (msg.target == null) {
-                mQuiting = true;
-            }
-
-            msg.when = when;
-            //Log.d("MessageQueue", "Enqueing: " + msg);
-            Message p = mMessages;
-            if (p == null || when == 0 || when < p.when) {
-                msg.next = p;
-                mMessages = msg;
-                this.notify();
-            } else {
-                Message prev = null;
-                while (p != null && p.when <= when) {
-                    prev = p;
-                    p = p.next;
-                }
-                msg.next = prev.next;
-                prev.next = msg;
-                this.notify();
-            }
-        }
-        return true;
-    }
-
-    final boolean removeMessages(Handler h, int what, Object object,
-            boolean doRemove) {
-        synchronized (this) {
-            Message p = mMessages;
-            boolean found = false;
->>>>>>> 54b6cfa... Initial Contribution
 
             // Remove all messages at front.
             while (p != null && p.target == h && p.what == what
                    && (object == null || p.obj == object)) {
-<<<<<<< HEAD
-=======
-                if (!doRemove) return true;
-                found = true;
->>>>>>> 54b6cfa... Initial Contribution
                 Message n = p.next;
                 mMessages = n;
                 p.recycle();
@@ -540,11 +387,6 @@ public class MessageQueue {
                 if (n != null) {
                     if (n.target == h && n.what == what
                         && (object == null || n.obj == object)) {
-<<<<<<< HEAD
-=======
-                        if (!doRemove) return true;
-                        found = true;
->>>>>>> 54b6cfa... Initial Contribution
                         Message nn = n.next;
                         n.recycle();
                         p.next = nn;
@@ -553,20 +395,11 @@ public class MessageQueue {
                 }
                 p = n;
             }
-<<<<<<< HEAD
-=======
-            
-            return found;
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     final void removeMessages(Handler h, Runnable r, Object object) {
-<<<<<<< HEAD
         if (h == null || r == null) {
-=======
-        if (r == null) {
->>>>>>> 54b6cfa... Initial Contribution
             return;
         }
 
@@ -600,13 +433,10 @@ public class MessageQueue {
     }
 
     final void removeCallbacksAndMessages(Handler h, Object object) {
-<<<<<<< HEAD
         if (h == null) {
             return;
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         synchronized (this) {
             Message p = mMessages;
 
@@ -634,26 +464,4 @@ public class MessageQueue {
             }
         }
     }
-<<<<<<< HEAD
-=======
-
-    /*
-    private void dumpQueue_l()
-    {
-        Message p = mMessages;
-        System.out.println(this + "  queue is:");
-        while (p != null) {
-            System.out.println("            " + p);
-            p = p.next;
-        }
-    }
-    */
-
-    void poke()
-    {
-        synchronized (this) {
-            this.notify();
-        }
-    }
->>>>>>> 54b6cfa... Initial Contribution
 }

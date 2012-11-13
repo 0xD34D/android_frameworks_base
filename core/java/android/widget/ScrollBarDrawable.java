@@ -111,13 +111,9 @@ public class ScrollBarDrawable extends Drawable {
         }
 
         Rect r = getBounds();
-<<<<<<< HEAD
         if (canvas.quickReject(r.left, r.top, r.right, r.bottom, Canvas.EdgeType.AA)) {
             return;
         }
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
         if (drawTrack) {
             drawTrack(canvas, r, vertical);
         }
@@ -155,19 +151,12 @@ public class ScrollBarDrawable extends Drawable {
         } else {
             track = mHorizontalTrack;
         }
-<<<<<<< HEAD
         if (track != null) {
             if (mChanged) {
                 track.setBounds(bounds);
             }
             track.draw(canvas);
         }
-=======
-        if (mChanged) {
-            track.setBounds(bounds);
-        }
-        track.draw(canvas);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     protected void drawThumb(Canvas canvas, Rect bounds, int offset, int length, boolean vertical) {

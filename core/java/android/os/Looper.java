@@ -16,14 +16,9 @@
 
 package android.os;
 
-<<<<<<< HEAD
 import android.util.Log;
 import android.util.Printer;
 import android.util.PrefixPrinter;
-=======
-import android.util.Config;
-import android.util.Printer;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
   * Class used to run a message loop for a thread.  Threads by default do
@@ -37,7 +32,6 @@ import android.util.Printer;
   * <p>This is a typical example of the implementation of a Looper thread,
   * using the separation of {@link #prepare} and {@link #loop} to create an
   * initial Handler to communicate with the Looper.
-<<<<<<< HEAD
   *
   * <pre>
   *  class LooperThread extends Thread {
@@ -46,32 +40,17 @@ import android.util.Printer;
   *      public void run() {
   *          Looper.prepare();
   *
-=======
-  * 
-  * <pre>
-  *  class LooperThread extends Thread {
-  *      public Handler mHandler;
-  *      
-  *      public void run() {
-  *          Looper.prepare();
-  *          
->>>>>>> 54b6cfa... Initial Contribution
   *          mHandler = new Handler() {
   *              public void handleMessage(Message msg) {
   *                  // process incoming messages here
   *              }
   *          };
-<<<<<<< HEAD
   *
-=======
-  *          
->>>>>>> 54b6cfa... Initial Contribution
   *          Looper.loop();
   *      }
   *  }</pre>
   */
 public class Looper {
-<<<<<<< HEAD
     private static final String TAG = "Looper";
 
     // sThreadLocal.get() will return null unless you've called prepare().
@@ -84,27 +63,12 @@ public class Looper {
 
     private Printer mLogging;
 
-=======
-    private static final boolean DEBUG = false;
-    private static final boolean localLOGV = DEBUG ? Config.LOGD : Config.LOGV;
-
-    // sThreadLocal.get() will return null unless you've called prepare().
-    private static final ThreadLocal sThreadLocal = new ThreadLocal();
-
-    final MessageQueue mQueue;
-    volatile boolean mRun;
-    Thread mThread;
-    private Printer mLogging = null;
-    private static Looper mMainLooper = null;
-    
->>>>>>> 54b6cfa... Initial Contribution
      /** Initialize the current thread as a looper.
       * This gives you a chance to create handlers that then reference
       * this looper, before actually starting the loop. Be sure to call
       * {@link #loop()} after calling this method, and end it by calling
       * {@link #quit()}.
       */
-<<<<<<< HEAD
     public static void prepare() {
         prepare(true);
     }
@@ -188,82 +152,15 @@ public class Looper {
             }
 
             msg.recycle();
-=======
-    public static final void prepare() {
-        if (sThreadLocal.get() != null) {
-            throw new RuntimeException("Only one Looper may be created per thread");
-        }
-        sThreadLocal.set(new Looper());
-    }
-    
-    /** Initialize the current thread as a looper, marking it as an application's main 
-     *  looper. The main looper for your application is created by the Android environment,
-     *  so you should never need to call this function yourself.
-     * {@link #prepare()}
-     */
-     
-    public static final void prepareMainLooper() {
-        prepare();
-        setMainLooper(myLooper());
-        if (Process.supportsProcesses()) {
-            myLooper().mQueue.mQuitAllowed = false;
-        }
-    }
-
-    private synchronized static void setMainLooper(Looper looper) {
-        mMainLooper = looper;
-    }
-    
-    /** Returns the application's main looper, which lives in the main thread of the application.
-     */
-    public synchronized static final Looper getMainLooper() {
-        return mMainLooper;
-    }
-
-    /**
-     *  Run the message queue in this thread. Be sure to call
-     * {@link #quit()} to end the loop.
-     */
-    public static final void loop() {
-        Looper me = myLooper();
-        MessageQueue queue = me.mQueue;
-        while (true) {
-            Message msg = queue.next(); // might block
-            //if (!me.mRun) {
-            //    break;
-            //}
-            if (msg != null) {
-                if (msg.target == null) {
-                    // No target is a magic identifier for the quit message.
-                    return;
-                }
-                if (me.mLogging!= null) me.mLogging.println(
-                        ">>>>> Dispatching to " + msg.target + " "
-                        + msg.callback + ": " + msg.what
-                        );
-                msg.target.dispatchMessage(msg);
-                if (me.mLogging!= null) me.mLogging.println(
-                        "<<<<< Finished to    " + msg.target + " "
-                        + msg.callback);
-                msg.recycle();
-            }
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
-<<<<<<< HEAD
      * Return the Looper object associated with the current thread.  Returns
      * null if the calling thread is not associated with a Looper.
      */
     public static Looper myLooper() {
         return sThreadLocal.get();
-=======
-     * Return the Looper object associated with the current thread.
-     */
-    public static final Looper myLooper() {
-        return (Looper)sThreadLocal.get();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -281,7 +178,6 @@ public class Looper {
     
     /**
      * Return the {@link MessageQueue} object associated with the current
-<<<<<<< HEAD
      * thread.  This must be called from a thread running a Looper, or a
      * NullPointerException will be thrown.
      */
@@ -291,21 +187,10 @@ public class Looper {
 
     private Looper(boolean quitAllowed) {
         mQueue = new MessageQueue(quitAllowed);
-=======
-     * thread.
-     */
-    public static final MessageQueue myQueue() {
-        return myLooper().mQueue;
-    }
-
-    private Looper() {
-        mQueue = new MessageQueue();
->>>>>>> 54b6cfa... Initial Contribution
         mRun = true;
         mThread = Thread.currentThread();
     }
 
-<<<<<<< HEAD
     /**
      * Quits the looper.
      *
@@ -386,60 +271,11 @@ public class Looper {
                     msg = msg.next;
                 }
                 pw.println("(Total messages: " + n + ")");
-=======
-    public void quit() {
-        Message msg = Message.obtain();
-        // NOTE: By enqueueing directly into the message queue, the
-        // message is left with a null target.  This is how we know it is
-        // a quit message.
-        mQueue.enqueueMessage(msg, 0);
-    }
-
-    public void dump(Printer pw, String prefix) {
-        pw.println(prefix + this);
-        pw.println(prefix + "mRun=" + mRun);
-        pw.println(prefix + "mThread=" + mThread);
-        pw.println(prefix + "mQueue=" + ((mQueue != null) ? mQueue : "(null"));
-        if (mQueue != null) {
-            synchronized (mQueue) {
-                Message msg = mQueue.mMessages;
-                int n = 0;
-                while (msg != null) {
-                    pw.println(prefix + "  Message " + n + ": " + msg);
-                    n++;
-                    msg = msg.next;
-                }
-                pw.println(prefix + "(Total messages: " + n + ")");
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
     public String toString() {
-<<<<<<< HEAD
         return "Looper{" + Integer.toHexString(System.identityHashCode(this)) + "}";
     }
 }
-=======
-        return "Looper{"
-            + Integer.toHexString(System.identityHashCode(this))
-            + "}";
-    }
-
-    static class HandlerException extends Exception {
-
-        HandlerException(Message message, Throwable cause) {
-            super(createMessage(cause), cause);
-        }
-
-        static String createMessage(Throwable cause) {
-            String causeMsg = cause.getMessage();
-            if (causeMsg == null) {
-                causeMsg = cause.toString();
-            }
-            return causeMsg;
-        }
-    }
-}
-
->>>>>>> 54b6cfa... Initial Contribution

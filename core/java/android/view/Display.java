@@ -16,7 +16,6 @@
 
 package android.view;
 
-<<<<<<< HEAD
 import android.content.res.CompatibilityInfo;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -61,55 +60,18 @@ public class Display {
     /**
      * Returns the index of this display.  This is currently undefined; do
      * not use.
-=======
-import android.util.DisplayMetrics;
-
-public class Display
-{
-    /**
-     * Specify the default Display
-     */
-    public static final int DEFAULT_DISPLAY = 0;
-
-    
-    /**
-     * Use the WindowManager interface to create a Display object.
-     * Display gives you access to some information about a particular display
-     * connected to the device.
-     */
-    Display(int display) {
-        // initalize the statics when this class is first instansiated. This is
-        // done here instead of in the static block because Zygote
-        synchronized (mStaticInit) {
-            if (!mInitialized) {
-                nativeClassInit();
-                mInitialized = true;
-            }
-        }
-        mDisplay = display;
-        init(display);
-    }
-    
-    /**
-     * @return index of this display.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public int getDisplayId() {
         return mDisplay;
     }
 
     /**
-<<<<<<< HEAD
      * Returns the number of displays connected to the device.  This is
      * currently undefined; do not use.
-=======
-     * @return the number of displays connected to the device.
->>>>>>> 54b6cfa... Initial Contribution
      */
     native static int getDisplayCount();
     
     /**
-<<<<<<< HEAD
      * Gets the size of the display, in pixels.
      * <p>
      * Note that this value should <em>not</em> be used for computing layouts,
@@ -357,42 +319,19 @@ public class Display
     /**
      * Return the native pixel format of the display.  The returned value
      * may be one of the constants int {@link android.graphics.PixelFormat}.
-=======
-     * @return width of this display in pixels.
-     */
-    native public int getWidth();
-    
-    /**
-     * @return height of this display in pixels.
-     */
-    native public int getHeight();
-
-    /**
-     * @return orientation of this display.
-     */
-    native public int getOrientation();
-
-    /**
-     * @return pixel format of this display.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public int getPixelFormat() {
         return mPixelFormat;
     }
     
     /**
-<<<<<<< HEAD
      * Return the refresh rate of this display in frames per second.
-=======
-     * @return refresh rate of this display in frames per second.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public float getRefreshRate() {
         return mRefreshRate;
     }
     
     /**
-<<<<<<< HEAD
      * Gets display metrics that describe the size and density of this display.
      * <p>
      * The size is adjusted based on the current rotation of the display.
@@ -485,19 +424,6 @@ public class Display
             }
             return sWindowManager;
         }
-=======
-     * Initialize a DisplayMetrics object from this display's data.
-     * 
-     * @param outMetrics
-     */
-    public void getMetrics(DisplayMetrics outMetrics) {
-        outMetrics.widthPixels  = getWidth();
-        outMetrics.heightPixels = getHeight();
-        outMetrics.density      = mDensity;
-        outMetrics.scaledDensity= outMetrics.density;
-        outMetrics.xdpi         = mDpiX;
-        outMetrics.ydpi         = mDpiY;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /*
@@ -508,7 +434,6 @@ public class Display
     
     private native void init(int display);
 
-<<<<<<< HEAD
     private final CompatibilityInfoHolder mCompatibilityInfo;
     private final int   mDisplay;
     // Following fields are initialized from native code
@@ -533,17 +458,5 @@ public class Display
     public static Display createCompatibleDisplay(int displayId, CompatibilityInfoHolder compat) {
         return new Display(displayId, compat);
     }
-=======
-    private int         mDisplay;
-    // Following fields are initialized from native code
-    private int         mPixelFormat;
-    private float       mRefreshRate;
-    private float       mDensity;
-    private float       mDpiX;
-    private float       mDpiY;
-    
-    private static final Object mStaticInit = new Object();
-    private static boolean mInitialized = false;
->>>>>>> 54b6cfa... Initial Contribution
 }
 

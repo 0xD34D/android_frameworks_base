@@ -10,7 +10,6 @@
 #include "ResourceTable.h"
 #include "Images.h"
 
-<<<<<<< HEAD
 #include "CrunchCache.h"
 #include "FileFinder.h"
 #include "CacheUpdater.h"
@@ -30,10 +29,6 @@
 // Number of threads to use for preprocessing images.
 static const size_t MAX_THREADS = 4;
 
-=======
-#define NOISY(x) // x
-
->>>>>>> 54b6cfa... Initial Contribution
 // ==========================================================================
 // ==========================================================================
 // ==========================================================================
@@ -67,7 +62,6 @@ static String8 parseResourceName(const String8& leaf)
     }
 }
 
-<<<<<<< HEAD
 ResourceTypeSet::ResourceTypeSet()
     :RefBase(),
      KeyedVector<String8,sp<AaptGroup> >()
@@ -77,18 +71,6 @@ ResourceTypeSet::ResourceTypeSet()
 FilePathStore::FilePathStore()
     :RefBase(),
      Vector<String8>()
-=======
-class ResourceTypeSet : public RefBase,
-                        public KeyedVector<String8,sp<AaptGroup> >
-{
-public:
-    ResourceTypeSet();
-};
-
-ResourceTypeSet::ResourceTypeSet()
-    :RefBase(),
-     KeyedVector<String8,sp<AaptGroup> >()
->>>>>>> 54b6cfa... Initial Contribution
 {
 }
 
@@ -142,21 +124,13 @@ public:
             String8 leaf(group->getLeaf());
             mLeafName = String8(leaf);
             mParams = file->getGroupEntry().toParams();
-<<<<<<< HEAD
             NOISY(printf("Dir %s: mcc=%d mnc=%d lang=%c%c cnt=%c%c orient=%d ui=%d density=%d touch=%d key=%d inp=%d nav=%d\n",
-=======
-            NOISY(printf("Dir %s: mcc=%d mnc=%d lang=%c%c cnt=%c%c orient=%d density=%d touch=%d key=%d inp=%d nav=%d\n",
->>>>>>> 54b6cfa... Initial Contribution
                    group->getPath().string(), mParams.mcc, mParams.mnc,
                    mParams.language[0] ? mParams.language[0] : '-',
                    mParams.language[1] ? mParams.language[1] : '-',
                    mParams.country[0] ? mParams.country[0] : '-',
                    mParams.country[1] ? mParams.country[1] : '-',
-<<<<<<< HEAD
                    mParams.orientation, mParams.uiMode,
-=======
-                   mParams.orientation,
->>>>>>> 54b6cfa... Initial Contribution
                    mParams.density, mParams.touchscreen, mParams.keyboard,
                    mParams.inputFlags, mParams.navigation));
             mPath = "res";
@@ -197,16 +171,10 @@ private:
 
 bool isValidResourceType(const String8& type)
 {
-<<<<<<< HEAD
     return type == "anim" || type == "animator" || type == "interpolator"
         || type == "drawable" || type == "layout"
         || type == "values" || type == "xml" || type == "raw"
         || type == "color" || type == "menu" || type == "mipmap";
-=======
-    return type == "anim" || type == "drawable" || type == "layout"
-        || type == "values" || type == "xml" || type == "raw"
-        || type == "color" || type == "menu";
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 static sp<AaptFile> getResourceFile(const sp<AaptAssets>& assets, bool makeIfNecessary=true)
@@ -227,18 +195,11 @@ static sp<AaptFile> getResourceFile(const sp<AaptAssets>& assets, bool makeIfNec
                             NULL, String8());
 }
 
-<<<<<<< HEAD
 static status_t parsePackage(Bundle* bundle, const sp<AaptAssets>& assets,
     const sp<AaptGroup>& grp)
 {
     if (grp->getFiles().size() != 1) {
         fprintf(stderr, "warning: Multiple AndroidManifest.xml files found, using %s\n",
-=======
-static status_t parsePackage(const sp<AaptAssets>& assets, const sp<AaptGroup>& grp)
-{
-    if (grp->getFiles().size() != 1) {
-        fprintf(stderr, "WARNING: Multiple AndroidManifest.xml files found, using %s\n",
->>>>>>> 54b6cfa... Initial Contribution
                 grp->getFiles().valueAt(0)->getPrintableSource().string());
     }
 
@@ -279,7 +240,6 @@ static status_t parsePackage(const sp<AaptAssets>& assets, const sp<AaptGroup>& 
 
     assets->setPackage(String8(block.getAttributeStringValue(nameIndex, &len)));
 
-<<<<<<< HEAD
     String16 uses_sdk16("uses-sdk");
     while ((code=block.next()) != ResXMLTree::END_DOCUMENT
            && code != ResXMLTree::BAD_DOCUMENT) {
@@ -296,8 +256,6 @@ static status_t parsePackage(const sp<AaptAssets>& assets, const sp<AaptGroup>& 
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     return NO_ERROR;
 }
 
@@ -349,7 +307,6 @@ static status_t makeFileResources(Bundle* bundle, const sp<AaptAssets>& assets,
     return hasErrors ? UNKNOWN_ERROR : NO_ERROR;
 }
 
-<<<<<<< HEAD
 class PreProcessImageWorkUnit : public WorkQueue::WorkUnit {
 public:
     PreProcessImageWorkUnit(const Bundle* bundle, const sp<AaptAssets>& assets,
@@ -398,23 +355,6 @@ static status_t preProcessImages(const Bundle* bundle, const sp<AaptAssets>& ass
         }
     }
     return (hasErrors || (res < NO_ERROR)) ? UNKNOWN_ERROR : NO_ERROR;
-=======
-static status_t preProcessImages(Bundle* bundle, const sp<AaptAssets>& assets,
-                          const sp<ResourceTypeSet>& set)
-{
-    ResourceDirIterator it(set, String8("drawable"));
-    Vector<sp<AaptFile> > newNameFiles;
-    Vector<String8> newNamePaths;
-    ssize_t res;
-    while ((res=it.next()) == NO_ERROR) {
-        res = preProcessImage(bundle, assets, it.getFile(), NULL);
-        if (res != NO_ERROR) {
-            return res;
-        }
-    }
-
-    return NO_ERROR;
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 status_t postProcessImages(const sp<AaptAssets>& assets,
@@ -422,7 +362,6 @@ status_t postProcessImages(const sp<AaptAssets>& assets,
                            const sp<ResourceTypeSet>& set)
 {
     ResourceDirIterator it(set, String8("drawable"));
-<<<<<<< HEAD
     bool hasErrors = false;
     ssize_t res;
     while ((res=it.next()) == NO_ERROR) {
@@ -433,17 +372,6 @@ status_t postProcessImages(const sp<AaptAssets>& assets,
     }
 
     return (hasErrors || (res < NO_ERROR)) ? UNKNOWN_ERROR : NO_ERROR;
-=======
-    ssize_t res;
-    while ((res=it.next()) == NO_ERROR) {
-        res = postProcessImage(assets, table, it.getFile());
-        if (res != NO_ERROR) {
-            return res;
-        }
-    }
-
-    return res < NO_ERROR ? res : (status_t)NO_ERROR;
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 static void collect_files(const sp<AaptDir>& dir,
@@ -468,18 +396,14 @@ static void collect_files(const sp<AaptDir>& dir,
 
         if (index < 0) {
             sp<ResourceTypeSet> set = new ResourceTypeSet();
-<<<<<<< HEAD
             NOISY(printf("Creating new resource type set for leaf %s with group %s (%p)\n",
                     leafName.string(), group->getPath().string(), group.get()));
-=======
->>>>>>> 54b6cfa... Initial Contribution
             set->add(leafName, group);
             resources->add(resType, set);
         } else {
             sp<ResourceTypeSet> set = resources->valueAt(index);
             index = set->indexOfKey(leafName);
             if (index < 0) {
-<<<<<<< HEAD
                 NOISY(printf("Adding to resource type set for leaf %s group %s (%p)\n",
                         leafName.string(), group->getPath().string(), group.get()));
                 set->add(leafName, group);
@@ -493,14 +417,6 @@ static void collect_files(const sp<AaptDir>& dir,
                         files.keyAt(j).toDirName(String8()).string(),
                         resType.string()));
                     status_t err = existingGroup->addFile(files.valueAt(j));
-=======
-                set->add(leafName, group);
-            } else {
-                sp<AaptGroup> existingGroup = set->valueAt(index);
-                int M = files.size();
-                for (int j=0; j<M; j++) {
-                    existingGroup->addFile(files.valueAt(j));
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -515,18 +431,12 @@ static void collect_files(const sp<AaptAssets>& ass,
 
     for (int i=0; i<N; i++) {
         sp<AaptDir> d = dirs.itemAt(i);
-<<<<<<< HEAD
         NOISY(printf("Collecting dir #%d %p: %s, leaf %s\n", i, d.get(), d->getPath().string(),
                 d->getLeaf().string()));
         collect_files(d, resources);
 
         // don't try to include the res dir
         NOISY(printf("Removing dir leaf %s\n", d->getLeaf().string()));
-=======
-        collect_files(d, resources);
-
-        // don't try to include the res dir
->>>>>>> 54b6cfa... Initial Contribution
         ass->removeDir(d->getLeaf());
     }
 }
@@ -537,19 +447,14 @@ enum {
     ATTR_LEADING_SPACES = -3,
     ATTR_TRAILING_SPACES = -4
 };
-<<<<<<< HEAD
 static int validateAttr(const String8& path, const ResTable& table,
         const ResXMLParser& parser,
-=======
-static int validateAttr(const String8& path, const ResXMLParser& parser,
->>>>>>> 54b6cfa... Initial Contribution
         const char* ns, const char* attr, const char* validChars, bool required)
 {
     size_t len;
 
     ssize_t index = parser.indexOfAttribute(ns, attr);
     const uint16_t* str;
-<<<<<<< HEAD
     Res_value value;
     if (index >= 0 && parser.getAttributeValue(index, &value) >= 0) {
         const ResStringPool* pool = &parser.getStrings();
@@ -600,9 +505,6 @@ static int validateAttr(const String8& path, const ResXMLParser& parser,
                     value.dataType);
             return ATTR_NOT_FOUND;
         }
-=======
-    if (index >= 0 && (str=parser.getAttributeStringValue(index, &len)) != NULL) {
->>>>>>> 54b6cfa... Initial Contribution
         if (validChars) {
             for (size_t i=0; i<len; i++) {
                 uint16_t c = str[i];
@@ -654,18 +556,13 @@ static void checkForIds(const String8& path, ResXMLParser& parser)
         if (code == ResXMLTree::START_TAG) {
             ssize_t index = parser.indexOfAttribute(NULL, "id");
             if (index >= 0) {
-<<<<<<< HEAD
                 fprintf(stderr, "%s:%d: warning: found plain 'id' attribute; did you mean the new 'android:id' name?\n",
-=======
-                fprintf(stderr, "%s:%d: WARNING: found plain 'id' attribute; did you mean the new 'android:id' name?\n",
->>>>>>> 54b6cfa... Initial Contribution
                         path.string(), parser.getLineNumber());
             }
         }
     }
 }
 
-<<<<<<< HEAD
 static bool applyFileOverlay(Bundle *bundle,
                              const sp<AaptAssets>& assets,
                              sp<ResourceTypeSet> *baseSet,
@@ -952,16 +849,6 @@ status_t updatePreProcessedCache(Bundle* bundle)
     return 0;
 }
 
-=======
-#define ASSIGN_IT(n) \
-        do { \
-            ssize_t index = resources.indexOfKey(String8(#n)); \
-            if (index >= 0) { \
-                n ## s = resources.valueAt(index); \
-            } \
-        } while (0)
-
->>>>>>> 54b6cfa... Initial Contribution
 status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
 {
     // First, look for a package file to parse.  This is required to
@@ -973,11 +860,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         return UNKNOWN_ERROR;
     }
 
-<<<<<<< HEAD
     status_t err = parsePackage(bundle, assets, androidManifestFile);
-=======
-    status_t err = parsePackage(assets, androidManifestFile);
->>>>>>> 54b6cfa... Initial Contribution
     if (err != NO_ERROR) {
         return err;
     }
@@ -993,7 +876,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
 
     NOISY(printf("Found %d included resource packages\n", (int)table.size()));
 
-<<<<<<< HEAD
     // Standard flags for compiled XML and optional UTF-8 encoding
     int xmlFlags = XML_COMPILE_STANDARD_RESOURCE;
 
@@ -1004,16 +886,12 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
     if (!bundle->getUTF16StringsOption()) {
         xmlFlags |= XML_COMPILE_UTF8;
     }
-=======
-    sp<AaptDir> res = assets->getDirs().valueFor(String8("res"));
->>>>>>> 54b6cfa... Initial Contribution
 
     // --------------------------------------------------------------
     // First, gather all resource information.
     // --------------------------------------------------------------
 
     // resType -> leafName -> group
-<<<<<<< HEAD
     KeyedVector<String8, sp<ResourceTypeSet> > *resources = 
             new KeyedVector<String8, sp<ResourceTypeSet> >;
     collect_files(assets, resources);
@@ -1023,28 +901,15 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
     sp<ResourceTypeSet> anims;
     sp<ResourceTypeSet> animators;
     sp<ResourceTypeSet> interpolators;
-=======
-    KeyedVector<String8, sp<ResourceTypeSet> > resources;
-    collect_files(assets, &resources);
-
-    sp<ResourceTypeSet> drawables;
-    sp<ResourceTypeSet> valuess;
-    sp<ResourceTypeSet> layouts;
-    sp<ResourceTypeSet> anims;
->>>>>>> 54b6cfa... Initial Contribution
     sp<ResourceTypeSet> xmls;
     sp<ResourceTypeSet> raws;
     sp<ResourceTypeSet> colors;
     sp<ResourceTypeSet> menus;
-<<<<<<< HEAD
     sp<ResourceTypeSet> mipmaps;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     ASSIGN_IT(drawable);
     ASSIGN_IT(layout);
     ASSIGN_IT(anim);
-<<<<<<< HEAD
     ASSIGN_IT(animator);
     ASSIGN_IT(interpolator);
     ASSIGN_IT(xml);
@@ -1076,24 +941,13 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
             !applyFileOverlay(bundle, assets, &mipmaps, "mipmap")) {
         return UNKNOWN_ERROR;
     }
-=======
-    ASSIGN_IT(xml);
-    ASSIGN_IT(raw);
-    ASSIGN_IT(values);
-    ASSIGN_IT(color);
-    ASSIGN_IT(menu);
->>>>>>> 54b6cfa... Initial Contribution
 
     bool hasErrors = false;
 
     if (drawables != NULL) {
-<<<<<<< HEAD
         if (bundle->getOutputAPKFile() != NULL) {
             err = preProcessImages(bundle, assets, drawables, "drawable");
         }
-=======
-        err = preProcessImages(bundle, assets, drawables);
->>>>>>> 54b6cfa... Initial Contribution
         if (err == NO_ERROR) {
             err = makeFileResources(bundle, assets, &table, drawables, "drawable");
             if (err != NO_ERROR) {
@@ -1104,7 +958,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         }
     }
 
-<<<<<<< HEAD
     if (mipmaps != NULL) {
         if (bundle->getOutputAPKFile() != NULL) {
             err = preProcessImages(bundle, assets, mipmaps, "mipmap");
@@ -1119,8 +972,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     if (layouts != NULL) {
         err = makeFileResources(bundle, assets, &table, layouts, "layout");
         if (err != NO_ERROR) {
@@ -1135,7 +986,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         }
     }
 
-<<<<<<< HEAD
     if (animators != NULL) {
         err = makeFileResources(bundle, assets, &table, animators, "animator");
         if (err != NO_ERROR) {
@@ -1150,8 +1000,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     if (xmls != NULL) {
         err = makeFileResources(bundle, assets, &table, xmls, "xml");
         if (err != NO_ERROR) {
@@ -1166,7 +1014,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         }
     }
 
-<<<<<<< HEAD
     // compile resources
     current = assets;
     while(current.get()) {
@@ -1187,19 +1034,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
             }
         }
         current = current->getOverlay();
-=======
-    if (valuess != NULL) {
-        ResourceDirIterator it(valuess, String8("values"));
-        ssize_t res;
-        while ((res=it.next()) == NO_ERROR) {
-            sp<AaptFile> file = it.getFile();
-
-            res = compileResourceFile(bundle, assets, file, it.getParams(), &table);
-            if (res != NO_ERROR) {
-                hasErrors = true;
-            }
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     if (colors != NULL) {
@@ -1242,11 +1076,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         ResourceDirIterator it(layouts, String8("layout"));
         while ((err=it.next()) == NO_ERROR) {
             String8 src = it.getFile()->getPrintableSource();
-<<<<<<< HEAD
             err = compileXmlFile(assets, it.getFile(), &table, xmlFlags);
-=======
-            err = compileXmlFile(assets, it.getFile(), &table);
->>>>>>> 54b6cfa... Initial Contribution
             if (err == NO_ERROR) {
                 ResXMLTree block;
                 block.setTo(it.getFile()->getData(), it.getFile()->getSize(), true);
@@ -1265,7 +1095,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
     if (anims != NULL) {
         ResourceDirIterator it(anims, String8("anim"));
         while ((err=it.next()) == NO_ERROR) {
-<<<<<<< HEAD
             err = compileXmlFile(assets, it.getFile(), &table, xmlFlags);
             if (err != NO_ERROR) {
                 hasErrors = true;
@@ -1297,9 +1126,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         ResourceDirIterator it(interpolators, String8("interpolator"));
         while ((err=it.next()) == NO_ERROR) {
             err = compileXmlFile(assets, it.getFile(), &table, xmlFlags);
-=======
-            err = compileXmlFile(assets, it.getFile(), &table);
->>>>>>> 54b6cfa... Initial Contribution
             if (err != NO_ERROR) {
                 hasErrors = true;
             }
@@ -1314,11 +1140,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
     if (xmls != NULL) {
         ResourceDirIterator it(xmls, String8("xml"));
         while ((err=it.next()) == NO_ERROR) {
-<<<<<<< HEAD
             err = compileXmlFile(assets, it.getFile(), &table, xmlFlags);
-=======
-            err = compileXmlFile(assets, it.getFile(), &table);
->>>>>>> 54b6cfa... Initial Contribution
             if (err != NO_ERROR) {
                 hasErrors = true;
             }
@@ -1340,11 +1162,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
     if (colors != NULL) {
         ResourceDirIterator it(colors, String8("color"));
         while ((err=it.next()) == NO_ERROR) {
-<<<<<<< HEAD
           err = compileXmlFile(assets, it.getFile(), &table, xmlFlags);
-=======
-          err = compileXmlFile(assets, it.getFile(), &table);
->>>>>>> 54b6cfa... Initial Contribution
             if (err != NO_ERROR) {
                 hasErrors = true;
             }
@@ -1360,11 +1178,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         ResourceDirIterator it(menus, String8("menu"));
         while ((err=it.next()) == NO_ERROR) {
             String8 src = it.getFile()->getPrintableSource();
-<<<<<<< HEAD
             err = compileXmlFile(assets, it.getFile(), &table, xmlFlags);
-=======
-            err = compileXmlFile(assets, it.getFile(), &table);
->>>>>>> 54b6cfa... Initial Contribution
             if (err != NO_ERROR) {
                 hasErrors = true;
             }
@@ -1379,7 +1193,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         err = NO_ERROR;
     }
 
-<<<<<<< HEAD
     if (table.validateLocalizations()) {
         hasErrors = true;
     }
@@ -1460,35 +1273,22 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
 #endif
     }
     
-=======
-    const sp<AaptFile> manifestFile(androidManifestFile->getFiles().valueAt(0));
-    String8 manifestPath(manifestFile->getPrintableSource());
-
->>>>>>> 54b6cfa... Initial Contribution
     // Perform a basic validation of the manifest file.  This time we
     // parse it with the comments intact, so that we can use them to
     // generate java docs...  so we are not going to write this one
     // back out to the final manifest data.
-<<<<<<< HEAD
     sp<AaptFile> outManifestFile = new AaptFile(manifestFile->getSourceFile(),
             manifestFile->getGroupEntry(),
             manifestFile->getResourceType());
     err = compileXmlFile(assets, manifestFile,
             outManifestFile, &table,
-=======
-    err = compileXmlFile(assets, manifestFile, &table,
->>>>>>> 54b6cfa... Initial Contribution
             XML_COMPILE_ASSIGN_ATTRIBUTE_IDS
             | XML_COMPILE_STRIP_WHITESPACE | XML_COMPILE_STRIP_RAW_VALUES);
     if (err < NO_ERROR) {
         return err;
     }
     ResXMLTree block;
-<<<<<<< HEAD
     block.setTo(outManifestFile->getData(), outManifestFile->getSize(), true);
-=======
-    block.setTo(manifestFile->getData(), manifestFile->getSize(), true);
->>>>>>> 54b6cfa... Initial Contribution
     String16 manifest16("manifest");
     String16 permission16("permission");
     String16 permission_group16("permission-group");
@@ -1527,7 +1327,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
                 continue;
             }
             if (strcmp16(block.getElementName(&len), manifest16.string()) == 0) {
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block, NULL, "package",
                                  packageIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
@@ -1536,23 +1335,12 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
                                  "sharedUserId", packageIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
-=======
-                if (validateAttr(manifestPath, block, NULL, "package",
-                                 packageIdentChars, true) != ATTR_OKAY) {
-                    hasErrors = true;
-                }
->>>>>>> 54b6cfa... Initial Contribution
             } else if (strcmp16(block.getElementName(&len), permission16.string()) == 0
                     || strcmp16(block.getElementName(&len), permission_group16.string()) == 0) {
                 const bool isGroup = strcmp16(block.getElementName(&len),
                         permission_group16.string()) == 0;
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block, RESOURCES_ANDROID_NAMESPACE,
                                  "name", isGroup ? packageIdentCharsWithTheStupid
-=======
-                if (validateAttr(manifestPath, block, RESOURCES_ANDROID_NAMESPACE, "name",
-                                 isGroup ? packageIdentCharsWithTheStupid
->>>>>>> 54b6cfa... Initial Contribution
                                  : packageIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
                 }
@@ -1630,7 +1418,6 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
                 }
                 syms->makeSymbolPublic(String8(e), srcPos);
             } else if (strcmp16(block.getElementName(&len), uses_permission16.string()) == 0) {
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block, RESOURCES_ANDROID_NAMESPACE,
                                  "name", packageIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
@@ -1641,90 +1428,46 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
                     hasErrors = true;
                 }
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block, RESOURCES_ANDROID_NAMESPACE, "name",
-                                 packageIdentChars, true) != ATTR_OKAY) {
-                    hasErrors = true;
-                }
-            } else if (strcmp16(block.getElementName(&len), instrumentation16.string()) == 0) {
-                if (validateAttr(manifestPath, block, RESOURCES_ANDROID_NAMESPACE, "name",
-                                 classIdentChars, true) != ATTR_OKAY) {
-                    hasErrors = true;
-                }
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "targetPackage",
                                  packageIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
                 }
             } else if (strcmp16(block.getElementName(&len), application16.string()) == 0) {
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block, RESOURCES_ANDROID_NAMESPACE,
                                  "name", classIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block, RESOURCES_ANDROID_NAMESPACE, "name",
-                                 classIdentChars, false) != ATTR_OKAY) {
-                    hasErrors = true;
-                }
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "permission",
                                  packageIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "process",
                                  processIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "taskAffinity",
                                  processIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
             } else if (strcmp16(block.getElementName(&len), provider16.string()) == 0) {
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block, RESOURCES_ANDROID_NAMESPACE,
                                  "name", classIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
                 }
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block, RESOURCES_ANDROID_NAMESPACE, "name",
-                                 classIdentChars, true) != ATTR_OKAY) {
-                    hasErrors = true;
-                }
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "authorities",
                                  authoritiesIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
                 }
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "permission",
                                  packageIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "process",
                                  processIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
@@ -1732,67 +1475,39 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
             } else if (strcmp16(block.getElementName(&len), service16.string()) == 0
                        || strcmp16(block.getElementName(&len), receiver16.string()) == 0
                        || strcmp16(block.getElementName(&len), activity16.string()) == 0) {
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block, RESOURCES_ANDROID_NAMESPACE,
                                  "name", classIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
                 }
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block, RESOURCES_ANDROID_NAMESPACE, "name",
-                                 classIdentChars, true) != ATTR_OKAY) {
-                    hasErrors = true;
-                }
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "permission",
                                  packageIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "process",
                                  processIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "taskAffinity",
                                  processIdentChars, false) != ATTR_OKAY) {
                     hasErrors = true;
                 }
             } else if (strcmp16(block.getElementName(&len), action16.string()) == 0
                        || strcmp16(block.getElementName(&len), category16.string()) == 0) {
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "name",
                                  packageIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
                 }
             } else if (strcmp16(block.getElementName(&len), data16.string()) == 0) {
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "mimeType",
                                  typeIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
                 }
-<<<<<<< HEAD
                 if (validateAttr(manifestPath, finalResTable, block,
-=======
-                if (validateAttr(manifestPath, block,
->>>>>>> 54b6cfa... Initial Contribution
                                  RESOURCES_ANDROID_NAMESPACE, "scheme",
                                  schemeIdentChars, true) != ATTR_OKAY) {
                     hasErrors = true;
@@ -1801,67 +1516,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
         }
     }
 
-<<<<<<< HEAD
     if (resFile != NULL) {
-=======
-    if (hasErrors) {
-        return UNKNOWN_ERROR;
-    }
-
-    // Generate final compiled manifest file.
-    manifestFile->clearData();
-    err = compileXmlFile(assets, manifestFile, &table);
-    if (err < NO_ERROR) {
-        return err;
-    }
-
-    //block.restart();
-    //printXMLBlock(&block);
-
-    // --------------------------------------------------------------
-    // Generate the final resource table.
-    // Re-flatten because we may have added new resource IDs
-    // --------------------------------------------------------------
-
-    if (table.hasResources()) {
-        sp<AaptSymbols> symbols = assets->getSymbolsFor(String8("R"));
-        err = table.addSymbols(symbols);
-        if (err < NO_ERROR) {
-            return err;
-        }
-
-        sp<AaptFile> resFile(getResourceFile(assets));
-        if (resFile == NULL) {
-            fprintf(stderr, "Error: unable to generate entry for resource data\n");
-            return UNKNOWN_ERROR;
-        }
-
-        err = table.flatten(bundle, resFile);
-        if (err < NO_ERROR) {
-            return err;
-        }
-
-        if (bundle->getPublicOutputFile()) {
-            FILE* fp = fopen(bundle->getPublicOutputFile(), "w+");
-            if (fp == NULL) {
-                fprintf(stderr, "ERROR: Unable to open public definitions output file %s: %s\n",
-                        (const char*)bundle->getPublicOutputFile(), strerror(errno));
-                return UNKNOWN_ERROR;
-            }
-            if (bundle->getVerbose()) {
-                printf("  Writing public definitions to %s.\n", bundle->getPublicOutputFile());
-            }
-            table.writePublicDefinitions(String16(assets->getPackage()), fp);
-        }
-
-        NOISY(
-              ResTable rt;
-              rt.add(resFile->getData(), resFile->getSize(), NULL);
-              printf("Generated resources:\n");
-              rt.print();
-        )
-
->>>>>>> 54b6cfa... Initial Contribution
         // These resources are now considered to be a part of the included
         // resources, for others to reference.
         err = assets->addIncludedResources(resFile);
@@ -1870,11 +1525,7 @@ status_t buildResources(Bundle* bundle, const sp<AaptAssets>& assets)
             return err;
         }
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
     return err;
 }
 
@@ -1973,7 +1624,6 @@ static status_t writeLayoutClasses(
 
         NA = idents.size();
 
-<<<<<<< HEAD
         bool deprecated = false;
         
         String16 comment = symbols->getComment(realClassName);
@@ -1984,12 +1634,6 @@ static status_t writeLayoutClasses(
             if (strstr(cmt.string(), "@deprecated") != NULL) {
                 deprecated = true;
             }
-=======
-        String16 comment = symbols->getComment(realClassName);
-        fprintf(fp, "%s/** ", indentStr);
-        if (comment.size() > 0) {
-            fprintf(fp, "%s\n", String8(comment).string());
->>>>>>> 54b6cfa... Initial Contribution
         } else {
             fprintf(fp, "Attributes that can be used with a %s.\n", nclassName.string());
         }
@@ -2001,17 +1645,10 @@ static status_t writeLayoutClasses(
                     hasTable = true;
                     fprintf(fp,
                             "%s   <p>Includes the following attributes:</p>\n"
-<<<<<<< HEAD
                             "%s   <table>\n"
                             "%s   <colgroup align=\"left\" />\n"
                             "%s   <colgroup align=\"left\" />\n"
                             "%s   <tr><th>Attribute</th><th>Description</th></tr>\n",
-=======
-                            "%s   <table border=\"2\" width=\"85%%\" align=\"center\" frame=\"hsides\" rules=\"all\" cellpadding=\"5\">\n"
-                            "%s   <colgroup align=\"left\" />\n"
-                            "%s   <colgroup align=\"left\" />\n"
-                            "%s   <tr><th>Attribute<th>Summary</tr>\n",
->>>>>>> 54b6cfa... Initial Contribution
                             indentStr,
                             indentStr,
                             indentStr,
@@ -2045,11 +1682,7 @@ static status_t writeLayoutClasses(
                 }
                 String16 name(name8);
                 fixupSymbol(&name);
-<<<<<<< HEAD
                 fprintf(fp, "%s   <tr><td><code>{@link #%s_%s %s:%s}</code></td><td>%s</td></tr>\n",
-=======
-                fprintf(fp, "%s   <tr><th><code>{@link #%s_%s %s:%s}</code><td>%s</tr>\n",
->>>>>>> 54b6cfa... Initial Contribution
                         indentStr, nclassName.string(),
                         String8(name).string(),
                         assets->getPackage().string(),
@@ -2076,13 +1709,10 @@ static status_t writeLayoutClasses(
         }
         fprintf(fp, "%s */\n", getIndentSpace(indent));
 
-<<<<<<< HEAD
         if (deprecated) {
             fprintf(fp, "%s@Deprecated\n", indentStr);
         }
         
-=======
->>>>>>> 54b6cfa... Initial Contribution
         fprintf(fp,
                 "%spublic static final int[] %s = {\n"
                 "%s",
@@ -2131,7 +1761,6 @@ static status_t writeLayoutClasses(
                 //printf("%s:%s/%s: 0x%08x\n", String8(package16).string(),
                 //    String8(attr16).string(), String8(name16).string(), typeSpecFlags);
                 const bool pub = (typeSpecFlags&ResTable_typeSpec::SPEC_PUBLIC) != 0;
-<<<<<<< HEAD
                 
                 bool deprecated = false;
                 
@@ -2143,13 +1772,6 @@ static status_t writeLayoutClasses(
                     if (strstr(cmt.string(), "@deprecated") != NULL) {
                         deprecated = true;
                     }
-=======
-                    
-                fprintf(fp, "%s/**\n", indentStr);
-                if (comment.size() > 0) {
-                    fprintf(fp, "%s  <p>\n%s  @attr description\n", indentStr, indentStr);
-                    fprintf(fp, "%s  %s\n", indentStr, String8(comment).string());
->>>>>>> 54b6cfa... Initial Contribution
                 } else {
                     fprintf(fp,
                             "%s  <p>This symbol is the offset where the {@link %s.R.attr#%s}\n"
@@ -2161,15 +1783,11 @@ static status_t writeLayoutClasses(
                             indentStr, nclassName.string());
                 }
                 if (typeComment.size() > 0) {
-<<<<<<< HEAD
                     String8 cmt(typeComment);
                     fprintf(fp, "\n\n%s  %s\n", indentStr, cmt.string());
                     if (strstr(cmt.string(), "@deprecated") != NULL) {
                         deprecated = true;
                     }
-=======
-                    fprintf(fp, "\n\n%s  %s\n", indentStr, String8(typeComment).string());
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 if (comment.size() > 0) {
                     if (pub) {
@@ -2187,12 +1805,9 @@ static status_t writeLayoutClasses(
                 fprintf(fp, "%s  @attr name %s:%s\n", indentStr,
                         "android", String8(name).string());
                 fprintf(fp, "%s*/\n", indentStr);
-<<<<<<< HEAD
                 if (deprecated) {
                     fprintf(fp, "%s@Deprecated\n", indentStr);
                 }
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 fprintf(fp,
                         "%spublic static final int %s_%s = %d;\n",
                         indentStr, nclassName.string(),
@@ -2208,12 +1823,8 @@ static status_t writeLayoutClasses(
 
 static status_t writeSymbolClass(
     FILE* fp, const sp<AaptAssets>& assets, bool includePrivate,
-<<<<<<< HEAD
     const sp<AaptSymbols>& symbols, const String8& className, int indent,
     bool nonConstantId)
-=======
-    const sp<AaptSymbols>& symbols, const String8& className, int indent)
->>>>>>> 54b6cfa... Initial Contribution
 {
     fprintf(fp, "%spublic %sfinal class %s {\n",
             getIndentSpace(indent),
@@ -2223,24 +1834,17 @@ static status_t writeSymbolClass(
     size_t i;
     status_t err = NO_ERROR;
 
-<<<<<<< HEAD
     const char * id_format = nonConstantId ?
             "%spublic static int %s=0x%08x;\n" :
             "%spublic static final int %s=0x%08x;\n";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     size_t N = symbols->getSymbols().size();
     for (i=0; i<N; i++) {
         const AaptSymbolEntry& sym = symbols->getSymbols().valueAt(i);
         if (sym.typeCode != AaptSymbolEntry::TYPE_INT32) {
             continue;
         }
-<<<<<<< HEAD
         if (!assets->isJavaSymbol(sym, includePrivate)) {
-=======
-        if (!includePrivate && !sym.isPublic) {
->>>>>>> 54b6cfa... Initial Contribution
             continue;
         }
         String16 name(sym.name);
@@ -2250,7 +1854,6 @@ static status_t writeSymbolClass(
         }
         String16 comment(sym.comment);
         bool haveComment = false;
-<<<<<<< HEAD
         bool deprecated = false;
         if (comment.size() > 0) {
             haveComment = true;
@@ -2261,13 +1864,6 @@ static status_t writeSymbolClass(
             if (strstr(cmt.string(), "@deprecated") != NULL) {
                 deprecated = true;
             }
-=======
-        if (comment.size() > 0) {
-            haveComment = true;
-            fprintf(fp,
-                    "%s/** %s\n",
-                    getIndentSpace(indent), String8(comment).string());
->>>>>>> 54b6cfa... Initial Contribution
         } else if (sym.isPublic && !includePrivate) {
             sym.sourcePos.warning("No comment for public symbol %s:%s/%s",
                 assets->getPackage().string(), className.string(),
@@ -2275,7 +1871,6 @@ static status_t writeSymbolClass(
         }
         String16 typeComment(sym.typeComment);
         if (typeComment.size() > 0) {
-<<<<<<< HEAD
             String8 cmt(typeComment);
             if (!haveComment) {
                 haveComment = true;
@@ -2287,30 +1882,15 @@ static status_t writeSymbolClass(
             }
             if (strstr(cmt.string(), "@deprecated") != NULL) {
                 deprecated = true;
-=======
-            if (!haveComment) {
-                haveComment = true;
-                fprintf(fp,
-                        "%s/** %s\n",
-                        getIndentSpace(indent), String8(typeComment).string());
-            } else {
-                fprintf(fp,
-                        "%s %s\n",
-                        getIndentSpace(indent), String8(typeComment).string());
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
         if (haveComment) {
             fprintf(fp,"%s */\n", getIndentSpace(indent));
         }
-<<<<<<< HEAD
         if (deprecated) {
             fprintf(fp, "%s@Deprecated\n", getIndentSpace(indent));
         }
         fprintf(fp, id_format,
-=======
-        fprintf(fp, "%spublic static final int %s=0x%08x;\n",
->>>>>>> 54b6cfa... Initial Contribution
                 getIndentSpace(indent),
                 String8(name).string(), (int)sym.int32Val);
     }
@@ -2320,11 +1900,7 @@ static status_t writeSymbolClass(
         if (sym.typeCode != AaptSymbolEntry::TYPE_STRING) {
             continue;
         }
-<<<<<<< HEAD
         if (!assets->isJavaSymbol(sym, includePrivate)) {
-=======
-        if (!includePrivate && !sym.isPublic) {
->>>>>>> 54b6cfa... Initial Contribution
             continue;
         }
         String16 name(sym.name);
@@ -2332,7 +1908,6 @@ static status_t writeSymbolClass(
             return UNKNOWN_ERROR;
         }
         String16 comment(sym.comment);
-<<<<<<< HEAD
         bool deprecated = false;
         if (comment.size() > 0) {
             String8 cmt(comment);
@@ -2344,25 +1919,14 @@ static status_t writeSymbolClass(
             if (strstr(cmt.string(), "@deprecated") != NULL) {
                 deprecated = true;
             }
-=======
-        if (comment.size() > 0) {
-            fprintf(fp,
-                    "%s/** %s\n"
-                     "%s */\n",
-                    getIndentSpace(indent), String8(comment).string(),
-                    getIndentSpace(indent));
->>>>>>> 54b6cfa... Initial Contribution
         } else if (sym.isPublic && !includePrivate) {
             sym.sourcePos.warning("No comment for public symbol %s:%s/%s",
                 assets->getPackage().string(), className.string(),
                 String8(sym.name).string());
         }
-<<<<<<< HEAD
         if (deprecated) {
             fprintf(fp, "%s@Deprecated\n", getIndentSpace(indent));
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         fprintf(fp, "%spublic static final String %s=\"%s\";\n",
                 getIndentSpace(indent),
                 String8(name).string(), sym.stringVal.string());
@@ -2377,11 +1941,7 @@ static status_t writeSymbolClass(
         if (nclassName == "styleable") {
             styleableSymbols = nsymbols;
         } else {
-<<<<<<< HEAD
             err = writeSymbolClass(fp, assets, includePrivate, nsymbols, nclassName, indent, nonConstantId);
-=======
-            err = writeSymbolClass(fp, assets, includePrivate, nsymbols, nclassName, indent);
->>>>>>> 54b6cfa... Initial Contribution
         }
         if (err != NO_ERROR) {
             return err;
@@ -2452,17 +2012,12 @@ status_t writeResourceSymbols(Bundle* bundle, const sp<AaptAssets>& assets,
         "\n"
         "package %s;\n\n", package.string());
 
-<<<<<<< HEAD
         status_t err = writeSymbolClass(fp, assets, includePrivate, symbols,
                 className, 0, bundle->getNonConstantId());
-=======
-        status_t err = writeSymbolClass(fp, assets, includePrivate, symbols, className, 0);
->>>>>>> 54b6cfa... Initial Contribution
         if (err != NO_ERROR) {
             return err;
         }
         fclose(fp);
-<<<<<<< HEAD
 
         // If we were asked to generate a dependency file, we'll go ahead and add this R.java
         // as a target in the dependency file right next to it.
@@ -2475,13 +2030,10 @@ status_t writeResourceSymbols(Bundle* bundle, const sp<AaptAssets>& assets,
             fprintf(fp,"%s \\\n", dest.string());
             fclose(fp);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     return NO_ERROR;
 }
-<<<<<<< HEAD
 
 
 
@@ -2870,5 +2422,3 @@ writeDependencyPreReqs(Bundle* bundle, const sp<AaptAssets>& assets, FILE* fp, b
     }
     return deps;
 }
-=======
->>>>>>> 54b6cfa... Initial Contribution

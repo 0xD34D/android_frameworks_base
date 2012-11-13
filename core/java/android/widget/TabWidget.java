@@ -16,18 +16,13 @@
 
 package android.widget;
 
-<<<<<<< HEAD
 import android.R;
 import android.content.Context;
 import android.content.res.Resources;
-=======
-import android.content.Context;
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-<<<<<<< HEAD
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -38,18 +33,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
  *
-=======
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnFocusChangeListener;
-
-
-
-/**
- * 
->>>>>>> 54b6cfa... Initial Contribution
  * Displays a list of tab labels representing each page in the parent's tab
  * collection. The container object for this widget is
  * {@link android.widget.TabHost TabHost}. When the user selects a tab, this
@@ -59,7 +42,6 @@ import android.view.View.OnFocusChangeListener;
  * handler, and manage callbacks. You might call this object to iterate the list
  * of tabs, or to tweak the layout of the tab list, but most methods should be
  * called on the containing TabHost object.
-<<<<<<< HEAD
  * 
  * @attr ref android.R.styleable#TabWidget_divider
  * @attr ref android.R.styleable#TabWidget_tabStripEnabled
@@ -84,18 +66,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
     private int mImposedTabsHeight = -1;
     private int[] mImposedTabWidths;
 
-=======
- */
-public class TabWidget extends LinearLayout implements OnFocusChangeListener {
-
-
-    private OnTabSelectionChanged mSelectionChangedListener;
-    private int mSelectedTab = 0;
-    private Drawable mBottomLeftStrip;
-    private Drawable mBottomRightStrip;
-    private boolean mStripMoved;
-
->>>>>>> 54b6cfa... Initial Contribution
     public TabWidget(Context context) {
         this(context, null);
     }
@@ -105,7 +75,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
     }
 
     public TabWidget(Context context, AttributeSet attrs, int defStyle) {
-<<<<<<< HEAD
         super(context, attrs, defStyle);
 
         final TypedArray a = context.obtainStyledAttributes(
@@ -120,25 +89,12 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
         initTabWidget();
     }
 
-=======
-        super(context, attrs);
-        initTabWidget();
-
-        TypedArray a = 
-            context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.TabWidget,
-                    defStyle, 0);
-
-        a.recycle();
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         mStripMoved = true;
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
-<<<<<<< HEAD
     @Override
     protected int getChildDrawingOrder(int childCount, int i) {
         if (mSelectedTab == -1) {
@@ -186,14 +142,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
             }
         }
 
-=======
-    private void initTabWidget() {
-        setOrientation(LinearLayout.HORIZONTAL);
-        mBottomLeftStrip = mContext.getResources().getDrawable(
-                com.android.internal.R.drawable.tab_bottom_left);
-        mBottomRightStrip = mContext.getResources().getDrawable(
-                com.android.internal.R.drawable.tab_bottom_right);
->>>>>>> 54b6cfa... Initial Contribution
         // Deal with focus, as we don't want the focus to go by default
         // to a tab other than the current tab
         setFocusable(true);
@@ -201,7 +149,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
     }
 
     @Override
-<<<<<<< HEAD
     void measureChildBeforeLayout(View child, int childIndex,
             int widthMeasureSpec, int totalWidth,
             int heightMeasureSpec, int totalHeight) {
@@ -363,25 +310,16 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
     @Override
     public void childDrawableStateChanged(View child) {
         if (getTabCount() > 0 && child == getChildTabViewAt(mSelectedTab)) {
-=======
-    public void childDrawableStateChanged(View child) {
-        if (child == getChildAt(mSelectedTab)) {
->>>>>>> 54b6cfa... Initial Contribution
             // To make sure that the bottom strip is redrawn
             invalidate();
         }
         super.childDrawableStateChanged(child);
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
 
-<<<<<<< HEAD
         // Do nothing if there are no tabs.
         if (getTabCount() == 0) return;
 
@@ -414,35 +352,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
 
         leftStrip.draw(canvas);
         rightStrip.draw(canvas);
-=======
-        View selectedChild = getChildAt(mSelectedTab);
-        
-        mBottomLeftStrip.setState(selectedChild.getDrawableState());
-        mBottomRightStrip.setState(selectedChild.getDrawableState());
-        
-        if (mStripMoved) {
-            Rect selBounds = new Rect(); // Bounds of the selected tab indicator
-            selBounds.left = selectedChild.getLeft();
-            selBounds.right = selectedChild.getRight();
-            final int myHeight = getHeight();
-            mBottomLeftStrip.setBounds(
-                    Math.min(0, selBounds.left 
-                                 - mBottomLeftStrip.getIntrinsicWidth()),
-                    myHeight - mBottomLeftStrip.getIntrinsicHeight(),
-                    selBounds.left,
-                    getHeight());
-            mBottomRightStrip.setBounds(
-                    selBounds.right,
-                    myHeight - mBottomRightStrip.getIntrinsicHeight(),
-                    Math.max(getWidth(), 
-                            selBounds.right + mBottomRightStrip.getIntrinsicWidth()),
-                    myHeight);
-            mStripMoved = false;
-        }
-        
-        mBottomLeftStrip.draw(canvas);
-        mBottomRightStrip.draw(canvas);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -450,7 +359,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
      * This method is used to bring a tab to the front of the Widget,
      * and is used to post to the rest of the UI that a different tab
      * has been brought to the foreground.
-<<<<<<< HEAD
      *
      * Note, this is separate from the traditional "focus" that is
      * employed from the view logic.
@@ -540,53 +448,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
      *  @param index The tab that you want focused (highlighted in orange)
      *  and selected (tab brought to the front of the widget)
      *
-=======
-     * 
-     * Note, this is separate from the traditional "focus" that is 
-     * employed from the view logic.  
-     * 
-     * For instance, if we have a list in a tabbed view, a user may be 
-     * navigating up and down the list, moving the UI focus (orange 
-     * highlighting) through the list items.  The cursor movement does 
-     * not effect the "selected" tab though, because what is being 
-     * scrolled through is all on the same tab.  The selected tab only 
-     * changes when we navigate between tabs (moving from the list view 
-     * to the next tabbed view, in this example).
-     * 
-     * To move both the focus AND the selected tab at once, please use
-     * {@link #setCurrentTab}. Normally, the view logic takes care of 
-     * adjusting the focus, so unless you're circumventing the UI, 
-     * you'll probably just focus your interest here.
-     * 
-     *  @param index The tab that you want to indicate as the selected
-     *  tab (tab brought to the front of the widget)
-     *  
-     *  @see #focusCurrentTab
-     */
-    public void setCurrentTab(int index) {
-        if (index < 0 || index >= getChildCount()) {
-            return;
-        }
-
-        getChildAt(mSelectedTab).setSelected(false);
-        mSelectedTab = index;
-        getChildAt(mSelectedTab).setSelected(true);
-        mStripMoved = true;
-    }
-    
-    /**
-     * Sets the current tab and focuses the UI on it.
-     * This method makes sure that the focused tab matches the selected 
-     * tab, normally at {@link #setCurrentTab}.  Normally this would not 
-     * be an issue if we go through the UI, since the UI is responsible 
-     * for calling TabWidget.onFocusChanged(), but in the case where we 
-     * are selecting the tab programmatically, we'll need to make sure 
-     * focus keeps up.
-     * 
-     *  @param index The tab that you want focused (highlighted in orange) 
-     *  and selected (tab brought to the front of the widget)
-     *  
->>>>>>> 54b6cfa... Initial Contribution
      *  @see #setCurrentTab
      */
     public void focusCurrentTab(int index) {
@@ -594,7 +455,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
 
         // set the tab
         setCurrentTab(index);
-<<<<<<< HEAD
 
         // change the focus if applicable.
         if (oldTab != index) {
@@ -609,22 +469,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
         final int count = getTabCount();
         for (int i = 0; i < count; i++) {
             View child = getChildTabViewAt(i);
-=======
-        
-        // change the focus if applicable.
-        if (oldTab != index) {
-            getChildAt(index).requestFocus();
-        }
-    }
-    
-    @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-        int count = getChildCount();
-        
-        for (int i=0; i<count; i++) {
-            View child = getChildAt(i);
->>>>>>> 54b6cfa... Initial Contribution
             child.setEnabled(enabled);
         }
     }
@@ -634,11 +478,7 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
         if (child.getLayoutParams() == null) {
             final LinearLayout.LayoutParams lp = new LayoutParams(
                     0,
-<<<<<<< HEAD
                     ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
-=======
-                    ViewGroup.LayoutParams.WRAP_CONTENT, 1);
->>>>>>> 54b6cfa... Initial Contribution
             lp.setMargins(0, 0, 0, 0);
             child.setLayoutParams(lp);
         }
@@ -651,7 +491,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
 
         // TODO: detect this via geometry with a tabwidget listener rather
         // than potentially interfere with the view's listener
-<<<<<<< HEAD
         child.setOnClickListener(new TabClickListener(getTabCount() - 1));
         child.setOnFocusChangeListener(this);
     }
@@ -661,14 +500,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
         super.removeAllViews();
         mSelectedTab = -1;
     }
-=======
-        child.setOnClickListener(new TabClickListener(getChildCount() - 1));
-        child.setOnFocusChangeListener(this);
-    }
-
-
-
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Provides a way for {@link TabHost} to be notified that the user clicked on a tab indicator.
@@ -677,7 +508,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
         mSelectionChangedListener = listener;
     }
 
-<<<<<<< HEAD
     /** {@inheritDoc} */
     public void onFocusChange(View v, boolean hasFocus) {
         if (v == this && hasFocus && getTabCount() > 0) {
@@ -696,20 +526,6 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
                         // a tab is focused so send an event to announce the tab widget state
                         sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
                     }
-=======
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (v == this && hasFocus) {
-            getChildAt(mSelectedTab).requestFocus();
-            return;
-        }
-        
-        if (hasFocus) {
-            int i = 0;
-            while (i < getChildCount()) {
-                if (getChildAt(i) == v) {
-                    setCurrentTab(i);
-                    mSelectionChangedListener.onTabSelectionChanged(i, false);
->>>>>>> 54b6cfa... Initial Contribution
                     break;
                 }
                 i++;
@@ -738,11 +554,7 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
         /**
          * Informs the TabHost which tab was selected. It also indicates
          * if the tab was clicked/pressed or just focused into.
-<<<<<<< HEAD
          *
-=======
-         *  
->>>>>>> 54b6cfa... Initial Contribution
          * @param tabIndex index of the tab that was selected
          * @param clicked whether the selection changed due to a touch/click
          * or due to focus entering the tab through navigation. Pass true
@@ -750,10 +562,4 @@ public class TabWidget extends LinearLayout implements OnFocusChangeListener {
          */
         void onTabSelectionChanged(int tabIndex, boolean clicked);
     }
-<<<<<<< HEAD
 }
-=======
-
-}
-
->>>>>>> 54b6cfa... Initial Contribution

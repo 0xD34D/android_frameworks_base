@@ -16,11 +16,8 @@
 
 package com.android.internal.telephony;
 
-<<<<<<< HEAD
 import android.telephony.CellInfo;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * {@hide}
  */
@@ -38,7 +35,6 @@ public interface PhoneNotifier {
 
     public void notifyCallForwardingChanged(Phone sender);
 
-<<<<<<< HEAD
     /** TODO - reason should never be null */
     public void notifyDataConnection(Phone sender, String reason, String apnType,
             Phone.DataState state);
@@ -51,12 +47,4 @@ public interface PhoneNotifier {
 
     // TODO - trigger notifyCellInfo from ServiceStateTracker
     public void notifyCellInfo(Phone sender, CellInfo cellInfo);
-=======
-    public void notifyDataConnection(Phone sender, String reason);
-
-    public void notifyDataConnectionFailed(Phone sender, String reason);
-
-    public void notifyDataActivity(Phone sender);
-
->>>>>>> 54b6cfa... Initial Contribution
 }

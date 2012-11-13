@@ -23,11 +23,7 @@ import android.graphics.Rect;
  */
 public class Gravity
 {
-<<<<<<< HEAD
     /** Constant indicating that no gravity has been set **/
-=======
-    /** Contstant indicating that no gravity has been set **/
->>>>>>> 54b6cfa... Initial Contribution
     public static final int NO_GRAVITY = 0x0000;
     
     /** Raw bit indicating the gravity for an axis has been specified. */
@@ -37,12 +33,9 @@ public class Gravity
     public static final int AXIS_PULL_BEFORE = 0x0002;
     /** Raw bit controlling how the right/bottom edge is placed. */
     public static final int AXIS_PULL_AFTER = 0x0004;
-<<<<<<< HEAD
     /** Raw bit controlling whether the right/bottom edge is clipped to its
      * container, based on the gravity direction being applied. */
     public static final int AXIS_CLIP = 0x0008;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /** Bits defining the horizontal axis. */
     public static final int AXIS_X_SHIFT = 0;
@@ -76,7 +69,6 @@ public class Gravity
      *  and horizontal axis, not changing its size. */
     public static final int CENTER = CENTER_VERTICAL|CENTER_HORIZONTAL;
 
-<<<<<<< HEAD
     /** Grow the horizontal and vertical size of the object if needed so it
      *  completely fills its container. */
     public static final int FILL = FILL_VERTICAL|FILL_HORIZONTAL;
@@ -96,14 +88,6 @@ public class Gravity
 
     /**
      * Binary mask to get the absolute horizontal gravity of a gravity.
-=======
-    /** Grow the horizontal and vertical size of the obejct if needed so it
-     *  completely fills its container. */
-    public static final int FILL = FILL_VERTICAL|FILL_HORIZONTAL;
-
-    /**
-     * Binary mask to get the horizontal gravity of a gravity.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int HORIZONTAL_GRAVITY_MASK = (AXIS_SPECIFIED |
             AXIS_PULL_BEFORE | AXIS_PULL_AFTER) << AXIS_X_SHIFT;
@@ -113,7 +97,6 @@ public class Gravity
     public static final int VERTICAL_GRAVITY_MASK = (AXIS_SPECIFIED |
             AXIS_PULL_BEFORE | AXIS_PULL_AFTER) << AXIS_Y_SHIFT;
 
-<<<<<<< HEAD
     /** Special constant to enable clipping to an overall display along the
      *  vertical dimension.  This is not applied by default by
      *  {@link #apply(int, int, int, Rect, int, int, Rect)}; you must do so
@@ -180,8 +163,6 @@ public class Gravity
         apply(absGravity, w, h, container, 0, 0, outRect);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Apply a gravity constant to an object.
      * 
@@ -192,7 +173,6 @@ public class Gravity
      * @param container The frame of the containing space, in which the object
      *                  will be placed.  Should be large enough to contain the
      *                  width and height of the object.
-<<<<<<< HEAD
      * @param xAdj Offset to apply to the X axis.  If gravity is LEFT this
      *             pushes it to the right; if gravity is RIGHT it pushes it to
      *             the left; if gravity is CENTER_HORIZONTAL it pushes it to the
@@ -201,13 +181,10 @@ public class Gravity
      *             it down; if gravity is BOTTOM it pushes it up; if gravity is
      *             CENTER_VERTICAL it pushes it down or up; otherwise it is
      *             ignored.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param outRect Receives the computed frame of the object in its
      *                container.
      */
     public static void apply(int gravity, int w, int h, Rect container,
-<<<<<<< HEAD
             int xAdj, int yAdj, Rect outRect) {
         switch (gravity&((AXIS_PULL_BEFORE|AXIS_PULL_AFTER)<<AXIS_X_SHIFT)) {
             case 0:
@@ -290,19 +267,11 @@ public class Gravity
                 outRect.bottom = container.bottom + yAdj;
                 break;
         }
-=======
-                             Rect outRect) {
-        apply(gravity, w, h, container, 0, 0, outRect);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Apply a gravity constant to an object.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param gravity The desired placement of the object, as defined by the
      *                constants in this class.
      * @param w The horizontal size of the object.
@@ -320,7 +289,6 @@ public class Gravity
      *             ignored.
      * @param outRect Receives the computed frame of the object in its
      *                container.
-<<<<<<< HEAD
      * @param layoutDirection The layout direction.
      *
      * @see {@link View#LAYOUT_DIRECTION_LTR}
@@ -384,34 +352,10 @@ public class Gravity
                     inoutObj.right += off;
                 }
             }
-=======
-     */
-    public static void apply(int gravity, int w, int h, Rect container,
-                             int xAdj, int yAdj, Rect outRect) {
-        if ((gravity&((AXIS_PULL_BEFORE|AXIS_PULL_AFTER)<<AXIS_X_SHIFT))
-             == ((AXIS_PULL_BEFORE|AXIS_PULL_AFTER)<<AXIS_X_SHIFT)) {
-            outRect.left = container.left;
-            outRect.right = container.right;
-        } else {
-            outRect.left = applyMovement(
-                gravity>>AXIS_X_SHIFT, w, container.left, container.right, xAdj);
-            outRect.right = outRect.left + w;
-        }
-
-        if ((gravity&((AXIS_PULL_BEFORE|AXIS_PULL_AFTER)<<AXIS_Y_SHIFT))
-             == ((AXIS_PULL_BEFORE|AXIS_PULL_AFTER)<<AXIS_Y_SHIFT)) {
-            outRect.top = container.top;
-            outRect.bottom = container.bottom;
-        } else {
-            outRect.top = applyMovement(
-                gravity>>AXIS_Y_SHIFT, h, container.top, container.bottom, yAdj);
-            outRect.bottom = outRect.top + h;
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
-<<<<<<< HEAD
      * Apply additional gravity behavior based on the overall "display" that an
      * object exists in.  This can be used after
      * {@link #apply(int, int, int, Rect, int, int, Rect)} to place the object
@@ -438,8 +382,6 @@ public class Gravity
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * <p>Indicate whether the supplied gravity has a vertical pull.</p>
      *
      * @param gravity the gravity to check for vertical pull
@@ -456,7 +398,6 @@ public class Gravity
      * @return true if the supplied gravity has an horizontal pull
      */
     public static boolean isHorizontal(int gravity) {
-<<<<<<< HEAD
         return gravity > 0 && (gravity & RELATIVE_HORIZONTAL_GRAVITY_MASK) != 0;
     }
 
@@ -504,22 +445,3 @@ public class Gravity
         return result;
     }
 }
-=======
-        return gravity > 0 && (gravity & HORIZONTAL_GRAVITY_MASK) != 0;
-    }
-
-    private static int applyMovement(int mode, int size,
-            int start, int end, int adj) {
-        if ((mode & AXIS_PULL_BEFORE) != 0) {
-            return start + adj;
-        }
-
-        if ((mode & AXIS_PULL_AFTER) != 0) {
-            return end - size - adj;
-        }
-
-        return start + ((end - start - size)/2) + adj;
-    }
-}
-
->>>>>>> 54b6cfa... Initial Contribution

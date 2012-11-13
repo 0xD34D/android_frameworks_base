@@ -17,10 +17,6 @@
 package com.android.internal.util;
 
 import java.lang.reflect.Array;
-<<<<<<< HEAD
-=======
-import java.util.Collection;
->>>>>>> 54b6cfa... Initial Contribution
 
 // XXX these should be changed to reflect the actual memory allocator we use.
 // it looks like right now objects want to be powers of 2 minus 8
@@ -136,7 +132,6 @@ public class ArrayUtils
         }
         return false;
     }
-<<<<<<< HEAD
 
     public static boolean contains(int[] array, int value) {
         for (int element : array) {
@@ -242,6 +237,4 @@ public class ArrayUtils
         }
         return cur;
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -19,10 +19,7 @@ package android.text.style;
 import android.graphics.Paint;
 import android.graphics.Canvas;
 import android.text.Layout;
-<<<<<<< HEAD
 import android.text.TextPaint;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 public interface LineHeightSpan
 extends ParagraphStyle, WrapTogetherSpan
@@ -30,13 +27,10 @@ extends ParagraphStyle, WrapTogetherSpan
     public void chooseHeight(CharSequence text, int start, int end,
                              int spanstartv, int v,
                              Paint.FontMetricsInt fm);
-<<<<<<< HEAD
 
     public interface WithDensity extends LineHeightSpan {
         public void chooseHeight(CharSequence text, int start, int end,
                                  int spanstartv, int v,
                                  Paint.FontMetricsInt fm, TextPaint paint);
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

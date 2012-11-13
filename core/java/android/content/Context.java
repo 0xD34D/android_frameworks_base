@@ -16,26 +16,17 @@
 
 package android.content;
 
-<<<<<<< HEAD
 import android.content.pm.ApplicationInfo;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-<<<<<<< HEAD
 import android.database.DatabaseErrorHandler;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-<<<<<<< HEAD
 import android.media.MediaScannerConnection.OnScanCompletedListener;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,7 +80,6 @@ public abstract class Context {
     public static final int MODE_APPEND = 0x8000;
 
     /**
-<<<<<<< HEAD
      * SharedPreference loading flag: when set, the file on disk will
      * be checked for modification even if the shared preferences
      * instance is already loaded in this process.  This behavior is
@@ -123,16 +113,10 @@ public abstract class Context {
      * as the binding exists.  Note that while this will create the service,
      * its {@link android.app.Service#onStartCommand}
      * method will still only be called due to an
-=======
-     * Flag for {@link #bindService}: automatically create the service as long
-     * as the binding exists.  Note that while this will create the service,
-     * its {@link android.app.Service#onStart} method will still only be called due to an
->>>>>>> 54b6cfa... Initial Contribution
      * explicit call to {@link #startService}.  Even without that, though,
      * this still provides you with access to the service object while the
      * service is created.
      *
-<<<<<<< HEAD
      * <p>Note that prior to {@link android.os.Build.VERSION_CODES#ICE_CREAM_SANDWICH},
      * not supplying this flag would also impact how important the system
      * consider's the target service's process to be.  When set, the only way
@@ -144,14 +128,6 @@ public abstract class Context {
      * the flags {@link #BIND_WAIVE_PRIORITY} and
      * {@link #BIND_ADJUST_WITH_ACTIVITY} set for them in order to achieve
      * the same result.
-=======
-     * <p>Specifying this flag also tells the system to treat the service
-     * as being as important as your own process -- that is, when deciding
-     * which process should be killed to free memory, the service will only
-     * be considered a candidate as long as the processes of any such bindings
-     * is also a candidate to be killed.  This is to avoid situations where
-     * the service is being continually created and killed due to low memory.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int BIND_AUTO_CREATE = 0x0001;
 
@@ -165,7 +141,6 @@ public abstract class Context {
      */
     public static final int BIND_DEBUG_UNBIND = 0x0002;
 
-<<<<<<< HEAD
     /**
      * Flag for {@link #bindService}: don't allow this binding to raise
      * the target service's process to the foreground scheduling priority.
@@ -229,8 +204,6 @@ public abstract class Context {
      */
     public static final int BIND_NOT_VISIBLE = 0x40000000;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** Return an AssetManager instance for your application's package. */
     public abstract AssetManager getAssets();
 
@@ -249,7 +222,6 @@ public abstract class Context {
      * services, etc).
      */
     public abstract Looper getMainLooper();
-<<<<<<< HEAD
 
     /**
      * Return the context of the single, global Application object of the
@@ -300,15 +272,6 @@ public abstract class Context {
         getApplicationContext().unregisterComponentCallbacks(callback);
     }
 
-=======
-    
-    /**
-     * Return the context of the single, global Application object of the
-     * current process.
-     */
-    public abstract Context getApplicationContext();
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return a localized, styled CharSequence from the application's package's
      * default string table.
@@ -352,15 +315,12 @@ public abstract class Context {
      */
     public abstract void setTheme(int resid);
 
-<<<<<<< HEAD
     /** @hide Needed for some internal implementation...  not public because
      * you can't assume this actually means anything. */
     public int getThemeResId() {
         return 0;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return the Theme object associated with this Context.
      */
@@ -423,7 +383,6 @@ public abstract class Context {
     /** Return the name of this application's package. */
     public abstract String getPackageName();
 
-<<<<<<< HEAD
     /** Return the full application info for this context's package. */
     public abstract ApplicationInfo getApplicationInfo();
 
@@ -431,48 +390,27 @@ public abstract class Context {
      * Return the full path to this context's primary Android package.
      * The Android package is a ZIP file which contains the application's
      * primary resources.
-=======
-    /**
-     * {@hide}
-     * Return the full path to this context's resource files.  This is the ZIP files
-     * containing the application's resources.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>Note: this is not generally useful for applications, since they should
      * not be directly accessing the file system.
      *
-<<<<<<< HEAD
-=======
-     *
->>>>>>> 54b6cfa... Initial Contribution
      * @return String Path to the resources.
      */
     public abstract String getPackageResourcePath();
 
     /**
-<<<<<<< HEAD
      * Return the full path to this context's primary Android package.
      * The Android package is a ZIP file which contains application's
      * primary code and assets.
-=======
-     * {@hide}
-     * Return the full path to this context's code and asset files.  This is the ZIP files
-     * containing the application's code and assets.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>Note: this is not generally useful for applications, since they should
      * not be directly accessing the file system.
      *
-<<<<<<< HEAD
-=======
-     *
->>>>>>> 54b6cfa... Initial Contribution
      * @return String Path to the code and assets.
      */
     public abstract String getPackageCodePath();
 
     /**
-<<<<<<< HEAD
      * {@hide}
      * Return the full path to the shared prefs file for the given prefs group name.
      *
@@ -482,8 +420,6 @@ public abstract class Context {
     public abstract File getSharedPrefsFile(String name);
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Retrieve and hold the contents of the preferences file 'name', returning
      * a SharedPreferences through which you can retrieve and modify its
      * values.  Only one instance of the SharedPreferences object is returned
@@ -495,15 +431,11 @@ public abstract class Context {
      * editor (SharedPreferences.edit()) and then commit changes (Editor.commit()).
      * @param mode Operating mode.  Use 0 or {@link #MODE_PRIVATE} for the
      * default operation, {@link #MODE_WORLD_READABLE}
-<<<<<<< HEAD
      * and {@link #MODE_WORLD_WRITEABLE} to control permissions.  The bit
      * {@link #MODE_MULTI_PROCESS} can also be used if multiple processes
      * are mutating the same SharedPreferences file.  {@link #MODE_MULTI_PROCESS}
      * is always on in apps targetting Gingerbread (Android 2.3) and below, and
      * off by default in later versions.
-=======
-     * and {@link #MODE_WORLD_WRITEABLE} to control permissions.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @return Returns the single SharedPreferences instance that can be used
      *         to retrieve and modify the preference values.
@@ -511,10 +443,7 @@ public abstract class Context {
      * @see #MODE_PRIVATE
      * @see #MODE_WORLD_READABLE
      * @see #MODE_WORLD_WRITEABLE
-<<<<<<< HEAD
      * @see #MODE_MULTI_PROCESS
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public abstract SharedPreferences getSharedPreferences(String name,
             int mode);
@@ -604,7 +533,6 @@ public abstract class Context {
      * @see #getDir
      */
     public abstract File getFilesDir();
-<<<<<<< HEAD
 
     /**
      * Returns the absolute path to the directory on the external filesystem
@@ -693,15 +621,6 @@ public abstract class Context {
      * for the amount of space you consume with cache files, and prune those
      * files when exceeding that space.</strong>
      *
-=======
-    
-    /**
-     * Returns the absolute path to the application specific cache directory 
-     * on the filesystem. These files will be ones that get deleted first when the
-     * device runs low on storage
-     * There is no guarantee when these files will be deleted.
-     *
->>>>>>> 54b6cfa... Initial Contribution
      * @return Returns the path of the directory holding application cache files.
      *
      * @see #openFileOutput
@@ -711,7 +630,6 @@ public abstract class Context {
     public abstract File getCacheDir();
 
     /**
-<<<<<<< HEAD
      * Returns the absolute path to the directory on the external filesystem
      * (that is somewhere on {@link android.os.Environment#getExternalStorageDirectory()
      * Environment.getExternalStorageDirectory()} where the application can
@@ -743,8 +661,6 @@ public abstract class Context {
     public abstract File getExternalCacheDir();
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Returns an array of strings naming the private files associated with
      * this Context's application package.
      *
@@ -785,34 +701,23 @@ public abstract class Context {
      * @param mode Operating mode.  Use 0 or {@link #MODE_PRIVATE} for the
      *     default operation, {@link #MODE_WORLD_READABLE}
      *     and {@link #MODE_WORLD_WRITEABLE} to control permissions.
-<<<<<<< HEAD
      *     Use {@link #MODE_ENABLE_WRITE_AHEAD_LOGGING} to enable write-ahead logging by default.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param factory An optional factory class that is called to instantiate a
      *     cursor when query is called.
      *
      * @return The contents of a newly created database with the given name.
-<<<<<<< HEAD
      * @throws android.database.sqlite.SQLiteException if the database file could not be opened.
-=======
-     * @throws SQLiteException if the database file could not be opened.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @see #MODE_PRIVATE
      * @see #MODE_WORLD_READABLE
      * @see #MODE_WORLD_WRITEABLE
-<<<<<<< HEAD
      * @see #MODE_ENABLE_WRITE_AHEAD_LOGGING
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @see #deleteDatabase
      */
     public abstract SQLiteDatabase openOrCreateDatabase(String name,
             int mode, CursorFactory factory);
 
     /**
-<<<<<<< HEAD
      * Open a new private SQLiteDatabase associated with this Context's
      * application package.  Creates the database file if it doesn't exist.
      *
@@ -841,8 +746,6 @@ public abstract class Context {
             int mode, CursorFactory factory, DatabaseErrorHandler errorHandler);
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Delete an existing private SQLiteDatabase associated with this Context's
      * application package.
      *
@@ -880,7 +783,6 @@ public abstract class Context {
     public abstract String[] databaseList();
 
     /**
-<<<<<<< HEAD
      * @deprecated Use {@link android.app.WallpaperManager#getDrawable
      * WallpaperManager.get()} instead.
      */
@@ -947,93 +849,6 @@ public abstract class Context {
      * @see PackageManager#resolveActivity
      */
     public abstract void startActivity(Intent intent);
-=======
-     * Like {@link #peekWallpaper}, but always returns a valid Drawable.  If
-     * no wallpaper is set, the system default wallpaper is returned.
-     *
-     * @return Returns a Drawable object that will draw the wallpaper.
-     */
-    public abstract Drawable getWallpaper();
-
-    /**
-     * Retrieve the current system wallpaper.  This is returned as an
-     * abstract Drawable that you can install in a View to display whatever
-     * wallpaper the user has currently set.  If there is no wallpaper set,
-     * a null pointer is returned.
-     *
-     * @return Returns a Drawable object that will draw the wallpaper or a
-     * null pointer if these is none.
-     */
-    public abstract Drawable peekWallpaper();
-
-    /**
-     * Returns the desired minimum width for the wallpaper. Callers of
-     * {@link #setWallpaper(android.graphics.Bitmap)} or
-     * {@link #setWallpaper(java.io.InputStream)} should check this value
-     * beforehand to make sure the supplied wallpaper respects the desired
-     * minimum width.
-     *
-     * If the returned value is <= 0, the caller should use the width of
-     * the default display instead.
-     *
-     * @return The desired minimum width for the wallpaper. This value should
-     * be honored by applications that set the wallpaper but it is not
-     * mandatory.
-     */
-    public abstract int getWallpaperDesiredMinimumWidth();
-
-    /**
-     * Returns the desired minimum height for the wallpaper. Callers of
-     * {@link #setWallpaper(android.graphics.Bitmap)} or
-     * {@link #setWallpaper(java.io.InputStream)} should check this value
-     * beforehand to make sure the supplied wallpaper respects the desired
-     * minimum height.
-     *
-     * If the returned value is <= 0, the caller should use the height of
-     * the default display instead.
-     *
-     * @return The desired minimum height for the wallpaper. This value should
-     * be honored by applications that set the wallpaper but it is not
-     * mandatory.
-     */
-    public abstract int getWallpaperDesiredMinimumHeight();
-
-    /**
-     * Change the current system wallpaper to a bitmap.  The given bitmap is
-     * converted to a PNG and stored as the wallpaper.  On success, the intent
-     * {@link Intent#ACTION_WALLPAPER_CHANGED} is broadcast.
-     *
-     * @param bitmap The bitmap to save.
-     *
-     * @throws IOException If an error occurs reverting to the default
-     * wallpaper.
-     */
-    public abstract void setWallpaper(Bitmap bitmap) throws IOException;
-
-    /**
-     * Change the current system wallpaper to a specific byte stream.  The
-     * give InputStream is copied into persistent storage and will now be
-     * used as the wallpaper.  Currently it must be either a JPEG or PNG
-     * image.  On success, the intent {@link Intent#ACTION_WALLPAPER_CHANGED}
-     * is broadcast.
-     *
-     * @param data A stream containing the raw data to install as a wallpaper.
-     *
-     * @throws IOException If an error occurs reverting to the default
-     * wallpaper.
-     */
-    public abstract void setWallpaper(InputStream data) throws IOException;
-
-    /**
-     * Remove any currently set wallpaper, reverting to the system's default
-     * wallpaper. On success, the intent {@link Intent#ACTION_WALLPAPER_CHANGED}
-     * is broadcast.
-     *
-     * @throws IOException If an error occurs reverting to the default
-     * wallpaper.
-     */
-    public abstract void clearWallpaper() throws IOException;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Launch a new activity.  You will not receive any information about when
@@ -1050,7 +865,6 @@ public abstract class Context {
      * if there was no Activity found to run the given Intent.
      *
      * @param intent The description of the activity to start.
-<<<<<<< HEAD
      * @param options Additional options for how the Activity should be started.
      * May be null if there are no options.  See {@link android.app.ActivityOptions}
      * for how to build the Bundle supplied here; there are no supported definitions
@@ -1150,14 +964,6 @@ public abstract class Context {
     public abstract void startIntentSender(IntentSender intent,
             Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
             Bundle options) throws IntentSender.SendIntentException;
-=======
-     *
-     * @throws ActivityNotFoundException
-     *
-     * @see PackageManager#resolveActivity
-     */
-    public abstract void startActivity(Intent intent);
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Broadcast the given intent to all interested BroadcastReceivers.  This
@@ -1182,7 +988,6 @@ public abstract class Context {
     public abstract void sendBroadcast(Intent intent);
 
     /**
-<<<<<<< HEAD
      * Same as #sendBroadcast(Intent intent), but for a specific user. Used by the system only.
      * @param intent the intent to broadcast
      * @param userId user to send the intent to
@@ -1193,8 +998,6 @@ public abstract class Context {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Broadcast the given intent to all interested BroadcastReceivers, allowing
      * an optional required permission to be enforced.  This
      * call is asynchronous; it returns immediately, and you will continue
@@ -1208,11 +1011,7 @@ public abstract class Context {
      *
      * @param intent The Intent to broadcast; all receivers matching this
      *               Intent will receive the broadcast.
-<<<<<<< HEAD
      * @param receiverPermission (optional) String naming a permission that
-=======
-     * @param receiverPermission (optional) String naming a permissions that
->>>>>>> 54b6cfa... Initial Contribution
      *               a receiver must hold in order to receive your broadcast.
      *               If null, no permission is required.
      *
@@ -1254,12 +1053,7 @@ public abstract class Context {
      * supplying your own BroadcastReceiver when calling, which will be
      * treated as a final receiver at the end of the broadcast -- its
      * {@link BroadcastReceiver#onReceive} method will be called with
-<<<<<<< HEAD
      * the result values collected from the other receivers.  The broadcast will
-=======
-     * the result values collected from the other receivers.  If you use
-     * an <var>resultReceiver</var> with this method, then the broadcast will
->>>>>>> 54b6cfa... Initial Contribution
      * be serialized in the same way as calling
      * {@link #sendOrderedBroadcast(Intent, String)}.
      *
@@ -1290,10 +1084,7 @@ public abstract class Context {
      * @see #sendBroadcast(Intent, String)
      * @see #sendOrderedBroadcast(Intent, String)
      * @see #sendStickyBroadcast(Intent)
-<<<<<<< HEAD
      * @see #sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, int, String, Bundle)
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @see android.content.BroadcastReceiver
      * @see #registerReceiver
      * @see android.app.Activity#RESULT_OK
@@ -1320,15 +1111,11 @@ public abstract class Context {
      * be re-broadcast to future receivers.
      *
      * @see #sendBroadcast(Intent)
-<<<<<<< HEAD
      * @see #sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, int, String, Bundle)
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public abstract void sendStickyBroadcast(Intent intent);
 
     /**
-<<<<<<< HEAD
      * Version of {@link #sendStickyBroadcast} that allows you to
      * receive data back from the broadcast.  This is accomplished by
      * supplying your own BroadcastReceiver when calling, which will be
@@ -1375,8 +1162,6 @@ public abstract class Context {
 
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Remove the data previously sent with {@link #sendStickyBroadcast},
      * so that it is as if the sticky broadcast had never happened.
      *
@@ -1391,11 +1176,7 @@ public abstract class Context {
     public abstract void removeStickyBroadcast(Intent intent);
 
     /**
-<<<<<<< HEAD
      * Register a BroadcastReceiver to be run in the main activity thread.  The
-=======
-     * Register an BroadcastReceiver to be run in the main activity thread.  The
->>>>>>> 54b6cfa... Initial Contribution
      * <var>receiver</var> will be called with any broadcast Intent that
      * matches <var>filter</var>, in the main application thread.
      *
@@ -1419,7 +1200,6 @@ public abstract class Context {
      *
      * <p>See {@link BroadcastReceiver} for more information on Intent broadcasts.
      *
-<<<<<<< HEAD
      * <p>As of {@link android.os.Build.VERSION_CODES#ICE_CREAM_SANDWICH}, receivers
      * registered with this method will correctly respect the
      * {@link Intent#setPackage(String)} specified for an Intent being broadcast.
@@ -1432,13 +1212,6 @@ public abstract class Context {
      * this method from another BroadcastReceiver that has itself been registered
      * at run time with {@link #registerReceiver}, since the lifetime of such a
      * registered BroadcastReceiver is tied to the object that registered it.</p>
-=======
-     * <p class="note">Note: this method <em>can not be called from an
-     * {@link BroadcastReceiver} component</em>.  It is okay, however, to use
-     * this method from another BroadcastReceiver that has itself been registered with
-     * {@link #registerReceiver}, since the lifetime of such an BroadcastReceiver
-     * is tied to another object (the one that registered it).</p>
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param receiver The BroadcastReceiver to handle the broadcast.
      * @param filter Selects the Intent broadcasts to be received.
@@ -1463,15 +1236,12 @@ public abstract class Context {
      *
      * <p>See {@link BroadcastReceiver} for more information on Intent broadcasts.
      *
-<<<<<<< HEAD
      * <p>As of {@link android.os.Build.VERSION_CODES#ICE_CREAM_SANDWICH}, receivers
      * registered with this method will correctly respect the
      * {@link Intent#setPackage(String)} specified for an Intent being broadcast.
      * Prior to that, it would be ignored and delivered to all matching registered
      * receivers.  Be careful if using this for security.</p>
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param receiver The BroadcastReceiver to handle the broadcast.
      * @param filter Selects the Intent broadcasts to be received.
      * @param broadcastPermission String naming a permissions that a
@@ -1512,11 +1282,7 @@ public abstract class Context {
      * process for it if needed); if it is running then it remains running.
      *
      * <p>Every call to this method will result in a corresponding call to
-<<<<<<< HEAD
      * the target service's {@link android.app.Service#onStartCommand} method,
-=======
-     * the target service's {@link android.app.Service#onStart} method,
->>>>>>> 54b6cfa... Initial Contribution
      * with the <var>intent</var> given here.  This provides a convenient way
      * to submit jobs to a service without having to bind and call on to its
      * interface.
@@ -1587,11 +1353,7 @@ public abstract class Context {
     /**
      * Connect to an application service, creating it if needed.  This defines
      * a dependency between your application and the service.  The given
-<<<<<<< HEAD
      * <var>conn</var> will receive the service object when it is created and be
-=======
-     * <var>conn</var> will receive the service object when its created and be
->>>>>>> 54b6cfa... Initial Contribution
      * told if it dies and restarts.  The service will be considered required
      * by the system only for as long as the calling context exists.  For
      * example, if this Context is an Activity that is stopped, the service will
@@ -1600,25 +1362,15 @@ public abstract class Context {
      * <p>This function will throw {@link SecurityException} if you do not
      * have permission to bind to the given service.
      *
-<<<<<<< HEAD
      * <p class="note">Note: this method <em>can not be called from a
      * {@link BroadcastReceiver} component</em>.  A pattern you can use to
      * communicate from a BroadcastReceiver to a Service is to call
-=======
-     * <p class="note">Note: this method <em>can not be called from an
-     * {@link BroadcastReceiver} component</em>.  A pattern you can use to
-     * communicate from an BroadcastReceiver to a Service is to call
->>>>>>> 54b6cfa... Initial Contribution
      * {@link #startService} with the arguments containing the command to be
      * sent, with the service calling its
      * {@link android.app.Service#stopSelf(int)} method when done executing
      * that command.  See the API demo App/Service/Service Start Arguments
      * Controller for an illustration of this.  It is okay, however, to use
-<<<<<<< HEAD
      * this method from a BroadcastReceiver that has been registered with
-=======
-     * this method from an BroadcastReceiver that has been registered with
->>>>>>> 54b6cfa... Initial Contribution
      * {@link #registerReceiver}, since the lifetime of this BroadcastReceiver
      * is tied to another object (the one that registered it).</p>
      *
@@ -1627,16 +1379,11 @@ public abstract class Context {
      *      description (action, category, etc) to match an
      *      {@link IntentFilter} published by a service.
      * @param conn Receives information as the service is started and stopped.
-<<<<<<< HEAD
      * @param flags Operation options for the binding.  May be 0,
      *          {@link #BIND_AUTO_CREATE}, {@link #BIND_DEBUG_UNBIND},
      *          {@link #BIND_NOT_FOREGROUND}, {@link #BIND_ABOVE_CLIENT},
      *          {@link #BIND_ALLOW_OOM_MANAGEMENT}, or
      *          {@link #BIND_WAIVE_PRIORITY}.
-=======
-     * @param flags Operation options for the binding.  May be 0 or
-     *          {@link #BIND_AUTO_CREATE}.
->>>>>>> 54b6cfa... Initial Contribution
      * @return If you have successfully bound to the service, true is returned;
      *         false is returned if the connection is not made so you will not
      *         receive the service object.
@@ -1646,17 +1393,13 @@ public abstract class Context {
      * @see #unbindService
      * @see #startService
      * @see #BIND_AUTO_CREATE
-<<<<<<< HEAD
      * @see #BIND_DEBUG_UNBIND
      * @see #BIND_NOT_FOREGROUND
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public abstract boolean bindService(Intent service, ServiceConnection conn,
             int flags);
 
     /**
-<<<<<<< HEAD
      * Same as {@link #bindService(Intent, ServiceConnection, int)}, but with an explicit userId
      * argument for use by system server and other multi-user aware code.
      * @hide
@@ -1666,8 +1409,6 @@ public abstract class Context {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Disconnect from an application service.  You will no longer receive
      * calls as the service is restarted, and the service is now allowed to
      * stop at any time.
@@ -1706,13 +1447,8 @@ public abstract class Context {
             String profileFile, Bundle arguments);
 
     /**
-<<<<<<< HEAD
      * Return the handle to a system-level service by name. The class of the
      * returned object varies by the requested name. Currently available names
-=======
-     * Return the handle to a system-level service by name.  The class of the
-     * returned object varies by the requested name.  Currently available names
->>>>>>> 54b6cfa... Initial Contribution
      * are:
      *
      * <dl>
@@ -1750,7 +1486,6 @@ public abstract class Context {
      *  <dt> {@link #WIFI_SERVICE} ("wifi")
      *  <dd> A {@link android.net.wifi.WifiManager WifiManager} for management of
      * Wi-Fi connectivity.
-<<<<<<< HEAD
      * <dt> {@link #INPUT_METHOD_SERVICE} ("input_method")
      * <dd> An {@link android.view.inputmethod.InputMethodManager InputMethodManager}
      * for management of input methods.
@@ -1760,10 +1495,6 @@ public abstract class Context {
      * <dd> A {@link android.app.DownloadManager} for requesting HTTP downloads
      * </dl>
      *
-=======
-     * </dl>
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * <p>Note:  System services obtained via this API may be closely associated with
      * the Context in which they are obtained from.  In general, do not share the
      * service objects between various different contexts (Activities, Applications,
@@ -1793,11 +1524,8 @@ public abstract class Context {
      * @see android.app.SearchManager
      * @see #SENSOR_SERVICE
      * @see android.hardware.SensorManager
-<<<<<<< HEAD
      * @see #STORAGE_SERVICE
      * @see android.os.storage.StorageManager
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @see #VIBRATOR_SERVICE
      * @see android.os.Vibrator
      * @see #CONNECTIVITY_SERVICE
@@ -1806,7 +1534,6 @@ public abstract class Context {
      * @see android.net.wifi.WifiManager
      * @see #AUDIO_SERVICE
      * @see android.media.AudioManager
-<<<<<<< HEAD
      * @see #MEDIA_ROUTER_SERVICE
      * @see android.media.MediaRouter
      * @see #TELEPHONY_SERVICE
@@ -1817,10 +1544,6 @@ public abstract class Context {
      * @see android.app.UiModeManager
      * @see #DOWNLOAD_SERVICE
      * @see android.app.DownloadManager
-=======
-     * @see #TELEPHONY_SERVICE
-     * @see android.internal.TelephonyManager
->>>>>>> 54b6cfa... Initial Contribution
      */
     public abstract Object getSystemService(String name);
 
@@ -1831,10 +1554,7 @@ public abstract class Context {
      * you're running long tasks.
      */
     public static final String POWER_SERVICE = "power";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.view.WindowManager} for accessing the system's window
@@ -1844,10 +1564,7 @@ public abstract class Context {
      * @see android.view.WindowManager
      */
     public static final String WINDOW_SERVICE = "window";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.view.LayoutInflater} for inflating layout resources in this
@@ -1857,7 +1574,6 @@ public abstract class Context {
      * @see android.view.LayoutInflater
      */
     public static final String LAYOUT_INFLATER_SERVICE = "layout_inflater";
-<<<<<<< HEAD
 
     /**
      * Use with {@link #getSystemService} to retrieve a
@@ -1869,8 +1585,6 @@ public abstract class Context {
      */
     public static final String ACCOUNT_SERVICE = "account";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.app.ActivityManager} for interacting with the global
@@ -1880,10 +1594,7 @@ public abstract class Context {
      * @see android.app.ActivityManager
      */
     public static final String ACTIVITY_SERVICE = "activity";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.app.AlarmManager} for receiving intents at a
@@ -1893,10 +1604,7 @@ public abstract class Context {
      * @see android.app.AlarmManager
      */
     public static final String ALARM_SERVICE = "alarm";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.app.NotificationManager} for informing the user of
@@ -1906,7 +1614,6 @@ public abstract class Context {
      * @see android.app.NotificationManager
      */
     public static final String NOTIFICATION_SERVICE = "notification";
-<<<<<<< HEAD
 
     /**
      * Use with {@link #getSystemService} to retrieve a
@@ -1918,8 +1625,6 @@ public abstract class Context {
      */
     public static final String ACCESSIBILITY_SERVICE = "accessibility";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.app.NotificationManager} for controlling keyguard.
@@ -1928,10 +1633,7 @@ public abstract class Context {
      * @see android.app.KeyguardManager
      */
     public static final String KEYGUARD_SERVICE = "keyguard";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
      * android.location.LocationManager} for controlling location
@@ -1941,7 +1643,6 @@ public abstract class Context {
      * @see android.location.LocationManager
      */
     public static final String LOCATION_SERVICE = "location";
-<<<<<<< HEAD
 
     /**
      * Use with {@link #getSystemService} to retrieve a
@@ -1952,8 +1653,6 @@ public abstract class Context {
      */
     public static final String COUNTRY_DETECTOR = "country_detector";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
      * android.app.SearchManager} for handling searches.
@@ -1962,10 +1661,7 @@ public abstract class Context {
      * @see android.app.SearchManager
      */
     public static final String SEARCH_SERVICE = "search";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
      * android.hardware.SensorManager} for accessing sensors.
@@ -1974,7 +1670,6 @@ public abstract class Context {
      * @see android.hardware.SensorManager
      */
     public static final String SENSOR_SERVICE = "sensor";
-<<<<<<< HEAD
 
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
@@ -1986,17 +1681,6 @@ public abstract class Context {
      */
     public static final String STORAGE_SERVICE = "storage";
 
-=======
-    /**
-     * Use with {@link #getSystemService} to retrieve a {@link
-     * android.bluetooth.BluetoothDevice} for interacting with Bluetooth.
-     *
-     * @see #getSystemService
-     * @see android.bluetooth.BluetoothDevice
-     * @hide
-     */
-    public static final String BLUETOOTH_SERVICE = "bluetooth";
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * com.android.server.WallpaperService for accessing wallpapers.
@@ -2004,10 +1688,7 @@ public abstract class Context {
      * @see #getSystemService
      */
     public static final String WALLPAPER_SERVICE = "wallpaper";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
      * android.os.Vibrator} for interacting with the vibration hardware.
@@ -2016,10 +1697,7 @@ public abstract class Context {
      * @see android.os.Vibrator
      */
     public static final String VIBRATOR_SERVICE = "vibrator";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
      * android.app.StatusBarManager} for interacting with the status bar.
@@ -2042,7 +1720,6 @@ public abstract class Context {
 
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
-<<<<<<< HEAD
      * android.net.ThrottleManager} for handling management of
      * throttling.
      *
@@ -2081,8 +1758,6 @@ public abstract class Context {
 
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * android.net.wifi.WifiManager} for handling management of
      * Wi-Fi access.
      *
@@ -2090,7 +1765,6 @@ public abstract class Context {
      * @see android.net.wifi.WifiManager
      */
     public static final String WIFI_SERVICE = "wifi";
-<<<<<<< HEAD
 
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
@@ -2112,23 +1786,15 @@ public abstract class Context {
      */
     public static final String NSD_SERVICE = "servicediscovery";
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.media.AudioManager} for handling management of volume,
      * ringer modes and audio routing.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #getSystemService
      * @see android.media.AudioManager
      */
     public static final String AUDIO_SERVICE = "audio";
-<<<<<<< HEAD
 
     /**
      * Use with {@link #getSystemService} to retrieve a
@@ -2140,18 +1806,11 @@ public abstract class Context {
      */
     public static final String MEDIA_ROUTER_SERVICE = "media_router";
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.telephony.TelephonyManager} for handling management the
      * telephony features of the device.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #getSystemService
      * @see android.telephony.TelephonyManager
      */
@@ -2161,18 +1820,13 @@ public abstract class Context {
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.text.ClipboardManager} for accessing and modifying
      * the contents of the global clipboard.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #getSystemService
      * @see android.text.ClipboardManager
      */
     public static final String CLIPBOARD_SERVICE = "clipboard";
 
     /**
-<<<<<<< HEAD
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.view.inputmethod.InputMethodManager} for accessing input
      * methods.
@@ -2301,8 +1955,6 @@ public abstract class Context {
     public static final String SCHEDULING_POLICY_SERVICE = "scheduling_policy";
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Determine whether the given permission is allowed for a particular
      * process and user ID running in the system.
      *
@@ -2609,11 +2261,7 @@ public abstract class Context {
      * #enforceCallingUriPermission}, except it grants your own
      * permissions if you are not currently processing an IPC.  Use
      * with care!
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param uri The uri that is being checked.
      * @param modeFlags The type of access to grant.  May be one or both of
      * {@link Intent#FLAG_GRANT_READ_URI_PERMISSION Intent.FLAG_GRANT_READ_URI_PERMISSION} or
@@ -2629,11 +2277,7 @@ public abstract class Context {
      * Enforce both a Uri and normal permission.  This allows you to perform
      * both {@link #enforcePermission} and {@link #enforceUriPermission} in one
      * call.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param uri The Uri whose permission is to be checked, or null to not
      * do this check.
      * @param readPermission The permission that provides overall read access,
@@ -2678,7 +2322,6 @@ public abstract class Context {
     public static final int CONTEXT_IGNORE_SECURITY = 0x00000002;
 
     /**
-<<<<<<< HEAD
      * Flag for use with {@link #createPackageContext}: a restricted context may
      * disable specific features. For instance, a View associated with a restricted
      * context would ignore particular XML attributes.
@@ -2686,8 +2329,6 @@ public abstract class Context {
     public static final int CONTEXT_RESTRICTED = 0x00000004;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Return a new Context object for the given application name.  This
      * Context is the same as what the named application gets when it is
      * launched, containing the same resources and class loader.  Each call to
@@ -2714,7 +2355,6 @@ public abstract class Context {
      */
     public abstract Context createPackageContext(String packageName,
             int flags) throws PackageManager.NameNotFoundException;
-<<<<<<< HEAD
 
     /**
      * Indicates whether this Context is restricted.
@@ -2726,6 +2366,4 @@ public abstract class Context {
     public boolean isRestricted() {
         return false;
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

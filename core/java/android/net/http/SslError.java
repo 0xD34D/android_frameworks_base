@@ -19,14 +19,8 @@ package android.net.http;
 import java.security.cert.X509Certificate;
 
 /**
-<<<<<<< HEAD
  * This class represents a set of one or more SSL errors and the associated SSL
  * certificate.
-=======
- * One or more individual SSL errors and the associated SSL certificate
- * 
- * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class SslError {
 
@@ -37,11 +31,7 @@ public class SslError {
     /**
      * The certificate is not yet valid
      */
-<<<<<<< HEAD
     public static final int SSL_NOTYETVALID = 0;
-=======
-  public static final int SSL_NOTYETVALID = 0;
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * The certificate has expired
      */
@@ -54,7 +44,6 @@ public class SslError {
      * The certificate authority is not trusted
      */
     public static final int SSL_UNTRUSTED = 3;
-<<<<<<< HEAD
     /**
      * The date of the certificate is invalid
      */
@@ -76,17 +65,6 @@ public class SslError {
 
     /**
      * The SSL error set bitfield (each individual error is a bit index;
-=======
-
-
-    /**
-     * The number of different SSL errors (update if you add a new SSL error!!!)
-     */
-    public static final int SSL_MAX_ERROR = 4;
-
-    /**
-     * The SSL error set bitfield (each individual error is an bit index;
->>>>>>> 54b6cfa... Initial Contribution
      * multiple individual errors can be OR-ed)
      */
     int mErrors;
@@ -94,7 +72,6 @@ public class SslError {
     /**
      * The SSL certificate associated with the error set
      */
-<<<<<<< HEAD
     final SslCertificate mCertificate;
 
     /**
@@ -177,39 +154,12 @@ public class SslError {
     /**
      * Gets the SSL certificate associated with this object.
      * @return The SSL certificate, non-null.
-=======
-    SslCertificate mCertificate;
-
-    /**
-     * Creates a new SSL error set object
-     * @param error The SSL error
-     * @param certificate The associated SSL certificate
-     */
-    public SslError(int error, SslCertificate certificate) {
-        addError(error);
-        mCertificate = certificate;
-    }
-
-    /**
-     * Creates a new SSL error set object
-     * @param error The SSL error
-     * @param certificate The associated SSL certificate
-     */
-    public SslError(int error, X509Certificate certificate) {
-        addError(error);
-        mCertificate = new SslCertificate(certificate);
-    }
-
-    /**
-     * @return The SSL certificate associated with the error set
->>>>>>> 54b6cfa... Initial Contribution
      */
     public SslCertificate getCertificate() {
         return mCertificate;
     }
 
     /**
-<<<<<<< HEAD
      * Gets the URL associated with this object.
      * @return The URL, non-null.
      */
@@ -222,11 +172,6 @@ public class SslError {
      * @param error The SSL error to add
      * @return True if the error being added is a known SSL error, otherwise
      *         false.
-=======
-     * Adds the SSL error to the error set
-     * @param error The SSL error to add
-     * @return True iff the error being added is a known SSL error
->>>>>>> 54b6cfa... Initial Contribution
      */
     public boolean addError(int error) {
         boolean rval = (0 <= error && error < SslError.SSL_MAX_ERROR);
@@ -238,14 +183,9 @@ public class SslError {
     }
 
     /**
-<<<<<<< HEAD
      * Determines whether this object includes the supplied error.
      * @param error The SSL error to check for
      * @return True if this object includes the error, otherwise false.
-=======
-     * @param error The SSL error to check
-     * @return True iff the set includes the error
->>>>>>> 54b6cfa... Initial Contribution
      */
     public boolean hasError(int error) {
         boolean rval = (0 <= error && error < SslError.SSL_MAX_ERROR);
@@ -257,13 +197,9 @@ public class SslError {
     }
 
     /**
-<<<<<<< HEAD
      * Gets the most severe SSL error in this object's set of errors.
      * Returns -1 if the set is empty.
      * @return The most severe SSL error, or -1 if the set is empty.
-=======
-     * @return The primary, most severe, SSL error in the set
->>>>>>> 54b6cfa... Initial Contribution
      */
     public int getPrimaryError() {
         if (mErrors != 0) {
@@ -273,7 +209,6 @@ public class SslError {
                     return error;
                 }
             }
-<<<<<<< HEAD
             // mErrors should never be set to an invalid value.
             assert false;
         }
@@ -289,19 +224,5 @@ public class SslError {
         return "primary error: " + getPrimaryError() +
                 " certificate: " + getCertificate() +
                 " on URL: " + getUrl();
-=======
-        }
-
-        return 0;
-    }
-
-    /**
-     * @return A String representation of this SSL error object
-     * (used mostly for debugging).
-     */
-    public String toString() {
-        return "primary error: " + getPrimaryError() +
-            " certificate: " + getCertificate();
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

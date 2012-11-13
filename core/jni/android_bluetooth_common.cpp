@@ -36,7 +36,6 @@
 namespace android {
 
 #ifdef HAVE_BLUETOOTH
-<<<<<<< HEAD
 
 static Properties remote_device_properties[] = {
     {"Address",  DBUS_TYPE_STRING},
@@ -98,30 +97,19 @@ typedef union {
     char **array_val;
 } property_value;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 jfieldID get_field(JNIEnv *env, jclass clazz, const char *member,
                    const char *mtype) {
     jfieldID field = env->GetFieldID(clazz, member, mtype);
     if (field == NULL) {
-<<<<<<< HEAD
         ALOGE("Can't find member %s", member);
-=======
-        LOGE("Can't find member %s", member);
->>>>>>> 54b6cfa... Initial Contribution
     }
     return field;
 }
 
 typedef struct {
-<<<<<<< HEAD
     void (*user_cb)(DBusMessage *, void *, void *);
     void *user;
     void *nat;
-=======
-    void (*user_cb)(DBusMessage *, void *);
-    void *user;
->>>>>>> 54b6cfa... Initial Contribution
     JNIEnv *env;
 } dbus_async_call_t;
 
@@ -137,11 +125,7 @@ void dbus_func_args_async_callback(DBusPendingCall *call, void *data) {
     if (msg) {
         if (req->user_cb) {
             // The user may not deref the message object.
-<<<<<<< HEAD
             req->user_cb(msg, req->user, req->nat);
-=======
-            req->user_cb(msg, req->user);
->>>>>>> 54b6cfa... Initial Contribution
         }
         dbus_message_unref(msg);
     }
@@ -152,7 +136,6 @@ void dbus_func_args_async_callback(DBusPendingCall *call, void *data) {
     free(req);
 }
 
-<<<<<<< HEAD
 static dbus_bool_t dbus_func_args_async_valist(JNIEnv *env,
                                         DBusConnection *conn,
                                         int timeout_ms,
@@ -161,13 +144,6 @@ static dbus_bool_t dbus_func_args_async_valist(JNIEnv *env,
                                                         void*),
                                         void *user,
                                         void *nat,
-=======
-dbus_bool_t dbus_func_args_async_valist(JNIEnv *env,
-                                        DBusConnection *conn,
-                                        int timeout_ms,
-                                        void (*user_cb)(DBusMessage *, void *),
-                                        void *user,
->>>>>>> 54b6cfa... Initial Contribution
                                         const char *path,
                                         const char *ifc,
                                         const char *func,
@@ -182,21 +158,13 @@ dbus_bool_t dbus_func_args_async_valist(JNIEnv *env,
     msg = dbus_message_new_method_call(BLUEZ_DBUS_BASE_IFC, path, ifc, func);
 
     if (msg == NULL) {
-<<<<<<< HEAD
         ALOGE("Could not allocate D-Bus message object!");
-=======
-        LOGE("Could not allocate D-Bus message object!");
->>>>>>> 54b6cfa... Initial Contribution
         goto done;
     }
 
     /* append arguments */
     if (!dbus_message_append_args_valist(msg, first_arg_type, args)) {
-<<<<<<< HEAD
         ALOGE("Could not append argument to method call!");
-=======
-        LOGE("Could not append argument to method call!");
->>>>>>> 54b6cfa... Initial Contribution
         goto done;
     }
 
@@ -208,10 +176,7 @@ dbus_bool_t dbus_func_args_async_valist(JNIEnv *env,
         pending->env = env;
         pending->user_cb = user_cb;
         pending->user = user;
-<<<<<<< HEAD
         pending->nat = nat;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         //pending->method = msg;
 
         reply = dbus_connection_send_with_reply(conn, msg,
@@ -233,14 +198,9 @@ done:
 dbus_bool_t dbus_func_args_async(JNIEnv *env,
                                  DBusConnection *conn,
                                  int timeout_ms,
-<<<<<<< HEAD
                                  void (*reply)(DBusMessage *, void *, void*),
                                  void *user,
                                  void *nat,
-=======
-                                 void (*reply)(DBusMessage *, void *),
-                                 void *user,
->>>>>>> 54b6cfa... Initial Contribution
                                  const char *path,
                                  const char *ifc,
                                  const char *func,
@@ -249,27 +209,17 @@ dbus_bool_t dbus_func_args_async(JNIEnv *env,
     dbus_bool_t ret;
     va_list lst;
     va_start(lst, first_arg_type);
-<<<<<<< HEAD
 
     ret = dbus_func_args_async_valist(env, conn,
                                       timeout_ms,
                                       reply, user, nat,
-=======
-    ret = dbus_func_args_async_valist(env, conn,
-                                      timeout_ms,
-                                      reply, user,
->>>>>>> 54b6cfa... Initial Contribution
                                       path, ifc, func,
                                       first_arg_type, lst);
     va_end(lst);
     return ret;
 }
 
-<<<<<<< HEAD
 // If err is NULL, then any errors will be ALOGE'd, and free'd and the reply
-=======
-// If err is NULL, then any errors will be LOGE'd, and free'd and the reply
->>>>>>> 54b6cfa... Initial Contribution
 // will be NULL.
 // If err is not NULL, then it is assumed that dbus_error_init was already
 // called, and error's will be returned to the caller without logging. The
@@ -298,21 +248,13 @@ DBusMessage * dbus_func_args_timeout_valist(JNIEnv *env,
     msg = dbus_message_new_method_call(BLUEZ_DBUS_BASE_IFC, path, ifc, func);
 
     if (msg == NULL) {
-<<<<<<< HEAD
         ALOGE("Could not allocate D-Bus message object!");
-=======
-        LOGE("Could not allocate D-Bus message object!");
->>>>>>> 54b6cfa... Initial Contribution
         goto done;
     }
 
     /* append arguments */
     if (!dbus_message_append_args_valist(msg, first_arg_type, args)) {
-<<<<<<< HEAD
         ALOGE("Could not append argument to method call!");
-=======
-        LOGE("Could not append argument to method call!");
->>>>>>> 54b6cfa... Initial Contribution
         goto done;
     }
 
@@ -383,7 +325,6 @@ DBusMessage * dbus_func_args_error(JNIEnv *env,
     return ret;
 }
 
-<<<<<<< HEAD
 jint dbus_returns_unixfd(JNIEnv *env, DBusMessage *reply) {
 
     DBusError err;
@@ -400,8 +341,6 @@ jint dbus_returns_unixfd(JNIEnv *env, DBusMessage *reply) {
 }
 
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 jint dbus_returns_int32(JNIEnv *env, DBusMessage *reply) {
 
     DBusError err;
@@ -471,7 +410,6 @@ jboolean dbus_returns_boolean(JNIEnv *env, DBusMessage *reply) {
     return ret;
 }
 
-<<<<<<< HEAD
 static void set_object_array_element(JNIEnv *env, jobjectArray strArray,
                                      const char *value, int index) {
     jstring obj;
@@ -510,8 +448,6 @@ jobjectArray dbus_returns_array_of_object_path(JNIEnv *env,
     return strArray;
 }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 jobjectArray dbus_returns_array_of_strings(JNIEnv *env, DBusMessage *reply) {
 
     DBusError err;
@@ -528,25 +464,13 @@ jobjectArray dbus_returns_array_of_strings(JNIEnv *env, DBusMessage *reply) {
         jclass stringClass;
         jstring classNameStr;
 
-<<<<<<< HEAD
         //ALOGV("%s: there are %d elements in string array!", __FUNCTION__, len);
-=======
-        //LOGV("%s: there are %d elements in string array!", __FUNCTION__, len);
->>>>>>> 54b6cfa... Initial Contribution
 
         stringClass = env->FindClass("java/lang/String");
         strArray = env->NewObjectArray(len, stringClass, NULL);
 
-<<<<<<< HEAD
         for (i = 0; i < len; i++)
             set_object_array_element(env, strArray, list[i], i);
-=======
-        for (i = 0; i < len; i++) {
-            //LOGV("%s:    array[%d] = [%s]", __FUNCTION__, i, list[i]);
-            env->SetObjectArrayElement(strArray, i,
-                                       env->NewStringUTF(list[i]));
-        }
->>>>>>> 54b6cfa... Initial Contribution
     } else {
         LOG_AND_FREE_DBUS_ERROR_WITH_MSG(&err, reply);
     }
@@ -566,11 +490,7 @@ jbyteArray dbus_returns_array_of_bytes(JNIEnv *env, DBusMessage *reply) {
     if (dbus_message_get_args(reply, &err,
                               DBUS_TYPE_ARRAY, DBUS_TYPE_BYTE, &list, &len,
                               DBUS_TYPE_INVALID)) {
-<<<<<<< HEAD
         //ALOGV("%s: there are %d elements in byte array!", __FUNCTION__, len);
-=======
-        //LOGV("%s: there are %d elements in byte array!", __FUNCTION__, len);
->>>>>>> 54b6cfa... Initial Contribution
         byteArray = env->NewByteArray(len);
         if (byteArray)
             env->SetByteArrayRegion(byteArray, 0, len, list);
@@ -583,7 +503,6 @@ jbyteArray dbus_returns_array_of_bytes(JNIEnv *env, DBusMessage *reply) {
     return byteArray;
 }
 
-<<<<<<< HEAD
 void append_variant(DBusMessageIter *iter, int type, void *val)
 {
     DBusMessageIter value_iter;
@@ -909,27 +828,17 @@ jobjectArray parse_health_channel_properties(JNIEnv *env, DBusMessageIter *iter)
 }
 
 int get_bdaddr(const char *str, bdaddr_t *ba) {
-=======
-void get_bdaddr(const char *str, bdaddr_t *ba) {
->>>>>>> 54b6cfa... Initial Contribution
     char *d = ((char *)ba) + 5, *endp;
     int i;
     for(i = 0; i < 6; i++) {
         *d-- = strtol(str, &endp, 16);
         if (*endp != ':' && i != 5) {
             memset(ba, 0, sizeof(bdaddr_t));
-<<<<<<< HEAD
             return -1;
         }
         str = endp + 1;
     }
     return 0;
-=======
-            return;
-        }
-        str = endp + 1;
-    }
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 void get_bdaddr_as_string(const bdaddr_t *ba, char *str) {
@@ -946,11 +855,7 @@ bool debug_no_encrypt() {
     property_get("debug.bt.no_encrypt", value, "");
     if (!strncmp("true", value, PROPERTY_VALUE_MAX) ||
         !strncmp("1", value, PROPERTY_VALUE_MAX)) {
-<<<<<<< HEAD
         ALOGD("mandatory bluetooth encryption disabled");
-=======
-        LOGD("mandatory bluetooth encryption disabled");
->>>>>>> 54b6cfa... Initial Contribution
         return true;
     } else {
         return false;

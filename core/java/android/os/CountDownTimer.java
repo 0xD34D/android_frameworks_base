@@ -25,11 +25,7 @@ import android.util.Log;
  * Example of showing a 30 second countdown in a text field:
  *
  * <pre class="prettyprint">
-<<<<<<< HEAD
  * new CountDownTimer(30000, 1000) {
-=======
- * new CountdownTimer(30000, 1000) {
->>>>>>> 54b6cfa... Initial Contribution
  *
  *     public void onTick(long millisUntilFinished) {
  *         mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);

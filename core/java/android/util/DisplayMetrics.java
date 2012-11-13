@@ -16,16 +16,12 @@
 
 package android.util;
 
-<<<<<<< HEAD
 import android.os.SystemProperties;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * A structure describing general information about a display, such as its
  * size, density, and font scaling.
-<<<<<<< HEAD
  * <p>To access the DisplayMetrics members, initialize an object like this:</p>
  * <pre> DisplayMetrics metrics = new DisplayMetrics();
  * getWindowManager().getDefaultDisplay().getMetrics(metrics);</pre>
@@ -90,11 +86,6 @@ public class DisplayMetrics {
     public static final int DENSITY_DEVICE = getDeviceDensity();
 
     /**
-=======
- */
-public class DisplayMetrics {
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * The absolute width of the display in pixels.
      */
     public int widthPixels;
@@ -107,11 +98,7 @@ public class DisplayMetrics {
      * Density Independent Pixel unit, where one DIP is one pixel on an
      * approximately 160 dpi screen (for example a 240x320, 1.5"x2" screen), 
      * providing the baseline of the system's display. Thus on a 160dpi screen 
-<<<<<<< HEAD
      * this density value will be 1; on a 120 dpi screen it would be .75; etc.
-=======
-     * this density value will be 1; on a 106 dpi screen it would be .75; etc.
->>>>>>> 54b6cfa... Initial Contribution
      *  
      * <p>This value does not exactly follow the real screen size (as given by 
      * {@link #xdpi} and {@link #ydpi}, but rather is used to scale the size of
@@ -119,7 +106,6 @@ public class DisplayMetrics {
      * example, a 240x320 screen will have a density of 1 even if its width is 
      * 1.8", 1.3", etc. However, if the screen resolution is increased to 
      * 320x480 but the screen size remained 1.5"x2" then the density would be 
-<<<<<<< HEAD
      * increased (probably to 1.5).
      *
      * @see #DENSITY_DEFAULT
@@ -131,12 +117,6 @@ public class DisplayMetrics {
      */
     public int densityDpi;
     /**
-=======
-     * increased (probably to 1.5). 
-     */
-    public float density;
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * A scaling factor for fonts displayed on the display.  This is the same
      * as {@link #density}, except that it may be adjusted in smaller
      * increments at runtime based on a user preference for the font size.
@@ -150,7 +130,6 @@ public class DisplayMetrics {
      * The exact physical pixels per inch of the screen in the Y dimension.
      */
     public float ydpi;
-<<<<<<< HEAD
 
     /**
      * The reported display width prior to any compatibility mode scaling
@@ -189,9 +168,6 @@ public class DisplayMetrics {
      */
     public float noncompatYdpi;
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     public DisplayMetrics() {
     }
     
@@ -199,7 +175,6 @@ public class DisplayMetrics {
         widthPixels = o.widthPixels;
         heightPixels = o.heightPixels;
         density = o.density;
-<<<<<<< HEAD
         densityDpi = o.densityDpi;
         scaledDensity = o.scaledDensity;
         xdpi = o.xdpi;
@@ -210,17 +185,11 @@ public class DisplayMetrics {
         noncompatScaledDensity = o.noncompatScaledDensity;
         noncompatXdpi = o.noncompatXdpi;
         noncompatYdpi = o.noncompatYdpi;
-=======
-        scaledDensity = o.scaledDensity;
-        xdpi = o.xdpi;
-        ydpi = o.ydpi;
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     public void setToDefaults() {
         widthPixels = 0;
         heightPixels = 0;
-<<<<<<< HEAD
         density = DENSITY_DEVICE / (float) DENSITY_DEFAULT;
         densityDpi = DENSITY_DEVICE;
         scaledDensity = density;
@@ -246,12 +215,3 @@ public class DisplayMetrics {
                 SystemProperties.getInt("ro.sf.lcd_density", DENSITY_DEFAULT));
     }
 }
-=======
-        density = 1;
-        scaledDensity = 1;
-        xdpi = 160;
-        ydpi = 160;
-    }
-}
-
->>>>>>> 54b6cfa... Initial Contribution

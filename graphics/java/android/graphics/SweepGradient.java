@@ -42,10 +42,7 @@ public class SweepGradient extends Shader {
                         "color and position arrays must be of equal length");
         }
         native_instance = nativeCreate1(cx, cy, colors, positions);
-<<<<<<< HEAD
         native_shader = nativePostCreate1(native_instance, cx, cy, colors, positions);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -58,7 +55,6 @@ public class SweepGradient extends Shader {
      */
     public SweepGradient(float cx, float cy, int color0, int color1) {
         native_instance = nativeCreate2(cx, cy, color0, color1);
-<<<<<<< HEAD
         native_shader = nativePostCreate2(native_instance, cx, cy, color0, color1);
     }
 
@@ -69,13 +65,5 @@ public class SweepGradient extends Shader {
             int[] colors, float[] positions);    
     private static native int nativePostCreate2(int native_shader, float cx, float cy,
             int color0, int color1);
-=======
-    }
-
-    private static native int nativeCreate1(float x, float y,
-                                            int colors[], float positions[]);
-    private static native int nativeCreate2(float x, float y,
-                                            int color0, int color1);
->>>>>>> 54b6cfa... Initial Contribution
 }
 

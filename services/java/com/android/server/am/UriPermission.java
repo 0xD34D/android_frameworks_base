@@ -22,7 +22,6 @@ import android.net.Uri;
 import java.io.PrintWriter;
 import java.util.HashSet;
 
-<<<<<<< HEAD
 /**
  * Description of a permission granted to an app to access a particular URI.
  *
@@ -31,29 +30,21 @@ import java.util.HashSet;
  * Test cases are at cts/tests/appsecurity-tests/test-apps/UsePermissionDiffCert/
  *      src/com/android/cts/usespermissiondiffcertapp/AccessPermissionWithDiffSigTest.java
  */
-=======
->>>>>>> 54b6cfa... Initial Contribution
 class UriPermission {
     final int uid;
     final Uri uri;
     int modeFlags = 0;
     int globalModeFlags = 0;
-<<<<<<< HEAD
     final HashSet<UriPermissionOwner> readOwners = new HashSet<UriPermissionOwner>();
     final HashSet<UriPermissionOwner> writeOwners = new HashSet<UriPermissionOwner>();
     
     String stringName;
-=======
-    final HashSet<HistoryRecord> readActivities = new HashSet<HistoryRecord>();
-    final HashSet<HistoryRecord> writeActivities = new HashSet<HistoryRecord>();
->>>>>>> 54b6cfa... Initial Contribution
     
     UriPermission(int _uid, Uri _uri) {
         uid = _uid;
         uri = _uri;
     }
     
-<<<<<<< HEAD
     void clearModes(int modeFlagsToClear) {
         if ((modeFlagsToClear&Intent.FLAG_GRANT_READ_URI_PERMISSION) != 0) {
             globalModeFlags &= ~Intent.FLAG_GRANT_READ_URI_PERMISSION;
@@ -73,39 +64,11 @@ class UriPermission {
                     r.removeWritePermission(this);
                 }
                 writeOwners.clear();
-=======
-    void clearModes(int modeFlags) {
-        if ((modeFlags&Intent.FLAG_GRANT_READ_URI_PERMISSION) != 0) {
-            globalModeFlags &= ~Intent.FLAG_GRANT_READ_URI_PERMISSION;
-            modeFlags &= ~Intent.FLAG_GRANT_READ_URI_PERMISSION;
-            if (readActivities.size() > 0) {
-                for (HistoryRecord r : readActivities) {
-                    r.readUriPermissions.remove(this);
-                    if (r.readUriPermissions.size() == 0) {
-                        r.readUriPermissions = null;
-                    }
-                }
-                readActivities.clear();
-            }
-        }
-        if ((modeFlags&Intent.FLAG_GRANT_WRITE_URI_PERMISSION) != 0) {
-            globalModeFlags &= ~Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-            modeFlags &= ~Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-            if (readActivities.size() > 0) {
-                for (HistoryRecord r : readActivities) {
-                    r.writeUriPermissions.remove(this);
-                    if (r.writeUriPermissions.size() == 0) {
-                        r.writeUriPermissions = null;
-                    }
-                }
-                readActivities.clear();
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
     
     public String toString() {
-<<<<<<< HEAD
         if (stringName != null) {
             return stringName;
         }
@@ -136,20 +99,5 @@ class UriPermission {
                 pw.print(prefix); pw.print("  * "); pw.println(owner);
             }
         }
-=======
-        return "UriPermission{"
-                + Integer.toHexString(System.identityHashCode(this))
-                + " " + uri + "}";
-    }
-
-    void dump(PrintWriter pw, String prefix) {
-        pw.println(prefix + this);
-        pw.println(prefix + "  modeFlags=0x" + Integer.toHexString(modeFlags)
-                + " uid=" + uid 
-                + " globalModeFlags=0x"
-                + Integer.toHexString(globalModeFlags));
-        pw.println(prefix + "  readActivities=" + readActivities);
-        pw.println(prefix + "  writeActivities=" + writeActivities);
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

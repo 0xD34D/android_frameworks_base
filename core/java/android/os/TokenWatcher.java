@@ -16,11 +16,8 @@
 
 package android.os;
 
-<<<<<<< HEAD
 import java.io.PrintWriter;
 import java.util.ArrayList;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.WeakHashMap;
 import java.util.Set;
 import android.util.Log;
@@ -120,7 +117,6 @@ public abstract class TokenWatcher
 
     public void dump()
     {
-<<<<<<< HEAD
         ArrayList<String> a = dumpInternal();
         for (String s : a) {
             Log.i(mTag, s);
@@ -146,17 +142,6 @@ public abstract class TokenWatcher
             }
         }
         return a;
-=======
-        synchronized (mTokens) {
-            Set<IBinder> keys = mTokens.keySet();
-            Log.i(mTag, "Token count: " + mTokens.size());
-            int i = 0;
-            for (IBinder b: keys) {
-                Log.i(mTag, "[" + i + "] " + mTokens.get(b).tag + " - " + b);
-                i++;
-            }
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private Runnable mNotificationTask = new Runnable() {

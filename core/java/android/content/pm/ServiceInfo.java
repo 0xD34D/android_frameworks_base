@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -15,16 +14,11 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 package android.content.pm;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-<<<<<<< HEAD
 import android.util.Printer;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Information you can retrieve about a particular application
@@ -39,7 +33,6 @@ public class ServiceInfo extends ComponentInfo
      */
     public String permission;
 
-<<<<<<< HEAD
     /**
      * Bit in {@link #flags}: If set, the service will automatically be
      * stopped by the system if the user removes a task that is rooted
@@ -63,15 +56,12 @@ public class ServiceInfo extends ComponentInfo
      */
     public int flags;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public ServiceInfo() {
     }
 
     public ServiceInfo(ServiceInfo orig) {
         super(orig);
         permission = orig.permission;
-<<<<<<< HEAD
         flags = orig.flags;
     }
 
@@ -81,10 +71,6 @@ public class ServiceInfo extends ComponentInfo
         pw.println(prefix + "flags=0x" + Integer.toHexString(flags));
     }
     
-=======
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public String toString() {
         return "ServiceInfo{"
             + Integer.toHexString(System.identityHashCode(this))
@@ -98,10 +84,7 @@ public class ServiceInfo extends ComponentInfo
     public void writeToParcel(Parcel dest, int parcelableFlags) {
         super.writeToParcel(dest, parcelableFlags);
         dest.writeString(permission);
-<<<<<<< HEAD
         dest.writeInt(flags);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final Creator<ServiceInfo> CREATOR =
@@ -117,9 +100,6 @@ public class ServiceInfo extends ComponentInfo
     private ServiceInfo(Parcel source) {
         super(source);
         permission = source.readString();
-<<<<<<< HEAD
         flags = source.readInt();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

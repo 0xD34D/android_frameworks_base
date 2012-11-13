@@ -18,19 +18,14 @@ package com.android.server.am;
 
 import static android.view.WindowManager.LayoutParams.FLAG_SYSTEM_ERROR;
 
-<<<<<<< HEAD
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-=======
-import android.content.Context;
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
-<<<<<<< HEAD
 import android.util.Slog;
 
 class AppNotRespondingDialog extends BaseErrorDialog {
@@ -41,20 +36,11 @@ class AppNotRespondingDialog extends BaseErrorDialog {
     static final int WAIT = 2;
     static final int WAIT_AND_REPORT = 3;
 
-=======
-import android.util.Log;
-
-class AppNotRespondingDialog extends BaseErrorDialog {
->>>>>>> 54b6cfa... Initial Contribution
     private final ActivityManagerService mService;
     private final ProcessRecord mProc;
     
     public AppNotRespondingDialog(ActivityManagerService service, Context context,
-<<<<<<< HEAD
             ProcessRecord app, ActivityRecord activity) {
-=======
-            ProcessRecord app, HistoryRecord activity) {
->>>>>>> 54b6cfa... Initial Contribution
         super(context);
         
         mService = service;
@@ -68,11 +54,7 @@ class AppNotRespondingDialog extends BaseErrorDialog {
                 ? activity.info.loadLabel(context.getPackageManager())
                 : null;
         CharSequence name2 = null;
-<<<<<<< HEAD
         if ((app.pkgList.size() == 1) &&
-=======
-        if (app.uniquePackage != null &&
->>>>>>> 54b6cfa... Initial Contribution
                 (name2=context.getPackageManager().getApplicationLabel(app.info)) != null) {
             if (name1 != null) {
                 resid = com.android.internal.R.string.anr_activity_application;
@@ -95,7 +77,6 @@ class AppNotRespondingDialog extends BaseErrorDialog {
                 ? res.getString(resid, name1.toString(), name2.toString())
                 : res.getString(resid, name1.toString()));
 
-<<<<<<< HEAD
         setButton(DialogInterface.BUTTON_POSITIVE,
                 res.getText(com.android.internal.R.string.force_close),
                 mHandler.obtainMessage(FORCE_CLOSE));
@@ -109,12 +90,6 @@ class AppNotRespondingDialog extends BaseErrorDialog {
                     mHandler.obtainMessage(WAIT_AND_REPORT));
         }
 
-=======
-        setButton(res.getText(com.android.internal.R.string.force_close),
-                mHandler.obtainMessage(1));
-        setButton2(res.getText(com.android.internal.R.string.wait),
-                mHandler.obtainMessage(2));
->>>>>>> 54b6cfa... Initial Contribution
         setTitle(res.getText(com.android.internal.R.string.anr_title));
         getWindow().addFlags(FLAG_SYSTEM_ERROR);
         getWindow().setTitle("Application Not Responding: " + app.info.processName);
@@ -125,7 +100,6 @@ class AppNotRespondingDialog extends BaseErrorDialog {
 
     private final Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
-<<<<<<< HEAD
             Intent appErrorIntent = null;
             switch (msg.what) {
                 case FORCE_CLOSE:
@@ -143,18 +117,6 @@ class AppNotRespondingDialog extends BaseErrorDialog {
                                     System.currentTimeMillis(), null);
                         }
 
-=======
-            switch (msg.what) {
-                case 1:
-                    // Kill the application.
-                    mService.killAppAtUsersRequest(mProc,
-                            AppNotRespondingDialog.this, true);
-                    break;
-                case 2:
-                    // Continue waiting for the application.
-                    synchronized (mService) {
-                        ProcessRecord app = mProc;
->>>>>>> 54b6cfa... Initial Contribution
                         app.notResponding = false;
                         app.notRespondingReport = null;
                         if (app.anrDialog == AppNotRespondingDialog.this) {
@@ -163,7 +125,6 @@ class AppNotRespondingDialog extends BaseErrorDialog {
                     }
                     break;
             }
-<<<<<<< HEAD
 
             if (appErrorIntent != null) {
                 try {
@@ -172,8 +133,6 @@ class AppNotRespondingDialog extends BaseErrorDialog {
                     Slog.w(TAG, "bug report receiver dissappeared", e);
                 }
             }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
     };
 }

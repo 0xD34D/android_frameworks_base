@@ -24,7 +24,6 @@ import android.net.Uri;
 import android.provider.Settings.System;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-<<<<<<< HEAD
 
 /**
  * A {@link Preference} that allows the user to choose a ringtone from those on the device. 
@@ -34,17 +33,6 @@ import android.util.AttributeSet;
  * {@link System#DEFAULT_RINGTONE_URI},
  * {@link System#DEFAULT_NOTIFICATION_URI}, or
  * {@link System#DEFAULT_ALARM_ALERT_URI}. If the user chooses the "Silent"
-=======
-import android.util.Log;
-
-/**
- * The {@link RingtonePreference} allows the user to choose one from all of the
- * available ringtones. The chosen ringtone's URI will be persisted as a string.
- * <p>
- * If the user chooses the "Default" item, the saved string will be one of
- * {@link System#DEFAULT_RINGTONE_URI} or
- * {@link System#DEFAULT_NOTIFICATION_URI}. If the user chooses the "Silent"
->>>>>>> 54b6cfa... Initial Contribution
  * item, the saved string will be an empty string.
  * 
  * @attr ref android.R.styleable#RingtonePreference_ringtoneType
@@ -148,16 +136,12 @@ public class RingtonePreference extends Preference implements
         // Launch the ringtone picker
         Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         onPrepareRingtonePickerIntent(intent);
-<<<<<<< HEAD
         PreferenceFragment owningFragment = getPreferenceManager().getFragment();
         if (owningFragment != null) {
             owningFragment.startActivityForResult(intent, mRequestCode);
         } else {
             getPreferenceManager().getActivity().startActivityForResult(intent, mRequestCode);
         }
-=======
-        getPreferenceManager().getActivity().startActivityForResult(intent, mRequestCode);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -180,10 +164,7 @@ public class RingtonePreference extends Preference implements
 
         ringtonePickerIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, mShowSilent);
         ringtonePickerIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, mRingtoneType);
-<<<<<<< HEAD
         ringtonePickerIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getTitle());
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**

@@ -18,24 +18,16 @@ package android.app;
 
 import android.content.ComponentName;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.content.IIntentReceiver;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
-<<<<<<< HEAD
 import android.content.res.CompatibilityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.ParcelFileDescriptor;
-=======
-import android.content.res.Configuration;
-import android.os.Bundle;
->>>>>>> 54b6cfa... Initial Contribution
 import android.os.RemoteException;
 import android.os.IBinder;
 import android.os.IInterface;
@@ -52,16 +44,11 @@ import java.util.Map;
  * {@hide}
  */
 public interface IApplicationThread extends IInterface {
-<<<<<<< HEAD
     void schedulePauseActivity(IBinder token, boolean finished, boolean userLeaving,
-=======
-    void schedulePauseActivity(IBinder token, boolean finished,
->>>>>>> 54b6cfa... Initial Contribution
             int configChanges) throws RemoteException;
     void scheduleStopActivity(IBinder token, boolean showWindow,
             int configChanges) throws RemoteException;
     void scheduleWindowVisibility(IBinder token, boolean showWindow) throws RemoteException;
-<<<<<<< HEAD
     void scheduleSleeping(IBinder token, boolean sleeping) throws RemoteException;
     void scheduleResumeActivity(IBinder token, boolean isForward) throws RemoteException;
     void scheduleSendResult(IBinder token, List<ResultInfo> results) throws RemoteException;
@@ -89,39 +76,17 @@ public interface IApplicationThread extends IInterface {
             throws RemoteException;
     void scheduleCreateService(IBinder token, ServiceInfo info,
             CompatibilityInfo compatInfo) throws RemoteException;
-=======
-    void scheduleResumeActivity(IBinder token) throws RemoteException;
-    void scheduleSendResult(IBinder token, List<ResultInfo> results) throws RemoteException;
-    void scheduleLaunchActivity(Intent intent, IBinder token,
-            ActivityInfo info, Bundle state, List<ResultInfo> pendingResults,
-    		List<Intent> pendingNewIntents, boolean notResumed)
-    		throws RemoteException;
-    void scheduleRelaunchActivity(IBinder token, List<ResultInfo> pendingResults,
-            List<Intent> pendingNewIntents, int configChanges,
-            boolean notResumed) throws RemoteException;
-    void scheduleNewIntent(List<Intent> intent, IBinder token) throws RemoteException;
-    void scheduleDestroyActivity(IBinder token, boolean finished,
-            int configChanges) throws RemoteException;
-    void scheduleReceiver(Intent intent, ActivityInfo info, int resultCode,
-            String data, Bundle extras, boolean sync) throws RemoteException;
-    void scheduleCreateService(IBinder token, ServiceInfo info) throws RemoteException;
->>>>>>> 54b6cfa... Initial Contribution
     void scheduleBindService(IBinder token,
             Intent intent, boolean rebind) throws RemoteException;
     void scheduleUnbindService(IBinder token,
             Intent intent) throws RemoteException;
-<<<<<<< HEAD
     void scheduleServiceArgs(IBinder token, boolean taskRemoved, int startId,
             int flags, Intent args) throws RemoteException;
-=======
-    void scheduleServiceArgs(IBinder token, int startId, Intent args) throws RemoteException;
->>>>>>> 54b6cfa... Initial Contribution
     void scheduleStopService(IBinder token) throws RemoteException;
     static final int DEBUG_OFF = 0;
     static final int DEBUG_ON = 1;
     static final int DEBUG_WAIT = 2;
     void bindApplication(String packageName, ApplicationInfo info, List<ProviderInfo> providers,
-<<<<<<< HEAD
             ComponentName testName, String profileName, ParcelFileDescriptor profileFd,
             boolean autoStopProfiler, Bundle testArguments, IInstrumentationWatcher testWatcher,
             int debugMode, boolean openGlTrace, boolean restrictedBackupMode, boolean persistent,
@@ -164,24 +129,6 @@ public interface IApplicationThread extends IInterface {
     void dumpGfxInfo(FileDescriptor fd, String[] args) throws RemoteException;
     void dumpDbInfo(FileDescriptor fd, String[] args) throws RemoteException;
     void unstableProviderDied(IBinder provider) throws RemoteException;
-=======
-            ComponentName testName, String profileName, Bundle testArguments, 
-            IInstrumentationWatcher testWatcher, int debugMode, Configuration config, Map<String,
-            IBinder> services) throws RemoteException;
-    void scheduleExit() throws RemoteException;
-    void requestThumbnail(IBinder token) throws RemoteException;
-    void scheduleConfigurationChanged(Configuration config) throws RemoteException;
-    void updateTimeZone() throws RemoteException;
-    void processInBackground() throws RemoteException;
-    void dumpService(FileDescriptor fd, IBinder servicetoken, String[] args)
-            throws RemoteException;
-    void scheduleRegisteredReceiver(IIntentReceiver receiver, Intent intent,
-            int resultCode, String data, Bundle extras, boolean ordered)
-            throws RemoteException;
-    void scheduleLowMemory() throws RemoteException;
-    void scheduleActivityConfigurationChanged(IBinder token) throws RemoteException;
-    void requestPss() throws RemoteException;
->>>>>>> 54b6cfa... Initial Contribution
 
     String descriptor = "android.app.IApplicationThread";
 
@@ -210,7 +157,6 @@ public interface IApplicationThread extends IInterface {
     int SCHEDULE_LOW_MEMORY_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+23;
     int SCHEDULE_ACTIVITY_CONFIGURATION_CHANGED_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+24;
     int SCHEDULE_RELAUNCH_ACTIVITY_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+25;
-<<<<<<< HEAD
     int SCHEDULE_SLEEPING_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+26;
     int PROFILER_CONTROL_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+27;
     int SET_SCHEDULING_GROUP_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+28;
@@ -232,7 +178,4 @@ public interface IApplicationThread extends IInterface {
     int DUMP_PROVIDER_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+44;
     int DUMP_DB_INFO_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+45;
     int UNSTABLE_PROVIDER_DIED_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+46;
-=======
-    int REQUEST_PSS_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION+26;
->>>>>>> 54b6cfa... Initial Contribution
 }

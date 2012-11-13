@@ -21,10 +21,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 abstract class WebSyncManager implements Runnable {
@@ -41,12 +37,9 @@ abstract class WebSyncManager implements Runnable {
     // handler of the sync thread
     protected Handler mHandler;
     // database for the persistent storage
-<<<<<<< HEAD
     // Note that this remains uninitialised as it is unused. We cannot remove
     // the member as it leaked into the public API via CookieSyncManager.
     // TODO: hide this member, ditto for mHandler.
-=======
->>>>>>> 54b6cfa... Initial Contribution
     protected WebViewDatabase mDataBase;
     // Ref count for calls to start/stop sync
     private int mStartSyncRefCount;
@@ -57,11 +50,7 @@ abstract class WebSyncManager implements Runnable {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == SYNC_MESSAGE) {
-<<<<<<< HEAD
                 if (DebugFlags.WEB_SYNC_MANAGER) {
-=======
-                if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
                     Log.v(LOGTAG, "*** WebSyncManager sync ***");
                 }
                 syncFromRamToFlash();
@@ -76,10 +65,6 @@ abstract class WebSyncManager implements Runnable {
     protected WebSyncManager(Context context, String name) {
         mThreadName = name;
         if (context != null) {
-<<<<<<< HEAD
-=======
-            mDataBase = WebViewDatabase.getInstance(context);
->>>>>>> 54b6cfa... Initial Contribution
             mSyncThread = new Thread(this);
             mSyncThread.setName(mThreadName);
             mSyncThread.start();
@@ -111,11 +96,7 @@ abstract class WebSyncManager implements Runnable {
      * sync() forces sync manager to sync now
      */
     public void sync() {
-<<<<<<< HEAD
         if (DebugFlags.WEB_SYNC_MANAGER) {
-=======
-        if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.v(LOGTAG, "*** WebSyncManager sync ***");
         }
         if (mHandler == null) {
@@ -130,11 +111,7 @@ abstract class WebSyncManager implements Runnable {
      * resetSync() resets sync manager's timer
      */
     public void resetSync() {
-<<<<<<< HEAD
         if (DebugFlags.WEB_SYNC_MANAGER) {
-=======
-        if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.v(LOGTAG, "*** WebSyncManager resetSync ***");
         }
         if (mHandler == null) {
@@ -149,11 +126,7 @@ abstract class WebSyncManager implements Runnable {
      * startSync() requests sync manager to start sync
      */
     public void startSync() {
-<<<<<<< HEAD
         if (DebugFlags.WEB_SYNC_MANAGER) {
-=======
-        if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.v(LOGTAG, "***  WebSyncManager startSync ***, Ref count:" + 
                     mStartSyncRefCount);
         }
@@ -171,11 +144,7 @@ abstract class WebSyncManager implements Runnable {
      * the queue to break the sync loop
      */
     public void stopSync() {
-<<<<<<< HEAD
         if (DebugFlags.WEB_SYNC_MANAGER) {
-=======
-        if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.v(LOGTAG, "*** WebSyncManager stopSync ***, Ref count:" + 
                     mStartSyncRefCount);
         }

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -15,8 +14,6 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 package com.android.internal.telephony;
 
 /**
@@ -29,29 +26,6 @@ package com.android.internal.telephony;
 public class TelephonyIntents {
 
     /**
-<<<<<<< HEAD
-=======
-     * <p>Broadcast Action: The phone state has changed. The intent will have the following
-     * extra values:</p>
-     * <ul>
-     *   <li><em>phoneName</em> - A string version of the phone name.</li>
-     *   <li><em>state</em> - A string version of the new phone state.</li>
-     * </ul>
-     * 
-     * <p class="note">
-     * You can <em>not</em> receive this through components declared
-     * in manifests, only by exlicitly registering for it with
-     * {@link android.content.Context#registerReceiver(android.content.BroadcastReceiver,
-     * android.content.IntentFilter) Context.registerReceiver()}.
-     *
-     * <p class="note">
-     * Requires the READ_PHONE_STATE permission.
-     */
-    public static final String ACTION_PHONE_STATE_CHANGED = "android.intent.action.PHONE_STATE";
-
-
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * Broadcast Action: The phone service state has changed. The intent will have the following
      * extra values:</p>
      * <ul>
@@ -74,7 +48,6 @@ public class TelephonyIntents {
      *
      * <p class="note">
      * Requires the READ_PHONE_STATE permission.
-<<<<<<< HEAD
      * 
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
@@ -121,12 +94,6 @@ public class TelephonyIntents {
      */
     public static final String ACTION_EMERGENCY_CALLBACK_MODE_CHANGED
             = "android.intent.action.EMERGENCY_CALLBACK_MODE_CHANGED";
-=======
-     */
-    public static final String ACTION_SERVICE_STATE_CHANGED = "android.intent.action.SERVICE_STATE";
-
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Broadcast Action: The phone's signal strength has changed. The intent will have the
      * following extra values:</p>
@@ -138,11 +105,7 @@ public class TelephonyIntents {
      *          <ul><li>0 means "-113 dBm or less".</li><li>31 means "-51 dBm or greater".</li></ul>
      *   </li>
      * </ul>
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * <p class="note">
      * You can <em>not</em> receive this through components declared
      * in manifests, only by exlicitly registering for it with
@@ -151,12 +114,9 @@ public class TelephonyIntents {
      *
      * <p class="note">
      * Requires the READ_PHONE_STATE permission.
-<<<<<<< HEAD
      * 
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final String ACTION_SIGNAL_STRENGTH_CHANGED = "android.intent.action.SIG_STR";
 
@@ -178,12 +138,9 @@ public class TelephonyIntents {
      *
      * <p class="note">
      * Requires the READ_PHONE_STATE permission.
-<<<<<<< HEAD
      * 
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final String ACTION_ANY_DATA_CONNECTION_STATE_CHANGED
             = "android.intent.action.ANY_DATA_STATE";
@@ -201,12 +158,9 @@ public class TelephonyIntents {
      *
      * <p class="note">
      * Requires the READ_PHONE_STATE permission.
-<<<<<<< HEAD
      * 
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final String ACTION_DATA_CONNECTION_FAILED
             = "android.intent.action.DATA_CONNECTION_FAILED";
@@ -228,12 +182,9 @@ public class TelephonyIntents {
      *
      * <p class="note">
      * Requires the READ_PHONE_STATE permission.
-<<<<<<< HEAD
      * 
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final String ACTION_SIM_STATE_CHANGED
             = "android.intent.action.SIM_STATE_CHANGED";
@@ -249,12 +200,9 @@ public class TelephonyIntents {
      *
      * <p class="note">
      * Requires the READ_PHONE_STATE permission.
-<<<<<<< HEAD
      * 
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final String ACTION_NETWORK_SET_TIME = "android.intent.action.NETWORK_SET_TIME";
 
@@ -270,7 +218,6 @@ public class TelephonyIntents {
      *
      * <p class="note">
      * Requires the READ_PHONE_STATE permission.
-<<<<<<< HEAD
      * 
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
@@ -289,9 +236,4 @@ public class TelephonyIntents {
      */
     public static final String ACTION_SHOW_NOTICE_ECM_BLOCK_OTHERS
             = "android.intent.action.ACTION_SHOW_NOTICE_ECM_BLOCK_OTHERS";
-=======
-     */
-    public static final String ACTION_NETWORK_SET_TIMEZONE
-            = "android.intent.action.NETWORK_SET_TIMEZONE";
->>>>>>> 54b6cfa... Initial Contribution
 }

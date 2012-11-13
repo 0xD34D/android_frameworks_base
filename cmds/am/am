@@ -3,9 +3,5 @@
 #
 base=/system
 export CLASSPATH=$base/framework/am.jar
-<<<<<<< HEAD
 exec app_process $base/bin com.android.commands.am.Am "$@"
-=======
-exec app_process $base/bin com.android.commands.am.Am $*
->>>>>>> 54b6cfa... Initial Contribution
 

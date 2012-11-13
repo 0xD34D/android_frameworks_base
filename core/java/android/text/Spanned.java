@@ -26,7 +26,6 @@ public interface Spanned
 extends CharSequence
 {
     /**
-<<<<<<< HEAD
      * Bitmask of bits that are relevent for controlling point/mark behavior
      * of spans.
      *
@@ -40,11 +39,6 @@ extends CharSequence
      * 0-length spans with type SPAN_MARK_MARK behave like text marks:
      * they remain at their original offset when text is inserted
      * at that offset. Conceptually, the text is added after the mark.
-=======
-     * 0-length spans with type SPAN_MARK_MARK behave like text marks:
-     * they remain at their original offset when text is inserted
-     * at that offset.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int SPAN_MARK_MARK =   0x11;
     /**
@@ -60,10 +54,7 @@ extends CharSequence
      * 0-length spans with type SPAN_POINT_POINT behave like cursors:
      * they are pushed forward by the length of the insertion when text
      * is inserted at their offset.
-<<<<<<< HEAD
      * The text is conceptually inserted before the point.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int SPAN_POINT_POINT = 0x22;
 
@@ -105,18 +96,13 @@ extends CharSequence
     public static final int SPAN_EXCLUSIVE_EXCLUSIVE = SPAN_POINT_MARK;
 
     /**
-<<<<<<< HEAD
      * Non-0-length spans of type SPAN_EXCLUSIVE_INCLUSIVE expand
-=======
-     * Non-0-length spans of type SPAN_INCLUSIVE_EXCLUSIVE expand
->>>>>>> 54b6cfa... Initial Contribution
      * to include text inserted at their ending point but not at their
      * starting point.  When 0-length, they behave like points.
      */
     public static final int SPAN_EXCLUSIVE_INCLUSIVE = SPAN_POINT_POINT;
 
     /**
-<<<<<<< HEAD
      * This flag is set on spans that are being used to apply temporary
      * styling information on the composing text of an input method, so that
      * they can be found and removed when the composing text is being
@@ -133,8 +119,6 @@ extends CharSequence
     public static final int SPAN_INTERMEDIATE = 0x200;
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * The bits numbered SPAN_USER_SHIFT and above are available
      * for callers to use to store scalar data associated with their
      * span object.

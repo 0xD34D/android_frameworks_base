@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -15,8 +14,6 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 package android.content.res;
 
 import android.graphics.drawable.Drawable;
@@ -24,10 +21,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.util.XmlUtils;
 
 import java.util.Arrays;
@@ -48,11 +42,7 @@ public class TypedArray {
     /*package*/ int[] mData;
     /*package*/ int[] mIndices;
     /*package*/ int mLength;
-<<<<<<< HEAD
     /*package*/ TypedValue mValue = new TypedValue();
-=======
-    private TypedValue mValue = new TypedValue();
->>>>>>> 54b6cfa... Initial Contribution
    
     /**
      * Return the number of values in this array.
@@ -174,7 +164,6 @@ public class TypedArray {
     }
     
     /**
-<<<<<<< HEAD
      * @hide
      * Retrieve the string value for the attribute at <var>index</var> that is
      * not allowed to change with the given configurations.
@@ -211,8 +200,6 @@ public class TypedArray {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Retrieve the boolean value for the attribute at <var>index</var>.
      * 
      * @param index Index of attribute to retrieve.
@@ -504,7 +491,6 @@ public class TypedArray {
         throw new RuntimeException(getPositionDescription()
                 + ": You must supply a " + name + " attribute.");
     }
-<<<<<<< HEAD
     
     /**
      * Special version of {@link #getDimensionPixelSize} for retrieving
@@ -533,8 +519,6 @@ public class TypedArray {
 
         return defValue;
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Retrieve a fractional unit attribute at <var>index</var>.
@@ -700,11 +684,7 @@ public class TypedArray {
     }
 
     /**
-<<<<<<< HEAD
      * Give back a previously retrieved array, for later re-use.
-=======
-     * Give back a previously retrieved StyledAttributes, for later re-use.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void recycle() {
         synchronized (mResources.mTmpValue) {
@@ -727,14 +707,8 @@ public class TypedArray {
         outValue.assetCookie = data[index+AssetManager.STYLE_ASSET_COOKIE];
         outValue.resourceId = data[index+AssetManager.STYLE_RESOURCE_ID];
         outValue.changingConfigurations = data[index+AssetManager.STYLE_CHANGING_CONFIGURATIONS];
-<<<<<<< HEAD
         outValue.density = data[index+AssetManager.STYLE_DENSITY];
         outValue.string = (type == TypedValue.TYPE_STRING) ? loadStringValueAt(index) : null;
-=======
-        if (type == TypedValue.TYPE_STRING) {
-            outValue.string = loadStringValueAt(index);
-        }
->>>>>>> 54b6cfa... Initial Contribution
         return true;
     }
 
@@ -763,8 +737,4 @@ public class TypedArray {
     public String toString() {
         return Arrays.toString(mData);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 54b6cfa... Initial Contribution

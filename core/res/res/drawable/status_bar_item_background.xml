@@ -16,11 +16,7 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
-<<<<<<< HEAD
         android:drawable="@drawable/status_bar_item_background_pressed" />
-=======
-    	android:drawable="@drawable/status_bar_item_background_pressed" />
->>>>>>> 54b6cfa... Initial Contribution
     <item android:state_focused="true" android:state_pressed="false"
         android:drawable="@drawable/status_bar_item_background_focus" />
     <item android:drawable="@drawable/status_bar_item_background_normal" />

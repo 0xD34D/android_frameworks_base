@@ -20,7 +20,6 @@
 
 #include "SkCanvas.h"
 #include "SkDevice.h"
-<<<<<<< HEAD
 #include "SkGraphics.h"
 #include "SkImageRef_GlobalPool.h"
 #include "SkPorterDuff.h"
@@ -35,12 +34,6 @@
 
 #include <utils/Log.h>
 
-=======
-#include "SkGLCanvas.h"
-#include "SkShader.h"
-#include "SkTemplates.h"
-
->>>>>>> 54b6cfa... Initial Contribution
 #define TIME_DRAWx
 
 static uint32_t get_thread_msec() {
@@ -71,7 +64,6 @@ public:
         return bitmap ? new SkCanvas(*bitmap) : new SkCanvas;
     }
     
-<<<<<<< HEAD
     static void freeCaches(JNIEnv* env, jobject) {
         // these are called in no particular order
         SkImageRef_GlobalPool::SetRAMUsed(0);
@@ -85,33 +77,6 @@ public:
     static jboolean isOpaque(JNIEnv* env, jobject jcanvas) {
         NPE_CHECK_RETURN_ZERO(env, jcanvas);
         SkCanvas* canvas = GraphicsJNI::getNativeCanvas(env, jcanvas);
-=======
-    static SkCanvas* initGL(JNIEnv* env, jobject) {
-        return new SkGLCanvas;
-    }
-    
-    static void freeGlCaches(JNIEnv* env, jobject) {
-        SkGLCanvas::DeleteAllTextures();
-    }
-    
-    static jboolean isOpaque(JNIEnv* env, jobject jcanvas) {
-        NPE_CHECK_RETURN_ZERO(env, jcanvas);
-        SkCanvas* canvas = GraphicsJNI::getNativeCanvas(env, jcanvas);
-
-        /*
-            Currently we cannot support transparency in GL-based canvas' at
-            the view level. Therefore we cannot base our answer on the device's
-            bitmap, but need to hard-code the answer. If we relax this
-            limitation in views, we can simplify the following code as well.
-         
-            Use the getViewport() call to find out if we're gl-based...
-        */
-        if (canvas->getViewport(NULL)) {
-            return true;
-        }
-        
-        // normal technique, rely on the device's bitmap for the answer
->>>>>>> 54b6cfa... Initial Contribution
         return canvas->getDevice()->accessBitmap(false).isOpaque();
     }
     
@@ -126,7 +91,6 @@ public:
         SkCanvas* canvas = GraphicsJNI::getNativeCanvas(env, jcanvas);
         return canvas->getDevice()->accessBitmap(false).height();
     }
-<<<<<<< HEAD
 
     static void setBitmap(JNIEnv* env, jobject, SkCanvas* canvas, SkBitmap* bitmap) {
         if (bitmap) {
@@ -134,17 +98,6 @@ public:
         } else {
             canvas->setDevice(NULL);
         }
-=======
-    
-    static void setViewport(JNIEnv* env, jobject, SkCanvas* canvas,
-                            int width, int height) {
-        canvas->setViewport(width, height);
-    }
-    
-    static void setBitmap(JNIEnv* env, jobject, SkCanvas* canvas,
-                          SkBitmap* bitmap) {
-        canvas->setBitmapDevice(*bitmap);
->>>>>>> 54b6cfa... Initial Contribution
     }
  
     static int saveAll(JNIEnv* env, jobject jcanvas) {
@@ -362,11 +315,7 @@ public:
  
     static void drawColor__II(JNIEnv* env, jobject, SkCanvas* canvas,
                               jint color, SkPorterDuff::Mode mode) {
-<<<<<<< HEAD
         canvas->drawColor(color, SkPorterDuff::ToXfermodeMode(mode));
-=======
-        canvas->drawColor(color, mode);
->>>>>>> 54b6cfa... Initial Contribution
     }
  
     static void drawPaint(JNIEnv* env, jobject, SkCanvas* canvas,
@@ -497,7 +446,6 @@ public:
 #endif
         canvas->drawPicture(*picture);
 #ifdef TIME_DRAW
-<<<<<<< HEAD
         ALOGD("---- picture playback %d ms\n", get_thread_msec() - now);
 #endif
     }
@@ -543,30 +491,12 @@ public:
     static void doDrawBitmap(JNIEnv* env, SkCanvas* canvas, SkBitmap* bitmap,
                         jobject srcIRect, const SkRect& dst, SkPaint* paint,
                         jint screenDensity, jint bitmapDensity) {
-=======
-        LOGD("---- picture playback %d ms\n", get_thread_msec() - now);
-#endif
-    }
-
-    static void drawBitmap__BitmapFFPaint(JNIEnv* env, jobject,
-                                          SkCanvas* canvas, SkBitmap* bitmap,
-                                          jfloat left, jfloat top,
-                                          SkPaint* paint) {
-        SkScalar left_ = SkFloatToScalar(left);
-        SkScalar top_ = SkFloatToScalar(top);
-        canvas->drawBitmap(*bitmap, left_, top_, paint);
-    }
-
-    static void doDrawBitmap(JNIEnv* env, SkCanvas* canvas, SkBitmap* bitmap,
-                        jobject srcIRect, const SkRect& dst, SkPaint* paint) {
->>>>>>> 54b6cfa... Initial Contribution
         SkIRect    src, *srcPtr = NULL;
 
         if (NULL != srcIRect) {
             GraphicsJNI::jrect_to_irect(env, srcIRect, &src);
             srcPtr = &src;
         }
-<<<<<<< HEAD
         
         if (screenDensity != 0 && screenDensity != bitmapDensity) {
             SkPaint filteredPaint;
@@ -578,52 +508,31 @@ public:
         } else {
             canvas->drawBitmapRect(*bitmap, srcPtr, dst, paint);
         }
-=======
-        canvas->drawBitmapRect(*bitmap, srcPtr, dst, paint);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     static void drawBitmapRF(JNIEnv* env, jobject, SkCanvas* canvas,
                              SkBitmap* bitmap, jobject srcIRect,
-<<<<<<< HEAD
                              jobject dstRectF, SkPaint* paint,
                              jint screenDensity, jint bitmapDensity) {
         SkRect      dst;
         GraphicsJNI::jrectf_to_rect(env, dstRectF, &dst);
         doDrawBitmap(env, canvas, bitmap, srcIRect, dst, paint,
                 screenDensity, bitmapDensity);
-=======
-                             jobject dstRectF, SkPaint* paint) {
-        SkRect      dst;
-        GraphicsJNI::jrectf_to_rect(env, dstRectF, &dst);
-        doDrawBitmap(env, canvas, bitmap, srcIRect, dst, paint);
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     static void drawBitmapRR(JNIEnv* env, jobject, SkCanvas* canvas,
                              SkBitmap* bitmap, jobject srcIRect,
-<<<<<<< HEAD
                              jobject dstRect, SkPaint* paint,
                              jint screenDensity, jint bitmapDensity) {
         SkRect      dst;
         GraphicsJNI::jrect_to_rect(env, dstRect, &dst);
         doDrawBitmap(env, canvas, bitmap, srcIRect, dst, paint,
                 screenDensity, bitmapDensity);
-=======
-                             jobject dstRect, SkPaint* paint) {
-        SkRect      dst;
-        GraphicsJNI::jrect_to_rect(env, dstRect, &dst);
-        doDrawBitmap(env, canvas, bitmap, srcIRect, dst, paint);
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     static void drawBitmapArray(JNIEnv* env, jobject, SkCanvas* canvas,
                                 jintArray jcolors, int offset, int stride,
-<<<<<<< HEAD
                                 jfloat x, jfloat y, int width, int height,
-=======
-                                int x, int y, int width, int height,
->>>>>>> 54b6cfa... Initial Contribution
                                 jboolean hasAlpha, SkPaint* paint)
     {
         SkBitmap    bitmap;
@@ -639,12 +548,8 @@ public:
             return;
         }
         
-<<<<<<< HEAD
         canvas->drawBitmap(bitmap, SkFloatToScalar(x), SkFloatToScalar(y),
                            paint);
-=======
-        canvas->drawBitmap(bitmap, SkIntToScalar(x), SkIntToScalar(y), paint);
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     static void drawBitmapMatrix(JNIEnv* env, jobject, SkCanvas* canvas,
@@ -762,11 +667,7 @@ public:
         }
         SkShader* shader = SkShader::CreateBitmapShader(*bitmap,
                         SkShader::kClamp_TileMode, SkShader::kClamp_TileMode);
-<<<<<<< HEAD
         SkSafeUnref(tmpPaint.setShader(shader));
-=======
-        tmpPaint.setShader(shader)->safeUnref();
->>>>>>> 54b6cfa... Initial Contribution
 
         canvas->drawVertices(SkCanvas::kTriangles_VertexMode, ptCount, verts,
                              texs, (const SkColor*)colorA.ptr(), NULL, indices,
@@ -829,7 +730,6 @@ public:
         canvas->drawVertices(mode, ptCount, verts, texs, colors, NULL,
                              indices, indexCount, *paint);
     }
-<<<<<<< HEAD
 
 
     static void drawText___CIIFFIPaint(JNIEnv* env, jobject, SkCanvas* canvas,
@@ -899,48 +799,6 @@ public:
         env->ReleaseStringChars(text, chars);
     }
 
-=======
-    
-    static void drawText___CIIFFPaint(JNIEnv* env, jobject, SkCanvas* canvas,
-                                      jcharArray text, int index, int count,
-                                      jfloat x, jfloat y, SkPaint* paint) {
-        jchar* textArray = env->GetCharArrayElements(text, NULL);
-        jsize textCount = env->GetArrayLength(text);
-        SkScalar x_ = SkFloatToScalar(x);
-        SkScalar y_ = SkFloatToScalar(y);
-        textArray += index;
-        canvas->drawText(textArray, count << 1, x_, y_, *paint);
-        env->ReleaseCharArrayElements(text, textArray, 0);
-    }
- 
-    static void drawText__StringIIFFPaint(JNIEnv* env, jobject,
-                            SkCanvas* canvas, jstring text, int start, int end,
-                                          jfloat x, jfloat y, SkPaint* paint) {
-        const void* text_ = env->GetStringChars(text, NULL);
-        SkScalar x_ = SkFloatToScalar(x);
-        SkScalar y_ = SkFloatToScalar(y);
-        canvas->drawText((const uint16_t*)text_ + start, (end - start) << 1,
-                         x_, y_, *paint);
-        env->ReleaseStringChars(text, (const jchar*) text_);
-    }
-    
-    static void drawString(JNIEnv* env, jobject canvas, jstring text,
-                           jfloat x, jfloat y, jobject paint) {
-        NPE_CHECK_RETURN_VOID(env, canvas);
-        NPE_CHECK_RETURN_VOID(env, paint);
-        NPE_CHECK_RETURN_VOID(env, text);
-        size_t count = env->GetStringLength(text);
-        if (0 == count) {
-            return;
-        }
-        const jchar* text_ = env->GetStringChars(text, NULL);
-        SkCanvas* c = GraphicsJNI::getNativeCanvas(env, canvas);
-        c->drawText(text_, count << 1, SkFloatToScalar(x), SkFloatToScalar(y),
-                    *GraphicsJNI::getNativePaint(env, paint));
-        env->ReleaseStringChars(text, text_);
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     static void drawPosText___CII_FPaint(JNIEnv* env, jobject, SkCanvas* canvas,
                                          jcharArray text, int index, int count,
                                          jfloatArray pos, SkPaint* paint) {
@@ -954,17 +812,12 @@ public:
             posPtr[indx].fX = SkFloatToScalar(posArray[indx << 1]);
             posPtr[indx].fY = SkFloatToScalar(posArray[(indx << 1) + 1]);
         }
-<<<<<<< HEAD
         
         SkPaint::TextEncoding encoding = paint->getTextEncoding();
         paint->setTextEncoding(SkPaint::kUTF16_TextEncoding);
         canvas->drawPosText(textArray + index, count << 1, posPtr, *paint);
         paint->setTextEncoding(encoding);
         
-=======
-        textArray += index;
-        canvas->drawPosText(textArray, count << 1, posPtr, *paint);
->>>>>>> 54b6cfa... Initial Contribution
         if (text) {
             env->ReleaseCharArrayElements(text, textArray, 0);
         }
@@ -973,18 +826,11 @@ public:
         }
         delete[] posPtr;
     }
-<<<<<<< HEAD
 
     static void drawPosText__String_FPaint(JNIEnv* env, jobject,
                                            SkCanvas* canvas, jstring text,
                                            jfloatArray pos,
                                            SkPaint* paint) {
-=======
- 
-    static void drawPosText__String_FPaint(JNIEnv* env, jobject,
-                                           SkCanvas* canvas, jstring text,
-                                           jfloatArray pos, SkPaint* paint) {
->>>>>>> 54b6cfa... Initial Contribution
         const void* text_ = text ? env->GetStringChars(text, NULL) : NULL;
         int byteLength = text ? env->GetStringLength(text) : 0;
         float* posArray = pos ? env->GetFloatArrayElements(pos, NULL) : NULL;
@@ -995,16 +841,12 @@ public:
             posPtr[indx].fX = SkFloatToScalar(posArray[indx << 1]);
             posPtr[indx].fY = SkFloatToScalar(posArray[(indx << 1) + 1]);
         }
-<<<<<<< HEAD
 
         SkPaint::TextEncoding encoding = paint->getTextEncoding();
         paint->setTextEncoding(SkPaint::kUTF16_TextEncoding);
         canvas->drawPosText(text_, byteLength << 1, posPtr, *paint);
         paint->setTextEncoding(encoding);
 
-=======
-        canvas->drawPosText(text_, byteLength << 1, posPtr, *paint);
->>>>>>> 54b6cfa... Initial Contribution
         if (text) {
             env->ReleaseStringChars(text, (const jchar*) text_);
         }
@@ -1013,7 +855,6 @@ public:
         }
         delete[] posPtr;
     }
-<<<<<<< HEAD
 
     static void drawTextOnPath___CIIPathFFPaint(JNIEnv* env, jobject,
             SkCanvas* canvas, jcharArray text, int index, int count,
@@ -1035,38 +876,11 @@ public:
         env->ReleaseStringChars(text, text_);
     }
 
-=======
- 
-    static void drawTextOnPath___CIIPathFFPaint(JNIEnv* env, jobject,
-                        SkCanvas* canvas, jcharArray text, int index, int count,
-                SkPath* path, jfloat hOffset, jfloat vOffset, SkPaint* paint) {
-
-        jchar* textArray = env->GetCharArrayElements(text, NULL);
-        canvas->drawTextOnPathHV(textArray + index, count << 1, *path,
-                    SkFloatToScalar(hOffset), SkFloatToScalar(vOffset), *paint);
-        env->ReleaseCharArrayElements(text, textArray, 0);
-    }
- 
-    static void drawTextOnPath__StringPathFFPaint(JNIEnv* env, jobject,
-                            SkCanvas* canvas, jstring text, SkPath* path,
-                            jfloat hOffset, jfloat vOffset, SkPaint* paint) {
-        const jchar* text_ = env->GetStringChars(text, NULL);
-        int byteLength = env->GetStringLength(text) << 1;
-        canvas->drawTextOnPathHV(text_, byteLength, *path,
-                    SkFloatToScalar(hOffset), SkFloatToScalar(vOffset), *paint);
-        env->ReleaseStringChars(text, text_);
-    }
- 
->>>>>>> 54b6cfa... Initial Contribution
     static bool getClipBounds(JNIEnv* env, jobject, SkCanvas* canvas,
                               jobject bounds) {
         SkRect   r;
         SkIRect ir;
-<<<<<<< HEAD
         bool     result = canvas->getClipBounds(&r, SkCanvas::kBW_EdgeType);
-=======
-        bool     result = canvas->getClipBounds(&r);
->>>>>>> 54b6cfa... Initial Contribution
 
         r.round(&ir);
         (void)GraphicsJNI::irect_to_jrect(ir, env, bounds);
@@ -1078,27 +892,14 @@ public:
         *matrix = canvas->getTotalMatrix();
     }
 };
-<<<<<<< HEAD
-=======
-    
-///////////////////////////////////////////////////////////////////////////////
->>>>>>> 54b6cfa... Initial Contribution
 
 static JNINativeMethod gCanvasMethods[] = {
     {"finalizer", "(I)V", (void*) SkCanvasGlue::finalizer},
     {"initRaster","(I)I", (void*) SkCanvasGlue::initRaster},
-<<<<<<< HEAD
-=======
-    {"initGL","()I", (void*) SkCanvasGlue::initGL},
->>>>>>> 54b6cfa... Initial Contribution
     {"isOpaque","()Z", (void*) SkCanvasGlue::isOpaque},
     {"getWidth","()I", (void*) SkCanvasGlue::getWidth},
     {"getHeight","()I", (void*) SkCanvasGlue::getHeight},
     {"native_setBitmap","(II)V", (void*) SkCanvasGlue::setBitmap},
-<<<<<<< HEAD
-=======
-    {"nativeSetViewport", "(III)V", (void*) SkCanvasGlue::setViewport},
->>>>>>> 54b6cfa... Initial Contribution
     {"save","()I", (void*) SkCanvasGlue::saveAll},
     {"save","(I)I", (void*) SkCanvasGlue::save},
     {"native_saveLayer","(ILandroid/graphics/RectF;II)I",
@@ -1157,7 +958,6 @@ static JNINativeMethod gCanvasMethods[] = {
     {"native_drawRoundRect","(ILandroid/graphics/RectF;FFI)V",
         (void*) SkCanvasGlue::drawRoundRect},
     {"native_drawPath","(III)V", (void*) SkCanvasGlue::drawPath},
-<<<<<<< HEAD
     {"native_drawBitmap","(IIFFIIII)V",
         (void*) SkCanvasGlue::drawBitmap__BitmapFFPaint},
     {"native_drawBitmap","(IILandroid/graphics/Rect;Landroid/graphics/RectF;III)V",
@@ -1166,24 +966,12 @@ static JNINativeMethod gCanvasMethods[] = {
         (void*) SkCanvasGlue::drawBitmapRR},
     {"native_drawBitmap", "(I[IIIFFIIZI)V",
     (void*)SkCanvasGlue::drawBitmapArray},
-=======
-    {"native_drawBitmap","(IIFFI)V",
-        (void*) SkCanvasGlue::drawBitmap__BitmapFFPaint},
-    {"native_drawBitmap","(IILandroid/graphics/Rect;Landroid/graphics/RectF;I)V",
-        (void*) SkCanvasGlue::drawBitmapRF},
-    {"native_drawBitmap","(IILandroid/graphics/Rect;Landroid/graphics/Rect;I)V",
-        (void*) SkCanvasGlue::drawBitmapRR},
-    {"native_drawBitmap", "(I[IIIIIIIZI)V",
-    (void*)SkCanvasGlue::drawBitmapArray},
-    
->>>>>>> 54b6cfa... Initial Contribution
     {"nativeDrawBitmapMatrix", "(IIII)V",
         (void*)SkCanvasGlue::drawBitmapMatrix},
     {"nativeDrawBitmapMesh", "(IIII[FI[III)V",
         (void*)SkCanvasGlue::drawBitmapMesh},
     {"nativeDrawVertices", "(III[FI[FI[II[SIII)V",
         (void*)SkCanvasGlue::drawVertices},
-<<<<<<< HEAD
     {"native_drawText","(I[CIIFFII)V",
         (void*) SkCanvasGlue::drawText___CIIFFIPaint},
     {"native_drawText","(ILjava/lang/String;IIFFII)V",
@@ -1192,19 +980,10 @@ static JNINativeMethod gCanvasMethods[] = {
         (void*) SkCanvasGlue::drawTextRun___CIIIIFFIPaint},
     {"native_drawTextRun","(ILjava/lang/String;IIIIFFII)V",
         (void*) SkCanvasGlue::drawTextRun__StringIIIIFFIPaint},
-=======
-    {"native_drawText","(I[CIIFFI)V",
-        (void*) SkCanvasGlue::drawText___CIIFFPaint},
-    {"native_drawText","(ILjava/lang/String;IIFFI)V",
-        (void*) SkCanvasGlue::drawText__StringIIFFPaint},
-    {"drawText","(Ljava/lang/String;FFLandroid/graphics/Paint;)V",
-        (void*) SkCanvasGlue::drawString},
->>>>>>> 54b6cfa... Initial Contribution
     {"native_drawPosText","(I[CII[FI)V",
         (void*) SkCanvasGlue::drawPosText___CII_FPaint},
     {"native_drawPosText","(ILjava/lang/String;[FI)V",
         (void*) SkCanvasGlue::drawPosText__String_FPaint},
-<<<<<<< HEAD
     {"native_drawTextOnPath","(I[CIIIFFII)V",
         (void*) SkCanvasGlue::drawTextOnPath___CIIPathFFPaint},
     {"native_drawTextOnPath","(ILjava/lang/String;IFFII)V",
@@ -1218,17 +997,6 @@ static JNINativeMethod gCanvasMethods[] = {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-=======
-    {"native_drawTextOnPath","(I[CIIIFFI)V",
-        (void*) SkCanvasGlue::drawTextOnPath___CIIPathFFPaint},
-    {"native_drawTextOnPath","(ILjava/lang/String;IFFI)V",
-        (void*) SkCanvasGlue::drawTextOnPath__StringPathFFPaint},
-    {"native_drawPicture", "(II)V", (void*) SkCanvasGlue::drawPicture},
-
-    {"freeGlCaches", "()V", (void*) SkCanvasGlue::freeGlCaches}
-};
-
->>>>>>> 54b6cfa... Initial Contribution
 #include <android_runtime/AndroidRuntime.h>
 
 #define REG(env, name, array) \

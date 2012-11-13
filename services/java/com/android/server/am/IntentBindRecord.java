@@ -45,7 +45,6 @@ class IntentBindRecord {
     /** Set when the service's onUnbind() has asked to be told about new clients. */
     boolean doRebind;
     
-<<<<<<< HEAD
     String stringName;      // caching of toString
     
     void dump(PrintWriter pw, String prefix) {
@@ -70,24 +69,6 @@ class IntentBindRecord {
                         pw.print(Integer.toHexString(System.identityHashCode(a)));
                         pw.print(' '); pw.print(a.client); pw.println('}');
                 a.dumpInIntentBind(pw, prefix + "  ");
-=======
-    void dump(PrintWriter pw, String prefix) {
-        pw.println(prefix + this);
-        pw.println(prefix + "service=" + service);
-        pw.println(prefix + "intent=" + intent.getIntent());
-        pw.println(prefix + "binder=" + binder
-                + " requested=" + requested
-                + " received=" + received
-                + " hasBound=" + hasBound
-                + " doRebind=" + doRebind);
-        if (apps.size() > 0) {
-            pw.println(prefix + "Application Bindings:");
-            Iterator<AppBindRecord> it = apps.values().iterator();
-            while (it.hasNext()) {
-                AppBindRecord a = it.next();
-                pw.println(prefix + "Client " + a.client);
-                a.dump(pw, prefix + "  ");
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -98,7 +79,6 @@ class IntentBindRecord {
     }
 
     public String toString() {
-<<<<<<< HEAD
         if (stringName != null) {
             return stringName;
         }
@@ -113,11 +93,5 @@ class IntentBindRecord {
         }
         sb.append('}');
         return stringName = sb.toString();
-=======
-        return "IntentBindRecord{"
-            + Integer.toHexString(System.identityHashCode(this))
-            + " " + service.name.toShortString()
-            + ":" + intent + "}";
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

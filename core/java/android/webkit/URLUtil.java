@@ -23,16 +23,11 @@ import java.util.regex.Pattern;
 import android.net.Uri;
 import android.net.ParseException;
 import android.net.WebAddress;
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 public final class URLUtil {
 
     private static final String LOGTAG = "webkit";
-<<<<<<< HEAD
 
     // to refer to bar.png under your package's asset/foo/ directory, use
     // "file:///android_asset/foo/bar.png".
@@ -44,12 +39,6 @@ public final class URLUtil {
     static final String FILE_BASE = "file://";
     static final String PROXY_BASE = "file:///cookieless_proxy/";
     static final String CONTENT_BASE = "content:";
-=======
-    
-    static final String ASSET_BASE = "file:///android_asset/";
-    static final String FILE_BASE = "file://";
-    static final String PROXY_BASE = "file:///cookieless_proxy/";
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Cleans up (if possible) user-entered web addresses
@@ -59,11 +48,7 @@ public final class URLUtil {
         String retVal = inUrl;
         WebAddress webAddress;
 
-<<<<<<< HEAD
         if (DebugFlags.URL_UTIL) Log.v(LOGTAG, "guessURL before queueRequest: " + inUrl);
-=======
-        Log.v(LOGTAG, "guessURL before queueRequest: " + inUrl);
->>>>>>> 54b6cfa... Initial Contribution
 
         if (inUrl.length() == 0) return inUrl;
         if (inUrl.startsWith("about:")) return inUrl;
@@ -83,26 +68,16 @@ public final class URLUtil {
             webAddress = new WebAddress(inUrl);
         } catch (ParseException ex) {
 
-<<<<<<< HEAD
             if (DebugFlags.URL_UTIL) {
-=======
-            if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
                 Log.v(LOGTAG, "smartUrlFilter: failed to parse url = " + inUrl);
             }
             return retVal;
         }
 
         // Check host
-<<<<<<< HEAD
         if (webAddress.getHost().indexOf('.') == -1) {
             // no dot: user probably entered a bare domain.  try .com
             webAddress.setHost("www." + webAddress.getHost() + ".com");
-=======
-        if (webAddress.mHost.indexOf('.') == -1) {
-            // no dot: user probably entered a bare domain.  try .com
-            webAddress.mHost = "www." + webAddress.mHost + ".com";
->>>>>>> 54b6cfa... Initial Contribution
         }
         return webAddress.toString();
     }
@@ -158,7 +133,6 @@ public final class URLUtil {
         return retData;
     }
 
-<<<<<<< HEAD
     /**
      * @return True iff the url is correctly URL encoded
      */
@@ -185,8 +159,6 @@ public final class URLUtil {
         return true;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private static int parseHex(byte b) {
         if (b >= '0' && b <= '9') return (b - '0');
         if (b >= 'A' && b <= 'F') return (b - 'A' + 10);
@@ -201,7 +173,6 @@ public final class URLUtil {
     public static boolean isAssetUrl(String url) {
         return (null != url) && url.startsWith(ASSET_BASE);
     }
-<<<<<<< HEAD
 
     /**
      * @return True iff the url is a resource file.
@@ -217,13 +188,6 @@ public final class URLUtil {
      * @deprecated Cookieless proxy is no longer supported.
      */
     @Deprecated
-=======
-    
-    /**
-     * @return True iff the url is an proxy url to allow cookieless network 
-     * requests from a file url.
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public static boolean isCookielessProxyUrl(String url) {
         return (null != url) && url.startsWith(PROXY_BASE);
     }
@@ -290,11 +254,7 @@ public final class URLUtil {
      * @return True iff the url is a content: url.
      */
     public static boolean isContentUrl(String url) {
-<<<<<<< HEAD
         return (null != url) && url.startsWith(CONTENT_BASE);
-=======
-        return (null != url) && url.startsWith("content:");
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -306,10 +266,7 @@ public final class URLUtil {
         }
 
         return (isAssetUrl(url) ||
-<<<<<<< HEAD
                 isResourceUrl(url) ||
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 isFileUrl(url) ||
                 isAboutUrl(url) ||
                 isHttpUrl(url) ||
@@ -426,19 +383,14 @@ public final class URLUtil {
 
     /** Regex used to parse content-disposition headers */
     private static final Pattern CONTENT_DISPOSITION_PATTERN =
-<<<<<<< HEAD
             Pattern.compile("attachment;\\s*filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*$",
             Pattern.CASE_INSENSITIVE);
-=======
-            Pattern.compile("attachment;\\s*filename\\s*=\\s*\"([^\"]*)\"");
->>>>>>> 54b6cfa... Initial Contribution
 
     /*
      * Parse the Content-Disposition HTTP Header. The format of the header
      * is defined here: http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html
      * This header provides a filename for content that is going to be
      * downloaded to the file system. We only support the attachment type.
-<<<<<<< HEAD
      * Note that RFC 2616 specifies the filename value must be double-quoted.
      * Unfortunately some servers do not quote the value so to maintain
      * consistent behaviour with other browsers, we allow unquoted values too.
@@ -448,14 +400,6 @@ public final class URLUtil {
             Matcher m = CONTENT_DISPOSITION_PATTERN.matcher(contentDisposition);
             if (m.find()) {
                 return m.group(2);
-=======
-     */
-    private static String parseContentDisposition(String contentDisposition) {
-        try {
-            Matcher m = CONTENT_DISPOSITION_PATTERN.matcher(contentDisposition);
-            if (m.find()) {
-                return m.group(1);
->>>>>>> 54b6cfa... Initial Contribution
             }
         } catch (IllegalStateException ex) {
              // This function is defined as returning null when it can't parse the header

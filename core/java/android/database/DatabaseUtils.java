@@ -20,10 +20,7 @@ import org.apache.commons.codec.binary.Hex;
 
 import android.content.ContentValues;
 import android.content.Context;
-<<<<<<< HEAD
 import android.content.OperationApplicationException;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,26 +30,17 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteFullException;
 import android.database.sqlite.SQLiteProgram;
 import android.database.sqlite.SQLiteStatement;
-<<<<<<< HEAD
 import android.os.OperationCanceledException;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 import android.text.TextUtils;
-=======
-import android.os.Parcel;
-import android.text.TextUtils;
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.text.Collator;
 import java.util.HashMap;
-<<<<<<< HEAD
 import java.util.Locale;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.Map;
 
 /**
@@ -62,7 +50,6 @@ public class DatabaseUtils {
     private static final String TAG = "DatabaseUtils";
 
     private static final boolean DEBUG = false;
-<<<<<<< HEAD
     private static final boolean LOCAL_LOGV = false;
 
     private static final String[] countProjection = new String[]{"count(*)"};
@@ -88,12 +75,6 @@ public class DatabaseUtils {
     /** One of the values returned by {@link #getSqlStatementType(String)}. */
     public static final int STATEMENT_OTHER = 99;
 
-=======
-    private static final boolean LOCAL_LOGV = DEBUG ? Config.LOGD : Config.LOGV;
-
-    private static final String[] countProjection = new String[]{"count(*)"};
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Special function for writing an exception result at the header of
      * a parcel, to be used when returning an exception from a transaction.
@@ -125,7 +106,6 @@ public class DatabaseUtils {
             code = 8;
         } else if (e instanceof SQLiteException) {
             code = 9;
-<<<<<<< HEAD
         } else if (e instanceof OperationApplicationException) {
             code = 10;
         } else if (e instanceof OperationCanceledException) {
@@ -134,10 +114,6 @@ public class DatabaseUtils {
         } else {
             reply.writeException(e);
             Log.e(TAG, "Writing exception to parcel", e);
-=======
-        } else {
-            reply.writeException(e);
->>>>>>> 54b6cfa... Initial Contribution
             return;
         }
         reply.writeInt(code);
@@ -158,11 +134,7 @@ public class DatabaseUtils {
      * @see Parcel#readException
      */
     public static final void readExceptionFromParcel(Parcel reply) {
-<<<<<<< HEAD
         int code = reply.readExceptionCode();
-=======
-        int code = reply.readInt();
->>>>>>> 54b6cfa... Initial Contribution
         if (code == 0) return;
         String msg = reply.readString();
         DatabaseUtils.readExceptionFromParcel(reply, msg, code);
@@ -170,11 +142,7 @@ public class DatabaseUtils {
 
     public static void readExceptionWithFileNotFoundExceptionFromParcel(
             Parcel reply) throws FileNotFoundException {
-<<<<<<< HEAD
         int code = reply.readExceptionCode();
-=======
-        int code = reply.readInt();
->>>>>>> 54b6cfa... Initial Contribution
         if (code == 0) return;
         String msg = reply.readString();
         if (code == 1) {
@@ -184,7 +152,6 @@ public class DatabaseUtils {
         }
     }
 
-<<<<<<< HEAD
     public static void readExceptionWithOperationApplicationExceptionFromParcel(
             Parcel reply) throws OperationApplicationException {
         int code = reply.readExceptionCode();
@@ -197,8 +164,6 @@ public class DatabaseUtils {
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private static final void readExceptionFromParcel(Parcel reply, String msg, int code) {
         switch (code) {
             case 2:
@@ -217,11 +182,8 @@ public class DatabaseUtils {
                 throw new SQLiteDiskIOException(msg);
             case 9:
                 throw new SQLiteException(msg);
-<<<<<<< HEAD
             case 11:
                 throw new OperationCanceledException(msg);
-=======
->>>>>>> 54b6cfa... Initial Contribution
             default:
                 reply.readException(code, msg);
         }
@@ -259,7 +221,6 @@ public class DatabaseUtils {
     }
 
     /**
-<<<<<<< HEAD
      * Returns data type of the given object's value.
      *<p>
      * Returned values are
@@ -361,8 +322,6 @@ public class DatabaseUtils {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Appends an SQL string to the given StringBuilder, including the opening
      * and closing single quotes. Any single quotes internal to sqlString will
      * be escaped.
@@ -396,11 +355,7 @@ public class DatabaseUtils {
             sb.append(sqlString);
         sb.append('\'');
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * SQL-escape a string.
      */
@@ -429,7 +384,6 @@ public class DatabaseUtils {
             appendEscapedSQLString(sql, value.toString());
         }
     }
-<<<<<<< HEAD
 
     /**
      * Concatenates two SQL WHERE clauses, handling empty or null values.
@@ -447,11 +401,6 @@ public class DatabaseUtils {
 
     /**
      * return the collation key
-=======
-    
-    /**
-     * return the collation key 
->>>>>>> 54b6cfa... Initial Contribution
      * @param name
      * @return the collation key
      */
@@ -463,11 +412,7 @@ public class DatabaseUtils {
             return "";
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * return the collation key in hex format
      * @param name
@@ -478,11 +423,7 @@ public class DatabaseUtils {
         char[] keys = Hex.encodeHex(arr);
         return new String(keys, 0, getKeyLen(arr) * 2);
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     private static int getKeyLen(byte[] arr) {
         if (arr[arr.length - 1] != 0) {
             return arr.length;
@@ -491,27 +432,16 @@ public class DatabaseUtils {
             return arr.length-1;
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     private static byte[] getCollationKeyInBytes(String name) {
         if (mColl == null) {
             mColl = Collator.getInstance();
             mColl.setStrength(Collator.PRIMARY);
         }
-<<<<<<< HEAD
         return mColl.getCollationKey(name).toByteArray();
     }
 
     private static Collator mColl = null;
-=======
-        return mColl.getCollationKey(name).toByteArray();        
-    }
-    
-    private static Collator mColl = null;    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Prints the contents of a Cursor to System.out. The position is restored
      * after printing.
@@ -796,7 +726,6 @@ public class DatabaseUtils {
     }
 
     /**
-<<<<<<< HEAD
      * Picks a start position for {@link Cursor#fillWindow} such that the
      * window will contain the requested row and a useful range of rows
      * around it.
@@ -823,15 +752,12 @@ public class DatabaseUtils {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Query the table for the number of rows in the table.
      * @param db the database the table is in
      * @param table the name of the table to query
      * @return the number of rows in the table
      */
     public static long queryNumEntries(SQLiteDatabase db, String table) {
-<<<<<<< HEAD
         return queryNumEntries(db, table, null, null);
     }
 
@@ -866,14 +792,6 @@ public class DatabaseUtils {
         String s = (!TextUtils.isEmpty(selection)) ? " where " + selection : "";
         return longForQuery(db, "select count(*) from " + table + s,
                     selectionArgs);
-=======
-        Cursor cursor = db.query(table, countProjection,
-                null, null, null, null, null);
-        cursor.moveToFirst();
-        long count = cursor.getLong(0);
-        cursor.deactivate();
-        return count;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -894,19 +812,8 @@ public class DatabaseUtils {
      * first column of the first row.
      */
     public static long longForQuery(SQLiteStatement prog, String[] selectionArgs) {
-<<<<<<< HEAD
         prog.bindAllArgsAsStrings(selectionArgs);
         return prog.simpleQueryForLong();
-=======
-        if (selectionArgs != null) {
-            int size = selectionArgs.length;
-            for (int i = 0; i < size; i++) {
-                bindObjectToProgram(prog, i + 1, selectionArgs[i]);
-            }
-        }
-        long value = prog.simpleQueryForLong();
-        return value;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -927,7 +834,6 @@ public class DatabaseUtils {
      * first column of the first row.
      */
     public static String stringForQuery(SQLiteStatement prog, String[] selectionArgs) {
-<<<<<<< HEAD
         prog.bindAllArgsAsStrings(selectionArgs);
         return prog.simpleQueryForString();
     }
@@ -1054,16 +960,6 @@ public class DatabaseUtils {
         if (index != -1 && !cursor.isNull(index)) {
             values.put(column, cursor.getDouble(index));
         }
-=======
-        if (selectionArgs != null) {
-            int size = selectionArgs.length;
-            for (int i = 0; i < size; i++) {
-                bindObjectToProgram(prog, i + 1, selectionArgs[i]);
-            }
-        }
-        String value = prog.simpleQueryForString();
-        return value;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1428,7 +1324,6 @@ public class DatabaseUtils {
         db.setVersion(dbVersion);
         db.close();
     }
-<<<<<<< HEAD
 
     /**
      * Returns one of the following which represent the type of the given SQL statement.
@@ -1505,6 +1400,4 @@ public class DatabaseUtils {
         }
         return -1;
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

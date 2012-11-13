@@ -16,16 +16,11 @@
 
 package android.webkit;
 
-<<<<<<< HEAD
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Message;
 import android.view.View;
-=======
-import android.graphics.Bitmap;
-import android.os.Message;
->>>>>>> 54b6cfa... Initial Contribution
 
 public class WebChromeClient {
 
@@ -52,7 +47,6 @@ public class WebChromeClient {
     public void onReceivedIcon(WebView view, Bitmap icon) {}
 
     /**
-<<<<<<< HEAD
      * Notify the host application of the url for an apple-touch-icon.
      * @param view The WebView that initiated the callback.
      * @param url The icon url.
@@ -128,29 +122,6 @@ public class WebChromeClient {
      */
     public boolean onCreateWindow(WebView view, boolean isDialog,
             boolean isUserGesture, Message resultMsg) {
-=======
-     * Request the host application to create a new Webview. The host
-     * application should handle placement of the new WebView in the view
-     * system. The default behavior returns null.
-     * @param view The WebView that initiated the callback.
-     * @param dialog True if the new window is meant to be a small dialog
-     *               window.
-     * @param userGesture True if the request was initiated by a user gesture
-     *                    such as clicking a link.
-     * @param resultMsg The message to send when done creating a new WebView.
-     *                  Set the new WebView through resultMsg.obj which is 
-     *                  WebView.WebViewTransport() and then call
-     *                  resultMsg.sendToTarget();
-     * @return Similar to javscript dialogs, this method should return true if
-     *         the client is going to handle creating a new WebView. Note that
-     *         the WebView will halt processing if this method returns true so
-     *         make sure to call resultMsg.sendToTarget(). It is undefined
-     *         behavior to call resultMsg.sendToTarget() after returning false
-     *         from this method.
-     */
-    public boolean onCreateWindow(WebView view, boolean dialog,
-            boolean userGesture, Message resultMsg) {
->>>>>>> 54b6cfa... Initial Contribution
         return false;
     }
 
@@ -243,7 +214,6 @@ public class WebChromeClient {
             JsResult result) {
         return false;
     }
-<<<<<<< HEAD
 
    /**
     * Tell the client that the quota has been exceeded for the Web SQL Database
@@ -418,6 +388,4 @@ public class WebChromeClient {
      */
     public void setupAutoFill(Message msg) { }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

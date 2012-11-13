@@ -21,15 +21,9 @@ package android.os;
  * used to create handler classes. Note that start() must still be called.
  */
 public class HandlerThread extends Thread {
-<<<<<<< HEAD
     int mPriority;
     int mTid = -1;
     Looper mLooper;
-=======
-    private int mPriority;
-    private int mTid = -1;
-    private Looper mLooper;
->>>>>>> 54b6cfa... Initial Contribution
 
     public HandlerThread(String name) {
         super(name);
@@ -48,11 +42,7 @@ public class HandlerThread extends Thread {
     }
     
     /**
-<<<<<<< HEAD
      * Call back method that can be explicitly overridden if needed to execute some
-=======
-     * Call back method that can be explicitly over ridden if needed to execute some
->>>>>>> 54b6cfa... Initial Contribution
      * setup before Looper loops.
      */
     protected void onLooperPrepared() {
@@ -63,15 +53,9 @@ public class HandlerThread extends Thread {
         Looper.prepare();
         synchronized (this) {
             mLooper = Looper.myLooper();
-<<<<<<< HEAD
             notifyAll();
         }
         Process.setThreadPriority(mPriority);
-=======
-            Process.setThreadPriority(mPriority);
-            notifyAll();
-        }
->>>>>>> 54b6cfa... Initial Contribution
         onLooperPrepared();
         Looper.loop();
         mTid = -1;
@@ -80,11 +64,7 @@ public class HandlerThread extends Thread {
     /**
      * This method returns the Looper associated with this thread. If this thread not been started
      * or for any reason is isAlive() returns false, this method will return null. If this thread 
-<<<<<<< HEAD
      * has been started, this method will block until the looper has been initialized.  
-=======
-     * has been started, this method will blocked until the looper has been initialized.  
->>>>>>> 54b6cfa... Initial Contribution
      * @return The looper.
      */
     public Looper getLooper() {
@@ -105,7 +85,6 @@ public class HandlerThread extends Thread {
     }
     
     /**
-<<<<<<< HEAD
      * Ask the currently running looper to quit.  If the thread has not
      * been started or has finished (that is if {@link #getLooper} returns
      * null), then false is returned.  Otherwise the looper is asked to
@@ -121,8 +100,6 @@ public class HandlerThread extends Thread {
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Returns the identifier of this thread. See Process.myTid().
      */
     public int getThreadId() {

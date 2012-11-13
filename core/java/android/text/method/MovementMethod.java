@@ -21,7 +21,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.text.*;
 
-<<<<<<< HEAD
 /**
  * Provides cursor positioning, scrolling and text selection functionality in a {@link TextView}.
  * <p>
@@ -49,18 +48,6 @@ public interface MovementMethod {
     public boolean onTrackballEvent(TextView widget, Spannable text, MotionEvent event);
     public boolean onTouchEvent(TextView widget, Spannable text, MotionEvent event);
     public boolean onGenericMotionEvent(TextView widget, Spannable text, MotionEvent event);
-=======
-public interface MovementMethod
-{
-    public void initialize(TextView widget, Spannable text);
-    public boolean onKeyDown(TextView widget, Spannable text, int keyCode, KeyEvent event);
-    public boolean onKeyUp(TextView widget, Spannable text, int keyCode, KeyEvent event);
-    public void onTakeFocus(TextView widget, Spannable text, int direction);
-    public boolean onTrackballEvent(TextView widget, Spannable text,
-                                    MotionEvent event);
-    public boolean onTouchEvent(TextView widget, Spannable text,
-                                MotionEvent event);
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Returns true if this movement method allows arbitrary selection

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Copyright (C) 2011 The Android Open Source Project
-=======
-# Copyright (C) 2008 The Android Open Source Project
->>>>>>> 54b6cfa... Initial Contribution
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-<<<<<<< HEAD
 # We have to use BUILD_PREBUILT instead of PRODUCT_COPY_FIES,
 # because SMALLER_FONT_FOOTPRINT is only available in Android.mks.
 
@@ -177,26 +172,3 @@ $(foreach f, $(font_src_files), $(call build-one-font-module, $(f)))
 
 build-one-font-module :=
 font_src_files :=
-=======
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
-
-copy_from :=                \
-    DroidSans.ttf           \
-    DroidSans-Bold.ttf      \
-    DroidSerif-Regular.ttf  \
-    DroidSerif-Bold.ttf     \
-    DroidSerif-Italic.ttf   \
-    DroidSerif-BoldItalic.ttf   \
-    DroidSansMono.ttf       \
-    DroidSansFallback.ttf
-
-copy_to := $(addprefix $(TARGET_OUT)/fonts/,$(copy_from))
-
-$(copy_to) : PRIVATE_MODULE := fonts
-$(copy_to) : $(TARGET_OUT)/fonts/% : $(LOCAL_PATH)/% | $(ACP)
-	$(transform-prebuilt-to-target)
-
-ALL_PREBUILT += $(copy_to)
-
->>>>>>> 54b6cfa... Initial Contribution

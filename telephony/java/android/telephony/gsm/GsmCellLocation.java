@@ -17,26 +17,15 @@
 package android.telephony.gsm;
 
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
-import com.android.internal.telephony.Phone;
->>>>>>> 54b6cfa... Initial Contribution
 import android.telephony.CellLocation;
 
 /**
  * Represents the cell location on a GSM phone.
  */
-<<<<<<< HEAD
 public class GsmCellLocation extends CellLocation {
     private int mLac;
     private int mCid;
     private int mPsc;
-=======
-public class GsmCellLocation extends CellLocation
-{
-    private int mLac;
-    private int mCid;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Empty constructor.  Initializes the LAC and CID to -1.
@@ -44,24 +33,16 @@ public class GsmCellLocation extends CellLocation
     public GsmCellLocation() {
         mLac = -1;
         mCid = -1;
-<<<<<<< HEAD
         mPsc = -1;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Initialize the object from a bundle.
      */
     public GsmCellLocation(Bundle bundle) {
-<<<<<<< HEAD
         mLac = bundle.getInt("lac", mLac);
         mCid = bundle.getInt("cid", mCid);
         mPsc = bundle.getInt("psc", mPsc);
-=======
-        mLac = bundle.getInt("lac");
-        mCid = bundle.getInt("cid");
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -79,7 +60,6 @@ public class GsmCellLocation extends CellLocation
     }
 
     /**
-<<<<<<< HEAD
      * On a UMTS network, returns the primary scrambling code of the serving
      * cell.
      *
@@ -90,17 +70,12 @@ public class GsmCellLocation extends CellLocation
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Invalidate this object.  The location area code and the cell id are set to -1.
      */
     public void setStateInvalid() {
         mLac = -1;
         mCid = -1;
-<<<<<<< HEAD
         mPsc = -1;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -111,7 +86,6 @@ public class GsmCellLocation extends CellLocation
         mCid = cid;
     }
 
-<<<<<<< HEAD
     /**
      * Set the primary scrambling code.
      * @hide
@@ -120,8 +94,6 @@ public class GsmCellLocation extends CellLocation
         mPsc = psc;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public int hashCode() {
         return mLac ^ mCid;
@@ -130,11 +102,7 @@ public class GsmCellLocation extends CellLocation
     @Override
     public boolean equals(Object o) {
         GsmCellLocation s;
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         try {
             s = (GsmCellLocation)o;
         } catch (ClassCastException ex) {
@@ -145,25 +113,15 @@ public class GsmCellLocation extends CellLocation
             return false;
         }
 
-<<<<<<< HEAD
         return equalsHandlesNulls(mLac, s.mLac) && equalsHandlesNulls(mCid, s.mCid)
             && equalsHandlesNulls(mPsc, s.mPsc);
-=======
-        return equalsHandlesNulls(mLac, s.mLac) && equalsHandlesNulls(mCid, s.mCid);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public String toString() {
-<<<<<<< HEAD
         return "["+ mLac + "," + mCid + "," + mPsc + "]";
     }
 
-=======
-        return "["+ mLac + "," + mCid + "]";
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Test whether two objects hold the same data values or both are null
      *
@@ -183,7 +141,6 @@ public class GsmCellLocation extends CellLocation
     public void fillInNotifierBundle(Bundle m) {
         m.putInt("lac", mLac);
         m.putInt("cid", mCid);
-<<<<<<< HEAD
         m.putInt("psc", mPsc);
     }
 
@@ -194,9 +151,3 @@ public class GsmCellLocation extends CellLocation
         return (mLac == -1 && mCid == -1 && mPsc == -1);
     }
 }
-=======
-    }
-}
-
-
->>>>>>> 54b6cfa... Initial Contribution

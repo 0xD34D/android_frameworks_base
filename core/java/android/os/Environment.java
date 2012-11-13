@@ -16,29 +16,22 @@
 
 package android.os;
 
-<<<<<<< HEAD
 import android.content.res.Resources;
 import android.os.storage.IMountService;
 import android.os.storage.StorageVolume;
 import android.util.Log;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.io.File;
 
 /**
  * Provides access to environment variables.
  */
 public class Environment {
-<<<<<<< HEAD
     private static final String TAG = "Environment";
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     private static final File ROOT_DIRECTORY
             = getDirectory("ANDROID_ROOT", "/system");
 
-<<<<<<< HEAD
     private static final String SYSTEM_PROPERTY_EFS_ENABLED = "persist.security.efs.enabled";
 
     private static final Object mLock = new Object();
@@ -63,8 +56,6 @@ public class Environment {
         return mPrimaryVolume;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Gets the Android root directory.
      */
@@ -72,7 +63,6 @@ public class Environment {
         return ROOT_DIRECTORY;
     }
 
-<<<<<<< HEAD
     /**
      * Gets the system directory available for secure storage.
      * If Encrypted File system is enabled, it returns an encrypted directory (/data/secure/system).
@@ -147,13 +137,6 @@ public class Environment {
 
     private static final File EXTERNAL_STORAGE_ANDROID_OBB_DIRECTORY = new File(new File(
             getDirectory("EXTERNAL_STORAGE", "/storage/sdcard0"), "Android"), "obb");
-=======
-    private static final File DATA_DIRECTORY
-            = getDirectory("ANDROID_DATA", "/data");
-
-    private static final File EXTERNAL_STORAGE_DIRECTORY
-            = getDirectory("EXTERNAL_STORAGE", "/sdcard");
->>>>>>> 54b6cfa... Initial Contribution
 
     private static final File DOWNLOAD_CACHE_DIRECTORY
             = getDirectory("DOWNLOAD_CACHE", "/cache");
@@ -166,7 +149,6 @@ public class Environment {
     }
 
     /**
-<<<<<<< HEAD
      * Gets the Android external storage directory.  This directory may not
      * currently be accessible if it has been mounted by the user on their
      * computer, has been removed from the device, or some other problem has
@@ -203,16 +185,12 @@ public class Environment {
      *
      * @see #getExternalStorageState()
      * @see #isExternalStorageRemovable()
-=======
-     * Gets the Android external storage directory.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static File getExternalStorageDirectory() {
         return EXTERNAL_STORAGE_DIRECTORY;
     }
 
     /**
-<<<<<<< HEAD
      * Standard directory in which to place any audio files that should be
      * in the regular list of music for the user.
      * This may be combined with
@@ -383,8 +361,6 @@ public class Environment {
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Gets the Android Download/Cache content directory.
      */
     public static File getDownloadCacheDirectory() {
@@ -392,26 +368,17 @@ public class Environment {
     }
 
     /**
-<<<<<<< HEAD
      * {@link #getExternalStorageState()} returns MEDIA_REMOVED if the media is not present.
-=======
-     * getExternalStorageState() returns MEDIA_REMOVED if the media is not present. 
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final String MEDIA_REMOVED = "removed";
      
     /**
-<<<<<<< HEAD
      * {@link #getExternalStorageState()} returns MEDIA_UNMOUNTED if the media is present
-=======
-     * getExternalStorageState() returns MEDIA_UNMOUNTED if the media is present
->>>>>>> 54b6cfa... Initial Contribution
      * but not mounted. 
      */
     public static final String MEDIA_UNMOUNTED = "unmounted";
 
     /**
-<<<<<<< HEAD
      * {@link #getExternalStorageState()} returns MEDIA_CHECKING if the media is present
      * and being disk-checked
      */
@@ -425,56 +392,36 @@ public class Environment {
 
     /**
      * {@link #getExternalStorageState()} returns MEDIA_MOUNTED if the media is present
-=======
-     * getExternalStorageState() returns MEDIA_MOUNTED if the media is present
->>>>>>> 54b6cfa... Initial Contribution
      * and mounted at its mount point with read/write access. 
      */
     public static final String MEDIA_MOUNTED = "mounted";
 
     /**
-<<<<<<< HEAD
      * {@link #getExternalStorageState()} returns MEDIA_MOUNTED_READ_ONLY if the media is present
-=======
-     * getExternalStorageState() returns MEDIA_MOUNTED_READ_ONLY if the media is present
->>>>>>> 54b6cfa... Initial Contribution
      * and mounted at its mount point with read only access. 
      */
     public static final String MEDIA_MOUNTED_READ_ONLY = "mounted_ro";
 
     /**
-<<<<<<< HEAD
      * {@link #getExternalStorageState()} returns MEDIA_SHARED if the media is present
-=======
-     * getExternalStorageState() returns MEDIA_SHARED if the media is present
->>>>>>> 54b6cfa... Initial Contribution
      * not mounted, and shared via USB mass storage. 
      */
     public static final String MEDIA_SHARED = "shared";
 
     /**
-<<<<<<< HEAD
      * {@link #getExternalStorageState()} returns MEDIA_BAD_REMOVAL if the media was
-=======
-     * getExternalStorageState() returns MEDIA_BAD_REMOVAL if the media was
->>>>>>> 54b6cfa... Initial Contribution
      * removed before it was unmounted. 
      */
     public static final String MEDIA_BAD_REMOVAL = "bad_removal";
 
     /**
-<<<<<<< HEAD
      * {@link #getExternalStorageState()} returns MEDIA_UNMOUNTABLE if the media is present
-=======
-     * getExternalStorageState() returns MEDIA_UNMOUNTABLE if the media is present
->>>>>>> 54b6cfa... Initial Contribution
      * but cannot be mounted.  Typically this happens if the file system on the
      * media is corrupted. 
      */
     public static final String MEDIA_UNMOUNTABLE = "unmountable";
 
     /**
-<<<<<<< HEAD
      * Gets the current state of the primary "external" storage device.
      * 
      * <p>See {@link #getExternalStorageDirectory()} for more information.
@@ -519,12 +466,6 @@ public class Environment {
     public static boolean isExternalStorageEmulated() {
         StorageVolume volume = getPrimaryVolume();
         return (volume != null && volume.isEmulated());
-=======
-     * Gets the current state of the external storage device.
-     */
-    public static String getExternalStorageState() {
-        return SystemProperties.get("EXTERNAL_STORAGE_STATE", MEDIA_REMOVED);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     static File getDirectory(String variableName, String defaultPath) {

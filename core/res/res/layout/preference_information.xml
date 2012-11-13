@@ -18,20 +18,12 @@
      Preference is able to place a specific widget for its particular
      type in the "widget_frame" layout. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
     android:paddingRight="?android:attr/scrollbarSize">
 
-=======
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:gravity="center_vertical">
-    
->>>>>>> 54b6cfa... Initial Contribution
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,22 +32,14 @@
         android:layout_marginTop="6sp"
         android:layout_marginBottom="6sp"
         android:layout_weight="1">
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
         <TextView android:id="@+android:id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="?android:attr/textColorSecondary" />
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
         <TextView android:id="@+android:id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,19 +50,11 @@
             android:maxLines="2" />
 
     </RelativeLayout>
-<<<<<<< HEAD
 
     <!-- Preference should place its actual preference widget here. -->
     <LinearLayout android:id="@+android:id/widget_frame"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-=======
-    
-    <!-- Preference should place its actual preference widget here. -->
-    <LinearLayout android:id="@+android:id/widget_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
         android:gravity="center_vertical"
         android:orientation="vertical" />
 

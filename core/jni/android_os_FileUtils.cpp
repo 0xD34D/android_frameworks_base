@@ -2,7 +2,6 @@
 **
 ** Copyright 2006, The Android Open Source Project
 **
-<<<<<<< HEAD
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
 ** You may obtain a copy of the License at
@@ -13,18 +12,6 @@
 ** distributed under the License is distributed on an "AS IS" BASIS,
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
-=======
-** Licensed under the Apache License, Version 2.0 (the "License"); 
-** you may not use this file except in compliance with the License. 
-** You may obtain a copy of the License at 
-**
-**     http://www.apache.org/licenses/LICENSE-2.0 
-**
-** Unless required by applicable law or agreed to in writing, software 
-** distributed under the License is distributed on an "AS IS" BASIS, 
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-** See the License for the specific language governing permissions and 
->>>>>>> 54b6cfa... Initial Contribution
 ** limitations under the License.
 */
 
@@ -41,23 +28,11 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <signal.h>
-<<<<<<< HEAD
 #include <sys/ioctl.h>
 #include <linux/msdos_fs.h>
 
 namespace android {
 
-=======
-
-#if HAVE_ANDROID_OS
-#include <sys/ioctl.h>
-#include <linux/msdos_fs.h>
-#endif
-
-namespace android {
-
-static jclass gFileStatusClass;
->>>>>>> 54b6cfa... Initial Contribution
 static jfieldID gFileStatusDevFieldID;
 static jfieldID gFileStatusInoFieldID;
 static jfieldID gFileStatusModeFieldID;
@@ -75,10 +50,6 @@ jint android_os_FileUtils_setPermissions(JNIEnv* env, jobject clazz,
                                          jstring file, jint mode,
                                          jint uid, jint gid)
 {
-<<<<<<< HEAD
-=======
-    #if HAVE_ANDROID_OS
->>>>>>> 54b6cfa... Initial Contribution
     const jchar* str = env->GetStringCritical(file, 0);
     String8 file8;
     if (str) {
@@ -95,21 +66,11 @@ jint android_os_FileUtils_setPermissions(JNIEnv* env, jobject clazz,
         }
     }
     return chmod(file8.string(), mode) == 0 ? 0 : errno;
-<<<<<<< HEAD
-=======
-    #else
-    return ENOSYS;
-    #endif
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 jint android_os_FileUtils_getPermissions(JNIEnv* env, jobject clazz,
                                          jstring file, jintArray outArray)
 {
-<<<<<<< HEAD
-=======
-    #if HAVE_ANDROID_OS
->>>>>>> 54b6cfa... Initial Contribution
     const jchar* str = env->GetStringCritical(file, 0);
     String8 file8;
     if (str) {
@@ -138,25 +99,15 @@ jint android_os_FileUtils_getPermissions(JNIEnv* env, jobject clazz,
     }
     env->ReleasePrimitiveArrayCritical(outArray, array, 0);
     return 0;
-<<<<<<< HEAD
 }
 
 jint android_os_FileUtils_setUMask(JNIEnv* env, jobject clazz, jint mask)
 {
     return umask(mask);
-=======
-    #else
-    return ENOSYS;
-    #endif
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 jint android_os_FileUtils_getFatVolumeId(JNIEnv* env, jobject clazz, jstring path)
 {
-<<<<<<< HEAD
-=======
-    #if HAVE_ANDROID_OS
->>>>>>> 54b6cfa... Initial Contribution
     if (path == NULL) {
         jniThrowException(env, "java/lang/IllegalArgumentException", NULL);
         return -1;
@@ -174,22 +125,12 @@ jint android_os_FileUtils_getFatVolumeId(JNIEnv* env, jobject clazz, jstring pat
 
     env->ReleaseStringUTFChars(path, pathStr);
     return result;
-<<<<<<< HEAD
-=======
-    #else
-    return -1;
-    #endif
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 jboolean android_os_FileUtils_getFileStatus(JNIEnv* env, jobject clazz, jstring path, jobject fileStatus) {
     const char* pathStr = env->GetStringUTFChars(path, NULL);
     jboolean ret = false;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     struct stat s;
     int res = stat(pathStr, &s);
     if (res == 0) {
@@ -209,36 +150,24 @@ jboolean android_os_FileUtils_getFileStatus(JNIEnv* env, jobject clazz, jstring 
             env->SetLongField(fileStatus, gFileStatusCtimeFieldID, s.st_ctime);
         }
     }
-<<<<<<< HEAD
 
     env->ReleaseStringUTFChars(path, pathStr);
 
-=======
-    
-    env->ReleaseStringUTFChars(path, pathStr);
-    
->>>>>>> 54b6cfa... Initial Contribution
     return ret;
 }
 
 static const JNINativeMethod methods[] = {
     {"setPermissions",  "(Ljava/lang/String;III)I", (void*)android_os_FileUtils_setPermissions},
     {"getPermissions",  "(Ljava/lang/String;[I)I", (void*)android_os_FileUtils_getPermissions},
-<<<<<<< HEAD
     {"setUMask",        "(I)I",                    (void*)android_os_FileUtils_setUMask},
     {"getFatVolumeId",  "(Ljava/lang/String;)I", (void*)android_os_FileUtils_getFatVolumeId},
     {"getFileStatusNative", "(Ljava/lang/String;Landroid/os/FileUtils$FileStatus;)Z", (void*)android_os_FileUtils_getFileStatus},
-=======
-    {"getFatVolumeId",  "(Ljava/lang/String;)I", (void*)android_os_FileUtils_getFatVolumeId},
-    {"getFileStatus",  "(Ljava/lang/String;Landroid/os/FileUtils$FileStatus;)Z", (void*)android_os_FileUtils_getFileStatus},
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 static const char* const kFileUtilsPathName = "android/os/FileUtils";
 
 int register_android_os_FileUtils(JNIEnv* env)
 {
-<<<<<<< HEAD
     jclass fileStatusClass = env->FindClass("android/os/FileUtils$FileStatus");
     LOG_FATAL_IF(fileStatusClass == NULL, "Unable to find class android.os.FileUtils$FileStatus");
 
@@ -254,28 +183,6 @@ int register_android_os_FileUtils(JNIEnv* env)
     gFileStatusAtimeFieldID = env->GetFieldID(fileStatusClass, "atime", "J");
     gFileStatusMtimeFieldID = env->GetFieldID(fileStatusClass, "mtime", "J");
     gFileStatusCtimeFieldID = env->GetFieldID(fileStatusClass, "ctime", "J");
-=======
-    jclass clazz;
-
-    clazz = env->FindClass(kFileUtilsPathName);
-    LOG_FATAL_IF(clazz == NULL, "Unable to find class android.os.FileUtils");
-    
-    gFileStatusClass = env->FindClass("android/os/FileUtils$FileStatus");
-    LOG_FATAL_IF(gFileStatusClass == NULL, "Unable to find class android.os.FileUtils$FileStatus");
-
-    gFileStatusDevFieldID = env->GetFieldID(gFileStatusClass, "dev", "I");
-    gFileStatusInoFieldID = env->GetFieldID(gFileStatusClass, "ino", "I");
-    gFileStatusModeFieldID = env->GetFieldID(gFileStatusClass, "mode", "I");
-    gFileStatusNlinkFieldID = env->GetFieldID(gFileStatusClass, "nlink", "I");
-    gFileStatusUidFieldID = env->GetFieldID(gFileStatusClass, "uid", "I");
-    gFileStatusGidFieldID = env->GetFieldID(gFileStatusClass, "gid", "I");
-    gFileStatusSizeFieldID = env->GetFieldID(gFileStatusClass, "size", "J");
-    gFileStatusBlksizeFieldID = env->GetFieldID(gFileStatusClass, "blksize", "I");
-    gFileStatusBlocksFieldID = env->GetFieldID(gFileStatusClass, "blocks", "J");
-    gFileStatusAtimeFieldID = env->GetFieldID(gFileStatusClass, "atime", "J");
-    gFileStatusMtimeFieldID = env->GetFieldID(gFileStatusClass, "mtime", "J");
-    gFileStatusCtimeFieldID = env->GetFieldID(gFileStatusClass, "ctime", "J");
->>>>>>> 54b6cfa... Initial Contribution
 
     return AndroidRuntime::registerNativeMethods(
         env, kFileUtilsPathName,
@@ -283,7 +190,3 @@ int register_android_os_FileUtils(JNIEnv* env)
 }
 
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution

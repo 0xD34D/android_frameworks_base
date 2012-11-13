@@ -20,7 +20,6 @@ import android.os.Parcelable;
 import android.os.Parcel;
 
 /**
-<<<<<<< HEAD
  * Used to record various statistics about the result of a sync operation. The SyncManager
  * gets access to these via a {@link SyncResult} and uses some of them to determine the
  * disposition of the sync. See {@link SyncResult} for further dicussion on how the
@@ -92,19 +91,6 @@ public class SyncStats implements Parcelable {
      * ignored during the sync operation. This could happen if the SyncAdapter detected some
      * unparsable data but decided to skip it and move on rather than failing immediately.
      */
-=======
- * @hide
- */
-public class SyncStats implements Parcelable {
-    public long numAuthExceptions;
-    public long numIoExceptions;
-    public long numParseExceptions;
-    public long numConflictDetectedExceptions;
-    public long numInserts;
-    public long numUpdates;
-    public long numDeletes;
-    public long numEntries;
->>>>>>> 54b6cfa... Initial Contribution
     public long numSkippedEntries;
 
     public SyncStats() {
@@ -134,7 +120,6 @@ public class SyncStats implements Parcelable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-<<<<<<< HEAD
         sb.append(" stats [");
         if (numAuthExceptions > 0) sb.append(" numAuthExceptions: ").append(numAuthExceptions);
         if (numIoExceptions > 0) sb.append(" numIoExceptions: ").append(numIoExceptions);
@@ -153,20 +138,6 @@ public class SyncStats implements Parcelable {
     /**
      * Reset all the counters to 0.
      */
-=======
-        sb.append("numAuthExceptions: ").append(numAuthExceptions);
-        sb.append(" numIoExceptions: ").append(numIoExceptions);
-        sb.append(" numParseExceptions: ").append(numParseExceptions);
-        sb.append(" numConflictDetectedExceptions: ").append(numConflictDetectedExceptions);
-        sb.append(" numInserts: ").append(numInserts);
-        sb.append(" numUpdates: ").append(numUpdates);
-        sb.append(" numDeletes: ").append(numDeletes);
-        sb.append(" numEntries: ").append(numEntries);
-        sb.append(" numSkippedEntries: ").append(numSkippedEntries);
-        return sb.toString();
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public void clear() {
         numAuthExceptions = 0;
         numIoExceptions = 0;

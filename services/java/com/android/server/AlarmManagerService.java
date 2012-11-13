@@ -16,10 +16,7 @@
 
 package com.android.server;
 
-<<<<<<< HEAD
 import android.app.Activity;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.app.ActivityManagerNative;
 import android.app.AlarmManager;
 import android.app.IAlarmManager;
@@ -37,7 +34,6 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.os.SystemProperties;
-<<<<<<< HEAD
 import android.os.WorkSource;
 import android.text.TextUtils;
 import android.text.format.Time;
@@ -55,44 +51,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-=======
-import android.text.TextUtils;
-import android.util.Config;
-import android.util.Log;
-
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.Map;
 import java.util.TimeZone;
 
 class AlarmManagerService extends IAlarmManager.Stub {
-<<<<<<< HEAD
     // The threshold for how long an alarm can be late before we print a
     // warning message.  The time duration is in milliseconds.
     private static final long LATE_ALARM_THRESHOLD = 10 * 1000;
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private static final int RTC_WAKEUP_MASK = 1 << AlarmManager.RTC_WAKEUP;
     private static final int RTC_MASK = 1 << AlarmManager.RTC;
     private static final int ELAPSED_REALTIME_WAKEUP_MASK = 1 << AlarmManager.ELAPSED_REALTIME_WAKEUP; 
     private static final int ELAPSED_REALTIME_MASK = 1 << AlarmManager.ELAPSED_REALTIME;
     private static final int TIME_CHANGED_MASK = 1 << 16;
-<<<<<<< HEAD
 
     // Alignment quantum for inexact repeating alarms
     private static final long QUANTUM = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     private static final String TAG = "AlarmManager";
     private static final String ClockReceiver_TAG = "ClockReceiver";
     private static final boolean localLOGV = false;
@@ -110,18 +85,12 @@ class AlarmManagerService extends IAlarmManager.Stub {
     private final ArrayList<Alarm> mRtcAlarms = new ArrayList<Alarm>();
     private final ArrayList<Alarm> mElapsedRealtimeWakeupAlarms = new ArrayList<Alarm>();
     private final ArrayList<Alarm> mElapsedRealtimeAlarms = new ArrayList<Alarm>();
-<<<<<<< HEAD
     private final IncreasingTimeOrder mIncreasingTimeOrder = new IncreasingTimeOrder();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     
     private int mDescriptor;
     private int mBroadcastRefCount = 0;
     private PowerManager.WakeLock mWakeLock;
-<<<<<<< HEAD
     private LinkedList<PendingIntent> mInFlight = new LinkedList<PendingIntent>();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private final AlarmThread mWaitThread = new AlarmThread();
     private final AlarmHandler mHandler = new AlarmHandler();
     private ClockReceiver mClockReceiver;
@@ -149,7 +118,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
     public AlarmManagerService(Context context) {
         mContext = context;
         mDescriptor = init();
-<<<<<<< HEAD
 
         // We have to set current TimeZone info to kernel
         // because kernel doesn't keep this after reboot
@@ -158,22 +126,15 @@ class AlarmManagerService extends IAlarmManager.Stub {
             setTimeZone(tz);
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         
         mTimeTickSender = PendingIntent.getBroadcast(context, 0,
                 new Intent(Intent.ACTION_TIME_TICK).addFlags(
                         Intent.FLAG_RECEIVER_REGISTERED_ONLY), 0);
-<<<<<<< HEAD
         Intent intent = new Intent(Intent.ACTION_DATE_CHANGED);
         intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
         mDateChangeSender = PendingIntent.getBroadcast(context, 0, intent, 0);
-=======
-        mDateChangeSender = PendingIntent.getBroadcast(context, 0,
-                new Intent(Intent.ACTION_DATE_CHANGED), 0);
->>>>>>> 54b6cfa... Initial Contribution
         
         // now that we have initied the driver schedule the alarm
         mClockReceiver= new ClockReceiver();
@@ -184,11 +145,7 @@ class AlarmManagerService extends IAlarmManager.Stub {
         if (mDescriptor != -1) {
             mWaitThread.start();
         } else {
-<<<<<<< HEAD
             Slog.w(TAG, "Failed to open alarm driver. Falling back to a handler.");
-=======
-            Log.w(TAG, "Failed to open alarm driver. Falling back to a handler.");
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
@@ -207,11 +164,7 @@ class AlarmManagerService extends IAlarmManager.Stub {
     public void setRepeating(int type, long triggerAtTime, long interval, 
             PendingIntent operation) {
         if (operation == null) {
-<<<<<<< HEAD
             Slog.w(TAG, "set/setRepeating ignored because there is no intent");
-=======
-            Log.w(TAG, "set/setRepeating ignored because there is no intent");
->>>>>>> 54b6cfa... Initial Contribution
             return;
         }
         synchronized (mLock) {
@@ -224,11 +177,7 @@ class AlarmManagerService extends IAlarmManager.Stub {
             // Remove this alarm if already scheduled.
             removeLocked(operation);
 
-<<<<<<< HEAD
             if (localLOGV) Slog.v(TAG, "set: " + alarm);
-=======
-            if (localLOGV) Log.v(TAG, "set: " + alarm);
->>>>>>> 54b6cfa... Initial Contribution
 
             int index = addAlarmLocked(alarm);
             if (index == 0) {
@@ -237,7 +186,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
         }
     }
     
-<<<<<<< HEAD
     public void setInexactRepeating(int type, long triggerAtTime, long interval, 
             PendingIntent operation) {
         if (operation == null) {
@@ -289,8 +237,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
         SystemClock.setCurrentTimeMillis(millis);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void setTimeZone(String tz) {
         mContext.enforceCallingOrSelfPermission(
                 "android.permission.SET_TIME_ZONE",
@@ -300,7 +246,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
         TimeZone zone = TimeZone.getTimeZone(tz);
         // Prevent reentrant calls from stepping on each other when writing
         // the time zone property
-<<<<<<< HEAD
         boolean timeZoneWasChanged = false;
         synchronized (this) {
             String current = SystemProperties.get(TIMEZONE_PROPERTY);
@@ -324,17 +269,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
             intent.putExtra("time-zone", zone.getID());
             mContext.sendBroadcast(intent);
         }
-=======
-        synchronized (this) {
-            SystemProperties.set(TIMEZONE_PROPERTY, zone.getID());
-        }
-        
-        TimeZone.setDefault(null);
-        
-        Intent intent = new Intent(Intent.ACTION_TIMEZONE_CHANGED);
-        intent.putExtra("time-zone", zone.getID());
-        mContext.sendBroadcast(intent);
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     public void remove(PendingIntent operation) {
@@ -394,7 +328,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
         }
     }
     
-<<<<<<< HEAD
     public boolean lookForPackageLocked(String packageName) {
         return lookForPackageLocked(mRtcWakeupAlarms, packageName)
                 || lookForPackageLocked(mRtcAlarms, packageName)
@@ -411,8 +344,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
         return false;
     }
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private ArrayList<Alarm> getAlarmList(int type) {
         switch (type) {
             case AlarmManager.RTC_WAKEUP:              return mRtcWakeupAlarms;
@@ -427,7 +358,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
     private int addAlarmLocked(Alarm alarm) {
         ArrayList<Alarm> alarmList = getAlarmList(alarm.type);
         
-<<<<<<< HEAD
         int index = Collections.binarySearch(alarmList, alarm, mIncreasingTimeOrder);
         if (index < 0) {
             index = 0 - index - 1;
@@ -448,23 +378,12 @@ class AlarmManagerService extends IAlarmManager.Stub {
                 position += 1;
             }
         }
-=======
-        int index = Collections.binarySearch(alarmList, alarm);
-        index = (index < 0) ? ((index + 1) * -1) : index;
-        if (localLOGV) Log.v(
-            TAG, "Adding alarm " + alarm + " at " + index);
-        alarmList.add(index, alarm);
->>>>>>> 54b6cfa... Initial Contribution
         
         return index;
     }
     
     public long timeToNextAlarm() {
-<<<<<<< HEAD
         long nextAlarm = Long.MAX_VALUE;
-=======
-        long nextAlarm = 0xfffffffffffffffl;
->>>>>>> 54b6cfa... Initial Contribution
         synchronized (mLock) {
             for (int i=AlarmManager.RTC_WAKEUP;
                     i<=AlarmManager.ELAPSED_REALTIME; i++) {
@@ -484,7 +403,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
     {
         if (mDescriptor != -1)
         {
-<<<<<<< HEAD
             // The kernel never triggers alarms with negative wakeup times
             // so we ensure they are positive.
             long alarmSeconds, alarmNanoseconds;
@@ -497,9 +415,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
             }
             
             set(mDescriptor, alarm.type, alarmSeconds, alarmNanoseconds);
-=======
-            set(mDescriptor, alarm.type, (alarm.when * 1000 * 1000));
->>>>>>> 54b6cfa... Initial Contribution
         }
         else
         {
@@ -513,11 +428,7 @@ class AlarmManagerService extends IAlarmManager.Stub {
     
     @Override
     protected void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
-<<<<<<< HEAD
         if (mContext.checkCallingOrSelfPermission(android.Manifest.permission.DUMP)
-=======
-        if (mContext.checkCallingPermission("android.permission.DUMP")
->>>>>>> 54b6cfa... Initial Contribution
                 != PackageManager.PERMISSION_GRANTED) {
             pw.println("Permission Denial: can't dump AlarmManager from from pid="
                     + Binder.getCallingPid()
@@ -527,7 +438,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
         
         synchronized (mLock) {
             pw.println("Current Alarm Manager state:");
-<<<<<<< HEAD
             if (mRtcWakeupAlarms.size() > 0 || mRtcAlarms.size() > 0) {
                 final long now = System.currentTimeMillis();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -556,37 +466,11 @@ class AlarmManagerService extends IAlarmManager.Stub {
             
             pw.println(" ");
             pw.print("  Broadcast ref count: "); pw.println(mBroadcastRefCount);
-=======
-            if (mRtcWakeupAlarms.size() > 0) {
-                pw.println(" ");
-                pw.println("  Realtime wakeup alarms that are scheduled:");
-                dumpAlarmList(pw, mRtcWakeupAlarms, "  ", "RTC_WAKEUP");
-            }
-            if (mRtcAlarms.size() > 0) {
-                pw.println(" ");
-                pw.println("  Realtime alarms that are scheduled:");
-                dumpAlarmList(pw, mRtcAlarms, "  ", "RTC");
-            }
-            if (mElapsedRealtimeWakeupAlarms.size() > 0) {
-                pw.println(" ");
-                pw.println("  Elapsed realtime wakeup alarms that are scheduled:");
-                dumpAlarmList(pw, mElapsedRealtimeWakeupAlarms, "  ", "ELAPSED_REALTIME_WAKEUP");
-            }
-            if (mElapsedRealtimeAlarms.size() > 0) {
-                pw.println(" ");
-                pw.println("  Elapsed realtime alarms that are scheduled:");
-                dumpAlarmList(pw, mElapsedRealtimeAlarms, "  ", "ELAPSED_REALTIME");
-            }
-            
-            pw.println(" ");
-            pw.println("  Broadcast ref count: " + mBroadcastRefCount);
->>>>>>> 54b6cfa... Initial Contribution
             
             pw.println(" ");
             pw.println("  Alarm Stats:");
             for (Map.Entry<String, BroadcastStats> be : mBroadcastStats.entrySet()) {
                 BroadcastStats bs = be.getValue();
-<<<<<<< HEAD
                 pw.print("  "); pw.println(be.getKey());
                 pw.print("    "); pw.print(bs.aggregateTime);
                         pw.print("ms running, "); pw.print(bs.numWakeup);
@@ -597,21 +481,11 @@ class AlarmManagerService extends IAlarmManager.Stub {
                             pw.print(" alarms: ");
                             pw.println(fe.getKey().getIntent().toShortString(
                                     false, true, false, true));
-=======
-                pw.println("  " + be.getKey());
-                pw.println("    " + bs.aggregateTime + "ms running, "
-                        + bs.numWakeup + " wakeups");
-                for (Map.Entry<Intent.FilterComparison, FilterStats> fe
-                        : bs.filterStats.entrySet()) {
-                    pw.println("    " + fe.getValue().count + " alarms: "
-                            + fe.getKey().getIntent());
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
     }
 
-<<<<<<< HEAD
     private static final void dumpAlarmList(PrintWriter pw, ArrayList<Alarm> list,
             String prefix, String label, long now) {
         for (int i=list.size()-1; i>=0; i--) {
@@ -619,28 +493,15 @@ class AlarmManagerService extends IAlarmManager.Stub {
             pw.print(prefix); pw.print(label); pw.print(" #"); pw.print(i);
                     pw.print(": "); pw.println(a);
             a.dump(pw, prefix + "  ", now);
-=======
-    private static final void dumpAlarmList(PrintWriter pw, ArrayList<Alarm> list, String prefix, String label) {
-        for (int i=list.size()-1; i>=0; i--) {
-            Alarm a = list.get(i);
-            pw.println(prefix + label + " #" + i + ":");
-            a.dump(pw, prefix + "  ");
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
     private native int init();
     private native void close(int fd);
-<<<<<<< HEAD
     private native void set(int fd, int type, long seconds, long nanoseconds);
     private native int waitForAlarm(int fd);
     private native int setKernelTimezone(int fd, int minuteswest);
 
-=======
-    private native void set(int fd, int type, long nanoseconds);
-    private native int waitForAlarm(int fd);
-   
->>>>>>> 54b6cfa... Initial Contribution
     private void triggerAlarmsLocked(ArrayList<Alarm> alarmList,
                                      ArrayList<Alarm> triggerList,
                                      long now)
@@ -652,7 +513,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
         {
             Alarm alarm = it.next();
 
-<<<<<<< HEAD
             if (localLOGV) Slog.v(TAG, "Checking active alarm when=" + alarm.when + " " + alarm);
 
             if (alarm.when > now) {
@@ -673,20 +533,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
             // Recurring alarms may have passed several alarm intervals while the
             // phone was asleep or off, so pass a trigger count when sending them.
             if (localLOGV) Slog.v(TAG, "Alarm triggering: " + alarm);
-=======
-            if (localLOGV) Log.v(TAG, "Checking active alarm when=" + alarm.when + " " + alarm);
-
-            if (alarm.when > now)
-            {
-                // don't fire alarms in the future
-                break;
-            }
-
-            // add it to the trigger list so we can trigger it without the lock held.
-            // recurring alarms may have passed several alarm intervals while the
-            // phone was asleep or off, so pass a trigger count when sending them.
-            if (localLOGV) Log.v(TAG, "Alarm triggering: " + alarm);
->>>>>>> 54b6cfa... Initial Contribution
             alarm.count = 1;
             if (alarm.repeatInterval > 0) {
                 // this adjustment will be zero if we're late by
@@ -699,40 +545,24 @@ class AlarmManagerService extends IAlarmManager.Stub {
             it.remove();
             
             // if it repeats queue it up to be read-added to the list
-<<<<<<< HEAD
             if (alarm.repeatInterval > 0) {
-=======
-            if (alarm.repeatInterval > 0)
-            {
->>>>>>> 54b6cfa... Initial Contribution
                 repeats.add(alarm);
             }
         }
 
         // reset any repeating alarms.
         it = repeats.iterator();
-<<<<<<< HEAD
         while (it.hasNext()) {
-=======
-        while (it.hasNext())
-        {
->>>>>>> 54b6cfa... Initial Contribution
             Alarm alarm = it.next();
             alarm.when += alarm.count * alarm.repeatInterval;
             addAlarmLocked(alarm);
         }
         
-<<<<<<< HEAD
         if (alarmList.size() > 0) {
-=======
-        if (alarmList.size() > 0)
-        {
->>>>>>> 54b6cfa... Initial Contribution
             setLocked(alarmList.get(0));
         }
     }
     
-<<<<<<< HEAD
     /**
      * This Comparator sorts Alarms into increasing time order.
      */
@@ -751,9 +581,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
     }
     
     private static class Alarm {
-=======
-    private class Alarm implements Comparable<Alarm> {
->>>>>>> 54b6cfa... Initial Contribution
         public int type;
         public int count;
         public long when;
@@ -766,7 +593,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
             operation = null;
         }
         
-<<<<<<< HEAD
         @Override
         public String toString()
         {
@@ -787,31 +613,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
                     pw.print(" repeatInterval="); pw.print(repeatInterval);
                     pw.print(" count="); pw.println(count);
             pw.print(prefix); pw.print("operation="); pw.println(operation);
-=======
-        public int compareTo(Alarm obj)
-        {
-            if (obj.when > this.when) return -1;
-            if (obj.when < this.when) return 1;
-            if (obj.operation.equals(this.operation)
-                    && obj.repeatInterval == this.repeatInterval) return 0;
-            return -1;
-        }
-        
-        public String toString()
-        {
-            return "Alarm{"
-                + Integer.toHexString(System.identityHashCode(this))
-                + " type " + type + " " + operation.getTargetPackage() + "}";
-        }
-
-        public void dump(PrintWriter pw, String prefix)
-        {
-            pw.println(prefix + this);
-            pw.println(prefix + "type=" + type + " when=" + when
-                  + " repeatInterval=" + repeatInterval
-                  + " count=" + count);
-            pw.println(prefix + "operation=" + operation);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
@@ -833,24 +634,16 @@ class AlarmManagerService extends IAlarmManager.Stub {
                 if ((result & TIME_CHANGED_MASK) != 0) {
                     remove(mTimeTickSender);
                     mClockReceiver.scheduleTimeTickEvent();
-<<<<<<< HEAD
                     Intent intent = new Intent(Intent.ACTION_TIME_CHANGED);
                     intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING
                             | Intent.FLAG_RECEIVER_REGISTERED_ONLY_BEFORE_BOOT);
                     mContext.sendBroadcast(intent);
-=======
-                    mContext.sendBroadcast(new Intent(Intent.ACTION_TIME_CHANGED));
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 
                 synchronized (mLock) {
                     final long nowRTC = System.currentTimeMillis();
                     final long nowELAPSED = SystemClock.elapsedRealtime();
-<<<<<<< HEAD
                     if (localLOGV) Slog.v(
-=======
-                    if (localLOGV) Log.v(
->>>>>>> 54b6cfa... Initial Contribution
                         TAG, "Checking for alarms... rtc=" + nowRTC
                         + ", elapsed=" + nowELAPSED);
 
@@ -871,29 +664,18 @@ class AlarmManagerService extends IAlarmManager.Stub {
                     while (it.hasNext()) {
                         Alarm alarm = it.next();
                         try {
-<<<<<<< HEAD
                             if (localLOGV) Slog.v(TAG, "sending alarm " + alarm);
-=======
-                            if (localLOGV) Log.v(TAG, "sending alarm " + alarm);
->>>>>>> 54b6cfa... Initial Contribution
                             alarm.operation.send(mContext, 0,
                                     mBackgroundIntent.putExtra(
                                             Intent.EXTRA_ALARM_COUNT, alarm.count),
                                     mResultReceiver, mHandler);
                             
-<<<<<<< HEAD
                             // we have an active broadcast so stay awake.
                             if (mBroadcastRefCount == 0) {
                                 setWakelockWorkSource(alarm.operation);
                                 mWakeLock.acquire();
                             }
                             mInFlight.add(alarm.operation);
-=======
-                            // we have an active broadcast so stay awake. 
-                            if (mBroadcastRefCount == 0) {
-                                mWakeLock.acquire();
-                            }
->>>>>>> 54b6cfa... Initial Contribution
                             mBroadcastRefCount++;
                             
                             BroadcastStats bs = getStatsLocked(alarm.operation);
@@ -915,18 +697,13 @@ class AlarmManagerService extends IAlarmManager.Stub {
                                 remove(alarm.operation);
                             }
                         } catch (RuntimeException e) {
-<<<<<<< HEAD
                             Slog.w(TAG, "Failure sending alarm.", e);
-=======
-                            Log.w(TAG, "Failure sending alarm.", e);
->>>>>>> 54b6cfa... Initial Contribution
                         }
                     }
                 }
             }
         }
     }
-<<<<<<< HEAD
 
     void setWakelockWorkSource(PendingIntent pi) {
         try {
@@ -943,9 +720,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
         mWakeLock.setWorkSource(null);
     }
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     private class AlarmHandler extends Handler {
         public static final int ALARM_EVENT = 1;
         public static final int MINUTE_CHANGE_EVENT = 2;
@@ -988,10 +762,7 @@ class AlarmManagerService extends IAlarmManager.Stub {
         public ClockReceiver() {
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_TIME_TICK);
-<<<<<<< HEAD
             filter.addAction(Intent.ACTION_DATE_CHANGED);
-=======
->>>>>>> 54b6cfa... Initial Contribution
             mContext.registerReceiver(this, filter);
         }
         
@@ -1000,7 +771,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
             if (intent.getAction().equals(Intent.ACTION_TIME_TICK)) {
             	scheduleTimeTickEvent();
             } else if (intent.getAction().equals(Intent.ACTION_DATE_CHANGED)) {
-<<<<<<< HEAD
                 // Since the kernel does not keep track of DST, we need to
                 // reset the TZ information at the beginning of each day
                 // based off of the current Zone gmt offset + userspace tracked
@@ -1008,15 +778,12 @@ class AlarmManagerService extends IAlarmManager.Stub {
                 TimeZone zone = TimeZone.getTimeZone(SystemProperties.get(TIMEZONE_PROPERTY));
                 int gmtOffset = zone.getOffset(System.currentTimeMillis());
                 setKernelTimezone(mDescriptor, -(gmtOffset / 60000));
-=======
->>>>>>> 54b6cfa... Initial Contribution
             	scheduleDateChangedEvent();
             }
         }
         
         public void scheduleTimeTickEvent() {
             Calendar calendar = Calendar.getInstance();
-<<<<<<< HEAD
             final long currentTime = System.currentTimeMillis();
             calendar.setTimeInMillis(currentTime);
             calendar.add(Calendar.MINUTE, 1);
@@ -1029,31 +796,16 @@ class AlarmManagerService extends IAlarmManager.Stub {
 
             set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + tickEventDelay,
                     mTimeTickSender);
-=======
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.add(Calendar.MINUTE, 1);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-      
-            set(AlarmManager.RTC, calendar.getTimeInMillis(), mTimeTickSender);
->>>>>>> 54b6cfa... Initial Contribution
         }
 	
         public void scheduleDateChangedEvent() {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
-<<<<<<< HEAD
-=======
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
->>>>>>> 54b6cfa... Initial Contribution
             calendar.set(Calendar.HOUR, 0);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MILLISECOND, 0);
-<<<<<<< HEAD
             calendar.add(Calendar.DAY_OF_MONTH, 1);
-=======
->>>>>>> 54b6cfa... Initial Contribution
       
             set(AlarmManager.RTC, calendar.getTimeInMillis(), mDateChangeSender);
         }
@@ -1064,7 +816,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
             filter.addAction(Intent.ACTION_PACKAGE_RESTARTED);
-<<<<<<< HEAD
             filter.addAction(Intent.ACTION_QUERY_PACKAGE_RESTART);
             filter.addDataScheme("package");
             mContext.registerReceiver(this, filter);
@@ -1072,16 +823,11 @@ class AlarmManagerService extends IAlarmManager.Stub {
             IntentFilter sdFilter = new IntentFilter();
             sdFilter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_UNAVAILABLE);
             mContext.registerReceiver(this, sdFilter);
-=======
-            filter.addDataScheme("package");
-            mContext.registerReceiver(this, filter);
->>>>>>> 54b6cfa... Initial Contribution
         }
         
         @Override
         public void onReceive(Context context, Intent intent) {
             synchronized (mLock) {
-<<<<<<< HEAD
                 String action = intent.getAction();
                 String pkgList[] = null;
                 if (Intent.ACTION_QUERY_PACKAGE_RESTART.equals(action)) {
@@ -1114,13 +860,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
                         removeLocked(pkg);
                         mBroadcastStats.remove(pkg);
                     }
-=======
-                Uri data = intent.getData();
-                if (data != null) {
-                    String pkg = data.getSchemeSpecificPart();
-                    removeLocked(pkg);
-                    mBroadcastStats.remove(pkg);
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -1156,7 +895,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
                         fs.count++;
                     }
                 }
-<<<<<<< HEAD
                 mInFlight.removeFirst();
                 mBroadcastRefCount--;
                 if (mBroadcastRefCount == 0) {
@@ -1171,11 +909,6 @@ class AlarmManagerService extends IAlarmManager.Stub {
                         Slog.e(TAG, "Alarm wakelock still held but sent queue empty");
                         mWakeLock.setWorkSource(null);
                     }
-=======
-                mBroadcastRefCount--;
-                if (mBroadcastRefCount == 0) {
-                    mWakeLock.release();
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }

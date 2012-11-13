@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
-<<<<<<< HEAD
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -41,15 +40,6 @@ import android.util.AttributeSet;
  * guide.</p>
  * </div>
  * 
-=======
-import android.util.AttributeSet;
-
-/**
- * The {@link PreferenceGroup} class is a container for multiple
- * {@link Preference}s. It is a base class for {@link Preference} that are
- * parents, such as {@link PreferenceCategory} and {@link PreferenceScreen}.
- * 
->>>>>>> 54b6cfa... Initial Contribution
  * @attr ref android.R.styleable#PreferenceGroup_orderingFromXml
  */
 public abstract class PreferenceGroup extends Preference implements GenericInflater.Parent<Preference> {
@@ -241,12 +231,9 @@ public abstract class PreferenceGroup extends Preference implements GenericInfla
      * @return The {@link Preference} with the key, or null.
      */
     public Preference findPreference(CharSequence key) {
-<<<<<<< HEAD
         if (TextUtils.equals(getKey(), key)) {
             return this;
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         final int preferenceCount = getPreferenceCount();
         for (int i = 0; i < preferenceCount; i++) {
             final Preference preference = getPreference(i);

@@ -19,18 +19,12 @@ package android.media;
 import android.content.Context;
 import android.net.Uri;
 import android.os.PowerManager;
-<<<<<<< HEAD
 import android.os.SystemClock;
 import android.util.Log;
 
 import java.io.IOException;
 import java.lang.IllegalStateException;
 import java.util.LinkedList;
-=======
-import android.util.Log;
-
-import java.io.IOException;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Plays a series of audio URIs, but does all the hard work on another thread
@@ -39,24 +33,15 @@ import java.io.IOException;
 public class AsyncPlayer {
     private static final int PLAY = 1;
     private static final int STOP = 2;
-<<<<<<< HEAD
     private static final boolean mDebug = false;
 
     private static final class Command {
-=======
-
-    private static final class Command {
-        Command next;
->>>>>>> 54b6cfa... Initial Contribution
         int code;
         Context context;
         Uri uri;
         boolean looping;
         int stream;
-<<<<<<< HEAD
         long requestTime;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
         public String toString() {
             return "{ code=" + code + " looping=" + looping + " stream=" + stream
@@ -64,7 +49,6 @@ public class AsyncPlayer {
         }
     }
 
-<<<<<<< HEAD
     private final LinkedList<Command> mCmdQueue = new LinkedList();
 
     private void startSound(Command cmd) {
@@ -93,8 +77,6 @@ public class AsyncPlayer {
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private final class Thread extends java.lang.Thread {
         Thread() {
             super("AsyncPlayer-" + mTag);
@@ -104,25 +86,13 @@ public class AsyncPlayer {
             while (true) {
                 Command cmd = null;
 
-<<<<<<< HEAD
                 synchronized (mCmdQueue) {
                     if (mDebug) Log.d(mTag, "RemoveFirst");
                     cmd = mCmdQueue.removeFirst();
-=======
-                synchronized (mLock) {
-                    if (mHead != null) {
-                        cmd = mHead;
-                        mHead = cmd.next;
-                        if (mTail == cmd) {
-                            mTail = null;
-                        }
-                    }
->>>>>>> 54b6cfa... Initial Contribution
                 }
 
                 switch (cmd.code) {
                 case PLAY:
-<<<<<<< HEAD
                     if (mDebug) Log.d(mTag, "PLAY");
                     startSound(cmd);
                     break;
@@ -133,31 +103,6 @@ public class AsyncPlayer {
                         if (delay > 1000) {
                             Log.w(mTag, "Notification stop delayed by " + delay + "msecs");
                         }
-=======
-                    try {
-                        // Preparing can be slow, so if there is something else
-                        // is playing, let it continue until we're done, so there
-                        // is less of a glitch.
-                        MediaPlayer player = new MediaPlayer();
-                        player.setDataSource(cmd.context, cmd.uri);
-                        player.setAudioStreamType(cmd.stream);
-                        player.setLooping(cmd.looping);
-                        player.prepare();
-                        if (mPlayer != null) {
-                            // stop the previous one.
-                            mPlayer.stop();
-                            mPlayer.release();
-                        }
-                        player.start();
-                        mPlayer = player;
-                    }
-                    catch (IOException e) {
-                        Log.w(mTag, "error loading sound for " + cmd.uri, e);
-                    }
-                    break;
-                case STOP:
-                    if (mPlayer != null) {
->>>>>>> 54b6cfa... Initial Contribution
                         mPlayer.stop();
                         mPlayer.release();
                         mPlayer = null;
@@ -167,13 +112,8 @@ public class AsyncPlayer {
                     break;
                 }
 
-<<<<<<< HEAD
                 synchronized (mCmdQueue) {
                     if (mCmdQueue.size() == 0) {
-=======
-                synchronized (mLock) {
-                    if (mHead == null) {
->>>>>>> 54b6cfa... Initial Contribution
                         // nothing left to do, quit
                         // doing this check after we're done prevents the case where they
                         // added it during the operation from spawning two threads and
@@ -188,16 +128,8 @@ public class AsyncPlayer {
     }
 
     private String mTag;
-<<<<<<< HEAD
     private Thread mThread;
     private MediaPlayer mPlayer;
-=======
-    private Command mHead;
-    private Command mTail;
-    private Thread mThread;
-    private MediaPlayer mPlayer;
-    private Object mLock = new Object();
->>>>>>> 54b6cfa... Initial Contribution
     private PowerManager.WakeLock mWakeLock;
 
     // The current state according to the caller.  Reality lags behind
@@ -232,20 +164,13 @@ public class AsyncPlayer {
      */
     public void play(Context context, Uri uri, boolean looping, int stream) {
         Command cmd = new Command();
-<<<<<<< HEAD
         cmd.requestTime = SystemClock.uptimeMillis();
-=======
->>>>>>> 54b6cfa... Initial Contribution
         cmd.code = PLAY;
         cmd.context = context;
         cmd.uri = uri;
         cmd.looping = looping;
         cmd.stream = stream;
-<<<<<<< HEAD
         synchronized (mCmdQueue) {
-=======
-        synchronized (mLock) {
->>>>>>> 54b6cfa... Initial Contribution
             enqueueLocked(cmd);
             mState = PLAY;
         }
@@ -256,19 +181,12 @@ public class AsyncPlayer {
      * at this point.  Calling this multiple times has no ill effects.
      */
     public void stop() {
-<<<<<<< HEAD
         synchronized (mCmdQueue) {
-=======
-        synchronized (mLock) {
->>>>>>> 54b6cfa... Initial Contribution
             // This check allows stop to be called multiple times without starting
             // a thread that ends up doing nothing.
             if (mState != STOP) {
                 Command cmd = new Command();
-<<<<<<< HEAD
                 cmd.requestTime = SystemClock.uptimeMillis();
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 cmd.code = STOP;
                 enqueueLocked(cmd);
                 mState = STOP;
@@ -277,16 +195,7 @@ public class AsyncPlayer {
     }
 
     private void enqueueLocked(Command cmd) {
-<<<<<<< HEAD
         mCmdQueue.add(cmd);
-=======
-        if (mTail == null) {
-            mHead = cmd;
-        } else {
-            mTail.next = cmd;
-        }
-        mTail = cmd;
->>>>>>> 54b6cfa... Initial Contribution
         if (mThread == null) {
             acquireWakeLock();
             mThread = new Thread();

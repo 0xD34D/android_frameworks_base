@@ -26,28 +26,18 @@ import java.util.Iterator;
 class AppBindRecord {
     final ServiceRecord service;    // The running service.
     final IntentBindRecord intent;  // The intent we are bound to.
-<<<<<<< HEAD
     final ProcessRecord client;     // Who has started/bound the service.
-=======
-    final ProcessRecord client; // Who has started/bound the service.
->>>>>>> 54b6cfa... Initial Contribution
 
     final HashSet<ConnectionRecord> connections = new HashSet<ConnectionRecord>();
                                     // All ConnectionRecord for this client.
 
     void dump(PrintWriter pw, String prefix) {
-<<<<<<< HEAD
         pw.println(prefix + "service=" + service);
         pw.println(prefix + "client=" + client);
         dumpInIntentBind(pw, prefix);
     }
 
     void dumpInIntentBind(PrintWriter pw, String prefix) {
-=======
-        pw.println(prefix + this);
-        pw.println(prefix + "service=" + service);
-        pw.println(prefix + "client=" + client);
->>>>>>> 54b6cfa... Initial Contribution
         if (connections.size() > 0) {
             pw.println(prefix + "Per-process Connections:");
             Iterator<ConnectionRecord> it = connections.iterator();

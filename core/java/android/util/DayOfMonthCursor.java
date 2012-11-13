@@ -68,7 +68,6 @@ public class DayOfMonthCursor extends MonthDisplayHelper {
     public int getSelectedDayOfMonth() {
         return getDayAt(mRow, mColumn);
     }
-<<<<<<< HEAD
 
     /**
      * @return 0 if the selection is in the current month, otherwise -1 or +1
@@ -83,8 +82,6 @@ public class DayOfMonthCursor extends MonthDisplayHelper {
         }
         return 1;
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     
     public void setSelectedDayOfMonth(int dayOfMonth) {
         mRow = getRowOf(dayOfMonth);

@@ -25,11 +25,7 @@ import android.graphics.Paint;
  * but more graphical control is available if you instead pass
  * it to a {@link android.graphics.drawable.ShapeDrawable}.
  */
-<<<<<<< HEAD
 public abstract class Shape implements Cloneable {
-=======
-public abstract class Shape {
->>>>>>> 54b6cfa... Initial Contribution
     private float mWidth;
     private float mHeight;
     
@@ -96,12 +92,9 @@ public abstract class Shape {
      * @param height the new height of the Shape
      */
     protected void onResize(float width, float height) {}
-<<<<<<< HEAD
 
     @Override
     public Shape clone() throws CloneNotSupportedException {
         return (Shape) super.clone();
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

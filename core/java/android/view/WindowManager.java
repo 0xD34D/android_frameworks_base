@@ -16,10 +16,7 @@
 
 package android.view;
 
-<<<<<<< HEAD
 import android.content.pm.ActivityInfo;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.os.Parcel;
@@ -68,7 +65,6 @@ public interface WindowManager extends ViewManager {
      */
     public void removeViewImmediate(View view);
     
-<<<<<<< HEAD
     /**
      * Return true if this window manager is configured to request hardware
      * accelerated windows.  This does <em>not</em> guarantee that they will
@@ -77,22 +73,14 @@ public interface WindowManager extends ViewManager {
      */
     public boolean isHardwareAccelerated();
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public static class LayoutParams extends ViewGroup.LayoutParams
             implements Parcelable {
         /**
          * X position for this window.  With the default gravity it is ignored.
-<<<<<<< HEAD
          * When using {@link Gravity#LEFT} or {@link Gravity#START} or {@link Gravity#RIGHT} or
          * {@link Gravity#END} it provides an offset from the given edge.
          */
         @ViewDebug.ExportedProperty
-=======
-         * When using {@link Gravity#LEFT} or {@link Gravity#RIGHT} it provides
-         * an offset from the given edge.
-         */
->>>>>>> 54b6cfa... Initial Contribution
         public int x;
         
         /**
@@ -100,10 +88,7 @@ public interface WindowManager extends ViewManager {
          * When using {@link Gravity#TOP} or {@link Gravity#BOTTOM} it provides
          * an offset from the given edge.
          */
-<<<<<<< HEAD
         @ViewDebug.ExportedProperty
-=======
->>>>>>> 54b6cfa... Initial Contribution
         public int y;
 
         /**
@@ -112,10 +97,7 @@ public interface WindowManager extends ViewManager {
          * should not be stretched. Otherwise the extra pixels will be pro-rated
          * among all views whose weight is greater than 0.
          */
-<<<<<<< HEAD
         @ViewDebug.ExportedProperty
-=======
->>>>>>> 54b6cfa... Initial Contribution
         public float horizontalWeight;
 
         /**
@@ -124,14 +106,9 @@ public interface WindowManager extends ViewManager {
          * should not be stretched. Otherwise the extra pixels will be pro-rated
          * among all views whose weight is greater than 0.
          */
-<<<<<<< HEAD
         @ViewDebug.ExportedProperty
         public float verticalWeight;
 
-=======
-        public float verticalWeight;
-        
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * The general type of window.  There are three main classes of
          * window types:
@@ -161,10 +138,7 @@ public interface WindowManager extends ViewManager {
          * @see #TYPE_APPLICATION_PANEL
          * @see #TYPE_APPLICATION_MEDIA
          * @see #TYPE_APPLICATION_SUB_PANEL
-<<<<<<< HEAD
          * @see #TYPE_APPLICATION_ATTACHED_DIALOG
-=======
->>>>>>> 54b6cfa... Initial Contribution
          * @see #TYPE_STATUS_BAR
          * @see #TYPE_SEARCH_BAR
          * @see #TYPE_PHONE
@@ -173,7 +147,6 @@ public interface WindowManager extends ViewManager {
          * @see #TYPE_TOAST
          * @see #TYPE_SYSTEM_OVERLAY
          * @see #TYPE_PRIORITY_PHONE
-<<<<<<< HEAD
          * @see #TYPE_STATUS_BAR_PANEL
          * @see #TYPE_SYSTEM_DIALOG
          * @see #TYPE_KEYGUARD_DIALOG
@@ -214,9 +187,6 @@ public interface WindowManager extends ViewManager {
             @ViewDebug.IntToString(from = TYPE_VOLUME_OVERLAY, to = "TYPE_VOLUME_OVERLAY"),
             @ViewDebug.IntToString(from = TYPE_BOOT_PROGRESS, to = "TYPE_BOOT_PROGRESS")
         })
-=======
-         */
->>>>>>> 54b6cfa... Initial Contribution
         public int type;
     
         /**
@@ -276,7 +246,6 @@ public interface WindowManager extends ViewManager {
          * {@link #TYPE_APPLICATION_PANEL} panels.
          */
         public static final int TYPE_APPLICATION_SUB_PANEL = FIRST_SUB_WINDOW+2;
-<<<<<<< HEAD
 
         /** Window type: like {@link #TYPE_APPLICATION_PANEL}, but layout
          * of the window happens as that of a top-level window, <em>not</em>
@@ -292,18 +261,12 @@ public interface WindowManager extends ViewManager {
          * @hide
          */
         public static final int TYPE_APPLICATION_MEDIA_OVERLAY  = FIRST_SUB_WINDOW+4;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     
         /**
          * End of types of sub-windows.
          */
         public static final int LAST_SUB_WINDOW         = 1999;
-<<<<<<< HEAD
         
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * Start of system-specific window types.  These are not normally
          * created by applications.
@@ -364,14 +327,6 @@ public interface WindowManager extends ViewManager {
         /**
          * Window type: panel that slides out from the status bar
          */
-<<<<<<< HEAD
-=======
-        public static final int TYPE_STATUS_BAR_PANEL   = FIRST_SYSTEM_WINDOW+8;
-        
-        /**
-         * Window type: panel that slides out from the status bar
-         */
->>>>>>> 54b6cfa... Initial Contribution
         public static final int TYPE_SYSTEM_DIALOG      = FIRST_SYSTEM_WINDOW+8;
     
         /**
@@ -386,7 +341,6 @@ public interface WindowManager extends ViewManager {
         public static final int TYPE_SYSTEM_ERROR       = FIRST_SYSTEM_WINDOW+10;
         
         /**
-<<<<<<< HEAD
          * Window type: internal input methods windows, which appear above
          * the normal UI.  Application windows may be resized or panned to keep
          * the input focus visible while this window is displayed.
@@ -532,61 +486,6 @@ public interface WindowManager extends ViewManager {
          * gets Z-ordered on top of the input method, so it can use the full
          * screen for its content and cover the input method if needed.  You
          * can use {@link #FLAG_ALT_FOCUSABLE_IM} to modify this behavior. */
-=======
-         * End of types of system windows.
-         */
-        public static final int LAST_SYSTEM_WINDOW      = 2999;
-    
-        /**
-         * Specifies what type of memory buffers should be used by this window.
-         * Default is normal.
-         * 
-         * @see #MEMORY_TYPE_NORMAL
-         * @see #MEMORY_TYPE_HARDWARE
-         * @see #MEMORY_TYPE_GPU
-         * @see #MEMORY_TYPE_PUSH_BUFFERS
-         */
-        public int memoryType;
-
-        /** Memory type: The window's surface is allocated in main memory. */
-        public static final int MEMORY_TYPE_NORMAL = 0;
-        /** Memory type: The window's surface is configured to be accessible
-         * by DMA engines and hardware accelerators. */
-        public static final int MEMORY_TYPE_HARDWARE = 1;
-        /** Memory type: The window's surface is configured to be accessible
-         * by graphics accelerators. */
-        public static final int MEMORY_TYPE_GPU = 2;
-        /** Memory type: The window's surface doesn't own its buffers and
-         * therefore cannot be locked. Instead the buffers are pushed to
-         * it through native binder calls. */
-        public static final int MEMORY_TYPE_PUSH_BUFFERS = 3;
-
-        /**
-         * Various behavioral options/flags.  Default is none.
-         * 
-         * @see #FLAG_BLUR_BEHIND
-         * @see #FLAG_DIM_BEHIND
-         * @see #FLAG_NOT_FOCUSABLE
-         * @see #FLAG_NOT_TOUCHABLE
-         * @see #FLAG_NOT_TOUCH_MODAL
-         * @see #FLAG_LAYOUT_IN_SCREEN
-         * @see #FLAG_DITHER
-         * @see #FLAG_KEEP_SCREEN_ON
-         * @see #FLAG_FULLSCREEN
-         * @see #FLAG_FORCE_NOT_FULLSCREEN
-         * @see #FLAG_IGNORE_CHEEK_PRESSES
-         */
-        public int flags;
-        
-        /** Window flag: everything behind this window will be dimmed.
-         *  Use {@link #dimAmount} to control the amount of dim. */
-        public static final int FLAG_DIM_BEHIND        = 0x00000002;
-        
-        /** Window flag: blur everything behind this window. */
-        public static final int FLAG_BLUR_BEHIND        = 0x00000004;
-        
-        /** Window flag: this window won't ever get focus. */
->>>>>>> 54b6cfa... Initial Contribution
         public static final int FLAG_NOT_FOCUSABLE      = 0x00000008;
         
         /** Window flag: this window can never receive touch events. */
@@ -635,11 +534,7 @@ public interface WindowManager extends ViewManager {
         public static final int FLAG_DITHER             = 0x00001000;
         
         /** Window flag: don't allow screen shots while this window is
-<<<<<<< HEAD
          * displayed. Maps to Surface.SECURE. */
-=======
-         * displayed. */
->>>>>>> 54b6cfa... Initial Contribution
         public static final int FLAG_SECURE             = 0x00002000;
         
         /** Window flag: a special mode where the layout parameters are used
@@ -665,7 +560,6 @@ public interface WindowManager extends ViewManager {
          * set for you by Window as described in {@link Window#setFlags}.*/
         public static final int FLAG_LAYOUT_INSET_DECOR = 0x00010000;
         
-<<<<<<< HEAD
         /** Window flag: invert the state of {@link #FLAG_NOT_FOCUSABLE} with
          * respect to how this window interacts with the current method.  That
          * is, if FLAG_NOT_FOCUSABLE is set and this flag is set, then the
@@ -804,8 +698,6 @@ public interface WindowManager extends ViewManager {
          * {@hide} */
         public static final int FLAG_COMPATIBLE_WINDOW = 0x20000000;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         /** Window flag: a special option intended for system dialogs.  When
          * this flag is set, the window will demand focus unconditionally when
          * it is created.
@@ -813,7 +705,6 @@ public interface WindowManager extends ViewManager {
         public static final int FLAG_SYSTEM_ERROR = 0x40000000;
 
         /**
-<<<<<<< HEAD
          * Various behavioral options/flags.  Default is none.
          * 
          * @see #FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
@@ -1095,9 +986,6 @@ public interface WindowManager extends ViewManager {
          * to control the behavior of
          * {@link Gravity#applyDisplay(int, android.graphics.Rect, android.graphics.Rect)
          * Gravity.applyDisplay}.
-=======
-         * Placement of window within the screen as per {@link Gravity}
->>>>>>> 54b6cfa... Initial Contribution
          *
          * @see Gravity
          */
@@ -1105,27 +993,19 @@ public interface WindowManager extends ViewManager {
     
         /**
          * The horizontal margin, as a percentage of the container's width,
-<<<<<<< HEAD
          * between the container and the widget.  See
          * {@link Gravity#apply(int, int, int, android.graphics.Rect, int, int,
          * android.graphics.Rect) Gravity.apply} for how this is used.  This
          * field is added with {@link #x} to supply the <var>xAdj</var> parameter.
-=======
-         * between the container and the widget.
->>>>>>> 54b6cfa... Initial Contribution
          */
         public float horizontalMargin;
     
         /**
          * The vertical margin, as a percentage of the container's height,
-<<<<<<< HEAD
          * between the container and the widget.  See
          * {@link Gravity#apply(int, int, int, android.graphics.Rect, int, int,
          * android.graphics.Rect) Gravity.apply} for how this is used.  This
          * field is added with {@link #y} to supply the <var>yAdj</var> parameter.
-=======
-         * between the container and the widget.
->>>>>>> 54b6cfa... Initial Contribution
          */
         public float verticalMargin;
     
@@ -1154,7 +1034,6 @@ public interface WindowManager extends ViewManager {
          * dim.
          */
         public float dimAmount = 1.0f;
-<<<<<<< HEAD
 
         /**
          * Default value for {@link #screenBrightness} and {@link #buttonBrightness}
@@ -1194,10 +1073,6 @@ public interface WindowManager extends ViewManager {
         public float buttonBrightness = BRIGHTNESS_OVERRIDE_NONE;
 
         /**
-=======
-    
-        /**
->>>>>>> 54b6cfa... Initial Contribution
          * Identifier for this window.  This will usually be filled in for
          * you.
          */
@@ -1208,7 +1083,6 @@ public interface WindowManager extends ViewManager {
          */
         public String packageName = null;
         
-<<<<<<< HEAD
         /**
          * Specific orientation value for a window.
          * May be any of the same values allowed
@@ -1271,41 +1145,25 @@ public interface WindowManager extends ViewManager {
 
         public LayoutParams() {
             super(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-=======
-        public LayoutParams() {
-            super(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
->>>>>>> 54b6cfa... Initial Contribution
             type = TYPE_APPLICATION;
             format = PixelFormat.OPAQUE;
         }
         
         public LayoutParams(int _type) {
-<<<<<<< HEAD
             super(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-=======
-            super(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
->>>>>>> 54b6cfa... Initial Contribution
             type = _type;
             format = PixelFormat.OPAQUE;
         }
     
         public LayoutParams(int _type, int _flags) {
-<<<<<<< HEAD
             super(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-=======
-            super(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
->>>>>>> 54b6cfa... Initial Contribution
             type = _type;
             flags = _flags;
             format = PixelFormat.OPAQUE;
         }
     
         public LayoutParams(int _type, int _flags, int _format) {
-<<<<<<< HEAD
             super(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-=======
-            super(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
->>>>>>> 54b6cfa... Initial Contribution
             type = _type;
             flags = _flags;
             format = _format;
@@ -1349,14 +1207,9 @@ public interface WindowManager extends ViewManager {
             out.writeInt(x);
             out.writeInt(y);
             out.writeInt(type);
-<<<<<<< HEAD
             out.writeInt(flags);
             out.writeInt(privateFlags);
             out.writeInt(softInputMode);
-=======
-            out.writeInt(memoryType);
-            out.writeInt(flags);
->>>>>>> 54b6cfa... Initial Contribution
             out.writeInt(gravity);
             out.writeFloat(horizontalMargin);
             out.writeFloat(verticalMargin);
@@ -1364,7 +1217,6 @@ public interface WindowManager extends ViewManager {
             out.writeInt(windowAnimations);
             out.writeFloat(alpha);
             out.writeFloat(dimAmount);
-<<<<<<< HEAD
             out.writeFloat(screenBrightness);
             out.writeFloat(buttonBrightness);
             out.writeStrongBinder(token);
@@ -1375,11 +1227,6 @@ public interface WindowManager extends ViewManager {
             out.writeInt(subtreeSystemUiVisibility);
             out.writeInt(hasSystemUiListeners ? 1 : 0);
             out.writeInt(inputFeatures);
-=======
-            out.writeStrongBinder(token);
-            out.writeString(packageName);
-            TextUtils.writeToParcel(mTitle, out, parcelableFlags);
->>>>>>> 54b6cfa... Initial Contribution
         }
         
         public static final Parcelable.Creator<LayoutParams> CREATOR
@@ -1400,14 +1247,9 @@ public interface WindowManager extends ViewManager {
             x = in.readInt();
             y = in.readInt();
             type = in.readInt();
-<<<<<<< HEAD
             flags = in.readInt();
             privateFlags = in.readInt();
             softInputMode = in.readInt();
-=======
-            memoryType = in.readInt();
-            flags = in.readInt();
->>>>>>> 54b6cfa... Initial Contribution
             gravity = in.readInt();
             horizontalMargin = in.readFloat();
             verticalMargin = in.readFloat();
@@ -1415,7 +1257,6 @@ public interface WindowManager extends ViewManager {
             windowAnimations = in.readInt();
             alpha = in.readFloat();
             dimAmount = in.readFloat();
-<<<<<<< HEAD
             screenBrightness = in.readFloat();
             buttonBrightness = in.readFloat();
             token = in.readStrongBinder();
@@ -1429,13 +1270,6 @@ public interface WindowManager extends ViewManager {
         }
     
         @SuppressWarnings({"PointlessBitwiseExpression"})
-=======
-            token = in.readStrongBinder();
-            packageName = in.readString();
-            mTitle = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
-        }
-    
->>>>>>> 54b6cfa... Initial Contribution
         public static final int LAYOUT_CHANGED = 1<<0;
         public static final int TYPE_CHANGED = 1<<1;
         public static final int FLAGS_CHANGED = 1<<2;
@@ -1445,7 +1279,6 @@ public interface WindowManager extends ViewManager {
         public static final int TITLE_CHANGED = 1<<6;
         public static final int ALPHA_CHANGED = 1<<7;
         public static final int MEMORY_TYPE_CHANGED = 1<<8;
-<<<<<<< HEAD
         public static final int SOFT_INPUT_MODE_CHANGED = 1<<9;
         public static final int SCREEN_ORIENTATION_CHANGED = 1<<10;
         public static final int SCREEN_BRIGHTNESS_CHANGED = 1<<11;
@@ -1465,9 +1298,6 @@ public interface WindowManager extends ViewManager {
         // internal buffer to backup/restore parameters under compatibility mode.
         private int[] mCompatibilityParamsBackup = null;
         
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
         public final int copyFrom(LayoutParams o) {
             int changes = 0;
     
@@ -1487,7 +1317,6 @@ public interface WindowManager extends ViewManager {
                 y = o.y;
                 changes |= LAYOUT_CHANGED;
             }
-<<<<<<< HEAD
             if (horizontalWeight != o.horizontalWeight) {
                 horizontalWeight = o.horizontalWeight;
                 changes |= LAYOUT_CHANGED;
@@ -1504,24 +1333,14 @@ public interface WindowManager extends ViewManager {
                 verticalMargin = o.verticalMargin;
                 changes |= LAYOUT_CHANGED;
             }
-=======
->>>>>>> 54b6cfa... Initial Contribution
             if (type != o.type) {
                 type = o.type;
                 changes |= TYPE_CHANGED;
             }
-<<<<<<< HEAD
-=======
-            if (memoryType != o.memoryType) {
-                memoryType = o.memoryType;
-                changes |= MEMORY_TYPE_CHANGED;
-            }
->>>>>>> 54b6cfa... Initial Contribution
             if (flags != o.flags) {
                 flags = o.flags;
                 changes |= FLAGS_CHANGED;
             }
-<<<<<<< HEAD
             if (privateFlags != o.privateFlags) {
                 privateFlags = o.privateFlags;
                 changes |= PRIVATE_FLAGS_CHANGED;
@@ -1530,23 +1349,10 @@ public interface WindowManager extends ViewManager {
                 softInputMode = o.softInputMode;
                 changes |= SOFT_INPUT_MODE_CHANGED;
             }
-=======
->>>>>>> 54b6cfa... Initial Contribution
             if (gravity != o.gravity) {
                 gravity = o.gravity;
                 changes |= LAYOUT_CHANGED;
             }
-<<<<<<< HEAD
-=======
-            if (horizontalMargin != o.horizontalMargin) {
-                horizontalMargin = o.horizontalMargin;
-                changes |= LAYOUT_CHANGED;
-            }
-            if (verticalMargin != o.verticalMargin) {
-                verticalMargin = o.verticalMargin;
-                changes |= LAYOUT_CHANGED;
-            }
->>>>>>> 54b6cfa... Initial Contribution
             if (format != o.format) {
                 format = o.format;
                 changes |= FORMAT_CHANGED;
@@ -1577,7 +1383,6 @@ public interface WindowManager extends ViewManager {
                 dimAmount = o.dimAmount;
                 changes |= DIM_AMOUNT_CHANGED;
             }
-<<<<<<< HEAD
             if (screenBrightness != o.screenBrightness) {
                 screenBrightness = o.screenBrightness;
                 changes |= SCREEN_BRIGHTNESS_CHANGED;
@@ -1609,9 +1414,6 @@ public interface WindowManager extends ViewManager {
                 changes |= INPUT_FEATURES_CHANGED;
             }
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
             return changes;
         }
     
@@ -1628,7 +1430,6 @@ public interface WindowManager extends ViewManager {
     
         @Override
         public String toString() {
-<<<<<<< HEAD
             StringBuilder sb = new StringBuilder(256);
             sb.append("WM.LayoutParams{");
             sb.append("(");
@@ -1754,19 +1555,6 @@ public interface WindowManager extends ViewManager {
             }
         }
 
-=======
-            return "WM.LayoutParams{"
-                + Integer.toHexString(System.identityHashCode(this))
-                + " (" + x + "," + y + ")("
-                + (width==FILL_PARENT?"fill_parent":(width==WRAP_CONTENT?"wrap_content":width))
-                + "x"
-                + (height==FILL_PARENT?"fill_parent":(height==WRAP_CONTENT?"wrap_content":height))
-                + ") gr=#" + Integer.toHexString(gravity)
-                + " ty=" + type + " fl=#" + Integer.toHexString(flags)
-                + " fmt=" + format + "}";
-        }
-    
->>>>>>> 54b6cfa... Initial Contribution
         private CharSequence mTitle = "";
     }
 }

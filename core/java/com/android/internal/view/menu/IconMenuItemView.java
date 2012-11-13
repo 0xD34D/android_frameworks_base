@@ -26,13 +26,9 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.SoundEffectConstants;
 import android.view.View;
-<<<<<<< HEAD
 import android.view.ViewDebug;
 import android.widget.TextView;
 import android.text.Layout;
-=======
-import android.widget.TextView;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * The item view for each item in the {@link IconMenuView}.  
@@ -116,13 +112,10 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
         setEnabled(itemData.isEnabled());
     }
 
-<<<<<<< HEAD
     public void setItemData(MenuItemImpl data) {
         mItemData = data;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public boolean performClick() {
         // Let the view's click listener have top priority (the More button relies on this)
@@ -154,12 +147,6 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
     }
     
     void setCaptionMode(boolean shortcut) {
-<<<<<<< HEAD
-=======
-
-        mShortcutCaptionMode = shortcut;
-        
->>>>>>> 54b6cfa... Initial Contribution
         /*
          * If there is no item model, don't do any of the below (for example,
          * the 'More' item doesn't have a model)
@@ -168,17 +155,11 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
             return;
         }
         
-<<<<<<< HEAD
         mShortcutCaptionMode = shortcut && (mItemData.shouldShowShortcut());
         
         CharSequence text = mItemData.getTitleForItemView(this);
         
         if (mShortcutCaptionMode) {
-=======
-        CharSequence text = mItemData.getTitleForItemView(this);
-        
-        if (shortcut) {
->>>>>>> 54b6cfa... Initial Contribution
             
             if (mShortcutCaption == null) {
                 mShortcutCaption = mItemData.getShortcutLabel();
@@ -200,12 +181,9 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
             
             // Set the compound drawables
             setCompoundDrawables(null, icon, null, null);
-<<<<<<< HEAD
             
             // When there is an icon, make sure the text is at the bottom
             setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
             /*
              * Request a layout to reposition the icon. The positioning of icon
@@ -215,24 +193,17 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
             requestLayout();
         } else {
             setCompoundDrawables(null, null, null, null);
-<<<<<<< HEAD
             
             // When there is no icon, make sure the text is centered vertically
             setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     public void setItemInvoker(ItemInvoker itemInvoker) {
         mItemInvoker = itemInvoker;
     }
-<<<<<<< HEAD
     
     @ViewDebug.CapturedViewProperty(retrieveReturn = true)
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
     public MenuItemImpl getItemData() {
         return mItemData;
     }
@@ -270,7 +241,6 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
         positionIcon();
     }
 
-<<<<<<< HEAD
     @Override
     protected void onTextChanged(CharSequence text, int start, int before, int after) {
         super.onTextChanged(text, start, before, after);
@@ -297,8 +267,6 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
         return lp;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Positions the icon vertically (horizontal centering is taken care of by
      * the TextView's gravity).
@@ -313,15 +281,10 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
         Rect tmpRect = mPositionIconOutput;
         getLineBounds(0, tmpRect);
         mPositionIconAvailable.set(0, 0, getWidth(), tmpRect.top);
-<<<<<<< HEAD
         final int layoutDirection = getResolvedLayoutDirection();
         Gravity.apply(Gravity.CENTER_VERTICAL | Gravity.LEFT, mIcon.getIntrinsicWidth(), mIcon
                 .getIntrinsicHeight(), mPositionIconAvailable, mPositionIconOutput,
                 layoutDirection);
-=======
-        Gravity.apply(Gravity.CENTER_VERTICAL | Gravity.LEFT, mIcon.getIntrinsicWidth(), mIcon
-                .getIntrinsicHeight(), mPositionIconAvailable, mPositionIconOutput);
->>>>>>> 54b6cfa... Initial Contribution
         mIcon.setBounds(mPositionIconOutput);
     }
 
@@ -350,9 +313,5 @@ public final class IconMenuItemView extends TextView implements MenuView.ItemVie
     public boolean showsIcon() {
         return true;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
 }

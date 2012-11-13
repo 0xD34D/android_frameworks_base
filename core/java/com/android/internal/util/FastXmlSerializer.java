@@ -125,11 +125,7 @@ public class FastXmlSerializer implements XmlSerializer {
             String escape = escapes[c];
             if (escape == null) continue;
             if (lastPos < pos) append(string, lastPos, pos-lastPos);
-<<<<<<< HEAD
             lastPos = pos + 1;
-=======
-            lastPos = pos;
->>>>>>> 54b6cfa... Initial Contribution
             append(escape);
         }
         if (lastPos < pos) append(string, lastPos, pos-lastPos);
@@ -147,11 +143,7 @@ public class FastXmlSerializer implements XmlSerializer {
             String escape = escapes[c];
             if (escape == null) continue;
             if (lastPos < pos) append(buf, lastPos, pos-lastPos);
-<<<<<<< HEAD
             lastPos = pos + 1;
-=======
-            lastPos = pos;
->>>>>>> 54b6cfa... Initial Contribution
             append(escape);
         }
         if (lastPos < pos) append(buf, lastPos, pos-lastPos);

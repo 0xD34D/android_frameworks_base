@@ -16,11 +16,8 @@
 
 package android.preference;
 
-<<<<<<< HEAD
 import com.android.internal.util.XmlUtils;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.io.IOException;
 import java.util.Map;
 
@@ -44,10 +41,7 @@ import android.util.Log;
 class PreferenceInflater extends GenericInflater<Preference, PreferenceGroup> {
     private static final String TAG = "PreferenceInflater";
     private static final String INTENT_TAG_NAME = "intent";
-<<<<<<< HEAD
     private static final String EXTRA_TAG_NAME = "extra";
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     private PreferenceManager mPreferenceManager;
     
@@ -82,15 +76,10 @@ class PreferenceInflater extends GenericInflater<Preference, PreferenceGroup> {
             try {
                 intent = Intent.parseIntent(getContext().getResources(), parser, attrs);
             } catch (IOException e) {
-<<<<<<< HEAD
                 XmlPullParserException ex = new XmlPullParserException(
                         "Error parsing preference");
                 ex.initCause(e);
                 throw ex;
-=======
-                Log.w(TAG, "Could not parse Intent.");
-                Log.w(TAG, e);
->>>>>>> 54b6cfa... Initial Contribution
             }
             
             if (intent != null) {
@@ -98,7 +87,6 @@ class PreferenceInflater extends GenericInflater<Preference, PreferenceGroup> {
             }
             
             return true;
-<<<<<<< HEAD
         } else if (tag.equals(EXTRA_TAG_NAME)) {
             getContext().getResources().parseBundleExtra(EXTRA_TAG_NAME, attrs,
                     parentPreference.getExtras());
@@ -111,8 +99,6 @@ class PreferenceInflater extends GenericInflater<Preference, PreferenceGroup> {
                 throw ex;
             }
             return true;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
         
         return false;

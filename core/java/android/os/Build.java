@@ -16,31 +16,21 @@
 
 package android.os;
 
-<<<<<<< HEAD
 import com.android.internal.telephony.TelephonyProperties;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * Information about the current build, extracted from system properties.
  */
 public class Build {
     /** Value used for when a build property is unknown. */
-<<<<<<< HEAD
     public static final String UNKNOWN = "unknown";
-=======
-    private static final String UNKNOWN = "unknown";
->>>>>>> 54b6cfa... Initial Contribution
 
     /** Either a changelist number, or a label like "M4-rc20". */
     public static final String ID = getString("ro.build.id");
 
-<<<<<<< HEAD
     /** A build ID string meant for displaying to the user */
     public static final String DISPLAY = getString("ro.build.display.id");
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** The name of the overall product. */
     public static final String PRODUCT = getString("ro.product.name");
 
@@ -50,7 +40,6 @@ public class Build {
     /** The name of the underlying board, like "goldfish". */
     public static final String BOARD = getString("ro.product.board");
 
-<<<<<<< HEAD
     /** The name of the instruction set (CPU type + ABI convention) of native code. */
     public static final String CPU_ABI = getString("ro.product.cpu.abi");
 
@@ -60,15 +49,12 @@ public class Build {
     /** The manufacturer of the product/hardware. */
     public static final String MANUFACTURER = getString("ro.product.manufacturer");
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** The brand (e.g., carrier) the software is customized for, if any. */
     public static final String BRAND = getString("ro.product.brand");
 
     /** The end-user-visible name for the end product. */
     public static final String MODEL = getString("ro.product.model");
 
-<<<<<<< HEAD
     /** The system bootloader version number. */
     public static final String BOOTLOADER = getString("ro.bootloader");
 
@@ -89,8 +75,6 @@ public class Build {
     /** A hardware serial number, if available.  Alphanumeric only, case-insensitive. */ 
     public static final String SERIAL = getString("ro.serialno");
   
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** Various version strings. */
     public static class VERSION {
         /**
@@ -106,7 +90,6 @@ public class Build {
         public static final String RELEASE = getString("ro.build.version.release");
 
         /**
-<<<<<<< HEAD
          * The user-visible SDK version of the framework in its raw String
          * representation; use {@link #SDK_INT} instead.
          * 
@@ -430,13 +413,6 @@ public class Build {
         public static final int JELLY_BEAN = 16;
     }
     
-=======
-         * The user-visible SDK version of the framework. It is an integer starting at 1.
-         */
-        public static final String SDK = getString("ro.build.version.sdk");
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     /** The type of build, like "user" or "eng". */
     public static final String TYPE = getString("ro.build.type");
 
@@ -451,7 +427,6 @@ public class Build {
     public static final String USER = getString("ro.build.user");
     public static final String HOST = getString("ro.build.host");
 
-<<<<<<< HEAD
     /**
      * Returns true if we are running a debug build such as "user-debug" or "eng".
      * @hide
@@ -467,8 +442,6 @@ public class Build {
         return SystemProperties.get(TelephonyProperties.PROPERTY_BASEBAND_VERSION, null);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private static String getString(String property) {
         return SystemProperties.get(property, UNKNOWN);
     }

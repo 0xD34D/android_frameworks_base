@@ -23,7 +23,6 @@ import com.android.internal.util.ArrayUtils;
  * there can be gaps in the indices.  It is intended to be more efficient
  * than using a HashMap to map Integers to Objects.
  */
-<<<<<<< HEAD
 public class SparseArray<E> implements Cloneable {
     private static final Object DELETED = new Object();
     private boolean mGarbage = false;
@@ -32,12 +31,6 @@ public class SparseArray<E> implements Cloneable {
     private Object[] mValues;
     private int mSize;
 
-=======
-public class SparseArray<E> {
-    private static final Object DELETED = new Object();
-    private boolean mGarbage = false;
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Creates a new SparseArray containing no mappings.
      */
@@ -58,7 +51,6 @@ public class SparseArray<E> {
         mSize = 0;
     }
 
-<<<<<<< HEAD
     @Override
     @SuppressWarnings("unchecked")
     public SparseArray<E> clone() {
@@ -73,8 +65,6 @@ public class SparseArray<E> {
         return clone;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Gets the Object mapped from the specified key, or <code>null</code>
      * if no such mapping has been made.
@@ -87,10 +77,7 @@ public class SparseArray<E> {
      * Gets the Object mapped from the specified key, or the specified Object
      * if no such mapping has been made.
      */
-<<<<<<< HEAD
     @SuppressWarnings("unchecked")
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public E get(int key, E valueIfKeyNotFound) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
@@ -122,7 +109,6 @@ public class SparseArray<E> {
         delete(key);
     }
 
-<<<<<<< HEAD
     /**
      * Removes the mapping at the specified index.
      */
@@ -133,8 +119,6 @@ public class SparseArray<E> {
         }
     }
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private void gc() {
         // Log.e("SparseArray", "gc start with " + mSize);
 
@@ -150,10 +134,7 @@ public class SparseArray<E> {
                 if (i != o) {
                     keys[o] = keys[i];
                     values[o] = val;
-<<<<<<< HEAD
                     values[i] = null;
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 }
 
                 o++;
@@ -248,10 +229,7 @@ public class SparseArray<E> {
      * the value from the <code>index</code>th key-value mapping that this
      * SparseArray stores.  
      */
-<<<<<<< HEAD
     @SuppressWarnings("unchecked")
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public E valueAt(int index) {
         if (mGarbage) {
             gc();
@@ -374,23 +352,4 @@ public class SparseArray<E> {
         else
             return ~high;
     }
-<<<<<<< HEAD
-=======
-
-    private void checkIntegrity() {
-        for (int i = 1; i < mSize; i++) {
-            if (mKeys[i] <= mKeys[i - 1]) {
-                for (int j = 0; j < mSize; j++) {
-                    Log.e("FAIL", j + ": " + mKeys[j] + " -> " + mValues[j]);
-                }
-
-                throw new RuntimeException();
-            }
-        }
-    }
-
-    private int[] mKeys;
-    private Object[] mValues;
-    private int mSize;
->>>>>>> 54b6cfa... Initial Contribution
 }

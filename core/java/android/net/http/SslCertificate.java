@@ -16,7 +16,6 @@
 
 package android.net.http;
 
-<<<<<<< HEAD
 import android.content.Context;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -39,17 +38,6 @@ import java.util.Date;
 import java.util.Vector;
 
 import com.android.org.bouncycastle.asn1.x509.X509Name;
-=======
-import android.os.Bundle;
-
-import java.text.DateFormat;
-import java.util.Vector;
-
-import java.security.cert.X509Certificate;
-
-import org.bouncycastle.asn1.DERObjectIdentifier;
-import org.bouncycastle.asn1.x509.X509Name;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * SSL certificate info (certificate details) class
@@ -57,7 +45,6 @@ import org.bouncycastle.asn1.x509.X509Name;
 public class SslCertificate {
 
     /**
-<<<<<<< HEAD
      * SimpleDateFormat pattern for an ISO 8601 date
      */
     private static String ISO_8601_DATE_FORMAT = "yyyy-MM-dd HH:mm:ssZ";
@@ -66,34 +53,20 @@ public class SslCertificate {
      * Name of the entity this certificate is issued to
      */
     private final DName mIssuedTo;
-=======
-     * Name of the entity this certificate is issued to
-     */
-    private DName mIssuedTo;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Name of the entity this certificate is issued by
      */
-<<<<<<< HEAD
     private final DName mIssuedBy;
-=======
-    private DName mIssuedBy;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Not-before date from the validity period
      */
-<<<<<<< HEAD
     private final Date mValidNotBefore;
-=======
-    private String mValidNotBefore;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Not-after date from the validity period
      */
-<<<<<<< HEAD
     private final Date mValidNotAfter;
 
     /**
@@ -106,21 +79,13 @@ public class SslCertificate {
     private final X509Certificate mX509Certificate;
 
     /**
-=======
-    private String mValidNotAfter;
-
-     /**
->>>>>>> 54b6cfa... Initial Contribution
      * Bundle key names
      */
     private static final String ISSUED_TO = "issued-to";
     private static final String ISSUED_BY = "issued-by";
     private static final String VALID_NOT_BEFORE = "valid-not-before";
     private static final String VALID_NOT_AFTER = "valid-not-after";
-<<<<<<< HEAD
     private static final String X509_CERTIFICATE = "x509-certificate";
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Saves the certificate state to a bundle
@@ -128,7 +93,6 @@ public class SslCertificate {
      * @return A bundle with the certificate stored in it or null if fails
      */
     public static Bundle saveState(SslCertificate certificate) {
-<<<<<<< HEAD
         if (certificate == null) {
             return null;
         }
@@ -144,20 +108,6 @@ public class SslCertificate {
             } catch (CertificateEncodingException ignored) {
             }
         }
-=======
-        Bundle bundle = null;
-
-        if (certificate != null) {
-            bundle = new Bundle();
-
-            bundle.putString(ISSUED_TO, certificate.getIssuedTo().getDName());
-            bundle.putString(ISSUED_BY, certificate.getIssuedBy().getDName());
-
-            bundle.putString(VALID_NOT_BEFORE, certificate.getValidNotBefore());
-            bundle.putString(VALID_NOT_AFTER, certificate.getValidNotAfter());
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         return bundle;
     }
 
@@ -167,7 +117,6 @@ public class SslCertificate {
      * @return The SSL certificate stored in the bundle or null if fails
      */
     public static SslCertificate restoreState(Bundle bundle) {
-<<<<<<< HEAD
         if (bundle == null) {
             return null;
         }
@@ -205,17 +154,6 @@ public class SslCertificate {
     public SslCertificate(
             String issuedTo, String issuedBy, String validNotBefore, String validNotAfter) {
         this(issuedTo, issuedBy, parseDate(validNotBefore), parseDate(validNotAfter), null);
-=======
-        if (bundle != null) {
-            return new SslCertificate(
-                bundle.getString(ISSUED_TO),
-                bundle.getString(ISSUED_BY),
-                bundle.getString(VALID_NOT_BEFORE),
-                bundle.getString(VALID_NOT_AFTER));
-        }
-
-        return null;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -224,23 +162,12 @@ public class SslCertificate {
      * @param issuedBy The entity that issued this certificate
      * @param validNotBefore The not-before date from the certificate validity period
      * @param validNotAfter The not-after date from the certificate validity period
-<<<<<<< HEAD
      * @deprecated Use {@link #SslCertificate(X509Certificate)}
      */
     @Deprecated
     public SslCertificate(
             String issuedTo, String issuedBy, Date validNotBefore, Date validNotAfter) {
         this(issuedTo, issuedBy, validNotBefore, validNotAfter, null);
-=======
-     */
-    public SslCertificate(
-        String issuedTo, String issuedBy, String validNotBefore, String validNotAfter) {
-        mIssuedTo = new DName(issuedTo);
-        mIssuedBy = new DName(issuedBy);
-
-        mValidNotBefore = validNotBefore;
-        mValidNotAfter = validNotAfter;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -250,7 +177,6 @@ public class SslCertificate {
     public SslCertificate(X509Certificate certificate) {
         this(certificate.getSubjectDN().getName(),
              certificate.getIssuerDN().getName(),
-<<<<<<< HEAD
              certificate.getNotBefore(),
              certificate.getNotAfter(),
              certificate);
@@ -265,17 +191,12 @@ public class SslCertificate {
         mValidNotBefore = cloneDate(validNotBefore);
         mValidNotAfter  = cloneDate(validNotAfter);
         mX509Certificate = x509Certificate;
-=======
-             DateFormat.getInstance().format(certificate.getNotBefore()),
-             DateFormat.getInstance().format(certificate.getNotAfter()));
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * @return Not-before date from the certificate validity period or
      * "" if none has been set
      */
-<<<<<<< HEAD
     public Date getValidNotBeforeDate() {
         return cloneDate(mValidNotBefore);
     }
@@ -289,17 +210,12 @@ public class SslCertificate {
     @Deprecated
     public String getValidNotBefore() {
         return formatDate(mValidNotBefore);
-=======
-    public String getValidNotBefore() {
-        return mValidNotBefore != null ? mValidNotBefore : "";
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * @return Not-after date from the certificate validity period or
      * "" if none has been set
      */
-<<<<<<< HEAD
     public Date getValidNotAfterDate() {
         return cloneDate(mValidNotAfter);
     }
@@ -313,10 +229,6 @@ public class SslCertificate {
     @Deprecated
     public String getValidNotAfter() {
         return formatDate(mValidNotAfter);
-=======
-    public String getValidNotAfter() {
-        return mValidNotAfter != null ? mValidNotAfter : "";
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -334,7 +246,6 @@ public class SslCertificate {
     }
 
     /**
-<<<<<<< HEAD
      * Convenience for UI presentation, not intended as public API.
      */
     private static String getSerialNumber(X509Certificate x509Certificate) {
@@ -419,14 +330,6 @@ public class SslCertificate {
             return null;
         }
         return (Date) date.clone();
-=======
-     * @return A string representation of this certificate for debugging
-     */
-    public String toString() {
-        return
-            "Issued to: " + mIssuedTo.getDName() + ";\n" +
-            "Issued by: " + mIssuedBy.getDName() + ";\n";
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -462,7 +365,6 @@ public class SslCertificate {
          */
         public DName(String dName) {
             if (dName != null) {
-<<<<<<< HEAD
                 mDName = dName;
                 try {
                     X509Name x509Name = new X509Name(dName);
@@ -488,28 +390,6 @@ public class SslCertificate {
                     }
                 } catch (IllegalArgumentException ex) {
                     // thrown if there is an error parsing the string
-=======
-                X509Name x509Name = new X509Name(mDName = dName);
-
-                Vector val = x509Name.getValues();
-                Vector oid = x509Name.getOIDs();
-
-                for (int i = 0; i < oid.size(); i++) {
-                    if (oid.elementAt(i).equals(X509Name.CN)) {
-                        mCName = (String) val.elementAt(i);
-                        continue;
-                    }
-
-                    if (oid.elementAt(i).equals(X509Name.O)) {
-                        mOName = (String) val.elementAt(i);
-                        continue;
-                    }
-
-                    if (oid.elementAt(i).equals(X509Name.OU)) {
-                        mUName = (String) val.elementAt(i);
-                        continue;
-                    }
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -542,7 +422,6 @@ public class SslCertificate {
             return mUName != null ? mUName : "";
         }
     }
-<<<<<<< HEAD
 
     /**
      * Inflates the SSL certificate view (helper method).
@@ -612,6 +491,4 @@ public class SslCertificate {
         }
         return DateFormat.getDateFormat(context).format(certificateDate);
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

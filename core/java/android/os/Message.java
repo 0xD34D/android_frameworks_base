@@ -16,13 +16,7 @@
 
 package android.os;
 
-<<<<<<< HEAD
 import android.util.TimeUtils;
-=======
-import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * 
@@ -44,7 +38,6 @@ public final class Message implements Parcelable {
      */
     public int what;
 
-<<<<<<< HEAD
     /**
      * arg1 and arg2 are lower-cost alternatives to using
      * {@link #setData(Bundle) setData()} if you only need to store a
@@ -89,25 +82,6 @@ public final class Message implements Parcelable {
 
     /*package*/ int flags;
 
-=======
-    // Use these fields instead of using the class's Bundle if you can. 
-    /** arg1 and arg2 are lower-cost alternatives to using {@link #setData(Bundle) setData()}
-    if you only need to store a few integer values. */
-    public int arg1; 
-
-    /** arg1 and arg2 are lower-cost alternatives to using {@link #setData(Bundle) setData()}
-    if you only need to store a few integer values.*/ 
-    public int arg2;
-
-    /** An arbitrary object to send to the recipient.  This must be null when
-     * sending messages across processes. */
-    public Object obj;
-
-    /** Optional Messenger where replies to this message can be sent.
-     */
-    public Messenger replyTo;
-    
->>>>>>> 54b6cfa... Initial Contribution
     /*package*/ long when;
     
     /*package*/ Bundle data;
@@ -119,40 +93,23 @@ public final class Message implements Parcelable {
     // sometimes we store linked lists of these things
     /*package*/ Message next;
 
-<<<<<<< HEAD
     private static final Object sPoolSync = new Object();
     private static Message sPool;
     private static int sPoolSize = 0;
 
     private static final int MAX_POOL_SIZE = 50;
 
-=======
-    private static Object mPoolSync = new Object();
-    private static Message mPool;
-    private static int mPoolSize = 0;
-
-    private static final int MAX_POOL_SIZE = 10;
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return a new Message instance from the global pool. Allows us to
      * avoid allocating new objects in many cases.
      */
     public static Message obtain() {
-<<<<<<< HEAD
         synchronized (sPoolSync) {
             if (sPool != null) {
                 Message m = sPool;
                 sPool = m.next;
                 m.next = null;
                 sPoolSize--;
-=======
-        synchronized (mPoolSync) {
-            if (mPool != null) {
-                Message m = mPool;
-                mPool = m.next;
-                m.next = null;
->>>>>>> 54b6cfa... Initial Contribution
                 return m;
             }
         }
@@ -289,7 +246,6 @@ public final class Message implements Parcelable {
      * freed.
      */
     public void recycle() {
-<<<<<<< HEAD
         clearForRecycle();
 
         synchronized (sPoolSync) {
@@ -297,14 +253,6 @@ public final class Message implements Parcelable {
                 next = sPool;
                 sPool = this;
                 sPoolSize++;
-=======
-        synchronized (mPoolSync) {
-            if (mPoolSize < MAX_POOL_SIZE) {
-                clearForRecycle();
-                
-                next = mPool;
-                mPool = this;
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -315,10 +263,7 @@ public final class Message implements Parcelable {
      * target/callback of the original message.
      */
     public void copyFrom(Message o) {
-<<<<<<< HEAD
         this.flags = o.flags & ~FLAGS_TO_CLEAR_ON_COPY_FROM;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         this.what = o.what;
         this.arg1 = o.arg1;
         this.arg2 = o.arg2;
@@ -361,19 +306,14 @@ public final class Message implements Parcelable {
      * the <em>target</em> {@link Handler} that is receiving this Message to
      * dispatch it.  If
      * not set, the message will be dispatched to the receiving Handler's
-<<<<<<< HEAD
      * {@link Handler#handleMessage(Message Handler.handleMessage())}.
      */
-=======
-     * {@link Handler#handleMessage(Message Handler.handleMessage())}. */
->>>>>>> 54b6cfa... Initial Contribution
     public Runnable getCallback() {
         return callback;
     }
     
     /** 
      * Obtains a Bundle of arbitrary data associated with this
-<<<<<<< HEAD
      * event, lazily creating it if necessary. Set this value by calling
      * {@link #setData(Bundle)}.  Note that when transferring data across
      * processes via {@link Messenger}, you will need to set your ClassLoader
@@ -382,9 +322,6 @@ public final class Message implements Parcelable {
      * you retrieve them.
      * @see #peekData()
      * @see #setData(Bundle)
-=======
-     * event, lazily creating it if necessary. Set this value by calling {@link #setData(Bundle)}.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public Bundle getData() {
         if (data == null) {
@@ -396,30 +333,21 @@ public final class Message implements Parcelable {
 
     /** 
      * Like getData(), but does not lazily create the Bundle.  A null
-<<<<<<< HEAD
      * is returned if the Bundle does not already exist.  See
      * {@link #getData} for further information on this.
      * @see #getData()
      * @see #setData(Bundle)
-=======
-     * is returned if the Bundle does not already exist.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public Bundle peekData() {
         return data;
     }
 
-<<<<<<< HEAD
     /**
      * Sets a Bundle of arbitrary data values. Use arg1 and arg1 members 
      * as a lower cost way to send a few simple integer values, if you can.
      * @see #getData() 
      * @see #peekData()
      */
-=======
-    /** Sets a Bundle of arbitrary data values. Use arg1 and arg1 members 
-     * as a lower cost way to send a few simple integer values, if you can. */
->>>>>>> 54b6cfa... Initial Contribution
     public void setData(Bundle data) {
         this.data = data;
     }
@@ -432,7 +360,6 @@ public final class Message implements Parcelable {
         target.sendMessage(this);
     }
 
-<<<<<<< HEAD
     /**
      * Returns true if the message is asynchronous.
      *
@@ -477,9 +404,6 @@ public final class Message implements Parcelable {
 
     /*package*/ void clearForRecycle() {
         flags = 0;
-=======
-    /*package*/ void clearForRecycle() {
->>>>>>> 54b6cfa... Initial Contribution
         what = 0;
         arg1 = 0;
         arg2 = 0;
@@ -491,7 +415,6 @@ public final class Message implements Parcelable {
         data = null;
     }
 
-<<<<<<< HEAD
     /*package*/ boolean isInUse() {
         return ((flags & FLAG_IN_USE) == FLAG_IN_USE);
     }
@@ -500,32 +423,23 @@ public final class Message implements Parcelable {
         flags |= FLAG_IN_USE;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** Constructor (but the preferred way to get a Message is to call {@link #obtain() Message.obtain()}).
     */
     public Message() {
     }
 
     public String toString() {
-<<<<<<< HEAD
         return toString(SystemClock.uptimeMillis());
     }
 
     String toString(long now) {
-=======
->>>>>>> 54b6cfa... Initial Contribution
         StringBuilder   b = new StringBuilder();
         
         b.append("{ what=");
         b.append(what);
 
         b.append(" when=");
-<<<<<<< HEAD
         TimeUtils.formatDuration(when-now, b);
-=======
-        b.append(when);
->>>>>>> 54b6cfa... Initial Contribution
 
         if (arg1 != 0) {
             b.append(" arg1=");
@@ -565,20 +479,13 @@ public final class Message implements Parcelable {
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-<<<<<<< HEAD
         if (callback != null) {
             throw new RuntimeException(
                 "Can't marshal callbacks across processes.");
-=======
-        if (obj != null || callback != null) {
-            throw new RuntimeException(
-                "Can't marshal objects across processes.");
->>>>>>> 54b6cfa... Initial Contribution
         }
         dest.writeInt(what);
         dest.writeInt(arg1);
         dest.writeInt(arg2);
-<<<<<<< HEAD
         if (obj != null) {
             try {
                 Parcelable p = (Parcelable)obj;
@@ -591,14 +498,11 @@ public final class Message implements Parcelable {
         } else {
             dest.writeInt(0);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         dest.writeLong(when);
         dest.writeBundle(data);
         Messenger.writeMessengerOrNullToParcel(replyTo, dest);
     }
 
-<<<<<<< HEAD
     private void readFromParcel(Parcel source) {
         what = source.readInt();
         arg1 = source.readInt();
@@ -606,18 +510,8 @@ public final class Message implements Parcelable {
         if (source.readInt() != 0) {
             obj = source.readParcelable(getClass().getClassLoader());
         }
-=======
-    private final void readFromParcel(Parcel source) {
-        what = source.readInt();
-        arg1 = source.readInt();
-        arg2 = source.readInt();
->>>>>>> 54b6cfa... Initial Contribution
         when = source.readLong();
         data = source.readBundle();
         replyTo = Messenger.readMessengerOrNullFromParcel(source);
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution

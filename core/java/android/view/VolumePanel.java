@@ -16,7 +16,6 @@
 
 package android.view;
 
-<<<<<<< HEAD
 import com.android.internal.R;
 
 import android.app.Dialog;
@@ -43,27 +42,11 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import java.util.HashMap;
-=======
-import android.media.ToneGenerator;
-import android.media.AudioManager;
-import android.media.AudioService;
-import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Vibrator;
-import android.util.Config;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Handle the volume up and down keys.
  *
  * This code really should be moved elsewhere.
-<<<<<<< HEAD
  *
  * Seriously, it really really should be moved elsewhere.  This is used by
  * android.media.AudioService, which actually runs in the system process, to
@@ -75,15 +58,6 @@ public class VolumePanel extends Handler implements OnSeekBarChangeListener, Vie
 {
     private static final String TAG = "VolumePanel";
     private static boolean LOGD = false;
-=======
- * 
- * @hide
- */
-public class VolumePanel extends Handler
-{
-    private static final String TAG = "VolumePanel";
-    private static boolean LOGD = false || Config.LOGD;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * The delay before playing a sound. This small period exists so the user
@@ -92,11 +66,7 @@ public class VolumePanel extends Handler
      * PhoneWindow will implement this part.
      */
     public static final int PLAY_SOUND_DELAY = 300;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * The delay before vibrating. This small period exists so if the user is
      * moving to silent mode, it will not emit a short vibrate (it normally
@@ -106,24 +76,16 @@ public class VolumePanel extends Handler
     public static final int VIBRATE_DELAY = 300;
 
     private static final int VIBRATE_DURATION = 300;
-<<<<<<< HEAD
     private static final int BEEP_DURATION = 150;
     private static final int MAX_VOLUME = 100;
     private static final int FREE_DELAY = 10000;
     private static final int TIMEOUT_DELAY = 3000;
 
-=======
-    private static final int BEEP_DURATION = 150; 
-    private static final int MAX_VOLUME = 100;
-    private static final int FREE_DELAY = 10000;
-    
->>>>>>> 54b6cfa... Initial Contribution
     private static final int MSG_VOLUME_CHANGED = 0;
     private static final int MSG_FREE_RESOURCES = 1;
     private static final int MSG_PLAY_SOUND = 2;
     private static final int MSG_STOP_SOUNDS = 3;
     private static final int MSG_VIBRATE = 4;
-<<<<<<< HEAD
     private static final int MSG_TIMEOUT = 5;
     private static final int MSG_RINGER_MODE_CHANGED = 6;
     private static final int MSG_MUTE_CHANGED = 7;
@@ -241,29 +203,10 @@ public class VolumePanel extends Handler
         int iconRes;
         int iconMuteRes;
     }
-=======
-    
-    private final String RINGTONE_VOLUME_TEXT;
-    private final String MUSIC_VOLUME_TEXT;
-    private final String INCALL_VOLUME_TEXT;
-    private final String ALARM_VOLUME_TEXT;
-    private final String UNKNOWN_VOLUME_TEXT;
-    
-    protected Context mContext;
-    protected AudioService mAudioService;
-    
-    private Toast mToast;
-    private View mView;
-    private TextView mMessage;
-    private ImageView mOtherStreamIcon;
-    private ImageView mRingerStreamIcon;
-    private ProgressBar mLevel;
->>>>>>> 54b6cfa... Initial Contribution
 
     // Synchronize when accessing this
     private ToneGenerator mToneGenerators[];
     private Vibrator mVibrator;
-<<<<<<< HEAD
 
     public VolumePanel(final Context context, AudioService volumeService) {
         mContext = context;
@@ -575,38 +518,6 @@ public class VolumePanel extends Handler
         postMuteChanged(STREAM_MASTER, flags);
     }
 
-=======
-    
-    public VolumePanel(Context context, AudioService volumeService) {
-        mContext = context;
-        mAudioService = volumeService;
-        mToast = new Toast(context);
-    
-        RINGTONE_VOLUME_TEXT = context.getString(com.android.internal.R.string.volume_ringtone);
-        MUSIC_VOLUME_TEXT = context.getString(com.android.internal.R.string.volume_music);
-        INCALL_VOLUME_TEXT = context.getString(com.android.internal.R.string.volume_call);
-        ALARM_VOLUME_TEXT = context.getString(com.android.internal.R.string.volume_alarm);
-        UNKNOWN_VOLUME_TEXT = context.getString(com.android.internal.R.string.volume_unknown);
-        
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = mView = inflater.inflate(com.android.internal.R.layout.volume_adjust, null);
-        mMessage = (TextView) view.findViewById(com.android.internal.R.id.message);
-        mOtherStreamIcon = (ImageView) view.findViewById(com.android.internal.R.id.other_stream_icon);
-        mRingerStreamIcon = (ImageView) view.findViewById(com.android.internal.R.id.ringer_stream_icon);
-        mLevel = (ProgressBar) view.findViewById(com.android.internal.R.id.level);
-
-        mToneGenerators = new ToneGenerator[AudioManager.NUM_STREAMS];
-        mVibrator = new Vibrator();
-    }
-    
-    public void postVolumeChanged(int streamType, int flags) {
-        if (hasMessages(MSG_VOLUME_CHANGED)) return;
-        removeMessages(MSG_FREE_RESOURCES);
-        obtainMessage(MSG_VOLUME_CHANGED, streamType, flags).sendToTarget();
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Override this if you have other work to do when the volume changes (for
      * example, vibrating, playing a sound, etc.). Make sure to call through to
@@ -615,7 +526,6 @@ public class VolumePanel extends Handler
     protected void onVolumeChanged(int streamType, int flags) {
 
         if (LOGD) Log.d(TAG, "onVolumeChanged(streamType: " + streamType + ", flags: " + flags + ")");
-<<<<<<< HEAD
 
         if ((flags & AudioManager.FLAG_SHOW_UI) != 0) {
             synchronized (this) {
@@ -631,24 +541,11 @@ public class VolumePanel extends Handler
             sendMessageDelayed(obtainMessage(MSG_PLAY_SOUND, streamType, flags), PLAY_SOUND_DELAY);
         }
 
-=======
-        
-        if ((flags & AudioManager.FLAG_SHOW_UI) != 0) {
-            onShowVolumeChanged(streamType, flags);
-        }
-        
-        if ((flags & AudioManager.FLAG_PLAY_SOUND) != 0) {
-            removeMessages(MSG_PLAY_SOUND);
-            sendMessageDelayed(obtainMessage(MSG_PLAY_SOUND, streamType, flags), PLAY_SOUND_DELAY);
-        }
-        
->>>>>>> 54b6cfa... Initial Contribution
         if ((flags & AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE) != 0) {
             removeMessages(MSG_PLAY_SOUND);
             removeMessages(MSG_VIBRATE);
             onStopSounds();
         }
-<<<<<<< HEAD
 
         removeMessages(MSG_FREE_RESOURCES);
         sendMessageDelayed(obtainMessage(MSG_FREE_RESOURCES), FREE_DELAY);
@@ -673,23 +570,11 @@ public class VolumePanel extends Handler
 
         mRingIsSilent = false;
 
-=======
-        
-        removeMessages(MSG_FREE_RESOURCES);
-        sendMessageDelayed(obtainMessage(MSG_FREE_RESOURCES), FREE_DELAY); 
-    }
-
-    protected void onShowVolumeChanged(int streamType, int flags) {
-        int index = mAudioService.getStreamVolume(streamType);
-        String message = UNKNOWN_VOLUME_TEXT;
-        
->>>>>>> 54b6cfa... Initial Contribution
         if (LOGD) {
             Log.d(TAG, "onShowVolumeChanged(streamType: " + streamType
                     + ", flags: " + flags + "), index: " + index);
         }
 
-<<<<<<< HEAD
         // get max volume for progress bar
 
         int max = getStreamMaxVolume(streamType);
@@ -727,34 +612,10 @@ public class VolumePanel extends Handler
                  */
                 index++;
                 max++;
-=======
-        switch (streamType) {
-            
-            case AudioManager.STREAM_RING: {
-                message = RINGTONE_VOLUME_TEXT;
-                setRingerIcon(index);
-                break;
-            }
-                
-            case AudioManager.STREAM_MUSIC: {
-                message = MUSIC_VOLUME_TEXT;
-                setOtherIcon(index);
-                break;
-            }
-                
-            case AudioManager.STREAM_VOICE_CALL: {
-                message = INCALL_VOLUME_TEXT;
-                /*
-                 * For in-call voice call volume, there is no inaudible volume
-                 * level, so never show the mute icon
-                 */
-                setOtherIcon(index == 0 ? 1 : index);
->>>>>>> 54b6cfa... Initial Contribution
                 break;
             }
 
             case AudioManager.STREAM_ALARM: {
-<<<<<<< HEAD
                 break;
             }
 
@@ -780,15 +641,10 @@ public class VolumePanel extends Handler
 
             case AudioService.STREAM_REMOTE_MUSIC: {
                 if (LOGD) { Log.d(TAG, "showing remote volume "+index+" over "+ max); }
-=======
-                message = ALARM_VOLUME_TEXT;
-                setOtherIcon(index);
->>>>>>> 54b6cfa... Initial Contribution
                 break;
             }
         }
 
-<<<<<<< HEAD
         StreamControl sc = mStreamControls.get(streamType);
         if (sc != null) {
             if (sc.seekbarView.getMax() != max) {
@@ -822,31 +678,6 @@ public class VolumePanel extends Handler
                 mAudioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
             sendMessageDelayed(obtainMessage(MSG_VIBRATE), VIBRATE_DELAY);
         }
-=======
-        if (!mMessage.getText().equals(message)) {
-            mMessage.setText(message);
-        }
-
-        int max = mAudioService.getStreamMaxVolume(streamType);
-        if (max != mLevel.getMax()) {
-            mLevel.setMax(max);
-        }
-        mLevel.setProgress(index);
-        
-        mToast.setView(mView);
-        mToast.setDuration(Toast.LENGTH_SHORT);
-        mToast.setGravity(Gravity.TOP, 0, 0);
-        mToast.show();
-        
-        // Do a little vibrate if applicable (only when going into vibrate mode)
-        if ((flags & AudioManager.FLAG_VIBRATE) != 0 && 
-                mAudioService.isStreamAffectedByRingerMode(streamType) &&
-                mAudioService.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE &&
-                mAudioService.shouldVibrate(AudioManager.VIBRATE_TYPE_RINGER)) {
-            sendMessageDelayed(obtainMessage(MSG_VIBRATE), VIBRATE_DELAY);
-        }
-        
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     protected void onPlaySound(int streamType, int flags) {
@@ -856,7 +687,6 @@ public class VolumePanel extends Handler
             // Force stop right now
             onStopSounds();
         }
-<<<<<<< HEAD
 
         synchronized (this) {
             ToneGenerator toneGen = getOrCreateToneGenerator(streamType);
@@ -872,21 +702,6 @@ public class VolumePanel extends Handler
         synchronized (this) {
             int numStreamTypes = AudioSystem.getNumStreamTypes();
             for (int i = numStreamTypes - 1; i >= 0; i--) {
-=======
-        
-        synchronized (this) {
-            ToneGenerator toneGen = getOrCreateToneGenerator(streamType);
-            toneGen.startTone(ToneGenerator.TONE_PROP_BEEP);
-        }
-
-        sendMessageDelayed(obtainMessage(MSG_STOP_SOUNDS), BEEP_DURATION);
-    }
-
-    protected void onStopSounds() {
-        
-        synchronized (this) {
-            for (int i = AudioManager.NUM_STREAMS - 1; i >= 0; i--) {
->>>>>>> 54b6cfa... Initial Contribution
                 ToneGenerator toneGen = mToneGenerators[i];
                 if (toneGen != null) {
                     toneGen.stopTone();
@@ -894,7 +709,6 @@ public class VolumePanel extends Handler
             }
         }
     }
-<<<<<<< HEAD
 
     protected void onVibrate() {
 
@@ -972,24 +786,10 @@ public class VolumePanel extends Handler
         }
     }
 
-=======
-    
-    protected void onVibrate() {
-        
-        // Make sure we ended up in vibrate ringer mode
-        if (mAudioService.getRingerMode() != AudioManager.RINGER_MODE_VIBRATE) {
-            return;
-        }
-        
-        mVibrator.vibrate(VIBRATE_DURATION);
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Lock on this VolumePanel instance as long as you use the returned ToneGenerator.
      */
     private ToneGenerator getOrCreateToneGenerator(int streamType) {
-<<<<<<< HEAD
         if (streamType == STREAM_MASTER) return null;
         synchronized (this) {
             if (mToneGenerators[streamType] == null) {
@@ -1021,51 +821,6 @@ public class VolumePanel extends Handler
     }
 
     protected void onFreeResources() {
-=======
-        synchronized (this) {
-            if (mToneGenerators[streamType] == null) {
-                return mToneGenerators[streamType] = new ToneGenerator(streamType, MAX_VOLUME);
-            } else {
-                return mToneGenerators[streamType];
-            }
-        }
-    }
-    
-    private void setOtherIcon(int index) {
-        mRingerStreamIcon.setVisibility(View.GONE);
-        mOtherStreamIcon.setVisibility(View.VISIBLE);
-        
-        mOtherStreamIcon.setImageResource(index == 0
-                ? com.android.internal.R.drawable.ic_volume_off_small
-                : com.android.internal.R.drawable.ic_volume_small);
-    }
-
-    private void setRingerIcon(int index) {
-        mOtherStreamIcon.setVisibility(View.GONE);
-        mRingerStreamIcon.setVisibility(View.VISIBLE);
-
-        int ringerMode = mAudioService.getRingerMode();
-        int icon;
-
-        if (LOGD) Log.d(TAG, "setRingerIcon(index: " + index+ "), ringerMode: " + ringerMode);
-
-        if (ringerMode == AudioManager.RINGER_MODE_SILENT) {
-            icon = com.android.internal.R.drawable.ic_volume_off;
-        } else if (ringerMode == AudioManager.RINGER_MODE_VIBRATE) {
-            icon = com.android.internal.R.drawable.ic_vibrate;
-        } else {
-            icon = com.android.internal.R.drawable.ic_volume;
-        }
-        mRingerStreamIcon.setImageResource(icon);
-    }
-    
-    protected void onFreeResources() {
-        // We'll keep the views, just ditch the cached drawable and hence
-        // bitmaps
-        mOtherStreamIcon.setImageDrawable(null);
-        mRingerStreamIcon.setImageDrawable(null);
-        
->>>>>>> 54b6cfa... Initial Contribution
         synchronized (this) {
             for (int i = mToneGenerators.length - 1; i >= 0; i--) {
                 if (mToneGenerators[i] != null) {
@@ -1075,51 +830,31 @@ public class VolumePanel extends Handler
             }
         }
     }
-<<<<<<< HEAD
 
     @Override
     public void handleMessage(Message msg) {
         switch (msg.what) {
 
-=======
-    
-    @Override
-    public void handleMessage(Message msg) {
-        switch (msg.what) {
-            
->>>>>>> 54b6cfa... Initial Contribution
             case MSG_VOLUME_CHANGED: {
                 onVolumeChanged(msg.arg1, msg.arg2);
                 break;
             }
-<<<<<<< HEAD
 
             case MSG_MUTE_CHANGED: {
                 onMuteChanged(msg.arg1, msg.arg2);
                 break;
             }
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             case MSG_FREE_RESOURCES: {
                 onFreeResources();
                 break;
             }
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             case MSG_STOP_SOUNDS: {
                 onStopSounds();
                 break;
             }
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             case MSG_PLAY_SOUND: {
                 onPlaySound(msg.arg1, msg.arg2);
                 break;
@@ -1129,7 +864,6 @@ public class VolumePanel extends Handler
                 onVibrate();
                 break;
             }
-<<<<<<< HEAD
 
             case MSG_TIMEOUT: {
                 if (mDialog.isShowing()) {
@@ -1205,10 +939,4 @@ public class VolumePanel extends Handler
         }
         resetTimeout();
     }
-=======
-            
-        }
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
 }

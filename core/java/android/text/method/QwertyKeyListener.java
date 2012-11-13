@@ -16,44 +16,25 @@
 
 package android.text.method;
 
-<<<<<<< HEAD
 import android.text.*;
 import android.text.method.TextKeyListener.Capitalize;
 import android.util.SparseArray;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
-=======
-import android.os.Message;
-import android.os.Handler;
-import android.text.*;
-import android.text.method.TextKeyListener.Capitalize;
-import android.util.SparseArray;
-import android.util.SparseIntArray;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.TextView;
-
-import java.util.HashMap;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * This is the standard key listener for alphabetic input on qwerty
  * keyboards.  You should generally not need to instantiate this yourself;
  * TextKeyListener will do it for you.
-<<<<<<< HEAD
  * <p></p>
  * As for all implementations of {@link KeyListener}, this class is only concerned
  * with hardware keyboards.  Software input methods have no obligation to trigger
  * the methods in this class.
-=======
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class QwertyKeyListener extends BaseKeyListener {
     private static QwertyKeyListener[] sInstance =
         new QwertyKeyListener[Capitalize.values().length * 2];
-<<<<<<< HEAD
     private static QwertyKeyListener sFullKeyboardInstance;
 
     private Capitalize mAutoCap;
@@ -68,38 +49,22 @@ public class QwertyKeyListener extends BaseKeyListener {
 
     public QwertyKeyListener(Capitalize cap, boolean autoText) {
         this(cap, autoText, false);
-=======
-
-    public QwertyKeyListener(Capitalize cap, boolean autotext) {
-        mAutoCap = cap;
-        mAutoText = autotext;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Returns a new or existing instance with the specified capitalization
      * and correction properties.
      */
-<<<<<<< HEAD
     public static QwertyKeyListener getInstance(boolean autoText, Capitalize cap) {
         int off = cap.ordinal() * 2 + (autoText ? 1 : 0);
 
         if (sInstance[off] == null) {
             sInstance[off] = new QwertyKeyListener(cap, autoText);
-=======
-    public static QwertyKeyListener getInstance(boolean autotext,
-                                              Capitalize cap) {
-        int off = cap.ordinal() * 2 + (autotext ? 1 : 0);
-
-        if (sInstance[off] == null) {
-            sInstance[off] = new QwertyKeyListener(cap, autotext);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         return sInstance[off];
     }
 
-<<<<<<< HEAD
     /**
      * Gets an instance of the listener suitable for use with full keyboards.
      * Disables auto-capitalization, auto-text and long-press initiated on-screen
@@ -116,8 +81,6 @@ public class QwertyKeyListener extends BaseKeyListener {
         return makeTextContentType(mAutoCap, mAutoText);
     }
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public boolean onKeyDown(View view, Editable content,
                              int keyCode, KeyEvent event) {
         int selStart, selEnd;
@@ -145,7 +108,6 @@ public class QwertyKeyListener extends BaseKeyListener {
 
         // QWERTY keyboard normal case
 
-<<<<<<< HEAD
         int i = event.getUnicodeChar(event.getMetaState() | getMetaState(content));
 
         if (!mFullKeyboard) {
@@ -158,18 +120,6 @@ public class QwertyKeyListener extends BaseKeyListener {
                         resetMetaState(content);
                         return true;
                     }
-=======
-        int i = event.getUnicodeChar(getMetaState(content));
-
-        int count = event.getRepeatCount();
-        if (count > 0 && selStart == selEnd && selStart > 0) {
-            char c = content.charAt(selStart - 1);
-
-            if (c == i || c == Character.toUpperCase(i) && view != null) {
-                if (showCharacterPicker(view, content, c, false, count)) {
-                    resetMetaState(content);
-                    return true;
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -294,11 +244,7 @@ public class QwertyKeyListener extends BaseKeyListener {
             if ((pref & TextKeyListener.AUTO_TEXT) != 0 && mAutoText &&
                 (i == ' ' || i == '\t' || i == '\n' ||
                  i == ',' || i == '.' || i == '!' || i == '?' ||
-<<<<<<< HEAD
                  i == '"' || Character.getType(i) == Character.END_PUNCTUATION) &&
-=======
-                 i == '"' || i == ')' || i == ']') &&
->>>>>>> 54b6cfa... Initial Contribution
                  content.getSpanEnd(TextKeyListener.INHIBIT_REPLACEMENT)
                      != oldStart) {
                 int x;
@@ -336,7 +282,6 @@ public class QwertyKeyListener extends BaseKeyListener {
                         content.charAt(selEnd - 2) == ' ') {
                         char c = content.charAt(selEnd - 3);
 
-<<<<<<< HEAD
                         for (int j = selEnd - 3; j > 0; j--) {
                             if (c == '"' ||
                                 Character.getType(c) == Character.END_PUNCTUATION) {
@@ -347,9 +292,6 @@ public class QwertyKeyListener extends BaseKeyListener {
                         }
 
                         if (Character.isLetter(c) || Character.isDigit(c)) {
-=======
-                        if (Character.isLetter(c)) {
->>>>>>> 54b6cfa... Initial Contribution
                             content.replace(selEnd - 2, selEnd - 1, ".");
                         }
                     }
@@ -357,13 +299,9 @@ public class QwertyKeyListener extends BaseKeyListener {
             }
 
             return true;
-<<<<<<< HEAD
         } else if (keyCode == KeyEvent.KEYCODE_DEL
                 && (event.hasNoModifiers() || event.hasModifiers(KeyEvent.META_ALT_ON))
                 && selStart == selEnd) {
-=======
-        } else if (keyCode == KeyEvent.KEYCODE_DEL && selStart == selEnd) {
->>>>>>> 54b6cfa... Initial Contribution
             // special backspace case for undoing autotext
 
             int consider = 1;
@@ -387,7 +325,6 @@ public class QwertyKeyListener extends BaseKeyListener {
                 String old = new String(repl[0].mText);
 
                 content.removeSpan(repl[0]);
-<<<<<<< HEAD
 
                 // only cancel the autocomplete if the cursor is at the end of
                 // the replaced span (or after it, because the user is
@@ -412,23 +349,6 @@ public class QwertyKeyListener extends BaseKeyListener {
                     return super.onKeyDown(view, content, keyCode, event);
                 }
 
-=======
-                content.setSpan(TextKeyListener.INHIBIT_REPLACEMENT,
-                                en, en, Spannable.SPAN_POINT_POINT);
-                content.replace(st, en, old);
-
-                en = content.getSpanStart(TextKeyListener.INHIBIT_REPLACEMENT);
-                if (en - 1 >= 0) {
-                    content.setSpan(TextKeyListener.INHIBIT_REPLACEMENT,
-                                    en - 1, en,
-                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                } else {
-                    content.removeSpan(TextKeyListener.INHIBIT_REPLACEMENT);
-                }
-
-                adjustMetaAfterKeypress(content);
-
->>>>>>> 54b6cfa... Initial Contribution
                 return true;
             }
         }
@@ -510,7 +430,6 @@ public class QwertyKeyListener extends BaseKeyListener {
     private static SparseArray<String> PICKER_SETS =
                         new SparseArray<String>();
     static {
-<<<<<<< HEAD
         PICKER_SETS.put('A', "\u00C0\u00C1\u00C2\u00C4\u00C6\u00C3\u00C5\u0104\u0100");
         PICKER_SETS.put('C', "\u00C7\u0106\u010C");
         PICKER_SETS.put('D', "\u010E");
@@ -571,31 +490,6 @@ public class QwertyKeyListener extends BaseKeyListener {
         PICKER_SETS.put('=', "\u2260\u2248\u221e");
         PICKER_SETS.put('<', "\u2264\u00ab\u2039");
         PICKER_SETS.put('>', "\u2265\u00bb\u203a");
-=======
-        PICKER_SETS.put('!', "\u00A1");
-        PICKER_SETS.put('<', "\u00AB");
-        PICKER_SETS.put('>', "\u00BB");
-        PICKER_SETS.put('?', "\u00BF");
-        PICKER_SETS.put('A', "\u00C0\u00C1\u00C2\u00C4\u00C6\u00C3\u00C5");
-        PICKER_SETS.put('C', "\u00C7");
-        PICKER_SETS.put('E', "\u00C8\u00C9\u00CA\u00CB");
-        PICKER_SETS.put('I', "\u00CC\u00CD\u00CE\u00CF");
-        PICKER_SETS.put('N', "\u00D1");
-        PICKER_SETS.put('O', "\u00D8\u0152\u00D5\u00D2\u00D3\u00D4\u00D6");
-        PICKER_SETS.put('U', "\u00D9\u00DA\u00DB\u00DC");
-        PICKER_SETS.put('Y', "\u00DD\u0178");
-        PICKER_SETS.put('a', "\u00E0\u00E1\u00E2\u00E4\u00E6\u00E3\u00E5");
-        PICKER_SETS.put('c', "\u00E7");
-        PICKER_SETS.put('e', "\u00E8\u00E9\u00EA\u00EB");
-        PICKER_SETS.put('i', "\u00EC\u00ED\u00EE\u00EF");
-        PICKER_SETS.put('n', "\u00F1");
-        PICKER_SETS.put('o', "\u00F8\u0153\u00F5\u00F2\u00F3\u00F4\u00F6");
-        PICKER_SETS.put('s', "\u00A7\u00DF");
-        PICKER_SETS.put('u', "\u00F9\u00FA\u00FB\u00FC");
-        PICKER_SETS.put('y', "\u00FD\u00FF");
-        PICKER_SETS.put(KeyCharacterMap.PICKER_DIALOG_INPUT,
-                             "\u2026\u00A5\u2022\u00AE\u00A9\u00B1");
->>>>>>> 54b6cfa... Initial Contribution
     };
 
     private boolean showCharacterPicker(View view, Editable content, char c,
@@ -617,11 +511,7 @@ public class QwertyKeyListener extends BaseKeyListener {
         return Character.toUpperCase(src.charAt(0)) + src.substring(1);
     }
 
-<<<<<<< HEAD
     /* package */ static class Replaced implements NoCopySpan
-=======
-    /* package */ static class Replaced
->>>>>>> 54b6cfa... Initial Contribution
     {
         public Replaced(char[] text) {
             mText = text;
@@ -629,11 +519,5 @@ public class QwertyKeyListener extends BaseKeyListener {
 
         private char[] mText;
     }
-<<<<<<< HEAD
-=======
-
-    private Capitalize mAutoCap;
-    private boolean mAutoText;
->>>>>>> 54b6cfa... Initial Contribution
 }
 

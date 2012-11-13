@@ -17,30 +17,19 @@
 package com.android.internal.logging;
 
 import android.util.Log;
-<<<<<<< HEAD
 import dalvik.system.DalvikLogging;
 import dalvik.system.DalvikLogHandler;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
-<<<<<<< HEAD
 import java.util.logging.Logger;
 
 /**
  * Implements a {@link java.util.logging.Logger} handler that writes to the Android log. The
-=======
-import java.util.logging.SimpleFormatter;
-
-/**
- * Implements a {@link java.util.Logger} handler that writes to the Android log. The
->>>>>>> 54b6cfa... Initial Contribution
  * implementation is rather straightforward. The name of the logger serves as
  * the log tag. Only the log levels need to be converted appropriately. For
  * this purpose, the following mapping is being used:
@@ -92,7 +81,6 @@ import java.util.logging.SimpleFormatter;
  *   </tr>
  * </table>
  */
-<<<<<<< HEAD
 public class AndroidHandler extends Handler implements DalvikLogHandler {
     /**
      * Holds the formatter for all Android log handlers.
@@ -115,14 +103,6 @@ public class AndroidHandler extends Handler implements DalvikLogHandler {
         }
     };
 
-=======
-public class AndroidHandler extends Handler {
-    /**
-     * Holds the formatter for all Android log handlers.
-     */
-    private static final Formatter THE_FORMATTER = new SimpleFormatter();
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Constructs a new instance of the Android log handler.
      */
@@ -142,7 +122,6 @@ public class AndroidHandler extends Handler {
 
     @Override
     public void publish(LogRecord record) {
-<<<<<<< HEAD
         int level = getAndroidLevel(record.getLevel());
         String tag = DalvikLogging.loggerNameToTag(record.getLoggerName());
         if (!Log.isLoggable(tag, level)) {
@@ -190,51 +169,4 @@ public class AndroidHandler extends Handler {
             return Log.DEBUG;
         }
     }
-=======
-        try {
-            int level = getAndroidLevel(record.getLevel());
-            String tag = record.getLoggerName();
-
-            if (!Log.isLoggable(tag, level)) {
-                return;
-            }
-        
-            String msg;
-            try {
-                msg = getFormatter().format(record);
-            } catch (RuntimeException e) {
-                Log.e("AndroidHandler", "Error formatting log record", e);
-                msg = record.getMessage();
-            }
-            Log.println(level, tag, msg);
-        } catch (RuntimeException e) {
-            Log.e("AndroidHandler", "Error publishing log record", e);
-        }
-    }
-    
-    /**
-     * Converts a {@link java.util.Logger} logging level into an Android one.
-     * 
-     * @param level The {@link java.util.Logger} logging level.
-     * 
-     * @return The resulting Android logging level. 
-     */
-    static int getAndroidLevel(Level level)
-    {
-        int value = level.intValue();
-        
-        if (value >= Level.SEVERE.intValue()) {
-            return Log.ERROR;
-        } else if (value >= Level.WARNING.intValue()) {
-            return Log.WARN;
-        } else if (value >= Level.INFO.intValue()) {
-            return Log.INFO;
-        } else if (value >= Level.CONFIG.intValue()) {
-            return Log.DEBUG;
-        }  else {
-            return Log.VERBOSE;
-        }
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
 }

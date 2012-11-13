@@ -16,10 +16,7 @@
 
 package com.android.server;
 
-<<<<<<< HEAD
 import java.io.PrintWriter;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-<<<<<<< HEAD
 import android.net.Uri;
 import android.util.FastImmutableArraySet;
 import android.util.Log;
@@ -39,21 +35,12 @@ import android.util.Slog;
 import android.util.LogPrinter;
 import android.util.Printer;
 
-=======
-import android.util.Log;
-import android.util.LogPrinter;
-import android.util.Printer;
-
-import android.util.Config;
-import android.content.ContentResolver;
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.Intent;
 import android.content.IntentFilter;
 
 /**
  * {@hide}
  */
-<<<<<<< HEAD
 public abstract class IntentResolver<F extends IntentFilter, R extends Object> {
     final private static String TAG = "IntentResolver";
     final private static boolean DEBUG = false;
@@ -64,18 +51,6 @@ public abstract class IntentResolver<F extends IntentFilter, R extends Object> {
             Slog.v(TAG, "Adding filter: " + f);
             f.dump(new LogPrinter(Log.VERBOSE, TAG, Log.LOG_ID_SYSTEM), "      ");
             Slog.v(TAG, "    Building Lookup Maps:");
-=======
-public class IntentResolver<F extends IntentFilter, R extends Object> {
-    final private static String TAG = "IntentResolver";
-    final private static boolean DEBUG = false;
-    final private static boolean localLOGV = DEBUG || Config.LOGV;
-
-    public void addFilter(F f) {
-        if (localLOGV) {
-            Log.v(TAG, "Adding filter: " + f);
-            f.dump(new LogPrinter(Log.VERBOSE, TAG), "      ");
-            Log.v(TAG, "    Building Lookup Maps:");
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         mFilters.add(f);
@@ -99,15 +74,9 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
 
     void removeFilterInternal(F f) {
         if (localLOGV) {
-<<<<<<< HEAD
             Slog.v(TAG, "Removing filter: " + f);
             f.dump(new LogPrinter(Log.VERBOSE, TAG, Log.LOG_ID_SYSTEM), "      ");
             Slog.v(TAG, "    Cleaning Lookup Maps:");
-=======
-            Log.v(TAG, "Removing filter: " + f);
-            f.dump(new LogPrinter(Log.VERBOSE, TAG), "      ");
-            Log.v(TAG, "    Cleaning Lookup Maps:");
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         int numS = unregister_intent_filter(f, f.schemesIterator(),
@@ -123,7 +92,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         }
     }
 
-<<<<<<< HEAD
     boolean dumpMap(PrintWriter out, String titlePrefix, String title,
             String prefix, Map<String, ArrayList<F>> map, String packageName,
             boolean printFilter) {
@@ -191,39 +159,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
             curPrefix = sepPrefix;
         }
         return curPrefix == sepPrefix;
-=======
-    void dumpMap(Printer out, String prefix, Map<String, ArrayList<F>> map) {
-        String eprefix = prefix + "  ";
-        String fprefix = prefix + "    ";
-        for (Map.Entry<String, ArrayList<F>> e : map.entrySet()) {
-            out.println(eprefix + e.getKey() + ":");
-            ArrayList<F> a = e.getValue();
-            final int N = a.size();
-            for (int i=0; i<N; i++) {
-                dumpFilter(out, fprefix, a.get(i));
-            }
-        }
-    }
-
-    public void dump(Printer out, String prefix) {
-        out.println(prefix + "Full MIME Types:");
-        dumpMap(out, prefix+"  ", mTypeToFilter);
-        out.println(prefix);
-        out.println(prefix + "Base MIME Types:");
-        dumpMap(out, prefix+"  ", mBaseTypeToFilter);
-        out.println(prefix);
-        out.println(prefix + "Wild MIME Types:");
-        dumpMap(out, prefix+"  ", mWildTypeToFilter);
-        out.println(prefix);
-        out.println(prefix + "Schemes:");
-        dumpMap(out, prefix+"  ", mSchemeToFilter);
-        out.println(prefix);
-        out.println(prefix + "Non-Data Actions:");
-        dumpMap(out, prefix+"  ", mActionToFilter);
-        out.println(prefix);
-        out.println(prefix + "MIME Typed Actions:");
-        dumpMap(out, prefix+"  ", mTypedActionToFilter);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private class IteratorWrapper implements Iterator<F> {
@@ -265,7 +200,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         return Collections.unmodifiableSet(mFilters);
     }
 
-<<<<<<< HEAD
     public List<R> queryIntentFromList(Intent intent, String resolvedType, 
             boolean defaultOnly, ArrayList<ArrayList<F>> listCut, int userId) {
         ArrayList<R> resultList = new ArrayList<R>();
@@ -286,10 +220,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
 
     public List<R> queryIntent(Intent intent, String resolvedType, boolean defaultOnly,
             int userId) {
-=======
-    public List<R> queryIntent(ContentResolver resolver, Intent intent,
-            String resolvedType, boolean defaultOnly) {
->>>>>>> 54b6cfa... Initial Contribution
         String scheme = intent.getScheme();
 
         ArrayList<R> finalList = new ArrayList<R>();
@@ -297,11 +227,7 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         final boolean debug = localLOGV ||
                 ((intent.getFlags() & Intent.FLAG_DEBUG_LOG_RESOLUTION) != 0);
 
-<<<<<<< HEAD
         if (debug) Slog.v(
-=======
-        if (debug) Log.v(
->>>>>>> 54b6cfa... Initial Contribution
             TAG, "Resolving type " + resolvedType + " scheme " + scheme
             + " of intent " + intent);
 
@@ -322,7 +248,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
                         // Not a wild card, so we can just look for all filters that
                         // completely match or wildcards whose base type matches.
                         firstTypeCut = mTypeToFilter.get(resolvedType);
-<<<<<<< HEAD
                         if (debug) Slog.v(TAG, "First type cut: " + firstTypeCut);
                         secondTypeCut = mWildTypeToFilter.get(baseType);
                         if (debug) Slog.v(TAG, "Second type cut: " + secondTypeCut);
@@ -332,36 +257,17 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
                         if (debug) Slog.v(TAG, "First type cut: " + firstTypeCut);
                         secondTypeCut = mWildTypeToFilter.get(baseType);
                         if (debug) Slog.v(TAG, "Second type cut: " + secondTypeCut);
-=======
-                        if (debug) Log.v(TAG, "First type cut: " + firstTypeCut);
-                        secondTypeCut = mWildTypeToFilter.get(baseType);
-                        if (debug) Log.v(TAG, "Second type cut: " + secondTypeCut);
-                    } else {
-                        // We can match anything with our base type.
-                        firstTypeCut = mBaseTypeToFilter.get(baseType);
-                        if (debug) Log.v(TAG, "First type cut: " + firstTypeCut);
-                        secondTypeCut = mWildTypeToFilter.get(baseType);
-                        if (debug) Log.v(TAG, "Second type cut: " + secondTypeCut);
->>>>>>> 54b6cfa... Initial Contribution
                     }
                     // Any */* types always apply, but we only need to do this
                     // if the intent type was not already */*.
                     thirdTypeCut = mWildTypeToFilter.get("*");
-<<<<<<< HEAD
                     if (debug) Slog.v(TAG, "Third type cut: " + thirdTypeCut);
-=======
-                    if (debug) Log.v(TAG, "Third type cut: " + thirdTypeCut);
->>>>>>> 54b6cfa... Initial Contribution
                 } else if (intent.getAction() != null) {
                     // The intent specified any type ({@literal *}/*).  This
                     // can be a whole heck of a lot of things, so as a first
                     // cut let's use the action instead.
                     firstTypeCut = mTypedActionToFilter.get(intent.getAction());
-<<<<<<< HEAD
                     if (debug) Slog.v(TAG, "Typed Action list: " + firstTypeCut);
-=======
-                    if (debug) Log.v(TAG, "Typed Action list: " + firstTypeCut);
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -371,11 +277,7 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         // on the authority and path by directly matching each resulting filter).
         if (scheme != null) {
             schemeCut = mSchemeToFilter.get(scheme);
-<<<<<<< HEAD
             if (debug) Slog.v(TAG, "Scheme list: " + schemeCut);
-=======
-            if (debug) Log.v(TAG, "Scheme list: " + schemeCut);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         // If the intent does not specify any data -- either a MIME type or
@@ -383,7 +285,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         // data.
         if (resolvedType == null && scheme == null && intent.getAction() != null) {
             firstTypeCut = mActionToFilter.get(intent.getAction());
-<<<<<<< HEAD
             if (debug) Slog.v(TAG, "Action list: " + firstTypeCut);
         }
 
@@ -403,39 +304,13 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         if (schemeCut != null) {
             buildResolveList(intent, categories, debug, defaultOnly,
                     resolvedType, scheme, schemeCut, finalList, userId);
-=======
-            if (debug) Log.v(TAG, "Action list: " + firstTypeCut);
-        }
-
-        if (firstTypeCut != null) {
-            buildResolveList(intent, debug, defaultOnly,
-                    resolvedType, scheme, firstTypeCut, finalList);
-        }
-        if (secondTypeCut != null) {
-            buildResolveList(intent, debug, defaultOnly,
-                    resolvedType, scheme, secondTypeCut, finalList);
-        }
-        if (thirdTypeCut != null) {
-            buildResolveList(intent, debug, defaultOnly,
-                    resolvedType, scheme, thirdTypeCut, finalList);
-        }
-        if (schemeCut != null) {
-            buildResolveList(intent, debug, defaultOnly,
-                    resolvedType, scheme, schemeCut, finalList);
->>>>>>> 54b6cfa... Initial Contribution
         }
         sortResults(finalList);
 
         if (debug) {
-<<<<<<< HEAD
             Slog.v(TAG, "Final result list:");
             for (R r : finalList) {
                 Slog.v(TAG, "  " + r);
-=======
-            Log.v(TAG, "Final result list:");
-            for (R r : finalList) {
-                Log.v(TAG, "  " + r);
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
         return finalList;
@@ -450,7 +325,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         return true;
     }
 
-<<<<<<< HEAD
     /**
      * Returns whether the object associated with the given filter is
      * "stopped," that is whether it should not be included in the result
@@ -473,23 +347,12 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
     }
 
     @SuppressWarnings("unchecked")
-=======
-    protected R newResult(F filter, int match) {
-        return (R)filter;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     protected void sortResults(List<R> results) {
         Collections.sort(results, mResolvePrioritySorter);
     }
 
-<<<<<<< HEAD
     protected void dumpFilter(PrintWriter out, String prefix, F filter) {
         out.print(prefix); out.println(filter);
-=======
-    protected void dumpFilter(Printer out, String prefix, F filter) {
-        out.println(prefix + filter);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private final int register_mime_types(F filter, String prefix) {
@@ -500,15 +363,9 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
 
         int num = 0;
         while (i.hasNext()) {
-<<<<<<< HEAD
             String name = i.next();
             num++;
             if (localLOGV) Slog.v(TAG, prefix + name);
-=======
-            String name = (String)i.next();
-            num++;
-            if (localLOGV) Log.v(TAG, prefix + name);
->>>>>>> 54b6cfa... Initial Contribution
             String baseName = name;
             final int slashpos = name.indexOf('/');
             if (slashpos > 0) {
@@ -519,11 +376,7 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
 
             ArrayList<F> array = mTypeToFilter.get(name);
             if (array == null) {
-<<<<<<< HEAD
                 //Slog.v(TAG, "Creating new array for " + name);
-=======
-                //Log.v(TAG, "Creating new array for " + name);
->>>>>>> 54b6cfa... Initial Contribution
                 array = new ArrayList<F>();
                 mTypeToFilter.put(name, array);
             }
@@ -532,11 +385,7 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
             if (slashpos > 0) {
                 array = mBaseTypeToFilter.get(baseName);
                 if (array == null) {
-<<<<<<< HEAD
                     //Slog.v(TAG, "Creating new array for " + name);
-=======
-                    //Log.v(TAG, "Creating new array for " + name);
->>>>>>> 54b6cfa... Initial Contribution
                     array = new ArrayList<F>();
                     mBaseTypeToFilter.put(baseName, array);
                 }
@@ -544,11 +393,7 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
             } else {
                 array = mWildTypeToFilter.get(baseName);
                 if (array == null) {
-<<<<<<< HEAD
                     //Slog.v(TAG, "Creating new array for " + name);
-=======
-                    //Log.v(TAG, "Creating new array for " + name);
->>>>>>> 54b6cfa... Initial Contribution
                     array = new ArrayList<F>();
                     mWildTypeToFilter.put(baseName, array);
                 }
@@ -567,15 +412,9 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
 
         int num = 0;
         while (i.hasNext()) {
-<<<<<<< HEAD
             String name = i.next();
             num++;
             if (localLOGV) Slog.v(TAG, prefix + name);
-=======
-            String name = (String)i.next();
-            num++;
-            if (localLOGV) Log.v(TAG, prefix + name);
->>>>>>> 54b6cfa... Initial Contribution
             String baseName = name;
             final int slashpos = name.indexOf('/');
             if (slashpos > 0) {
@@ -611,17 +450,10 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         while (i.hasNext()) {
             String name = i.next();
             num++;
-<<<<<<< HEAD
             if (localLOGV) Slog.v(TAG, prefix + name);
             ArrayList<F> array = dest.get(name);
             if (array == null) {
                 //Slog.v(TAG, "Creating new array for " + name);
-=======
-            if (localLOGV) Log.v(TAG, prefix + name);
-            ArrayList<F> array = dest.get(name);
-            if (array == null) {
-                //Log.v(TAG, "Creating new array for " + name);
->>>>>>> 54b6cfa... Initial Contribution
                 array = new ArrayList<F>();
                 dest.put(name, array);
             }
@@ -640,11 +472,7 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         while (i.hasNext()) {
             String name = i.next();
             num++;
-<<<<<<< HEAD
             if (localLOGV) Slog.v(TAG, prefix + name);
-=======
-            if (localLOGV) Log.v(TAG, prefix + name);
->>>>>>> 54b6cfa... Initial Contribution
             if (!remove_all_objects(dest.get(name), filter)) {
                 dest.remove(name);
             }
@@ -667,7 +495,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         return false;
     }
 
-<<<<<<< HEAD
     private static FastImmutableArraySet<String> getFastIntentCategories(Intent intent) {
         final Set<String> categories = intent.getCategories();
         if (categories == null) {
@@ -684,11 +511,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         final String packageName = intent.getPackage();
 
         final boolean excludingStopped = intent.isExcludingStopped();
-=======
-    private void buildResolveList(Intent intent, boolean debug, boolean defaultOnly,
-            String resolvedType, String scheme, List<F> src, List<R> dest) {
-        Set<String> categories = intent.getCategories();
->>>>>>> 54b6cfa... Initial Contribution
 
         final int N = src != null ? src.size() : 0;
         boolean hasNonDefaults = false;
@@ -696,7 +518,6 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
         for (i=0; i<N; i++) {
             F filter = src.get(i);
             int match;
-<<<<<<< HEAD
             if (debug) Slog.v(TAG, "Matching against filter " + filter);
 
             if (excludingStopped && isFilterStopped(filter, userId)) {
@@ -713,38 +534,21 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
                 }
                 continue;
             }
-=======
-            if (debug) Log.v(TAG, "Matching against filter " + filter);
->>>>>>> 54b6cfa... Initial Contribution
 
             // Do we already have this one?
             if (!allowFilterResult(filter, dest)) {
                 if (debug) {
-<<<<<<< HEAD
                     Slog.v(TAG, "  Filter's target already added");
-=======
-                    Log.v(TAG, "  Filter's target already added");
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 continue;
             }
 
-<<<<<<< HEAD
             match = filter.match(action, resolvedType, scheme, data, categories, TAG);
             if (match >= 0) {
                 if (debug) Slog.v(TAG, "  Filter matched!  match=0x" +
                         Integer.toHexString(match));
                 if (!defaultOnly || filter.hasCategory(Intent.CATEGORY_DEFAULT)) {
                     final R oneResult = newResult(filter, match, userId);
-=======
-            match = filter.match(
-                    intent.getAction(), resolvedType, scheme, intent.getData(), categories, TAG);
-            if (match >= 0) {
-                if (debug) Log.v(TAG, "  Filter matched!  match=0x" +
-                        Integer.toHexString(match));
-                if (!defaultOnly || filter.hasCategory(Intent.CATEGORY_DEFAULT)) {
-                    final R oneResult = newResult(filter, match);
->>>>>>> 54b6cfa... Initial Contribution
                     if (oneResult != null) {
                         dest.add(oneResult);
                     }
@@ -761,37 +565,22 @@ public class IntentResolver<F extends IntentFilter, R extends Object> {
                         case IntentFilter.NO_MATCH_TYPE: reason = "type"; break;
                         default: reason = "unknown reason"; break;
                     }
-<<<<<<< HEAD
                     Slog.v(TAG, "  Filter did not match: " + reason);
-=======
-                    Log.v(TAG, "  Filter did not match: " + reason);
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
 
         if (dest.size() == 0 && hasNonDefaults) {
-<<<<<<< HEAD
             Slog.w(TAG, "resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT");
-=======
-            Log.w(TAG, "resolveIntent failed: found match, but none with Intent.CATEGORY_DEFAULT");
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     // Sorts a List of IntentFilter objects into descending priority order.
-<<<<<<< HEAD
     @SuppressWarnings("rawtypes")
     private static final Comparator mResolvePrioritySorter = new Comparator() {
         public int compare(Object o1, Object o2) {
             final int q1 = ((IntentFilter) o1).getPriority();
             final int q2 = ((IntentFilter) o2).getPriority();
-=======
-    private static final Comparator mResolvePrioritySorter = new Comparator() {
-        public int compare(Object o1, Object o2) {
-            float q1 = ((IntentFilter)o1).getPriority();
-            float q2 = ((IntentFilter)o2).getPriority();
->>>>>>> 54b6cfa... Initial Contribution
             return (q1 > q2) ? -1 : ((q1 < q2) ? 1 : 0);
         }
     };

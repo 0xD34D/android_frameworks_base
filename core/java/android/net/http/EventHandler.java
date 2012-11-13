@@ -68,28 +68,6 @@ public interface EventHandler {
     /** Too many requests queued */
     public static final int TOO_MANY_REQUESTS_ERROR = -15;
 
-<<<<<<< HEAD
-=======
-    final static int[] errorStringResources = {
-        com.android.internal.R.string.httpErrorOk,
-        com.android.internal.R.string.httpError,
-        com.android.internal.R.string.httpErrorLookup,
-        com.android.internal.R.string.httpErrorUnsupportedAuthScheme,
-        com.android.internal.R.string.httpErrorAuth,
-        com.android.internal.R.string.httpErrorProxyAuth,
-        com.android.internal.R.string.httpErrorConnect,
-        com.android.internal.R.string.httpErrorIO,
-        com.android.internal.R.string.httpErrorTimeout,
-        com.android.internal.R.string.httpErrorRedirectLoop,
-        com.android.internal.R.string.httpErrorUnsupportedScheme,
-        com.android.internal.R.string.httpErrorFailedSslHandshake,
-        com.android.internal.R.string.httpErrorBadUrl,
-        com.android.internal.R.string.httpErrorFile,
-        com.android.internal.R.string.httpErrorFileNotFound,
-        com.android.internal.R.string.httpErrorTooManyRequests
-    };
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Called after status line has been sucessfully processed.
      * @param major_version HTTP version advertised by server.  major
@@ -128,13 +106,8 @@ public interface EventHandler {
     public void endData();
 
     /**
-<<<<<<< HEAD
      * SSL certificate callback called before resource request is
      * made, which will be null for insecure connection.
-=======
-     * SSL certificate callback called every time a resource is
-     * loaded via a secure connection
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void certificate(SslCertificate certificate);
 
@@ -149,15 +122,10 @@ public interface EventHandler {
      * SSL certificate error callback. Handles SSL error(s) on the way
      * up to the user. The callback has to make sure that restartConnection() is called,
      * otherwise the connection will be suspended indefinitely.
-<<<<<<< HEAD
      * @return True if the callback can handle the error, which means it will
      *              call restartConnection() to unblock the thread later,
      *              otherwise return false.
      */
     public boolean handleSslErrorRequest(SslError error);
-=======
-     */
-    public void handleSslErrorRequest(SslError error);
->>>>>>> 54b6cfa... Initial Contribution
 
 }

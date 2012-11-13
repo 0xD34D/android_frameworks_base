@@ -50,12 +50,6 @@ implements LeadingMarginSpan, LineHeightSpan
         int dw = mDrawable.getIntrinsicWidth();
         int dh = mDrawable.getIntrinsicHeight();
 
-<<<<<<< HEAD
-=======
-        if (dir < 0)
-            x -= dw;
-
->>>>>>> 54b6cfa... Initial Contribution
         // XXX What to do about Paint?
         mDrawable.setBounds(ix, itop, ix+dw, itop+dh);
         mDrawable.draw(c);

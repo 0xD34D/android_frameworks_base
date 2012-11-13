@@ -23,16 +23,12 @@ import com.android.internal.util.ArrayUtils;
  * there can be gaps in the indices.  It is intended to be more efficient
  * than using a HashMap to map Integers to Integers.
  */
-<<<<<<< HEAD
 public class SparseIntArray implements Cloneable {
 
     private int[] mKeys;
     private int[] mValues;
     private int mSize;
 
-=======
-public class SparseIntArray {
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Creates a new SparseIntArray containing no mappings.
      */
@@ -53,7 +49,6 @@ public class SparseIntArray {
         mSize = 0;
     }
 
-<<<<<<< HEAD
     @Override
     public SparseIntArray clone() {
         SparseIntArray clone = null;
@@ -67,8 +62,6 @@ public class SparseIntArray {
         return clone;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Gets the int mapped from the specified key, or <code>0</code>
      * if no such mapping has been made.
@@ -98,18 +91,11 @@ public class SparseIntArray {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i >= 0) {
-<<<<<<< HEAD
             removeAt(i);
-=======
-            System.arraycopy(mKeys, i + 1, mKeys, i, mSize - (i + 1));
-            System.arraycopy(mValues, i + 1, mValues, i, mSize - (i + 1));
-            mSize--;
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
-<<<<<<< HEAD
      * Removes the mapping at the given index.
      */
     public void removeAt(int index) {
@@ -119,8 +105,6 @@ public class SparseIntArray {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Adds a mapping from the specified key to the specified value,
      * replacing the previous mapping from the specified key if there
      * was one.
@@ -266,23 +250,4 @@ public class SparseIntArray {
         else
             return ~high;
     }
-<<<<<<< HEAD
-=======
-
-    private void checkIntegrity() {
-        for (int i = 1; i < mSize; i++) {
-            if (mKeys[i] <= mKeys[i - 1]) {
-                for (int j = 0; j < mSize; j++) {
-                    Log.e("FAIL", j + ": " + mKeys[j] + " -> " + mValues[j]);
-                }
-
-                throw new RuntimeException();
-            }
-        }
-    }
-
-    private int[] mKeys;
-    private int[] mValues;
-    private int mSize;
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -65,11 +65,7 @@ public class InstrumentationTestSuite extends TestSuite {
     public void runTest(Test test, TestResult result) {
 
         if (test instanceof InstrumentationTestCase) {
-<<<<<<< HEAD
             ((InstrumentationTestCase) test).injectInstrumentation(mInstrumentation);
-=======
-            ((InstrumentationTestCase) test).injectInsrumentation(mInstrumentation);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         // run the test as usual

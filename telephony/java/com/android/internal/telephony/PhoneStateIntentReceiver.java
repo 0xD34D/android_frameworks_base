@@ -16,27 +16,16 @@
 
 package com.android.internal.telephony;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-<<<<<<< HEAD
 import android.os.Handler;
 import android.os.Message;
 import android.telephony.ServiceState;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-=======
-import android.util.Log;
-import android.os.Handler;
-import android.os.Message;
-import android.telephony.ServiceState;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  *
@@ -44,7 +33,6 @@ import android.telephony.ServiceState;
  *
  *      Use android.telephony.TelephonyManager and PhoneStateListener instead.
  *
-<<<<<<< HEAD
  *
  */
 @Deprecated
@@ -52,18 +40,6 @@ public final class PhoneStateIntentReceiver extends BroadcastReceiver {
     private static final String LOG_TAG = "PHONE";
     private static final boolean DBG = false;
 
-=======
- * 
- */
-@Deprecated
-public final class PhoneStateIntentReceiver extends BroadcastReceiver {
-    private static final String LOG_TAG = "PhoneStateIntRecv";
-    private static final boolean DBG = false;
-
-    public static final String INTENT_KEY_ASU = "asu";
-    public static final String INTENT_KEY_NUM = "incoming_number";
-
->>>>>>> 54b6cfa... Initial Contribution
     private static final int NOTIF_PHONE    = 1 << 0;
     private static final int NOTIF_SERVICE  = 1 << 1;
     private static final int NOTIF_SIGNAL   = 1 << 2;
@@ -71,15 +47,9 @@ public final class PhoneStateIntentReceiver extends BroadcastReceiver {
     private static final int NOTIF_MAX      = 1 << 5;
 
     Phone.State mPhoneState = Phone.State.IDLE;
-<<<<<<< HEAD
     ServiceState mServiceState = new ServiceState();
     SignalStrength mSignalStrength = new SignalStrength();
 
-=======
-    String mIncomingNumber;
-    ServiceState mServiceState = new ServiceState();
-    int mAsu  = -1;
->>>>>>> 54b6cfa... Initial Contribution
     private Context mContext;
     private Handler mTarget;
     private IntentFilter mFilter;
@@ -125,36 +95,17 @@ public final class PhoneStateIntentReceiver extends BroadcastReceiver {
     }
 
     /**
-<<<<<<< HEAD
      * Returns current signal strength in as an asu 0..31
      *
      * Throws RuntimeException if client has not called notifySignalStrength()
      */
     public int getSignalStrengthLevelAsu() {
         // TODO: use new SignalStrength instead of asu
-=======
-     * Returns current signal strength in "asu", ranging from 0-31
-     * or -1 if unknown
-     *
-     * For GSM, dBm = -113 + 2*asu
-     * 0 means "-113 dBm or less"
-     * 31 means "-51 dBm or greater"
-     *
-     * @return signal strength in asu, -1 if not yet updated
-     * Throws RuntimeException if client has not called notifySignalStrength()
-     */
-    public int getSignalStrength() {
->>>>>>> 54b6cfa... Initial Contribution
         if ((mWants & NOTIF_SIGNAL) == 0) {
             throw new RuntimeException
                 ("client must call notifySignalStrength(int)");
         }
-<<<<<<< HEAD
         return mSignalStrength.getAsuLevel();
-=======
-
-        return mAsu;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -169,28 +120,13 @@ public final class PhoneStateIntentReceiver extends BroadcastReceiver {
             throw new RuntimeException
                 ("client must call notifySignalStrength(int)");
         }
-<<<<<<< HEAD
         return mSignalStrength.getDbm();
-=======
-
-        int dBm = -1;
-
-        if (mAsu != -1) {
-            dBm = -113 + 2*mAsu;
-        }
-
-        return dBm;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void notifyPhoneCallState(int eventWhat) {
         mWants |= NOTIF_PHONE;
         mPhoneStateEventWhat = eventWhat;
-<<<<<<< HEAD
         mFilter.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
-=======
-        mFilter.addAction(TelephonyIntents.ACTION_PHONE_STATE_CHANGED);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public boolean getNotifyPhoneCallState() {
@@ -231,30 +167,16 @@ public final class PhoneStateIntentReceiver extends BroadcastReceiver {
 
         try {
             if (TelephonyIntents.ACTION_SIGNAL_STRENGTH_CHANGED.equals(action)) {
-<<<<<<< HEAD
                 mSignalStrength = SignalStrength.newFromBundle(intent.getExtras());
 
-=======
-                mAsu = intent.getIntExtra(INTENT_KEY_ASU, mAsu);
-                if (DBG) Log.d(LOG_TAG, "onReceiveIntent: set asu=" + mAsu);
-                
->>>>>>> 54b6cfa... Initial Contribution
                 if (mTarget != null && getNotifySignalStrength()) {
                     Message message = Message.obtain(mTarget, mAsuEventWhat);
                     mTarget.sendMessage(message);
                 }
-<<<<<<< HEAD
             } else if (TelephonyManager.ACTION_PHONE_STATE_CHANGED.equals(action)) {
                 if (DBG) Log.d(LOG_TAG, "onReceiveIntent: ACTION_PHONE_STATE_CHANGED, state="
                                + intent.getStringExtra(Phone.STATE_KEY));
                 String phoneState = intent.getStringExtra(Phone.STATE_KEY);
-=======
-            } else if (TelephonyIntents.ACTION_PHONE_STATE_CHANGED.equals(action)) {
-                if (DBG) Log.d(LOG_TAG, "onReceiveIntent: ACTION_PHONE_STATE_CHANGED, state="
-                               + intent.getStringExtra(Phone.STATE_KEY));
-                String phoneState = intent.getStringExtra(Phone.STATE_KEY);
-                mIncomingNumber = intent.getStringExtra(INTENT_KEY_NUM);
->>>>>>> 54b6cfa... Initial Contribution
                 mPhoneState = (Phone.State) Enum.valueOf(
                         Phone.State.class, phoneState);
 

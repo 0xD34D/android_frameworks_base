@@ -16,7 +16,6 @@
 
 package android.text.style;
 
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.text.Layout;
 import android.text.ParcelableSpan;
@@ -27,23 +26,10 @@ public interface AlignmentSpan extends ParagraphStyle {
 
     public static class Standard
     implements AlignmentSpan, ParcelableSpan {
-=======
-import android.text.Layout;
-
-public interface AlignmentSpan
-extends ParagraphStyle
-{
-    public Layout.Alignment getAlignment();
-
-    public static class Standard
-    implements AlignmentSpan
-    {
->>>>>>> 54b6cfa... Initial Contribution
         public Standard(Layout.Alignment align) {
             mAlignment = align;
         }
 
-<<<<<<< HEAD
         public Standard(Parcel src) {
             mAlignment = Layout.Alignment.valueOf(src.readString());
         }
@@ -60,16 +46,10 @@ extends ParagraphStyle
             dest.writeString(mAlignment.name());
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         public Layout.Alignment getAlignment() {
             return mAlignment;
         }
 
-<<<<<<< HEAD
         private final Layout.Alignment mAlignment;
-=======
-        private Layout.Alignment mAlignment;
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

@@ -21,31 +21,17 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
 
-<<<<<<< HEAD
 /**
  * The Android Bluetooth API is not finalized, and *will* change. Use at your
  * own risk.
  *
-=======
-import java.io.IOException;
-import java.lang.Thread;
-
-/**
- * The Android Bluetooth API is not finalized, and *will* change. Use at your
- * own risk.
- * 
->>>>>>> 54b6cfa... Initial Contribution
  * The base RFCOMM (service) connection for a headset or handsfree device.
  *
  * In the future this class will be removed.
  *
  * @hide
  */
-<<<<<<< HEAD
 public final class HeadsetBase {
-=======
-public class HeadsetBase {
->>>>>>> 54b6cfa... Initial Contribution
     private static final String TAG = "Bluetooth HeadsetBase";
     private static final boolean DBG = false;
 
@@ -54,16 +40,11 @@ public class HeadsetBase {
     public static final int DIRECTION_INCOMING = 1;
     public static final int DIRECTION_OUTGOING = 2;
 
-<<<<<<< HEAD
     private static int sAtInputCount = 0;  /* TODO: Consider not using a static variable */
 
     private final BluetoothAdapter mAdapter;
     private final BluetoothDevice mRemoteDevice;
     private final String mAddress;  // for native code
-=======
-    private final BluetoothDevice mBluetooth;
-    private final String mAddress;
->>>>>>> 54b6cfa... Initial Contribution
     private final int mRfcommChannel;
     private int mNativeData;
     private Thread mEventThread;
@@ -93,7 +74,6 @@ public class HeadsetBase {
 
     private native void cleanupNativeDataNative();
 
-<<<<<<< HEAD
     public HeadsetBase(PowerManager pm, BluetoothAdapter adapter,
                        BluetoothDevice device, int rfcommChannel) {
         mDirection = DIRECTION_OUTGOING;
@@ -101,14 +81,6 @@ public class HeadsetBase {
         mAdapter = adapter;
         mRemoteDevice = device;
         mAddress = device.getAddress();
-=======
-    public HeadsetBase(PowerManager pm, BluetoothDevice bluetooth, String address,
-                       int rfcommChannel) {
-        mDirection = DIRECTION_OUTGOING;
-        mConnectTimestamp = System.currentTimeMillis();
-        mBluetooth = bluetooth;
-        mAddress = address;
->>>>>>> 54b6cfa... Initial Contribution
         mRfcommChannel = rfcommChannel;
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HeadsetBase");
         mWakeLock.setReferenceCounted(false);
@@ -117,7 +89,6 @@ public class HeadsetBase {
         initializeNativeDataNative(-1);
     }
 
-<<<<<<< HEAD
     /* Create from an existing rfcomm connection */
     public HeadsetBase(PowerManager pm, BluetoothAdapter adapter,
                        BluetoothDevice device,
@@ -127,15 +98,6 @@ public class HeadsetBase {
         mAdapter = adapter;
         mRemoteDevice = device;
         mAddress = device.getAddress();
-=======
-    /* Create from an already exisiting rfcomm connection */
-    public HeadsetBase(PowerManager pm, BluetoothDevice bluetooth, String address, int socketFd,
-                       int rfcommChannel, Handler handler) {
-        mDirection = DIRECTION_INCOMING;
-        mConnectTimestamp = System.currentTimeMillis();
-        mBluetooth = bluetooth;
-        mAddress = address;
->>>>>>> 54b6cfa... Initial Contribution
         mRfcommChannel = rfcommChannel;
         mEventThreadHandler = handler;
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HeadsetBase");
@@ -149,7 +111,6 @@ public class HeadsetBase {
 
     /* Process an incoming AT command line
      */
-<<<<<<< HEAD
     protected void handleInput(String input) {
         acquireWakeLock();
         long timestamp;
@@ -162,23 +123,13 @@ public class HeadsetBase {
             }
         }
 
-=======
-    protected synchronized void handleInput(String input) {
-        acquireWakeLock();
-        long timestamp;
-
->>>>>>> 54b6cfa... Initial Contribution
         if (DBG) timestamp = System.currentTimeMillis();
         AtCommandResult result = mAtParser.process(input);
         if (DBG) Log.d(TAG, "Processing " + input + " took " +
                        (System.currentTimeMillis() - timestamp) + " ms");
 
         if (result.getResultCode() == AtCommandResult.ERROR) {
-<<<<<<< HEAD
             Log.i(TAG, "Error processing <" + input + ">");
-=======
-            Log.i(TAG, "Error pocessing <" + input + ">");
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         sendURC(result.toString());
@@ -193,34 +144,8 @@ public class HeadsetBase {
     protected void initializeAtParser() {
         mAtParser = new AtParser();
 
-<<<<<<< HEAD
         //TODO(): Get rid of this as there are no parsers registered. But because of dependencies
         // it needs to be done as part of refactoring HeadsetBase and BluetoothHandsfree
-=======
-        // Microphone Gain
-        mAtParser.register("+VGM", new AtCommandHandler() {
-            @Override
-            public AtCommandResult handleSetCommand(Object[] args) {
-                // AT+VGM=<gain>    in range [0,15]
-                // Headset/Handsfree is reporting its current gain setting
-                //TODO: sync to android UI
-                //TODO: Send unsolicited +VGM when volume changed on AG
-                return new AtCommandResult(AtCommandResult.OK);
-            }
-        });
-
-        // Speaker Gain
-        mAtParser.register("+VGS", new AtCommandHandler() {
-            @Override
-            public AtCommandResult handleSetCommand(Object[] args) {
-                // AT+VGS=<gain>    in range [0,15]
-                // Headset/Handsfree is reporting its current gain to Android
-                //TODO: sync to AG UI
-                //TODO: Send unsolicited +VGS when volume changed on AG
-                return new AtCommandResult(AtCommandResult.OK);
-            }
-        });
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public AtParser getAtParser() {
@@ -236,12 +161,7 @@ public class HeadsetBase {
                         String input = readNative(500);
                         if (input != null) {
                             handleInput(input);
-<<<<<<< HEAD
                         } else {
-=======
-                        }
-                        else {
->>>>>>> 54b6cfa... Initial Contribution
                             last_read_error = getLastReadStatusNative();
                             if (last_read_error != 0) {
                                 Log.i(TAG, "headset read error " + last_read_error);
@@ -260,11 +180,6 @@ public class HeadsetBase {
         mEventThread.start();
     }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 54b6cfa... Initial Contribution
     private native String readNative(int timeout_ms);
     private native int getLastReadStatusNative();
 
@@ -295,16 +210,10 @@ public class HeadsetBase {
      */
 
     public boolean connectAsync() {
-<<<<<<< HEAD
         int ret = connectAsyncNative();
         return (ret == 0) ? true : false;
     }
     private native int connectAsyncNative();
-=======
-        return connectAsyncNative();
-    }
-    private native boolean connectAsyncNative();
->>>>>>> 54b6cfa... Initial Contribution
 
     public int getRemainingAsyncConnectWaitingTimeMs() {
         return mTimeoutRemainingMs;
@@ -346,17 +255,8 @@ public class HeadsetBase {
         return mEventThread != null;
     }
 
-<<<<<<< HEAD
     public BluetoothDevice getRemoteDevice() {
         return mRemoteDevice;
-=======
-    public String getAddress() {
-        return mAddress;
-    }
-
-    public String getName() {
-        return mBluetooth.getRemoteName(mAddress);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int getDirection() {
@@ -376,35 +276,23 @@ public class HeadsetBase {
     }
     private native boolean sendURCNative(String urc);
 
-<<<<<<< HEAD
     private synchronized void acquireWakeLock() {
-=======
-    private void acquireWakeLock() {
->>>>>>> 54b6cfa... Initial Contribution
         if (!mWakeLock.isHeld()) {
             mWakeLock.acquire();
         }
     }
 
-<<<<<<< HEAD
     private synchronized void releaseWakeLock() {
-=======
-    private void releaseWakeLock() {
->>>>>>> 54b6cfa... Initial Contribution
         if (mWakeLock.isHeld()) {
             mWakeLock.release();
         }
     }
 
-<<<<<<< HEAD
     public static int getAtInputCount() {
         return sAtInputCount;
     }
 
     private static void log(String msg) {
-=======
-    private void log(String msg) {
->>>>>>> 54b6cfa... Initial Contribution
         Log.d(TAG, msg);
     }
 }

@@ -212,13 +212,10 @@ import java.lang.reflect.Array;
         Object ret1 = null;
 
         for (int i = 0; i < spanCount; i++) {
-<<<<<<< HEAD
             if (kind != null && !kind.isInstance(spans[i])) {
                 continue;
             }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
             int spanStart = data[i * COLUMNS + START];
             int spanEnd = data[i * COLUMNS + END];
 
@@ -238,13 +235,6 @@ import java.lang.reflect.Array;
                 }
             }
 
-<<<<<<< HEAD
-=======
-            if (kind != null && !kind.isInstance(spans[i])) {
-                continue;
-            }
-
->>>>>>> 54b6cfa... Initial Contribution
             if (count == 0) {
                 ret1 = spans[i];
                 count++;

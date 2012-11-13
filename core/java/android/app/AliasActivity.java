@@ -26,10 +26,7 @@ import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Xml;
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.util.XmlUtils;
 
 import java.io.IOException;

@@ -6,10 +6,7 @@ LOCAL_SRC_FILES:= \
 
 LOCAL_SHARED_LIBRARIES := \
 	libutils \
-<<<<<<< HEAD
 	libbinder \
-=======
->>>>>>> 54b6cfa... Initial Contribution
 	libsystem_server 
 
 LOCAL_C_INCLUDES := \

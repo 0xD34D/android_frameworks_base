@@ -26,16 +26,11 @@ public interface TelephonyProperties
 {
     //****** Baseband and Radio Interface version
 
-<<<<<<< HEAD
     //TODO T: property strings do not have to be gsm specific
     //        change gsm.*operator.*" properties to "operator.*" properties
 
     /**
      * Baseband version
-=======
-    /** 
-     * Baseband version 
->>>>>>> 54b6cfa... Initial Contribution
      * Availability: property is available any time radio is on
      */
     static final String PROPERTY_BASEBAND_VERSION = "gsm.version.baseband";
@@ -45,7 +40,6 @@ public interface TelephonyProperties
 
     //****** Current Network
 
-<<<<<<< HEAD
     /** Alpha name of current registered operator.<p>
      *  Availability: when registered to a network. Result may be unreliable on
      *  CDMA networks.
@@ -64,17 +58,6 @@ public interface TelephonyProperties
      *  Availability: when registered to a network
      */
     static final String PROPERTY_OPERATOR_ISMANUAL = "operator.ismanual";
-=======
-    /** Alpha name of current registered operator.
-     *  Availability: when registered to a network
-     */
-    static final String PROPERTY_OPERATOR_ALPHA = "gsm.operator.alpha";
-
-    /** Numeric name (MCC+MNC) of current registered operator.
-     *  Availability: when registered to a network
-     */
-    static final String PROPERTY_OPERATOR_NUMERIC = "gsm.operator.numeric";
->>>>>>> 54b6cfa... Initial Contribution
 
     /** 'true' if the device is considered roaming on this network for GSM
      *  purposes.
@@ -82,7 +65,6 @@ public interface TelephonyProperties
      */
     static final String PROPERTY_OPERATOR_ISROAMING = "gsm.operator.isroaming";
 
-<<<<<<< HEAD
     /** The ISO country code equivalent of the current registered operator's
      *  MCC (Mobile Country Code)<p>
      *  Availability: when registered to a network. Result may be unreliable on
@@ -110,26 +92,11 @@ public interface TelephonyProperties
 
     //****** SIM Card
     /**
-=======
-    /** '1' if the current network is the result of a manual network selection.
-     *  Availability: when registered to a network
-     */
-    static final String PROPERTY_OPERATOR_ISMANUAL = "gsm.operator.ismanual";
-    /** The ISO country code equivilent of the current registered operator's
-     *  MCC (Mobile Country Code)
-     *  Availability: when registered to a network
-     */
-    static final String PROPERTY_OPERATOR_ISO_COUNTRY = "gsm.operator.iso-country";
-
-    //****** SIM Card
-    /** 
->>>>>>> 54b6cfa... Initial Contribution
      * One of <code>"UNKNOWN"</code> <code>"ABSENT"</code> <code>"PIN_REQUIRED"</code>
      * <code>"PUK_REQUIRED"</code> <code>"NETWORK_LOCKED"</code> or <code>"READY"</code>
      */
     static String PROPERTY_SIM_STATE = "gsm.sim.state";
 
-<<<<<<< HEAD
     /** The MCC+MNC (mobile country code+mobile network code) of the
      *  provider of the SIM. 5 or 6 decimal digits.
      *  Availability: SIM state must be "READY"
@@ -143,29 +110,6 @@ public interface TelephonyProperties
 
     /** ISO country code equivalent for the SIM provider's country code*/
     static String PROPERTY_ICC_OPERATOR_ISO_COUNTRY = "gsm.sim.operator.iso-country";
-=======
-    /** Set to '1' if voice mail is waiting, otherwise false */
-    static String PROPERTY_LINE1_VOICE_MAIL_WAITING = "gsm.sim.voice-mail.waiting";
-
-    /** Set to 'true' if unconditional voice call forwarding is enabled
-     *  Availablity: only if configured in SIM; SIM state must be "READY"
-     */
-    static String PROPERTY_LINE1_VOICE_CALL_FORWARDING = "gsm.sim.line1.cff";
-
-    /** The MCC+MNC (mobile country code+mobile network code) of the
-     *  provider of the SIM. 5 or 6 decimal digits.
-     *  Availablity: SIM state must be "READY"
-     */
-    static String PROPERTY_SIM_OPERATOR_NUMERIC = "gsm.sim.operator.numeric";
-
-    /** PROPERTY_SIM_OPERATOR_ALPHA is also known as the SPN, or Service Provider Name. 
-     *  Availablity: SIM state must be "READY"
-     */
-    static String PROPERTY_SIM_OPERATOR_ALPHA = "gsm.sim.operator.alpha";
-
-    /** ISO country code equivalent for the SIM provider's country code*/
-    static String PROPERTY_SIM_OPERATOR_ISO_COUNTRY = "gsm.sim.operator.iso-country";
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Indicates the available radio technology.  Values include: <code>"unknown"</code>,
@@ -173,7 +117,6 @@ public interface TelephonyProperties
      */
     static String PROPERTY_DATA_NETWORK_TYPE = "gsm.network.type";
 
-<<<<<<< HEAD
     /** Indicate if phone is in emergency callback mode */
     static final String PROPERTY_INECM_MODE = "ril.cdma.inecmmode";
 
@@ -244,6 +187,4 @@ public interface TelephonyProperties
      * Ignore RIL_UNSOL_NITZ_TIME_RECEIVED completely, used for debugging/testing.
      */
     static final String PROPERTY_IGNORE_NITZ = "telephony.test.ignore.nitz";
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

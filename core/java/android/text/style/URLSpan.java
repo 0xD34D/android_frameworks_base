@@ -16,7 +16,6 @@
 
 package android.text.style;
 
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,22 +28,11 @@ import android.view.View;
 public class URLSpan extends ClickableSpan implements ParcelableSpan {
 
     private final String mURL;
-=======
-import android.content.Intent;
-import android.net.Uri;
-import android.text.TextPaint;
-import android.view.View;
-
-public class URLSpan extends ClickableSpan {
-
-    private String mURL;
->>>>>>> 54b6cfa... Initial Contribution
 
     public URLSpan(String url) {
         mURL = url;
     }
 
-<<<<<<< HEAD
     public URLSpan(Parcel src) {
         mURL = src.readString();
     }
@@ -61,8 +49,6 @@ public class URLSpan extends ClickableSpan {
         dest.writeString(mURL);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public String getURL() {
         return mURL;
     }
@@ -70,15 +56,9 @@ public class URLSpan extends ClickableSpan {
     @Override
     public void onClick(View widget) {
         Uri uri = Uri.parse(getURL());
-<<<<<<< HEAD
         Context context = widget.getContext();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.putExtra(Browser.EXTRA_APPLICATION_ID, context.getPackageName());
         context.startActivity(intent);
-=======
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        widget.getContext().startActivity(intent);
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

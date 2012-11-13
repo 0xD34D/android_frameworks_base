@@ -15,43 +15,26 @@
 -->
 
 <!--
-<<<<<<< HEAD
 This is a custom layout for a dialog.
-=======
-This is an custom layout for a dialog.
->>>>>>> 54b6cfa... Initial Contribution
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
     android:orientation="vertical" 
     android:fitsSystemWindows="true">
     <FrameLayout android:id="@android:id/title_container" 
-<<<<<<< HEAD
         android:layout_width="match_parent" 
-=======
-        android:layout_width="fill_parent" 
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_height="24dip"
         android:layout_weight="0"
         style="?android:attr/windowTitleBackgroundStyle">
     </FrameLayout>
     <FrameLayout
-<<<<<<< HEAD
         android:layout_width="match_parent" android:layout_height="wrap_content"
-=======
-        android:layout_width="fill_parent" android:layout_height="wrap_content"
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_weight="1"
         android:orientation="vertical"
         android:foreground="?android:attr/windowContentOverlay">
         <FrameLayout android:id="@android:id/content"
-<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-=======
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
             android:paddingTop="6dip"
             android:paddingBottom="10dip"
             android:paddingLeft="10dip"

@@ -18,10 +18,6 @@ package android.widget;
 
 import android.database.DataSetObservable;
 import android.database.DataSetObserver;
-<<<<<<< HEAD
-=======
-import android.view.KeyEvent;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Base class for a {@link ExpandableListAdapter} used to provide data and Views
@@ -34,12 +30,8 @@ import android.view.KeyEvent;
  * @see SimpleExpandableListAdapter
  * @see SimpleCursorTreeAdapter
  */
-<<<<<<< HEAD
 public abstract class BaseExpandableListAdapter implements ExpandableListAdapter, 
         HeterogeneousExpandableList {
-=======
-public abstract class BaseExpandableListAdapter implements ExpandableListAdapter {
->>>>>>> 54b6cfa... Initial Contribution
     private final DataSetObservable mDataSetObservable = new DataSetObservable();
     
     public void registerDataSetObserver(DataSetObserver observer) {
@@ -51,22 +43,14 @@ public abstract class BaseExpandableListAdapter implements ExpandableListAdapter
     }
     
     /**
-<<<<<<< HEAD
      * @see DataSetObservable#notifyInvalidated()
-=======
-     * {@see DataSetObservable#notifyInvalidated()}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void notifyDataSetInvalidated() {
         mDataSetObservable.notifyInvalidated();
     }
     
     /**
-<<<<<<< HEAD
      * @see DataSetObservable#notifyChanged()
-=======
-     * {@see DataSetObservable#notifyChanged()}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void notifyDataSetChanged() {
         mDataSetObservable.notifyChanged();
@@ -87,11 +71,7 @@ public abstract class BaseExpandableListAdapter implements ExpandableListAdapter
      * <p>
      * Base implementation returns a long:
      * <li> bit 0: Whether this ID points to a child (unset) or group (set), so for this method
-<<<<<<< HEAD
      *             this bit will be 1.
-=======
-     *             this bit will be 0.
->>>>>>> 54b6cfa... Initial Contribution
      * <li> bit 1-31: Lower 31 bits of the groupId
      * <li> bit 32-63: Lower 32 bits of the childId.
      * <p> 
@@ -106,11 +86,7 @@ public abstract class BaseExpandableListAdapter implements ExpandableListAdapter
      * <p>
      * Base implementation returns a long:
      * <li> bit 0: Whether this ID points to a child (unset) or group (set), so for this method
-<<<<<<< HEAD
      *             this bit will be 0.
-=======
-     *             this bit will be 1.
->>>>>>> 54b6cfa... Initial Contribution
      * <li> bit 1-31: Lower 31 bits of the groupId
      * <li> bit 32-63: Lower 32 bits of the childId.
      * <p> 
@@ -126,7 +102,6 @@ public abstract class BaseExpandableListAdapter implements ExpandableListAdapter
     public boolean isEmpty() {
         return getGroupCount() == 0;
     }
-<<<<<<< HEAD
 
 
     /**
@@ -160,7 +135,4 @@ public abstract class BaseExpandableListAdapter implements ExpandableListAdapter
     public int getGroupTypeCount() {
         return 1;
     }
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
 }

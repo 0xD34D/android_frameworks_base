@@ -63,7 +63,6 @@ import java.util.Map;
  * 
  * <pre>
  * &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-<<<<<<< HEAD
  * &lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
  *         android:orientation=&quot;vertical&quot;
  *         android:layout_width=&quot;match_parent&quot; 
@@ -74,31 +73,13 @@ import java.util.Map;
  *     &lt;ExpandableListView android:id=&quot;@id/android:list&quot;
  *               android:layout_width=&quot;match_parent&quot; 
  *               android:layout_height=&quot;match_parent&quot;
-=======
- * &lt;LinearLayout
- *         android:orientation=&quot;vertical&quot;
- *         android:layout_width=&quot;fill_parent&quot; 
- *         android:layout_height=&quot;fill_parent&quot;
- *         android:paddingLeft=&quot;8&quot;
- *         android:paddingRight=&quot;8&quot;&gt;
- * 
- *     &lt;ExpandableListView id=&quot;android:list&quot;
- *               android:layout_width=&quot;fill_parent&quot; 
- *               android:layout_height=&quot;fill_parent&quot;
->>>>>>> 54b6cfa... Initial Contribution
  *               android:background=&quot;#00FF00&quot;
  *               android:layout_weight=&quot;1&quot;
  *               android:drawSelectorOnTop=&quot;false&quot;/&gt;
  * 
-<<<<<<< HEAD
  *     &lt;TextView android:id=&quot;@id/android:empty&quot;
  *               android:layout_width=&quot;match_parent&quot; 
  *               android:layout_height=&quot;match_parent&quot;
-=======
- *     &lt;TextView id=&quot;android:empty&quot;
- *               android:layout_width=&quot;fill_parent&quot; 
- *               android:layout_height=&quot;fill_parent&quot;
->>>>>>> 54b6cfa... Initial Contribution
  *               android:background=&quot;#FF0000&quot;
  *               android:text=&quot;No data&quot;/&gt;
  * &lt;/LinearLayout&gt;
@@ -132,7 +113,6 @@ import java.util.Map;
  * 
  * <pre>
  * &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-<<<<<<< HEAD
  * &lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
  *     android:layout_width=&quot;match_parent&quot;
  *     android:layout_height=&quot;wrap_content&quot;
@@ -147,22 +127,6 @@ import java.util.Map;
  *     &lt;TextView android:id=&quot;@+id/text2&quot;
  *         android:textSize=&quot;16sp&quot;
  *         android:layout_width=&quot;match_parent&quot;
-=======
- * &lt;LinearLayout
- *     android:layout_width=&quot;fill_parent&quot;
- *     android:layout_height=&quot;wrap_content&quot;
- *     android:orientation=&quot;vertical&quot;&gt;
- * 
- *     &lt;TextView id=&quot;text1&quot;
- *         android:textSize=&quot;16&quot;
- *         android:textStyle=&quot;bold&quot;
- *         android:layout_width=&quot;fill_parent&quot;
- *         android:layout_height=&quot;wrap_content&quot;/&gt;
- * 
- *     &lt;TextView id=&quot;text2&quot;
- *         android:textSize=&quot;16&quot;
- *         android:layout_width=&quot;fill_parent&quot;
->>>>>>> 54b6cfa... Initial Contribution
  *         android:layout_height=&quot;wrap_content&quot;/&gt;
  * &lt;/LinearLayout&gt;
  * </pre>
@@ -198,12 +162,8 @@ public class ExpandableListActivity extends Activity implements
 
     /**
      * Override this to populate the context menu when an item is long pressed. menuInfo
-<<<<<<< HEAD
      * will contain an {@link android.widget.ExpandableListView.ExpandableListContextMenuInfo}
      * whose packedPosition is a packed position
-=======
-     * will contain a {@link AdapterContextMenuInfo} whose position is a packed position
->>>>>>> 54b6cfa... Initial Contribution
      * that should be used with {@link ExpandableListView#getPackedPositionType(long)} and
      * the other similar methods.
      * <p>

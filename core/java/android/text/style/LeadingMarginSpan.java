@@ -18,7 +18,6 @@ package android.text.style;
 
 import android.graphics.Paint;
 import android.graphics.Canvas;
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.text.Layout;
 import android.text.ParcelableSpan;
@@ -62,21 +61,12 @@ extends ParagraphStyle
      * @param first true if this is the first line of its paragraph
      * @param layout the layout containing this line
      */
-=======
-import android.text.Layout;
-
-public interface LeadingMarginSpan
-extends ParagraphStyle
-{
-    public int getLeadingMargin(boolean first);
->>>>>>> 54b6cfa... Initial Contribution
     public void drawLeadingMargin(Canvas c, Paint p,
                                   int x, int dir,
                                   int top, int baseline, int bottom,
                                   CharSequence text, int start, int end,
                                   boolean first, Layout layout);
 
-<<<<<<< HEAD
 
     /**
      * An extended version of {@link LeadingMarginSpan}, which allows
@@ -109,28 +99,19 @@ extends ParagraphStyle
          * @param first the indent for the first line of the paragraph
          * @param rest the indent for the remaining lines of the paragraph
          */
-=======
-    public static class Standard
-    implements LeadingMarginSpan
-    {
->>>>>>> 54b6cfa... Initial Contribution
         public Standard(int first, int rest) {
             mFirst = first;
             mRest = rest;
         }
 
-<<<<<<< HEAD
         /**
          * Constructor taking an indent for all lines.
          * @param every the indent of each line
          */
-=======
->>>>>>> 54b6cfa... Initial Contribution
         public Standard(int every) {
             this(every, every);
         }
 
-<<<<<<< HEAD
         public Standard(Parcel src) {
             mFirst = src.readInt();
             mRest = src.readInt();
@@ -149,8 +130,6 @@ extends ParagraphStyle
             dest.writeInt(mRest);
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         public int getLeadingMargin(boolean first) {
             return first ? mFirst : mRest;
         }
@@ -162,10 +141,5 @@ extends ParagraphStyle
                                       boolean first, Layout layout) {
             ;
         }
-<<<<<<< HEAD
-=======
-
-        private int mFirst, mRest;
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

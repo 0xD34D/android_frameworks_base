@@ -19,19 +19,12 @@ package android.widget;
 import android.database.DataSetObserver;
 import android.os.Parcel;
 import android.os.Parcelable;
-<<<<<<< HEAD
 import android.os.SystemClock;
-=======
-import android.view.KeyEvent;
->>>>>>> 54b6cfa... Initial Contribution
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.Collections;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /*
  * Implementation notes:
@@ -74,11 +67,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
     private int mMaxExpGroupCount = Integer.MAX_VALUE;
 
     /** Change observer used to have ExpandableListAdapter changes pushed to us */
-<<<<<<< HEAD
     private final DataSetObserver mDataSetObserver = new MyDataSetObserver();
-=======
-    private DataSetObserver mDataSetObserver = new MyDataSetObserver();
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Constructs the connector
@@ -132,11 +121,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
              * either), so flPos must be a group and its group pos will be the
              * same as its flPos
              */
-<<<<<<< HEAD
             return PositionMetadata.obtain(flPos, ExpandableListPosition.GROUP, flPos,
-=======
-            return new PositionMetadata(flPos, ExpandableListPosition.GROUP, flPos,
->>>>>>> 54b6cfa... Initial Contribution
                     -1, null, 0);
         }
 
@@ -175,11 +160,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
                  * The flat list position is this middle group's flat list
                  * position, so we've found an exact hit
                  */
-<<<<<<< HEAD
                 return PositionMetadata.obtain(flPos, ExpandableListPosition.GROUP,
-=======
-                return new PositionMetadata(flPos, ExpandableListPosition.GROUP,
->>>>>>> 54b6cfa... Initial Contribution
                         midExpGm.gPos, -1, midExpGm, midExpGroupIndex);
             } else if (flPos <= midExpGm.lastChildFlPos
                     /* && flPos > midGm.flPos as deduced from previous
@@ -192,11 +173,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
                  * the group
                  */
                 final int childPos = flPos - (midExpGm.flPos + 1);
-<<<<<<< HEAD
                 return PositionMetadata.obtain(flPos, ExpandableListPosition.CHILD,
-=======
-                return new PositionMetadata(flPos, ExpandableListPosition.CHILD,
->>>>>>> 54b6cfa... Initial Contribution
                         midExpGm.gPos, childPos, midExpGm, midExpGroupIndex);
             } 
         }
@@ -208,7 +185,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
          */
 
 
-<<<<<<< HEAD
         /**
          * If we are to expand this group later, where would it go in the
          * mExpGroupMetadataList ?
@@ -216,13 +192,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         int insertPosition = 0;
         
         /** What is its group position in the list of all groups? */
-=======
-        /* If we are to expand this group later, where would it go in the
-         * mExpGroupMetadataList ? */
-        int insertPosition = 0;
-        
-        /* What is its group position from the list of all groups? */
->>>>>>> 54b6cfa... Initial Contribution
         int groupPos = 0;
         
         /*
@@ -271,11 +240,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             throw new RuntimeException("Unknown state");
         }
         
-<<<<<<< HEAD
         return PositionMetadata.obtain(flPos, ExpandableListPosition.GROUP, groupPos, -1,
-=======
-        return new PositionMetadata(flPos, ExpandableListPosition.GROUP, groupPos, -1,
->>>>>>> 54b6cfa... Initial Contribution
                 null, insertPosition);
     }
 
@@ -288,11 +253,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
      * @param pos a {@link ExpandableListPosition} representing either a group position
      *        or child position
      * @return the flat list position encompassed in a {@link PositionMetadata}
-<<<<<<< HEAD
      *         object that contains additional useful info for insertion, etc., or null.
-=======
-     *         object that contains additional useful info for insertion, etc.
->>>>>>> 54b6cfa... Initial Contribution
      */
     PositionMetadata getFlattenedPos(final ExpandableListPosition pos) {
         final ArrayList<GroupMetadata> egml = mExpGroupMetadataList;
@@ -310,11 +271,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
              * its flPos will be the same as its group pos.  The
              * insert position is 0 (since the list is empty).
              */
-<<<<<<< HEAD
             return PositionMetadata.obtain(pos.groupPos, pos.type,
-=======
-            return new PositionMetadata(pos.groupPos, pos.type,
->>>>>>> 54b6cfa... Initial Contribution
                     pos.groupPos, pos.childPos, null, 0);
         }
 
@@ -344,19 +301,11 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
                 
                 if (pos.type == ExpandableListPosition.GROUP) {
                     /* If it's a group, give them this matched group's flPos */
-<<<<<<< HEAD
                     return PositionMetadata.obtain(midExpGm.flPos, pos.type,
                             pos.groupPos, pos.childPos, midExpGm, midExpGroupIndex);
                 } else if (pos.type == ExpandableListPosition.CHILD) {
                     /* If it's a child, calculate the flat list pos */
                     return PositionMetadata.obtain(midExpGm.flPos + pos.childPos
-=======
-                    return new PositionMetadata(midExpGm.flPos, pos.type,
-                            pos.groupPos, pos.childPos, midExpGm, midExpGroupIndex);
-                } else if (pos.type == ExpandableListPosition.CHILD) {
-                    /* If it's a child, calculate the flat list pos */
-                    return new PositionMetadata(midExpGm.flPos + pos.childPos
->>>>>>> 54b6cfa... Initial Contribution
                             + 1, pos.type, pos.groupPos, pos.childPos,
                             midExpGm, midExpGroupIndex);
                 } else {
@@ -395,11 +344,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
                     leftExpGm.lastChildFlPos
                             + (pos.groupPos - leftExpGm.gPos);
 
-<<<<<<< HEAD
             return PositionMetadata.obtain(flPos, pos.type, pos.groupPos,
-=======
-            return new PositionMetadata(flPos, pos.type, pos.groupPos,
->>>>>>> 54b6cfa... Initial Contribution
                     pos.childPos, null, leftExpGroupIndex);
         } else if (rightExpGroupIndex < midExpGroupIndex) {
 
@@ -413,11 +358,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             final int flPos =
                     rightExpGm.flPos
                             - (rightExpGm.gPos - pos.groupPos);
-<<<<<<< HEAD
             return PositionMetadata.obtain(flPos, pos.type, pos.groupPos,
-=======
-            return new PositionMetadata(flPos, pos.type, pos.groupPos,
->>>>>>> 54b6cfa... Initial Contribution
                     pos.childPos, null, rightExpGroupIndex);
         } else {
             return null;
@@ -431,7 +372,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
 
     @Override
     public boolean isEnabled(int flatListPos) {
-<<<<<<< HEAD
         final PositionMetadata metadata = getUnflattenedPos(flatListPos);
         final ExpandableListPosition pos = metadata.position;
         
@@ -446,16 +386,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         metadata.recycle();
         
         return retValue;
-=======
-        final ExpandableListPosition pos = getUnflattenedPos(flatListPos).position;
-
-        if (pos.type == ExpandableListPosition.CHILD) {
-            return mExpandableListAdapter.isChildSelectable(pos.groupPos, pos.childPos);
-        } else {
-            // Groups are always selectable
-            return true;
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int getCount() {
@@ -470,39 +400,27 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
     public Object getItem(int flatListPos) {
         final PositionMetadata posMetadata = getUnflattenedPos(flatListPos);
 
-<<<<<<< HEAD
         Object retValue;
         if (posMetadata.position.type == ExpandableListPosition.GROUP) {
             retValue = mExpandableListAdapter
                     .getGroup(posMetadata.position.groupPos);
         } else if (posMetadata.position.type == ExpandableListPosition.CHILD) {
             retValue = mExpandableListAdapter.getChild(posMetadata.position.groupPos,
-=======
-        if (posMetadata.position.type == ExpandableListPosition.GROUP) {
-            return mExpandableListAdapter
-                    .getGroup(posMetadata.position.groupPos);
-        } else if (posMetadata.position.type == ExpandableListPosition.CHILD) {
-            return mExpandableListAdapter.getChild(posMetadata.position.groupPos,
->>>>>>> 54b6cfa... Initial Contribution
                     posMetadata.position.childPos);
         } else {
             // TODO: clean exit
             throw new RuntimeException("Flat list position is of unknown type");
         }
-<<<<<<< HEAD
         
         posMetadata.recycle();
         
         return retValue;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public long getItemId(int flatListPos) {
         final PositionMetadata posMetadata = getUnflattenedPos(flatListPos);
         final long groupId = mExpandableListAdapter.getGroupId(posMetadata.position.groupPos);
         
-<<<<<<< HEAD
         long retValue;
         if (posMetadata.position.type == ExpandableListPosition.GROUP) {
             retValue = mExpandableListAdapter.getCombinedGroupId(groupId);
@@ -510,31 +428,19 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             final long childId = mExpandableListAdapter.getChildId(posMetadata.position.groupPos,
                     posMetadata.position.childPos);
             retValue = mExpandableListAdapter.getCombinedChildId(groupId, childId);
-=======
-        if (posMetadata.position.type == ExpandableListPosition.GROUP) {
-            return mExpandableListAdapter.getCombinedGroupId(groupId);
-        } else if (posMetadata.position.type == ExpandableListPosition.CHILD) {
-            final long childId = mExpandableListAdapter.getChildId(posMetadata.position.groupPos,
-                    posMetadata.position.childPos);
-            return mExpandableListAdapter.getCombinedChildId(groupId, childId);
->>>>>>> 54b6cfa... Initial Contribution
         } else {
             // TODO: clean exit
             throw new RuntimeException("Flat list position is of unknown type");
         }
-<<<<<<< HEAD
         
         posMetadata.recycle();
         
         return retValue;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public View getView(int flatListPos, View convertView, ViewGroup parent) {
         final PositionMetadata posMetadata = getUnflattenedPos(flatListPos);
 
-<<<<<<< HEAD
         View retValue;
         if (posMetadata.position.type == ExpandableListPosition.GROUP) {
             retValue = mExpandableListAdapter.getGroupView(posMetadata.position.groupPos,
@@ -544,34 +450,18 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             
             retValue = mExpandableListAdapter.getChildView(posMetadata.position.groupPos,
                     posMetadata.position.childPos, isLastChild, convertView, parent);
-=======
-        if (posMetadata.position.type == ExpandableListPosition.GROUP) {
-            return mExpandableListAdapter.getGroupView(posMetadata.position.groupPos, posMetadata
-                    .isExpanded(), convertView, parent);
-        } else if (posMetadata.position.type == ExpandableListPosition.CHILD) {
-            final boolean isLastChild = posMetadata.groupMetadata.lastChildFlPos == flatListPos;
-            
-            final View view = mExpandableListAdapter.getChildView(posMetadata.position.groupPos,
-                    posMetadata.position.childPos, isLastChild, convertView, parent);
-            
-            return view;
->>>>>>> 54b6cfa... Initial Contribution
         } else {
             // TODO: clean exit
             throw new RuntimeException("Flat list position is of unknown type");
         }
-<<<<<<< HEAD
         
         posMetadata.recycle();
         
         return retValue;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public int getItemViewType(int flatListPos) {
-<<<<<<< HEAD
         final PositionMetadata metadata = getUnflattenedPos(flatListPos);
         final ExpandableListPosition pos = metadata.position;
 
@@ -596,20 +486,10 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         metadata.recycle();
         
         return retValue;
-=======
-        final ExpandableListPosition pos = getUnflattenedPos(flatListPos).position;
-
-        if (pos.type == ExpandableListPosition.GROUP) {
-            return 0;
-        } else {
-            return 1;
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public int getViewTypeCount() {
-<<<<<<< HEAD
         if (mExpandableListAdapter instanceof HeterogeneousExpandableList) {
             HeterogeneousExpandableList adapter =
                     (HeterogeneousExpandableList) mExpandableListAdapter;
@@ -617,9 +497,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         } else {
             return 2;
         }
-=======
-        return 2;
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
@@ -632,7 +509,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
      * positions.
      * 
      * @param forceChildrenCountRefresh Forces refreshing of the children count
-<<<<<<< HEAD
      *        for all expanded groups.
      * @param syncGroupPositions Whether to search for the group positions
      *         based on the group IDs. This should only be needed when calling
@@ -643,19 +519,11 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             boolean syncGroupPositions) {
         final ArrayList<GroupMetadata> egml = mExpGroupMetadataList;
         int egmlSize = egml.size();
-=======
-     *            for all expanded groups.
-     */
-    private void refreshExpGroupMetadataList(boolean forceChildrenCountRefresh) {
-        final ArrayList<GroupMetadata> egml = mExpGroupMetadataList;
-        final int egmlSize = egml.size();
->>>>>>> 54b6cfa... Initial Contribution
         int curFlPos = 0;
         
         /* Update child count as we go through */
         mTotalExpChildrenCount = 0;
         
-<<<<<<< HEAD
         if (syncGroupPositions) {
             // We need to check whether any groups have moved positions
             boolean positionsChanged = false;
@@ -681,18 +549,11 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             }
         }
         
-=======
-        GroupMetadata curGm;
->>>>>>> 54b6cfa... Initial Contribution
         int gChildrenCount;
         int lastGPos = 0;
         for (int i = 0; i < egmlSize; i++) {
             /* Store in local variable since we'll access freq */
-<<<<<<< HEAD
             GroupMetadata curGm = egml.get(i);
-=======
-            curGm = egml.get(i);
->>>>>>> 54b6cfa... Initial Contribution
             
             /*
              * Get the number of children, try to refrain from calling
@@ -731,7 +592,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
      * @param groupPos position of the group to collapse
      */
     boolean collapseGroup(int groupPos) {
-<<<<<<< HEAD
         ExpandableListPosition elGroupPos = ExpandableListPosition.obtain(
                 ExpandableListPosition.GROUP, groupPos, -1, -1);
         PositionMetadata pm = getFlattenedPos(elGroupPos);
@@ -741,10 +601,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         boolean retValue = collapseGroup(pm);
         pm.recycle();
         return retValue;
-=======
-        return collapseGroup(getFlattenedPos(new ExpandableListPosition(ExpandableListPosition.GROUP,
-                groupPos, -1, -1)));
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     boolean collapseGroup(PositionMetadata posMetadata) {
@@ -763,11 +619,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         mExpGroupMetadataList.remove(posMetadata.groupMetadata);
 
         // Refresh the metadata
-<<<<<<< HEAD
         refreshExpGroupMetadataList(false, false);
-=======
-        refreshExpGroupMetadataList(false);
->>>>>>> 54b6cfa... Initial Contribution
         
         // Notify of change
         notifyDataSetChanged();
@@ -783,7 +635,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
      * @param groupPos the group to be expanded
      */
     boolean expandGroup(int groupPos) {
-<<<<<<< HEAD
         ExpandableListPosition elGroupPos = ExpandableListPosition.obtain(
                 ExpandableListPosition.GROUP, groupPos, -1, -1);
         PositionMetadata pm = getFlattenedPos(elGroupPos);
@@ -791,10 +642,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         boolean retValue = expandGroup(pm);
         pm.recycle();
         return retValue;
-=======
-        return expandGroup(getFlattenedPos(new ExpandableListPosition(ExpandableListPosition.GROUP, 
-                groupPos, -1, -1)));
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     boolean expandGroup(PositionMetadata posMetadata) {
@@ -812,11 +659,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         // Check to see if it's already expanded
         if (posMetadata.groupMetadata != null) return false;
         
-<<<<<<< HEAD
         /* Restrict number of expanded groups to mMaxExpGroupCount */
-=======
-        /* Restrict number of exp groups to mMaxExpGroupCount */
->>>>>>> 54b6cfa... Initial Contribution
         if (mExpGroupMetadataList.size() >= mMaxExpGroupCount) {
             /* Collapse a group */
             // TODO: Collapse something not on the screen instead of the first one?
@@ -833,28 +676,16 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             }
         }
         
-<<<<<<< HEAD
         GroupMetadata expandedGm = GroupMetadata.obtain(
                 GroupMetadata.REFRESH,
                 GroupMetadata.REFRESH,
                 posMetadata.position.groupPos,
                 mExpandableListAdapter.getGroupId(posMetadata.position.groupPos));
-=======
-        GroupMetadata expandedGm = new GroupMetadata();
-        
-        expandedGm.gPos = posMetadata.position.groupPos;
-        expandedGm.flPos = GroupMetadata.REFRESH;
-        expandedGm.lastChildFlPos = GroupMetadata.REFRESH;
->>>>>>> 54b6cfa... Initial Contribution
         
         mExpGroupMetadataList.add(posMetadata.groupInsertIndex, expandedGm);
 
         // Refresh the metadata
-<<<<<<< HEAD
         refreshExpGroupMetadataList(false, false);
-=======
-        refreshExpGroupMetadataList(false);
->>>>>>> 54b6cfa... Initial Contribution
         
         // Notify of change
         notifyDataSetChanged();
@@ -924,11 +755,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         }
         
         mExpGroupMetadataList = expandedGroupMetadataList;
-<<<<<<< HEAD
         refreshExpGroupMetadataList(true, false);
-=======
-        refreshExpGroupMetadataList(true);
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
@@ -937,7 +764,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         return adapter != null ? adapter.isEmpty() : true;
     }
 
-<<<<<<< HEAD
     /**
      * Searches the expandable list adapter for a group position matching the
      * given group ID. The search starts at the given seed position and then
@@ -1029,23 +855,13 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
         @Override
         public void onChanged() {
             refreshExpGroupMetadataList(true, true);
-=======
-    protected class MyDataSetObserver extends DataSetObserver {
-        @Override
-        public void onChanged() {
-            refreshExpGroupMetadataList(true);
->>>>>>> 54b6cfa... Initial Contribution
             
             notifyDataSetChanged();
         }
 
         @Override
         public void onInvalidated() {
-<<<<<<< HEAD
             refreshExpGroupMetadataList(true, true);
-=======
-            refreshExpGroupMetadataList(true);
->>>>>>> 54b6cfa... Initial Contribution
             
             notifyDataSetInvalidated();
         }
@@ -1056,11 +872,7 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
      * position to either a) group position for groups, or b) child position for
      * children
      */
-<<<<<<< HEAD
     static class GroupMetadata implements Parcelable, Comparable<GroupMetadata> {
-=======
-    static class GroupMetadata implements Parcelable {
->>>>>>> 54b6cfa... Initial Contribution
         final static int REFRESH = -1;
         
         /** This group's flat list position */
@@ -1078,7 +890,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
          * This group's group position
          */
         int gPos;
-<<<<<<< HEAD
         
         /**
          * This group's id
@@ -1104,8 +915,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             
             return gPos - another.gPos;
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
         public int describeContents() {
             return 0;
@@ -1115,28 +924,18 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
             dest.writeInt(flPos);
             dest.writeInt(lastChildFlPos);
             dest.writeInt(gPos);
-<<<<<<< HEAD
             dest.writeLong(gId);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
         
         public static final Parcelable.Creator<GroupMetadata> CREATOR =
                 new Parcelable.Creator<GroupMetadata>() {
             
             public GroupMetadata createFromParcel(Parcel in) {
-<<<<<<< HEAD
                 GroupMetadata gm = GroupMetadata.obtain(
                         in.readInt(),
                         in.readInt(),
                         in.readInt(),
                         in.readLong());
-=======
-                GroupMetadata gm = new GroupMetadata();
-                gm.flPos = in.readInt();
-                gm.lastChildFlPos = in.readInt();
-                gm.gPos = in.readInt();
->>>>>>> 54b6cfa... Initial Contribution
                 return gm;
             }
     
@@ -1153,14 +952,11 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
      * where to insert into the flat list, etc.)
      */
     static public class PositionMetadata {
-<<<<<<< HEAD
         
         private static final int MAX_POOL_SIZE = 5;
         private static ArrayList<PositionMetadata> sPool =
                 new ArrayList<PositionMetadata>(MAX_POOL_SIZE);
         
-=======
->>>>>>> 54b6cfa... Initial Contribution
         /** Data type to hold the position and its type (child/group) */
         public ExpandableListPosition position;
         
@@ -1180,7 +976,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
          */
         public int groupInsertIndex;
         
-<<<<<<< HEAD
         private void resetState() {
             if (position != null) {
                 position.recycle();
@@ -1225,19 +1020,6 @@ class ExpandableListConnector extends BaseAdapter implements Filterable {
                     sPool.add(this);
                 }
             }
-=======
-        public PositionMetadata(int flatListPos, int type, int groupPos,
-                int childPos) {
-            position = new ExpandableListPosition(type, groupPos, childPos, flatListPos);
-        }
-        
-        protected PositionMetadata(int flatListPos, int type, int groupPos,
-                int childPos, GroupMetadata groupMetadata, int groupInsertIndex) {
-            position = new ExpandableListPosition(type, groupPos, childPos, flatListPos);
-            
-            this.groupMetadata = groupMetadata;
-            this.groupInsertIndex = groupInsertIndex;
->>>>>>> 54b6cfa... Initial Contribution
         }
         
         /**

@@ -24,11 +24,8 @@ import android.util.AttributeSet;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 import java.util.regex.Pattern;
 
@@ -57,11 +54,7 @@ import java.util.regex.Pattern;
  * {@link #setColumnCollapsed(int,boolean) setColumnCollapsed()}.</p>
  *
  * <p>The children of a TableLayout cannot specify the <code>layout_width</code>
-<<<<<<< HEAD
  * attribute. Width is always <code>MATCH_PARENT</code>. However, the
-=======
- * attribute. Width is always <code>FILL_PARENT</code>. However, the
->>>>>>> 54b6cfa... Initial Contribution
  * <code>layout_height</code> attribute can be defined by a child; default value
  * is {@link android.widget.TableLayout.LayoutParams#WRAP_CONTENT}. If the child
  * is a {@link android.widget.TableRow}, then the height is always
@@ -76,10 +69,7 @@ import java.util.regex.Pattern;
  * <p>Although the typical child of a TableLayout is a TableRow, you can
  * actually use any View subclass as a direct child of TableLayout. The View
  * will be displayed as a single row that spans all the table columns.</p>
-<<<<<<< HEAD
  *
-=======
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class TableLayout extends LinearLayout {
     private int[] mMaxWidths;
@@ -114,17 +104,9 @@ public class TableLayout extends LinearLayout {
     public TableLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-<<<<<<< HEAD
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TableLayout);
 
         String stretchedColumns = a.getString(R.styleable.TableLayout_stretchColumns);
-=======
-        TypedArray a =
-                context.obtainStyledAttributes(attrs, R.styleable.TableLayout);
-
-        String stretchedColumns =
-                a.getString(R.styleable.TableLayout_stretchColumns);
->>>>>>> 54b6cfa... Initial Contribution
         if (stretchedColumns != null) {
             if (stretchedColumns.charAt(0) == '*') {
                 mStretchAllColumns = true;
@@ -133,12 +115,7 @@ public class TableLayout extends LinearLayout {
             }
         }
 
-<<<<<<< HEAD
         String shrinkedColumns = a.getString(R.styleable.TableLayout_shrinkColumns);
-=======
-        String shrinkedColumns =
-                a.getString(R.styleable.TableLayout_shrinkColumns);
->>>>>>> 54b6cfa... Initial Contribution
         if (shrinkedColumns != null) {
             if (shrinkedColumns.charAt(0) == '*') {
                 mShrinkAllColumns = true;
@@ -147,12 +124,7 @@ public class TableLayout extends LinearLayout {
             }
         }
 
-<<<<<<< HEAD
         String collapsedColumns = a.getString(R.styleable.TableLayout_collapseColumns);
-=======
-        String collapsedColumns =
-                a.getString(R.styleable.TableLayout_collapseColumns);
->>>>>>> 54b6cfa... Initial Contribution
         if (collapsedColumns != null) {
             mCollapsedColumns = parseColumns(collapsedColumns);
         }
@@ -258,11 +230,8 @@ public class TableLayout extends LinearLayout {
      * <p>Indicates whether all columns are shrinkable or not.</p>
      *
      * @return true if all columns are shrinkable, false otherwise
-<<<<<<< HEAD
      *
      * @attr ref android.R.styleable#TableLayout_shrinkColumns
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public boolean isShrinkAllColumns() {
         return mShrinkAllColumns;
@@ -283,11 +252,8 @@ public class TableLayout extends LinearLayout {
      * <p>Indicates whether all columns are stretchable or not.</p>
      *
      * @return true if all columns are stretchable, false otherwise
-<<<<<<< HEAD
      *
      * @attr ref android.R.styleable#TableLayout_stretchColumns
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public boolean isStretchAllColumns() {
         return mStretchAllColumns;
@@ -393,11 +359,7 @@ public class TableLayout extends LinearLayout {
      * @return true if the column is shrinkable, false otherwise. Default is false.
      */
     public boolean isColumnShrinkable(int columnIndex) {
-<<<<<<< HEAD
         return mShrinkAllColumns || mShrinkableColumns.get(columnIndex);
-=======
-        return mShrinkAllColumns || mStretchableColumns.get(columnIndex);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -602,11 +564,7 @@ public class TableLayout extends LinearLayout {
 
         if ((totalWidth > size) && (mShrinkAllColumns || mShrinkableColumns.size() > 0)) {
             // oops, the largest columns are wider than the row itself
-<<<<<<< HEAD
             // fairly redistribute the row's width among the columns
-=======
-            // fairly redistribute the row's widh among the columns
->>>>>>> 54b6cfa... Initial Contribution
             mutateColumnsWidth(mShrinkableColumns, mShrinkAllColumns, size, totalWidth);
         } else if ((totalWidth < size) && (mStretchAllColumns || mStretchableColumns.size() > 0)) {
             // if we have some space left, we distribute it among the
@@ -624,7 +582,6 @@ public class TableLayout extends LinearLayout {
         final int totalExtraSpace = size - totalWidth;
         int extraSpace = totalExtraSpace / count;
 
-<<<<<<< HEAD
         // Column's widths are changed: force child table rows to re-measure.
         // (done by super.measureVertical after shrinkAndStretchColumns.)
         final int nbChildren = getChildCount();
@@ -635,8 +592,6 @@ public class TableLayout extends LinearLayout {
             }
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (!allColumns) {
             for (int i = 0; i < count; i++) {
                 int column = columns.keyAt(i);
@@ -683,11 +638,7 @@ public class TableLayout extends LinearLayout {
 
     /**
      * Returns a set of layout parameters with a width of
-<<<<<<< HEAD
      * {@link android.view.ViewGroup.LayoutParams#MATCH_PARENT},
-=======
-     * {@link android.view.ViewGroup.LayoutParams#FILL_PARENT},
->>>>>>> 54b6cfa... Initial Contribution
      * and a height of {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}.
      */
     @Override
@@ -711,7 +662,6 @@ public class TableLayout extends LinearLayout {
         return new LayoutParams(p);
     }
 
-<<<<<<< HEAD
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
@@ -727,11 +677,6 @@ public class TableLayout extends LinearLayout {
     /**
      * <p>This set of layout parameters enforces the width of each child to be
      * {@link #MATCH_PARENT} and the height of each child to be
-=======
-    /**
-     * <p>This set of layout parameters enforces the width of each child to be
-     * {@link #FILL_PARENT} and the height of each child to be
->>>>>>> 54b6cfa... Initial Contribution
      * {@link #WRAP_CONTENT}, but only if the height is not specified.</p>
      */
     @SuppressWarnings({"UnusedDeclaration"})
@@ -747,22 +692,14 @@ public class TableLayout extends LinearLayout {
          * {@inheritDoc}
          */
         public LayoutParams(int w, int h) {
-<<<<<<< HEAD
             super(MATCH_PARENT, h);
-=======
-            super(FILL_PARENT, h);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         /**
          * {@inheritDoc}
          */
         public LayoutParams(int w, int h, float initWeight) {
-<<<<<<< HEAD
             super(MATCH_PARENT, h, initWeight);
-=======
-            super(FILL_PARENT, h, initWeight);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         /**
@@ -771,11 +708,7 @@ public class TableLayout extends LinearLayout {
          * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT}.</p>
          */
         public LayoutParams() {
-<<<<<<< HEAD
             super(MATCH_PARENT, WRAP_CONTENT);
-=======
-            super(FILL_PARENT, WRAP_CONTENT);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         /**
@@ -794,11 +727,7 @@ public class TableLayout extends LinearLayout {
 
         /**
          * <p>Fixes the row's width to
-<<<<<<< HEAD
          * {@link android.view.ViewGroup.LayoutParams#MATCH_PARENT}; the row's
-=======
-         * {@link android.view.ViewGroup.LayoutParams#FILL_PARENT}; the row's
->>>>>>> 54b6cfa... Initial Contribution
          * height is fixed to
          * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT} if no layout
          * height is specified.</p>
@@ -808,14 +737,8 @@ public class TableLayout extends LinearLayout {
          * @param heightAttr the height attribute to fetch
          */
         @Override
-<<<<<<< HEAD
         protected void setBaseAttributes(TypedArray a, int widthAttr, int heightAttr) {
             this.width = MATCH_PARENT;
-=======
-        protected void setBaseAttributes(TypedArray a,
-                int widthAttr, int heightAttr) {
-            this.width = FILL_PARENT;
->>>>>>> 54b6cfa... Initial Contribution
             if (a.hasValue(heightAttr)) {
                 this.height = a.getLayoutDimension(heightAttr, "layout_height");
             } else {

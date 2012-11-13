@@ -34,7 +34,6 @@ extends CharSequence
                          float x, float y, Paint p);
 
     /**
-<<<<<<< HEAD
      * Just like {@link Canvas#drawTextRun}.
      * {@hide}
      */
@@ -42,21 +41,14 @@ extends CharSequence
             float x, float y, int flags, Paint p);
 
    /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Just like {@link Paint#measureText}.
      */
     float measureText(int start, int end, Paint p);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Just like {@link Paint#getTextWidths}.
      */
     public int getTextWidths(int start, int end, float[] widths, Paint p);
-<<<<<<< HEAD
 
     /**
      * Just like {@link Paint#getTextRunAdvances}.
@@ -78,6 +70,4 @@ extends CharSequence
      */
     int getTextRunCursor(int contextStart, int contextEnd, int flags, int offset,
             int cursorOpt, Paint p);
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -16,20 +16,12 @@
 
 package android.widget;
 
-<<<<<<< HEAD
-=======
-import java.util.Map;
-
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * {@link ViewAnimator} that switches between two views, and has a factory
@@ -76,7 +68,6 @@ public class ViewSwitcher extends ViewAnimator {
         super.addView(child, index, params);
     }
 
-<<<<<<< HEAD
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
@@ -89,8 +80,6 @@ public class ViewSwitcher extends ViewAnimator {
         info.setClassName(ViewSwitcher.class.getName());
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the next view to be displayed.
      *
@@ -105,11 +94,7 @@ public class ViewSwitcher extends ViewAnimator {
         View child = mFactory.makeView();
         LayoutParams lp = (LayoutParams) child.getLayoutParams();
         if (lp == null) {
-<<<<<<< HEAD
             lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-=======
-            lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
->>>>>>> 54b6cfa... Initial Contribution
         }
         addView(child, lp);
         return child;

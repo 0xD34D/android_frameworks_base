@@ -19,15 +19,11 @@ package android.net.wifi;
 import android.os.Parcelable;
 import android.os.Parcel;
 import android.net.NetworkInfo.DetailedState;
-<<<<<<< HEAD
 import android.net.NetworkUtils;
 
 import java.net.InetAddress;
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.EnumMap;
 
 /**
@@ -45,15 +41,10 @@ public class WifiInfo implements Parcelable {
 
     static {
         stateMap.put(SupplicantState.DISCONNECTED, DetailedState.DISCONNECTED);
-<<<<<<< HEAD
         stateMap.put(SupplicantState.INTERFACE_DISABLED, DetailedState.DISCONNECTED);
         stateMap.put(SupplicantState.INACTIVE, DetailedState.IDLE);
         stateMap.put(SupplicantState.SCANNING, DetailedState.SCANNING);
         stateMap.put(SupplicantState.AUTHENTICATING, DetailedState.CONNECTING);
-=======
-        stateMap.put(SupplicantState.INACTIVE, DetailedState.IDLE);
-        stateMap.put(SupplicantState.SCANNING, DetailedState.SCANNING);
->>>>>>> 54b6cfa... Initial Contribution
         stateMap.put(SupplicantState.ASSOCIATING, DetailedState.CONNECTING);
         stateMap.put(SupplicantState.ASSOCIATED, DetailedState.CONNECTING);
         stateMap.put(SupplicantState.FOUR_WAY_HANDSHAKE, DetailedState.AUTHENTICATING);
@@ -76,7 +67,6 @@ public class WifiInfo implements Parcelable {
     public static final String LINK_SPEED_UNITS = "Mbps";
     private int mLinkSpeed;
 
-<<<<<<< HEAD
     private InetAddress mIpAddress;
     private String mMacAddress;
 
@@ -85,11 +75,6 @@ public class WifiInfo implements Parcelable {
      * and sensitive to heavy data transfers.
      */
     private boolean mMeteredHint;
-=======
-    private int mIpAddress;
-
-    private String mMacAddress;
->>>>>>> 54b6cfa... Initial Contribution
 
     WifiInfo() {
         mSSID = null;
@@ -98,7 +83,6 @@ public class WifiInfo implements Parcelable {
         mSupplicantState = SupplicantState.UNINITIALIZED;
         mRssi = -9999;
         mLinkSpeed = -1;
-<<<<<<< HEAD
         mHiddenSSID = false;
     }
 
@@ -121,12 +105,6 @@ public class WifiInfo implements Parcelable {
         }
     }
 
-=======
-        mIpAddress = 0;
-        mHiddenSSID = false;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     void setSSID(String SSID) {
         mSSID = SSID;
         // network is considered not hidden by default
@@ -196,7 +174,6 @@ public class WifiInfo implements Parcelable {
         return mMacAddress;
     }
 
-<<<<<<< HEAD
     /** {@hide} */
     public void setMeteredHint(boolean meteredHint) {
         mMeteredHint = meteredHint;
@@ -207,8 +184,6 @@ public class WifiInfo implements Parcelable {
         return mMeteredHint;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     void setNetworkId(int id) {
         mNetworkId = id;
     }
@@ -236,21 +211,13 @@ public class WifiInfo implements Parcelable {
         mSupplicantState = state;
     }
 
-<<<<<<< HEAD
     void setInetAddress(InetAddress address) {
-=======
-    void setIpAddress(int address) {
->>>>>>> 54b6cfa... Initial Contribution
         mIpAddress = address;
     }
 
     public int getIpAddress() {
-<<<<<<< HEAD
         if (mIpAddress == null || mIpAddress instanceof Inet6Address) return 0;
         return NetworkUtils.inetAddressToInt(mIpAddress);
-=======
-        return mIpAddress;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -297,7 +264,6 @@ public class WifiInfo implements Parcelable {
         }
     }
 
-<<<<<<< HEAD
     /** {@hide} */
     public static String removeDoubleQuotes(String string) {
         if (string == null) return null;
@@ -308,8 +274,6 @@ public class WifiInfo implements Parcelable {
         return string;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
@@ -322,12 +286,8 @@ public class WifiInfo implements Parcelable {
             append(mSupplicantState == null ? none : mSupplicantState).
             append(", RSSI: ").append(mRssi).
             append(", Link speed: ").append(mLinkSpeed).
-<<<<<<< HEAD
             append(", Net ID: ").append(mNetworkId).
             append(", Metered hint: ").append(mMeteredHint);
-=======
-            append(", Net ID: ").append(mNetworkId);
->>>>>>> 54b6cfa... Initial Contribution
 
         return sb.toString();
     }
@@ -342,7 +302,6 @@ public class WifiInfo implements Parcelable {
         dest.writeInt(mNetworkId);
         dest.writeInt(mRssi);
         dest.writeInt(mLinkSpeed);
-<<<<<<< HEAD
         if (mIpAddress != null) {
             dest.writeByte((byte)1);
             dest.writeByteArray(mIpAddress.getAddress());
@@ -353,12 +312,6 @@ public class WifiInfo implements Parcelable {
         dest.writeString(mBSSID);
         dest.writeString(mMacAddress);
         dest.writeInt(mMeteredHint ? 1 : 0);
-=======
-        dest.writeInt(mIpAddress);
-        dest.writeString(getSSID());
-        dest.writeString(mBSSID);
-        dest.writeString(mMacAddress);
->>>>>>> 54b6cfa... Initial Contribution
         mSupplicantState.writeToParcel(dest, flags);
     }
 
@@ -370,7 +323,6 @@ public class WifiInfo implements Parcelable {
                 info.setNetworkId(in.readInt());
                 info.setRssi(in.readInt());
                 info.setLinkSpeed(in.readInt());
-<<<<<<< HEAD
                 if (in.readByte() == 1) {
                     try {
                         info.setInetAddress(InetAddress.getByAddress(in.createByteArray()));
@@ -380,12 +332,6 @@ public class WifiInfo implements Parcelable {
                 info.mBSSID = in.readString();
                 info.mMacAddress = in.readString();
                 info.mMeteredHint = in.readInt() != 0;
-=======
-                info.setIpAddress(in.readInt());
-                info.setSSID(in.readString());
-                info.mBSSID = in.readString();
-                info.mMacAddress = in.readString();
->>>>>>> 54b6cfa... Initial Contribution
                 info.mSupplicantState = SupplicantState.CREATOR.createFromParcel(in);
                 return info;
             }

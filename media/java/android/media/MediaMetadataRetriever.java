@@ -16,7 +16,6 @@
 
 package android.media;
 
-<<<<<<< HEAD
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -29,23 +28,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.util.Map;
-=======
-import android.graphics.Bitmap;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * MediaMetadataRetriever class provides a unified interface for retrieving
  * frame and meta data from an input media file.
-<<<<<<< HEAD
-=======
- * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class MediaMetadataRetriever
 {
     static {
         System.loadLibrary("media_jni");
-<<<<<<< HEAD
         native_init();
     }
 
@@ -55,16 +46,11 @@ public class MediaMetadataRetriever
  
     private static final int EMBEDDED_PICTURE_TYPE_ANY = 0xFFFF;
 
-=======
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public MediaMetadataRetriever() {
         native_setup();
     }
 
     /**
-<<<<<<< HEAD
      * Sets the data source (file pathname) to use. Call this
      * method before the rest of the methods in this class. This method may be
      * time-consuming.
@@ -205,38 +191,6 @@ public class MediaMetadataRetriever
         }
         setDataSource(uri.toString());
     }
-=======
-     * Call this method before setDataSource() so that the mode becomes
-     * effective for subsequent operations. This method can be called only once
-     * at the beginning if the intended mode of operation for a
-     * MediaMetadataRetriever object remains the same for its whole lifetime,
-     * and thus it is unnecessary to call this method each time setDataSource()
-     * is called. If this is not never called (which is allowed), by default the
-     * intended mode of operation is to both capture frame and retrieve meta
-     * data (i.e., MODE_GET_METADATA_ONLY | MODE_CAPTURE_FRAME_ONLY).
-     * Often, this may not be what one wants, since doing this has negative
-     * performance impact on execution time of a call to setDataSource(), since
-     * both types of operations may be time consuming.
-     * 
-     * @param mode The intended mode of operation. Can be any combination of 
-     * MODE_GET_METADATA_ONLY and MODE_CAPTURE_FRAME_ONLY:
-     * 1. MODE_GET_METADATA_ONLY & MODE_CAPTURE_FRAME_ONLY: 
-     *    For neither frame capture nor meta data retrieval
-     * 2. MODE_GET_METADATA_ONLY: For meta data retrieval only
-     * 3. MODE_CAPTURE_FRAME_ONLY: For frame capture only
-     * 4. MODE_GET_METADATA_ONLY | MODE_CAPTURE_FRAME_ONLY: 
-     *    For both frame capture and meta data retrieval
-     */
-    public native void setMode(int mode);
-
-    /**
-     * Call this method before the rest. This method may be time-consuming.
-     * 
-     * @param path The path of the input media file.
-     * @throws IllegalArgumentException If the path is invalid.
-     */
-    public native void setDataSource(String path) throws IllegalArgumentException;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Call this method after setDataSource(). This method retrieves the 
@@ -253,7 +207,6 @@ public class MediaMetadataRetriever
 
     /**
      * Call this method after setDataSource(). This method finds a
-<<<<<<< HEAD
      * representative frame close to the given time position by considering
      * the given option if possible, and returns it as a bitmap. This is
      * useful for generating a thumbnail for an input data source or just
@@ -347,36 +300,14 @@ public class MediaMetadataRetriever
     }
 
     private native byte[] getEmbeddedPicture(int pictureType);
-=======
-     * representative frame if successful and returns it as a bitmap. This is
-     * useful for generating a thumbnail for an input media source.
-     * 
-     * @return A Bitmap containing a representative video frame, which 
-     *         can be null, if such a frame cannot be retrieved.
-     */
-    public native Bitmap captureFrame();
-    
-    /**
-     * Call this method after setDataSource(). This method finds the optional
-     * graphic or album art associated (embedded or external url linked) the 
-     * related data source.
-     * 
-     * @return null if no such graphic is found.
-     */
-    public native byte[] extractAlbumArt();
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Call it when one is done with the object. This method releases the memory
      * allocated internally.
      */
     public native void release();
-<<<<<<< HEAD
     private native void native_setup();
     private static native void native_init();
-=======
-    private native void native_setup(); 
->>>>>>> 54b6cfa... Initial Contribution
 
     private native final void native_finalize();
 
@@ -389,7 +320,6 @@ public class MediaMetadataRetriever
         }
     }
 
-<<<<<<< HEAD
     /**
      * Option used in method {@link #getFrameAtTime(long, int)} to get a
      * frame at a specified location.
@@ -554,24 +484,4 @@ public class MediaMetadataRetriever
      */
     public static final int METADATA_KEY_LOCATION        = 23;
     // Add more here...
-=======
-    public static final int MODE_GET_METADATA_ONLY  = 0x01;
-    public static final int MODE_CAPTURE_FRAME_ONLY = 0x02;
-
-    /*
-     * Do not change these values without updating their counterparts
-     * in include/media/mediametadataretriever.h!
-     */
-    public static final int METADATA_KEY_CD_TRACK_NUMBER = 0;
-    public static final int METADATA_KEY_ALBUM           = 1;
-    public static final int METADATA_KEY_ARTIST          = 2;
-    public static final int METADATA_KEY_AUTHOR          = 3;
-    public static final int METADATA_KEY_COMPOSER        = 4;
-    public static final int METADATA_KEY_DATE            = 5;
-    public static final int METADATA_KEY_GENRE           = 6;
-    public static final int METADATA_KEY_TITLE           = 7;
-    public static final int METADATA_KEY_YEAR            = 8;
-    public static final int METADATA_KEY_DURATION        = 9;
-    public static final int METADATA_KEY_NUM_TRACKS     = 10;
->>>>>>> 54b6cfa... Initial Contribution
 }

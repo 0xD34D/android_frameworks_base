@@ -18,12 +18,9 @@ package android.location;
 
 import android.app.PendingIntent;
 import android.location.Address;
-<<<<<<< HEAD
 import android.location.Criteria;
 import android.location.GeocoderParams;
 import android.location.IGeocodeProvider;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.location.IGpsStatusListener;
 import android.location.ILocationListener;
 import android.location.Location;
@@ -36,7 +33,6 @@ import android.os.Bundle;
  */
 interface ILocationManager
 {
-<<<<<<< HEAD
     List<String> getAllProviders();
     List<String> getProviders(in Criteria criteria, boolean enabledOnly);
     String getBestProvider(in Criteria criteria, boolean enabledOnly);
@@ -59,30 +55,11 @@ interface ILocationManager
 
     void addProximityAlert(double latitude, double longitude, float distance,
         long expiration, in PendingIntent intent, String packageName);
-=======
-    List getAllProviders();
-    List getProviders(boolean enabledOnly);
-
-    void updateProviders();
-
-    void requestLocationUpdates(String provider, long minTime, float minDistance,
-        in ILocationListener listener);
-    void removeUpdates(in ILocationListener listener);
-
-    boolean addGpsStatusListener(IGpsStatusListener listener);
-    void removeGpsStatusListener(IGpsStatusListener listener);
-    
-    boolean sendExtraCommand(String provider, String command, inout Bundle extras);
-
-    void addProximityAlert(double latitude, double longitude, float distance,
-        long expiration, in PendingIntent intent);
->>>>>>> 54b6cfa... Initial Contribution
     void removeProximityAlert(in PendingIntent intent);
 
     Bundle getProviderInfo(String provider);
     boolean isProviderEnabled(String provider);
 
-<<<<<<< HEAD
     Location getLastKnownLocation(String provider, String packageName);
 
     // Used by location providers to tell the location manager when it has a new location.
@@ -97,16 +74,6 @@ interface ILocationManager
         double lowerLeftLatitude, double lowerLeftLongitude,
         double upperRightLatitude, double upperRightLongitude, int maxResults,
         in GeocoderParams params, out List<Address> addrs);
-=======
-    Location getLastKnownLocation(String provider);
-
-    String getFromLocation(double latitude, double longitude, int maxResults,
-        String language, String country, String variant, String appName, out List<Address> addrs);
-    String getFromLocationName(String locationName,
-        double lowerLeftLatitude, double lowerLeftLongitude,
-        double upperRightLatitude, double upperRightLongitude, int maxResults,
-        String language, String country, String variant, String appName, out List<Address> addrs);
->>>>>>> 54b6cfa... Initial Contribution
 
     void addTestProvider(String name, boolean requiresNetwork, boolean requiresSatellite,
         boolean requiresCell, boolean hasMonetaryCost, boolean supportsAltitude,
@@ -118,10 +85,7 @@ interface ILocationManager
     void clearTestProviderEnabled(String provider);
     void setTestProviderStatus(String provider, int status, in Bundle extras, long updateTime);
     void clearTestProviderStatus(String provider);
-<<<<<<< HEAD
 
     // for NI support
     boolean sendNiResponse(int notifId, int userResponse);
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

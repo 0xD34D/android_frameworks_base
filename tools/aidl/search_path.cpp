@@ -1,10 +1,7 @@
 #include <unistd.h>
 #include "search_path.h"
 #include "options.h"
-<<<<<<< HEAD
 #include <string.h>
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 #ifdef HAVE_MS_C_RUNTIME
 #include <io.h>

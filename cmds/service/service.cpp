@@ -3,15 +3,9 @@
  *
  */
  
-<<<<<<< HEAD
 #include <binder/Parcel.h>
 #include <binder/ProcessState.h>
 #include <binder/IServiceManager.h>
-=======
-#include <utils/Parcel.h>
-#include <utils/ProcessState.h>
-#include <utils/IServiceManager.h>
->>>>>>> 54b6cfa... Initial Contribution
 #include <utils/TextOutput.h>
 
 #include <getopt.h>

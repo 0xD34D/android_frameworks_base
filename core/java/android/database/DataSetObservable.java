@@ -17,7 +17,6 @@
 package android.database;
 
 /**
-<<<<<<< HEAD
  * A specialization of {@link Observable} for {@link DataSetObserver}
  * that provides methods for sending notifications to a list of
  * {@link DataSetObserver} objects.
@@ -36,26 +35,11 @@ public class DataSetObservable extends Observable<DataSetObserver> {
             // to avoid such problems, just march thru the list in the reverse order.
             for (int i = mObservers.size() - 1; i >= 0; i--) {
                 mObservers.get(i).onChanged();
-=======
- * A specialization of Observable for DataSetObserver that provides methods for
- * invoking the various callback methods of DataSetObserver.
- */
-public class DataSetObservable extends Observable<DataSetObserver> {
-    /**
-     * Invokes onChanged on each observer. Called when the data set being observed has
-     * changed, and which when read contains the new state of the data.
-     */
-    public void notifyChanged() {
-        synchronized(mObservers) {
-            for (DataSetObserver observer : mObservers) {
-                observer.onChanged();
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
     /**
-<<<<<<< HEAD
      * Invokes {@link DataSetObserver#onInvalidated} on each observer.
      * Called when the data set is no longer valid and cannot be queried again,
      * such as when the data set has been closed.
@@ -64,15 +48,6 @@ public class DataSetObservable extends Observable<DataSetObserver> {
         synchronized (mObservers) {
             for (int i = mObservers.size() - 1; i >= 0; i--) {
                 mObservers.get(i).onInvalidated();
-=======
-     * Invokes onInvalidated on each observer. Called when the data set being monitored
-     * has changed such that it is no longer valid.
-     */
-    public void notifyInvalidated() {
-        synchronized (mObservers) {
-            for (DataSetObserver observer : mObservers) {
-                observer.onInvalidated();
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }

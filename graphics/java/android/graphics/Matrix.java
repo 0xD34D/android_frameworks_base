@@ -16,11 +16,8 @@
 
 package android.graphics;
 
-<<<<<<< HEAD
 import java.io.PrintWriter;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * The Matrix class holds a 3x3 matrix for transforming coordinates.
@@ -40,7 +37,6 @@ public class Matrix {
     public static final int MPERSP_1 = 7;   //!< use with getValues/setValues
     public static final int MPERSP_2 = 8;   //!< use with getValues/setValues
 
-<<<<<<< HEAD
     /** @hide */
     public static Matrix IDENTITY_MATRIX = new Matrix() {
         void oops() {
@@ -227,9 +223,6 @@ public class Matrix {
      * @hide
      */
     public int native_instance;
-=======
-    /* package */ int native_instance;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Create an identity matrix
@@ -611,13 +604,10 @@ public class Matrix {
      * the transformed vectors into the array of vectors specified by dst. The
      * two arrays represent their "vectors" as pairs of floats [x, y].
      *
-<<<<<<< HEAD
      * Note: this method does not apply the translation associated with the matrix. Use
      * {@link Matrix#mapPoints(float[], int, float[], int, int)} if you want the translation
      * to be applied.
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param dst   The array of dst vectors (x,y pairs)
      * @param dstIndex The index of the first [x,y] pair of dst floats
      * @param src   The array of src vectors (x,y pairs)
@@ -651,12 +641,9 @@ public class Matrix {
      * the transformed vectors into the array of vectors specified by dst. The
      * two arrays represent their "vectors" as pairs of floats [x, y].
      *
-<<<<<<< HEAD
      * Note: this method does not apply the translation associated with the matrix. Use
      * {@link Matrix#mapPoints(float[], float[])} if you want the translation to be applied.
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param dst   The array of dst vectors (x,y pairs)
      * @param src   The array of src vectors (x,y pairs)
      */
@@ -680,13 +667,10 @@ public class Matrix {
     /**
      * Apply this matrix to the array of 2D vectors, and write the transformed
      * vectors back into the array.
-<<<<<<< HEAD
      *
      * Note: this method does not apply the translation associated with the matrix. Use
      * {@link Matrix#mapPoints(float[])} if you want the translation to be applied.
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param vecs The array [x0, y0, x1, y1, ...] of vectors to transform.
      */
     public void mapVectors(float[] vecs) {
@@ -753,20 +737,15 @@ public class Matrix {
     }
 
     public String toString() {
-<<<<<<< HEAD
         StringBuilder sb = new StringBuilder(64);
         sb.append("Matrix{");
         toShortString(sb);
         sb.append('}');
         return sb.toString();
-=======
-        return "Matrix{" + toShortString() + "}";
->>>>>>> 54b6cfa... Initial Contribution
                 
     }
 
     public String toShortString() {
-<<<<<<< HEAD
         StringBuilder sb = new StringBuilder(64);
         toShortString(sb);
         return sb.toString();
@@ -801,14 +780,6 @@ public class Matrix {
                 pw.print(values[5]); pw.print("][");
         pw.print(values[6]); pw.print(", "); pw.print(values[7]); pw.print(", ");
                 pw.print(values[8]); pw.print(']');
-=======
-        float[] values = new float[9];
-        getValues(values);
-        return "[" +
-                values[0] + ", " + values[1] + ", " + values[2] + "][" +
-                values[3] + ", " + values[4] + ", " + values[5] + "][" +
-                values[6] + ", " + values[7] + ", " + values[8] + "]";
->>>>>>> 54b6cfa... Initial Contribution
                 
     }
 

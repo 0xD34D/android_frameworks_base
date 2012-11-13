@@ -19,7 +19,6 @@ package android.os;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-<<<<<<< HEAD
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -31,25 +30,12 @@ import java.util.zip.CheckedInputStream;
 
 import libcore.io.Os;
 import libcore.io.StructStat;
-=======
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.regex.Pattern;
-
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Tools for managing files.  Not for public consumption.
  * @hide
  */
-<<<<<<< HEAD
 public class FileUtils {
-=======
-public class FileUtils
-{
->>>>>>> 54b6cfa... Initial Contribution
     public static final int S_IRWXU = 00700;
     public static final int S_IRUSR = 00400;
     public static final int S_IWUSR = 00200;
@@ -68,15 +54,10 @@ public class FileUtils
     
     /**
      * File status information. This class maps directly to the POSIX stat structure.
-<<<<<<< HEAD
      * @deprecated use {@link StructStat} instead.
      * @hide
      */
     @Deprecated
-=======
-     * @hide
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public static final class FileStatus {
         public int dev;
         public int ino;
@@ -100,7 +81,6 @@ public class FileUtils
      * exists. 
      * @return true if the file exists and false if it does not exist. If you do not have 
      * permission to stat the file, then this method will return false.
-<<<<<<< HEAD
      * @deprecated use {@link Os#stat(String)} instead.
      */
     @Deprecated
@@ -110,17 +90,12 @@ public class FileUtils
     }
 
     private static native boolean getFileStatusNative(String path, FileStatus status);
-=======
-     */
-    public static native boolean getFileStatus(String path, FileStatus status);
->>>>>>> 54b6cfa... Initial Contribution
 
     /** Regular expression for safe filenames: no spaces or metacharacters */
     private static final Pattern SAFE_FILENAME_PATTERN = Pattern.compile("[\\w%+,./=_-]+");
 
     public static native int setPermissions(String file, int mode, int uid, int gid);
 
-<<<<<<< HEAD
     /**
      * @deprecated use {@link Os#stat(String)} instead.
      */
@@ -151,17 +126,6 @@ public class FileUtils
         return false;
     }
 
-=======
-    public static native int getPermissions(String file, int[] outPermissions);
-
-    /** returns the FAT file system volume ID for the volume mounted 
-     * at the given mount point, or -1 for failure
-     * @param mount point for FAT volume
-     * @return volume ID or -1
-     */
-    public static native int getFatVolumeId(String mountPoint);
-        
->>>>>>> 54b6cfa... Initial Contribution
     // copy a file from srcFile to destFile, return true if succeed, return
     // false if fail
     public static boolean copyFile(File srcFile, File destFile) {
@@ -185,14 +149,10 @@ public class FileUtils
      */
     public static boolean copyToFile(InputStream inputStream, File destFile) {
         try {
-<<<<<<< HEAD
             if (destFile.exists()) {
                 destFile.delete();
             }
             FileOutputStream out = new FileOutputStream(destFile);
-=======
-            OutputStream out = new FileOutputStream(destFile);
->>>>>>> 54b6cfa... Initial Contribution
             try {
                 byte[] buffer = new byte[4096];
                 int bytesRead;
@@ -200,14 +160,11 @@ public class FileUtils
                     out.write(buffer, 0, bytesRead);
                 }
             } finally {
-<<<<<<< HEAD
                 out.flush();
                 try {
                     out.getFD().sync();
                 } catch (IOException e) {
                 }
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 out.close();
             }
             return true;
@@ -238,24 +195,16 @@ public class FileUtils
     public static String readTextFile(File file, int max, String ellipsis) throws IOException {
         InputStream input = new FileInputStream(file);
         try {
-<<<<<<< HEAD
             long size = file.length();
             if (max > 0 || (size > 0 && max == 0)) {  // "head" mode: read the first N bytes
                 if (size > 0 && (max == 0 || size < max)) max = (int) size;
-=======
-            if (max > 0) {  // "head" mode: read the first N bytes
->>>>>>> 54b6cfa... Initial Contribution
                 byte[] data = new byte[max + 1];
                 int length = input.read(data);
                 if (length <= 0) return "";
                 if (length <= max) return new String(data, 0, length);
                 if (ellipsis == null) return new String(data, 0, max);
                 return new String(data, 0, max) + ellipsis;
-<<<<<<< HEAD
             } else if (max < 0) {  // "tail" mode: keep the last N
-=======
-            } else if (max < 0) {  // "tail" mode: read it all, keep the last N
->>>>>>> 54b6cfa... Initial Contribution
                 int len;
                 boolean rolled = false;
                 byte[] last = null, data = null;
@@ -275,11 +224,7 @@ public class FileUtils
                 }
                 if (ellipsis == null || !rolled) return new String(last);
                 return ellipsis + new String(last);
-<<<<<<< HEAD
             } else {  // "cat" mode: size unknown, read it all in streaming fashion
-=======
-            } else {  // "cat" mode: read it all
->>>>>>> 54b6cfa... Initial Contribution
                 ByteArrayOutputStream contents = new ByteArrayOutputStream();
                 int len;
                 byte[] data = new byte[1024];
@@ -293,7 +238,6 @@ public class FileUtils
             input.close();
         }
     }
-<<<<<<< HEAD
 
    /**
      * Writes string to file. Basically same as "echo -n $string > $filename"
@@ -338,6 +282,4 @@ public class FileUtils
             }
         }
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

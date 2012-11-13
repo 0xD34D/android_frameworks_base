@@ -1,11 +1,7 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-<<<<<<< HEAD
 LOCAL_MODULE_TAGS := optional
-=======
-LOCAL_MODULE_TAGS := user development
->>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_SRC_FILES := $(call all-subdir-java-files)
 

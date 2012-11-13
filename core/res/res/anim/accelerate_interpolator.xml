@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-<<<<<<< HEAD
 /*
-=======
-/* //device/apps/common/res/anim/ease_in_interpolator.xml
-**
->>>>>>> 54b6cfa... Initial Contribution
 ** Copyright 2007, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -22,8 +17,4 @@
 */
 -->
 
-<<<<<<< HEAD
 <accelerateInterpolator />
-=======
-<accelerateInterpolator xmlns:android="http://schemas.android.com/apk/res/android" factor="1" />
->>>>>>> 54b6cfa... Initial Contribution

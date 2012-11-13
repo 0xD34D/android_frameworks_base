@@ -40,11 +40,7 @@ public class RotateAnimation extends Animation {
     private float mPivotY;
 
     /**
-<<<<<<< HEAD
      * Constructor used when a RotateAnimation is loaded from a resource.
-=======
-     * Constructor used whan an RotateAnimation is loaded from a resource.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param context Application context to use
      * @param attrs Attribute set from which to read values
@@ -70,11 +66,8 @@ public class RotateAnimation extends Animation {
         mPivotYValue = d.value;
 
         a.recycle();
-<<<<<<< HEAD
 
         initializePivotPoint();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -116,10 +109,7 @@ public class RotateAnimation extends Animation {
         mPivotYType = ABSOLUTE;
         mPivotXValue = pivotX;
         mPivotYValue = pivotY;
-<<<<<<< HEAD
         initializePivotPoint();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -156,7 +146,6 @@ public class RotateAnimation extends Animation {
         mPivotXType = pivotXType;
         mPivotYValue = pivotYValue;
         mPivotYType = pivotYType;
-<<<<<<< HEAD
         initializePivotPoint();
     }
 
@@ -171,27 +160,17 @@ public class RotateAnimation extends Animation {
         if (mPivotYType == ABSOLUTE) {
             mPivotY = mPivotYValue;
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
         float degrees = mFromDegrees + ((mToDegrees - mFromDegrees) * interpolatedTime);
-<<<<<<< HEAD
         float scale = getScaleFactor();
         
         if (mPivotX == 0.0f && mPivotY == 0.0f) {
             t.getMatrix().setRotate(degrees);
         } else {
             t.getMatrix().setRotate(degrees, mPivotX * scale, mPivotY * scale);
-=======
-
-        if (mPivotX == 0.0f && mPivotY == 0.0f) {
-            t.getMatrix().setRotate(degrees);
-        } else {
-            t.getMatrix().setRotate(degrees, mPivotX, mPivotY);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 

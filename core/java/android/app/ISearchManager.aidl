@@ -16,7 +16,6 @@
 
 package android.app;
 
-<<<<<<< HEAD
 import android.app.SearchableInfo;
 import android.app.ISearchManagerCallback;
 import android.content.ComponentName;
@@ -31,12 +30,4 @@ interface ISearchManager {
    List<ResolveInfo> getGlobalSearchActivities();
    ComponentName getGlobalSearchActivity();
    ComponentName getWebSearchActivity();
-=======
-import android.content.ComponentName;
-import android.server.search.SearchableInfo;
-
-/** @hide */
-interface ISearchManager {
-   SearchableInfo getSearchableInfo(in ComponentName launchActivity, boolean globalSearch);
->>>>>>> 54b6cfa... Initial Contribution
 }

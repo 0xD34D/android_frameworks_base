@@ -22,7 +22,6 @@ package android.text;
  */
 public class AndroidCharacter
 {
-<<<<<<< HEAD
     public static final int EAST_ASIAN_WIDTH_NEUTRAL = 0;
     public static final int EAST_ASIAN_WIDTH_AMBIGUOUS = 1;
     public static final int EAST_ASIAN_WIDTH_HALF_WIDTH = 2;
@@ -30,8 +29,6 @@ public class AndroidCharacter
     public static final int EAST_ASIAN_WIDTH_NARROW = 4;
     public static final int EAST_ASIAN_WIDTH_WIDE = 5;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Fill in the first <code>count</code> bytes of <code>dest</code> with the
      * directionalities from the first <code>count</code> chars of <code>src</code>.
@@ -40,7 +37,6 @@ public class AndroidCharacter
      */
     public native static void getDirectionalities(char[] src, byte[] dest,
                                                   int count);
-<<<<<<< HEAD
 
     /**
      * Calculate the East Asian Width of a character according to
@@ -73,20 +69,15 @@ public class AndroidCharacter
     public native static void getEastAsianWidths(char[] src, int start,
                                                  int count, byte[] dest);
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Replace the specified slice of <code>text</code> with the chars'
      * right-to-left mirrors (if any), returning true if any
      * replacements were made.
-<<<<<<< HEAD
      *
      * @param text array of characters to apply mirror operation
      * @param start first character in array to mirror
      * @param count maximum number of characters to mirror
      * @return true if replacements were made
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public native static boolean mirror(char[] text, int start, int count);
 

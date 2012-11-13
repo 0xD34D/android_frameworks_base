@@ -57,7 +57,6 @@ public class Criteria implements Parcelable {
      */
     public static final int ACCURACY_COARSE = 2;
 
-<<<<<<< HEAD
     /**
      * A constant indicating a low location accuracy requirement
      * - may be used for horizontal, altitude, speed or bearing accuracy.
@@ -87,11 +86,6 @@ public class Criteria implements Parcelable {
     private int mSpeedAccuracy         = NO_REQUIREMENT;
     private int mBearingAccuracy       = NO_REQUIREMENT;
     private int mPowerRequirement      = NO_REQUIREMENT;
-=======
-    private int mAccuracy              = NO_REQUIREMENT;
-    private int mPowerRequirement      = NO_REQUIREMENT;
-//    private int mPreferredResponseTime = NO_REQUIREMENT;
->>>>>>> 54b6cfa... Initial Contribution
     private boolean mAltitudeRequired  = false;
     private boolean mBearingRequired   = false;
     private boolean mSpeedRequired     = false;
@@ -109,17 +103,11 @@ public class Criteria implements Parcelable {
      * Constructs a new Criteria object that is a copy of the given criteria.
      */
     public Criteria(Criteria criteria) {
-<<<<<<< HEAD
         mHorizontalAccuracy = criteria.mHorizontalAccuracy;
         mVerticalAccuracy = criteria.mVerticalAccuracy;
         mSpeedAccuracy = criteria.mSpeedAccuracy;
         mBearingAccuracy = criteria.mBearingAccuracy;
         mPowerRequirement = criteria.mPowerRequirement;
-=======
-        mAccuracy = criteria.mAccuracy;
-        mPowerRequirement = criteria.mPowerRequirement;
-//        mPreferredResponseTime = criteria.mPreferredResponseTime;
->>>>>>> 54b6cfa... Initial Contribution
         mAltitudeRequired = criteria.mAltitudeRequired;
         mBearingRequired = criteria.mBearingRequired;
         mSpeedRequired = criteria.mSpeedRequired;
@@ -127,7 +115,6 @@ public class Criteria implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Indicates the desired horizontal accuracy (latitude and longitude).
      * Accuracy may be {@link #ACCURACY_LOW}, {@link #ACCURACY_MEDIUM},
      * {@link #ACCURACY_HIGH} or {@link #NO_REQUIREMENT}.
@@ -240,21 +227,6 @@ public class Criteria implements Parcelable {
         } else {
             mHorizontalAccuracy = ACCURACY_LOW;
         }
-=======
-     * Indicates the desired accuracy for latitude and longitude. Accuracy
-     * may be {@link #ACCURACY_FINE} if desired location
-     * is fine, else it can be {@link #ACCURACY_COARSE}.
-     * More accurate location usually consumes more power and may take
-     * longer.
-     *
-     * @throws IllegalArgumentException if accuracy is negative
-     */
-    public void setAccuracy(int accuracy) {
-        if (accuracy < NO_REQUIREMENT && accuracy > ACCURACY_COARSE) {
-            throw new IllegalArgumentException("accuracy=" + accuracy);
-        }
-        mAccuracy = accuracy;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -263,15 +235,11 @@ public class Criteria implements Parcelable {
      * is fine, else it can be {@link #ACCURACY_COARSE}.
      */
     public int getAccuracy() {
-<<<<<<< HEAD
         if (mHorizontalAccuracy >= ACCURACY_HIGH) {
             return ACCURACY_FINE;
         } else {
             return ACCURACY_COARSE;
         }
-=======
-        return mAccuracy;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -294,23 +262,6 @@ public class Criteria implements Parcelable {
         return mPowerRequirement;
     }
 
-<<<<<<< HEAD
-=======
-//    /**
-//     * Indicates the preferred response time of the provider, in milliseconds.
-//     */
-//    public void setPreferredResponseTime(int time) {
-//        mPreferredResponseTime = time;
-//    }
-//
-//    /**
-//     * Returns the preferred response time of the provider, in milliseconds.
-//     */
-//    public int getPreferredResponseTime() {
-//        return mPreferredResponseTime;
-//    }
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Indicates whether the provider is allowed to incur monetary cost.
      */
@@ -377,17 +328,11 @@ public class Criteria implements Parcelable {
         new Parcelable.Creator<Criteria>() {
         public Criteria createFromParcel(Parcel in) {
             Criteria c = new Criteria();
-<<<<<<< HEAD
             c.mHorizontalAccuracy = in.readInt();
             c.mVerticalAccuracy = in.readInt();
             c.mSpeedAccuracy = in.readInt();
             c.mBearingAccuracy = in.readInt();
             c.mPowerRequirement = in.readInt();
-=======
-            c.mAccuracy = in.readInt();
-            c.mPowerRequirement = in.readInt();
-//            c.mPreferredResponseTime = in.readInt();
->>>>>>> 54b6cfa... Initial Contribution
             c.mAltitudeRequired = in.readInt() != 0;
             c.mBearingRequired = in.readInt() != 0;
             c.mSpeedRequired = in.readInt() != 0;
@@ -405,17 +350,11 @@ public class Criteria implements Parcelable {
     }
 
     public void writeToParcel(Parcel parcel, int flags) {
-<<<<<<< HEAD
         parcel.writeInt(mHorizontalAccuracy);
         parcel.writeInt(mVerticalAccuracy);
         parcel.writeInt(mSpeedAccuracy);
         parcel.writeInt(mBearingAccuracy);
         parcel.writeInt(mPowerRequirement);
-=======
-        parcel.writeInt(mAccuracy);
-        parcel.writeInt(mPowerRequirement);
-//        parcel.writeInt(mPreferredResponseTime);
->>>>>>> 54b6cfa... Initial Contribution
         parcel.writeInt(mAltitudeRequired ? 1 : 0);
         parcel.writeInt(mBearingRequired ? 1 : 0);
         parcel.writeInt(mSpeedRequired ? 1 : 0);

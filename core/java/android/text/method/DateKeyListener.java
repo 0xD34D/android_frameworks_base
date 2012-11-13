@@ -17,7 +17,6 @@
 package android.text.method;
 
 import android.view.KeyEvent;
-<<<<<<< HEAD
 import android.text.InputType;
 
 /**
@@ -34,14 +33,6 @@ public class DateKeyListener extends NumberKeyListener
                 | InputType.TYPE_DATETIME_VARIATION_DATE;
     }
     
-=======
-
-/**
- * For entering dates in a text field.
- */
-public class DateKeyListener extends NumberKeyListener
-{
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected char[] getAcceptedChars()
     {

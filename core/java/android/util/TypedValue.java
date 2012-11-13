@@ -16,12 +16,6 @@
 
 package android.util;
 
-<<<<<<< HEAD
-=======
-import android.util.Config;
-import android.util.Log;
-
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * Container for a dynamically typed data value.  Primarily used with
  * {@link android.content.res.Resources} for holding resource values.
@@ -144,7 +138,6 @@ public class TypedValue {
 
     /* ------------------------------------------------------------ */
 
-<<<<<<< HEAD
     /**
      * If {@link #density} is equal to this value, then the density should be
      * treated as the system's default density value: {@link DisplayMetrics#DENSITY_DEFAULT}.
@@ -159,8 +152,6 @@ public class TypedValue {
 
     /* ------------------------------------------------------------ */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** The type held by this value, as defined by the constants here.
      *  This tells you how to interpret the other fields in the object. */
     public int type;
@@ -181,16 +172,12 @@ public class TypedValue {
     /** If Value came from a resource, these are the configurations for which
      *  its contents can change. */
     public int changingConfigurations = -1;
-<<<<<<< HEAD
 
     /**
      * If the Value came from a resource, this holds the corresponding pixel density.
      * */
     public int density;
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /* ------------------------------------------------------------ */
 
     /** Return the data for this value as a float.  Only use for values
@@ -483,10 +470,7 @@ public class TypedValue {
         data = other.data;
         assetCookie = other.assetCookie;
         resourceId = other.resourceId;
-<<<<<<< HEAD
         density = other.density;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public String toString()

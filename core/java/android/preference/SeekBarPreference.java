@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (C) 2011 The Android Open Source Project
-=======
- * Copyright (C) 2007 The Android Open Source Project
->>>>>>> 54b6cfa... Initial Contribution
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +17,6 @@
 package android.preference;
 
 import android.content.Context;
-<<<<<<< HEAD
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -30,19 +25,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-=======
-import android.graphics.drawable.Drawable;
-import android.preference.DialogPreference;
-import android.util.AttributeSet;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.SeekBar;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * @hide
  */
-<<<<<<< HEAD
 public class SeekBarPreference extends Preference
         implements OnSeekBarChangeListener {
 
@@ -257,38 +243,5 @@ public class SeekBarPreference extends Preference
                 return new SavedState[size];
             }
         };
-=======
-public class SeekBarPreference extends DialogPreference {
-    private static final String TAG = "SeekBarPreference";
-    
-    private Drawable mMyIcon;
-
-    public SeekBarPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        setDialogLayoutResource(com.android.internal.R.layout.seekbar_dialog);
-        setPositiveButtonText(android.R.string.ok);
-        setNegativeButtonText(android.R.string.cancel);
-        
-        // Steal the XML dialogIcon attribute's value
-        mMyIcon = getDialogIcon();
-        setDialogIcon(null);
-    }
-
-    @Override
-    protected void onBindDialogView(View view) {
-        super.onBindDialogView(view);
-        
-        final ImageView iconView = (ImageView) view.findViewById(android.R.id.icon);
-        if (mMyIcon != null) {
-            iconView.setImageDrawable(mMyIcon);
-        } else {
-            iconView.setVisibility(View.GONE);
-        }
-    }
-
-    protected static SeekBar getSeekBar(View dialogView) {
-        return (SeekBar) dialogView.findViewById(com.android.internal.R.id.seekbar);
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

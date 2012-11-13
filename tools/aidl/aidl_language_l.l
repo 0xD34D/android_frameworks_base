@@ -81,11 +81,8 @@ brackets    \[{whitespace}?\]
     /* keywords */
 parcelable      { SET_BUFFER(PARCELABLE); return PARCELABLE; }
 interface       { SET_BUFFER(INTERFACE); return INTERFACE; }
-<<<<<<< HEAD
 flattenable     { SET_BUFFER(FLATTENABLE); return FLATTENABLE; }
 rpc             { SET_BUFFER(INTERFACE); return RPC; }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 in              { SET_BUFFER(IN); return IN; }
 out             { SET_BUFFER(OUT); return OUT; }
 inout           { SET_BUFFER(INOUT); return INOUT; }

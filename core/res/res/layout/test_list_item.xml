@@ -19,10 +19,6 @@
     android:textAppearance="?android:attr/textAppearanceSmall"
     android:paddingTop="2dip"
     android:paddingBottom="3dip"
-<<<<<<< HEAD
     android:layout_width="match_parent"
-=======
-    android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
     android:layout_height="wrap_content"
 />

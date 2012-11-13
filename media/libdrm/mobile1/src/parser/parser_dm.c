@@ -138,11 +138,7 @@ int32_t drm_parseDM(const uint8_t *buffer, int32_t bufferLen, T_DRM_DM_Info *pDm
 
                     /* error: more than one content id */
                     if(drm_strnstr(pStart, (uint8_t*)HEADERS_CONTENT_ID, pBufferEnd - pStart)){
-<<<<<<< HEAD
                         ALOGD("drm_dmParser: error: more than one content id\r\n");
-=======
-                        LOGD("drm_dmParser: error: more than one content id\r\n");
->>>>>>> 54b6cfa... Initial Contribution
                         return FALSE;
                     }
 

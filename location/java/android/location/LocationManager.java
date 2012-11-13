@@ -17,30 +17,18 @@
 package android.location;
 
 import android.app.PendingIntent;
-<<<<<<< HEAD
 import android.content.Context;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.Handler;
 import android.os.Message;
-<<<<<<< HEAD
 import android.util.Log;
 
 import com.android.internal.location.DummyLocationProvider;
 
 import java.util.ArrayList;
-=======
-import android.util.Config;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,7 +43,6 @@ import java.util.List;
  * instantiate this class directly; instead, retrieve it through
  * {@link android.content.Context#getSystemService
  * Context.getSystemService(Context.LOCATION_SERVICE)}.
-<<<<<<< HEAD
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
@@ -63,22 +50,15 @@ import java.util.List;
  * <a href="{@docRoot}guide/topics/location/index.html">Location and Maps</a>
  * developer guide.</p>
  * </div>
-=======
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class LocationManager {
     private static final String TAG = "LocationManager";
     private ILocationManager mService;
-<<<<<<< HEAD
     private final HashMap<GpsStatus.Listener, GpsStatusListenerTransport> mGpsStatusListeners =
             new HashMap<GpsStatus.Listener, GpsStatusListenerTransport>();
     private final HashMap<GpsStatus.NmeaListener, GpsStatusListenerTransport> mNmeaListeners =
             new HashMap<GpsStatus.NmeaListener, GpsStatusListenerTransport>();
     private final GpsStatus mGpsStatus = new GpsStatus();
-=======
-    private HashMap<GpsStatusListener, GpsStatusListenerTransport> mGpsStatusListeners =
-            new HashMap<GpsStatusListener, GpsStatusListenerTransport>();
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Name of the network location provider.  This provider determines location based on
@@ -95,11 +75,7 @@ public class LocationManager {
      * satellites. Depending on conditions, this provider may take a while to return
      * a location fix.
      *
-<<<<<<< HEAD
      * Requires the permission android.permission.ACCESS_FINE_LOCATION.
-=======
-     * Requires the permission android.permissions.ACCESS_FINE_LOCATION.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p> The extras Bundle for the GPS location provider can contain the
      * following key/value pairs:
@@ -111,7 +87,6 @@ public class LocationManager {
     public static final String GPS_PROVIDER = "gps";
 
     /**
-<<<<<<< HEAD
      * A special location provider for receiving locations without actually initiating
      * a location fix. This provider can be used to passively receive location updates
      * when other applications or services request them without actually requesting
@@ -125,14 +100,11 @@ public class LocationManager {
     public static final String PASSIVE_PROVIDER = "passive";
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Key used for the Bundle extra holding a boolean indicating whether
      * a proximity alert is entering (true) or exiting (false)..
      */
     public static final String KEY_PROXIMITY_ENTERING = "entering";
 
-<<<<<<< HEAD
     /**
      * Key used for a Bundle extra holding an Integer status value
      * when a status change is broadcast using a PendingIntent.
@@ -190,13 +162,6 @@ public class LocationManager {
     public static final String EXTRA_GPS_ENABLED = "enabled";
 
     private final Context mContext;
-=======
-    /** @hide -- does this belong here? */
-    public static final String PROVIDER_DIR = "/data/location";
-
-    /** @hide */
-    public static final String SYSTEM_DIR = "/data/system/location";
->>>>>>> 54b6cfa... Initial Contribution
 
     // Map from LocationListeners to their associated ListenerTransport objects
     private HashMap<LocationListener,ListenerTransport> mListeners =
@@ -285,45 +250,27 @@ public class LocationManager {
                     mListener.onProviderDisabled((String) msg.obj);
                     break;
             }
-<<<<<<< HEAD
             try {
                 mService.locationCallbackFinished(this);
             } catch (RemoteException e) {
                 Log.e(TAG, "locationCallbackFinished: RemoteException", e);
             }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
     /**
      * @hide - hide this constructor because it has a parameter
      * of type ILocationManager, which is a system private class. The
-<<<<<<< HEAD
      * right way to create an instance of this class is using the
      * factory Context.getSystemService.
      */
     public LocationManager(Context context, ILocationManager service) {
         mService = service;
         mContext = context;
-=======
-     * right way to create an instance of this class is using the 
-     * factory Context.getSystemService.
-     */
-    public LocationManager(ILocationManager service) {
-        if (Config.LOGD) {
-            Log.d(TAG, "Constructor: service = " + service);
-        }
-        mService = service;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private LocationProvider createProvider(String name, Bundle info) {
         DummyLocationProvider provider =
-<<<<<<< HEAD
             new DummyLocationProvider(name, mService);
-=======
-            new DummyLocationProvider(name);
->>>>>>> 54b6cfa... Initial Contribution
         provider.setRequiresNetwork(info.getBoolean("network"));
         provider.setRequiresSatellite(info.getBoolean("satellite"));
         provider.setRequiresCell(info.getBoolean("cell"));
@@ -344,11 +291,7 @@ public class LocationManager {
      * @return list of Strings containing names of the providers
      */
     public List<String> getAllProviders() {
-<<<<<<< HEAD
         if (false) {
-=======
-        if (Config.LOGD) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.d(TAG, "getAllProviders");
         }
         try {
@@ -369,11 +312,7 @@ public class LocationManager {
      */
     public List<String> getProviders(boolean enabledOnly) {
         try {
-<<<<<<< HEAD
             return mService.getProviders(null, enabledOnly);
-=======
-            return mService.getProviders(enabledOnly);
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             Log.e(TAG, "getProviders: RemoteException", ex);
         }
@@ -418,7 +357,6 @@ public class LocationManager {
      * @return list of Strings containing names of the providers
      */
     public List<String> getProviders(Criteria criteria, boolean enabledOnly) {
-<<<<<<< HEAD
         if (criteria == null) {
             throw new IllegalArgumentException("criteria==null");
         }
@@ -428,189 +366,6 @@ public class LocationManager {
             Log.e(TAG, "getProviders: RemoteException", ex);
         }
         return null;
-=======
-        List<String> goodProviders = Collections.emptyList();
-        List<String> providers = getProviders(enabledOnly);
-        for (String providerName : providers) {
-            LocationProvider provider = getProvider(providerName);
-            if (provider.meetsCriteria(criteria)) {
-                if (goodProviders.isEmpty()) {
-                    goodProviders = new ArrayList<String>();
-                }
-                goodProviders.add(providerName);
-            }
-        }
-        return goodProviders;
-    }
-
-    /**
-     * Propagates the enabled/disabled state of the providers from the system
-     * settings to the providers themselves.
-     *
-     * {@hide}
-     */
-    public void updateProviders() {
-        try {
-            mService.updateProviders();
-        } catch (RemoteException ex) {
-            Log.e(TAG, "updateProviders: RemoteException", ex);
-        }
-    }
-
-    /**
-     * Returns the next looser power requirement, in the sequence:
-     *
-     * POWER_LOW -> POWER_MEDIUM -> POWER_HIGH -> NO_REQUIREMENT
-     */
-    private int nextPower(int power) {
-        switch (power) {
-        case Criteria.POWER_LOW:
-            return Criteria.POWER_MEDIUM;
-        case Criteria.POWER_MEDIUM:
-            return Criteria.POWER_HIGH;
-        case Criteria.POWER_HIGH:
-            return Criteria.NO_REQUIREMENT;
-        case Criteria.NO_REQUIREMENT:
-        default:
-            return Criteria.NO_REQUIREMENT;
-        }
-    }
-
-    /**
-     * Returns the next looser accuracy requirement, in the sequence:
-     *
-     * ACCURACY_FINE -> ACCURACY_APPROXIMATE-> NO_REQUIREMENT
-     */
-    private int nextAccuracy(int accuracy) {
-        if (accuracy == Criteria.ACCURACY_FINE) {
-            return Criteria.ACCURACY_COARSE;
-        } else {
-            return Criteria.NO_REQUIREMENT;
-        }
-    }
-
-    private abstract class LpComparator implements Comparator<LocationProvider> {
-
-        public int compare(int a1, int a2) {
-            if (a1 < a2) {
-                return -1;
-            } else if (a1 > a2) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-
-        public int compare(float a1, float a2) {
-            if (a1 < a2) {
-                return -1;
-            } else if (a1 > a2) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    }
-
-    private class LpPowerComparator extends LpComparator {
-        public int compare(LocationProvider l1, LocationProvider l2) {
-            int a1 = l1.getPowerRequirement();
-            int a2 = l2.getPowerRequirement();
-            return compare(a1, a2); // Smaller is better
-         }
-
-         public boolean equals(LocationProvider l1, LocationProvider l2) {
-             int a1 = l1.getPowerRequirement();
-             int a2 = l2.getPowerRequirement();
-             return a1 == a2;
-         }
-    }
-
-    private class LpAccuracyComparator extends LpComparator {
-        public int compare(LocationProvider l1, LocationProvider l2) {
-            int a1 = l1.getAccuracy();
-            int a2 = l2.getAccuracy();
-            return compare(a1, a2); // Smaller is better
-         }
-
-         public boolean equals(LocationProvider l1, LocationProvider l2) {
-             int a1 = l1.getAccuracy();
-             int a2 = l2.getAccuracy();
-             return a1 == a2;
-         }
-    }
-
-    private class LpCapabilityComparator extends LpComparator {
-
-        private static final int ALTITUDE_SCORE = 4;
-        private static final int BEARING_SCORE = 4;
-        private static final int SPEED_SCORE = 4;
-
-        private int score(LocationProvider p) {
-            return (p.supportsAltitude() ? ALTITUDE_SCORE : 0) +
-                (p.supportsBearing() ? BEARING_SCORE : 0) +
-                (p.supportsSpeed() ? SPEED_SCORE : 0);
-        }
-
-        public int compare(LocationProvider l1, LocationProvider l2) {
-            int a1 = score(l1);
-            int a2 = score(l2);
-            return compare(-a1, -a2); // Bigger is better
-         }
-
-         public boolean equals(LocationProvider l1, LocationProvider l2) {
-             int a1 = score(l1);
-             int a2 = score(l2);
-             return a1 == a2;
-         }
-    }
-
-    private LocationProvider best(List<String> providerNames) {
-        List<LocationProvider> providers = new ArrayList<LocationProvider>(providerNames.size());
-        for (String name : providerNames) {
-            providers.add(getProvider(name));
-        }
-
-        if (providers.size() < 2) {
-            return providers.get(0);
-        }
-
-        // First, sort by power requirement
-        Collections.sort(providers, new LpPowerComparator());
-        int power = providers.get(0).getPowerRequirement();
-        if (power < providers.get(1).getPowerRequirement()) {
-            return providers.get(0);
-        }
-
-        int idx, size;
-
-        List<LocationProvider> tmp = new ArrayList<LocationProvider>();
-        idx = 0;
-        size = providers.size();
-        while ((idx < size) && (providers.get(idx).getPowerRequirement() == power)) {
-            tmp.add(providers.get(idx));
-            idx++;
-        }
-
-        // Next, sort by accuracy
-        Collections.sort(tmp, new LpAccuracyComparator());
-        int acc = tmp.get(0).getAccuracy();
-        if (acc < tmp.get(1).getAccuracy()) {
-            return tmp.get(0);
-        }
-
-        List<LocationProvider> tmp2 = new ArrayList<LocationProvider>();
-        idx = 0;
-        size = tmp.size();
-        while ((idx < size) && (tmp.get(idx).getAccuracy() == acc)) {
-            tmp2.add(tmp.get(idx));
-            idx++;
-        }
-
-        // Finally, sort by capability "score"
-        Collections.sort(tmp2, new LpCapabilityComparator());
-        return tmp2.get(0);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -636,7 +391,6 @@ public class LocationManager {
      * @return name of the provider that best matches the requirements
      */
     public String getBestProvider(Criteria criteria, boolean enabledOnly) {
-<<<<<<< HEAD
         if (criteria == null) {
             throw new IllegalArgumentException("criteria==null");
         }
@@ -645,74 +399,6 @@ public class LocationManager {
         } catch (RemoteException ex) {
             Log.e(TAG, "getBestProvider: RemoteException", ex);
         }
-=======
-        List<String> goodProviders = getProviders(criteria, enabledOnly);
-        if (!goodProviders.isEmpty()) {
-            return best(goodProviders).getName();
-        }
-
-        // Make a copy of the criteria that we can modify
-        criteria = new Criteria(criteria);
-
-        // Loosen power requirement
-        int power = criteria.getPowerRequirement();
-        while (goodProviders.isEmpty() && (power != Criteria.NO_REQUIREMENT)) {
-            power = nextPower(power);
-            criteria.setPowerRequirement(power);
-            goodProviders = getProviders(criteria, enabledOnly);
-        }
-        if (!goodProviders.isEmpty()) {
-            return best(goodProviders).getName();
-        }
-
-//        // Loosen response time requirement
-//        int responseTime = criteria.getPreferredResponseTime();
-//        while (goodProviders.isEmpty() &&
-//            (responseTime != Criteria.NO_REQUIREMENT)) {
-//            responseTime += 1000;
-//            if (responseTime > 60000) {
-//                responseTime = Criteria.NO_REQUIREMENT;
-//            }
-//            criteria.setPreferredResponseTime(responseTime);
-//            goodProviders = getProviders(criteria);
-//        }
-//        if (!goodProviders.isEmpty()) {
-//            return best(goodProviders);
-//        }
-
-        // Loosen accuracy requirement
-        int accuracy = criteria.getAccuracy();
-        while (goodProviders.isEmpty() && (accuracy != Criteria.NO_REQUIREMENT)) {
-            accuracy = nextAccuracy(accuracy);
-            criteria.setAccuracy(accuracy);
-            goodProviders = getProviders(criteria, enabledOnly);
-        }
-        if (!goodProviders.isEmpty()) {
-            return best(goodProviders).getName();
-        }
-
-        // Remove bearing requirement
-        criteria.setBearingRequired(false);
-        goodProviders = getProviders(criteria, enabledOnly);
-        if (!goodProviders.isEmpty()) {
-            return best(goodProviders).getName();
-        }
-
-        // Remove speed requirement
-        criteria.setSpeedRequired(false);
-        goodProviders = getProviders(criteria, enabledOnly);
-        if (!goodProviders.isEmpty()) {
-            return best(goodProviders).getName();
-        }
-
-        // Remove altitude requirement
-        criteria.setAltitudeRequired(false);
-        goodProviders = getProviders(criteria, enabledOnly);
-        if (!goodProviders.isEmpty()) {
-            return best(goodProviders).getName();
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         return null;
     }
 
@@ -721,11 +407,7 @@ public class LocationManager {
      * the named provider.  Periodically, the supplied LocationListener will
      * be called with the current Location or with status updates.
      *
-<<<<<<< HEAD
      * <p> It may take a while to receive the first location update. If
-=======
-     * <p> It may take a while to receive the most recent location. If
->>>>>>> 54b6cfa... Initial Contribution
      * an immediate location is required, applications may use the
      * {@link #getLastKnownLocation(String)} method.
      *
@@ -735,7 +417,6 @@ public class LocationManager {
      * the {@link LocationListener#onProviderEnabled(String)} method will
      * be called and location updates will start again.
      *
-<<<<<<< HEAD
      * <p> The update interval can be controlled using the minTime parameter.
      * The elapsed time between location updates will never be less than
      * minTime, although it can be more depending on the Location Provider
@@ -772,24 +453,10 @@ public class LocationManager {
      * select non-zero values for minTime and/or minDistance to rate-limit
      * your update frequency in the case another application enables a
      * location provider with extremely fast updates.
-=======
-     * <p> The frequency of notification may be controlled using the
-     * minTime and minDistance parameters. If minTime is greater than 0,
-     * the LocationManager could potentially rest for minTime milliseconds
-     * between location updates to conserve power. If minDistance is greater than 0,
-     * a location will only be broadcasted if the device moves by minDistance meters.
-     * To obtain notifications as frequently as possible, set both parameters to 0.
-     *
-     * <p> Background services should be careful about setting a sufficiently high
-     * minTime so that the device doesn't consume too much power by keeping the
-     * GPS or wireless radios on all the time. In particular, values under 60000ms
-     * are not recommended.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p> The calling thread must be a {@link android.os.Looper} thread such as
      * the main thread of the calling Activity.
      *
-<<<<<<< HEAD
      * <p class="note"> Prior to Jellybean, the minTime parameter was
      * only a hint, and some location provider implementations ignored it.
      * From Jellybean and onwards it is mandatory for Android compatible
@@ -798,23 +465,12 @@ public class LocationManager {
      * @param provider the name of the provider with which to register
      * @param minTime minimum time interval between location updates, in milliseconds
      * @param minDistance minimum distance between location updates, in meters
-=======
-     * @param provider the name of the provider with which to register
-     * @param minTime the minimum time interval for notifications, in
-     * milliseconds. This field is only used as a hint to conserve power, and actual
-     * time between location updates may be greater or lesser than this value.
-     * @param minDistance the minimum distance interval for notifications,
-     * in meters
->>>>>>> 54b6cfa... Initial Contribution
      * @param listener a {#link LocationListener} whose
      * {@link LocationListener#onLocationChanged} method will be called for
      * each location update
      *
      * @throws IllegalArgumentException if provider is null or doesn't exist
-<<<<<<< HEAD
      * on this device
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @throws IllegalArgumentException if listener is null
      * @throws RuntimeException if the calling thread has no Looper
      * @throws SecurityException if no suitable permission is present for the provider.
@@ -827,11 +483,7 @@ public class LocationManager {
         if (listener == null) {
             throw new IllegalArgumentException("listener==null");
         }
-<<<<<<< HEAD
         _requestLocationUpdates(provider, null, minTime, minDistance, false, listener, null);
-=======
-        _requestLocationUpdates(provider, minTime, minDistance, listener, null);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -839,11 +491,7 @@ public class LocationManager {
      * the named provider.  Periodically, the supplied LocationListener will
      * be called with the current Location or with status updates.
      *
-<<<<<<< HEAD
      * <p> It may take a while to receive the first location update. If
-=======
-     * <p> It may take a while to receive the most recent location. If
->>>>>>> 54b6cfa... Initial Contribution
      * an immediate location is required, applications may use the
      * {@link #getLastKnownLocation(String)} method.
      *
@@ -853,7 +501,6 @@ public class LocationManager {
      * the {@link LocationListener#onProviderEnabled(String)} method will
      * be called and location updates will start again.
      *
-<<<<<<< HEAD
      * <p> The update interval can be controlled using the minTime parameter.
      * The elapsed time between location updates will never be less than
      * minTime, although it can be more depending on the Location Provider
@@ -901,45 +548,15 @@ public class LocationManager {
      * @param provider the name of the provider with which to register
      * @param minTime minimum time interval between location updates, in milliseconds
      * @param minDistance minimum distance between location updates, in meters
-=======
-     * <p> The frequency of notification may be controlled using the
-     * minTime and minDistance parameters. If minTime is greater than 0,
-     * the LocationManager could potentially rest for minTime milliseconds
-     * between location updates to conserve power. If minDistance is greater than 0,
-     * a location will only be broadcasted if the device moves by minDistance meters.
-     * To obtain notifications as frequently as possible, set both parameters to 0.
-     *
-     * <p> Background services should be careful about setting a sufficiently high
-     * minTime so that the device doesn't consume too much power by keeping the
-     * GPS or wireless radios on all the time. In particular, values under 60000ms
-     * are not recommended.
-     *
-     * <p> The supplied Looper is used to implement the callback mechanism.
-     *
-     * @param provider the name of the provider with which to register
-     * @param minTime the minimum time interval for notifications, in
-     * milliseconds. This field is only used as a hint to conserve power, and actual
-     * time between location updates may be greater or lesser than this value.
-     * @param minDistance the minimum distance interval for notifications,
-     * in meters
->>>>>>> 54b6cfa... Initial Contribution
      * @param listener a {#link LocationListener} whose
      * {@link LocationListener#onLocationChanged} method will be called for
      * each location update
      * @param looper a Looper object whose message queue will be used to
-<<<<<<< HEAD
      * implement the callback mechanism, or null to make callbacks on the
      * main thread
      *
      * @throws IllegalArgumentException if provider is null or doesn't exist
      * @throws IllegalArgumentException if listener is null
-=======
-     * implement the callback mechanism.
-     *
-     * @throws IllegalArgumentException if provider is null or doesn't exist
-     * @throws IllegalArgumentException if listener is null
-     * @throws IllegalArgumentException if looper is null
->>>>>>> 54b6cfa... Initial Contribution
      * @throws SecurityException if no suitable permission is present for the provider.
      */
     public void requestLocationUpdates(String provider,
@@ -951,7 +568,6 @@ public class LocationManager {
         if (listener == null) {
             throw new IllegalArgumentException("listener==null");
         }
-<<<<<<< HEAD
         _requestLocationUpdates(provider, null, minTime, minDistance, false, listener, looper);
     }
 
@@ -1031,17 +647,6 @@ public class LocationManager {
 
     private void _requestLocationUpdates(String provider, Criteria criteria, long minTime,
             float minDistance, boolean singleShot, LocationListener listener, Looper looper) {
-=======
-        if (looper == null) {
-            throw new IllegalArgumentException("looper==null");
-        }
-        _requestLocationUpdates(provider, minTime, minDistance, listener, looper);
-    }
-
-    private void _requestLocationUpdates(String provider,
-        long minTime, float minDistance, LocationListener listener,
-        Looper looper) {
->>>>>>> 54b6cfa... Initial Contribution
         if (minTime < 0L) {
             minTime = 0L;
         }
@@ -1054,18 +659,10 @@ public class LocationManager {
                 ListenerTransport transport = mListeners.get(listener);
                 if (transport == null) {
                     transport = new ListenerTransport(listener, looper);
-<<<<<<< HEAD
                 }
                 mListeners.put(listener, transport);
                 mService.requestLocationUpdates(provider, criteria, minTime, minDistance,
                         singleShot, transport, mContext.getPackageName());
-=======
-                    mListeners.put(listener, transport);
-                }
-                mListeners.put(listener, transport);
-                mService.requestLocationUpdates(provider, minTime, minDistance,
-                    transport);
->>>>>>> 54b6cfa... Initial Contribution
             }
         } catch (RemoteException ex) {
             Log.e(TAG, "requestLocationUpdates: DeadObjectException", ex);
@@ -1073,7 +670,6 @@ public class LocationManager {
     }
 
     /**
-<<<<<<< HEAD
      * Registers the current activity to be notified periodically by
      * the named provider.  Periodically, the supplied PendingIntent will
      * be broadcast with the current Location or with status updates.
@@ -1398,8 +994,6 @@ public class LocationManager {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Removes any current registration for location updates of the current activity
      * with the given LocationListener.  Following this call, updates will no longer
      * occur for this listener.
@@ -1411,21 +1005,13 @@ public class LocationManager {
         if (listener == null) {
             throw new IllegalArgumentException("listener==null");
         }
-<<<<<<< HEAD
         if (false) {
-=======
-        if (Config.LOGD) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.d(TAG, "removeUpdates: listener = " + listener);
         }
         try {
             ListenerTransport transport = mListeners.remove(listener);
             if (transport != null) {
-<<<<<<< HEAD
                 mService.removeUpdates(transport, mContext.getPackageName());
-=======
-                mService.removeUpdates(transport);
->>>>>>> 54b6cfa... Initial Contribution
             }
         } catch (RemoteException ex) {
             Log.e(TAG, "removeUpdates: DeadObjectException", ex);
@@ -1433,7 +1019,6 @@ public class LocationManager {
     }
 
     /**
-<<<<<<< HEAD
      * Removes any current registration for location updates of the current activity
      * with the given PendingIntent.  Following this call, updates will no longer
      * occur for this intent.
@@ -1456,8 +1041,6 @@ public class LocationManager {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Sets a proximity alert for the location given by the position
      * (latitude, longitude) and the given radius.  When the device
      * detects that it has entered or exited the area surrounding the
@@ -1502,11 +1085,7 @@ public class LocationManager {
      */
     public void addProximityAlert(double latitude, double longitude,
         float radius, long expiration, PendingIntent intent) {
-<<<<<<< HEAD
         if (false) {
-=======
-        if (Config.LOGD) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.d(TAG, "addProximityAlert: latitude = " + latitude +
                 ", longitude = " + longitude + ", radius = " + radius +
                 ", expiration = " + expiration +
@@ -1514,11 +1093,7 @@ public class LocationManager {
         }
         try {
             mService.addProximityAlert(latitude, longitude, radius,
-<<<<<<< HEAD
                                        expiration, intent, mContext.getPackageName());
-=======
-                                       expiration, intent);
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             Log.e(TAG, "addProximityAlert: RemoteException", ex);
         }
@@ -1531,11 +1106,7 @@ public class LocationManager {
      * proximity alerts
      */
     public void removeProximityAlert(PendingIntent intent) {
-<<<<<<< HEAD
         if (false) {
-=======
-        if (Config.LOGD) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.d(TAG, "removeProximityAlert: intent = " + intent);
         }
         try {
@@ -1554,11 +1125,7 @@ public class LocationManager {
      * @return true if the provider is enabled
      *
      * @throws SecurityException if no suitable permission is present for the provider.
-<<<<<<< HEAD
      * @throws IllegalArgumentException if provider is null
-=======
-     * @throws IllegalArgumentException if provider is null or doesn't exist
->>>>>>> 54b6cfa... Initial Contribution
      */
     public boolean isProviderEnabled(String provider) {
         if (provider == null) {
@@ -1592,11 +1159,7 @@ public class LocationManager {
             throw new IllegalArgumentException("provider==null");
         }
         try {
-<<<<<<< HEAD
             return mService.getLastKnownLocation(provider, mContext.getPackageName());
-=======
-            return mService.getLastKnownLocation(provider);
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             Log.e(TAG, "getLastKnowLocation: RemoteException", ex);
             return null;
@@ -1620,15 +1183,9 @@ public class LocationManager {
      * @param accuracy
      *
      * @throws SecurityException if the ACCESS_MOCK_LOCATION permission is not present
-<<<<<<< HEAD
      * or the {@link android.provider.Settings.Secure#ALLOW_MOCK_LOCATION
      * Settings.Secure.ALLOW_MOCK_LOCATION} system setting is not enabled
      * @throws IllegalArgumentException if a provider with the given name already exists
-=======
-     * @throws IllegalArgumentException if a provider with the given name already exists
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void addTestProvider(String name, boolean requiresNetwork, boolean requiresSatellite,
         boolean requiresCell, boolean hasMonetaryCost, boolean supportsAltitude,
@@ -1648,15 +1205,9 @@ public class LocationManager {
      * @param provider the provider name
      *
      * @throws SecurityException if the ACCESS_MOCK_LOCATION permission is not present
-<<<<<<< HEAD
      * or the {@link android.provider.Settings.Secure#ALLOW_MOCK_LOCATION
      * Settings.Secure.ALLOW_MOCK_LOCATION}} system setting is not enabled
      * @throws IllegalArgumentException if no provider with the given name exists
-=======
-     * @throws IllegalArgumentException if no provider with the given name exists
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void removeTestProvider(String provider) {
         try {
@@ -1674,15 +1225,9 @@ public class LocationManager {
      * @param loc the mock location
      *
      * @throws SecurityException if the ACCESS_MOCK_LOCATION permission is not present
-<<<<<<< HEAD
      * or the {@link android.provider.Settings.Secure#ALLOW_MOCK_LOCATION
      * Settings.Secure.ALLOW_MOCK_LOCATION}} system setting is not enabled
      * @throws IllegalArgumentException if no provider with the given name exists
-=======
-     * @throws IllegalArgumentException if no provider with the given name exists
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void setTestProviderLocation(String provider, Location loc) {
         try {
@@ -1698,15 +1243,9 @@ public class LocationManager {
      * @param provider the provider name
      *
      * @throws SecurityException if the ACCESS_MOCK_LOCATION permission is not present
-<<<<<<< HEAD
      * or the {@link android.provider.Settings.Secure#ALLOW_MOCK_LOCATION
      * Settings.Secure.ALLOW_MOCK_LOCATION}} system setting is not enabled
      * @throws IllegalArgumentException if no provider with the given name exists
-=======
-     * @throws IllegalArgumentException if no provider with the given name exists
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void clearTestProviderLocation(String provider) {
         try {
@@ -1724,15 +1263,9 @@ public class LocationManager {
      * @param enabled the mock enabled value
      *
      * @throws SecurityException if the ACCESS_MOCK_LOCATION permission is not present
-<<<<<<< HEAD
      * or the {@link android.provider.Settings.Secure#ALLOW_MOCK_LOCATION
      * Settings.Secure.ALLOW_MOCK_LOCATION}} system setting is not enabled
      * @throws IllegalArgumentException if no provider with the given name exists
-=======
-     * @throws IllegalArgumentException if no provider with the given name exists
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void setTestProviderEnabled(String provider, boolean enabled) {
         try {
@@ -1748,15 +1281,9 @@ public class LocationManager {
      * @param provider the provider name
      *
      * @throws SecurityException if the ACCESS_MOCK_LOCATION permission is not present
-<<<<<<< HEAD
      * or the {@link android.provider.Settings.Secure#ALLOW_MOCK_LOCATION
      * Settings.Secure.ALLOW_MOCK_LOCATION}} system setting is not enabled
      * @throws IllegalArgumentException if no provider with the given name exists
-=======
-     * @throws IllegalArgumentException if no provider with the given name exists
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void clearTestProviderEnabled(String provider) {
         try {
@@ -1777,15 +1304,9 @@ public class LocationManager {
      * @param updateTime the mock update time
      *
      * @throws SecurityException if the ACCESS_MOCK_LOCATION permission is not present
-<<<<<<< HEAD
      * or the {@link android.provider.Settings.Secure#ALLOW_MOCK_LOCATION
      * Settings.Secure.ALLOW_MOCK_LOCATION}} system setting is not enabled
      * @throws IllegalArgumentException if no provider with the given name exists
-=======
-     * @throws IllegalArgumentException if no provider with the given name exists
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void setTestProviderStatus(String provider, int status, Bundle extras, long updateTime) {
         try {
@@ -1801,15 +1322,9 @@ public class LocationManager {
      * @param provider the provider name
      *
      * @throws SecurityException if the ACCESS_MOCK_LOCATION permission is not present
-<<<<<<< HEAD
      * or the {@link android.provider.Settings.Secure#ALLOW_MOCK_LOCATION
      * Settings.Secure.ALLOW_MOCK_LOCATION}} system setting is not enabled
      * @throws IllegalArgumentException if no provider with the given name exists
-=======
-     * @throws IllegalArgumentException if no provider with the given name exists
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void clearTestProviderStatus(String provider) {
         try {
@@ -1824,7 +1339,6 @@ public class LocationManager {
     // This class is used to send GPS status events to the client's main thread.
     private class GpsStatusListenerTransport extends IGpsStatusListener.Stub {
 
-<<<<<<< HEAD
         private final GpsStatus.Listener mListener;
         private final GpsStatus.NmeaListener mNmeaListener;
 
@@ -1876,51 +1390,11 @@ public class LocationManager {
                 msg.what = GpsStatus.GPS_EVENT_FIRST_FIX;
                 mGpsHandler.sendMessage(msg);
             }
-=======
-        private GpsStatusListener mListener;
-        private int mTTFF;
-        private int mSvCount;
-        private int[] mPrns;
-        private float[] mSnrs;
-        private float[] mElevations;
-        private float[] mAzimuths;
-        private int mEphemerisMask;
-        private int mAlmanacMask;
-        private int mUsedInFixMask;
-
-        private static final int GPS_STARTED = 0;
-        private static final int GPS_STOPPED = 1;
-        private static final int GPS_FIRST_FIX = 2;
-        private static final int GPS_SV_STATUS = 3;
-
-        GpsStatusListenerTransport(GpsStatusListener listener) {
-            mListener = listener;
-        }
-
-        public void onGpsStarted() {
-            Message msg = Message.obtain();
-            msg.what = GPS_STARTED;
-            mGpsHandler.sendMessage(msg);
-        }
-
-        public void onGpsStopped() {
-            Message msg = Message.obtain();
-            msg.what = GPS_STOPPED;
-            mGpsHandler.sendMessage(msg);
-        }
-
-        public void onFirstFix(int ttff) {
-            mTTFF = ttff;
-            Message msg = Message.obtain();
-            msg.what = GPS_FIRST_FIX;
-            mGpsHandler.sendMessage(msg);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         public void onSvStatusChanged(int svCount, int[] prns, float[] snrs,
                 float[] elevations, float[] azimuths, int ephemerisMask,
                 int almanacMask, int usedInFixMask) {
-<<<<<<< HEAD
             if (mListener != null) {
                 mGpsStatus.setStatus(svCount, prns, snrs, elevations, azimuths,
                         ephemerisMask, almanacMask, usedInFixMask);
@@ -1944,31 +1418,11 @@ public class LocationManager {
                 mGpsHandler.removeMessages(NMEA_RECEIVED);
                 mGpsHandler.sendMessage(msg);
             }
-=======
-            // synchronize here to ensure SV count matches data in the arrays
-            synchronized(this) {
-                mSvCount = svCount;
-                mPrns = prns;
-                mSnrs = snrs;
-                mElevations = elevations;
-                mAzimuths = azimuths;
-                mEphemerisMask = ephemerisMask;
-                mAlmanacMask = almanacMask;
-                mUsedInFixMask = usedInFixMask;
-            }
-
-            Message msg = Message.obtain();
-            msg.what = GPS_SV_STATUS;
-            // remove any SV status messages already in the queue
-            mGpsHandler.removeMessages(GPS_SV_STATUS);
-            mGpsHandler.sendMessage(msg);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         private final Handler mGpsHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-<<<<<<< HEAD
                 if (msg.what == NMEA_RECEIVED) {
                     synchronized (mNmeaBuffer) {
                         int length = mNmeaBuffer.size();
@@ -1982,24 +1436,6 @@ public class LocationManager {
                     // synchronize on mGpsStatus to ensure the data is copied atomically.
                     synchronized(mGpsStatus) {
                         mListener.onGpsStatusChanged(msg.what);
-=======
-                switch (msg.what) {
-                    case GPS_STARTED:
-                        mListener.onGpsStarted();
-                        break;
-                    case GPS_STOPPED:
-                        mListener.onGpsStopped();
-                        break;
-                    case GPS_FIRST_FIX:
-                        mListener.onFirstFix(mTTFF);
-                        break;
-                    case GPS_SV_STATUS:
-                        // synchronize here to ensure SV count matches data in the arrays
-                        synchronized(this) {
-                            mListener.onSvStatusChanged(mSvCount, mPrns, mSnrs, mElevations,
-                                    mAzimuths, mEphemerisMask, mAlmanacMask, mUsedInFixMask);
-                        break;
->>>>>>> 54b6cfa... Initial Contribution
                     }
                 }
             }
@@ -2007,7 +1443,6 @@ public class LocationManager {
     }
 
     /**
-<<<<<<< HEAD
      * Adds a GPS status listener.
      *
      * @param listener GPS status listener object to register
@@ -2017,17 +1452,6 @@ public class LocationManager {
      * @throws SecurityException if the ACCESS_FINE_LOCATION permission is not present
      */
     public boolean addGpsStatusListener(GpsStatus.Listener listener) {
-=======
-     * Registers a GPS status listener.
-     *
-     * @param listener GPS status listener object to register.
-     *
-     * @return true if the listener was successfully registered.
-     *
-     * {@hide}
-     */
-    public boolean registerGpsStatusListener(GpsStatusListener listener) {
->>>>>>> 54b6cfa... Initial Contribution
         boolean result;
 
         if (mGpsStatusListeners.get(listener) != null) {
@@ -2049,7 +1473,6 @@ public class LocationManager {
     }
 
     /**
-<<<<<<< HEAD
      * Removes a GPS status listener.
      *
      * @param listener GPS status listener object to remove
@@ -2103,17 +1526,6 @@ public class LocationManager {
     public void removeNmeaListener(GpsStatus.NmeaListener listener) {
         try {
             GpsStatusListenerTransport transport = mNmeaListeners.remove(listener);
-=======
-     * Unegisters a GPS status listener.
-     *
-     * @param listener GPS status listener object to unregister.
-     *
-     * {@hide}
-     */
-    public void unregisterGpsStatusListener(GpsStatusListener listener) {
-        try {
-            GpsStatusListenerTransport transport = mGpsStatusListeners.remove(listener);
->>>>>>> 54b6cfa... Initial Contribution
             if (transport != null) {
                 mService.removeGpsStatusListener(transport);
             }
@@ -2121,7 +1533,6 @@ public class LocationManager {
             Log.e(TAG, "RemoteException in unregisterGpsStatusListener: ", e);
         }
     }
-<<<<<<< HEAD
 
      /**
      * Retrieves information about the current status of the GPS engine.
@@ -2142,9 +1553,6 @@ public class LocationManager {
        return status;
     }
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Sends additional commands to a location provider.
      * Can be used to support provider specific extensions to the Location Manager API
@@ -2154,13 +1562,7 @@ public class LocationManager {
      * @param extras optional arguments for the command (or null).
      * The provider may optionally fill the extras Bundle with results from the command.
      *
-<<<<<<< HEAD
      * @return true if the command succeeds.
-=======
-     * @return true if the command succeeds. 
-     *
-     * {@hide}
->>>>>>> 54b6cfa... Initial Contribution
      */
     public boolean sendExtraCommand(String provider, String command, Bundle extras) {
         try {
@@ -2170,7 +1572,6 @@ public class LocationManager {
             return false;
         }
     }
-<<<<<<< HEAD
 
     /**
      * Used by NetInitiatedActivity to report user response
@@ -2187,6 +1588,4 @@ public class LocationManager {
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -22,10 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-<<<<<<< HEAD
 import android.view.ViewGroup;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -37,10 +34,7 @@ import android.widget.TextView;
  * The item view for each item in the ListView-based MenuViews.
  */
 public class ListMenuItemView extends LinearLayout implements MenuView.ItemView {
-<<<<<<< HEAD
     private static final String TAG = "ListMenuItemView";
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private MenuItemImpl mItemData; 
     
     private ImageView mIconView;
@@ -52,7 +46,6 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
     private Drawable mBackground;
     private int mTextAppearance;
     private Context mTextAppearanceContext;
-<<<<<<< HEAD
     private boolean mPreserveIconSpacing;
     
     private int mMenuType;
@@ -61,11 +54,6 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
 
     private boolean mForceShowIcon;
 
-=======
-    
-    private int mMenuType;
-    
->>>>>>> 54b6cfa... Initial Contribution
     public ListMenuItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs);
     
@@ -76,11 +64,8 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
         mBackground = a.getDrawable(com.android.internal.R.styleable.MenuView_itemBackground);
         mTextAppearance = a.getResourceId(com.android.internal.R.styleable.
                                           MenuView_itemTextAppearance, -1);
-<<<<<<< HEAD
         mPreserveIconSpacing = a.getBoolean(
                 com.android.internal.R.styleable.MenuView_preserveIconSpacing, false);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         mTextAppearanceContext = context;
         
         a.recycle();
@@ -118,13 +103,10 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
         setEnabled(itemData.isEnabled());
     }
 
-<<<<<<< HEAD
     public void setForceShowIcon(boolean forceShow) {
         mPreserveIconSpacing = mForceShowIcon = forceShow;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void setTitle(CharSequence title) {
         if (title != null) {
             mTitleView.setText(title);
@@ -140,31 +122,16 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
     }
 
     public void setCheckable(boolean checkable) {
-<<<<<<< HEAD
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         if (!checkable && mRadioButton == null && mCheckBox == null) {
             return;
         }
         
-<<<<<<< HEAD
-=======
-        if (mRadioButton == null) {
-            insertRadioButton();
-        }
-        if (mCheckBox == null) {
-            insertCheckBox();
-        }
-        
->>>>>>> 54b6cfa... Initial Contribution
         // Depending on whether its exclusive check or not, the checkbox or
         // radio button will be the one in use (and the other will be otherCompoundButton)
         final CompoundButton compoundButton;
         final CompoundButton otherCompoundButton; 
 
         if (mItemData.isExclusiveCheckable()) {
-<<<<<<< HEAD
             if (mRadioButton == null) {
                 insertRadioButton();
             }
@@ -174,11 +141,6 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
             if (mCheckBox == null) {
                 insertCheckBox();
             }
-=======
-            compoundButton = mRadioButton;
-            otherCompoundButton = mCheckBox;
-        } else {
->>>>>>> 54b6cfa... Initial Contribution
             compoundButton = mCheckBox;
             otherCompoundButton = mRadioButton;
         }
@@ -192,21 +154,12 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
             }
             
             // Make sure the other compound button isn't visible
-<<<<<<< HEAD
             if (otherCompoundButton != null && otherCompoundButton.getVisibility() != GONE) {
                 otherCompoundButton.setVisibility(GONE);
             }
         } else {
             if (mCheckBox != null) mCheckBox.setVisibility(GONE);
             if (mRadioButton != null) mRadioButton.setVisibility(GONE);
-=======
-            if (otherCompoundButton.getVisibility() != GONE) {
-                otherCompoundButton.setVisibility(GONE);
-            }
-        } else {
-            mCheckBox.setVisibility(GONE);
-            mRadioButton.setVisibility(GONE);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
@@ -229,7 +182,6 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
     }
 
     public void setShortcut(boolean showShortcut, char shortcutKey) {
-<<<<<<< HEAD
         final int newVisibility = (showShortcut && mItemData.shouldShowShortcut())
                 ? VISIBLE : GONE;
 
@@ -237,32 +189,18 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
             mShortcutView.setText(mItemData.getShortcutLabel());
         }
 
-=======
-        mShortcutView.setText(mItemData.getShortcutLabel());
-
-        final int newVisibility = showShortcut ? VISIBLE : GONE;
->>>>>>> 54b6cfa... Initial Contribution
         if (mShortcutView.getVisibility() != newVisibility) {
             mShortcutView.setVisibility(newVisibility);
         }
     }
     
     public void setIcon(Drawable icon) {
-<<<<<<< HEAD
         final boolean showIcon = mItemData.shouldShowIcon() || mForceShowIcon;
         if (!showIcon && !mPreserveIconSpacing) {
             return;
         }
         
         if (mIconView == null && icon == null && !mPreserveIconSpacing) {
-=======
-        
-        if (!mItemData.shouldShowIcon(mMenuType)) {
-            return;
-        }
-        
-        if (mIconView == null && icon == null) {
->>>>>>> 54b6cfa... Initial Contribution
             return;
         }
         
@@ -270,13 +208,8 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
             insertIconView();
         }
         
-<<<<<<< HEAD
         if (icon != null || mPreserveIconSpacing) {
             mIconView.setImageDrawable(showIcon ? icon : null);
-=======
-        if (icon != null) {
-            mIconView.setImageDrawable(icon);
->>>>>>> 54b6cfa... Initial Contribution
 
             if (mIconView.getVisibility() != VISIBLE) {
                 mIconView.setVisibility(VISIBLE);
@@ -286,7 +219,6 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
         }
     }
     
-<<<<<<< HEAD
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (mIconView != null && mPreserveIconSpacing) {
@@ -302,17 +234,12 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
 
     private void insertIconView() {
         LayoutInflater inflater = getInflater();
-=======
-    private void insertIconView() {
-        LayoutInflater inflater = mItemData.getLayoutInflater(mMenuType);
->>>>>>> 54b6cfa... Initial Contribution
         mIconView = (ImageView) inflater.inflate(com.android.internal.R.layout.list_menu_item_icon,
                 this, false);
         addView(mIconView, 0);
     }
     
     private void insertRadioButton() {
-<<<<<<< HEAD
         LayoutInflater inflater = getInflater();
         mRadioButton =
                 (RadioButton) inflater.inflate(com.android.internal.R.layout.list_menu_item_radio,
@@ -326,21 +253,6 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
                 (CheckBox) inflater.inflate(com.android.internal.R.layout.list_menu_item_checkbox,
                 this, false);
         addView(mCheckBox);
-=======
-        LayoutInflater inflater = mItemData.getLayoutInflater(mMenuType);
-        mRadioButton =
-                (RadioButton) inflater.inflate(com.android.internal.R.layout.list_menu_item_radio,
-                this, false);
-        addView(mRadioButton, 0);
-    }
-    
-    private void insertCheckBox() {
-        LayoutInflater inflater = mItemData.getLayoutInflater(mMenuType);
-        mCheckBox =
-                (CheckBox) inflater.inflate(com.android.internal.R.layout.list_menu_item_checkbox,
-                this, false);
-        addView(mCheckBox, 0);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public boolean prefersCondensedTitle() {
@@ -348,7 +260,6 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
     }
 
     public boolean showsIcon() {
-<<<<<<< HEAD
         return mForceShowIcon;
     }
     
@@ -358,9 +269,4 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
         }
         return mInflater;
     }
-=======
-        return false;
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -16,7 +16,6 @@
 
 package android.media;
 
-<<<<<<< HEAD
 import android.hardware.Camera;
 import android.os.Handler;
 import android.os.Looper;
@@ -38,19 +37,6 @@ import java.lang.ref.WeakReference;
  *
  * <p>A common case of using MediaRecorder to record audio works as follows:
  *
-=======
-import android.view.Surface;
-
-/**
- * Used to record audio and video. The recording control is based on a
- * simple state machine (see below). 
- * 
- * <p><img src="../../../images/mediarecorder_state_diagram.gif" border="0" />
- * </p>
- * 
- * <p>A common case of using MediaRecorder to record audio works as follows:
- * 
->>>>>>> 54b6cfa... Initial Contribution
  * <pre>MediaRecorder recorder = new MediaRecorder();
  * recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
  * recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -63,7 +49,6 @@ import android.view.Surface;
  * recorder.reset();   // You can reuse the object by going back to setAudioSource() step
  * recorder.release(); // Now the object cannot be reused
  * </pre>
-<<<<<<< HEAD
  *
  * <p>Applications may want to register for informational and error
  * events in order to be informed of some internal update and possible
@@ -106,30 +91,10 @@ public class MediaRecorder
     private OnErrorListener mOnErrorListener;
     private OnInfoListener mOnInfoListener;
 
-=======
- * 
- * <p>See the <a href="../../../toolbox/apis/media.html">Android Media APIs</a> 
- * page for additional help with using MediaRecorder.
- */
-public class MediaRecorder
-{    
-    static {
-        System.loadLibrary("media_jni");
-    }
-    
-    // The two fields below are accessed by native methods
-    @SuppressWarnings("unused")
-    private int mNativeContext;
-    
-    @SuppressWarnings("unused")
-    private Surface mSurface;
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Default constructor.
      */
     public MediaRecorder() {
-<<<<<<< HEAD
 
         Looper looper;
         if ((looper = Looper.myLooper()) != null) {
@@ -168,35 +133,17 @@ public class MediaRecorder
      *
      * @param sv the Surface to use for the preview
      * @see android.hardware.Camera#setPreviewDisplay(android.view.SurfaceHolder)
-=======
-        native_setup();
-    }
-  
-    /**
-     * Sets a Surface to show a preview of recorded media (video). Calls this
-     * before prepare() to make sure that the desirable preview display is
-     * set.
-     * 
-     * @param sv the Surface to use for the preview
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void setPreviewDisplay(Surface sv) {
         mSurface = sv;
     }
-<<<<<<< HEAD
 
     /**
      * Defines the audio source. These constants are used with
-=======
-    
-    /**
-     * Defines the audio source. These constants are used with 
->>>>>>> 54b6cfa... Initial Contribution
      * {@link MediaRecorder#setAudioSource(int)}.
      */
     public final class AudioSource {
       /* Do not change these values without updating their counterparts
-<<<<<<< HEAD
        * in system/core/include/system/audio.h!
        */
         private AudioSource() {}
@@ -235,20 +182,6 @@ public class MediaRecorder
     /**
      * Defines the video source. These constants are used with
      * {@link MediaRecorder#setVideoSource(int)}.
-=======
-       * in include/media/mediarecorder.h!
-       */
-        private AudioSource() {}
-        public static final int DEFAULT = 0;
-        /** Microphone audio source */
-        public static final int MIC = 1;
-    }
-
-    /**
-     * Defines the video source. These constants are used with 
-     * {@link MediaRecorder#setVideoSource(int)}.
-     * @hide
->>>>>>> 54b6cfa... Initial Contribution
      */
     public final class VideoSource {
       /* Do not change these values without updating their counterparts
@@ -258,19 +191,12 @@ public class MediaRecorder
         public static final int DEFAULT = 0;
         /** Camera video source */
         public static final int CAMERA = 1;
-<<<<<<< HEAD
         /** @hide */
         public static final int GRALLOC_BUFFER = 2;
     }
 
     /**
      * Defines the output format. These constants are used with
-=======
-    }
-
-    /**
-     * Defines the output format. These constants are used with 
->>>>>>> 54b6cfa... Initial Contribution
      * {@link MediaRecorder#setOutputFormat(int)}.
      */
     public final class OutputFormat {
@@ -279,7 +205,6 @@ public class MediaRecorder
        */
         private OutputFormat() {}
         public static final int DEFAULT = 0;
-<<<<<<< HEAD
         /** 3GPP media file format*/
         public static final int THREE_GPP = 1;
         /** MPEG4 media file format*/
@@ -314,16 +239,6 @@ public class MediaRecorder
 
     /**
      * Defines the audio encoding. These constants are used with
-=======
-        /** 3GPP media codec */
-        public static final int THREE_GPP = 1;
-        /** MPEG4 media codec */
-        public static final int MPEG_4 = 2;
-    }
-
-    /**
-     * Defines the audio encoding. These constants are used with 
->>>>>>> 54b6cfa... Initial Contribution
      * {@link MediaRecorder#setAudioEncoder(int)}.
      */
     public final class AudioEncoder {
@@ -334,7 +249,6 @@ public class MediaRecorder
         public static final int DEFAULT = 0;
         /** AMR (Narrowband) audio codec */
         public static final int AMR_NB = 1;
-<<<<<<< HEAD
         /** AMR (Wideband) audio codec */
         public static final int AMR_WB = 2;
         /** AAC Low Complexity (AAC-LC) audio codec */
@@ -348,15 +262,6 @@ public class MediaRecorder
     /**
      * Defines the video encoding. These constants are used with
      * {@link MediaRecorder#setVideoEncoder(int)}.
-=======
-        //public static final AAC = 2;  currently unsupported
-    }
-
-    /**
-     * Defines the video encoding. These constants are used with 
-     * {@link MediaRecorder#setVideoEncoder(int)}.
-     * @hide
->>>>>>> 54b6cfa... Initial Contribution
      */
     public final class VideoEncoder {
       /* Do not change these values without updating their counterparts
@@ -372,7 +277,6 @@ public class MediaRecorder
     /**
      * Sets the audio source to be used for recording. If this method is not
      * called, the output file will not contain an audio track. The source needs
-<<<<<<< HEAD
      * to be specified before setting recording-parameters or encoders. Call
      * this only before setOutputFormat().
      *
@@ -380,20 +284,10 @@ public class MediaRecorder
      * @throws IllegalStateException if it is called after setOutputFormat()
      * @see android.media.MediaRecorder.AudioSource
      */
-=======
-     * to be specified before setting recording-parameters or encoders. Call 
-     * this only before setOutputFormat().
-     * 
-     * @param audio_source the audio source to use
-     * @throws IllegalStateException if it is called after setOutputFormat()
-     * @see android.media.MediaRecorder.AudioSource
-     */ 
->>>>>>> 54b6cfa... Initial Contribution
     public native void setAudioSource(int audio_source)
             throws IllegalStateException;
 
     /**
-<<<<<<< HEAD
      * Gets the maximum value for audio sources.
      * @see android.media.MediaRecorder.AudioSource
      */
@@ -409,23 +303,10 @@ public class MediaRecorder
      * @throws IllegalStateException if it is called after setOutputFormat()
      * @see android.media.MediaRecorder.VideoSource
      */
-=======
-     * Sets the video source to be used for recording. If this method is not
-     * called, the output file will not contain an video track. The source needs
-     * to be specified before setting recording-parameters or encoders. Call 
-     * this only before setOutputFormat().
-     * 
-     * @param video_source the video source to use
-     * @throws IllegalStateException if it is called after setOutputFormat()
-     * @see android.media.MediaRecorder.VideoSource
-     * @hide
-     */ 
->>>>>>> 54b6cfa... Initial Contribution
     public native void setVideoSource(int video_source)
             throws IllegalStateException;
 
     /**
-<<<<<<< HEAD
      * Uses the settings from a CamcorderProfile object for recording. This method should
      * be called after the video AND audio sources are set, and before setOutputFile().
      * If a time lapse CamcorderProfile is used, audio related source or recording
@@ -545,45 +426,23 @@ public class MediaRecorder
      * may confuse some desktop players.</p>
      *
      * @param output_format the output format to use. The output format
-=======
-     * Sets the format of the output file produced during recording. Call this
-     * after setAudioSource()/setVideoSource() but before prepare().
-     * 
-     * @param output_format the output format to use. The output format 
->>>>>>> 54b6cfa... Initial Contribution
      * needs to be specified before setting recording-parameters or encoders.
      * @throws IllegalStateException if it is called after prepare() or before
      * setAudioSource()/setVideoSource().
      * @see android.media.MediaRecorder.OutputFormat
-<<<<<<< HEAD
      */
     public native void setOutputFormat(int output_format)
             throws IllegalStateException;
 
-=======
-     */ 
-    public native void setOutputFormat(int output_format)
-            throws IllegalStateException;
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Sets the width and height of the video to be captured.  Must be called
      * after setVideoSource(). Call this after setOutFormat() but before
      * prepare().
-<<<<<<< HEAD
      *
      * @param width the width of the video to be captured
      * @param height the height of the video to be captured
      * @throws IllegalStateException if it is called after
      * prepare() or before setOutputFormat()
-=======
-     * 
-     * @param width the width of the video to be captured
-     * @param height the height of the video to be captured
-     * @throws IllegalStateException if it is called after 
-     * prepare() or before setOutputFormat()
-     * @hide
->>>>>>> 54b6cfa... Initial Contribution
      */
     public native void setVideoSize(int width, int height)
             throws IllegalStateException;
@@ -594,23 +453,16 @@ public class MediaRecorder
      * prepare().
      *
      * @param rate the number of frames per second of video to capture
-<<<<<<< HEAD
      * @throws IllegalStateException if it is called after
      * prepare() or before setOutputFormat().
      *
      * NOTE: On some devices that have auto-frame rate, this sets the
      * maximum frame rate, not a constant frame rate. Actual frame rate
      * will vary according to lighting conditions.
-=======
-     * @throws IllegalStateException if it is called after 
-     * prepare() or before setOutputFormat().
-     * @hide
->>>>>>> 54b6cfa... Initial Contribution
      */
     public native void setVideoFrameRate(int rate) throws IllegalStateException;
 
     /**
-<<<<<<< HEAD
      * Sets the maximum duration (in ms) of the recording session.
      * Call this after setOutFormat() but before prepare().
      * After recording reaches the specified duration, a notification
@@ -645,21 +497,11 @@ public class MediaRecorder
      * called, the output file will not contain an audio track. Call this after
      * setOutputFormat() but before prepare().
      *
-=======
-     * Sets the audio encoder to be used for recording. If this method is not
-     * called, the output file will not contain an audio track. Call this after
-     * setOutputFormat() but before prepare().
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param audio_encoder the audio encoder to use.
      * @throws IllegalStateException if it is called before
      * setOutputFormat() or after prepare().
      * @see android.media.MediaRecorder.AudioEncoder
-<<<<<<< HEAD
      */
-=======
-     */ 
->>>>>>> 54b6cfa... Initial Contribution
     public native void setAudioEncoder(int audio_encoder)
             throws IllegalStateException;
 
@@ -667,26 +509,16 @@ public class MediaRecorder
      * Sets the video encoder to be used for recording. If this method is not
      * called, the output file will not contain an video track. Call this after
      * setOutputFormat() and before prepare().
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param video_encoder the video encoder to use.
      * @throws IllegalStateException if it is called before
      * setOutputFormat() or after prepare()
      * @see android.media.MediaRecorder.VideoEncoder
-<<<<<<< HEAD
      */
-=======
-     * @hide
-     */ 
->>>>>>> 54b6cfa... Initial Contribution
     public native void setVideoEncoder(int video_encoder)
             throws IllegalStateException;
 
     /**
-<<<<<<< HEAD
      * Sets the audio sampling rate for recording. Call this method before prepare().
      * Prepare() may perform additional checks on the parameter to make sure whether
      * the specified audio sampling rate is applicable. The sampling rate really depends
@@ -807,22 +639,10 @@ public class MediaRecorder
         throws IllegalStateException, IOException;
     private native void _prepare() throws IllegalStateException, IOException;
 
-=======
-     * Sets the path of the output file to be produced. Call this after
-     * setOutputFormat() but before prepare().
-     * 
-     * @param path The pathname to use()
-     * @throws IllegalStateException if it is called before
-     * setOutputFormat() or after prepare()
-     */ 
-    public native void setOutputFile(String path) throws IllegalStateException;
-  
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Prepares the recorder to begin capturing and encoding data. This method
      * must be called after setting up the desired audio and video sources,
      * encoders, file format, etc., but before start().
-<<<<<<< HEAD
      *
      * @throws IllegalStateException if it is called after
      * start() or before setOutputFormat().
@@ -856,18 +676,6 @@ public class MediaRecorder
      * method fails, the apps should still lock the camera back. The apps should
      * not start another recording session during recording.
      *
-=======
-     * 
-     * @throws IllegalStateException if it is called after
-     * start() or before setOutputFormat().
-     */
-    public native void prepare() throws IllegalStateException;
-
-    /**
-     * Begins capturing and encoding data to the file specified with 
-     * setOutputFile(). Call this after prepare().
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @throws IllegalStateException if it is called before
      * prepare().
      */
@@ -876,7 +684,6 @@ public class MediaRecorder
     /**
      * Stops recording. Call this after start(). Once recording is stopped,
      * you will have to configure it again as if it has just been constructed.
-<<<<<<< HEAD
      * Note that a RuntimeException is intentionally thrown to the
      * application, if no valid audio/video data has been received when stop()
      * is called. This happens if stop() is called immediately after
@@ -884,9 +691,6 @@ public class MediaRecorder
      * clean up the output file (delete the output file, for instance), since
      * the output file is not properly constructed when this happens.
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @throws IllegalStateException if it is called before start()
      */
     public native void stop() throws IllegalStateException;
@@ -896,7 +700,6 @@ public class MediaRecorder
      * this method, you will have to configure it again as if it had just been
      * constructed.
      */
-<<<<<<< HEAD
     public void reset() {
         native_reset();
 
@@ -911,21 +714,11 @@ public class MediaRecorder
      * call to this method. Call this only after the setAudioSource().
      *
      * @return the maximum absolute amplitude measured since the last call, or
-=======
-    public native void reset();
-    
-    /**
-     * Returns the maximum absolute amplitude that was sampled since the last 
-     * call to this method. Call this only after the setAudioSource().
-     * 
-     * @return the maximum absolute amplitude measured since the last call, or 
->>>>>>> 54b6cfa... Initial Contribution
      * 0 when called for the first time
      * @throws IllegalStateException if it is called before
      * the audio source has been set.
      */
     public native int getMaxAmplitude() throws IllegalStateException;
-<<<<<<< HEAD
 
     /* Do not change this value without updating its counterpart
      * in include/media/mediarecorder.h!
@@ -1154,14 +947,10 @@ public class MediaRecorder
             mr.mEventHandler.sendMessage(m);
         }
     }
-=======
-     
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Releases resources associated with this MediaRecorder object.
      * It is good practice to call this method when you're done
-<<<<<<< HEAD
      * using the MediaRecorder. In particular, whenever an Activity
      * of an application is paused (its onPause() method is called),
      * or stopped (its onStop() method is called), this method should be
@@ -1187,16 +976,6 @@ public class MediaRecorder
 
     private native void setParameter(String nameValuePair);
 
-=======
-     * using the MediaRecorder.
-     */
-    public native void release();
-
-    private native final void native_setup() throws IllegalStateException;
-    
-    private native final void native_finalize();
-    
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected void finalize() { native_finalize(); }
 }

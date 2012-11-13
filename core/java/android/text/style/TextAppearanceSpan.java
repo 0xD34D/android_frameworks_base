@@ -19,37 +19,22 @@ package android.text.style;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-<<<<<<< HEAD
 import android.graphics.Typeface;
 import android.os.Parcel;
 import android.text.ParcelableSpan;
 import android.text.TextPaint;
 import android.text.TextUtils;
-=======
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.text.TextPaint;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Sets the text color, size, style, and typeface to match a TextAppearance
  * resource.
  */
-<<<<<<< HEAD
 public class TextAppearanceSpan extends MetricAffectingSpan implements ParcelableSpan {
     private final String mTypeface;
     private final int mStyle;
     private final int mTextSize;
     private final ColorStateList mTextColor;
     private final ColorStateList mTextColorLink;
-=======
-public class TextAppearanceSpan extends MetricAffectingSpan {
-    private String mTypeface;
-    private int mStyle;
-    private int mTextSize;
-    private ColorStateList mTextColor;
-    private ColorStateList mTextColorLink;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Uses the specified TextAppearance resource to determine the
@@ -66,27 +51,16 @@ public class TextAppearanceSpan extends MetricAffectingSpan {
      * to determine the color.  The <code>appearance</code> should be,
      * for example, <code>android.R.style.TextAppearance_Small</code>,
      * and the <code>colorList</code> should be, for example,
-<<<<<<< HEAD
      * <code>android.R.styleable.Theme_textColorPrimary</code>.
      */
     public TextAppearanceSpan(Context context, int appearance, int colorList) {
         ColorStateList textColor;
         
-=======
-     * <code>android.R.styleable.Theme_textColorDim</code>.
-     */
-    public TextAppearanceSpan(Context context, int appearance,
-                              int colorList) {
->>>>>>> 54b6cfa... Initial Contribution
         TypedArray a =
             context.obtainStyledAttributes(appearance,
                                            com.android.internal.R.styleable.TextAppearance);
 
-<<<<<<< HEAD
         textColor = a.getColorStateList(com.android.internal.R.styleable.
-=======
-        mTextColor = a.getColorStateList(com.android.internal.R.styleable.
->>>>>>> 54b6cfa... Initial Contribution
                                         TextAppearance_textColor);
         mTextColorLink = a.getColorStateList(com.android.internal.R.styleable.
                                         TextAppearance_textColorLink);
@@ -94,7 +68,6 @@ public class TextAppearanceSpan extends MetricAffectingSpan {
                                         TextAppearance_textSize, -1);
 
         mStyle = a.getInt(com.android.internal.R.styleable.TextAppearance_textStyle, 0);
-<<<<<<< HEAD
         String family = a.getString(com.android.internal.R.styleable.TextAppearance_fontFamily);
         if (family != null) {
             mTypeface = family;
@@ -118,22 +91,6 @@ public class TextAppearanceSpan extends MetricAffectingSpan {
                     mTypeface = null;
                     break;
             }
-=======
-        int tf = a.getInt(com.android.internal.R.styleable.TextAppearance_typeface, 0);
-
-        switch (tf) {
-            case 1:
-                mTypeface = "sans";
-                break;
-
-            case 2:
-                mTypeface = "serif";
-                break;
-
-            case 3:
-                mTypeface = "monospace";
-                break;
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         a.recycle();
@@ -142,17 +99,11 @@ public class TextAppearanceSpan extends MetricAffectingSpan {
             a = context.obtainStyledAttributes(com.android.internal.R.style.Theme,
                                             com.android.internal.R.styleable.Theme);
 
-<<<<<<< HEAD
             textColor = a.getColorStateList(colorList);
             a.recycle();
         }
         
         mTextColor = textColor;
-=======
-            mTextColor = a.getColorStateList(colorList);
-            a.recycle();
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -168,7 +119,6 @@ public class TextAppearanceSpan extends MetricAffectingSpan {
         mTextColorLink = linkColor;
     }
 
-<<<<<<< HEAD
     public TextAppearanceSpan(Parcel src) {
         mTypeface = src.readString();
         mStyle = src.readInt();
@@ -211,8 +161,6 @@ public class TextAppearanceSpan extends MetricAffectingSpan {
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the typeface family specified by this span, or <code>null</code>
      * if it does not specify one.
@@ -262,11 +210,7 @@ public class TextAppearanceSpan extends MetricAffectingSpan {
         }
 
         if (mTextColorLink != null) {
-<<<<<<< HEAD
             ds.linkColor = mTextColorLink.getColorForState(ds.drawableState, 0);
-=======
-            ds.linkColor = mTextColor.getColorForState(ds.drawableState, 0);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 

@@ -28,7 +28,6 @@ import java.util.ArrayList;
  * associated data objects.
  *<p>This is intended as a base class; you will probably not need to
  * use this class directly in your own code.
-<<<<<<< HEAD
  */
 public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
 
@@ -47,19 +46,6 @@ public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
     boolean mAreAllFixedViewsSelectable;
 
     private final boolean mIsFilterable;
-=======
- *
- */
-public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
-
-    private ListAdapter mAdapter;
-
-    ArrayList<ListView.FixedViewInfo> mHeaderViewInfos;
-    ArrayList<ListView.FixedViewInfo> mFooterViewInfos;
-    boolean mAreAllFixedViewsSelectable;
-
-    private boolean mIsFilterable;
->>>>>>> 54b6cfa... Initial Contribution
 
     public HeaderViewListAdapter(ArrayList<ListView.FixedViewInfo> headerViewInfos,
                                  ArrayList<ListView.FixedViewInfo> footerViewInfos,
@@ -67,7 +53,6 @@ public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
         mAdapter = adapter;
         mIsFilterable = adapter instanceof Filterable;
 
-<<<<<<< HEAD
         if (headerViewInfos == null) {
             mHeaderViewInfos = EMPTY_INFO_LIST;
         } else {
@@ -79,10 +64,6 @@ public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
         } else {
             mFooterViewInfos = footerViewInfos;
         }
-=======
-        mHeaderViewInfos = headerViewInfos;
-        mFooterViewInfos = footerViewInfos;
->>>>>>> 54b6cfa... Initial Contribution
 
         mAreAllFixedViewsSelectable =
                 areAllListInfosSelectable(mHeaderViewInfos)
@@ -90,19 +71,11 @@ public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
     }
 
     public int getHeadersCount() {
-<<<<<<< HEAD
         return mHeaderViewInfos.size();
     }
 
     public int getFootersCount() {
         return mFooterViewInfos.size();
-=======
-        return mHeaderViewInfos == null ? 0 : mHeaderViewInfos.size();
-    }
-
-    public int getFootersCount() {
-        return mFooterViewInfos == null ? 0 : mFooterViewInfos.size();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public boolean isEmpty() {
@@ -171,7 +144,6 @@ public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
     }
 
     public boolean isEnabled(int position) {
-<<<<<<< HEAD
         // Header (negative positions will throw an ArrayIndexOutOfBoundsException)
         int numHeaders = getHeadersCount();
         if (position < numHeaders) {
@@ -211,50 +183,14 @@ public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
 
         // Footer (off-limits positions will throw an ArrayIndexOutOfBoundsException)
         return mFooterViewInfos.get(adjPosition - adapterCount).data;
-=======
-        int numHeaders = getHeadersCount();
-        if (mAdapter != null && position >= numHeaders) {
-            int adjPosition = position - numHeaders;
-            int adapterCount = mAdapter.getCount();
-            if (adjPosition >= adapterCount && mFooterViewInfos != null) {
-                return mFooterViewInfos.get(adjPosition - adapterCount).isSelectable;
-            } else {
-                return mAdapter.isEnabled(adjPosition);
-            }
-        } else if (position < numHeaders && mHeaderViewInfos != null) {
-            return mHeaderViewInfos.get(position).isSelectable;
-        }
-        return true;
-    }
-
-    public Object getItem(int position) {
-        int numHeaders = getHeadersCount();
-        if (mAdapter != null && position >= numHeaders) {
-            int adjPosition = position - numHeaders;
-            int adapterCount = mAdapter.getCount();
-            if (adjPosition >= adapterCount && mFooterViewInfos != null) {
-                return mFooterViewInfos.get(adjPosition - adapterCount).data;
-            } else {
-                return mAdapter.getItem(adjPosition);
-            }
-        } else if (position < numHeaders && mHeaderViewInfos != null) {
-            return mHeaderViewInfos.get(position).data;
-        }
-        return null;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public long getItemId(int position) {
         int numHeaders = getHeadersCount();
         if (mAdapter != null && position >= numHeaders) {
             int adjPosition = position - numHeaders;
-<<<<<<< HEAD
             int adapterCount = mAdapter.getCount();
             if (adjPosition < adapterCount) {
-=======
-            int adapterCnt = mAdapter.getCount();
-            if (adjPosition < adapterCnt) {
->>>>>>> 54b6cfa... Initial Contribution
                 return mAdapter.getItemId(adjPosition);
             }
         }
@@ -269,7 +205,6 @@ public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-<<<<<<< HEAD
         // Header (negative positions will throw an ArrayIndexOutOfBoundsException)
         int numHeaders = getHeadersCount();
         if (position < numHeaders) {
@@ -288,23 +223,6 @@ public class HeaderViewListAdapter implements WrapperListAdapter, Filterable {
 
         // Footer (off-limits positions will throw an ArrayIndexOutOfBoundsException)
         return mFooterViewInfos.get(adjPosition - adapterCount).view;
-=======
-        int numHeaders = getHeadersCount();
-        if (mAdapter != null && position >= numHeaders) {
-            int adjPosition = position - numHeaders;
-            int adapterCount = mAdapter.getCount();
-            if (adjPosition >= adapterCount) {
-                if (mFooterViewInfos != null) {
-                    return mFooterViewInfos.get(adjPosition - adapterCount).view;
-                }
-            } else {
-                return mAdapter.getView(adjPosition, convertView, parent);
-            }
-        } else if (position < numHeaders) {
-            return mHeaderViewInfos.get(position).view;
-        }
-        return null;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int getItemViewType(int position) {

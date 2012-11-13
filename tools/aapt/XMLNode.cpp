@@ -21,11 +21,8 @@
 
 const char* const RESOURCES_ROOT_NAMESPACE = "http://schemas.android.com/apk/res/";
 const char* const RESOURCES_ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android";
-<<<<<<< HEAD
 const char* const RESOURCES_AUTO_PACKAGE_NAMESPACE = "http://schemas.android.com/apk/res-auto";
 const char* const RESOURCES_ROOT_PRV_NAMESPACE = "http://schemas.android.com/apk/prv/res/";
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 const char* const XLIFF_XMLNS = "urn:oasis:names:tc:xliff:document:1.2";
 const char* const ALLOWED_XLIFF_ELEMENTS[] = {
@@ -48,7 +45,6 @@ bool isWhitespace(const char16_t* str)
 }
 
 static const String16 RESOURCES_PREFIX(RESOURCES_ROOT_NAMESPACE);
-<<<<<<< HEAD
 static const String16 RESOURCES_PREFIX_AUTO_PACKAGE(RESOURCES_AUTO_PACKAGE_NAMESPACE);
 static const String16 RESOURCES_PRV_PREFIX(RESOURCES_ROOT_PRV_NAMESPACE);
 static const String16 RESOURCES_TOOLS_NAMESPACE("http://schemas.android.com/tools");
@@ -184,30 +180,13 @@ status_t hasSubstitutionErrors(const char* fileName,
     return NO_ERROR;
 }
 
-=======
-
-String16 getNamespaceResourcePackage(String16 namespaceUri)
-{
-    //printf("%s starts with %s?\n", String8(namespaceUri).string(),
-    //       String8(RESOURCES_PREFIX).string());
-    if (!namespaceUri.startsWith(RESOURCES_PREFIX)) return String16();
-    //printf("YES!\n");
-    const size_t prefixSize = RESOURCES_PREFIX.size();
-    //printf("namespace: %s\n", String8(String16(namespaceUri, namespaceUri.size()-prefixSize, prefixSize)).string());
-    return String16(namespaceUri, namespaceUri.size()-prefixSize, prefixSize);
-}
-
->>>>>>> 54b6cfa... Initial Contribution
 status_t parseStyledString(Bundle* bundle,
                            const char* fileName,
                            ResXMLTree* inXml,
                            const String16& endTag,
                            String16* outString,
                            Vector<StringPool::entry_style_span>* outSpans,
-<<<<<<< HEAD
                            bool isFormatted,
-=======
->>>>>>> 54b6cfa... Initial Contribution
                            bool pseudolocalize)
 {
     Vector<StringPool::entry_style_span> spanStack;
@@ -235,15 +214,11 @@ status_t parseStyledString(Bundle* bundle,
                 std::string pseudo = pseudolocalize_string(orig);
                 curString.append(String16(String8(pseudo.c_str())));
             } else {
-<<<<<<< HEAD
                 if (isFormatted && hasSubstitutionErrors(fileName, inXml, text) != NO_ERROR) {
                     return UNKNOWN_ERROR;
                 } else {
                     curString.append(text);
                 }
-=======
-                curString.append(text);
->>>>>>> 54b6cfa... Initial Contribution
             }
         } else if (code == ResXMLTree::START_TAG) {
             const String16 element16(inXml->getElementName(&len));
@@ -361,7 +336,6 @@ moveon:
             }
             spanStack.pop();
 
-<<<<<<< HEAD
             /*
              * This warning seems to be just an irritation to most people,
              * since it is typically introduced by translators who then never
@@ -371,12 +345,6 @@ moveon:
                 fprintf(stderr, "%s:%d: warning: empty '%s' span found in text '%s'\n",
                         fileName, inXml->getLineNumber(),
                         String8(spanTag).string(), String8(*outString).string());
-=======
-            if (empty) {
-                fprintf(stderr, "%s:%d: WARNING: empty '%s' span found for at text '%s'\n",
-                        fileName, inXml->getLineNumber(),
-                        String8(*outString).string(), String8(spanTag).string());
->>>>>>> 54b6cfa... Initial Contribution
 
             }
         } else if (code == ResXMLTree::START_NAMESPACE) {
@@ -490,23 +458,15 @@ void printXMLBlock(ResXMLTree* block)
                     printf("=?0x%x", (int)value.data);
                 } else if (value.dataType == Res_value::TYPE_STRING) {
                     printf("=\"%s\"",
-<<<<<<< HEAD
                             ResTable::normalizeForOutput(String8(block->getAttributeStringValue(i,
                                         &len)).string()).string());
-=======
-                           String8(block->getAttributeStringValue(i, &len)).string());
->>>>>>> 54b6cfa... Initial Contribution
                 } else {
                     printf("=(type 0x%x)0x%x", (int)value.dataType, (int)value.data);
                 }
                 const char16_t* val = block->getAttributeStringValue(i, &len);
                 if (val != NULL) {
-<<<<<<< HEAD
                     printf(" (Raw: \"%s\")", ResTable::normalizeForOutput(String8(val).string()).
                             string());
-=======
-                    printf(" (Raw: \"%s\")", String8(val).string());
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 printf("\n");
             }
@@ -637,10 +597,7 @@ XMLNode::XMLNode(const String8& filename, const String16& s1, const String16& s2
     , mFilename(filename)
     , mStartLineNumber(0)
     , mEndLineNumber(0)
-<<<<<<< HEAD
     , mUTF8(false)
-=======
->>>>>>> 54b6cfa... Initial Contribution
 {
     if (isNamespace) {
         mNamespacePrefix = s1;
@@ -654,10 +611,7 @@ XMLNode::XMLNode(const String8& filename, const String16& s1, const String16& s2
 XMLNode::XMLNode(const String8& filename)
     : mFilename(filename)
 {
-<<<<<<< HEAD
     memset(&mCharsValue, 0, sizeof(mCharsValue));
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 XMLNode::type XMLNode::getType() const
@@ -696,21 +650,17 @@ const Vector<sp<XMLNode> >& XMLNode::getChildren() const
     return mChildren;
 }
 
-<<<<<<< HEAD
 const String8& XMLNode::getFilename() const
 {
     return mFilename;
 }
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
 const Vector<XMLNode::attribute_entry>&
     XMLNode::getAttributes() const
 {
     return mAttributes;
 }
 
-<<<<<<< HEAD
 const XMLNode::attribute_entry* XMLNode::getAttribute(const String16& ns,
         const String16& name) const
 {
@@ -737,8 +687,6 @@ XMLNode::attribute_entry* XMLNode::editAttribute(const String16& ns,
     return NULL;
 }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 const String16& XMLNode::getCData() const
 {
     return mChars;
@@ -759,7 +707,6 @@ int32_t XMLNode::getEndLineNumber() const
     return mEndLineNumber;
 }
 
-<<<<<<< HEAD
 sp<XMLNode> XMLNode::searchElement(const String16& tagNamespace, const String16& tagName)
 {
     if (getType() == XMLNode::TYPE_ELEMENT
@@ -792,8 +739,6 @@ sp<XMLNode> XMLNode::getChildElement(const String16& tagNamespace, const String1
     return NULL;
 }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 status_t XMLNode::addChild(const sp<XMLNode>& child)
 {
     if (getType() == TYPE_CDATA) {
@@ -805,7 +750,6 @@ status_t XMLNode::addChild(const sp<XMLNode>& child)
     return NO_ERROR;
 }
 
-<<<<<<< HEAD
 status_t XMLNode::insertChildAt(const sp<XMLNode>& child, size_t index)
 {
     if (getType() == TYPE_CDATA) {
@@ -817,8 +761,6 @@ status_t XMLNode::insertChildAt(const sp<XMLNode>& child, size_t index)
     return NO_ERROR;
 }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 status_t XMLNode::addAttribute(const String16& ns, const String16& name,
                                const String16& value)
 {
@@ -826,7 +768,6 @@ status_t XMLNode::addAttribute(const String16& ns, const String16& name,
         SourcePos(mFilename, getStartLineNumber()).error("Child to CDATA node.");
         return UNKNOWN_ERROR;
     }
-<<<<<<< HEAD
 
     if (ns != RESOURCES_TOOLS_NAMESPACE) {
         attribute_entry e;
@@ -837,15 +778,6 @@ status_t XMLNode::addAttribute(const String16& ns, const String16& name,
         mAttributes.add(e);
         mAttributeOrder.add(e.index, mAttributes.size()-1);
     }
-=======
-    attribute_entry e;
-    e.index = mNextAttributeIndex++;
-    e.ns = ns;
-    e.name = name;
-    e.string = value;
-    mAttributes.add(e);
-    mAttributeOrder.add(e.index, mAttributes.size()-1);
->>>>>>> 54b6cfa... Initial Contribution
     return NO_ERROR;
 }
 
@@ -999,7 +931,6 @@ status_t XMLNode::assignResourceIds(const sp<AaptAssets>& assets,
         for (size_t i=0; i<N; i++) {
             const attribute_entry& e = mAttributes.itemAt(i);
             if (e.ns.size() <= 0) continue;
-<<<<<<< HEAD
             bool nsIsPublic;
             String16 pkg(getNamespaceResourcePackage(String16(assets->getPackage()), e.ns, &nsIsPublic));
             NOISY(printf("Elem %s %s=\"%s\": namespace(%s) %s ===> %s\n",
@@ -1012,17 +943,6 @@ status_t XMLNode::assignResourceIds(const sp<AaptAssets>& assets,
             if (pkg.size() <= 0) continue;
             uint32_t res = table != NULL
                 ? table->getResId(e.name, &attr, &pkg, &errorMsg, nsIsPublic)
-=======
-            String16 pkg(getNamespaceResourcePackage(e.ns));
-            NOISY(printf("Elem %s %s=\"%s\": namespace %s ===> %s\n",
-                    String8(getElementName()).string(),
-                    String8(e.name).string(),
-                    String8(e.string).string(),
-                    String8(e.ns).string(), String8(pkg).string()));
-            if (pkg.size() <= 0) continue;
-            uint32_t res = table != NULL
-                ? table->getResId(e.name, &attr, &pkg, &errorMsg)
->>>>>>> 54b6cfa... Initial Contribution
                 : assets->getIncludedResources().
                     identifierForName(e.name.string(), e.name.size(),
                                       attr.string(), attr.size(),
@@ -1053,11 +973,7 @@ status_t XMLNode::assignResourceIds(const sp<AaptAssets>& assets,
 status_t XMLNode::flatten(const sp<AaptFile>& dest,
         bool stripComments, bool stripRawValues) const
 {
-<<<<<<< HEAD
     StringPool strings(mUTF8);
-=======
-    StringPool strings;
->>>>>>> 54b6cfa... Initial Contribution
     Vector<uint32_t> resids;
     
     // First collect just the strings for attribute names that have a
@@ -1309,7 +1225,6 @@ status_t XMLNode::collect_strings(StringPool* dest, Vector<uint32_t>* outResIds,
     collect_attr_strings(dest, outResIds, true);
     
     int i;
-<<<<<<< HEAD
     if (RESOURCES_TOOLS_NAMESPACE != mNamespaceUri) {
         if (mNamespacePrefix.size() > 0) {
             dest->add(mNamespacePrefix, true);
@@ -1317,13 +1232,6 @@ status_t XMLNode::collect_strings(StringPool* dest, Vector<uint32_t>* outResIds,
         if (mNamespaceUri.size() > 0) {
             dest->add(mNamespaceUri, true);
         }
-=======
-    if (mNamespacePrefix.size() > 0) {
-        dest->add(mNamespacePrefix, true);
-    }
-    if (mNamespaceUri.size() > 0) {
-        dest->add(mNamespaceUri, true);
->>>>>>> 54b6cfa... Initial Contribution
     }
     if (mElementName.size() > 0) {
         dest->add(mElementName, true);
@@ -1442,10 +1350,7 @@ status_t XMLNode::flatten_node(const StringPool& strings, const sp<AaptFile>& de
     const void* extData = NULL;
     size_t extSize = 0;
     ResXMLTree_attribute attr;
-<<<<<<< HEAD
     bool writeCurrentNode = true;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     const size_t NA = mAttributes.size();
     const size_t NC = mChildren.size();
@@ -1458,11 +1363,7 @@ status_t XMLNode::flatten_node(const StringPool& strings, const sp<AaptFile>& de
     const String16 style16("style");
 
     const type type = getType();
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     memset(&node, 0, sizeof(node));
     memset(&attr, 0, sizeof(attr));
     node.header.headerSize = htods(sizeof(node));
@@ -1507,7 +1408,6 @@ status_t XMLNode::flatten_node(const StringPool& strings, const sp<AaptFile>& de
             }
         }
     } else if (type == TYPE_NAMESPACE) {
-<<<<<<< HEAD
         if (mNamespaceUri == RESOURCES_TOOLS_NAMESPACE) {
             writeCurrentNode = false;
         } else {
@@ -1523,19 +1423,6 @@ status_t XMLNode::flatten_node(const StringPool& strings, const sp<AaptFile>& de
             namespaceExt.prefix.index = htodl(strings.offsetForString(mNamespacePrefix));
             namespaceExt.uri.index = htodl(strings.offsetForString(mNamespaceUri));
         }
-=======
-        node.header.type = htods(RES_XML_START_NAMESPACE_TYPE);
-        extData = &namespaceExt;
-        extSize = sizeof(namespaceExt);
-        memset(&namespaceExt, 0, sizeof(namespaceExt));
-        if (mNamespacePrefix.size() > 0) {
-            namespaceExt.prefix.index = htodl(strings.offsetForString(mNamespacePrefix));
-        } else {
-            namespaceExt.prefix.index = htodl((uint32_t)-1);
-        }
-        namespaceExt.prefix.index = htodl(strings.offsetForString(mNamespacePrefix));
-        namespaceExt.uri.index = htodl(strings.offsetForString(mNamespaceUri));
->>>>>>> 54b6cfa... Initial Contribution
         LOG_ALWAYS_FATAL_IF(NA != 0, "Namespace nodes can't have attributes!");
     } else if (type == TYPE_CDATA) {
         node.header.type = htods(RES_XML_CDATA_TYPE);
@@ -1552,17 +1439,11 @@ status_t XMLNode::flatten_node(const StringPool& strings, const sp<AaptFile>& de
 
     node.header.size = htodl(sizeof(node) + extSize + (sizeof(attr)*NA));
 
-<<<<<<< HEAD
     if (writeCurrentNode) {
         dest->writeData(&node, sizeof(node));
         if (extSize > 0) {
             dest->writeData(extData, extSize);
         }
-=======
-    dest->writeData(&node, sizeof(node));
-    if (extSize > 0) {
-        dest->writeData(extData, extSize);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     for (i=0; i<NA; i++) {
@@ -1614,7 +1495,6 @@ status_t XMLNode::flatten_node(const StringPool& strings, const sp<AaptFile>& de
         dest->writeData(&node, sizeof(node));
         dest->writeData(&endElementExt, sizeof(endElementExt));
     } else if (type == TYPE_NAMESPACE) {
-<<<<<<< HEAD
         if (writeCurrentNode) {
             node.header.type = htods(RES_XML_END_NAMESPACE_TYPE);
             node.lineNumber = htodl(getEndLineNumber());
@@ -1623,14 +1503,6 @@ status_t XMLNode::flatten_node(const StringPool& strings, const sp<AaptFile>& de
             dest->writeData(&node, sizeof(node));
             dest->writeData(extData, extSize);
         }
-=======
-        node.header.type = htods(RES_XML_END_NAMESPACE_TYPE);
-        node.lineNumber = htodl(getEndLineNumber());
-        node.comment.index = htodl((uint32_t)-1);
-        node.header.size = htodl(sizeof(node)+extSize);
-        dest->writeData(&node, sizeof(node));
-        dest->writeData(extData, extSize);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     return NO_ERROR;

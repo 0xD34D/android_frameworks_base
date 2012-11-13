@@ -16,10 +16,7 @@
 
 package android.text;
 
-<<<<<<< HEAD
 import com.android.internal.util.ArrayUtils;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import org.ccil.cowan.tagsoup.HTMLSchema;
 import org.ccil.cowan.tagsoup.Parser;
 import org.xml.sax.Attributes;
@@ -29,18 +26,12 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-<<<<<<< HEAD
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.AlignmentSpan;
-=======
-import android.content.res.Resources;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
->>>>>>> 54b6cfa... Initial Contribution
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
@@ -51,26 +42,16 @@ import android.text.style.StrikethroughSpan;
 import android.text.style.StyleSpan;
 import android.text.style.SubscriptSpan;
 import android.text.style.SuperscriptSpan;
-<<<<<<< HEAD
 import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
 import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 
-=======
-import android.text.style.TypefaceSpan;
-import android.text.style.URLSpan;
-import android.text.style.UnderlineSpan;
->>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.util.XmlUtils;
 
 import java.io.IOException;
 import java.io.StringReader;
-<<<<<<< HEAD
 import java.util.HashMap;
-=======
-import java.nio.CharBuffer;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * This class processes HTML strings into displayable styled text.
@@ -162,7 +143,6 @@ public class Html {
      */
     public static String toHtml(Spanned text) {
         StringBuilder out = new StringBuilder();
-<<<<<<< HEAD
         withinHtml(out, text);
         return out.toString();
     }
@@ -177,13 +157,10 @@ public class Html {
     }
 
     private static void withinHtml(StringBuilder out, Spanned text) {
-=======
->>>>>>> 54b6cfa... Initial Contribution
         int len = text.length();
 
         int next;
         for (int i = 0; i < text.length(); i = next) {
-<<<<<<< HEAD
             next = text.nextSpanTransition(i, len, ParagraphStyle.class);
             ParagraphStyle[] style = text.getSpans(i, next, ParagraphStyle.class);
             String elements = " ";
@@ -220,9 +197,6 @@ public class Html {
         int next;
         for (int i = start; i < end; i = next) {
             next = text.nextSpanTransition(i, end, QuoteSpan.class);
-=======
-            next = text.nextSpanTransition(i, len, QuoteSpan.class);
->>>>>>> 54b6cfa... Initial Contribution
             QuoteSpan[] quotes = text.getSpans(i, next, QuoteSpan.class);
 
             for (QuoteSpan quote: quotes) {
@@ -235,7 +209,6 @@ public class Html {
                 out.append("</blockquote>\n");
             }
         }
-<<<<<<< HEAD
     }
 
     private static String getOpenParaTagWithDirection(Spanned text, int start, int end) {
@@ -253,19 +226,11 @@ public class Html {
             default:
                 return "<p dir=ltr>";
         }
-=======
-
-        return out.toString();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private static void withinBlockquote(StringBuilder out, Spanned text,
                                          int start, int end) {
-<<<<<<< HEAD
         out.append(getOpenParaTagWithDirection(text, start, end));
-=======
-        out.append("<p>");
->>>>>>> 54b6cfa... Initial Contribution
 
         int next;
         for (int i = start; i < end; i = next) {
@@ -339,7 +304,6 @@ public class Html {
                     // Don't output the dummy character underlying the image.
                     i = next;
                 }
-<<<<<<< HEAD
                 if (style[j] instanceof AbsoluteSizeSpan) {
                     out.append("<font size =\"");
                     out.append(((AbsoluteSizeSpan) style[j]).getSize() / 6);
@@ -355,22 +319,17 @@ public class Html {
                     out.append(color);
                     out.append("\">");
                 }
-=======
->>>>>>> 54b6cfa... Initial Contribution
             }
 
             withinStyle(out, text, i, next);
 
             for (int j = style.length - 1; j >= 0; j--) {
-<<<<<<< HEAD
                 if (style[j] instanceof ForegroundColorSpan) {
                     out.append("</font>");
                 }
                 if (style[j] instanceof AbsoluteSizeSpan) {
                     out.append("</font>");
                 }
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 if (style[j] instanceof URLSpan) {
                     out.append("</a>");
                 }
@@ -406,11 +365,7 @@ public class Html {
             }
         }
 
-<<<<<<< HEAD
         String p = last ? "" : "</p>\n" + getOpenParaTagWithDirection(text, start, end);
-=======
-        String p = last ? "" : "</p>\n<p>";
->>>>>>> 54b6cfa... Initial Contribution
 
         if (nl == 1) {
             out.append("<br>\n");
@@ -420,19 +375,11 @@ public class Html {
             for (int i = 2; i < nl; i++) {
                 out.append("<br>");
             }
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
             out.append(p);
         }
     }
 
-<<<<<<< HEAD
     private static void withinStyle(StringBuilder out, CharSequence text,
-=======
-    private static void withinStyle(StringBuilder out, Spanned text,
->>>>>>> 54b6cfa... Initial Contribution
                                     int start, int end) {
         for (int i = start; i < end; i++) {
             char c = text.charAt(i);
@@ -526,19 +473,11 @@ class HtmlToSpannedConverter implements ContentHandler {
             handleP(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("div")) {
             handleP(mSpannableStringBuilder);
-<<<<<<< HEAD
         } else if (tag.equalsIgnoreCase("strong")) {
             start(mSpannableStringBuilder, new Bold());
         } else if (tag.equalsIgnoreCase("b")) {
             start(mSpannableStringBuilder, new Bold());
         } else if (tag.equalsIgnoreCase("em")) {
-=======
-        } else if (tag.equalsIgnoreCase("em")) {
-            start(mSpannableStringBuilder, new Bold());
-        } else if (tag.equalsIgnoreCase("b")) {
-            start(mSpannableStringBuilder, new Bold());
-        } else if (tag.equalsIgnoreCase("strong")) {
->>>>>>> 54b6cfa... Initial Contribution
             start(mSpannableStringBuilder, new Italic());
         } else if (tag.equalsIgnoreCase("cite")) {
             start(mSpannableStringBuilder, new Italic());
@@ -584,19 +523,11 @@ class HtmlToSpannedConverter implements ContentHandler {
             handleP(mSpannableStringBuilder);
         } else if (tag.equalsIgnoreCase("div")) {
             handleP(mSpannableStringBuilder);
-<<<<<<< HEAD
         } else if (tag.equalsIgnoreCase("strong")) {
             end(mSpannableStringBuilder, Bold.class, new StyleSpan(Typeface.BOLD));
         } else if (tag.equalsIgnoreCase("b")) {
             end(mSpannableStringBuilder, Bold.class, new StyleSpan(Typeface.BOLD));
         } else if (tag.equalsIgnoreCase("em")) {
-=======
-        } else if (tag.equalsIgnoreCase("em")) {
-            end(mSpannableStringBuilder, Bold.class, new StyleSpan(Typeface.BOLD));
-        } else if (tag.equalsIgnoreCase("b")) {
-            end(mSpannableStringBuilder, Bold.class, new StyleSpan(Typeface.BOLD));
-        } else if (tag.equalsIgnoreCase("strong")) {
->>>>>>> 54b6cfa... Initial Contribution
             end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
         } else if (tag.equalsIgnoreCase("cite")) {
             end(mSpannableStringBuilder, Italic.class, new StyleSpan(Typeface.ITALIC));
@@ -730,7 +661,6 @@ class HtmlToSpannedConverter implements ContentHandler {
         if (where != len) {
             Font f = (Font) obj;
 
-<<<<<<< HEAD
             if (!TextUtils.isEmpty(f.mColor)) {
                 if (f.mColor.startsWith("@")) {
                     Resources res = Resources.getSystem();
@@ -750,56 +680,6 @@ class HtmlToSpannedConverter implements ContentHandler {
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                 }
-=======
-            if (f.mColor != null) {
-                int c = -1;
-
-                if (f.mColor.equalsIgnoreCase("aqua")) {
-                    c = 0x00FFFF;
-                } else if (f.mColor.equalsIgnoreCase("black")) {
-                    c = 0x000000;
-                } else if (f.mColor.equalsIgnoreCase("blue")) {
-                    c = 0x0000FF;
-                } else if (f.mColor.equalsIgnoreCase("fuchsia")) {
-                    c = 0xFF00FF;
-                } else if (f.mColor.equalsIgnoreCase("green")) {
-                    c = 0x008000;
-                } else if (f.mColor.equalsIgnoreCase("grey")) {
-                    c = 0x808080;
-                } else if (f.mColor.equalsIgnoreCase("lime")) {
-                    c = 0x00FF00;
-                } else if (f.mColor.equalsIgnoreCase("maroon")) {
-                    c = 0x800000;
-                } else if (f.mColor.equalsIgnoreCase("navy")) {
-                    c = 0x000080;
-                } else if (f.mColor.equalsIgnoreCase("olive")) {
-                    c = 0x808000;
-                } else if (f.mColor.equalsIgnoreCase("purple")) {
-                    c = 0x800080;
-                } else if (f.mColor.equalsIgnoreCase("red")) {
-                    c = 0xFF0000;
-                } else if (f.mColor.equalsIgnoreCase("silver")) {
-                    c = 0xC0C0C0;
-                } else if (f.mColor.equalsIgnoreCase("teal")) {
-                    c = 0x008080;
-                } else if (f.mColor.equalsIgnoreCase("white")) {
-                    c = 0xFFFFFF;
-                } else if (f.mColor.equalsIgnoreCase("yellow")) {
-                    c = 0xFFFF00;
-                } else {
-                    try {
-                        c = XmlUtils.convertValueToInt(f.mColor, -1);
-                    } catch (NumberFormatException nfe) {
-                        // Can't understand the color, so just drop it.
-                    }
-                }
-
-                if (c != -1) {
-                    text.setSpan(new ForegroundColorSpan(c | 0xFF000000),
-                                 where, len,
-                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
->>>>>>> 54b6cfa... Initial Contribution
             }
 
             if (f.mFace != null) {
@@ -881,7 +761,6 @@ class HtmlToSpannedConverter implements ContentHandler {
     }
 
     public void characters(char ch[], int start, int length) throws SAXException {
-<<<<<<< HEAD
         StringBuilder sb = new StringBuilder();
 
         /*
@@ -917,9 +796,6 @@ class HtmlToSpannedConverter implements ContentHandler {
         }
 
         mSpannableStringBuilder.append(sb);
-=======
-        mSpannableStringBuilder.append(CharBuffer.wrap(ch, start, length));
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void ignorableWhitespace(char ch[], int start, int length) throws SAXException {
@@ -966,7 +842,6 @@ class HtmlToSpannedConverter implements ContentHandler {
             mLevel = level;
         }
     }
-<<<<<<< HEAD
 
     private static HashMap<String,Integer> COLORS = buildColorMap();
 
@@ -1010,6 +885,4 @@ class HtmlToSpannedConverter implements ContentHandler {
         }
       }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

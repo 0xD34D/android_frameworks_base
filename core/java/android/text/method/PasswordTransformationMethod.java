@@ -22,10 +22,7 @@ import android.graphics.Rect;
 import android.view.View;
 import android.text.Editable;
 import android.text.GetChars;
-<<<<<<< HEAD
 import android.text.NoCopySpan;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.Selection;
@@ -54,11 +51,8 @@ implements TransformationMethod, TextWatcher
                 sp.removeSpan(vr[i]);
             }
 
-<<<<<<< HEAD
             removeVisibleSpans(sp);
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
             sp.setSpan(new ViewReference(view), 0, 0,
                        Spannable.SPAN_POINT_POINT);
         }
@@ -108,22 +102,12 @@ implements TransformationMethod, TextWatcher
             int pref = TextKeyListener.getInstance().getPrefs(v.getContext());
             if ((pref & TextKeyListener.SHOW_PASSWORD) != 0) {
                 if (count > 0) {
-<<<<<<< HEAD
                     removeVisibleSpans(sp);
 
                     if (count == 1) {
                         sp.setSpan(new Visible(sp, this), start, start + count,
                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
-=======
-                    Visible[] old = sp.getSpans(0, sp.length(), Visible.class);
-                    for (int i = 0; i < old.length; i++) {
-                        sp.removeSpan(old[i]);
-                    }
-
-                    sp.setSpan(new Visible(sp, this), start, start + count,
-                               Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -140,19 +124,11 @@ implements TransformationMethod, TextWatcher
             if (sourceText instanceof Spannable) {
                 Spannable sp = (Spannable) sourceText;
 
-<<<<<<< HEAD
                 removeVisibleSpans(sp);
-=======
-                Visible[] old = sp.getSpans(0, sp.length(), Visible.class);
-                for (int i = 0; i < old.length; i++) {
-                    sp.removeSpan(old[i]);
-                }
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
-<<<<<<< HEAD
     private static void removeVisibleSpans(Spannable sp) {
         Visible[] old = sp.getSpans(0, sp.length(), Visible.class);
         for (int i = 0; i < old.length; i++) {
@@ -160,8 +136,6 @@ implements TransformationMethod, TextWatcher
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private static class PasswordCharSequence
     implements CharSequence, GetChars
     {
@@ -281,12 +255,8 @@ implements TransformationMethod, TextWatcher
      * Used to stash a reference back to the View in the Editable so we
      * can use it to check the settings.
      */
-<<<<<<< HEAD
     private static class ViewReference extends WeakReference<View>
             implements NoCopySpan {
-=======
-    private static class ViewReference extends WeakReference<View> {
->>>>>>> 54b6cfa... Initial Contribution
         public ViewReference(View v) {
             super(v);
         }

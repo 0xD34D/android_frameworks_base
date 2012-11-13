@@ -26,16 +26,12 @@ import android.util.AttributeSet;
  *
  */
 public class AccelerateInterpolator implements Interpolator {
-<<<<<<< HEAD
     private final float mFactor;
     private final double mDoubleFactor;
 
     public AccelerateInterpolator() {
         mFactor = 1.0f;
         mDoubleFactor = 2.0;
-=======
-    public AccelerateInterpolator() {
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -48,10 +44,7 @@ public class AccelerateInterpolator implements Interpolator {
      */
     public AccelerateInterpolator(float factor) {
         mFactor = factor;
-<<<<<<< HEAD
         mDoubleFactor = 2 * mFactor;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     public AccelerateInterpolator(Context context, AttributeSet attrs) {
@@ -59,30 +52,16 @@ public class AccelerateInterpolator implements Interpolator {
             context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.AccelerateInterpolator);
         
         mFactor = a.getFloat(com.android.internal.R.styleable.AccelerateInterpolator_factor, 1.0f);
-<<<<<<< HEAD
         mDoubleFactor = 2 * mFactor;
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         a.recycle();
     }
     
     public float getInterpolation(float input) {
         if (mFactor == 1.0f) {
-<<<<<<< HEAD
             return input * input;
         } else {
             return (float)Math.pow(input, mDoubleFactor);
         }
     }
-=======
-            return (float)(input * input);
-        } else {
-            return (float)Math.pow(input, 2 * mFactor);
-        }
-    }
-    
-    private float mFactor = 1.0f;
->>>>>>> 54b6cfa... Initial Contribution
 }

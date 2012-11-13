@@ -16,22 +16,12 @@
 
 package android.widget;
 
-<<<<<<< HEAD
-=======
-import com.android.internal.R;
-
-
->>>>>>> 54b6cfa... Initial Contribution
 import android.annotation.Widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
-import android.view.View;
->>>>>>> 54b6cfa... Initial Contribution
 import android.widget.RelativeLayout;
 
 /**
@@ -44,12 +34,7 @@ import android.widget.RelativeLayout;
  * that can be displayed when a TwoLineListItem has focus. Android supplies a 
  * {@link android.R.layout#two_line_list_item standard layout resource for TwoLineListView} 
  * (which does not include a selected item icon), but you can design your own custom XML
-<<<<<<< HEAD
  * layout for this object.
-=======
- * layout for this object as shown here:</p>
- * {@sample packages/apps/Phone/res/layout/dialer_list_item.xml} 
->>>>>>> 54b6cfa... Initial Contribution
  * 
  * @attr ref android.R.styleable#TwoLineListItem_mode
  */
@@ -99,7 +84,6 @@ public class TwoLineListItem extends RelativeLayout {
     public TextView getText2() {
         return mText2;
     }
-<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -112,6 +96,4 @@ public class TwoLineListItem extends RelativeLayout {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(TwoLineListItem.class.getName());
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

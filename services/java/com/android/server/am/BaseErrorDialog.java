@@ -31,15 +31,10 @@ class BaseErrorDialog extends AlertDialog {
         super(context, com.android.internal.R.style.Theme_Dialog_AppError);
 
         getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-<<<<<<< HEAD
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
                 WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         getWindow().setTitle("Error Dialog");
         setIconAttribute(R.attr.alertDialogIcon);
-=======
-        getWindow().setTitle("Error Dialog");
-        setIcon(R.drawable.ic_dialog_alert);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void onStart() {
@@ -50,17 +45,10 @@ class BaseErrorDialog extends AlertDialog {
 
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (mConsuming) {
-<<<<<<< HEAD
             //Slog.i(TAG, "Consuming: " + event);
             return true;
         }
         //Slog.i(TAG, "Dispatching: " + event);
-=======
-            //Log.i(TAG, "Consuming: " + event);
-            return true;
-        }
-        //Log.i(TAG, "Dispatching: " + event);
->>>>>>> 54b6cfa... Initial Contribution
         return super.dispatchKeyEvent(event);
     }
 
@@ -73,13 +61,10 @@ class BaseErrorDialog extends AlertDialog {
         if (b != null) {
             b.setEnabled(enabled);
         }
-<<<<<<< HEAD
         b = (Button)findViewById(R.id.button3);
         if (b != null) {
             b.setEnabled(enabled);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private Handler mHandler = new Handler() {

@@ -19,30 +19,19 @@ package android.ddm;
 import org.apache.harmony.dalvik.ddmc.Chunk;
 import org.apache.harmony.dalvik.ddmc.ChunkHandler;
 import org.apache.harmony.dalvik.ddmc.DdmServer;
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 import android.os.Debug;
 
 import java.nio.ByteBuffer;
 
 /**
-<<<<<<< HEAD
  * Handle "hello" messages and feature discovery.
-=======
- * Handle a HELO chunk.
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class DdmHandleHello extends ChunkHandler {
 
     public static final int CHUNK_HELO = type("HELO");
     public static final int CHUNK_WAIT = type("WAIT");
-<<<<<<< HEAD
     public static final int CHUNK_FEAT = type("FEAT");
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     private static DdmHandleHello mInstance = new DdmHandleHello();
 
@@ -55,10 +44,7 @@ public class DdmHandleHello extends ChunkHandler {
      */
     public static void register() {
         DdmServer.registerHandler(CHUNK_HELO, mInstance);
-<<<<<<< HEAD
         DdmServer.registerHandler(CHUNK_FEAT, mInstance);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -66,17 +52,10 @@ public class DdmHandleHello extends ChunkHandler {
      * send messages to the server.
      */
     public void connected() {
-<<<<<<< HEAD
         if (false)
             Log.v("ddm-hello", "Connected!");
 
         if (false) {
-=======
-        if (Config.LOGV)
-            Log.v("ddm-hello", "Connected!");
-
-        if (true) {
->>>>>>> 54b6cfa... Initial Contribution
             /* test spontaneous transmission */
             byte[] data = new byte[] { 0, 1, 2, 3, 4, -4, -3, -2, -1, 127 };
             Chunk testChunk =
@@ -90,16 +69,11 @@ public class DdmHandleHello extends ChunkHandler {
      * periodic transmissions or clean up saved state.
      */
     public void disconnected() {
-<<<<<<< HEAD
         if (false)
-=======
-        if (Config.LOGV)
->>>>>>> 54b6cfa... Initial Contribution
             Log.v("ddm-hello", "Disconnected!");
     }
 
     /**
-<<<<<<< HEAD
      * Handle a chunk of data.
      */
     public Chunk handleChunk(Chunk request) {
@@ -121,14 +95,6 @@ public class DdmHandleHello extends ChunkHandler {
      * Handle introductory packet.
      */
     private Chunk handleHELO(Chunk request) {
-=======
-     * Handle a chunk of data.  We're only registered for "HELO".
-     */
-    public Chunk handleChunk(Chunk request) {
-        if (Config.LOGV)
-            Log.v("ddm-hello", "Handling " + name(request.type) + " chunk");
-
->>>>>>> 54b6cfa... Initial Contribution
         if (false)
             return createFailChunk(123, "This is a test");
 
@@ -138,11 +104,7 @@ public class DdmHandleHello extends ChunkHandler {
         ByteBuffer in = wrapChunk(request);
 
         int serverProtoVers = in.getInt();
-<<<<<<< HEAD
         if (false)
-=======
-        if (Config.LOGV)
->>>>>>> 54b6cfa... Initial Contribution
             Log.v("ddm-hello", "Server version is " + serverProtoVers);
 
         /*
@@ -179,7 +141,6 @@ public class DdmHandleHello extends ChunkHandler {
         return reply;
     }
 
-<<<<<<< HEAD
     /*
      * Handle request for list of supported features.
      */
@@ -206,8 +167,6 @@ public class DdmHandleHello extends ChunkHandler {
         return new Chunk(CHUNK_FEAT, out);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Send up a WAIT chunk.  The only currently defined value for "reason"
      * is zero, which means "waiting for a debugger".

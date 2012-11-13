@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -15,8 +14,6 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 package android.view;
 
 import android.app.Activity;
@@ -32,7 +29,6 @@ import android.view.View.OnCreateContextMenuListener;
  * methods.
  * <p>
  * For a feature set of specific menu types, see {@link Menu}.
-<<<<<<< HEAD
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
@@ -69,10 +65,6 @@ public interface MenuItem {
      */
     public static final int SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW = 8;
     
-=======
- */
-public interface MenuItem {
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Interface definition for a callback to be invoked when a menu item is
      * clicked.
@@ -95,7 +87,6 @@ public interface MenuItem {
     }
 
     /**
-<<<<<<< HEAD
      * Interface definition for a callback to be invoked when a menu item
      * marked with {@link MenuItem#SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW} is
      * expanded or collapsed.
@@ -123,8 +114,6 @@ public interface MenuItem {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Return the identifier for this menu item.  The identifier can not
      * be changed after the menu is created.
      *
@@ -453,7 +442,6 @@ public interface MenuItem {
      *         menu item to the menu. This can be null.
      */
     public ContextMenuInfo getMenuInfo();
-<<<<<<< HEAD
     
     /**
      * Sets how this item should display in the presence of an Action Bar.
@@ -608,6 +596,4 @@ public interface MenuItem {
      * @return This menu item instance for call chaining
      */
     public MenuItem setOnActionExpandListener(OnActionExpandListener listener);
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -16,15 +16,11 @@
 
 package android.view;
 
-<<<<<<< HEAD
 import android.graphics.Rect;
 import android.graphics.Region;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
-=======
-import java.util.ArrayList;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * A view tree observer is used to register listeners that can be notified of global
@@ -36,7 +32,6 @@ import java.util.ArrayList;
  * for more information.
  */
 public final class ViewTreeObserver {
-<<<<<<< HEAD
     private CopyOnWriteArrayList<OnGlobalFocusChangeListener> mOnGlobalFocusListeners;
     private CopyOnWriteArrayList<OnGlobalLayoutListener> mOnGlobalLayoutListeners;
     private CopyOnWriteArrayList<OnTouchModeChangeListener> mOnTouchModeChangeListeners;
@@ -44,12 +39,6 @@ public final class ViewTreeObserver {
     private CopyOnWriteArrayList<OnScrollChangedListener> mOnScrollChangedListeners;
     private ArrayList<OnPreDrawListener> mOnPreDrawListeners;
     private ArrayList<OnDrawListener> mOnDrawListeners;
-=======
-    private ArrayList<OnGlobalFocusChangeListener> mOnGlobalFocusListeners;
-    private ArrayList<OnGlobalLayoutListener> mOnGlobalLayoutListeners;
-    private ArrayList<OnPreDrawListener> mOnPreDrawListeners;
-    private ArrayList<OnTouchModeChangeListener> mOnTouchModeChangeListeners;
->>>>>>> 54b6cfa... Initial Contribution
 
     private boolean mAlive = true;
 
@@ -102,7 +91,6 @@ public final class ViewTreeObserver {
     }
 
     /**
-<<<<<<< HEAD
      * Interface definition for a callback to be invoked when the view tree is about to be drawn.
      */
     public interface OnDrawListener {
@@ -124,8 +112,6 @@ public final class ViewTreeObserver {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Interface definition for a callback to be invoked when the touch mode changes.
      */
     public interface OnTouchModeChangeListener {
@@ -138,7 +124,6 @@ public final class ViewTreeObserver {
     }
 
     /**
-<<<<<<< HEAD
      * Interface definition for a callback to be invoked when
      * something in the view tree has been scrolled.
      */
@@ -268,8 +253,6 @@ public final class ViewTreeObserver {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Creates a new ViewTreeObserver. This constructor should not be called
      */
     ViewTreeObserver() {
@@ -315,7 +298,6 @@ public final class ViewTreeObserver {
             }
         }
 
-<<<<<<< HEAD
         if (observer.mOnComputeInternalInsetsListeners != null) {
             if (mOnComputeInternalInsetsListeners != null) {
                 mOnComputeInternalInsetsListeners.addAll(observer.mOnComputeInternalInsetsListeners);
@@ -332,8 +314,6 @@ public final class ViewTreeObserver {
             }
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         observer.kill();
     }
 
@@ -348,11 +328,7 @@ public final class ViewTreeObserver {
         checkIsAlive();
 
         if (mOnGlobalFocusListeners == null) {
-<<<<<<< HEAD
             mOnGlobalFocusListeners = new CopyOnWriteArrayList<OnGlobalFocusChangeListener>();
-=======
-            mOnGlobalFocusListeners = new ArrayList<OnGlobalFocusChangeListener>();
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         mOnGlobalFocusListeners.add(listener);
@@ -387,11 +363,7 @@ public final class ViewTreeObserver {
         checkIsAlive();
 
         if (mOnGlobalLayoutListeners == null) {
-<<<<<<< HEAD
             mOnGlobalLayoutListeners = new CopyOnWriteArrayList<OnGlobalLayoutListener>();
-=======
-            mOnGlobalLayoutListeners = new ArrayList<OnGlobalLayoutListener>();
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         mOnGlobalLayoutListeners.add(listener);
@@ -403,7 +375,6 @@ public final class ViewTreeObserver {
      * @param victim The callback to remove
      *
      * @throws IllegalStateException If {@link #isAlive()} returns false
-<<<<<<< HEAD
      * 
      * @deprecated Use #removeOnGlobalLayoutListener instead
      *
@@ -424,12 +395,6 @@ public final class ViewTreeObserver {
      * @see #addOnGlobalLayoutListener(OnGlobalLayoutListener)
      */
     public void removeOnGlobalLayoutListener(OnGlobalLayoutListener victim) {
-=======
-     *
-     * @see #addOnGlobalLayoutListener(OnGlobalLayoutListener)
-     */
-    public void removeGlobalOnLayoutListener(OnGlobalLayoutListener victim) {
->>>>>>> 54b6cfa... Initial Contribution
         checkIsAlive();
         if (mOnGlobalLayoutListeners == null) {
             return;
@@ -472,7 +437,6 @@ public final class ViewTreeObserver {
     }
 
     /**
-<<<<<<< HEAD
      * <p>Register a callback to be invoked when the view tree is about to be drawn.</p>
      * <p><strong>Note:</strong> this method <strong>cannot</strong> be invoked from
      * {@link android.view.ViewTreeObserver.OnDrawListener#onDraw()}.</p>
@@ -545,8 +509,6 @@ public final class ViewTreeObserver {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Register a callback to be invoked when the invoked when the touch mode changes.
      *
      * @param listener The callback to add
@@ -557,11 +519,7 @@ public final class ViewTreeObserver {
         checkIsAlive();
 
         if (mOnTouchModeChangeListeners == null) {
-<<<<<<< HEAD
             mOnTouchModeChangeListeners = new CopyOnWriteArrayList<OnTouchModeChangeListener>();
-=======
-            mOnTouchModeChangeListeners = new ArrayList<OnTouchModeChangeListener>();
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         mOnTouchModeChangeListeners.add(listener);
@@ -584,7 +542,6 @@ public final class ViewTreeObserver {
         mOnTouchModeChangeListeners.remove(victim);
     }
 
-<<<<<<< HEAD
     /**
      * Register a callback to be invoked when the invoked when it is time to
      * compute the window's internal insets.
@@ -627,8 +584,6 @@ public final class ViewTreeObserver {
         mOnComputeInternalInsetsListeners.remove(victim);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private void checkIsAlive() {
         if (!mAlive) {
             throw new IllegalStateException("This ViewTreeObserver is not alive, call "
@@ -663,7 +618,6 @@ public final class ViewTreeObserver {
      * Notifies registered listeners that focus has changed.
      */
     final void dispatchOnGlobalFocusChange(View oldFocus, View newFocus) {
-<<<<<<< HEAD
         // NOTE: because of the use of CopyOnWriteArrayList, we *must* use an iterator to
         // perform the dispatching. The iterator is a safe guard against listeners that
         // could mutate the list by calling the various add/remove methods. This prevents
@@ -672,13 +626,6 @@ public final class ViewTreeObserver {
         if (listeners != null && listeners.size() > 0) {
             for (OnGlobalFocusChangeListener listener : listeners) {
                 listener.onGlobalFocusChanged(oldFocus, newFocus);
-=======
-        final ArrayList<OnGlobalFocusChangeListener> globaFocusListeners = mOnGlobalFocusListeners;
-        if (globaFocusListeners != null) {
-            final int count = globaFocusListeners.size();
-            for (int i = count - 1; i >= 0; i--) {
-                globaFocusListeners.get(i).onGlobalFocusChanged(oldFocus, newFocus);
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -689,7 +636,6 @@ public final class ViewTreeObserver {
      * not attached to a Window or in the GONE state.
      */
     public final void dispatchOnGlobalLayout() {
-<<<<<<< HEAD
         // NOTE: because of the use of CopyOnWriteArrayList, we *must* use an iterator to
         // perform the dispatching. The iterator is a safe guard against listeners that
         // could mutate the list by calling the various add/remove methods. This prevents
@@ -698,13 +644,6 @@ public final class ViewTreeObserver {
         if (listeners != null && listeners.size() > 0) {
             for (OnGlobalLayoutListener listener : listeners) {
                 listener.onGlobalLayout();
-=======
-        final ArrayList<OnGlobalLayoutListener> globaLayoutListeners = mOnGlobalLayoutListeners;
-        if (globaLayoutListeners != null) {
-            final int count = globaLayoutListeners.size();
-            for (int i = count - 1; i >= 0; i--) {
-                globaLayoutListeners.get(i).onGlobalLayout();
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -717,7 +656,6 @@ public final class ViewTreeObserver {
      *
      * @return True if the current draw should be canceled and resceduled, false otherwise.
      */
-<<<<<<< HEAD
     @SuppressWarnings("unchecked")
     public final boolean dispatchOnPreDraw() {
         // NOTE: we *must* clone the listener list to perform the dispatching.
@@ -731,22 +669,12 @@ public final class ViewTreeObserver {
             int numListeners = listeners.size();
             for (int i = 0; i < numListeners; ++i) {
                 cancelDraw |= !(listeners.get(i).onPreDraw());
-=======
-    public final boolean dispatchOnPreDraw() {
-        boolean cancelDraw = false;
-        final ArrayList<OnPreDrawListener> preDrawListeners = mOnPreDrawListeners;
-        if (preDrawListeners != null) {
-            final int count = preDrawListeners.size();
-            for (int i = count - 1; i >= 0; i--) {
-                cancelDraw |= !preDrawListeners.get(i).onPreDraw();
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
         return cancelDraw;
     }
 
     /**
-<<<<<<< HEAD
      * Notifies registered listeners that the drawing pass is about to start.
      */
     public final void dispatchOnDraw() {
@@ -760,14 +688,11 @@ public final class ViewTreeObserver {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Notifies registered listeners that the touch mode has changed.
      *
      * @param inTouchMode True if the touch mode is now enabled, false otherwise.
      */
     final void dispatchOnTouchModeChanged(boolean inTouchMode) {
-<<<<<<< HEAD
         final CopyOnWriteArrayList<OnTouchModeChangeListener> listeners =
                 mOnTouchModeChangeListeners;
         if (listeners != null && listeners.size() > 0) {
@@ -815,13 +740,6 @@ public final class ViewTreeObserver {
         if (listeners != null && listeners.size() > 0) {
             for (OnComputeInternalInsetsListener listener : listeners) {
                 listener.onComputeInternalInsets(inoutInfo);
-=======
-        final ArrayList<OnTouchModeChangeListener> touchModeListeners = mOnTouchModeChangeListeners;
-        if (touchModeListeners != null) {
-            final int count = touchModeListeners.size();
-            for (int i = count - 1; i >= 0; i--) {
-                touchModeListeners.get(i).onTouchModeChanged(inTouchMode);
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }

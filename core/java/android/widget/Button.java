@@ -18,7 +18,6 @@ package android.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.RemoteViews.RemoteView;
@@ -32,21 +31,6 @@ import android.widget.RemoteViews.RemoteView;
  * </p>
  *
  * <pre>
-=======
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.KeyEvent;
-
-
-/**
- * <p>
- * <code>Button</code> represents a push-button widget. Push-buttons can be
- * pressed, or clicked, by the user to perform an action. A typical use of a
- * push-button in an activity would be the following:
- * </p>
- *
- * <pre class="prettyprint">
->>>>>>> 54b6cfa... Initial Contribution
  * public class MyActivity extends Activity {
  *     protected void onCreate(Bundle icicle) {
  *         super.onCreate(icicle);
@@ -60,7 +44,6 @@ import android.view.KeyEvent;
  *             }
  *         });
  *     }
-<<<<<<< HEAD
  * }</pre>
  *
  * <p>However, instead of applying an {@link android.view.View.OnClickListener OnClickListener} to
@@ -111,18 +94,6 @@ import android.view.KeyEvent;
  * </p>
  */
 @RemoteView
-=======
- * }
- * </pre>
- *
- * <p><strong>XML attributes</strong></p>
- * <p> 
- * See {@link android.R.styleable#Button Button Attributes}, 
- * {@link android.R.styleable#TextView TextView Attributes},  
- * {@link android.R.styleable#View View Attributes}
- * </p>
- */
->>>>>>> 54b6cfa... Initial Contribution
 public class Button extends TextView {
     public Button(Context context) {
         this(context, null);
@@ -135,7 +106,6 @@ public class Button extends TextView {
     public Button(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -148,6 +118,4 @@ public class Button extends TextView {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(Button.class.getName());
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

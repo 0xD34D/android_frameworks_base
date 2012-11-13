@@ -17,11 +17,7 @@
 #define LOG_TAG "UEventObserver"
 #include "utils/Log.h"
 
-<<<<<<< HEAD
 #include "hardware_legacy/uevent.h"
-=======
-#include "hardware/uevent.h"
->>>>>>> 54b6cfa... Initial Contribution
 #include "jni.h"
 #include "JNIHelp.h"
 #include "android_runtime/AndroidRuntime.h"
@@ -63,11 +59,7 @@ int register_android_os_UEventObserver(JNIEnv *env)
 
     clazz = env->FindClass("android/os/UEventObserver");
     if (clazz == NULL) {
-<<<<<<< HEAD
         ALOGE("Can't find android/os/UEventObserver");
-=======
-        LOGE("Can't find android/os/UEventObserver");
->>>>>>> 54b6cfa... Initial Contribution
         return -1;
     }
 

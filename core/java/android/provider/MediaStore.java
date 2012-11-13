@@ -21,7 +21,6 @@ import android.annotation.SdkConstant.SdkConstantType;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.ContentUris;
-<<<<<<< HEAD
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -34,15 +33,6 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
-=======
-import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.net.Uri;
-import android.os.Environment;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 import java.io.FileInputStream;
@@ -50,17 +40,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-<<<<<<< HEAD
-=======
-import java.io.UnsupportedEncodingException;
-import java.text.Collator;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * The Media provider contains meta data for all available media on both internal
  * and external storage devices.
  */
-<<<<<<< HEAD
 public final class MediaStore {
     private final static String TAG = "MediaStore";
 
@@ -258,29 +242,6 @@ public final class MediaStore {
      */
 
     public interface MediaColumns extends BaseColumns {
-=======
-public final class MediaStore
-{
-    private final static String TAG = "MediaStore";
-    
-    public static final String AUTHORITY = "media";
-    
-    private static final String CONTENT_AUTHORITY_SLASH = "content://" + AUTHORITY + "/";
-    
-    /**
-     * Standard Intent action that can be sent to have the media application
-     * capture an image and return it.  The image is returned as a Bitmap
-     * object in the extra field.
-     * @hide
-     */
-    public final static String ACTION_IMAGE_CAPTURE = "android.media.action.IMAGE_CAPTURE";
-    
-    /** 
-     * Common fields for most MediaProvider tables
-     */
-     
-     public interface MediaColumns extends BaseColumns {
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * The data stream for the file
          * <P>Type: DATA STREAM</P>
@@ -325,7 +286,6 @@ public final class MediaStore
          * <P>Type: TEXT</P>
          */
         public static final String MIME_TYPE = "mime_type";
-<<<<<<< HEAD
 
         /**
          * The MTP object handle of a newly transfered file.
@@ -667,46 +627,25 @@ public final class MediaStore
      * Contains meta data for all available images.
      */
     public static final class Images {
-=======
-     }
-    
-    /**
-     * Contains meta data for all available images.
-     */
-    public static final class Images
-    {
->>>>>>> 54b6cfa... Initial Contribution
         public interface ImageColumns extends MediaColumns {
             /**
              * The description of the image
              * <P>Type: TEXT</P>
              */
             public static final String DESCRIPTION = "description";
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The picasa id of the image
              * <P>Type: TEXT</P>
              */
             public static final String PICASA_ID = "picasa_id";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * Whether the video should be published as public or private
              * <P>Type: INTEGER</P>
              */
             public static final String IS_PRIVATE = "isprivate";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The latitude where the image was captured.
              * <P>Type: DOUBLE</P>
@@ -718,22 +657,14 @@ public final class MediaStore
              * <P>Type: DOUBLE</P>
              */
             public static final String LONGITUDE = "longitude";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The date & time that the image was taken in units
              * of milliseconds since jan 1, 1970.
              * <P>Type: INTEGER</P>
              */
             public static final String DATE_TAKEN = "datetaken";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The orientation for the image expressed as degrees.
              * Only degrees 0, 90, 180, 270 will work.
@@ -746,7 +677,6 @@ public final class MediaStore
              * <P>Type: INTEGER</P>
              */
             public static final String MINI_THUMB_MAGIC = "mini_thumb_magic";
-<<<<<<< HEAD
 
             /**
              * The bucket id of the image. This is a read-only property that
@@ -758,24 +688,12 @@ public final class MediaStore
             /**
              * The bucket display name of the image. This is a read-only property that
              * is automatically computed from the DATA column.
-=======
-            
-            /**
-             * The bucket id of the image
-             * <P>Type: TEXT</P>
-             */
-            public static final String BUCKET_ID = "bucket_id";
-            
-            /**
-             * The bucket display name of the image
->>>>>>> 54b6cfa... Initial Contribution
              * <P>Type: TEXT</P>
              */
             public static final String BUCKET_DISPLAY_NAME = "bucket_display_name";
         }
 
         public static final class Media implements ImageColumns {
-<<<<<<< HEAD
             public static final Cursor query(ContentResolver cr, Uri uri, String[] projection) {
                 return cr.query(uri, projection, null, null, DEFAULT_SORT_ORDER);
             }
@@ -788,62 +706,29 @@ public final class MediaStore
 
             public static final Cursor query(ContentResolver cr, Uri uri, String[] projection,
                     String selection, String [] selectionArgs, String orderBy) {
-=======
-            public static final Cursor query(ContentResolver cr, Uri uri, String[] projection)
-            {
-                return cr.query(uri, projection, null, null, DEFAULT_SORT_ORDER);
-            }
-    
-            public static final Cursor query(ContentResolver cr, Uri uri, String[] projection,
-                                           String where, String orderBy)
-            {
-                return cr.query(uri, projection, where,
-                                             null, orderBy == null ? DEFAULT_SORT_ORDER : orderBy);
-            }
-            
-            public static final Cursor query(ContentResolver cr, Uri uri, String[] projection,
-                    String selection, String [] selectionArgs, String orderBy)
-            {
->>>>>>> 54b6cfa... Initial Contribution
                 return cr.query(uri, projection, selection,
                         selectionArgs, orderBy == null ? DEFAULT_SORT_ORDER : orderBy);
             }
 
             /**
              * Retrieves an image for the given url as a {@link Bitmap}.
-<<<<<<< HEAD
              *
-=======
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param cr The content resolver to use
              * @param url The url of the image
              * @throws FileNotFoundException
              * @throws IOException
              */
             public static final Bitmap getBitmap(ContentResolver cr, Uri url)
-<<<<<<< HEAD
                     throws FileNotFoundException, IOException {
-=======
-                    throws FileNotFoundException, IOException
-            {
->>>>>>> 54b6cfa... Initial Contribution
                 InputStream input = cr.openInputStream(url);
                 Bitmap bitmap = BitmapFactory.decodeStream(input);
                 input.close();
                 return bitmap;
             }
-<<<<<<< HEAD
 
             /**
              * Insert an image and create a thumbnail for it.
              *
-=======
-            
-            /**
-             * Insert an image and create a thumbnail for it.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param cr The content resolver to use
              * @param imagePath The path to the image to insert
              * @param name The name of the image
@@ -851,7 +736,6 @@ public final class MediaStore
              * @return The URL to the newly created image
              * @throws FileNotFoundException
              */
-<<<<<<< HEAD
             public static final String insertImage(ContentResolver cr, String imagePath,
                     String name, String description) throws FileNotFoundException {
                 // Check if file exists with a FileInputStream
@@ -861,15 +745,6 @@ public final class MediaStore
                     String ret = insertImage(cr, bm, name, description);
                     bm.recycle();
                     return ret;
-=======
-            public static final String insertImage(ContentResolver cr, String imagePath, String name,
-                                                   String description) throws FileNotFoundException
-            {
-                // Check if file exists with a FileInputStream
-                FileInputStream stream = new FileInputStream(imagePath);
-                try {
-                    return insertImage(cr, BitmapFactory.decodeFile(imagePath), name, description);
->>>>>>> 54b6cfa... Initial Contribution
                 } finally {
                     try {
                         stream.close();
@@ -877,7 +752,6 @@ public final class MediaStore
                     }
                 }
             }
-<<<<<<< HEAD
 
             private static final Bitmap StoreThumbnail(
                     ContentResolver cr,
@@ -898,34 +772,11 @@ public final class MediaStore
                                                    source.getHeight(), matrix,
                                                    true);
 
-=======
-            
-            private static final Bitmap StoreThumbnail(
-                    ContentResolver cr, 
-                    Bitmap source,
-                    long id,
-                    float width, float height, 
-                    int kind) {
-                // create the matrix to scale it
-                Matrix matrix = new Matrix();
-                
-                float scaleX = width / source.getWidth();
-                float scaleY = height / source.getHeight();
-                
-                matrix.setScale(scaleX, scaleY);
-                
-                Bitmap thumb = Bitmap.createBitmap(source, 0, 0, 
-                                                   source.getWidth(),
-                                                   source.getHeight(), matrix,
-                                                   true);
-                
->>>>>>> 54b6cfa... Initial Contribution
                 ContentValues values = new ContentValues(4);
                 values.put(Images.Thumbnails.KIND,     kind);
                 values.put(Images.Thumbnails.IMAGE_ID, (int)id);
                 values.put(Images.Thumbnails.HEIGHT,   thumb.getHeight());
                 values.put(Images.Thumbnails.WIDTH,    thumb.getWidth());
-<<<<<<< HEAD
 
                 Uri url = cr.insert(Images.Thumbnails.EXTERNAL_CONTENT_URI, values);
 
@@ -933,15 +784,6 @@ public final class MediaStore
                     OutputStream thumbOut = cr.openOutputStream(url);
 
                     thumb.compress(Bitmap.CompressFormat.JPEG, 100, thumbOut);
-=======
-                
-                Uri url = cr.insert(Images.Thumbnails.EXTERNAL_CONTENT_URI, values);
-                
-                try {
-                    OutputStream thumbOut = cr.openOutputStream(url);
-                
-                    thumb.compress(Bitmap.CompressFormat.JPEG, 100, thumbOut);   
->>>>>>> 54b6cfa... Initial Contribution
                     thumbOut.close();
                     return thumb;
                 }
@@ -952,17 +794,10 @@ public final class MediaStore
                     return null;
                 }
             }
-<<<<<<< HEAD
 
             /**
              * Insert an image and create a thumbnail for it.
              *
-=======
-            
-            /**
-             * Insert an image and create a thumbnail for it.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param cr The content resolver to use
              * @param source The stream to use for the image
              * @param title The name of the image
@@ -971,12 +806,7 @@ public final class MediaStore
              *              for any reason.
              */
             public static final String insertImage(ContentResolver cr, Bitmap source,
-<<<<<<< HEAD
                                                    String title, String description) {
-=======
-                                                   String title, String description)
-            {
->>>>>>> 54b6cfa... Initial Contribution
                 ContentValues values = new ContentValues();
                 values.put(Images.Media.TITLE, title);
                 values.put(Images.Media.DESCRIPTION, description);
@@ -985,16 +815,9 @@ public final class MediaStore
                 Uri url = null;
                 String stringUrl = null;    /* value to be returned */
 
-<<<<<<< HEAD
                 try {
                     url = cr.insert(EXTERNAL_CONTENT_URI, values);
 
-=======
-                try
-                {
-                    url = cr.insert(EXTERNAL_CONTENT_URI, values);
-             
->>>>>>> 54b6cfa... Initial Contribution
                     if (source != null) {
                         OutputStream imageOut = cr.openOutputStream(url);
                         try {
@@ -1004,17 +827,12 @@ public final class MediaStore
                         }
 
                         long id = ContentUris.parseId(url);
-<<<<<<< HEAD
                         // Wait until MINI_KIND thumbnail is generated.
                         Bitmap miniThumb = Images.Thumbnails.getThumbnail(cr, id,
                                 Images.Thumbnails.MINI_KIND, null);
                         // This is for backward compatibility.
                         Bitmap microThumb = StoreThumbnail(cr, miniThumb, id, 50F, 50F,
                                 Images.Thumbnails.MICRO_KIND);
-=======
-                        Bitmap miniThumb  = StoreThumbnail(cr, source, id, 320F, 240F, Images.Thumbnails.MINI_KIND);
-                        Bitmap microThumb = StoreThumbnail(cr, miniThumb, id, 50F, 50F, Images.Thumbnails.MICRO_KIND);
->>>>>>> 54b6cfa... Initial Contribution
                     } else {
                         Log.e(TAG, "Failed to create thumbnail, removing original");
                         cr.delete(url, null, null);
@@ -1034,19 +852,11 @@ public final class MediaStore
 
                 return stringUrl;
             }
-<<<<<<< HEAD
 
             /**
              * Get the content:// style URI for the image media table on the
              * given volume.
              *
-=======
-    
-            /**
-             * Get the content:// style URI for the image media table on the 
-             * given volume.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param volumeName the name of the volume to get the URI for
              * @return the URI to the image media table on the given volume
              */
@@ -1060,11 +870,7 @@ public final class MediaStore
              */
             public static final Uri INTERNAL_CONTENT_URI =
                     getContentUri("internal");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the "primary" external storage
              * volume.
@@ -1078,7 +884,6 @@ public final class MediaStore
              * image MIME type as appropriate -- for example, image/jpeg.
              */
             public static final String CONTENT_TYPE = "vnd.android.cursor.dir/image";
-<<<<<<< HEAD
 
             /**
              * The default sort order for this table
@@ -1103,34 +908,10 @@ public final class MediaStore
 
             public static final Cursor queryMiniThumbnail(ContentResolver cr, long origId, int kind,
                     String[] projection) {
-=======
-    
-            /**
-             * The default sort order for this table
-             */
-            public static final String DEFAULT_SORT_ORDER = "name ASC";
-       }
-
-        public static class Thumbnails implements BaseColumns
-        {
-            public static final Cursor query(ContentResolver cr, Uri uri, String[] projection)
-            {
-                return cr.query(uri, projection, null, null, DEFAULT_SORT_ORDER);
-            }
-    
-            public static final Cursor queryMiniThumbnails(ContentResolver cr, Uri uri, int kind, String[] projection)
-            {
-                return cr.query(uri, projection, "kind = " + kind, null, DEFAULT_SORT_ORDER);
-            }
-    
-            public static final Cursor queryMiniThumbnail(ContentResolver cr, long origId, int kind, String[] projection)
-            {
->>>>>>> 54b6cfa... Initial Contribution
                 return cr.query(EXTERNAL_CONTENT_URI, projection,
                         IMAGE_ID + " = " + origId + " AND " + KIND + " = " +
                         kind, null, null);
             }
-<<<<<<< HEAD
 
             /**
              * This method cancels the thumbnail request so clients waiting for getThumbnail will be
@@ -1198,13 +979,6 @@ public final class MediaStore
              * Get the content:// style URI for the image media table on the
              * given volume.
              *
-=======
-    
-            /**
-             * Get the content:// style URI for the image media table on the 
-             * given volume.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param volumeName the name of the volume to get the URI for
              * @return the URI to the image media table on the given volume
              */
@@ -1212,21 +986,13 @@ public final class MediaStore
                 return Uri.parse(CONTENT_AUTHORITY_SLASH + volumeName +
                         "/images/thumbnails");
             }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the internal storage.
              */
             public static final Uri INTERNAL_CONTENT_URI =
                     getContentUri("internal");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the "primary" external storage
              * volume.
@@ -1238,37 +1004,24 @@ public final class MediaStore
              * The default sort order for this table
              */
             public static final String DEFAULT_SORT_ORDER = "image_id ASC";
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The data stream for the thumbnail
              * <P>Type: DATA STREAM</P>
              */
             public static final String DATA = "_data";
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The original image for the thumbnal
              * <P>Type: INTEGER (ID from Images table)</P>
              */
             public static final String IMAGE_ID = "image_id";
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The kind of the thumbnail
              * <P>Type: INTEGER (One of the values below)</P>
              */
             public static final String KIND = "kind";
-<<<<<<< HEAD
 
             public static final int MINI_KIND = 1;
             public static final int FULL_SCREEN_KIND = 2;
@@ -1279,23 +1032,12 @@ public final class MediaStore
              */
             public static final String THUMB_DATA = "thumb_data";
 
-=======
-    
-            public static final int MINI_KIND = 1;
-            public static final int FULL_SCREEN_KIND = 2;
-            public static final int MICRO_KIND = 3;
-    
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The width of the thumbnal
              * <P>Type: INTEGER (long)</P>
              */
             public static final String WIDTH = "width";
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The height of the thumbnail
              * <P>Type: INTEGER (long)</P>
@@ -1303,11 +1045,7 @@ public final class MediaStore
             public static final String HEIGHT = "height";
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Container for all audio content.
      */
@@ -1331,7 +1069,6 @@ public final class MediaStore
             public static final String DURATION = "duration";
 
             /**
-<<<<<<< HEAD
              * The position, in ms, playback was at when playback for this file
              * was last stopped.
              * <P>Type: INTEGER (long)</P>
@@ -1339,8 +1076,6 @@ public final class MediaStore
             public static final String BOOKMARK = "bookmark";
 
             /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
              * The id of the artist who created the audio file, if any
              * <P>Type: INTEGER (long)</P>
              */
@@ -1353,7 +1088,6 @@ public final class MediaStore
             public static final String ARTIST = "artist";
 
             /**
-<<<<<<< HEAD
              * The artist credited for the album that contains the audio file
              * <P>Type: TEXT</P>
              * @hide
@@ -1368,8 +1102,6 @@ public final class MediaStore
             public static final String COMPILATION = "compilation";
 
             /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
              * A non human readable key calculated from the ARTIST, used for
              * searching, sorting and grouping
              * <P>Type: TEXT</P>
@@ -1402,15 +1134,6 @@ public final class MediaStore
             public static final String ALBUM_KEY = "album_key";
 
             /**
-<<<<<<< HEAD
-=======
-             * A URI to the album art, if any
-             * <P>Type: TEXT</P>
-             */
-            public static final String ALBUM_ART = "album_art";
-            
-            /**
->>>>>>> 54b6cfa... Initial Contribution
              * The track number of this song on the album, if any.
              * This number encodes both the track number and the
              * disc number. For multi-disc sets, this number will
@@ -1433,7 +1156,6 @@ public final class MediaStore
             public static final String IS_MUSIC = "is_music";
 
             /**
-<<<<<<< HEAD
              * Non-zero if the audio file is a podcast
              * <P>Type: INTEGER (boolean)</P>
              */
@@ -1441,25 +1163,17 @@ public final class MediaStore
 
             /**
              * Non-zero if the audio file may be a ringtone
-=======
-             * Non-zero id the audio file may be a ringtone
->>>>>>> 54b6cfa... Initial Contribution
              * <P>Type: INTEGER (boolean)</P>
              */
             public static final String IS_RINGTONE = "is_ringtone";
 
             /**
-<<<<<<< HEAD
              * Non-zero if the audio file may be an alarm
-=======
-             * Non-zero id the audio file may be an alarm
->>>>>>> 54b6cfa... Initial Contribution
              * <P>Type: INTEGER (boolean)</P>
              */
             public static final String IS_ALARM = "is_alarm";
 
             /**
-<<<<<<< HEAD
              * Non-zero if the audio file may be a notification sound
              * <P>Type: INTEGER (boolean)</P>
              */
@@ -1472,12 +1186,6 @@ public final class MediaStore
              * @hide
              */
             public static final String GENRE = "genre";
-=======
-             * Non-zero id the audio file may be a notification sound
-             * <P>Type: INTEGER (boolean)</P>
-             */
-            public static final String IS_NOTIFICATION = "is_notification";
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         /**
@@ -1497,7 +1205,6 @@ public final class MediaStore
          */
         public static String keyFor(String name) {
             if (name != null)  {
-<<<<<<< HEAD
                 boolean sortfirst = false;
                 if (name.equals(UNKNOWN_STRING)) {
                     return "\001";
@@ -1507,11 +1214,6 @@ public final class MediaStore
                 if (name.startsWith("\001")) {
                     sortfirst = true;
                 }
-=======
-                if (name.equals(android.media.MediaFile.UNKNOWN_STRING)) {
-                    return "\001";
-                }
->>>>>>> 54b6cfa... Initial Contribution
                 name = name.trim().toLowerCase();
                 if (name.startsWith("the ")) {
                     name = name.substring(4);
@@ -1527,11 +1229,7 @@ public final class MediaStore
                     name.endsWith(", a") || name.endsWith(",a")) {
                     name = name.substring(0, name.lastIndexOf(','));
                 }
-<<<<<<< HEAD
                 name = name.replaceAll("[\\[\\]\\(\\)\"'.,?!]", "").trim();
-=======
-                name = name.replaceAll("[\\[\\]\\(\\)'.,?!]", "").trim();
->>>>>>> 54b6cfa... Initial Contribution
                 if (name.length() > 0) {
                     // Insert a separator between the characters to avoid
                     // matches on a partial character. If we ever change
@@ -1544,15 +1242,11 @@ public final class MediaStore
                         b.append('.');
                     }
                     name = b.toString();
-<<<<<<< HEAD
                     String key = DatabaseUtils.getCollationKey(name);
                     if (sortfirst) {
                         key = "\001" + key;
                     }
                     return key;
-=======
-                    return DatabaseUtils.getCollationKey(name);
->>>>>>> 54b6cfa... Initial Contribution
                } else {
                     return "";
                 }
@@ -1562,15 +1256,9 @@ public final class MediaStore
 
         public static final class Media implements AudioColumns {
             /**
-<<<<<<< HEAD
              * Get the content:// style URI for the audio media table on the
              * given volume.
              *
-=======
-             * Get the content:// style URI for the audio media table on the 
-             * given volume.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param volumeName the name of the volume to get the URI for
              * @return the URI to the audio media table on the given volume
              */
@@ -1578,66 +1266,40 @@ public final class MediaStore
                 return Uri.parse(CONTENT_AUTHORITY_SLASH + volumeName +
                         "/audio/media");
             }
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             public static Uri getContentUriForPath(String path) {
                 return (path.startsWith(Environment.getExternalStorageDirectory().getPath()) ?
                         EXTERNAL_CONTENT_URI : INTERNAL_CONTENT_URI);
             }
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the internal storage.
              */
             public static final Uri INTERNAL_CONTENT_URI =
                     getContentUri("internal");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the "primary" external storage
              * volume.
              */
             public static final Uri EXTERNAL_CONTENT_URI =
                     getContentUri("external");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The MIME type for this table.
              */
             public static final String CONTENT_TYPE = "vnd.android.cursor.dir/audio";
-<<<<<<< HEAD
 
             /**
              * The default sort order for this table
              */
             public static final String DEFAULT_SORT_ORDER = TITLE_KEY;
 
-=======
-            
-            /**
-             * The default sort order for this table
-             */
-            public static final String DEFAULT_SORT_ORDER = TITLE;
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * Activity Action: Start SoundRecorder application.
              * <p>Input: nothing.
              * <p>Output: An uri to the recorded sound stored in the Media Library
              * if the recording was successful.
-<<<<<<< HEAD
              * May also contain the extra EXTRA_MAX_BYTES.
              * @see #EXTRA_MAX_BYTES
              */
@@ -1654,14 +1316,6 @@ public final class MediaStore
                     "android.provider.MediaStore.extra.MAX_BYTES";
         }
 
-=======
-             * 
-             */
-            public static final String RECORD_SOUND_ACTION = 
-                    "android.provider.MediaStore.RECORD_SOUND";
-        }
-    
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * Columns representing an audio genre
          */
@@ -1678,15 +1332,9 @@ public final class MediaStore
          */
         public static final class Genres implements BaseColumns, GenresColumns {
             /**
-<<<<<<< HEAD
              * Get the content:// style URI for the audio genres table on the
              * given volume.
              *
-=======
-             * Get the content:// style URI for the audio genres table on the 
-             * given volume.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param volumeName the name of the volume to get the URI for
              * @return the URI to the audio genres table on the given volume
              */
@@ -1696,7 +1344,6 @@ public final class MediaStore
             }
 
             /**
-<<<<<<< HEAD
              * Get the content:// style URI for querying the genres of an audio file.
              *
              * @param volumeName the name of the volume to get the URI for
@@ -1710,17 +1357,11 @@ public final class MediaStore
             }
 
             /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
              * The content:// style URI for the internal storage.
              */
             public static final Uri INTERNAL_CONTENT_URI =
                     getContentUri("internal");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the "primary" external storage
              * volume.
@@ -1732,11 +1373,7 @@ public final class MediaStore
              * The MIME type for this table.
              */
             public static final String CONTENT_TYPE = "vnd.android.cursor.dir/genre";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The MIME type for entries in this table.
              */
@@ -1766,11 +1403,7 @@ public final class MediaStore
                 /**
                  * The default sort order for this table
                  */
-<<<<<<< HEAD
                 public static final String DEFAULT_SORT_ORDER = TITLE_KEY;
-=======
-                public static final String DEFAULT_SORT_ORDER = TITLE;
->>>>>>> 54b6cfa... Initial Contribution
 
                 /**
                  * The ID of the audio file
@@ -1808,11 +1441,7 @@ public final class MediaStore
              * <P>Type: INTEGER (long)</P>
              */
             public static final String DATE_ADDED = "date_added";
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The time the file was last modified
              * Units are seconds since 1970.
@@ -1821,26 +1450,16 @@ public final class MediaStore
              */
             public static final String DATE_MODIFIED = "date_modified";
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * Contains playlists for audio files
          */
         public static final class Playlists implements BaseColumns,
                 PlaylistsColumns {
             /**
-<<<<<<< HEAD
              * Get the content:// style URI for the audio playlists table on the
              * given volume.
              *
-=======
-             * Get the content:// style URI for the audio playlists table on the 
-             * given volume.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param volumeName the name of the volume to get the URI for
              * @return the URI to the audio playlists table on the given volume
              */
@@ -1854,11 +1473,7 @@ public final class MediaStore
              */
             public static final Uri INTERNAL_CONTENT_URI =
                     getContentUri("internal");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the "primary" external storage
              * volume.
@@ -1870,11 +1485,7 @@ public final class MediaStore
              * The MIME type for this table.
              */
             public static final String CONTENT_TYPE = "vnd.android.cursor.dir/playlist";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The MIME type for entries in this table.
              */
@@ -1896,7 +1507,6 @@ public final class MediaStore
                 }
 
                 /**
-<<<<<<< HEAD
                  * Convenience method to move a playlist item to a new location
                  * @param res The content resolver to use
                  * @param playlistId The numeric id of the playlist
@@ -1922,12 +1532,6 @@ public final class MediaStore
                  */
                 public static final String _ID = "_id";
 
-=======
-                 * The ID within the playlist.
-                 */
-                public static final String _ID = "_id";
-                
->>>>>>> 54b6cfa... Initial Contribution
                 /**
                  * A subdirectory of each playlist containing all member audio
                  * files.
@@ -1945,11 +1549,7 @@ public final class MediaStore
                  * <P>Type: INTEGER (long)</P>
                  */
                 public static final String PLAYLIST_ID = "playlist_id";
-<<<<<<< HEAD
 
-=======
-                
->>>>>>> 54b6cfa... Initial Contribution
                 /**
                  * The order of the songs in the playlist
                  * <P>Type: INTEGER (long)></P>
@@ -1990,25 +1590,15 @@ public final class MediaStore
              */
             public static final String NUMBER_OF_TRACKS = "number_of_tracks";
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * Contains artists for audio files
          */
         public static final class Artists implements BaseColumns, ArtistColumns {
             /**
-<<<<<<< HEAD
              * Get the content:// style URI for the artists table on the
              * given volume.
              *
-=======
-             * Get the content:// style URI for the artists table on the 
-             * given volume.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param volumeName the name of the volume to get the URI for
              * @return the URI to the audio artists table on the given volume
              */
@@ -2022,11 +1612,7 @@ public final class MediaStore
              */
             public static final Uri INTERNAL_CONTENT_URI =
                     getContentUri("internal");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the "primary" external storage
              * volume.
@@ -2038,11 +1624,7 @@ public final class MediaStore
              * The MIME type for this table.
              */
             public static final String CONTENT_TYPE = "vnd.android.cursor.dir/artists";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The MIME type for entries in this table.
              */
@@ -2065,11 +1647,7 @@ public final class MediaStore
                 }
             }
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * Columns representing an album
          */
@@ -2100,7 +1678,6 @@ public final class MediaStore
             public static final String NUMBER_OF_SONGS = "numsongs";
 
             /**
-<<<<<<< HEAD
              * This column is available when getting album info via artist,
              * and indicates the number of songs on the album by the given
              * artist.
@@ -2124,15 +1701,6 @@ public final class MediaStore
              * they might differ.
              * <P>Type: INTEGER</P>
              */
-=======
-             * The year in which the earliest and latest songs
-             * on this album were released. These will often
-             * be the same, but for compilation albums they
-             * might differ.
-             * <P>Type: INTEGER</P>
-             */
-            public static final String FIRST_YEAR = "minyear";
->>>>>>> 54b6cfa... Initial Contribution
             public static final String LAST_YEAR = "maxyear";
 
             /**
@@ -2141,36 +1709,22 @@ public final class MediaStore
              * <P>Type: TEXT</P>
              */
             public static final String ALBUM_KEY = "album_key";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * Cached album art.
              * <P>Type: TEXT</P>
              */
             public static final String ALBUM_ART = "album_art";
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * Contains artists for audio files
          */
         public static final class Albums implements BaseColumns, AlbumColumns {
             /**
-<<<<<<< HEAD
              * Get the content:// style URI for the albums table on the
              * given volume.
              *
-=======
-             * Get the content:// style URI for the albums table on the 
-             * given volume.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param volumeName the name of the volume to get the URI for
              * @return the URI to the audio albums table on the given volume
              */
@@ -2184,11 +1738,7 @@ public final class MediaStore
              */
             public static final Uri INTERNAL_CONTENT_URI =
                     getContentUri("internal");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the "primary" external storage
              * volume.
@@ -2200,11 +1750,7 @@ public final class MediaStore
              * The MIME type for this table.
              */
             public static final String CONTENT_TYPE = "vnd.android.cursor.dir/albums";
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The MIME type for entries in this table.
              */
@@ -2218,7 +1764,6 @@ public final class MediaStore
     }
 
     public static final class Video {
-<<<<<<< HEAD
 
         /**
          * The default sort order for this table.
@@ -2226,15 +1771,6 @@ public final class MediaStore
         public static final String DEFAULT_SORT_ORDER = MediaColumns.DISPLAY_NAME;
 
         public static final Cursor query(ContentResolver cr, Uri uri, String[] projection) {
-=======
-        /**
-         * The default sort order for this table
-         */
-        public static final String DEFAULT_SORT_ORDER = "name ASC";
-
-        public static final Cursor query(ContentResolver cr, Uri uri, String[] projection)
-        {
->>>>>>> 54b6cfa... Initial Contribution
             return cr.query(uri, projection, null, null, DEFAULT_SORT_ORDER);
         }
 
@@ -2293,21 +1829,14 @@ public final class MediaStore
              * <P>Type: TEXT</P>
              */
             public static final String LANGUAGE = "language";
-<<<<<<< HEAD
 
             /**
              * The latitude where the video was captured.
-=======
-            
-            /**
-             * The latitude where the image was captured.
->>>>>>> 54b6cfa... Initial Contribution
              * <P>Type: DOUBLE</P>
              */
             public static final String LATITUDE = "latitude";
 
             /**
-<<<<<<< HEAD
              * The longitude where the video was captured.
              * <P>Type: DOUBLE</P>
              */
@@ -2315,15 +1844,6 @@ public final class MediaStore
 
             /**
              * The date & time that the video was taken in units
-=======
-             * The longitude where the image was captured.
-             * <P>Type: DOUBLE</P>
-             */
-            public static final String LONGITUDE = "longitude";
-            
-            /**
-             * The date & time that the image was taken in units
->>>>>>> 54b6cfa... Initial Contribution
              * of milliseconds since jan 1, 1970.
              * <P>Type: INTEGER</P>
              */
@@ -2334,7 +1854,6 @@ public final class MediaStore
              * <P>Type: INTEGER</P>
              */
             public static final String MINI_THUMB_MAGIC = "mini_thumb_magic";
-<<<<<<< HEAD
 
             /**
              * The bucket id of the video. This is a read-only property that
@@ -2358,21 +1877,13 @@ public final class MediaStore
              * <P>Type: INTEGER</P>
              */
             public static final String BOOKMARK = "bookmark";
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         public static final class Media implements VideoColumns {
             /**
-<<<<<<< HEAD
              * Get the content:// style URI for the video media table on the
              * given volume.
              *
-=======
-             * Get the content:// style URI for the video media table on the 
-             * given volume.
-             * 
->>>>>>> 54b6cfa... Initial Contribution
              * @param volumeName the name of the volume to get the URI for
              * @return the URI to the video media table on the given volume
              */
@@ -2386,11 +1897,7 @@ public final class MediaStore
              */
             public static final Uri INTERNAL_CONTENT_URI =
                     getContentUri("internal");
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             /**
              * The content:// style URI for the "primary" external storage
              * volume.
@@ -2408,7 +1915,6 @@ public final class MediaStore
              */
             public static final String DEFAULT_SORT_ORDER = TITLE;
         }
-<<<<<<< HEAD
 
         /**
          * This class allows developers to query and get two kinds of thumbnails:
@@ -2543,8 +2049,6 @@ public final class MediaStore
              */
             public static final String HEIGHT = "height";
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -2558,7 +2062,6 @@ public final class MediaStore
      * Name of current volume being scanned by the media scanner.
      */
     public static final String MEDIA_SCANNER_VOLUME = "volume";
-<<<<<<< HEAD
 
     /**
      * Name of the file signaling the media scanner to ignore media in the containing directory
@@ -2592,6 +2095,4 @@ public final class MediaStore
         return null;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

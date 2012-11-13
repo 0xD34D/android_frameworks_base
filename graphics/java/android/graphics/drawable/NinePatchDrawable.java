@@ -16,7 +16,6 @@
 
 package android.graphics.drawable;
 
-<<<<<<< HEAD
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -216,29 +215,6 @@ public class NinePatchDrawable extends Drawable {
             mLayoutInsets = scaleFromDensity(mNinePatchState.mLayoutInsets, sdensity, tdensity);
         }
     }
-=======
-import android.graphics.*;
-
-/**
- * 
- * A resizeable bitmap, with stretchable areas that you define. This type of image
- * is defined in a .png file with a special format, described in <a link="../../../resources.html#ninepatch">
- * Resources</a>.
- *
- */
-public class NinePatchDrawable extends Drawable {
-
-    public NinePatchDrawable(Bitmap bitmap, byte[] chunk,
-                             Rect padding, String srcName) {
-        this(new NinePatchState(new NinePatch(bitmap, chunk, srcName), padding));
-    }
-    
-    public NinePatchDrawable(NinePatch patch) {
-        this(new NinePatchState(patch, null));
-    }
-
-    // overrides
->>>>>>> 54b6cfa... Initial Contribution
 
     @Override
     public void draw(Canvas canvas) {
@@ -247,23 +223,15 @@ public class NinePatchDrawable extends Drawable {
 
     @Override
     public int getChangingConfigurations() {
-<<<<<<< HEAD
         return super.getChangingConfigurations() | mNinePatchState.mChangingConfigurations;
     }
 
-=======
-        return super.getChangingConfigurations()
-                | mNinePatchState.mChangingConfigurations;
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public boolean getPadding(Rect padding) {
         padding.set(mPadding);
         return true;
     }
 
-<<<<<<< HEAD
     /**
      * @hide
      */
@@ -290,21 +258,10 @@ public class NinePatchDrawable extends Drawable {
         }
         getPaint().setColorFilter(cf);
         invalidateSelf();
-=======
-    @Override
-    public void setAlpha(int alpha) {
-        getPaint().setAlpha(alpha);
-    }
-    
-    @Override
-    public void setColorFilter(ColorFilter cf) {
-        getPaint().setColorFilter(cf);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public void setDither(boolean dither) {
-<<<<<<< HEAD
         if (mPaint == null && dither == DEFAULT_DITHER) {
             // Fast common case -- leave at default dither.
             return;
@@ -370,18 +327,12 @@ public class NinePatchDrawable extends Drawable {
         mNinePatchState.mTargetDensity = mTargetDensity;
 
         a.recycle();
-=======
-        getPaint().setDither(dither);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public Paint getPaint() {
         if (mPaint == null) {
             mPaint = new Paint();
-<<<<<<< HEAD
             mPaint.setDither(DEFAULT_DITHER);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
         return mPaint;
     }
@@ -391,11 +342,7 @@ public class NinePatchDrawable extends Drawable {
      */
     @Override
     public int getIntrinsicWidth() {
-<<<<<<< HEAD
         return mBitmapWidth;
-=======
-        return mNinePatch.getWidth();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -403,25 +350,16 @@ public class NinePatchDrawable extends Drawable {
      */
     @Override
     public int getIntrinsicHeight() {
-<<<<<<< HEAD
         return mBitmapHeight;
-=======
-        return mNinePatch.getHeight();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public int getMinimumWidth() {
-<<<<<<< HEAD
         return mBitmapWidth;
-=======
-        return mNinePatch.getWidth();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public int getMinimumHeight() {
-<<<<<<< HEAD
         return mBitmapHeight;
     }
 
@@ -433,25 +371,12 @@ public class NinePatchDrawable extends Drawable {
     public int getOpacity() {
         return mNinePatch.hasAlpha() || (mPaint != null && mPaint.getAlpha() < 255) ?
                 PixelFormat.TRANSLUCENT : PixelFormat.OPAQUE;
-=======
-        return mNinePatch.getHeight();
-    }
-
-    /**
-     * Returns a {@link android.graphics.PixelFormat graphics.PixelFormat} value of OPAQUE or TRANSLUCENT.
-     */
-    @Override
-    public int getOpacity() {
-        return mNinePatch.hasAlpha() || (mPaint != null && mPaint.getAlpha() < 255)
-            ? PixelFormat.TRANSLUCENT : PixelFormat.OPAQUE;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public Region getTransparentRegion() {
         return mNinePatch.getTransparentRegion(getBounds());
     }
-<<<<<<< HEAD
 
     @Override
     public ConstantState getConstantState() {
@@ -514,56 +439,13 @@ public class NinePatchDrawable extends Drawable {
             return new NinePatchDrawable(this, res);
         }
 
-=======
-    
-    @Override
-    public ConstantState getConstantState() {
-        mNinePatchState.mChangingConfigurations = super.getChangingConfigurations();
-        return mNinePatchState;
-    }
-
-    final static class NinePatchState extends ConstantState {
-        NinePatchState(NinePatch ninePatch, Rect padding)
-        {
-            mNinePatch = ninePatch;
-            mPadding = padding;
-        }
-
-        @Override
-        public Drawable newDrawable()
-        {
-            return new NinePatchDrawable(this);
-        }
-        
->>>>>>> 54b6cfa... Initial Contribution
         @Override
         public int getChangingConfigurations() {
             return mChangingConfigurations;
         }
-<<<<<<< HEAD
     }
 
     private NinePatchDrawable(NinePatchState state, Resources res) {
         setNinePatchState(state, res);
     }
 }
-=======
-
-        final NinePatch mNinePatch;
-        final Rect      mPadding;
-        int             mChangingConfigurations;
-    }
-
-    private NinePatchDrawable(NinePatchState state) {
-        mNinePatchState = state;
-        mNinePatch = state.mNinePatch;
-        mPadding = state.mPadding;
-    }
-
-    private final NinePatchState    mNinePatchState;
-    private final NinePatch         mNinePatch;
-    private final Rect              mPadding;
-    private Paint                   mPaint;
-}
-
->>>>>>> 54b6cfa... Initial Contribution

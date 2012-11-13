@@ -16,7 +16,6 @@
 
 package android.text.style;
 
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.text.ParcelableSpan;
 import android.text.TextPaint;
@@ -40,11 +39,6 @@ public class SuperscriptSpan extends MetricAffectingSpan implements ParcelableSp
     public void writeToParcel(Parcel dest, int flags) {
     }
 
-=======
-import android.text.TextPaint;
-
-public class SuperscriptSpan extends MetricAffectingSpan {
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public void updateDrawState(TextPaint tp) {
         tp.baselineShift += (int) (tp.ascent() / 2);

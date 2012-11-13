@@ -24,59 +24,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:gravity="bottom"
-<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-=======
-    android:background="#FF000000"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
         >
 
     <LinearLayout
         android:orientation="vertical"
-<<<<<<< HEAD
         android:layout_width="match_parent"
-=======
-        android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="15dip"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
-<<<<<<< HEAD
         android:paddingTop="20dip"
         android:paddingBottom="20dip"
-=======
->>>>>>> 54b6cfa... Initial Contribution
         android:background="@android:drawable/popup_full_dark"
         >
 
         <!-- when sim is present -->
         <TextView android:id="@+id/headerSimOk1"
-<<<<<<< HEAD
                   android:layout_width="match_parent"
-=======
-                  android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
                   android:layout_height="wrap_content"
                   android:gravity="center"
                   android:textSize="34sp"/>
         <TextView android:id="@+id/headerSimOk2"
-<<<<<<< HEAD
                   android:layout_width="match_parent"
-=======
-                  android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
                   android:layout_height="wrap_content"
                   android:gravity="center"
                   android:textSize="34sp"/>
 
         <!-- when sim is missing / locked -->
         <TextView android:id="@+id/headerSimBad1"
-<<<<<<< HEAD
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:gravity="center"
@@ -101,67 +79,28 @@
         <!-- time and date -->
         <TextView android:id="@+id/time"
                   android:layout_width="match_parent"
-=======
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:gravity="center"
-                  android:text="@android:string/lockscreen_missing_sim_message"
-                  android:textSize="22sp"/>
-        <TextView android:id="@+id/headerSimBad2"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:gravity="center"
-                  android:text="@android:string/lockscreen_missing_sim_instructions"
-                  android:textSize="20sp"/>
-
-        <!-- spacer after carrier info / sim messages -->
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_marginTop="8dip"
-            android:background="@android:drawable/divider_horizontal_bright"/>
-
-        <!-- time and date -->
-        <TextView android:id="@+id/time"
-                  android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
                   android:layout_height="wrap_content"
                   android:gravity="center"
                   android:textSize="34sp"/>
 
         <TextView android:id="@+id/date"
-<<<<<<< HEAD
                   android:layout_width="match_parent"
-=======
-                  android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
                   android:layout_height="wrap_content"
                   android:gravity="center"
                   android:textSize="18sp"/>
 
         <!-- spacer after time and date -->
         <View
-<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="1dip"
             android:layout_marginBottom="8dip"
             android:background="@android:drawable/divider_horizontal_dark"
-=======
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_marginBottom="8dip"
-            android:background="@android:drawable/divider_horizontal_bright"
->>>>>>> 54b6cfa... Initial Contribution
                 />
 
         <!-- battery info -->
         <LinearLayout android:id="@+id/batteryInfo"
                 android:orientation="horizontal"
-<<<<<<< HEAD
                 android:layout_width="match_parent"
-=======
-                android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
                 android:layout_height="wrap_content"
                 android:gravity="center"
               >
@@ -185,30 +124,18 @@
 
         <!-- spacer after battery info -->
         <View android:id="@+id/batteryInfoSpacer"
-<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="1dip"
             android:layout_marginTop="8dip"
             android:layout_marginBottom="8dip"
             android:background="@android:drawable/divider_horizontal_dark"
-=======
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_marginTop="8dip"
-            android:layout_marginBottom="8dip"
-            android:background="@android:drawable/divider_horizontal_bright"
->>>>>>> 54b6cfa... Initial Contribution
                 />
 
         <!-- next alarm info -->
 
         <LinearLayout android:id="@+id/nextAlarmInfo"
                 android:orientation="horizontal"
-<<<<<<< HEAD
                 android:layout_width="match_parent"
-=======
-                android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
                 android:layout_height="wrap_content"
                 android:gravity="center"
               >
@@ -232,29 +159,17 @@
 
         <!-- spacer after alarm info -->
         <View android:id="@+id/nextAlarmSpacer"
-<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="1dip"
             android:layout_marginTop="8dip"
             android:layout_marginBottom="8dip"
             android:background="@android:drawable/divider_horizontal_dark"/>
-=======
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_marginTop="8dip"
-            android:layout_marginBottom="8dip"
-            android:background="@android:drawable/divider_horizontal_bright"/>
->>>>>>> 54b6cfa... Initial Contribution
 
         <!-- lock icon with 'screen locked' message
              (shown when SIM card is present) -->
         <LinearLayout android:id="@+id/screenLockedInfo"
             android:orientation="horizontal"
-<<<<<<< HEAD
             android:layout_width="match_parent"
-=======
-            android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
             android:layout_height="wrap_content"
             android:gravity="center"
             >
@@ -280,14 +195,9 @@
         <!-- message about how to unlock
              (shown when SIM card is present) -->
         <TextView android:id="@+id/lockInstructions"
-<<<<<<< HEAD
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_marginBottom="5dip"
-=======
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
->>>>>>> 54b6cfa... Initial Contribution
                   android:gravity="center"
                   android:textSize="14sp"/>
 
@@ -295,7 +205,6 @@
         <!-- emergency call button shown when sim is missing or PUKd -->
         <Button
             android:id="@+id/emergencyCallButton"
-<<<<<<< HEAD
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dip"
@@ -306,20 +215,5 @@
             android:text="@android:string/lockscreen_emergency_call"
            />
 
-=======
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:layout_marginBottom="5dip"
-            android:layout_marginTop="5dip"
-            android:drawableTop="@drawable/ic_emergency"
-            android:drawablePadding="3dip"
-            android:text="@android:string/lockscreen_emergency_call"
-            android:textSize="14sp"
-           />
-
-
->>>>>>> 54b6cfa... Initial Contribution
     </LinearLayout>
 </LinearLayout>

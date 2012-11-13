@@ -19,11 +19,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-<<<<<<< HEAD
     android:layout_width="match_parent"
-=======
-    android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:orientation="horizontal"
     android:gravity="center_vertical"
@@ -41,31 +37,18 @@
         <TextView
             android:id="@android:id/text1"
             style="?android:attr/dropDownItemStyle"
-<<<<<<< HEAD
             android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
             android:singleLine="true"
             android:layout_width="match_parent"
-=======
-            android:textAppearance="?android:attr/textAppearanceLargeInverse"
-            android:singleLine="true"
-            android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
             android:layout_height="wrap_content" />
     
         <TextView
             android:id="@android:id/text2"
             style="?android:attr/dropDownItemStyle"
-<<<<<<< HEAD
             android:textAppearance="?android:attr/textAppearanceSmallPopupMenu"
             android:textColor="#323232"
             android:singleLine="true"
             android:layout_width="match_parent"
-=======
-            android:textAppearance="?android:attr/textAppearanceSmallInverse"
-            android:textColor="#323232"
-            android:singleLine="true"
-            android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
             android:layout_height="wrap_content"
             android:layout_below="@android:id/text1"
             android:layout_alignLeft="@android:id/text1" />

@@ -19,10 +19,6 @@ package android.ddm;
 import org.apache.harmony.dalvik.ddmc.Chunk;
 import org.apache.harmony.dalvik.ddmc.ChunkHandler;
 import org.apache.harmony.dalvik.ddmc.DdmServer;
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 import java.nio.ByteBuffer;
 
@@ -91,11 +87,7 @@ public class DdmHandleAppName extends ChunkHandler {
      * Send an APNM (APplication NaMe) chunk.
      */
     private static void sendAPNM(String appName) {
-<<<<<<< HEAD
         if (false)
-=======
-        if (Config.LOGV)
->>>>>>> 54b6cfa... Initial Contribution
             Log.v("ddm", "Sending app name");
 
         ByteBuffer out = ByteBuffer.allocate(4 + appName.length()*2);

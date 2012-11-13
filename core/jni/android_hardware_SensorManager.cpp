@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD
 #define LOG_TAG "SensorManager"
 
 #include "utils/Log.h"
@@ -22,11 +21,6 @@
 #include <gui/Sensor.h>
 #include <gui/SensorManager.h>
 #include <gui/SensorEventQueue.h>
-=======
-#define LOG_TAG "Sensors"
-
-#include <hardware/sensors.h>
->>>>>>> 54b6cfa... Initial Contribution
 
 #include "jni.h"
 #include "JNIHelp.h"
@@ -34,7 +28,6 @@
 
 namespace android {
 
-<<<<<<< HEAD
 struct SensorOffsets
 {
     jfieldID    name;
@@ -48,13 +41,10 @@ struct SensorOffsets
     jfieldID    minDelay;
 } gSensorOffsets;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /*
  * The method below are not thread-safe and not intended to be
  */
 
-<<<<<<< HEAD
 
 static jint
 sensors_module_init(JNIEnv *env, jclass clazz)
@@ -184,49 +174,6 @@ static JNINativeMethod gMethods[] = {
                                             (void*)sensors_enable_sensor },
 
     {"sensors_data_poll",  "(I[F[I[J)I",     (void*)sensors_data_poll },
-=======
-static jint
-android_data_open(JNIEnv *env, jclass clazz, jobject fdo)
-{
-    jclass FileDescriptor = env->FindClass("java/io/FileDescriptor");
-    jfieldID offset = env->GetFieldID(FileDescriptor, "descriptor", "I");
-    int fd = env->GetIntField(fdo, offset);
-    return sensors_data_open(fd); // doesn't take ownership of fd
-}
-
-static jint
-android_data_close(JNIEnv *env, jclass clazz)
-{
-    return sensors_data_close();
-}
-
-static jint
-android_data_poll(JNIEnv *env, jclass clazz, jfloatArray values, jint sensors)
-{
-    sensors_data_t data;
-    int res = sensors_data_poll(&data, sensors);
-    if (res) {
-        env->SetFloatArrayRegion(values, 0, 3, data.vector.v);
-        // return the sensor's number
-        res = 31 - __builtin_clz(res);
-        // and its status in the top 4 bits
-        res |= data.vector.status << 28;
-    }
-    return res;
-}
-
-static jint
-android_data_get_sensors(JNIEnv *env, jclass clazz)
-{
-    return sensors_data_get_sensors();
-}
-
-static JNINativeMethod gMethods[] = {
-    {"_sensors_data_open",  "(Ljava/io/FileDescriptor;)I",  (void*) android_data_open },
-    {"_sensors_data_close", "()I",   (void*) android_data_close },
-    {"_sensors_data_poll",  "([FI)I", (void*) android_data_poll },
-    {"_sensors_data_get_sensors","()I",   (void*) android_data_get_sensors },
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 }; // namespace android
@@ -235,10 +182,6 @@ using namespace android;
 
 int register_android_hardware_SensorManager(JNIEnv *env)
 {
-<<<<<<< HEAD
     return jniRegisterNativeMethods(env, "android/hardware/SystemSensorManager",
-=======
-    return jniRegisterNativeMethods(env, "android/hardware/SensorManager",
->>>>>>> 54b6cfa... Initial Contribution
             gMethods, NELEM(gMethods));
 }

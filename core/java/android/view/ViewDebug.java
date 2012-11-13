@@ -16,7 +16,6 @@
 
 package android.view;
 
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -46,41 +45,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-=======
-import android.util.Log;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-
-import java.io.File;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.DataOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.BufferedOutputStream;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.lang.annotation.Target;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Various debugging/tracing tools related to {@link View} and the view hierarchy.
  */
 public class ViewDebug {
     /**
-<<<<<<< HEAD
      * @deprecated This flag is now unused
      */
     @Deprecated
@@ -99,22 +69,6 @@ public class ViewDebug {
     public static final boolean DEBUG_DRAG = false;
 
     /**
-=======
-     * Enables or disables view hierarchy tracing. Any invoker of
-     * {@link #trace(View, android.view.ViewDebug.HierarchyTraceType)} should first
-     * check that this value is set to true as not to affect performance.
-     */
-    public static final boolean TRACE_HIERARCHY = false;
-
-    /**
-     * Enables or disables view recycler tracing. Any invoker of
-     * {@link #trace(View, android.view.ViewDebug.RecyclerTraceType, int[])} should first
-     * check that this value is set to true as not to affect performance.
-     */
-    public static final boolean TRACE_RECYCLER = false;
-
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * This annotation can be used to mark fields and methods to be dumped by
      * the view server. Only non-void methods with no arguments can be annotated
      * by this annotation.
@@ -153,7 +107,6 @@ public class ViewDebug {
         IntToString[] mapping() default { };
 
         /**
-<<<<<<< HEAD
          * A mapping can be defined to map array indices to specific strings.
          * A mapping can be used to see human readable values for the indices
          * of an array:
@@ -194,19 +147,13 @@ public class ViewDebug {
         FlagToString[] flagMapping() default { };
 
         /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
          * When deep export is turned on, this property is not dumped. Instead, the
          * properties contained in this property are dumped. Each child property
          * is prefixed with the name of this property.
          *
          * @return true if the properties of this property should be dumped
          *
-<<<<<<< HEAD
          * @see #prefix()
-=======
-         * @see #prefix() 
->>>>>>> 54b6cfa... Initial Contribution
          */
         boolean deepExport() default false;
 
@@ -218,7 +165,6 @@ public class ViewDebug {
          * @see #deepExport()
          */
         String prefix() default "";
-<<<<<<< HEAD
 
         /**
          * Specifies the category the property falls into, such as measurement,
@@ -227,17 +173,11 @@ public class ViewDebug {
          * @return the category as String
          */
         String category() default "";
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Defines a mapping from an int value to a String. Such a mapping can be used
-<<<<<<< HEAD
      * in an @ExportedProperty to provide more meaningful values to the end user.
-=======
-     * in a @ExportedProperty to provide more meaningful values to the end user.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @see android.view.ViewDebug.ExportedProperty
      */
@@ -259,7 +199,6 @@ public class ViewDebug {
         String to();
     }
 
-<<<<<<< HEAD
     /**
      * Defines a mapping from a flag to a String. Such a mapping can be used
      * in an @ExportedProperty to provide more meaningful values to the end user.
@@ -319,8 +258,6 @@ public class ViewDebug {
     private static HashMap<Class<?>, Method[]> mCapturedViewMethodsForClasses = null;
     private static HashMap<Class<?>, Field[]> mCapturedViewFieldsForClasses = null;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     // Maximum delay in ms after which we stop trying to capture a View's drawing
     private static final int CAPTURE_TIMEOUT = 4000;
 
@@ -328,7 +265,6 @@ public class ViewDebug {
     private static final String REMOTE_COMMAND_DUMP = "DUMP";
     private static final String REMOTE_COMMAND_INVALIDATE = "INVALIDATE";
     private static final String REMOTE_COMMAND_REQUEST_LAYOUT = "REQUEST_LAYOUT";
-<<<<<<< HEAD
     private static final String REMOTE_PROFILE = "PROFILE";
     private static final String REMOTE_COMMAND_CAPTURE_LAYERS = "CAPTURE_LAYERS";
     private static final String REMOTE_COMMAND_OUTPUT_DISPLAYLIST = "OUTPUT_DISPLAYLIST";
@@ -341,15 +277,6 @@ public class ViewDebug {
      * @deprecated This enum is now unused
      */
     @Deprecated
-=======
-
-    private static HashMap<Class<?>, Field[]> sFieldsForClasses;
-    private static HashMap<Class<?>, Method[]> sMethodsForClasses;
-
-    /**
-     * Defines the type of hierarhcy trace to output to the hierarchy traces file.
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public enum HierarchyTraceType {
         INVALIDATE,
         INVALIDATE_CHILD,
@@ -361,48 +288,19 @@ public class ViewDebug {
         BUILD_CACHE
     }
 
-<<<<<<< HEAD
     /**
      * @deprecated This enum is now unused
      */
     @Deprecated
-=======
-    private static BufferedWriter sHierarchyTraces;
-    private static ViewRoot sHierarhcyRoot;
-    private static String sHierarchyTracePrefix;
-
-    /**
-     * Defines the type of recycler trace to output to the recycler traces file.
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public enum RecyclerTraceType {
         NEW_VIEW,
         BIND_VIEW,
         RECYCLE_FROM_ACTIVE_HEAP,
         RECYCLE_FROM_SCRAP_HEAP,
-<<<<<<< HEAD
-=======
-        MOVE_TO_ACTIVE_HEAP,
->>>>>>> 54b6cfa... Initial Contribution
         MOVE_TO_SCRAP_HEAP,
         MOVE_FROM_ACTIVE_TO_SCRAP_HEAP
     }
 
-<<<<<<< HEAD
-=======
-    private static class RecyclerTrace {
-        public int view;
-        public RecyclerTraceType type;
-        public int position;
-        public int indexOnScreen;
-    }
-
-    private static View sRecyclerOwnerView;
-    private static List<View> sRecyclerViews;
-    private static List<RecyclerTrace> sRecyclerTraces;
-    private static String sRecyclerTracePrefix;
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the number of instanciated Views.
      *
@@ -411,7 +309,6 @@ public class ViewDebug {
      * @hide
      */
     public static long getViewInstanceCount() {
-<<<<<<< HEAD
         return Debug.countInstancesOfClass(View.class);
     }
 
@@ -471,285 +368,6 @@ public class ViewDebug {
      */
     @Deprecated
     public static void stopHierarchyTracing() {
-=======
-        return View.sInstanceCount;
-    }
-
-    /**
-     * Returns the number of instanciated ViewRoots.
-     *
-     * @return The number of ViewRoots instanciated in the current process.
-     *
-     * @hide
-     */
-    public static long getViewRootInstanceCount() {
-        return ViewRoot.getInstanceCount();
-    }    
-
-    /**
-     * Outputs a trace to the currently opened recycler traces. The trace records the type of
-     * recycler action performed on the supplied view as well as a number of parameters.
-     *
-     * @param view the view to trace
-     * @param type the type of the trace
-     * @param parameters parameters depending on the type of the trace
-     */
-    public static void trace(View view, RecyclerTraceType type, int... parameters) {
-        if (sRecyclerOwnerView == null || sRecyclerViews == null) {
-            return;
-        }
-
-        if (!sRecyclerViews.contains(view)) {
-            sRecyclerViews.add(view);
-        }
-
-        final int index = sRecyclerViews.indexOf(view);
-
-        RecyclerTrace trace = new RecyclerTrace();
-        trace.view = index;
-        trace.type = type;
-        trace.position = parameters[0];
-        trace.indexOnScreen = parameters[1];
-
-        sRecyclerTraces.add(trace);
-    }
-
-    /**
-     * Starts tracing the view recycler of the specified view. The trace is identified by a prefix,
-     * used to build the traces files names: <code>/tmp/view-recycler/PREFIX.traces</code> and
-     * <code>/tmp/view-recycler/PREFIX.recycler</code>.
-     *
-     * Only one view recycler can be traced at the same time. After calling this method, any
-     * other invocation will result in a <code>IllegalStateException</code> unless
-     * {@link #stopRecyclerTracing()} is invoked before.
-     *
-     * Traces files are created only after {@link #stopRecyclerTracing()} is invoked.
-     *
-     * This method will return immediately if TRACE_RECYCLER is false.
-     *
-     * @param prefix the traces files name prefix
-     * @param view the view whose recycler must be traced
-     *
-     * @see #stopRecyclerTracing()
-     * @see #trace(View, android.view.ViewDebug.RecyclerTraceType, int[])
-     */
-    public static void startRecyclerTracing(String prefix, View view) {
-        //noinspection PointlessBooleanExpression,ConstantConditions
-        if (!TRACE_RECYCLER) {
-            return;
-        }
-
-        if (sRecyclerOwnerView != null) {
-            throw new IllegalStateException("You must call stopRecyclerTracing() before running" +
-                " a new trace!");
-        }
-
-        sRecyclerTracePrefix = prefix;
-        sRecyclerOwnerView = view;
-        sRecyclerViews = new ArrayList<View>();
-        sRecyclerTraces = new LinkedList<RecyclerTrace>();
-    }
-
-    /**
-     * Stops the current view recycer tracing.
-     *
-     * Calling this method creates the file <code>/tmp/view-recycler/PREFIX.traces</code>
-     * containing all the traces (or method calls) relative to the specified view's recycler.
-     *
-     * Calling this method creates the file <code>/tmp/view-recycler/PREFIX.recycler</code>
-     * containing all of the views used by the recycler of the view supplied to
-     * {@link #startRecyclerTracing(String, View)}.
-     *
-     * This method will return immediately if TRACE_RECYCLER is false.
-     *
-     * @see #startRecyclerTracing(String, View)
-     * @see #trace(View, android.view.ViewDebug.RecyclerTraceType, int[])
-     */
-    public static void stopRecyclerTracing() {
-        //noinspection PointlessBooleanExpression,ConstantConditions
-        if (!TRACE_RECYCLER) {
-            return;
-        }
-
-        if (sRecyclerOwnerView == null || sRecyclerViews == null) {
-            throw new IllegalStateException("You must call startRecyclerTracing() before" +
-                " stopRecyclerTracing()!");
-        }
-
-        File recyclerDump = new File("/tmp/view-recycler/");
-        recyclerDump.mkdirs();
-
-        recyclerDump = new File(recyclerDump, sRecyclerTracePrefix + ".recycler");
-        try {
-            final BufferedWriter out = new BufferedWriter(new FileWriter(recyclerDump), 8 * 1024);
-
-            for (View view : sRecyclerViews) {
-                final String name = view.getClass().getName();
-                out.write(name);
-                out.newLine();
-            }
-
-            out.close();
-        } catch (IOException e) {
-            Log.e("View", "Could not dump recycler content");
-            return;
-        }
-
-        recyclerDump = new File("/tmp/view-recycler/");
-        recyclerDump = new File(recyclerDump, sRecyclerTracePrefix + ".traces");
-        try {
-            final FileOutputStream file = new FileOutputStream(recyclerDump);
-            final DataOutputStream out = new DataOutputStream(file);
-
-            for (RecyclerTrace trace : sRecyclerTraces) {
-                out.writeInt(trace.view);
-                out.writeInt(trace.type.ordinal());
-                out.writeInt(trace.position);
-                out.writeInt(trace.indexOnScreen);
-                out.flush();
-            }
-
-            out.close();
-        } catch (IOException e) {
-            Log.e("View", "Could not dump recycler traces");
-            return;
-        }
-
-        sRecyclerViews.clear();
-        sRecyclerViews = null;
-
-        sRecyclerTraces.clear();
-        sRecyclerTraces = null;
-
-        sRecyclerOwnerView = null;
-    }
-
-    /**
-     * Outputs a trace to the currently opened traces file. The trace contains the class name
-     * and instance's hashcode of the specified view as well as the supplied trace type.
-     *
-     * @param view the view to trace
-     * @param type the type of the trace
-     */
-    public static void trace(View view, HierarchyTraceType type) {
-        if (sHierarchyTraces == null) {
-            return;
-        }
-
-        try {
-            sHierarchyTraces.write(type.name());
-            sHierarchyTraces.write(' ');
-            sHierarchyTraces.write(view.getClass().getName());
-            sHierarchyTraces.write('@');
-            sHierarchyTraces.write(Integer.toHexString(view.hashCode()));
-            sHierarchyTraces.newLine();
-        } catch (IOException e) {
-            Log.w("View", "Error while dumping trace of type " + type + " for view " + view);
-        }
-    }
-
-    /**
-     * Starts tracing the view hierarchy of the specified view. The trace is identified by a prefix,
-     * used to build the traces files names: <code>/tmp/view-hierarchy/PREFIX.traces</code> and
-     * <code>/tmp/view-hierarchy/PREFIX.tree</code>.
-     *
-     * Only one view hierarchy can be traced at the same time. After calling this method, any
-     * other invocation will result in a <code>IllegalStateException</code> unless
-     * {@link #stopHierarchyTracing()} is invoked before.
-     *
-     * Calling this method creates the file <code>/tmp/view-hierarchy/PREFIX.traces</code>
-     * containing all the traces (or method calls) relative to the specified view's hierarchy.
-     *
-     * This method will return immediately if TRACE_HIERARCHY is false.
-     *
-     * @param prefix the traces files name prefix
-     * @param view the view whose hierarchy must be traced
-     *
-     * @see #stopHierarchyTracing()
-     * @see #trace(View, android.view.ViewDebug.HierarchyTraceType)
-     */
-    public static void startHierarchyTracing(String prefix, View view) {
-        //noinspection PointlessBooleanExpression,ConstantConditions
-        if (!TRACE_HIERARCHY) {
-            return;
-        }
-
-        if (sHierarhcyRoot != null) {
-            throw new IllegalStateException("You must call stopHierarchyTracing() before running" +
-                " a new trace!");
-        }
-
-        File hierarchyDump = new File("/tmp/view-hierarchy/");
-        hierarchyDump.mkdirs();
-
-        hierarchyDump = new File(hierarchyDump, prefix + ".traces");
-        sHierarchyTracePrefix = prefix;
-
-        try {
-            sHierarchyTraces = new BufferedWriter(new FileWriter(hierarchyDump), 8 * 1024);
-        } catch (IOException e) {
-            Log.e("View", "Could not dump view hierarchy");
-            return;
-        }
-
-        sHierarhcyRoot = (ViewRoot) view.getRootView().getParent();
-    }
-
-    /**
-     * Stops the current view hierarchy tracing. This method closes the file
-     * <code>/tmp/view-hierarchy/PREFIX.traces</code>. 
-     *
-     * Calling this method creates the file <code>/tmp/view-hierarchy/PREFIX.tree</code> containing
-     * the view hierarchy of the view supplied to {@link #startHierarchyTracing(String, View)}.
-     *
-     * This method will return immediately if TRACE_HIERARCHY is false.
-     *
-     * @see #startHierarchyTracing(String, View) 
-     * @see #trace(View, android.view.ViewDebug.HierarchyTraceType)
-     */
-    public static void stopHierarchyTracing() {
-        //noinspection PointlessBooleanExpression,ConstantConditions
-        if (!TRACE_HIERARCHY) {
-            return;
-        }
-
-        if (sHierarhcyRoot == null || sHierarchyTraces == null) {
-            throw new IllegalStateException("You must call startHierarchyTracing() before" +
-                " stopHierarchyTracing()!");
-        }
-
-        try {
-            sHierarchyTraces.close();
-        } catch (IOException e) {
-            Log.e("View", "Could not write view traces");
-        }
-        sHierarchyTraces = null;
-
-        File hierarchyDump = new File("/tmp/view-hierarchy/");
-        hierarchyDump.mkdirs();
-        hierarchyDump = new File(hierarchyDump, sHierarchyTracePrefix + ".tree");
-
-        BufferedWriter out;
-        try {
-            out = new BufferedWriter(new FileWriter(hierarchyDump), 8 * 1024);
-        } catch (IOException e) {
-            Log.e("View", "Could not dump view hierarchy");
-            return;
-        }
-
-        View view = sHierarhcyRoot.getView();
-        if (view instanceof ViewGroup) {
-            ViewGroup group = (ViewGroup) view;
-            dumpViewHierarchy(group, out, 0);
-            try {
-                out.close();
-            } catch (IOException e) {
-                Log.e("View", "Could not dump view hierarchy");
-            }
-        }
-
-        sHierarhcyRoot = null;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     static void dispatchCommand(View view, String command, String parameters,
@@ -760,34 +378,24 @@ public class ViewDebug {
 
         if (REMOTE_COMMAND_DUMP.equalsIgnoreCase(command)) {
             dump(view, clientStream);
-<<<<<<< HEAD
         } else if (REMOTE_COMMAND_CAPTURE_LAYERS.equalsIgnoreCase(command)) {
             captureLayers(view, new DataOutputStream(clientStream));
-=======
->>>>>>> 54b6cfa... Initial Contribution
         } else {
             final String[] params = parameters.split(" ");
             if (REMOTE_COMMAND_CAPTURE.equalsIgnoreCase(command)) {
                 capture(view, clientStream, params[0]);
-<<<<<<< HEAD
             } else if (REMOTE_COMMAND_OUTPUT_DISPLAYLIST.equalsIgnoreCase(command)) {
                 outputDisplayList(view, params[0]);
-=======
->>>>>>> 54b6cfa... Initial Contribution
             } else if (REMOTE_COMMAND_INVALIDATE.equalsIgnoreCase(command)) {
                 invalidate(view, params[0]);
             } else if (REMOTE_COMMAND_REQUEST_LAYOUT.equalsIgnoreCase(command)) {
                 requestLayout(view, params[0]);
-<<<<<<< HEAD
             } else if (REMOTE_PROFILE.equalsIgnoreCase(command)) {
                 profile(view, clientStream, params[0]);
-=======
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
-<<<<<<< HEAD
     private static View findView(View root, String parameter) {
         // Look by type/hashcode
         if (parameter.indexOf('@') != -1) {
@@ -803,38 +411,20 @@ public class ViewDebug {
             // Look by id
             final int id = root.getResources().getIdentifier(parameter, null, null);
             return root.getRootView().findViewById(id);
-=======
-    private static View findViewByHashCode(View root, String parameter) {
-        final String[] ids = parameter.split("@");
-        final String className = ids[0];
-        final int hashCode = Integer.parseInt(ids[1], 16);
-
-        View view = root.getRootView();
-        if (view instanceof ViewGroup) {
-            return findView((ViewGroup) view, className, hashCode);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         return null;
     }
 
     private static void invalidate(View root, String parameter) {
-<<<<<<< HEAD
         final View view = findView(root, parameter);
-=======
-        final View view = findViewByHashCode(root, parameter);
->>>>>>> 54b6cfa... Initial Contribution
         if (view != null) {
             view.postInvalidate();
         }
     }
 
     private static void requestLayout(View root, String parameter) {
-<<<<<<< HEAD
         final View view = findView(root, parameter);
-=======
-        final View view = findViewByHashCode(root, parameter);
->>>>>>> 54b6cfa... Initial Contribution
         if (view != null) {
             root.post(new Runnable() {
                 public void run() {
@@ -844,7 +434,6 @@ public class ViewDebug {
         }
     }
 
-<<<<<<< HEAD
     private static void profile(View root, OutputStream clientStream, String parameter)
             throws IOException {
 
@@ -1116,32 +705,6 @@ public class ViewDebug {
                                 Bitmap.Config.ARGB_8888, 0, skpiChildren);
                     } catch (OutOfMemoryError e) {
                         Log.w("View", "Out of memory for bitmap");
-=======
-    private static void capture(View root, final OutputStream clientStream, String parameter)
-            throws IOException {
-
-        final CountDownLatch latch = new CountDownLatch(1);
-        final View captureView = findViewByHashCode(root, parameter);
-
-        if (captureView != null) {
-            final Bitmap[] cache = new Bitmap[1];
-
-            final boolean hasCache = captureView.isDrawingCacheEnabled();
-            final boolean willNotCache = captureView.willNotCacheDrawing();
-
-            if (willNotCache) {
-                captureView.setWillNotCacheDrawing(false);
-            }
-
-            root.post(new Runnable() {
-                public void run() {
-                    try {
-                        if (!hasCache) {
-                            captureView.buildDrawingCache();
-                        }
-
-                        cache[0] = captureView.getDrawingCache();
->>>>>>> 54b6cfa... Initial Contribution
                     } finally {
                         latch.countDown();
                     }
@@ -1150,7 +713,6 @@ public class ViewDebug {
 
             try {
                 latch.await(CAPTURE_TIMEOUT, TimeUnit.MILLISECONDS);
-<<<<<<< HEAD
                 return cache[0];
             } catch (InterruptedException e) {
                 Log.w("View", "Could not complete the capture of the view " + captureView);
@@ -1159,38 +721,11 @@ public class ViewDebug {
         }
         
         return null;
-=======
-
-                if (cache[0] != null) {
-                    BufferedOutputStream out = null;
-                    try {
-                        out = new BufferedOutputStream(clientStream, 32 * 1024);
-                        cache[0].compress(Bitmap.CompressFormat.PNG, 100, out);
-                        out.flush();
-                    } finally {
-                        if (out != null) {
-                            out.close();
-                        }
-                    }
-                }
-            } catch (InterruptedException e) {
-                Log.w("View", "Could not complete the capture of the view " + captureView);                
-            } finally {
-                if (willNotCache) {
-                    captureView.setWillNotCacheDrawing(true);
-                }
-                if (!hasCache) {
-                    captureView.destroyDrawingCache();
-                }
-            }
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private static void dump(View root, OutputStream clientStream) throws IOException {
         BufferedWriter out = null;
         try {
-<<<<<<< HEAD
             out = new BufferedWriter(new OutputStreamWriter(clientStream, "utf-8"), 32 * 1024);
             View view = root.getRootView();
             if (view instanceof ViewGroup) {
@@ -1201,16 +736,6 @@ public class ViewDebug {
             out.newLine();
         } catch (Exception e) {
             android.util.Log.w("View", "Problem dumping the view:", e);
-=======
-            out = new BufferedWriter(new OutputStreamWriter(clientStream), 32 * 1024);
-            View view = root.getRootView();
-            if (view instanceof ViewGroup) {
-                ViewGroup group = (ViewGroup) view;
-                dumpViewHierarchyWithProperties(group, out, 0);
-            }
-            out.write("DONE.");
-            out.newLine();
->>>>>>> 54b6cfa... Initial Contribution
         } finally {
             if (out != null) {
                 out.close();
@@ -1243,15 +768,9 @@ public class ViewDebug {
         return view.getClass().getName().equals(className) && view.hashCode() == hashCode;
     }
 
-<<<<<<< HEAD
     private static void dumpViewHierarchyWithProperties(Context context, ViewGroup group,
             BufferedWriter out, int level) {
         if (!dumpViewWithProperties(context, group, out, level)) {
-=======
-    private static void dumpViewHierarchyWithProperties(ViewGroup group,
-            BufferedWriter out, int level) {
-        if (!dumpViewWithProperties(group, out, level)) {
->>>>>>> 54b6cfa... Initial Contribution
             return;
         }
 
@@ -1259,26 +778,16 @@ public class ViewDebug {
         for (int i = 0; i < count; i++) {
             final View view = group.getChildAt(i);
             if (view instanceof ViewGroup) {
-<<<<<<< HEAD
                 dumpViewHierarchyWithProperties(context, (ViewGroup) view, out, level + 1);
             } else {
                 dumpViewWithProperties(context, view, out, level + 1);
-=======
-                dumpViewHierarchyWithProperties((ViewGroup) view, out, level + 1);
-            } else {
-                dumpViewWithProperties(view, out, level + 1);
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
-<<<<<<< HEAD
     private static boolean dumpViewWithProperties(Context context, View view,
             BufferedWriter out, int level) {
 
-=======
-    private static boolean dumpViewWithProperties(View view, BufferedWriter out, int level) {
->>>>>>> 54b6cfa... Initial Contribution
         try {
             for (int i = 0; i < level; i++) {
                 out.write(' ');
@@ -1287,11 +796,7 @@ public class ViewDebug {
             out.write('@');
             out.write(Integer.toHexString(view.hashCode()));
             out.write(' ');
-<<<<<<< HEAD
             dumpViewProperties(context, view, out);
-=======
-            dumpViewProperties(view, out);
->>>>>>> 54b6cfa... Initial Contribution
             out.newLine();
         } catch (IOException e) {
             Log.w("View", "Error while dumping hierarchy tree");
@@ -1304,13 +809,10 @@ public class ViewDebug {
         if (sFieldsForClasses == null) {
             sFieldsForClasses = new HashMap<Class<?>, Field[]>();
         }
-<<<<<<< HEAD
         if (sAnnotations == null) {
             sAnnotations = new HashMap<AccessibleObject, ExportedProperty>(512);
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         final HashMap<Class<?>, Field[]> map = sFieldsForClasses;
 
         Field[] fields = map.get(klass);
@@ -1327,10 +829,7 @@ public class ViewDebug {
             if (field.isAnnotationPresent(ExportedProperty.class)) {
                 field.setAccessible(true);
                 foundFields.add(field);
-<<<<<<< HEAD
                 sAnnotations.put(field, field.getAnnotation(ExportedProperty.class));
-=======
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -1342,17 +841,12 @@ public class ViewDebug {
 
     private static Method[] getExportedPropertyMethods(Class<?> klass) {
         if (sMethodsForClasses == null) {
-<<<<<<< HEAD
             sMethodsForClasses = new HashMap<Class<?>, Method[]>(100);
         }
         if (sAnnotations == null) {
             sAnnotations = new HashMap<AccessibleObject, ExportedProperty>(512);
         }
 
-=======
-            sMethodsForClasses = new HashMap<Class<?>, Method[]>();
-        }
->>>>>>> 54b6cfa... Initial Contribution
         final HashMap<Class<?>, Method[]> map = sMethodsForClasses;
 
         Method[] methods = map.get(klass);
@@ -1367,18 +861,11 @@ public class ViewDebug {
         for (int i = 0; i < count; i++) {
             final Method method = methods[i];
             if (method.getParameterTypes().length == 0 &&
-<<<<<<< HEAD
                     method.isAnnotationPresent(ExportedProperty.class) &&
                     method.getReturnType() != Void.class) {
                 method.setAccessible(true);
                 foundMethods.add(method);
                 sAnnotations.put(method, method.getAnnotation(ExportedProperty.class));
-=======
-                        method.isAnnotationPresent(ExportedProperty.class) &&
-                        method.getReturnType() != Void.class) {
-                method.setAccessible(true);
-                foundMethods.add(method);
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -1388,7 +875,6 @@ public class ViewDebug {
         return methods;
     }
 
-<<<<<<< HEAD
     private static void dumpViewProperties(Context context, Object view,
             BufferedWriter out) throws IOException {
 
@@ -1403,30 +889,12 @@ public class ViewDebug {
         do {
             exportFields(context, view, out, klass, prefix);
             exportMethods(context, view, out, klass, prefix);
-=======
-    private static void dumpViewProperties(Object view, BufferedWriter out) throws IOException {
-        dumpViewProperties(view, out, "");
-    }
-
-    private static void dumpViewProperties(Object view, BufferedWriter out, String prefix)
-            throws IOException {
-        Class<?> klass = view.getClass();
-
-        do {
-            exportFields(view, out, klass, prefix);
-            exportMethods(view, out, klass, prefix);
->>>>>>> 54b6cfa... Initial Contribution
             klass = klass.getSuperclass();
         } while (klass != Object.class);
     }
 
-<<<<<<< HEAD
     private static void exportMethods(Context context, Object view, BufferedWriter out,
             Class<?> klass, String prefix) throws IOException {
-=======
-    private static void exportMethods(Object view, BufferedWriter out, Class<?> klass,
-            String prefix) throws IOException {
->>>>>>> 54b6cfa... Initial Contribution
 
         final Method[] methods = getExportedPropertyMethods(klass);
 
@@ -1438,7 +906,6 @@ public class ViewDebug {
                 // TODO: This should happen on the UI thread
                 Object methodValue = method.invoke(view, (Object[]) null);
                 final Class<?> returnType = method.getReturnType();
-<<<<<<< HEAD
                 final ExportedProperty property = sAnnotations.get(method);
                 String categoryPrefix =
                         property.category().length() != 0 ? property.category() + ":" : "";
@@ -1457,21 +924,6 @@ public class ViewDebug {
                             exportUnrolledFlags(out, flagsMapping, intValue, valuePrefix);
                         }
 
-=======
-
-                if (returnType == int.class) {
-                    ExportedProperty property = method.getAnnotation(ExportedProperty.class);
-                    if (property.resolveId() && view instanceof View) {
-                        final Resources resources = ((View) view).getContext().getResources();
-                        final int id = (Integer) methodValue;
-                        if (id >= 0) {
-                            methodValue = resources.getResourceTypeName(id) + '/' +
-                                    resources.getResourceEntryName(id);
-                        } else {
-                            methodValue = "NO_ID";
-                        }
-                    } else {
->>>>>>> 54b6cfa... Initial Contribution
                         final IntToString[] mapping = property.mapping();
                         if (mapping.length > 0) {
                             final int intValue = (Integer) methodValue;
@@ -1491,7 +943,6 @@ public class ViewDebug {
                             }
                         }
                     }
-<<<<<<< HEAD
                 } else if (returnType == int[].class) {
                     final int[] array = (int[]) methodValue;
                     final String valuePrefix = categoryPrefix + prefix + method.getName() + '_';
@@ -1504,48 +955,20 @@ public class ViewDebug {
                 } else if (!returnType.isPrimitive()) {
                     if (property.deepExport()) {
                         dumpViewProperties(context, methodValue, out, prefix + property.prefix());
-=======
-                } else if (!returnType.isPrimitive()) {
-                    ExportedProperty property = method.getAnnotation(ExportedProperty.class);
-                    if (property.deepExport()) {
-                        dumpViewProperties(methodValue, out, prefix + property.prefix());
->>>>>>> 54b6cfa... Initial Contribution
                         continue;
                     }
                 }
 
-<<<<<<< HEAD
                 writeEntry(out, categoryPrefix + prefix, method.getName(), "()", methodValue);
-=======
-                out.write(prefix);
-                out.write(method.getName());
-                out.write("()=");
-
-                if (methodValue != null) {
-                    final String value = methodValue.toString().replace("\n", "\\n");
-                    out.write(String.valueOf(value.length()));
-                    out.write(",");
-                    out.write(value);
-                } else {
-                    out.write("4,null");
-                }
-
-                out.write(' ');
->>>>>>> 54b6cfa... Initial Contribution
             } catch (IllegalAccessException e) {
             } catch (InvocationTargetException e) {
             }
         }
     }
 
-<<<<<<< HEAD
     private static void exportFields(Context context, Object view, BufferedWriter out,
             Class<?> klass, String prefix) throws IOException {
 
-=======
-    private static void exportFields(Object view, BufferedWriter out, Class<?> klass, String prefix)
-            throws IOException {
->>>>>>> 54b6cfa... Initial Contribution
         final Field[] fields = getExportedPropertyFields(klass);
 
         int count = fields.length;
@@ -1556,7 +979,6 @@ public class ViewDebug {
             try {
                 Object fieldValue = null;
                 final Class<?> type = field.getType();
-<<<<<<< HEAD
                 final ExportedProperty property = sAnnotations.get(field);
                 String categoryPrefix =
                         property.category().length() != 0 ? property.category() + ":" : "";
@@ -1575,21 +997,6 @@ public class ViewDebug {
                             exportUnrolledFlags(out, flagsMapping, intValue, valuePrefix);
                         }
 
-=======
-
-                if (type == int.class) {
-                    ExportedProperty property = field.getAnnotation(ExportedProperty.class);
-                    if (property.resolveId() && view instanceof View) {
-                        final Resources resources = ((View) view).getContext().getResources();
-                        final int id = field.getInt(view);
-                        if (id >= 0) {
-                            fieldValue = resources.getResourceTypeName(id) + '/' +
-                                    resources.getResourceEntryName(id);
-                        } else {
-                            fieldValue = "NO_ID";
-                        }
-                    } else {
->>>>>>> 54b6cfa... Initial Contribution
                         final IntToString[] mapping = property.mapping();
                         if (mapping.length > 0) {
                             final int intValue = field.getInt(view);
@@ -1607,7 +1014,6 @@ public class ViewDebug {
                             }
                         }
                     }
-<<<<<<< HEAD
                 } else if (type == int[].class) {
                     final int[] array = (int[]) field.get(view);
                     final String valuePrefix = categoryPrefix + prefix + field.getName() + '_';
@@ -1621,19 +1027,12 @@ public class ViewDebug {
                     if (property.deepExport()) {
                         dumpViewProperties(context, field.get(view), out, prefix
                                 + property.prefix());
-=======
-                } else if (!type.isPrimitive()) {
-                    ExportedProperty property = field.getAnnotation(ExportedProperty.class);
-                    if (property.deepExport()) {
-                        dumpViewProperties(field.get(view), out, prefix + property.prefix());
->>>>>>> 54b6cfa... Initial Contribution
                         continue;
                     }
                 }
 
                 if (fieldValue == null) {
                     fieldValue = field.get(view);
-<<<<<<< HEAD
                 }
 
                 writeEntry(out, categoryPrefix + prefix, field.getName(), "", fieldValue);
@@ -1900,58 +1299,5 @@ public class ViewDebug {
         sb.append(capturedViewExportFields(view, klass, ""));
         sb.append(capturedViewExportMethods(view, klass, ""));
         Log.d(tag, sb.toString());
-=======
-                }                
-
-                out.write(prefix);
-                out.write(field.getName());
-                out.write('=');
-
-                if (fieldValue != null) {
-                    final String value = fieldValue.toString().replace("\n", "\\n");
-                    out.write(String.valueOf(value.length()));
-                    out.write(",");
-                    out.write(value);
-                } else {
-                    out.write("4,null");
-                }
-
-                out.write(' ');
-            } catch (IllegalAccessException e) {
-            }
-        }
-    }
-
-    private static void dumpViewHierarchy(ViewGroup group, BufferedWriter out, int level) {
-        if (!dumpView(group, out, level)) {
-            return;
-        }
-
-        final int count = group.getChildCount();
-        for (int i = 0; i < count; i++) {
-            final View view = group.getChildAt(i);
-            if (view instanceof ViewGroup) {
-                dumpViewHierarchy((ViewGroup) view, out, level + 1);
-            } else {
-                dumpView(view, out, level + 1);
-            }
-        }
-    }
-
-    private static boolean dumpView(Object view, BufferedWriter out, int level) {
-        try {
-            for (int i = 0; i < level; i++) {
-                out.write(' ');
-            }
-            out.write(view.getClass().getName());
-            out.write('@');
-            out.write(Integer.toHexString(view.hashCode()));
-            out.newLine();
-        } catch (IOException e) {
-            Log.w("View", "Error while dumping hierarchy tree");
-            return false;
-        }
-        return true;
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

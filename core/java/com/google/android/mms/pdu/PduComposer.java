@@ -19,20 +19,13 @@ package com.google.android.mms.pdu;
 
 import android.content.ContentResolver;
 import android.content.Context;
-<<<<<<< HEAD
 import android.util.Log;
 import android.text.TextUtils;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-<<<<<<< HEAD
-=======
-import java.io.UnsupportedEncodingException;
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -459,7 +452,6 @@ public class PduComposer {
         appendQuotedString(str.getBytes());
     }
 
-<<<<<<< HEAD
     private EncodedStringValue appendAddressType(EncodedStringValue address) {
         EncodedStringValue temp = null;
 
@@ -483,8 +475,6 @@ public class PduComposer {
         return temp;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Append header to mMessage.
      */
@@ -495,11 +485,7 @@ public class PduComposer {
 
                 int version = mPduHeader.getOctet(field);
                 if (0 == version) {
-<<<<<<< HEAD
                     appendShortInteger(PduHeaders.CURRENT_MMS_VERSION);
-=======
-                    appendShortInteger(PduHeaders.MMS_VERSION_1_3);
->>>>>>> 54b6cfa... Initial Contribution
                 } else {
                     appendShortInteger(version);
                 }
@@ -528,26 +514,8 @@ public class PduComposer {
 
                 EncodedStringValue temp;
                 for (int i = 0; i < addr.length; i++) {
-<<<<<<< HEAD
                     temp = appendAddressType(addr[i]);
                     if (temp == null) {
-=======
-                    try {
-                        int addressType = checkAddressType(addr[i].getString());
-                        temp = EncodedStringValue.copy(addr[i]);
-                        if (PDU_PHONE_NUMBER_ADDRESS_TYPE == addressType) {
-                            // Phone number.
-                            temp.appendTextString(
-                                    STRING_PHONE_NUMBER_ADDRESS_TYPE.getBytes());
-                        } else if (PDU_IPV4_ADDRESS_TYPE == addressType) {
-                            // Ipv4 address.
-                            temp.appendTextString(STRING_IPV4_ADDRESS_TYPE.getBytes());
-                        } else if (PDU_IPV6_ADDRESS_TYPE == addressType) {
-                            // Ipv6 address.
-                            temp.appendTextString(STRING_IPV6_ADDRESS_TYPE.getBytes());
-                        }
-                    } catch (NullPointerException e) {
->>>>>>> 54b6cfa... Initial Contribution
                         return PDU_COMPOSE_CONTENT_ERROR;
                     }
 
@@ -562,10 +530,7 @@ public class PduComposer {
 
                 EncodedStringValue from = mPduHeader.getEncodedStringValue(field);
                 if ((from == null)
-<<<<<<< HEAD
                         || TextUtils.isEmpty(from.getString())
-=======
->>>>>>> 54b6cfa... Initial Contribution
                         || new String(from.getTextString()).equals(
                                 PduHeaders.FROM_INSERT_ADDRESS_TOKEN_STR)) {
                     // Length of from = 1
@@ -578,7 +543,6 @@ public class PduComposer {
 
                     // Address-present-token = <Octet 128>
                     append(PduHeaders.FROM_ADDRESS_PRESENT_TOKEN);
-<<<<<<< HEAD
 
                     temp = appendAddressType(from);
                     if (temp == null) {
@@ -586,9 +550,6 @@ public class PduComposer {
                     }
 
                     appendEncodedString(temp);
-=======
-                    appendEncodedString(from);
->>>>>>> 54b6cfa... Initial Contribution
 
                     int flen = fstart.getLength();
                     mStack.pop();
@@ -874,13 +835,7 @@ public class PduComposer {
         appendOctet(PduHeaders.CONTENT_TYPE);
 
         //  Message body
-<<<<<<< HEAD
         return makeMessageBody();
-=======
-        makeMessageBody();
-
-        return PDU_COMPOSE_SUCCESS;  // Composing the message is OK
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -893,12 +848,7 @@ public class PduComposer {
         PositionMarker ctStart = mStack.mark();
 
         // This contentTypeIdentifier should be used for type of attachment...
-<<<<<<< HEAD
         String contentType = new String(mPduHeader.getTextString(PduHeaders.CONTENT_TYPE));
-=======
-        String contentType = new String(
-                mPduHeader.getTextString(PduHeaders.CONTENT_TYPE));
->>>>>>> 54b6cfa... Initial Contribution
         Integer contentTypeIdentifier = mContentTypeMap.get(contentType);
         if (contentTypeIdentifier == null) {
             // content type is mandatory
@@ -909,11 +859,7 @@ public class PduComposer {
 
         // content-type parameter: start
         PduBody body = ((SendReq) mPdu).getBody();
-<<<<<<< HEAD
         if (null == body || body.getPartsNum() == 0) {
-=======
-        if (null == body) {
->>>>>>> 54b6cfa... Initial Contribution
             // empty message
             appendUintvarInteger(0);
             mStack.pop();
@@ -1021,11 +967,7 @@ public class PduComposer {
                     appendQuotedString("<" + new String(contentId) + ">");
                 }
             }
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             // content-location
             byte[] contentLocation = part.getContentLocation();
             if (null != contentLocation) {

@@ -19,7 +19,6 @@
  */
 class Record {
 
-<<<<<<< HEAD
     /**
      * The delimiter character we use, {@code :}, conflicts with some other
      * names. In that case, manually replace the delimiter with something else.
@@ -49,8 +48,6 @@ class Record {
             "android\\u003Aui",
     };
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     enum Type {
         /** Start of initialization. */
         START_LOAD,
@@ -89,7 +86,6 @@ class Record {
     /** Record time (ns). */
     final long time;
 
-<<<<<<< HEAD
     /** Source file line# */
     int sourceLineNumber;
 
@@ -97,12 +93,6 @@ class Record {
      * Parses a line from the loaded-classes file.
      */
     Record(String line, int lineNum) {
-=======
-    /**
-     * Parses a line from the loaded-classes file.
-     */
-    Record(String line) {
->>>>>>> 54b6cfa... Initial Contribution
         char typeChar = line.charAt(0);
         switch (typeChar) {
             case '>': type = Type.START_LOAD; break;
@@ -112,15 +102,12 @@ class Record {
             default: throw new AssertionError("Bad line: " + line);
         }
 
-<<<<<<< HEAD
         sourceLineNumber = lineNum;
 
         for (int i = 0; i < REPLACE_CLASSES.length; i+= 2) {
             line = line.replace(REPLACE_CLASSES[i], REPLACE_CLASSES[i+1]);
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         line = line.substring(1);
         String[] parts = line.split(":");
 
@@ -128,23 +115,15 @@ class Record {
         pid = Integer.parseInt(parts[1]);
         tid = Integer.parseInt(parts[2]);
 
-<<<<<<< HEAD
         processName = decode(parts[3]).intern();
 
         classLoader = Integer.parseInt(parts[4]);
         className = vmTypeToLanguage(decode(parts[5])).intern();
-=======
-        processName = parts[3].intern();
-
-        classLoader = Integer.parseInt(parts[4]);
-        className = vmTypeToLanguage(parts[5]).intern();
->>>>>>> 54b6cfa... Initial Contribution
 
         time = Long.parseLong(parts[6]);
     }
 
     /**
-<<<<<<< HEAD
      * Decode any escaping that may have been written to the log line.
      *
      * Supports unicode-style escaping:  \\uXXXX = character in hex
@@ -181,13 +160,6 @@ class Record {
 
         if (!typeName.startsWith("L") || !typeName.endsWith(";") ) {
             throw new AssertionError("Bad name: " + typeName + " in line " + sourceLineNumber);
-=======
-     * Converts a VM-style name to a language-style name.
-     */
-    static String vmTypeToLanguage(String typeName) {
-        if (!typeName.startsWith("L") || !typeName.endsWith(";") ) {
-            throw new AssertionError("Bad name: " + typeName);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         typeName = typeName.substring(1, typeName.length() - 1);

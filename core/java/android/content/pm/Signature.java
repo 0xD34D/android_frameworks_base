@@ -16,7 +16,6 @@
 
 package android.content.pm;
 
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -26,12 +25,6 @@ import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
-=======
-import android.content.ComponentName;
-import android.os.Parcel;
-import android.os.Parcelable;
-
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.Arrays;
 
 /**
@@ -42,11 +35,7 @@ public class Signature implements Parcelable {
     private final byte[] mSignature;
     private int mHashCode;
     private boolean mHaveHashCode;
-<<<<<<< HEAD
     private SoftReference<String> mStringRef;
-=======
-    private String mString;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Create Signature from an existing raw byte array.
@@ -55,7 +44,6 @@ public class Signature implements Parcelable {
         mSignature = signature.clone();
     }
 
-<<<<<<< HEAD
     private static final int parseHexDigit(int nibble) {
         if ('0' <= nibble && nibble <= '9') {
             return nibble - '0';
@@ -93,23 +81,6 @@ public class Signature implements Parcelable {
             sig[sigIndex++] = (byte) ((hi << 4) | lo);
         }
 
-=======
-    /**
-     * Create Signature from a text representation previously returned by
-     * {@link #toChars} or {@link #toCharsString()}.
-     */
-    public Signature(String text) {
-        final int N = text.length()/2;
-        byte[] sig = new byte[N];
-        for (int i=0; i<N; i++) {
-            char c = text.charAt(i*2);
-            byte b = (byte)(
-                    (c >= 'a' ? (c - 'a' + 10) : (c - '0'))<<4);
-            c = text.charAt(i*2 + 1);
-            b |= (byte)(c >= 'a' ? (c - 'a' + 10) : (c - '0'));
-            sig[i] = b;
-        }
->>>>>>> 54b6cfa... Initial Contribution
         mSignature = sig;
     }
 
@@ -148,7 +119,6 @@ public class Signature implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Return the result of {@link #toChars()} as a String.
      */
     public String toCharsString() {
@@ -159,16 +129,6 @@ public class Signature implements Parcelable {
         str = new String(toChars());
         mStringRef = new SoftReference<String>(str);
         return str;
-=======
-     * Return the result of {@link #toChars()} as a String.  This result is
-     * cached so future calls will return the same String.
-     */
-    public String toCharsString() {
-        if (mString != null) return mString;
-        String str = new String(toChars());
-        mString = str;
-        return mString;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -180,7 +140,6 @@ public class Signature implements Parcelable {
         return bytes;
     }
 
-<<<<<<< HEAD
     /**
      * Returns the public key for this signature.
      *
@@ -195,18 +154,12 @@ public class Signature implements Parcelable {
         return cert.getPublicKey();
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public boolean equals(Object obj) {
         try {
             if (obj != null) {
                 Signature other = (Signature)obj;
-<<<<<<< HEAD
                 return this == other || Arrays.equals(mSignature, other.mSignature);
-=======
-                return Arrays.equals(mSignature, other.mSignature);
->>>>>>> 54b6cfa... Initial Contribution
             }
         } catch (ClassCastException e) {
         }

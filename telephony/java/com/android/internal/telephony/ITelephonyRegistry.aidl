@@ -17,17 +17,12 @@
 package com.android.internal.telephony;
 
 import android.content.Intent;
-<<<<<<< HEAD
 import android.net.LinkProperties;
 import android.net.LinkCapabilities;
 import android.os.Bundle;
 import android.telephony.ServiceState;
 import android.telephony.SignalStrength;
 import android.telephony.CellInfo;
-=======
-import android.os.Bundle;
-import android.telephony.ServiceState;
->>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.telephony.IPhoneStateListener;
 
 interface ITelephonyRegistry {
@@ -35,25 +30,15 @@ interface ITelephonyRegistry {
 
     void notifyCallState(int state, String incomingNumber);
     void notifyServiceState(in ServiceState state);
-<<<<<<< HEAD
     void notifySignalStrength(in SignalStrength signalStrength);
-=======
-    void notifySignalStrength(int signalStrengthASU);
->>>>>>> 54b6cfa... Initial Contribution
     void notifyMessageWaitingChanged(boolean mwi);
     void notifyCallForwardingChanged(boolean cfi);
     void notifyDataActivity(int state);
     void notifyDataConnection(int state, boolean isDataConnectivityPossible,
-<<<<<<< HEAD
             String reason, String apn, String apnType, in LinkProperties linkProperties,
             in LinkCapabilities linkCapabilities, int networkType, boolean roaming);
     void notifyDataConnectionFailed(String reason, String apnType);
     void notifyCellLocation(in Bundle cellLocation);
     void notifyOtaspChanged(in int otaspMode);
     void notifyCellInfo(in CellInfo cellInfo);
-=======
-            String reason, String apn, String interfaceName);
-    void notifyDataConnectionFailed(String reason);
-    void notifyCellLocation(in Bundle cellLocation);
->>>>>>> 54b6cfa... Initial Contribution
 }

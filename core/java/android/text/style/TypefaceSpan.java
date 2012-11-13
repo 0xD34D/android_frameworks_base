@@ -18,25 +18,16 @@ package android.text.style;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.text.ParcelableSpan;
 import android.text.TextPaint;
 import android.text.TextUtils;
-=======
-import android.text.TextPaint;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Changes the typeface family of the text to which the span is attached.
  */
-<<<<<<< HEAD
 public class TypefaceSpan extends MetricAffectingSpan implements ParcelableSpan {
     private final String mFamily;
-=======
-public class TypefaceSpan extends MetricAffectingSpan {
-    private String mFamily;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * @param family The font family for this typeface.  Examples include
@@ -46,7 +37,6 @@ public class TypefaceSpan extends MetricAffectingSpan {
         mFamily = family;
     }
 
-<<<<<<< HEAD
     public TypefaceSpan(Parcel src) {
         mFamily = src.readString();
     }
@@ -63,8 +53,6 @@ public class TypefaceSpan extends MetricAffectingSpan {
         dest.writeString(mFamily);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the font family name.
      */

@@ -1,7 +1,6 @@
 /**
  ** Copyright 2007, The Android Open Source Project
  **
-<<<<<<< HEAD
  ** Licensed under the Apache License, Version 2.0 (the "License");
  ** you may not use this file except in compliance with the License.
  ** You may obtain a copy of the License at
@@ -18,22 +17,6 @@
 #include "jni.h"
 #include "JNIHelp.h"
 
-=======
- ** Licensed under the Apache License, Version 2.0 (the "License"); 
- ** you may not use this file except in compliance with the License. 
- ** You may obtain a copy of the License at 
- **
- **     http://www.apache.org/licenses/LICENSE-2.0 
- **
- ** Unless required by applicable law or agreed to in writing, software 
- ** distributed under the License is distributed on an "AS IS" BASIS, 
- ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- ** See the License for the specific language governing permissions and 
- ** limitations under the License.
- */
-
-#include <nativehelper/jni.h>
->>>>>>> 54b6cfa... Initial Contribution
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,14 +25,9 @@
 #include <dlfcn.h>
 
 #include <GLES/gl.h>
-<<<<<<< HEAD
 #include <ETC1/etc1.h>
 
 #include <core/SkBitmap.h>
-=======
-
-#include <graphics/SkBitmap.h>
->>>>>>> 54b6cfa... Initial Contribution
 
 #include "android_runtime/AndroidRuntime.h"
 
@@ -62,12 +40,6 @@
 
 namespace android {
 
-<<<<<<< HEAD
-=======
-static jclass gIAEClass;
-static jclass gUOEClass;
-
->>>>>>> 54b6cfa... Initial Contribution
 static inline
 void mx4transform(float x, float y, float z, float w, const float* pM, float* pDest) {
     pDest[0] = pM[0 + 4 * 0] * x + pM[0 + 4 * 1] * y + pM[0 + 4 * 2] * z + pM[0 + 4 * 3] * w;
@@ -81,30 +53,18 @@ public:
     MallocHelper() {
         mData = 0;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     ~MallocHelper() {
         if (mData != 0) {
             free(mData);
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     void* alloc(size_t size) {
         mData = malloc(size);
         return mData;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
 private:
     void* mData;
 };
@@ -113,17 +73,10 @@ private:
 static
 void
 print_poly(const char* label, Poly* pPoly) {
-<<<<<<< HEAD
     ALOGI("%s: %d verts", label, pPoly->n);
     for(int i = 0; i < pPoly->n; i++) {
         Poly_vert* pV = & pPoly->vert[i];
         ALOGI("[%d] %g, %g, %g %g", i, pV->sx, pV->sy, pV->sz, pV->sw);
-=======
-    LOGI("%s: %d verts", label, pPoly->n);
-    for(int i = 0; i < pPoly->n; i++) {
-        Poly_vert* pV = & pPoly->vert[i];
-        LOGI("[%d] %g, %g, %g %g", i, pV->sx, pV->sy, pV->sz, pV->sw);
->>>>>>> 54b6cfa... Initial Contribution
     }
 }
 #endif
@@ -135,29 +88,17 @@ int visibilityTest(float* pWS, float* pPositions, int positionsLength,
     int result = POLY_CLIP_OUT;
     float* pTransformed = 0;
     int transformedIndexCount = 0;
-<<<<<<< HEAD
 
     if ( indexCount < 3 ) {
         return POLY_CLIP_OUT;
     }
 
-=======
-    
-    if ( indexCount < 3 ) {
-        return POLY_CLIP_OUT;
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     // Find out how many vertices we need to transform
     // We transform every vertex between the min and max indices, inclusive.
     // This is OK for the data sets we expect to use with this function, but
     // for other loads it might be better to use a more sophisticated vertex
     // cache of some sort.
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     int minIndex = 65536;
     int maxIndex = -1;
     for(int i = 0; i < indexCount; i++) {
@@ -169,7 +110,6 @@ int visibilityTest(float* pWS, float* pPositions, int positionsLength,
             maxIndex = index;
         }
     }
-<<<<<<< HEAD
 
     if ( maxIndex * 3 > positionsLength) {
         return -1;
@@ -182,20 +122,6 @@ int visibilityTest(float* pWS, float* pPositions, int positionsLength,
         return -2;
     }
 
-=======
-    
-    if ( maxIndex * 3 > positionsLength) {
-        return -1;
-    }
-    
-    transformedIndexCount = maxIndex - minIndex + 1;
-    pTransformed = (float*) mallocHelper.alloc(transformedIndexCount * 4 * sizeof(float));
-    
-    if (pTransformed == 0 ) {
-        return -2;
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     // Transform the vertices
     {
         const float* pSrc = pPositions + 3 * minIndex;
@@ -204,15 +130,9 @@ int visibilityTest(float* pWS, float* pPositions, int positionsLength,
             mx4transform(pSrc[0], pSrc[1], pSrc[2], 1.0f, pWS,  pDst);
         }
     }
-<<<<<<< HEAD
 
     // Clip the triangles
 
-=======
-    
-    // Clip the triangles
-    
->>>>>>> 54b6cfa... Initial Contribution
     Poly poly;
     float* pDest = & poly.vert[0].sx;
     for (int i = 0; i < indexCount; i += 3) {
@@ -229,13 +149,10 @@ int visibilityTest(float* pWS, float* pPositions, int positionsLength,
     return result;
 }
 
-<<<<<<< HEAD
 static void doThrowIAE(JNIEnv* env, const char* msg) {
     jniThrowException(env, "java/lang/IllegalArgumentException", msg);
 }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 template<class JArray, class T>
 class ArrayHelper {
 public:
@@ -253,7 +170,6 @@ public:
             mEnv->ReleasePrimitiveArrayCritical(mRef, mBase, mReleaseParam);
         }
     }
-<<<<<<< HEAD
 
     // We seperate the bounds check from the initialization because we want to
     // be able to bounds-check multiple arrays, and we can't throw an exception
@@ -269,45 +185,18 @@ public:
         }
         if ( mOffset < 0) {
             doThrowIAE(mEnv, "offset < 0");
-=======
-    
-    // We seperate the bounds check from the initialization because we want to
-    // be able to bounds-check multiple arrays, and we can't throw an exception
-    // after we've called GetPrimitiveArrayCritical.
-    
-    // Return true if the bounds check succeeded
-    // Else instruct the runtime to throw an exception
-    
-    bool check() {
-        if ( ! mRef) {
-            mEnv->ThrowNew(gIAEClass, "array == null");
-            return false;
-        }
-        if ( mOffset < 0) {
-            mEnv->ThrowNew(gIAEClass, "offset < 0");
->>>>>>> 54b6cfa... Initial Contribution
             return false;
         }
         mLength = mEnv->GetArrayLength(mRef) - mOffset;
         if (mLength < mMinSize ) {
-<<<<<<< HEAD
             doThrowIAE(mEnv, "length - offset < n");
-=======
-            mEnv->ThrowNew(gIAEClass, "length - offset < n");
->>>>>>> 54b6cfa... Initial Contribution
             return false;
         }
         return true;
     }
-<<<<<<< HEAD
 
     // Bind the array.
 
-=======
-    
-    // Bind the array.
-    
->>>>>>> 54b6cfa... Initial Contribution
     void bind() {
         mBase = (T*) mEnv->GetPrimitiveArrayCritical(mRef, (jboolean *) 0);
         mData = mBase + mOffset;
@@ -316,17 +205,10 @@ public:
     void commitChanges() {
         mReleaseParam = 0;
     }
-<<<<<<< HEAD
 
     T* mData;
     int mLength;
 
-=======
-    
-    T* mData;
-    int mLength;
-    
->>>>>>> 54b6cfa... Initial Contribution
 private:
     T* mBase;
     JNIEnv* mEnv;
@@ -348,27 +230,18 @@ inline float distance2(float x, float y, float z) {
 inline float distance(float x, float y, float z) {
     return sqrtf(distance2(x, y, z));
 }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
 static
 void util_computeBoundingSphere(JNIEnv *env, jclass clazz,
         jfloatArray positions_ref, jint positionsOffset, jint positionsCount,
         jfloatArray sphere_ref, jint sphereOffset) {
     FloatArrayHelper positions(env, positions_ref, positionsOffset, 0);
     FloatArrayHelper sphere(env, sphere_ref, sphereOffset, 4);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     bool checkOK = positions.check() && sphere.check();
         if (! checkOK) {
         return;
     }
-<<<<<<< HEAD
 
     positions.bind();
     sphere.bind();
@@ -380,19 +253,6 @@ void util_computeBoundingSphere(JNIEnv *env, jclass clazz,
 
     const float* pSrc = positions.mData;
 
-=======
-    
-    positions.bind();
-    sphere.bind();
-    
-    if ( positionsCount < 1 ) {
-        env->ThrowNew(gIAEClass, "positionsCount < 1");
-        return;
-    }
-    
-    const float* pSrc = positions.mData;
-    
->>>>>>> 54b6cfa... Initial Contribution
     // find bounding box
     float x0 = *pSrc++;
     float x1 = x0;
@@ -400,11 +260,7 @@ void util_computeBoundingSphere(JNIEnv *env, jclass clazz,
     float y1 = y0;
     float z0 = *pSrc++;
     float z1 = z0;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     for(int i = 1; i < positionsCount; i++) {
         {
             float x = *pSrc++;
@@ -434,11 +290,7 @@ void util_computeBoundingSphere(JNIEnv *env, jclass clazz,
             }
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     // Because we know our input meshes fit pretty well into bounding boxes,
     // just take the diagonal of the box as defining our sphere.
     float* pSphere = sphere.mData;
@@ -449,11 +301,7 @@ void util_computeBoundingSphere(JNIEnv *env, jclass clazz,
     *pSphere++ = y0 + dy * 0.5f;
     *pSphere++ = z0 + dz * 0.5f;
     *pSphere++ = distance(dx, dy, dz) * 0.5f;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     sphere.commitChanges();
 }
 
@@ -500,11 +348,7 @@ static void computeFrustum(const float* m, float* f) {
     normalizePlane(f);
     f+= 4;
 
-<<<<<<< HEAD
     // left
-=======
-    // left    
->>>>>>> 54b6cfa... Initial Contribution
     f[0] = m3  + m[0];
     f[1] = m7  + m[4];
     f[2] = m11 + m[8];
@@ -556,16 +400,11 @@ int util_frustumCullSpheres(JNIEnv *env, jclass clazz,
     FloatArrayHelper mvp(env, mvp_ref, mvpOffset, 16);
     FloatArrayHelper spheres(env, spheres_ref, spheresOffset, spheresCount * 4);
     IntArrayHelper results(env, results_ref, resultsOffset, resultsCapacity);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     bool initializedOK = mvp.check() && spheres.check() && results.check();
         if (! initializedOK) {
         return -1;
     }
-<<<<<<< HEAD
 
     mvp.bind();
     spheres.bind();
@@ -575,17 +414,6 @@ int util_frustumCullSpheres(JNIEnv *env, jclass clazz,
 
     // Cull the spheres
 
-=======
-    
-    mvp.bind();
-    spheres.bind();
-    results.bind();
-        
-    computeFrustum(mvp.mData, frustum);
-    
-    // Cull the spheres
-    
->>>>>>> 54b6cfa... Initial Contribution
     pSphere = spheres.mData;
     pResults = results.mData;
     outputCount = 0;
@@ -612,25 +440,16 @@ int util_visibilityTest(JNIEnv *env, jclass clazz,
         jfloatArray ws_ref, jint wsOffset,
         jfloatArray positions_ref, jint positionsOffset,
         jcharArray indices_ref, jint indicesOffset, jint indexCount) {
-<<<<<<< HEAD
 
     FloatArrayHelper ws(env, ws_ref, wsOffset, 16);
     FloatArrayHelper positions(env, positions_ref, positionsOffset, 0);
     UnsignedShortArrayHelper indices(env, indices_ref, indicesOffset, 0);
 
-=======
-    
-    FloatArrayHelper ws(env, ws_ref, wsOffset, 16);
-    FloatArrayHelper positions(env, positions_ref, positionsOffset, 0);
-    UnsignedShortArrayHelper indices(env, indices_ref, indicesOffset, 0);
-    
->>>>>>> 54b6cfa... Initial Contribution
     bool checkOK = ws.check() && positions.check() && indices.check();
     if (! checkOK) {
         // Return value will be ignored, because an exception has been thrown.
         return -1;
     }
-<<<<<<< HEAD
 
     if (indices.mLength < indexCount) {
         doThrowIAE(env, "length < offset + indexCount");
@@ -641,19 +460,6 @@ int util_visibilityTest(JNIEnv *env, jclass clazz,
     positions.bind();
     indices.bind();
 
-=======
-    
-    if (indices.mLength < indexCount) {
-        env->ThrowNew(gIAEClass, "length < offset + indexCount");
-        // Return value will be ignored, because an exception has been thrown.
-        return -1;
-    }
-    
-    ws.bind();
-    positions.bind();
-    indices.bind();
-        
->>>>>>> 54b6cfa... Initial Contribution
     return visibilityTest(ws.mData,
             positions.mData, positions.mLength,
             indices.mData, indexCount);
@@ -693,7 +499,6 @@ void util_multiplyMM(JNIEnv *env, jclass clazz,
     FloatArrayHelper resultMat(env, result_ref, resultOffset, 16);
     FloatArrayHelper lhs(env, lhs_ref, lhsOffset, 16);
     FloatArrayHelper rhs(env, rhs_ref, rhsOffset, 16);
-<<<<<<< HEAD
 
     bool checkOK = resultMat.check() && lhs.check() && rhs.check();
 
@@ -707,21 +512,6 @@ void util_multiplyMM(JNIEnv *env, jclass clazz,
 
     multiplyMM(resultMat.mData, lhs.mData, rhs.mData);
 
-=======
-    
-    bool checkOK = resultMat.check() && lhs.check() && rhs.check();
-    
-    if ( !checkOK ) {
-        return;
-    }
-    
-    resultMat.bind();
-    lhs.bind();
-    rhs.bind();
-    
-    multiplyMM(resultMat.mData, lhs.mData, rhs.mData);
-    
->>>>>>> 54b6cfa... Initial Contribution
     resultMat.commitChanges();
 }
 
@@ -740,7 +530,6 @@ void util_multiplyMV(JNIEnv *env, jclass clazz,
     FloatArrayHelper resultV(env, result_ref, resultOffset, 4);
     FloatArrayHelper lhs(env, lhs_ref, lhsOffset, 16);
     FloatArrayHelper rhs(env, rhs_ref, rhsOffset, 4);
-<<<<<<< HEAD
 
     bool checkOK = resultV.check() && lhs.check() && rhs.check();
 
@@ -754,21 +543,6 @@ void util_multiplyMV(JNIEnv *env, jclass clazz,
 
     multiplyMV(resultV.mData, lhs.mData, rhs.mData);
 
-=======
-    
-    bool checkOK = resultV.check() && lhs.check() && rhs.check();
-    
-    if ( !checkOK ) {
-        return;
-    }
-    
-    resultV.bind();
-    lhs.bind();
-    rhs.bind();
-    
-    multiplyMV(resultV.mData, lhs.mData, rhs.mData);
-    
->>>>>>> 54b6cfa... Initial Contribution
     resultV.commitChanges();
 }
 
@@ -779,7 +553,6 @@ static jfieldID nativeBitmapID = 0;
 void nativeUtilsClassInit(JNIEnv *env, jclass clazz)
 {
     jclass bitmapClass = env->FindClass("android/graphics/Bitmap");
-<<<<<<< HEAD
     nativeBitmapID = env->GetFieldID(bitmapClass, "mNativeBitmap", "I");
 }
 
@@ -787,9 +560,6 @@ extern void setGLDebugLevel(int level);
 void nativeEnableTracing(JNIEnv *env, jclass clazz)
 {
     setGLDebugLevel(1);
-=======
-    nativeBitmapID = env->GetFieldID(bitmapClass, "mNativeBitmap", "I");    
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 static int checkFormat(SkBitmap::Config config, int format, int type)
@@ -838,7 +608,6 @@ static int getInternalFormat(SkBitmap::Config config)
     }
 }
 
-<<<<<<< HEAD
 static int getType(SkBitmap::Config config)
 {
     switch(config) {
@@ -877,8 +646,6 @@ static jint util_getType(JNIEnv *env, jclass clazz,
     return getType(config);
 }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 static jint util_texImage2D(JNIEnv *env, jclass clazz,
         jint target, jint level, jint internalformat,
         jobject jbitmap, jint type, jint border)
@@ -890,18 +657,12 @@ static jint util_texImage2D(JNIEnv *env, jclass clazz,
     if (internalformat < 0) {
         internalformat = getInternalFormat(config);
     }
-<<<<<<< HEAD
     if (type < 0) {
         type = getType(config);
     }
     int err = checkFormat(config, internalformat, type);
     if (err)
         return err;
-=======
-    int err = checkFormat(config, internalformat, type);
-    if (err)
-        return err; 
->>>>>>> 54b6cfa... Initial Contribution
     bitmap.lockPixels();
     const int w = bitmap.width();
     const int h = bitmap.height();
@@ -913,23 +674,15 @@ static jint util_texImage2D(JNIEnv *env, jclass clazz,
         }
         const size_t size = bitmap.getSize();
         const size_t palette_size = 256*sizeof(SkPMColor);
-<<<<<<< HEAD
         const size_t imageSize = size + palette_size;
         void* const data = malloc(imageSize);
-=======
-        void* const data = malloc(size + palette_size);
->>>>>>> 54b6cfa... Initial Contribution
         if (data) {
             void* const pixels = (char*)data + palette_size;
             SkColorTable* ctable = bitmap.getColorTable();
             memcpy(data, ctable->lockColors(), ctable->count() * sizeof(SkPMColor));
             memcpy(pixels, p, size);
             ctable->unlockColors(false);
-<<<<<<< HEAD
             glCompressedTexImage2D(target, level, internalformat, w, h, border, imageSize, data);
-=======
-            glCompressedTexImage2D(target, level, internalformat, w, h, border, 0, data);
->>>>>>> 54b6cfa... Initial Contribution
             free(data);
         } else {
             err = -1;
@@ -957,11 +710,7 @@ static jint util_texSubImage2D(JNIEnv *env, jclass clazz,
     }
     int err = checkFormat(config, format, type);
     if (err)
-<<<<<<< HEAD
         return err;
-=======
-        return err; 
->>>>>>> 54b6cfa... Initial Contribution
     bitmap.lockPixels();
     const int w = bitmap.width();
     const int h = bitmap.height();
@@ -972,7 +721,6 @@ static jint util_texSubImage2D(JNIEnv *env, jclass clazz,
 }
 
 /*
-<<<<<<< HEAD
  * ETC1 methods.
  */
 
@@ -1276,33 +1024,10 @@ static JNINativeMethod gVisibilityMethods[] = {
     { "computeBoundingSphere", "([FII[FI)V", (void*)util_computeBoundingSphere },
     { "frustumCullSpheres", "([FI[FII[III)I", (void*)util_frustumCullSpheres },
     { "visibilityTest", "([FI[FI[CII)I", (void*)util_visibilityTest },
-=======
- * JNI registration
- */
-
-static void
-lookupClasses(JNIEnv* env) {
-    gIAEClass = (jclass) env->NewGlobalRef(
-            env->FindClass("java/lang/IllegalArgumentException"));
-    gUOEClass = (jclass) env->NewGlobalRef(
-            env->FindClass("java/lang/UnsupportedOperationException"));
-}
-
-static JNINativeMethod gMatrixMethods[] = {
-    { "multiplyMM", "([FI[FI[FI)V", (void*)util_multiplyMM }, 
-    { "multiplyMV", "([FI[FI[FI)V", (void*)util_multiplyMV }, 
-};
-
-static JNINativeMethod gVisiblityMethods[] = {
-    { "computeBoundingSphere", "([FII[FI)V", (void*)util_computeBoundingSphere }, 
-    { "frustumCullSpheres", "([FI[FII[III)I", (void*)util_frustumCullSpheres },
-    { "visibilityTest", "([FI[FI[CII)I", (void*)util_visibilityTest }, 
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 static JNINativeMethod gUtilsMethods[] = {
     {"nativeClassInit", "()V",                          (void*)nativeUtilsClassInit },
-<<<<<<< HEAD
     { "native_getInternalFormat", "(Landroid/graphics/Bitmap;)I", (void*) util_getInternalFormat },
     { "native_getType", "(Landroid/graphics/Bitmap;)I", (void*) util_getType },
     { "native_texImage2D", "(IIILandroid/graphics/Bitmap;II)I", (void*)util_texImage2D },
@@ -1320,10 +1045,6 @@ static JNINativeMethod gEtc1Methods[] = {
     { "isValid", "(Ljava/nio/Buffer;)Z", (void*) etc1_isValid },
     { "getWidth", "(Ljava/nio/Buffer;)I", (void*) etc1_getWidth },
     { "getHeight", "(Ljava/nio/Buffer;)I", (void*) etc1_getHeight },
-=======
-    { "native_texImage2D", "(IIILandroid/graphics/Bitmap;II)I", (void*)util_texImage2D }, 
-    { "native_texSubImage2D", "(IIIILandroid/graphics/Bitmap;II)I", (void*)util_texSubImage2D }, 
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 typedef struct _ClassRegistrationInfo {
@@ -1333,36 +1054,22 @@ typedef struct _ClassRegistrationInfo {
 } ClassRegistrationInfo;
 
 static ClassRegistrationInfo gClasses[] = {
-<<<<<<< HEAD
     {"android/opengl/Matrix", gMatrixMethods, NELEM(gMatrixMethods)},
     {"android/opengl/Visibility", gVisibilityMethods, NELEM(gVisibilityMethods)},
     {"android/opengl/GLUtils", gUtilsMethods, NELEM(gUtilsMethods)},
     {"android/opengl/ETC1", gEtc1Methods, NELEM(gEtc1Methods)},
-=======
-        {"android/opengl/Matrix", gMatrixMethods, NELEM(gMatrixMethods)},
-        {"android/opengl/Visibility", gVisiblityMethods, NELEM(gVisiblityMethods)},
-        {"android/opengl/GLUtils", gUtilsMethods, NELEM(gUtilsMethods)},
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 int register_android_opengl_classes(JNIEnv* env)
 {
-<<<<<<< HEAD
     nativeClassInitBuffer(env);
-=======
-    lookupClasses(env);
->>>>>>> 54b6cfa... Initial Contribution
     int result = 0;
     for (int i = 0; i < NELEM(gClasses); i++) {
         ClassRegistrationInfo* cri = &gClasses[i];
         result = AndroidRuntime::registerNativeMethods(env,
                 cri->classPath, cri->methods, cri->methodCount);
         if (result < 0) {
-<<<<<<< HEAD
             ALOGE("Failed to register %s: %d", cri->classPath, result);
-=======
-            LOGE("Failed to register %s: %d", cri->classPath, result);
->>>>>>> 54b6cfa... Initial Contribution
             break;
         }
     }
@@ -1370,7 +1077,3 @@ int register_android_opengl_classes(JNIEnv* env)
 }
 
 } // namespace android
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution

@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-<<<<<<< HEAD
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,30 +32,15 @@ import java.util.List;
 /**
  * A concrete BaseAdapter that is backed by an array of arbitrary
  * objects.  By default this class expects that the provided resource id references
-=======
-import java.util.List;
-
-/**
- * A ListAdapter that manages a ListView backed by an array of arbitrary
- * objects.  By default this class expects that the provided resource id referecnes
->>>>>>> 54b6cfa... Initial Contribution
  * a single TextView.  If you want to use a more complex layout, use the constructors that
  * also takes a field id.  That field id should reference a TextView in the larger layout
  * resource.
  *
-<<<<<<< HEAD
  * <p>However the TextView is referenced, it will be filled with the toString() of each object in
  * the array. You can add lists or arrays of custom objects. Override the toString() method
  * of your objects to determine what text will be displayed for the item in the list.
  *
  * <p>To use something other than TextViews for the array display, for instance, ImageViews,
-=======
- * However the TextView is referenced, it will be filled with the toString() of each object in
- * the array. You can add lists or arrays of custom objects. Override the toString() method
- * of your objects to determine what text will be displayed for the item in the list.
- *
- * To use something other than TextViews for the array display, for instance, ImageViews,
->>>>>>> 54b6cfa... Initial Contribution
  * or to have some of data besides toString() results fill the views,
  * override {@link #getView(int, View, ViewGroup)} to return the type of view you want.
  */
@@ -100,15 +84,10 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
      */
     private boolean mNotifyOnChange = true;
 
-<<<<<<< HEAD
     private Context mContext;
 
     // A copy of the original mObjects array, initialized from and then used instead as soon as
     // the mFilter ArrayFilter is used. mObjects will then only contain the filtered values.
-=======
-    private Context mContext;    
-
->>>>>>> 54b6cfa... Initial Contribution
     private ArrayList<T> mOriginalValues;
     private ArrayFilter mFilter;
 
@@ -193,7 +172,6 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
      * @param object The object to add at the end of the array.
      */
     public void add(T object) {
-<<<<<<< HEAD
         synchronized (mLock) {
             if (mOriginalValues != null) {
                 mOriginalValues.add(object);
@@ -238,27 +216,11 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
 
     /**
      * Inserts the specified object at the specified index in the array.
-=======
-        if (mOriginalValues != null) {
-            synchronized (mLock) {
-                mOriginalValues.add(object);
-                if (mNotifyOnChange) notifyDataSetChanged();
-            }
-        } else {
-            mObjects.add(object);
-            if (mNotifyOnChange) notifyDataSetChanged();
-        }
-    }
-
-    /**
-     * Inserts the spcified object at the specified index in the array.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param object The object to insert into the array.
      * @param index The index at which the object must be inserted.
      */
     public void insert(T object, int index) {
-<<<<<<< HEAD
         synchronized (mLock) {
             if (mOriginalValues != null) {
                 mOriginalValues.add(index, object);
@@ -267,17 +229,6 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
             }
         }
         if (mNotifyOnChange) notifyDataSetChanged();
-=======
-        if (mOriginalValues != null) {
-            synchronized (mLock) {
-                mOriginalValues.add(index, object);
-                if (mNotifyOnChange) notifyDataSetChanged();
-            }
-        } else {
-            mObjects.add(index, object);
-            if (mNotifyOnChange) notifyDataSetChanged();
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -286,21 +237,12 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
      * @param object The object to remove.
      */
     public void remove(T object) {
-<<<<<<< HEAD
         synchronized (mLock) {
             if (mOriginalValues != null) {
                 mOriginalValues.remove(object);
             } else {
                 mObjects.remove(object);
             }
-=======
-        if (mOriginalValues != null) {
-            synchronized (mLock) {
-                mOriginalValues.remove(object);
-            }
-        } else {
-            mObjects.remove(object);
->>>>>>> 54b6cfa... Initial Contribution
         }
         if (mNotifyOnChange) notifyDataSetChanged();
     }
@@ -309,7 +251,6 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
      * Remove all elements from the list.
      */
     public void clear() {
-<<<<<<< HEAD
         synchronized (mLock) {
             if (mOriginalValues != null) {
                 mOriginalValues.clear();
@@ -333,14 +274,6 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
             } else {
                 Collections.sort(mObjects, comparator);
             }
-=======
-        if (mOriginalValues != null) {
-            synchronized (mLock) {
-                mOriginalValues.clear();
-            }
-        } else {
-            mObjects.clear();
->>>>>>> 54b6cfa... Initial Contribution
         }
         if (mNotifyOnChange) notifyDataSetChanged();
     }
@@ -454,16 +387,12 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
                     "ArrayAdapter requires the resource ID to be a TextView", e);
         }
 
-<<<<<<< HEAD
         T item = getItem(position);
         if (item instanceof CharSequence) {
             text.setText((CharSequence)item);
         } else {
             text.setText(item.toString());
         }
-=======
-        text.setText(getItem(position).toString());
->>>>>>> 54b6cfa... Initial Contribution
 
         return view;
     }
@@ -513,11 +442,7 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
     }
 
     /**
-<<<<<<< HEAD
      * <p>An array filter constrains the content of the array adapter with
-=======
-     * <p>An array filters constrains the content of the array adapter with
->>>>>>> 54b6cfa... Initial Contribution
      * a prefix. Each item that does not start with the supplied prefix
      * is removed from the list.</p>
      */
@@ -533,7 +458,6 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
             }
 
             if (prefix == null || prefix.length() == 0) {
-<<<<<<< HEAD
                 ArrayList<T> list;
                 synchronized (mLock) {
                     list = new ArrayList<T>(mOriginalValues);
@@ -550,20 +474,6 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
 
                 final int count = values.size();
                 final ArrayList<T> newValues = new ArrayList<T>();
-=======
-                synchronized (mLock) {
-                    ArrayList<T> list = new ArrayList<T>(mOriginalValues);
-                    results.values = list;
-                    results.count = list.size();
-                }
-            } else {
-                String prefixString = prefix.toString().toLowerCase();
-
-                final ArrayList<T> values = mOriginalValues;
-                final int count = values.size();
-
-                final ArrayList<T> newValues = new ArrayList<T>(count);
->>>>>>> 54b6cfa... Initial Contribution
 
                 for (int i = 0; i < count; i++) {
                     final T value = values.get(i);
@@ -576,10 +486,7 @@ public class ArrayAdapter<T> extends BaseAdapter implements Filterable {
                         final String[] words = valueText.split(" ");
                         final int wordCount = words.length;
 
-<<<<<<< HEAD
                         // Start at index 0, in case valueText starts with space(s)
-=======
->>>>>>> 54b6cfa... Initial Contribution
                         for (int k = 0; k < wordCount; k++) {
                             if (words[k].startsWith(prefixString)) {
                                 newValues.add(value);

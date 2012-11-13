@@ -20,33 +20,21 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-<<<<<<< HEAD
 import android.graphics.BitmapShader;
-=======
-import android.graphics.BlurMaskFilter;
->>>>>>> 54b6cfa... Initial Contribution
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.Shader;
-<<<<<<< HEAD
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-=======
-import android.graphics.BitmapShader;
-import android.util.AttributeSet;
-import android.view.Gravity;
-
->>>>>>> 54b6cfa... Initial Contribution
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
-<<<<<<< HEAD
 /**
  * A Drawable that wraps a bitmap and can be tiled, stretched, or aligned. You can create a
  * BitmapDrawable from a file path, an input stream, through XML inflation, or from
@@ -143,34 +131,11 @@ public class BitmapDrawable extends Drawable {
     public BitmapDrawable(Resources res, String filepath) {
         this(new BitmapState(BitmapFactory.decodeFile(filepath)), null);
         mBitmapState.mTargetDensity = mTargetDensity;
-=======
-public class BitmapDrawable extends Drawable {
-
-    private static final int DEFAULT_PAINT_FLAGS = Paint.FILTER_BITMAP_FLAG;
-    private BitmapState mBitmapState;
-    private Bitmap mBitmap;
-    private final Rect mDstRect = new Rect();   // Gravity.apply() sets this
-
-    private boolean mApplyGravity;
-    private boolean mRebuildShader;
-
-    public BitmapDrawable() {
-        mBitmapState = new BitmapState(null);
-    }
-
-    public BitmapDrawable(Bitmap bitmap) {
-        this(new BitmapState(bitmap));
-    }
-
-    public BitmapDrawable(String filepath) {
-        this(new BitmapState(BitmapFactory.decodeFile(filepath)));
->>>>>>> 54b6cfa... Initial Contribution
         if (mBitmap == null) {
             android.util.Log.w("BitmapDrawable", "BitmapDrawable cannot decode " + filepath);
         }
     }
 
-<<<<<<< HEAD
     /**
      * Create a drawable by decoding a bitmap from the given input stream.
      * @deprecated Use {@link #BitmapDrawable(Resources, java.io.InputStream)} to ensure
@@ -179,16 +144,11 @@ public class BitmapDrawable extends Drawable {
     @Deprecated
     public BitmapDrawable(java.io.InputStream is) {
         this(new BitmapState(BitmapFactory.decodeStream(is)), null);
-=======
-    public BitmapDrawable(java.io.InputStream is) {
-        this(new BitmapState(BitmapFactory.decodeStream(is)));
->>>>>>> 54b6cfa... Initial Contribution
         if (mBitmap == null) {
             android.util.Log.w("BitmapDrawable", "BitmapDrawable cannot decode " + is);
         }
     }
 
-<<<<<<< HEAD
     /**
      * Create a drawable by decoding a bitmap from the given input stream.
      */
@@ -278,18 +238,6 @@ public class BitmapDrawable extends Drawable {
 
     /** Get the gravity used to position/stretch the bitmap within its bounds.
      * See android.view.Gravity
-=======
-    public final Paint getPaint() {
-        return mBitmapState.mPaint;
-    }
-    
-    public final Bitmap getBitmap() {
-        return mBitmap;
-    }
-    
-    /** Get the gravity used to position/stretch the bitmap within its bounds.
-        See android.view.Gravity
->>>>>>> 54b6cfa... Initial Contribution
      * @return the gravity applied to the bitmap
      */
     public int getGravity() {
@@ -301,7 +249,6 @@ public class BitmapDrawable extends Drawable {
      * @param gravity the gravity
      */
     public void setGravity(int gravity) {
-<<<<<<< HEAD
         if (mBitmapState.mGravity != gravity) {
             mBitmapState.mGravity = gravity;
             mApplyGravity = true;
@@ -318,29 +265,17 @@ public class BitmapDrawable extends Drawable {
     public void setAntiAlias(boolean aa) {
         mBitmapState.mPaint.setAntiAlias(aa);
         invalidateSelf();
-=======
-        mBitmapState.mGravity = gravity;
-        mApplyGravity = true;
-    }
-
-    public void setAntiAlias(boolean aa) {
-        mBitmapState.mPaint.setAntiAlias(aa);
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
     public void setFilterBitmap(boolean filter) {
         mBitmapState.mPaint.setFilterBitmap(filter);
-<<<<<<< HEAD
         invalidateSelf();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public void setDither(boolean dither) {
         mBitmapState.mPaint.setDither(dither);
-<<<<<<< HEAD
         invalidateSelf();
     }
 
@@ -350,28 +285,20 @@ public class BitmapDrawable extends Drawable {
      * @return {@link Shader.TileMode#CLAMP} if the bitmap does not repeat,
      *         {@link Shader.TileMode#REPEAT} or {@link Shader.TileMode#MIRROR} otherwise.
      */
-=======
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public Shader.TileMode getTileModeX() {
         return mBitmapState.mTileModeX;
     }
 
-<<<<<<< HEAD
     /**
      * Indicates the repeat behavior of this drawable on the Y axis.
      * 
      * @return {@link Shader.TileMode#CLAMP} if the bitmap does not repeat,
      *         {@link Shader.TileMode#REPEAT} or {@link Shader.TileMode#MIRROR} otherwise.
      */    
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public Shader.TileMode getTileModeY() {
         return mBitmapState.mTileModeY;
     }
 
-<<<<<<< HEAD
     /**
      * Sets the repeat behavior of this drawable on the X axis. By default, the drawable
      * does not repeat its bitmap. Using {@link Shader.TileMode#REPEAT} or
@@ -383,13 +310,10 @@ public class BitmapDrawable extends Drawable {
      * @see #setTileModeY(android.graphics.Shader.TileMode) 
      * @see #setTileModeXY(android.graphics.Shader.TileMode, android.graphics.Shader.TileMode) 
      */
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void setTileModeX(Shader.TileMode mode) {
         setTileModeXY(mode, mBitmapState.mTileModeY);
     }
 
-<<<<<<< HEAD
     /**
      * Sets the repeat behavior of this drawable on the Y axis. By default, the drawable
      * does not repeat its bitmap. Using {@link Shader.TileMode#REPEAT} or
@@ -401,13 +325,10 @@ public class BitmapDrawable extends Drawable {
      * @see #setTileModeX(android.graphics.Shader.TileMode) 
      * @see #setTileModeXY(android.graphics.Shader.TileMode, android.graphics.Shader.TileMode) 
      */    
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public final void setTileModeY(Shader.TileMode mode) {
         setTileModeXY(mBitmapState.mTileModeX, mode);
     }
 
-<<<<<<< HEAD
     /**
      * Sets the repeat behavior of this drawable on both axis. By default, the drawable
      * does not repeat its bitmap. Using {@link Shader.TileMode#REPEAT} or
@@ -420,19 +341,13 @@ public class BitmapDrawable extends Drawable {
      * @see #setTileModeX(android.graphics.Shader.TileMode)
      * @see #setTileModeY(android.graphics.Shader.TileMode) 
      */
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void setTileModeXY(Shader.TileMode xmode, Shader.TileMode ymode) {
         final BitmapState state = mBitmapState;
         if (state.mTileModeX != xmode || state.mTileModeY != ymode) {
             state.mTileModeX = xmode;
             state.mTileModeY = ymode;
-<<<<<<< HEAD
             state.mRebuildShader = true;
             invalidateSelf();
-=======
-            mRebuildShader = true;
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -452,55 +367,33 @@ public class BitmapDrawable extends Drawable {
         Bitmap bitmap = mBitmap;
         if (bitmap != null) {
             final BitmapState state = mBitmapState;
-<<<<<<< HEAD
             if (state.mRebuildShader) {
-=======
-            if (mRebuildShader) {
->>>>>>> 54b6cfa... Initial Contribution
                 Shader.TileMode tmx = state.mTileModeX;
                 Shader.TileMode tmy = state.mTileModeY;
 
                 if (tmx == null && tmy == null) {
                     state.mPaint.setShader(null);
                 } else {
-<<<<<<< HEAD
                     state.mPaint.setShader(new BitmapShader(bitmap,
                             tmx == null ? Shader.TileMode.CLAMP : tmx,
                             tmy == null ? Shader.TileMode.CLAMP : tmy));
                 }
                 state.mRebuildShader = false;
-=======
-                    Shader s = new BitmapShader(bitmap,
-                            tmx == null ? Shader.TileMode.CLAMP : tmx,
-                            tmy == null ? Shader.TileMode.CLAMP : tmy);
-                    state.mPaint.setShader(s);
-                }
-                mRebuildShader = false;
->>>>>>> 54b6cfa... Initial Contribution
                 copyBounds(mDstRect);
             }
 
             Shader shader = state.mPaint.getShader();
             if (shader == null) {
                 if (mApplyGravity) {
-<<<<<<< HEAD
                     final int layoutDirection = getResolvedLayoutDirectionSelf();
                     Gravity.apply(state.mGravity, mBitmapWidth, mBitmapHeight,
                             getBounds(), mDstRect, layoutDirection);
-=======
-                    Gravity.apply(state.mGravity, bitmap.getWidth(), bitmap.getHeight(),
-                            getBounds(), mDstRect);
->>>>>>> 54b6cfa... Initial Contribution
                     mApplyGravity = false;
                 }
                 canvas.drawBitmap(bitmap, null, mDstRect, state.mPaint);
             } else {
                 if (mApplyGravity) {
-<<<<<<< HEAD
                     copyBounds(mDstRect);
-=======
-                    mDstRect.set(getBounds());
->>>>>>> 54b6cfa... Initial Contribution
                     mApplyGravity = false;
                 }
                 canvas.drawRect(mDstRect, state.mPaint);
@@ -510,21 +403,16 @@ public class BitmapDrawable extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
-<<<<<<< HEAD
         int oldAlpha = mBitmapState.mPaint.getAlpha();
         if (alpha != oldAlpha) {
             mBitmapState.mPaint.setAlpha(alpha);
             invalidateSelf();
         }
-=======
-        mBitmapState.mPaint.setAlpha(alpha);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public void setColorFilter(ColorFilter cf) {
         mBitmapState.mPaint.setColorFilter(cf);
-<<<<<<< HEAD
         invalidateSelf();
     }
 
@@ -541,8 +429,6 @@ public class BitmapDrawable extends Drawable {
             mMutated = true;
         }
         return this;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -562,13 +448,9 @@ public class BitmapDrawable extends Drawable {
             throw new XmlPullParserException(parser.getPositionDescription() +
                     ": <bitmap> requires a valid src attribute");
         }
-<<<<<<< HEAD
         mBitmapState.mBitmap = bitmap;
         setBitmap(bitmap);
         setTargetDensity(r.getDisplayMetrics());
-=======
-        mBitmapState.mBitmap = mBitmap = bitmap;
->>>>>>> 54b6cfa... Initial Contribution
 
         final Paint paint = mBitmapState.mPaint;
         paint.setAntiAlias(a.getBoolean(com.android.internal.R.styleable.BitmapDrawable_antialias,
@@ -598,22 +480,12 @@ public class BitmapDrawable extends Drawable {
 
     @Override
     public int getIntrinsicWidth() {
-<<<<<<< HEAD
         return mBitmapWidth;
-=======
-        Bitmap bitmap = mBitmap;
-        return bitmap != null ? bitmap.getWidth() : -1;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public int getIntrinsicHeight() {
-<<<<<<< HEAD
         return mBitmapHeight;
-=======
-        Bitmap bitmap = mBitmap;
-        return bitmap != null ? bitmap.getHeight() : -1;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -628,11 +500,7 @@ public class BitmapDrawable extends Drawable {
 
     @Override
     public final ConstantState getConstantState() {
-<<<<<<< HEAD
         mBitmapState.mChangingConfigurations = getChangingConfigurations();
-=======
-        mBitmapState.mChangingConfigurations = super.getChangingConfigurations();
->>>>>>> 54b6cfa... Initial Contribution
         return mBitmapState;
     }
 
@@ -641,21 +509,15 @@ public class BitmapDrawable extends Drawable {
         int mChangingConfigurations;
         int mGravity = Gravity.FILL;
         Paint mPaint = new Paint(DEFAULT_PAINT_FLAGS);
-<<<<<<< HEAD
         Shader.TileMode mTileModeX = null;
         Shader.TileMode mTileModeY = null;
         int mTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
         boolean mRebuildShader;
-=======
-        Shader.TileMode mTileModeX;
-        Shader.TileMode mTileModeY;
->>>>>>> 54b6cfa... Initial Contribution
 
         BitmapState(Bitmap bitmap) {
             mBitmap = bitmap;
         }
 
-<<<<<<< HEAD
         BitmapState(BitmapState bitmapState) {
             this(bitmapState.mBitmap);
             mChangingConfigurations = bitmapState.mChangingConfigurations;
@@ -677,20 +539,12 @@ public class BitmapDrawable extends Drawable {
             return new BitmapDrawable(this, res);
         }
 
-=======
-        @Override
-        public Drawable newDrawable() {
-            return new BitmapDrawable(this);
-        }
-        
->>>>>>> 54b6cfa... Initial Contribution
         @Override
         public int getChangingConfigurations() {
             return mChangingConfigurations;
         }
     }
 
-<<<<<<< HEAD
     private BitmapDrawable(BitmapState state, Resources res) {
         mBitmapState = state;
         if (res != null) {
@@ -699,10 +553,5 @@ public class BitmapDrawable extends Drawable {
             mTargetDensity = state.mTargetDensity;
         }
         setBitmap(state != null ? state.mBitmap : null);
-=======
-    private BitmapDrawable(BitmapState state) {
-        mBitmapState = state;
-        mBitmap = state.mBitmap;
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

@@ -21,17 +21,11 @@ import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.Handler;
 import android.os.SystemClock;
-<<<<<<< HEAD
 import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
-import android.pim.DateFormat;
-import android.provider.Settings;
-import android.util.AttributeSet;
->>>>>>> 54b6cfa... Initial Contribution
 
 import java.util.Calendar;
 
@@ -113,17 +107,7 @@ public class DigitalClock extends TextView {
      * Pulls 12/24 mode from system settings
      */
     private boolean get24HourMode() {
-<<<<<<< HEAD
         return android.text.format.DateFormat.is24HourFormat(getContext());
-=======
-        String value = Settings.System.getString(
-                getContext().getContentResolver(),
-                Settings.System.TIME_12_24);
-
-        if (value == null || value.equals("12"))
-            return false;
-        return true;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private void setFormat() {
@@ -144,7 +128,6 @@ public class DigitalClock extends TextView {
             setFormat();
         }
     }
-<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -157,6 +140,4 @@ public class DigitalClock extends TextView {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(DigitalClock.class.getName());
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

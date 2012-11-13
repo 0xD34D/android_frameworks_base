@@ -20,14 +20,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android" 
     android:id="@android:id/text1"
     style="?android:attr/dropDownItemStyle"
-<<<<<<< HEAD
     android:textAppearance="?android:attr/textAppearanceSearchResultTitle"
     android:singleLine="true"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/searchResultListItemHeight" />
-=======
-    android:textAppearance="?android:attr/textAppearanceMediumInverse"
-    android:singleLine="true"
-    android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight" />
->>>>>>> 54b6cfa... Initial Contribution

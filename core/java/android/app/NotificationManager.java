@@ -17,10 +17,7 @@
 package android.app;
 
 import android.content.Context;
-<<<<<<< HEAD
 import android.os.Binder;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.os.RemoteException;
 import android.os.Handler;
 import android.os.IBinder;
@@ -42,7 +39,6 @@ import android.util.Log;
  * </ul>
  *
  * <p>
-<<<<<<< HEAD
  * Each of the notify methods takes an int id parameter and optionally a
  * {@link String} tag parameter, which may be {@code null}.  These parameters
  * are used to form a pair (tag, id), or ({@code null}, id) if tag is
@@ -54,21 +50,11 @@ import android.util.Log;
  * be replaced with the new one.  This is also the same tag and id you pass
  * to the {@link #cancel(int)} or {@link #cancel(String, int)} method to clear
  * this notification.
-=======
- * Each of the notify methods takes an int id parameter.  This id identifies
- * this notification from your app to the system, so that id should be unique
- * within your app.  If you call one of the notify methods with an id that is
- * currently active and a new set of notification parameters, it will be
- * updated.  For example, if you pass a new status bar icon, the old icon in
- * the status bar will be replaced with the new one.  This is also the same
- * id you pass to the {@link #cancel} method to clear this notification.
->>>>>>> 54b6cfa... Initial Contribution
  *
  * <p>
  * You do not instantiate this class directly; instead, retrieve it through
  * {@link android.content.Context#getSystemService}.
  *
-<<<<<<< HEAD
  * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For a guide to creating notifications, read the
@@ -76,29 +62,18 @@ import android.util.Log;
  * developer guide.</p>
  * </div>
  *
-=======
->>>>>>> 54b6cfa... Initial Contribution
  * @see android.app.Notification
  * @see android.content.Context#getSystemService
  */
 public class NotificationManager
 {
     private static String TAG = "NotificationManager";
-<<<<<<< HEAD
     private static boolean localLOGV = false;
 
     private static INotificationManager sService;
 
     /** @hide */
     static public INotificationManager getService()
-=======
-    private static boolean DEBUG = false;
-    private static boolean localLOGV = DEBUG || android.util.Config.LOGV;
-
-    private static INotificationManager sService;
-
-    static private INotificationManager getService()
->>>>>>> 54b6cfa... Initial Contribution
     {
         if (sService != null) {
             return sService;
@@ -114,7 +89,6 @@ public class NotificationManager
     }
 
     /**
-<<<<<<< HEAD
      * Post a notification to be shown in the status bar. If a notification with
      * the same id has already been posted by your application and has not yet been canceled, it
      * will be replaced by the updated information.
@@ -142,29 +116,12 @@ public class NotificationManager
      */
     public void notify(String tag, int id, Notification notification)
     {
-=======
-     * Persistent notification on the status bar, 
-     *
-     * @param id An identifier for this notification unique within your
-     *        application.
-     * @param notification A {@link Notification} object describing how to
-     *        notify the user, other than the view you're providing.  If you
-     *        pass null, there will be no persistent notification and no
-     *        flashing, vibration, etc.
-     */
-    public void notify(int id, Notification notification)
-    {
->>>>>>> 54b6cfa... Initial Contribution
         int[] idOut = new int[1];
         INotificationManager service = getService();
         String pkg = mContext.getPackageName();
         if (localLOGV) Log.v(TAG, pkg + ": notify(" + id + ", " + notification + ")");
         try {
-<<<<<<< HEAD
             service.enqueueNotificationWithTag(pkg, tag, id, notification, idOut);
-=======
-            service.enqueueNotification(pkg, id, notification, idOut);
->>>>>>> 54b6cfa... Initial Contribution
             if (id != idOut[0]) {
                 Log.w(TAG, "notify: id corrupted: sent " + id + ", got back " + idOut[0]);
             }
@@ -179,7 +136,6 @@ public class NotificationManager
      */
     public void cancel(int id)
     {
-<<<<<<< HEAD
         cancel(null, id);
     }
 
@@ -190,17 +146,11 @@ public class NotificationManager
      */
     public void cancel(String tag, int id)
     {
-=======
->>>>>>> 54b6cfa... Initial Contribution
         INotificationManager service = getService();
         String pkg = mContext.getPackageName();
         if (localLOGV) Log.v(TAG, pkg + ": cancel(" + id + ")");
         try {
-<<<<<<< HEAD
             service.cancelNotificationWithTag(pkg, tag, id);
-=======
-            service.cancelNotification(pkg, id);
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
         }
     }

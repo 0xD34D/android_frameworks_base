@@ -31,7 +31,6 @@ import android.util.Log;
 import java.io.IOException;
 
 /**
-<<<<<<< HEAD
  * <p>A Drawable that can rotate another Drawable based on the current level
  * value. The start and end angles of rotation can be controlled to map any
  * circular arc to the level values range.</p>
@@ -52,23 +51,12 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
 
     private RotateState mState;
     private boolean mMutated;
-=======
- * <p>A drawable that can rotate another drawable based on the current level
- * value. The start and end angles of rotation can be controlled to map any
- * circular arc to the level values range.</p>
- */
-public class RotateDrawable extends Drawable implements Drawable.Callback {
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * <p>Create a new rotating drawable with an empty state.</p>
      */
     public RotateDrawable() {
-<<<<<<< HEAD
         this(null, null);
-=======
-        this(null);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -78,13 +66,8 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
      *
      * @param rotateState the state for this drawable
      */
-<<<<<<< HEAD
     private RotateDrawable(RotateState rotateState, Resources res) {
         mState = new RotateState(rotateState, this, res);
-=======
-    private RotateDrawable(RotateState rotateState) {
-        mState = new RotateState(rotateState, this);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void draw(Canvas canvas) {
@@ -100,18 +83,13 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
         float px = st.mPivotXRel ? (w * st.mPivotX) : st.mPivotX;
         float py = st.mPivotYRel ? (h * st.mPivotY) : st.mPivotY;
 
-<<<<<<< HEAD
         canvas.rotate(st.mCurrentDegrees, px + bounds.left, py + bounds.top);
-=======
-        canvas.rotate(st.mCurrentDegrees, px, py);
->>>>>>> 54b6cfa... Initial Contribution
 
         st.mDrawable.draw(canvas);
 
         canvas.restoreToCount(saveCount);
     }
 
-<<<<<<< HEAD
     /**
      * Returns the drawable rotated by this RotateDrawable.
      */
@@ -119,8 +97,6 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
         return mState.mDrawable;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public int getChangingConfigurations() {
         return super.getChangingConfigurations()
@@ -141,38 +117,23 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
     }
 
     public void invalidateDrawable(Drawable who) {
-<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.invalidateDrawable(this);
-=======
-        if (mCallback != null) {
-            mCallback.invalidateDrawable(this);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     public void scheduleDrawable(Drawable who, Runnable what, long when) {
-<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.scheduleDrawable(this, what, when);
-=======
-        if (mCallback != null) {
-            mCallback.scheduleDrawable(this, what, when);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     public void unscheduleDrawable(Drawable who, Runnable what) {
-<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.unscheduleDrawable(this, what);
-=======
-        if (mCallback != null) {
-            mCallback.unscheduleDrawable(this, what);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -231,11 +192,7 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
     @Override
     public ConstantState getConstantState() {
         if (mState.canConstantState()) {
-<<<<<<< HEAD
             mState.mChangingConfigurations = getChangingConfigurations();
-=======
-            mState.mChangingConfigurations = super.getChangingConfigurations();
->>>>>>> 54b6cfa... Initial Contribution
             return mState;
         }
         return null;
@@ -252,7 +209,6 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
                 com.android.internal.R.styleable.RotateDrawable_visible);
         
         TypedValue tv = a.peekValue(com.android.internal.R.styleable.RotateDrawable_pivotX);
-<<<<<<< HEAD
         boolean pivotXRel;
         float pivotX;
         if (tv == null) {
@@ -274,25 +230,11 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
             pivotY = pivotYRel ? tv.getFraction(1.0f, 1.0f) : tv.getFloat();
         }
 
-=======
-        boolean pivotXRel = tv.type == TypedValue.TYPE_FRACTION;
-        float pivotX = pivotXRel ? tv.getFraction(1.0f, 1.0f) : tv.getFloat();
-        
-        tv = a.peekValue(com.android.internal.R.styleable.RotateDrawable_pivotY);
-        boolean pivotYRel = tv.type == TypedValue.TYPE_FRACTION;
-        float pivotY = pivotYRel ? tv.getFraction(1.0f, 1.0f) : tv.getFloat();
-        
->>>>>>> 54b6cfa... Initial Contribution
         float fromDegrees = a.getFloat(
                 com.android.internal.R.styleable.RotateDrawable_fromDegrees, 0.0f);
         float toDegrees = a.getFloat(
                 com.android.internal.R.styleable.RotateDrawable_toDegrees, 360.0f);
 
-<<<<<<< HEAD
-=======
-        toDegrees = Math.max(fromDegrees, toDegrees);
-
->>>>>>> 54b6cfa... Initial Contribution
         int res = a.getResourceId(
                 com.android.internal.R.styleable.RotateDrawable_drawable, 0);
         Drawable drawable = null;
@@ -334,7 +276,6 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
         }
     }
 
-<<<<<<< HEAD
     @Override
     public Drawable mutate() {
         if (!mMutated && super.mutate() == this) {
@@ -344,8 +285,6 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
         return this;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * <p>Represents the state of a rotation for a given drawable. The same
      * rotate drawable can be invoked with different states to drive several
@@ -366,7 +305,6 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
 
         float mCurrentDegrees;
 
-<<<<<<< HEAD
         private boolean mCanConstantState;
         private boolean mCheckedConstantState;        
 
@@ -377,11 +315,6 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
                 } else {
                     mDrawable = source.mDrawable.getConstantState().newDrawable();
                 }
-=======
-        public RotateState(RotateState source, RotateDrawable owner) {
-            if (source != null) {
-                mDrawable = source.mDrawable.getConstantState().newDrawable();
->>>>>>> 54b6cfa... Initial Contribution
                 mDrawable.setCallback(owner);
                 mPivotXRel = source.mPivotXRel;
                 mPivotX = source.mPivotX;
@@ -395,16 +328,12 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
 
         @Override
         public Drawable newDrawable() {
-<<<<<<< HEAD
             return new RotateDrawable(this, null);
         }
         
         @Override
         public Drawable newDrawable(Resources res) {
             return new RotateDrawable(this, res);
-=======
-            return new RotateDrawable(this);
->>>>>>> 54b6cfa... Initial Contribution
         }
         
         @Override
@@ -420,16 +349,5 @@ public class RotateDrawable extends Drawable implements Drawable.Callback {
 
             return mCanConstantState;
         }
-<<<<<<< HEAD
     }
-=======
-
-        private boolean mCanConstantState;
-        private boolean mCheckedConstantState;
-    }
-
-    private static final float MAX_LEVEL = 10000.0f;
-
-    private RotateState mState;
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -18,13 +18,6 @@ package android.view;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-<<<<<<< HEAD
-=======
-import static android.view.WindowManager.LayoutParams.MEMORY_TYPE_NORMAL;
-import static android.view.WindowManager.LayoutParams.MEMORY_TYPE_HARDWARE;
-import static android.view.WindowManager.LayoutParams.MEMORY_TYPE_GPU;
-import static android.view.WindowManager.LayoutParams.MEMORY_TYPE_PUSH_BUFFERS;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Abstract interface to someone holding a display surface.  Allows you to
@@ -32,7 +25,6 @@ import static android.view.WindowManager.LayoutParams.MEMORY_TYPE_PUSH_BUFFERS;
  * monitor changes to the surface.  This interface is typically available
  * through the {@link SurfaceView} class.
  * 
-<<<<<<< HEAD
  * <p>When using this interface from a thread other than the one running
  * its {@link SurfaceView}, you will want to carefully read the
  * methods
@@ -56,37 +48,6 @@ public interface SurfaceHolder {
     /**
      * Exception that is thrown from {@link #lockCanvas} when called on a Surface
      * whose type is SURFACE_TYPE_PUSH_BUFFERS.
-=======
- * <p>When using this interface from a thread different than the one running
- * its {@link SurfaceView}, you will want to carefully read the
- * {@link #lockCanvas} and {@link Callback#surfaceCreated Callback.surfaceCreated}.
- */
-public interface SurfaceHolder {
-    /**
-     * Surface type.
-     * 
-     * @see #SURFACE_TYPE_NORMAL
-     * @see #SURFACE_TYPE_HARDWARE
-     * @see #SURFACE_TYPE_GPU
-     * @see #SURFACE_TYPE_PUSH_BUFFERS
-     */
-    
-    /** Surface type: creates a regular surface, usually in main, non
-     * contiguous, cached/buffered RAM. */
-    public static final int SURFACE_TYPE_NORMAL = MEMORY_TYPE_NORMAL;
-    /** Surface type: creates a suited to be used with DMA engines and
-     * hardware accelerators. */
-    public static final int SURFACE_TYPE_HARDWARE = MEMORY_TYPE_HARDWARE;
-    /** Surface type: creates a surface suited to be used with the GPU */
-    public static final int SURFACE_TYPE_GPU = MEMORY_TYPE_GPU;
-    /** Surface type: creates a "push" surface, that is a surface that 
-     * doesn't owns its buffers. With such a surface lockCanvas will fail. */
-    public static final int SURFACE_TYPE_PUSH_BUFFERS = MEMORY_TYPE_PUSH_BUFFERS;
-
-    /**
-     * Exception that is thrown from {@link #lockCanvas} when called on a Surface
-     * whose is SURFACE_TYPE_PUSH_BUFFERS.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static class BadSurfaceTypeException extends RuntimeException {
         public BadSurfaceTypeException() {
@@ -102,11 +63,7 @@ public interface SurfaceHolder {
      * changes to the surface.  When used with a {@link SurfaceView}, the
      * Surface being held is only available between calls to
      * {@link #surfaceCreated(SurfaceHolder)} and
-<<<<<<< HEAD
      * {@link #surfaceDestroyed(SurfaceHolder)}.  The Callback is set with
-=======
-     * {@link #surfaceDestroyed(SurfaceHolder).  The Callback is set with
->>>>>>> 54b6cfa... Initial Contribution
      * {@link SurfaceHolder#addCallback SurfaceHolder.addCallback} method.
      */
     public interface Callback {
@@ -148,7 +105,6 @@ public interface SurfaceHolder {
     }
 
     /**
-<<<<<<< HEAD
      * Additional callbacks that can be received for {@link Callback}.
      */
     public interface Callback2 extends Callback {
@@ -168,10 +124,6 @@ public interface SurfaceHolder {
     /**
      * Add a Callback interface for this holder.  There can several Callback
      * interfaces associated with a holder.
-=======
-     * Add a Callback interface for this holder.  There can several Callback
-     * interfaces associated to a holder.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param callback The new Callback interface.
      */
@@ -194,31 +146,16 @@ public interface SurfaceHolder {
     public boolean isCreating();
     
     /**
-<<<<<<< HEAD
      * Sets the surface's type.
      *  
      * @deprecated this is ignored, this value is set automatically when needed.
      */
     @Deprecated
-=======
-     * Sets the surface's type. Surfaces intended to be used with OpenGL ES
-     * should be of SURFACE_TYPE_GPU, surfaces accessed by DMA engines and
-     * hardware accelerators should be of type SURFACE_TYPE_HARDWARE.
-     * Failing to set the surface's type appropriately could result in 
-     * degraded performance or failure. 
-     * 
-     * @param type The surface's memory type.
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public void setType(int type);
 
     /**
      * Make the surface a fixed size.  It will never change from this size.
-<<<<<<< HEAD
      * When working with a {@link SurfaceView}, this must be called from the
-=======
-     * When working with a {link SurfaceView}, this must be called from the
->>>>>>> 54b6cfa... Initial Contribution
      * same thread running the SurfaceView's window.
      * 
      * @param width The surface's width.
@@ -230,22 +167,14 @@ public interface SurfaceHolder {
      * Allow the surface to resized based on layout of its container (this is
      * the default).  When this is enabled, you should monitor
      * {@link Callback#surfaceChanged} for changes to the size of the surface.
-<<<<<<< HEAD
      * When working with a {@link SurfaceView}, this must be called from the
-=======
-     * When working with a {link SurfaceView}, this must be called from the
->>>>>>> 54b6cfa... Initial Contribution
      * same thread running the SurfaceView's window.
      */
     public void setSizeFromLayout();
 
     /**
      * Set the desired PixelFormat of the surface.  The default is OPAQUE.
-<<<<<<< HEAD
      * When working with a {@link SurfaceView}, this must be called from the
-=======
-     * When working with a {link SurfaceView}, this must be called from the
->>>>>>> 54b6cfa... Initial Contribution
      * same thread running the SurfaceView's window.
      * 
      * @param format A constant from PixelFormat.
@@ -257,16 +186,9 @@ public interface SurfaceHolder {
     /**
      * Enable or disable option to keep the screen turned on while this
      * surface is displayed.  The default is false, allowing it to turn off.
-<<<<<<< HEAD
      * This is safe to call from any thread.
      * 
      * @param screenOn Set to true to force the screen to stay on, false
-=======
-     * Enabling the option effectivelty.
-     * This is safe to call from any thread.
-     * 
-     * @param screenOn Supply to true to force the screen to stay on, false
->>>>>>> 54b6cfa... Initial Contribution
      * to allow it to turn off.
      */
     public void setKeepScreenOn(boolean screenOn);
@@ -274,22 +196,14 @@ public interface SurfaceHolder {
     /**
      * Start editing the pixels in the surface.  The returned Canvas can be used
      * to draw into the surface's bitmap.  A null is returned if the surface has
-<<<<<<< HEAD
      * not been created or otherwise cannot be edited.  You will usually need
-=======
-     * not been created or otherwise can not be edited.  You will usually need
->>>>>>> 54b6cfa... Initial Contribution
      * to implement {@link Callback#surfaceCreated Callback.surfaceCreated}
      * to find out when the Surface is available for use.
      * 
      * <p>The content of the Surface is never preserved between unlockCanvas() and
      * lockCanvas(), for this reason, every pixel within the Surface area
      * must be written. The only exception to this rule is when a dirty
-<<<<<<< HEAD
      * rectangle is specified, in which case, non-dirty pixels will be
-=======
-     * rectangle is specified, in which case, non dirty pixels will be
->>>>>>> 54b6cfa... Initial Contribution
      * preserved.
      * 
      * <p>If you call this repeatedly when the Surface is not ready (before
@@ -300,11 +214,7 @@ public interface SurfaceHolder {
      * <p>If null is not returned, this function internally holds a lock until
      * the corresponding {@link #unlockCanvasAndPost} call, preventing
      * {@link SurfaceView} from creating, destroying, or modifying the surface
-<<<<<<< HEAD
      * while it is being drawn.  This can be more convenient than accessing
-=======
-     * while it is being drawn.  This can be more convenience than accessing
->>>>>>> 54b6cfa... Initial Contribution
      * the Surface directly, as you do not need to do special synchronization
      * with a drawing thread in {@link Callback#surfaceDestroyed
      * Callback.surfaceDestroyed}.
@@ -315,11 +225,7 @@ public interface SurfaceHolder {
 
     
     /**
-<<<<<<< HEAD
      * Just like {@link #lockCanvas()} but allows specification of a dirty rectangle.
-=======
-     * Just like {@link #lockCanvas()} but allows to specify a dirty rectangle.
->>>>>>> 54b6cfa... Initial Contribution
      * Every
      * pixel within that rectangle must be written; however pixels outside
      * the dirty rectangle will be preserved by the next call to lockCanvas().
@@ -337,11 +243,7 @@ public interface SurfaceHolder {
      * in particular there is no guarantee that the content of the Surface
      * will remain unchanged when lockCanvas() is called again.
      * 
-<<<<<<< HEAD
      * @see #lockCanvas()
-=======
-     * @see android.view.SurfaceHolder.lockCanvas
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param canvas The Canvas previously returned by lockCanvas().
      */

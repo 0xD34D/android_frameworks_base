@@ -2,7 +2,6 @@
 **
 ** Copyright 2006, The Android Open Source Project
 **
-<<<<<<< HEAD
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
 ** You may obtain a copy of the License at
@@ -13,24 +12,11 @@
 ** distributed under the License is distributed on an "AS IS" BASIS,
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
-=======
-** Licensed under the Apache License, Version 2.0 (the "License"); 
-** you may not use this file except in compliance with the License. 
-** You may obtain a copy of the License at 
-**
-**     http://www.apache.org/licenses/LICENSE-2.0 
-**
-** Unless required by applicable law or agreed to in writing, software 
-** distributed under the License is distributed on an "AS IS" BASIS, 
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-** See the License for the specific language governing permissions and 
->>>>>>> 54b6cfa... Initial Contribution
 ** limitations under the License.
 */
 
 #define LOG_TAG "AndroidUnicode"
 
-<<<<<<< HEAD
 #include "JNIHelp.h"
 #include "ScopedPrimitiveArray.h"
 #include <android_runtime/AndroidRuntime.h>
@@ -79,36 +65,6 @@ static void getDirectionalities(JNIEnv* env, jobject obj, jcharArray srcArray, j
     if (env->GetArrayLength(srcArray) < count || env->GetArrayLength(destArray) < count) {
         jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", NULL);
         return;
-=======
-#include <jni.h>
-#include <android_runtime/AndroidRuntime.h>
-#include "utils/misc.h"
-#include "utils/AndroidUnicode.h"
-#include "utils/Log.h"
-
-namespace android {
-    
-static void jniThrowException(JNIEnv* env, const char* exc, const char* msg = NULL)
-{
-    jclass excClazz = env->FindClass(exc);
-    LOG_ASSERT(excClazz, "Unable to find class %s", exc);
-
-    env->ThrowNew(excClazz, msg);
-}
-
-static void getDirectionalities(JNIEnv* env, jobject obj, jcharArray srcArray, jbyteArray destArray, int count)
-{
-    jchar* src = env->GetCharArrayElements(srcArray, NULL);
-    jbyte* dest = env->GetByteArrayElements(destArray, NULL);
-    if (src == NULL || dest == NULL) {
-        jniThrowException(env, "java/lang/NullPointerException", NULL);
-        goto DIRECTION_END;
-    }
-
-    if (env->GetArrayLength(srcArray) < count || env->GetArrayLength(destArray) < count) {
-        jniThrowException(env, "java/lang/ArrayIndexException", NULL);
-        goto DIRECTION_END;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     for (int i = 0; i < count; i++) {
@@ -117,21 +73,16 @@ static void getDirectionalities(JNIEnv* env, jobject obj, jcharArray srcArray, j
             src[i + 1] >= 0xDC00 && src[i + 1] <= 0xDFFF) {
             int c = 0x00010000 + ((src[i] - 0xD800) << 10) +
                                  (src[i + 1] & 0x3FF);
-<<<<<<< HEAD
             int dir = u_charDirection(c);
             if (dir < 0 || dir >= U_CHAR_DIRECTION_COUNT)
                 dir = PROPERTY_UNDEFINED;
             else
                 dir = directionality_map[dir];
-=======
-            int dir = android::Unicode::getDirectionality(c);
->>>>>>> 54b6cfa... Initial Contribution
 
             dest[i++] = dir;
             dest[i] = dir;
         } else {
             int c = src[i];
-<<<<<<< HEAD
             int dir = u_charDirection(c);
             if (dir < 0 || dir >= U_CHAR_DIRECTION_COUNT)
                 dest[i] = PROPERTY_UNDEFINED;
@@ -191,22 +142,10 @@ static void getEastAsianWidths(JNIEnv* env, jobject obj, jcharArray srcArray,
             dest[i] = width;
         }
     }
-=======
-            int dir = android::Unicode::getDirectionality(c);
-
-            dest[i] = dir;
-        }
-    }
-    
-DIRECTION_END:
-    env->ReleaseCharArrayElements(srcArray, src, JNI_ABORT);
-    env->ReleaseByteArrayElements(destArray, dest, JNI_ABORT);
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 static jboolean mirror(JNIEnv* env, jobject obj, jcharArray charArray, int start, int count)
 {
-<<<<<<< HEAD
     ScopedCharArrayRW data(env, charArray);
     if (data.get() == NULL) {
         return false;
@@ -216,26 +155,12 @@ static jboolean mirror(JNIEnv* env, jobject obj, jcharArray charArray, int start
             || env->GetArrayLength(charArray) < start + count) {
         jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", NULL);
         return false;
-=======
-    jchar* data = env->GetCharArrayElements(charArray, NULL);
-    bool ret = false;
-
-    if (data == NULL) {
-        jniThrowException(env, "java/lang/NullPointerException", NULL);
-        goto MIRROR_END;
-    }
-
-    if (start > start + count || env->GetArrayLength(charArray) < count) {
-        jniThrowException(env, "java/lang/ArrayIndexException", NULL);
-        goto MIRROR_END;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     for (int i = start; i < start + count; i++) {
         // XXX this thinks it knows that surrogates are never mirrored
 
         int c1 = data[i];
-<<<<<<< HEAD
         int c2 = u_charMirror(c1);
 
         if (c1 != c2) {
@@ -249,36 +174,15 @@ static jboolean mirror(JNIEnv* env, jobject obj, jcharArray charArray, int start
 static jchar getMirror(JNIEnv* env, jobject obj, jchar c)
 {
     return u_charMirror(c);
-=======
-        int c2 = android::Unicode::toMirror(c1);
-
-        if (c1 != c2) {
-            data[i] = c2;
-            ret = true;
-        }
-    }
-
-MIRROR_END:
-    env->ReleaseCharArrayElements(charArray, data, JNI_ABORT);
-	return ret;
-}
-
-static jchar getMirror(JNIEnv* env, jobject obj, jchar c)
-{   
-    return android::Unicode::toMirror(c);
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 static JNINativeMethod gMethods[] = {
 	{ "getDirectionalities", "([C[BI)V",
         (void*) getDirectionalities },
-<<<<<<< HEAD
 	{ "getEastAsianWidth", "(C)I",
         (void*) getEastAsianWidth },
 	{ "getEastAsianWidths", "([CII[B)V",
         (void*) getEastAsianWidths },
-=======
->>>>>>> 54b6cfa... Initial Contribution
 	{ "mirror", "([CII)Z",
         (void*) mirror },
 	{ "getMirror", "(C)C",
@@ -287,12 +191,6 @@ static JNINativeMethod gMethods[] = {
 
 int register_android_text_AndroidCharacter(JNIEnv* env)
 {
-<<<<<<< HEAD
-=======
-    jclass clazz = env->FindClass("android/text/AndroidCharacter");
-    LOG_ASSERT(clazz, "Cannot find android/text/AndroidCharacter");
-    
->>>>>>> 54b6cfa... Initial Contribution
     return AndroidRuntime::registerNativeMethods(env, "android/text/AndroidCharacter",
             gMethods, NELEM(gMethods));
 }

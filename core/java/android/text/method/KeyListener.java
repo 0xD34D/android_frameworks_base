@@ -16,7 +16,6 @@
 
 package android.text.method;
 
-<<<<<<< HEAD
 import android.text.Editable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -56,16 +55,6 @@ public interface KeyListener {
      */
     public int getInputType();
     
-=======
-import android.view.KeyEvent;
-import android.view.View;
-import android.os.Message;
-import android.text.*;
-import android.widget.TextView;
-
-public interface KeyListener
-{
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * If the key listener wants to handle this key, return true,
      * otherwise return false and the caller (i.e. the widget host)
@@ -81,7 +70,6 @@ public interface KeyListener
      */
     public boolean onKeyUp(View view, Editable text,
                            int keyCode, KeyEvent event);
-<<<<<<< HEAD
     
     /**
      * If the key listener wants to other kinds of key events, return true,
@@ -94,6 +82,4 @@ public interface KeyListener
      * Remove the given shift states from the edited text.
      */
     public void clearMetaKeyState(View view, Editable content, int states);
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

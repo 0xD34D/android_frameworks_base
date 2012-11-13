@@ -1,7 +1,6 @@
 /**
  * Copyright (c) 2008, The Android Open Source Project
  *
-<<<<<<< HEAD
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,24 +11,11 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
-=======
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- *
- *     http://www.apache.org/licenses/LICENSE-2.0 
- *
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
->>>>>>> 54b6cfa... Initial Contribution
  * limitations under the License.
  */
 
 package android.net;
 
-<<<<<<< HEAD
 import android.net.LinkProperties;
 import android.net.NetworkInfo;
 import android.net.NetworkQuotaInfo;
@@ -40,9 +26,6 @@ import android.os.ParcelFileDescriptor;
 
 import com.android.internal.net.LegacyVpnInfo;
 import com.android.internal.net.VpnConfig;
-=======
-import android.net.NetworkInfo;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Interface that answers queries about, and allows changing, the
@@ -56,7 +39,6 @@ interface IConnectivityManager
     int getNetworkPreference();
 
     NetworkInfo getActiveNetworkInfo();
-<<<<<<< HEAD
     NetworkInfo getActiveNetworkInfoForUid(int uid);
     NetworkInfo getNetworkInfo(int networkType);
     NetworkInfo[] getAllNetworkInfo();
@@ -70,28 +52,17 @@ interface IConnectivityManager
 
     NetworkQuotaInfo getActiveNetworkQuotaInfo();
     boolean isActiveNetworkMetered();
-=======
-
-    NetworkInfo getNetworkInfo(int networkType);
-
-    NetworkInfo[] getAllNetworkInfo();
->>>>>>> 54b6cfa... Initial Contribution
 
     boolean setRadios(boolean onOff);
 
     boolean setRadio(int networkType, boolean turnOn);
 
-<<<<<<< HEAD
     int startUsingNetworkFeature(int networkType, in String feature,
             in IBinder binder);
-=======
-    int startUsingNetworkFeature(int networkType, in String feature);
->>>>>>> 54b6cfa... Initial Contribution
 
     int stopUsingNetworkFeature(int networkType, in String feature);
 
     boolean requestRouteToHost(int networkType, int hostAddress);
-<<<<<<< HEAD
 
     boolean requestRouteToHostAddress(int networkType, in byte[] hostAddress);
 
@@ -150,6 +121,4 @@ interface IConnectivityManager
     void startLegacyVpn(in VpnConfig config, in String[] racoon, in String[] mtpd);
 
     LegacyVpnInfo getLegacyVpnInfo();
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

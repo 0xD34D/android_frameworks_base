@@ -18,7 +18,6 @@ package android.os;
 
 /** @hide */
 public interface LocalPowerManager {
-<<<<<<< HEAD
     // Note: be sure to update BatteryStats if adding or modifying event constants.
     
     public static final int OTHER_EVENT = 0;
@@ -29,17 +28,6 @@ public interface LocalPowerManager {
 
     public static final int POKE_LOCK_SHORT_TIMEOUT = 0x2;
     public static final int POKE_LOCK_MEDIUM_TIMEOUT = 0x4;
-=======
-    public static final int OTHER_EVENT = 0;
-    public static final int CHEEK_EVENT = 1;
-    public static final int TOUCH_EVENT = 2;
-    public static final int BUTTON_EVENT = 3;  // Button and trackball events.
-
-    public static final int POKE_LOCK_IGNORE_CHEEK_EVENTS = 0x1;
-    public static final int POKE_LOCK_SHORT_TIMEOUT = 0x2;
-    public static final int POKE_LOCK_MEDIUM_TIMEOUT = 0x4;
-
->>>>>>> 54b6cfa... Initial Contribution
     public static final int POKE_LOCK_TIMEOUT_MASK = 0x6;
 
     void goToSleep(long time);
@@ -51,14 +39,10 @@ public interface LocalPowerManager {
     void enableUserActivity(boolean enabled);
 
     // the same as the method on PowerManager
-<<<<<<< HEAD
     void userActivity(long time, boolean noChangeLights, int eventType);
 
     boolean isScreenOn();
 
     void setScreenBrightnessOverride(int brightness);
     void setButtonBrightnessOverride(int brightness);
-=======
-    public void userActivity(long time, boolean noChangeLights, int eventType);
->>>>>>> 54b6cfa... Initial Contribution
 }

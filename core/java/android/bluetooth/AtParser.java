@@ -16,23 +16,13 @@
 
 package android.bluetooth;
 
-<<<<<<< HEAD
-=======
-import android.bluetooth.AtCommandHandler;
-import android.bluetooth.AtCommandResult;
-
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.*;
 
 /**
  * An AT (Hayes command) Parser based on (a subset of) the ITU-T V.250 standard.
  * <p>
  *
-<<<<<<< HEAD
  * Conformant with the subset of V.250 required for implementation of the
-=======
- * Conforment with the subset of V.250 required for implementation of the
->>>>>>> 54b6cfa... Initial Contribution
  * Bluetooth Headset and Handsfree Profiles, as per Bluetooth SIP
  * specifications. Also implements some V.250 features not required by
  * Bluetooth - such as chained commands.<p>
@@ -55,11 +45,7 @@ import java.util.*;
  * are no arguments for get commands.
  * <li>Set Command. For example "AT+VGM=14". The command name is "VGM", and
  * there is a single integer argument in this case. In the general case then
-<<<<<<< HEAD
  * can be zero or more arguments (comma delimited) each of integer or string
-=======
- * can be zero or more arguments (comma deliminated) each of integer or string
->>>>>>> 54b6cfa... Initial Contribution
  * form.
  * <li>Test Command. For example "AT+VGM=?. No arguments.
  * </ul>
@@ -71,11 +57,7 @@ import java.util.*;
  * headset/handsfree use this is acceptable, because they only use the basic
  * commands ATA and ATD, which are not allowed to be chained. For general V.250
  * use we would need to improve this class to allow Basic command chaining -
-<<<<<<< HEAD
  * however it's tricky to get right because there is no delimiter for Basic
-=======
- * however its tricky to get right becuase there is no deliminator for Basic
->>>>>>> 54b6cfa... Initial Contribution
  * command chaining.<p>
  *
  * Extended commands can be chained. For example:<p>
@@ -86,11 +68,7 @@ import java.util.*;
  * AT+CIMI
  * Except that only one final result code is return (although several
  * intermediate responses may be returned), and as soon as one command in the
-<<<<<<< HEAD
  * chain fails the rest are abandoned.<p>
-=======
- * chain fails the rest are abandonded.<p>
->>>>>>> 54b6cfa... Initial Contribution
  *
  * Handlers are registered by there command name via register(Char c, ...) or
  * register(String s, ...). Handlers for Basic command should be registered by
@@ -99,11 +77,7 @@ import java.util.*;
  *
  * Refer to:<ul>
  * <li>ITU-T Recommendation V.250
-<<<<<<< HEAD
  * <li>ETSI TS 127.007  (AT Command set for User Equipment, 3GPP TS 27.007)
-=======
- * <li>ETSI TS 127.007  (AT Comannd set for User Equipment, 3GPP TS 27.007)
->>>>>>> 54b6cfa... Initial Contribution
  * <li>Bluetooth Headset Profile Spec (K6)
  * <li>Bluetooth Handsfree Profile Spec (HFP 1.5)
  * </ul>
@@ -211,11 +185,7 @@ public class AtParser {
     }
 
     /**
-<<<<<<< HEAD
      * Break an argument string into individual arguments (comma delimited).
-=======
-     * Break an argument string into individual arguments (comma deliminated).
->>>>>>> 54b6cfa... Initial Contribution
      * Integer arguments are turned into Integer objects. Otherwise a String
      * object is used.
      */
@@ -239,11 +209,7 @@ public class AtParser {
     }
 
     /**
-<<<<<<< HEAD
      * Return the index of the end of character after the last character in
-=======
-     * Return the index of the end of character after the last characeter in
->>>>>>> 54b6cfa... Initial Contribution
      * the extended command name. Uses the V.250 spec for allowed command
      * names.
      */
@@ -275,11 +241,7 @@ public class AtParser {
      * Processes an incoming AT command line.<p>
      * This method will invoke zero or one command handler methods for each
      * command in the command line.<p>
-<<<<<<< HEAD
      * @param raw_input The AT input, without EOL delimiter (e.g. <CR>).
-=======
-     * @param raw_input The AT input, without EOL deliminator (e.g. <CR>).
->>>>>>> 54b6cfa... Initial Contribution
      * @return          Result object for this command line. This can be
      *                  converted to a String[] response with toStrings().
      */
@@ -332,13 +294,8 @@ public class AtParser {
 
             if (c == '+') {
                 // Option 2: Extended Command
-<<<<<<< HEAD
                 // Search for first non-name character. Short-circuit if
                 // we don't handle this command name.
-=======
-                // Search for first non-name character. Shortcircuit if we dont
-                // handle this command name.
->>>>>>> 54b6cfa... Initial Contribution
                 int i = findEndExtendedName(input, index + 1);
                 String commandName = input.substring(index, i);
                 if (!mExtHandlers.containsKey(commandName)) {

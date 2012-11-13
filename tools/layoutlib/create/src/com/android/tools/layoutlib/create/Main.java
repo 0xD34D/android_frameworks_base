@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-<<<<<<< HEAD
 /**
  * Entry point for the layoutlib_create tool.
  * <p/>
@@ -51,10 +50,6 @@ public class Main {
     }
 
     public static final Options sOptions = new Options();
-=======
-
-public class Main {
->>>>>>> 54b6cfa... Initial Contribution
 
     public static void main(String[] args) {
 
@@ -64,11 +59,7 @@ public class Main {
         String[] osDestJar = { null };
 
         if (!processArgs(log, args, osJarPath, osDestJar)) {
-<<<<<<< HEAD
             log.error("Usage: layoutlib_create [-v] [-p] output.jar input.jar ...");
-=======
-            log.error("Usage: layoutlib_create [-v] output.jar input.jar ...");
->>>>>>> 54b6cfa... Initial Contribution
             System.exit(1);
         }
 
@@ -76,7 +67,6 @@ public class Main {
         for (String path : osJarPath) {
             log.info("Input :      %1$s", path);
         }
-<<<<<<< HEAD
 
         try {
             AsmGenerator agen = new AsmGenerator(log, osDestJar[0], new CreateInfo());
@@ -86,48 +76,6 @@ public class Main {
                         "android.view.View",
                         "android.app.Fragment"
                     },
-=======
-        
-        try {
-            AsmGenerator agen = new AsmGenerator(log, osDestJar[0],
-                    new Class<?>[] {  // classes to inject in the final JAR
-                        OverrideMethod.class,
-                        OverrideMethod.MethodListener.class
-                    },
-                    new String[] {  // methods to force override
-                        "android.content.res.Resources$Theme#obtainStyledAttributes",
-                    },
-                    new String[] {  // classes to rename (so that we can replace them in layoutlib)
-                        // original-platform-class-name ======> renamed-class-name
-                        "android.graphics.Matrix",              "android.graphics._Original_Matrix",
-                        "android.graphics.Paint",               "android.graphics._Original_Paint",
-                        "android.graphics.Typeface",            "android.graphics._Original_Typeface",
-                        "android.graphics.Bitmap",              "android.graphics._Original_Bitmap",
-                        "android.graphics.Path",                "android.graphics._Original_Path",
-                        "android.graphics.PorterDuffXfermode",  "android.graphics._Original_PorterDuffXfermode",
-                        "android.graphics.Shader",              "android.graphics._Original_Shader",
-                        "android.graphics.LinearGradient",      "android.graphics._Original_LinearGradient",
-                        "android.graphics.BitmapShader",        "android.graphics._Original_BitmapShader",
-                        "android.graphics.ComposeShader",       "android.graphics._Original_ComposeShader",
-                        "android.graphics.RadialGradient",      "android.graphics._Original_RadialGradient",
-                        "android.graphics.SweepGradient",       "android.graphics._Original_SweepGradient",
-                        "android.util.FloatMath",               "android.util._Original_FloatMath",
-                        "android.view.SurfaceView",             "android.view._Original_SurfaceView",
-                    },
-                    new String[] { // methods deleted from their return type.
-                    "android.graphics.Paint", // class to delete method from
-                        "android.graphics.Paint$Align", // list of type identifying methods to delete
-                        "android.graphics.Paint$Style",
-                        "android.graphics.Paint$Join",
-                        "android.graphics.Paint$Cap",
-                        "android.graphics.Paint$FontMetrics",
-                        "android.graphics.Paint$FontMetricsInt",
-                        null }
-            );
-
-            AsmAnalyzer aa = new AsmAnalyzer(log, osJarPath, agen,
-                    new String[] { "android.view.View" },   // derived from
->>>>>>> 54b6cfa... Initial Contribution
                     new String[] {                          // include classes
                         "android.*", // for android.R
                         "android.util.*",
@@ -144,18 +92,11 @@ public class Main {
                         "com.android.internal.R**",
                         "android.pim.*", // for datepicker
                         "android.os.*",  // for android.os.Handler
-<<<<<<< HEAD
                         "android.database.ContentObserver", // for Digital clock
                         });
             aa.analyze();
             agen.generate();
 
-=======
-                        });
-            aa.analyze();
-            agen.generate();
-            
->>>>>>> 54b6cfa... Initial Contribution
             // Throw an error if any class failed to get renamed by the generator
             //
             // IMPORTANT: if you're building the platform and you get this error message,
@@ -177,11 +118,7 @@ public class Main {
                 }
                 System.exit(1);
             }
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             System.exit(0);
         } catch (IOException e) {
             log.exception(e, "Failed to load jar");
@@ -205,11 +142,8 @@ public class Main {
             String s = args[i];
             if (s.equals("-v")) {
                 log.setVerbose(true);
-<<<<<<< HEAD
             } else if (s.equals("-p")) {
                 sOptions.generatePublicAccess = false;
-=======
->>>>>>> 54b6cfa... Initial Contribution
             } else if (!s.startsWith("-")) {
                 if (osDestJar[0] == null) {
                     osDestJar[0] = s;
@@ -221,11 +155,7 @@ public class Main {
                 return false;
             }
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         if (osJarPath.isEmpty()) {
             log.error("Missing parameter: path to input jar");
             return false;
@@ -235,14 +165,8 @@ public class Main {
             return false;
         }
 
-<<<<<<< HEAD
         sOptions.generatePublicAccess = false;
 
         return true;
     }
-=======
-        return true;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
 }

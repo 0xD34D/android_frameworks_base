@@ -17,12 +17,9 @@
 package android.widget;
 
 import android.content.Context;
-<<<<<<< HEAD
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.util.FloatMath;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.view.ViewConfiguration;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
@@ -55,27 +52,16 @@ public class Scroller  {
     private float mDurationReciprocal;
     private float mDeltaX;
     private float mDeltaY;
-<<<<<<< HEAD
     private boolean mFinished;
     private Interpolator mInterpolator;
     private boolean mFlywheel;
 
-=======
-    private float mViscousFluidScale;
-    private float mViscousFluidNormalize;
-    private boolean mFinished;
-    private Interpolator mInterpolator;
-
-    private float mCoeffX = 0.0f;
-    private float mCoeffY = 1.0f;
->>>>>>> 54b6cfa... Initial Contribution
     private float mVelocity;
 
     private static final int DEFAULT_DURATION = 250;
     private static final int SCROLL_MODE = 0;
     private static final int FLING_MODE = 1;
 
-<<<<<<< HEAD
     private static float DECELERATION_RATE = (float) (Math.log(0.75) / Math.log(0.9));
     private static float ALPHA = 800; // pixels / seconds
     private static float START_TENSION = 0.4f; // Tension at start: (0.4 * total T, 1.0 * Distance)
@@ -114,9 +100,6 @@ public class Scroller  {
 
     private static float sViscousFluidScale;
     private static float sViscousFluidNormalize;
-=======
-    private final float mDeceleration;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Create a Scroller with the default duration and interpolator.
@@ -127,7 +110,6 @@ public class Scroller  {
 
     /**
      * Create a Scroller with the specified interpolator. If the interpolator is
-<<<<<<< HEAD
      * null, the default (viscous) interpolator will be used. "Flywheel" behavior will
      * be in effect for apps targeting Honeycomb or newer.
      */
@@ -167,20 +149,6 @@ public class Scroller  {
                       * friction;
     }
 
-=======
-     * null, the default (viscous) interpolator will be used.
-     */
-    public Scroller(Context context, Interpolator interpolator) {
-        mFinished = true;
-        mInterpolator = interpolator;
-        float ppi = context.getResources().getDisplayMetrics().density * 160.0f;
-        mDeceleration = 9.8f   // g (m/s^2)
-                      * 39.37f // inch/meter
-                      * ppi    // pixels per inch
-                      * ViewConfiguration.getScrollFriction();
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * 
      * Returns whether the scroller has finished scrolling.
@@ -228,7 +196,6 @@ public class Scroller  {
     }
     
     /**
-<<<<<<< HEAD
      * Returns the current velocity.
      *
      * @return The original velocity less the deceleration. Result may be
@@ -257,8 +224,6 @@ public class Scroller  {
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Returns where the scroll will end. Valid only for "fling" scrolls.
      * 
      * @return The final X offset as an absolute distance from the origin.
@@ -291,11 +256,7 @@ public class Scroller  {
         if (timePassed < mDuration) {
             switch (mMode) {
             case SCROLL_MODE:
-<<<<<<< HEAD
                 float x = timePassed * mDurationReciprocal;
-=======
-                float x = (float)timePassed * mDurationReciprocal;
->>>>>>> 54b6cfa... Initial Contribution
     
                 if (mInterpolator == null)
                     x = viscousFluid(x); 
@@ -304,7 +265,6 @@ public class Scroller  {
     
                 mCurrX = mStartX + Math.round(x * mDeltaX);
                 mCurrY = mStartY + Math.round(x * mDeltaY);
-<<<<<<< HEAD
                 break;
             case FLING_MODE:
                 final float t = (float) timePassed / mDuration;
@@ -316,27 +276,11 @@ public class Scroller  {
                 final float distanceCoef = d_inf + (t - t_inf) / (t_sup - t_inf) * (d_sup - d_inf);
                 
                 mCurrX = mStartX + Math.round(distanceCoef * (mFinalX - mStartX));
-=======
-                if ((mCurrX == mFinalX) && (mCurrY == mFinalY)) {
-                    mFinished = true;
-                }
-                break;
-            case FLING_MODE:
-                float timePassedSeconds = timePassed / 1000.0f;
-                float distance = (mVelocity * timePassedSeconds)
-                        - (mDeceleration * timePassedSeconds * timePassedSeconds / 2.0f);
-                
-                mCurrX = mStartX + Math.round(distance * mCoeffX);
->>>>>>> 54b6cfa... Initial Contribution
                 // Pin to mMinX <= mCurrX <= mMaxX
                 mCurrX = Math.min(mCurrX, mMaxX);
                 mCurrX = Math.max(mCurrX, mMinX);
                 
-<<<<<<< HEAD
                 mCurrY = mStartY + Math.round(distanceCoef * (mFinalY - mStartY));
-=======
-                mCurrY = mStartY + Math.round(distance * mCoeffY);
->>>>>>> 54b6cfa... Initial Contribution
                 // Pin to mMinY <= mCurrY <= mMaxY
                 mCurrY = Math.min(mCurrY, mMaxY);
                 mCurrY = Math.max(mCurrY, mMinY);
@@ -344,11 +288,7 @@ public class Scroller  {
                 if (mCurrX == mFinalX && mCurrY == mFinalY) {
                     mFinished = true;
                 }
-<<<<<<< HEAD
 
-=======
-                
->>>>>>> 54b6cfa... Initial Contribution
                 break;
             }
         }
@@ -403,14 +343,6 @@ public class Scroller  {
         mDeltaX = dx;
         mDeltaY = dy;
         mDurationReciprocal = 1.0f / (float) mDuration;
-<<<<<<< HEAD
-=======
-        // This controls the viscous fluid effect (how much of it)
-        mViscousFluidScale = 8.0f;
-        // must be set to 1.0 (used in viscousFluid())
-        mViscousFluidNormalize = 1.0f;
-        mViscousFluidNormalize = 1.0f / viscousFluid(1.0f);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -434,7 +366,6 @@ public class Scroller  {
      */
     public void fling(int startX, int startY, int velocityX, int velocityY,
             int minX, int maxX, int minY, int maxY) {
-<<<<<<< HEAD
         // Continue a scroll or fling in progress
         if (mFlywheel && !mFinished) {
             float oldVel = getCurrVelocity();
@@ -463,70 +394,35 @@ public class Scroller  {
         mVelocity = velocity;
         final double l = Math.log(START_TENSION * velocity / ALPHA);
         mDuration = (int) (1000.0 * Math.exp(l / (DECELERATION_RATE - 1.0)));
-=======
-        mMode = FLING_MODE;
-        mFinished = false;
-
-        float velocity = (float)Math.hypot(velocityX, velocityY);
-     
-        mVelocity = velocity;
-        mDuration = (int) (1000 * velocity / mDeceleration); // Duration is in
-                                                            // milliseconds
->>>>>>> 54b6cfa... Initial Contribution
         mStartTime = AnimationUtils.currentAnimationTimeMillis();
         mStartX = startX;
         mStartY = startY;
 
-<<<<<<< HEAD
         float coeffX = velocity == 0 ? 1.0f : velocityX / velocity;
         float coeffY = velocity == 0 ? 1.0f : velocityY / velocity;
 
         int totalDistance =
                 (int) (ALPHA * Math.exp(DECELERATION_RATE / (DECELERATION_RATE - 1.0) * l));
-=======
-        mCoeffX = velocity == 0 ? 1.0f : velocityX / velocity; 
-        mCoeffY = velocity == 0 ? 1.0f : velocityY / velocity;
-
-        int totalDistance = (int) ((velocity * velocity) / (2 * mDeceleration));
->>>>>>> 54b6cfa... Initial Contribution
         
         mMinX = minX;
         mMaxX = maxX;
         mMinY = minY;
         mMaxY = maxY;
-<<<<<<< HEAD
 
         mFinalX = startX + Math.round(totalDistance * coeffX);
-=======
-        
-        
-        mFinalX = startX + Math.round(totalDistance * mCoeffX);
->>>>>>> 54b6cfa... Initial Contribution
         // Pin to mMinX <= mFinalX <= mMaxX
         mFinalX = Math.min(mFinalX, mMaxX);
         mFinalX = Math.max(mFinalX, mMinX);
         
-<<<<<<< HEAD
         mFinalY = startY + Math.round(totalDistance * coeffY);
-=======
-        mFinalY = startY + Math.round(totalDistance * mCoeffY);
->>>>>>> 54b6cfa... Initial Contribution
         // Pin to mMinY <= mFinalY <= mMaxY
         mFinalY = Math.min(mFinalY, mMaxY);
         mFinalY = Math.max(mFinalY, mMinY);
     }
     
-<<<<<<< HEAD
     static float viscousFluid(float x)
     {
         x *= sViscousFluidScale;
-=======
-    
-    
-    private float viscousFluid(float x)
-    {
-        x *= mViscousFluidScale;
->>>>>>> 54b6cfa... Initial Contribution
         if (x < 1.0f) {
             x -= (1.0f - (float)Math.exp(-x));
         } else {
@@ -534,24 +430,16 @@ public class Scroller  {
             x = 1.0f - (float)Math.exp(1.0f - x);
             x = start + x * (1.0f - start);
         }
-<<<<<<< HEAD
         x *= sViscousFluidNormalize;
-=======
-        x *= mViscousFluidNormalize;
->>>>>>> 54b6cfa... Initial Contribution
         return x;
     }
     
     /**
-<<<<<<< HEAD
      * Stops the animation. Contrary to {@link #forceFinished(boolean)},
      * aborting the animating cause the scroller to move to the final x and y
      * position
      *
      * @see #forceFinished(boolean)
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void abortAnimation() {
         mCurrX = mFinalX;
@@ -560,24 +448,16 @@ public class Scroller  {
     }
     
     /**
-<<<<<<< HEAD
      * Extend the scroll animation. This allows a running animation to scroll
      * further and longer, when used with {@link #setFinalX(int)} or {@link #setFinalY(int)}.
      *
      * @param extend Additional time to scroll in milliseconds.
      * @see #setFinalX(int)
      * @see #setFinalY(int)
-=======
-     * Extend the scroll animation. This allows a running animation to 
-     * scroll further and longer, when used with setFinalX() or setFinalY().
-     *
-     * @param extend Additional time to scroll in milliseconds.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void extendDuration(int extend) {
         int passed = timePassed();
         mDuration = passed + extend;
-<<<<<<< HEAD
         mDurationReciprocal = 1.0f / mDuration;
         mFinished = false;
     }
@@ -598,23 +478,12 @@ public class Scroller  {
      * @see #extendDuration(int)
      * @see #setFinalY(int)
      */
-=======
-        mDurationReciprocal = 1.0f / (float)mDuration;
-        mFinished = false;
-    }
-    
-    public int timePassed() {
-        return (int)(AnimationUtils.currentAnimationTimeMillis() - mStartTime);
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     public void setFinalX(int newX) {
         mFinalX = newX;
         mDeltaX = mFinalX - mStartX;
         mFinished = false;
     }
 
-<<<<<<< HEAD
     /**
      * Sets the final position (Y) for this scroller.
      *
@@ -623,14 +492,10 @@ public class Scroller  {
      * @see #setFinalX(int)
      */
     public void setFinalY(int newY) {
-=======
-   public void setFinalY(int newY) {
->>>>>>> 54b6cfa... Initial Contribution
         mFinalY = newY;
         mDeltaY = mFinalY - mStartY;
         mFinished = false;
     }
-<<<<<<< HEAD
 
     /**
      * @hide
@@ -639,6 +504,4 @@ public class Scroller  {
         return !mFinished && Math.signum(xvel) == Math.signum(mFinalX - mStartX) &&
                 Math.signum(yvel) == Math.signum(mFinalY - mStartY);
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

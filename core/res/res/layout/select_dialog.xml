@@ -23,7 +23,6 @@
     This layout file is inflated and used as the ListView to display the items.
     Assign an ID so its state will be saved/restored.
 -->
-<<<<<<< HEAD
 <view class="com.android.internal.app.AlertController$RecycleListView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+android:id/select_dialog_listview"
@@ -34,13 +33,3 @@
     android:divider="?android:attr/listDividerAlertDialog"
     android:scrollbars="vertical"
     android:overScrollMode="ifContentScrolls" />
-=======
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+android:id/select_dialog_listview"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginTop="5px"
-    android:cacheColorHint="@null"
-    android:divider="@android:drawable/divider_horizontal_bright"
-    android:scrollbars="vertical" />
->>>>>>> 54b6cfa... Initial Contribution

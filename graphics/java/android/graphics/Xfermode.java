@@ -31,15 +31,11 @@ package android.graphics;
 public class Xfermode {
 
     protected void finalize() throws Throwable {
-<<<<<<< HEAD
         try {
             finalizer(native_instance);
         } finally {
             super.finalize();
         }
-=======
-        finalizer(native_instance);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private static native void finalizer(int native_instance);

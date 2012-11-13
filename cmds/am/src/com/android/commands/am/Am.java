@@ -2,7 +2,6 @@
 **
 ** Copyright 2007, The Android Open Source Project
 **
-<<<<<<< HEAD
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
 ** You may obtain a copy of the License at
@@ -13,36 +12,19 @@
 ** distributed under the License is distributed on an "AS IS" BASIS,
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
-=======
-** Licensed under the Apache License, Version 2.0 (the "License"); 
-** you may not use this file except in compliance with the License. 
-** You may obtain a copy of the License at 
-**
-**     http://www.apache.org/licenses/LICENSE-2.0 
-**
-** Unless required by applicable law or agreed to in writing, software 
-** distributed under the License is distributed on an "AS IS" BASIS, 
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-** See the License for the specific language governing permissions and 
->>>>>>> 54b6cfa... Initial Contribution
 ** limitations under the License.
 */
 
 
 package com.android.commands.am;
 
-<<<<<<< HEAD
 import android.app.ActivityManager;
 import android.app.ActivityManagerNative;
 import android.app.IActivityController;
-=======
-import android.app.ActivityManagerNative;
->>>>>>> 54b6cfa... Initial Contribution
 import android.app.IActivityManager;
 import android.app.IInstrumentationWatcher;
 import android.app.Instrumentation;
 import android.content.ComponentName;
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.IIntentReceiver;
 import android.content.Intent;
@@ -67,17 +49,6 @@ import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
-=======
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.RemoteException;
-import android.os.ServiceManager;
-import android.view.IWindowManager;
-
-import java.util.Iterator;
-import java.util.Set;
->>>>>>> 54b6cfa... Initial Contribution
 
 public class Am {
 
@@ -86,7 +57,6 @@ public class Am {
     private int mNextArg;
     private String mCurArgData;
 
-<<<<<<< HEAD
     private int mStartFlags = 0;
     private boolean mWaitOption = false;
     private boolean mStopOption = false;
@@ -100,9 +70,6 @@ public class Am {
     private static final String FATAL_ERROR_CODE = "Error type 1";
     private static final String NO_SYSTEM_ERROR_CODE = "Error type 2";
     private static final String NO_CLASS_ERROR_CODE = "Error type 3";
-=======
-    private boolean mDebugOption = false;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Command-line entry point.
@@ -110,7 +77,6 @@ public class Am {
      * @param args The command-line arguments
      */
     public static void main(String[] args) {
-<<<<<<< HEAD
         try {
             (new Am()).run(args);
         } catch (IllegalArgumentException e) {
@@ -123,12 +89,6 @@ public class Am {
     }
 
     private void run(String[] args) throws Exception {
-=======
-        (new Am()).run(args);
-    }
-
-    private void run(String[] args) {
->>>>>>> 54b6cfa... Initial Contribution
         if (args.length < 1) {
             showUsage();
             return;
@@ -136,7 +96,6 @@ public class Am {
 
         mAm = ActivityManagerNative.getDefault();
         if (mAm == null) {
-<<<<<<< HEAD
             System.err.println(NO_SYSTEM_ERROR_CODE);
             throw new AndroidException("Can't connect to activity manager; is the system running?");
         }
@@ -155,25 +114,10 @@ public class Am {
             runKill();
         } else if (op.equals("kill-all")) {
             runKillAll();
-=======
-            System.err.println("Error type 2");
-            System.err.println("Error: Unable to connect to activity manager; is the system running?");
-            showUsage();
-            return;
-        }
-
-        mArgs = args;
-
-        String op = args[0];
-        mNextArg = 1;
-        if (op.equals("start")) {
-            runStart();
->>>>>>> 54b6cfa... Initial Contribution
         } else if (op.equals("instrument")) {
             runInstrument();
         } else if (op.equals("broadcast")) {
             sendBroadcast();
-<<<<<<< HEAD
         } else if (op.equals("profile")) {
             runProfile();
         } else if (op.equals("dumpheap")) {
@@ -622,193 +566,6 @@ public class Am {
     }
 
     private void runInstrument() throws Exception {
-=======
-        } else {
-            System.err.println("Error: Unknown command: " + op);
-            showUsage();
-            return;
-        }
-    }
-
-    private Intent makeIntent() {
-        Intent intent = new Intent();
-        boolean hasIntentInfo = false;
-
-        mDebugOption = false;
-        Uri data = null;
-        String type = null;
-
-        try {
-            String opt;
-            while ((opt=nextOption()) != null) {
-                if (opt.equals("-a")) {
-                    intent.setAction(nextOptionData());
-                    hasIntentInfo = true;
-                } else if (opt.equals("-d")) {
-                    data = Uri.parse(nextOptionData());
-                    hasIntentInfo = true;
-                } else if (opt.equals("-t")) {
-                    type = nextOptionData();
-                    hasIntentInfo = true;
-                } else if (opt.equals("-c")) {
-                    intent.addCategory(nextOptionData());
-                    hasIntentInfo = true;
-                } else if (opt.equals("-e") || opt.equals("--es")) {
-                    String key = nextOptionData();
-                    String value = nextOptionData();
-                    intent.putExtra(key, value);
-                    hasIntentInfo = true;
-                } else if (opt.equals("--ei")) {
-                    String key = nextOptionData();
-                    String value = nextOptionData();
-                    intent.putExtra(key, Integer.valueOf(value));
-                    hasIntentInfo = true;
-                } else if (opt.equals("--ez")) {
-                    String key = nextOptionData();
-                    String value = nextOptionData();
-                    intent.putExtra(key, Boolean.valueOf(value));
-                    hasIntentInfo = true;
-                } else if (opt.equals("-n")) {
-                    String str = nextOptionData();
-                    ComponentName cn = ComponentName.unflattenFromString(str);
-                    if (cn == null) {
-                        System.err.println("Error: Bad component name: " + str);
-                        showUsage();
-                        return null;
-                    }
-                    intent.setComponent(cn);
-                    hasIntentInfo = true;
-                } else if (opt.equals("-f")) {
-                    String str = nextOptionData();
-                    intent.setFlags(Integer.decode(str).intValue());
-                } else if (opt.equals("-D")) {
-                    mDebugOption = true;
-                } else {
-                    System.err.println("Error: Unknown option: " + opt);
-                    showUsage();
-                    return null;
-                }
-            }
-        } catch (RuntimeException ex) {
-            System.err.println("Error: " + ex.toString());
-            showUsage();
-            return null;
-        }
-        intent.setDataAndType(data, type);
-
-        String uri = nextArg();
-        if (uri != null) {
-            try {
-                Intent oldIntent = intent;
-                try {
-                    intent = Intent.getIntent(uri);
-                } catch (java.net.URISyntaxException ex) {
-                    System.err.println("Bad URI: " + uri);
-                    showUsage();
-                    return null;
-                }
-                if (oldIntent.getAction() != null) {
-                    intent.setAction(oldIntent.getAction());
-                }
-                if (oldIntent.getData() != null || oldIntent.getType() != null) {
-                    intent.setDataAndType(oldIntent.getData(), oldIntent.getType());
-                }
-                Set cats = oldIntent.getCategories();
-                if (cats != null) {
-                    Iterator it = cats.iterator();
-                    while (it.hasNext()) {
-                        intent.addCategory((String)it.next());
-                    }
-                }
-            } catch (RuntimeException ex) {
-                System.err.println("Error creating from URI: " + ex.toString());
-                showUsage();
-                return null;
-            }
-        } else if (!hasIntentInfo) {
-            System.err.println("Error: No intent supplied");
-            showUsage();
-            return null;
-        }
-
-        return intent;
-    }
-
-    private void runStart() {
-        Intent intent = makeIntent();
-        
-        if (intent != null) {
-            System.out.println("Starting: " + intent);
-            try {
-                intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-                // XXX should do something to determine the MIME type.
-                int res = mAm.startActivity(null, intent, intent.getType(),
-                        null, 0, null, null, 0, false, mDebugOption);
-                switch (res) {
-                    case IActivityManager.START_SUCCESS:
-                        break;
-                    case IActivityManager.START_CLASS_NOT_FOUND:
-                        System.err.println("Error type 3");
-                        System.err.println("Error: Activity class " +
-                                intent.getComponent().toShortString()
-                                + " does not exist.");
-                        break;
-                    case IActivityManager.START_DELIVERED_TO_TOP:
-                        System.err.println(
-                                "Warning: Activity not started, intent has "
-                                + "been delivered to currently running "
-                                + "top-most instance.");
-                        break;
-                    case IActivityManager.START_FORWARD_AND_REQUEST_CONFLICT:
-                        System.err.println(
-                                "Error: Activity not started, you requested to "
-                                + "both forward and receive its result");
-                        break;
-                    case IActivityManager.START_INTENT_NOT_RESOLVED:
-                        System.err.println(
-                                "Error: Activity not started, unable to "
-                                + "resolve " + intent.toString());
-                        break;
-                    case IActivityManager.START_RETURN_INTENT_TO_CALLER:
-                        System.err.println(
-                                "Warning: Activity not started because intent "
-                                + "should be handled by the caller");
-                        break;
-                    case IActivityManager.START_TASK_TO_FRONT:
-                        System.err.println(
-                                "Warning: Activity not started, its current "
-                                + "task has been brought to the front");
-                        break;
-                    default:
-                        System.err.println(
-                                "Error: Activity not started, unknown error "
-                                + "code " + res);
-                        break;
-                }
-            } catch (RemoteException e) {
-                System.err.println("Error type 1");
-                System.err.println(
-                        "Error: Activity not started, unable to "
-                        + "call on to activity manager service");
-            }
-        }
-    }
-
-    private void sendBroadcast() {
-        Intent intent = makeIntent();
-        
-        if (intent != null) {
-            System.out.println("Broadcasting: " + intent);
-            try {
-                mAm.broadcastIntent(null, intent, null, null, 0, null, null,
-                        null, true, false);
-            } catch (RemoteException e) {
-            }
-        }
-    }
-
-    private void runInstrument() {
->>>>>>> 54b6cfa... Initial Contribution
         String profileFile = null;
         boolean wait = false;
         boolean rawMode = false;
@@ -817,7 +574,6 @@ public class Am {
         String argKey = null, argValue = null;
         IWindowManager wm = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
 
-<<<<<<< HEAD
         String opt;
         while ((opt=nextOption()) != null) {
             if (opt.equals("-p")) {
@@ -843,48 +599,6 @@ public class Am {
         String cnArg = nextArgRequired();
         ComponentName cn = ComponentName.unflattenFromString(cnArg);
         if (cn == null) throw new IllegalArgumentException("Bad component name: " + cnArg);
-=======
-        try {
-            String opt;
-            while ((opt=nextOption()) != null) {
-                if (opt.equals("-p")) {
-                    profileFile = nextOptionData();
-                } else if (opt.equals("-w")) {
-                    wait = true;
-                } else if (opt.equals("-r")) {
-                    rawMode = true;
-                } else if (opt.equals("-e")) {
-                    argKey = nextOptionData();
-                    argValue = nextOptionData();
-                    args.putString(argKey, argValue);
-                } else if (opt.equals("--no_window_animation")) {
-                    no_window_animation = true;
-                } else {
-                    System.err.println("Error: Unknown option: " + opt);
-                    showUsage();
-                    return;
-                }
-            }
-        } catch (RuntimeException ex) {
-            System.err.println("Error: " + ex.toString());
-            showUsage();
-            return;
-        }
-
-        String cnArg = nextArg();
-        if (cnArg == null) {
-            System.err.println("Error: No instrumentation component supplied");
-            showUsage();
-            return;
-        }
-        
-        ComponentName cn = ComponentName.unflattenFromString(cnArg);
-        if (cn == null) {
-            System.err.println("Error: Bad component name: " + cnArg);
-            showUsage();
-            return;
-        }
->>>>>>> 54b6cfa... Initial Contribution
 
         InstrumentationWatcher watcher = null;
         if (wait) {
@@ -893,7 +607,6 @@ public class Am {
         }
         float[] oldAnims = null;
         if (no_window_animation) {
-<<<<<<< HEAD
             oldAnims = wm.getAnimationScales();
             wm.setAnimationScale(0, 0.0f);
             wm.setAnimationScale(1, 0.0f);
@@ -963,18 +676,10 @@ public class Am {
             } catch (FileNotFoundException e) {
                 System.err.println("Error: Unable to open file: " + profileFile);
                 return;
-=======
-            try {
-                oldAnims = wm.getAnimationScales();
-                wm.setAnimationScale(0, 0.0f);
-                wm.setAnimationScale(1, 0.0f);
-            } catch (RemoteException e) {
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
         try {
-<<<<<<< HEAD
             if (wall) {
                 // XXX doesn't work -- this needs to be set before booting.
                 String props = SystemProperties.get("dalvik.vm.extra-opts");
@@ -1445,54 +1150,22 @@ public class Am {
             } catch (InterruptedException e) {
                 throw new IllegalStateException(e);
             }
-=======
-            if (!mAm.startInstrumentation(cn, profileFile, 0, args, watcher)) {
-                System.out.println("INSTRUMENTATION_FAILED: " +
-                        cn.flattenToString());
-                showUsage();
-                return;
-            }
-        } catch (RemoteException e) {
-        }
-
-        if (watcher != null) {
-            if (!watcher.waitForFinish()) {
-                System.out.println("INSTRUMENTATION_ABORTED: System has crashed.");
-            }
-        }
-
-        if (oldAnims != null) {
-            try {
-                wm.setAnimationScales(oldAnims);
-            } catch (RemoteException e) {
-            }
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     private class InstrumentationWatcher extends IInstrumentationWatcher.Stub {
         private boolean mFinished = false;
         private boolean mRawMode = false;
-<<<<<<< HEAD
 
         /**
          * Set or reset "raw mode".  In "raw mode", all bundles are dumped.  In "pretty mode",
-=======
-        
-        /**
-         * Set or reset "raw mode".  In "raw mode", all bundles are dumped.  In "pretty mode", 
->>>>>>> 54b6cfa... Initial Contribution
          * if a bundle includes Instrumentation.REPORT_KEY_STREAMRESULT, just print that.
          * @param rawMode true for raw mode, false for pretty mode.
          */
         public void setRawOutput(boolean rawMode) {
             mRawMode = rawMode;
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         public void instrumentationStatus(ComponentName name, int resultCode, Bundle results) {
             synchronized (this) {
                 // pretty printer mode?
@@ -1548,10 +1221,7 @@ public class Am {
                         }
                         wait(1000);
                     } catch (InterruptedException e) {
-<<<<<<< HEAD
                         throw new IllegalStateException(e);
-=======
->>>>>>> 54b6cfa... Initial Contribution
                     }
                 }
             }
@@ -1560,13 +1230,10 @@ public class Am {
     }
 
     private String nextOption() {
-<<<<<<< HEAD
         if (mCurArgData != null) {
             String prev = mArgs[mNextArg - 1];
             throw new IllegalArgumentException("No argument expected after \"" + prev + "\"");
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (mNextArg >= mArgs.length) {
             return null;
         }
@@ -1591,7 +1258,6 @@ public class Am {
         return arg;
     }
 
-<<<<<<< HEAD
     private String nextArg() {
         if (mCurArgData != null) {
             String arg = mCurArgData;
@@ -1721,42 +1387,5 @@ public class Am {
                 "    [--selector]\n" +
                 "    [<URI> | <PACKAGE> | <COMPONENT>]\n"
                 );
-=======
-    private String nextOptionData() {
-        if (mCurArgData != null) {
-            return mCurArgData;
-        }
-        if (mNextArg >= mArgs.length) {
-            return null;
-        }
-        String data = mArgs[mNextArg];
-        mNextArg++;
-        return data;
-    }
-
-    private String nextArg() {
-        if (mNextArg >= mArgs.length) {
-            return null;
-        }
-        String arg = mArgs[mNextArg];
-        mNextArg++;
-        return arg;
-    }
-
-    private void showUsage() {
-        System.err.println("usage: am [start|broadcast|instrument]");
-        System.err.println("       am start -D INTENT");
-        System.err.println("       am broadcast INTENT");
-        System.err.println("       am instrument [-r] [-e <ARG_NAME> <ARG_VALUE>] [-p <PROF_FILE>]");
-        System.err.println("                [-w] <COMPONENT> ");
-        System.err.println("");
-        System.err.println("       INTENT is described with:");
-        System.err.println("                [-a <ACTION>] [-d <DATA_URI>] [-t <MIME_TYPE>]");
-        System.err.println("                [-c <CATEGORY> [-c <CATEGORY>] ...]");
-        System.err.println("                [-e|--es <EXTRA_KEY> <EXTRA_STRING_VALUE> ...]");
-        System.err.println("                [--ez <EXTRA_KEY> <EXTRA_BOOLEAN_VALUE> ...]");
-        System.err.println("                [-e|--ei <EXTRA_KEY> <EXTRA_INT_VALUE> ...]");
-        System.err.println("                [-n <COMPONENT>] [-f <FLAGS>] [<URI>]");
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

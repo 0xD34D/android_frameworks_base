@@ -16,7 +16,6 @@
 
 package android.text.style;
 
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.text.ParcelableSpan;
 import android.text.TextPaint;
@@ -26,20 +25,11 @@ public class ForegroundColorSpan extends CharacterStyle
         implements UpdateAppearance, ParcelableSpan {
 
     private final int mColor;
-=======
-import android.graphics.Paint;
-import android.text.TextPaint;
-
-public class ForegroundColorSpan extends CharacterStyle {
-
-    private int mColor;
->>>>>>> 54b6cfa... Initial Contribution
 
 	public ForegroundColorSpan(int color) {
 		mColor = color;
 	}
 
-<<<<<<< HEAD
     public ForegroundColorSpan(Parcel src) {
         mColor = src.readInt();
     }
@@ -56,8 +46,6 @@ public class ForegroundColorSpan extends CharacterStyle {
         dest.writeInt(mColor);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 	public int getForegroundColor() {
 		return mColor;
 	}

@@ -16,17 +16,13 @@
 
 package android.app;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.Intent;
 import android.os.Bundle;
 
 /**
  * A screen that contains and runs multiple embedded activities.
-<<<<<<< HEAD
  *
  * @deprecated Use the new {@link Fragment} and {@link FragmentManager} APIs
  * instead; these are also
@@ -36,11 +32,6 @@ import android.os.Bundle;
 public class ActivityGroup extends Activity {
     private static final String STATES_KEY = "android:states";
     static final String PARENT_NON_CONFIG_INSTANCE_KEY = "android:parent_non_config_instance";
-=======
- */
-public class ActivityGroup extends Activity {
-    private static final String STATES_KEY = "android:states";
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * This field should be made private, so it is hidden from the SDK.
@@ -97,7 +88,6 @@ public class ActivityGroup extends Activity {
         mLocalActivityManager.dispatchDestroy(isFinishing());
     }
 
-<<<<<<< HEAD
     /**
      * Returns a HashMap mapping from child activity ids to the return values
      * from calls to their onRetainNonConfigurationInstance methods.
@@ -109,8 +99,6 @@ public class ActivityGroup extends Activity {
         return mLocalActivityManager.dispatchRetainNonConfigurationInstance();
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public Activity getCurrentActivity() {
         return mLocalActivityManager.getCurrentActivity();
     }
@@ -125,11 +113,7 @@ public class ActivityGroup extends Activity {
         if (who != null) {
             Activity act = mLocalActivityManager.getActivity(who);
             /*
-<<<<<<< HEAD
             if (false) Log.v(
-=======
-            if (Config.LOGV) Log.v(
->>>>>>> 54b6cfa... Initial Contribution
                 TAG, "Dispatching result: who=" + who + ", reqCode=" + requestCode
                 + ", resCode=" + resultCode + ", data=" + data
                 + ", rec=" + rec);

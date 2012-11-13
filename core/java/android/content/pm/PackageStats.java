@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -15,24 +14,16 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 package android.content.pm;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-<<<<<<< HEAD
-=======
-import java.util.Arrays;
-
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * implementation of PackageStats associated with a
  * application package.
  */
 public class PackageStats implements Parcelable {
-<<<<<<< HEAD
     /** Name of the package to which this stats applies. */
     public String packageName;
 
@@ -75,15 +66,6 @@ public class PackageStats implements Parcelable {
 
     public static final Parcelable.Creator<PackageStats> CREATOR
             = new Parcelable.Creator<PackageStats>() {
-=======
-    public String packageName;
-    public long codeSize;
-    public long dataSize;
-    public long cacheSize;
-    
-    public static final Parcelable.Creator<PackageStats> CREATOR
-    = new Parcelable.Creator<PackageStats>() {
->>>>>>> 54b6cfa... Initial Contribution
         public PackageStats createFromParcel(Parcel in) {
             return new PackageStats(in);
         }
@@ -92,7 +74,6 @@ public class PackageStats implements Parcelable {
             return new PackageStats[size];
         }
     };
-<<<<<<< HEAD
 
     public String toString() {
         final StringBuilder sb = new StringBuilder("PackageStats{");
@@ -122,25 +103,11 @@ public class PackageStats implements Parcelable {
         packageName = pkgName;
     }
 
-=======
-    
-    public String toString() {
-        return "PackageStats{"
-        + Integer.toHexString(System.identityHashCode(this))
-        + " " + packageName + "}";
-    }
-    
-    public PackageStats(String pkgName) {
-        packageName = pkgName;
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     public PackageStats(Parcel source) {
         packageName = source.readString();
         codeSize = source.readLong();
         dataSize = source.readLong();
         cacheSize = source.readLong();
-<<<<<<< HEAD
         externalCodeSize = source.readLong();
         externalDataSize = source.readLong();
         externalCacheSize = source.readLong();
@@ -148,23 +115,16 @@ public class PackageStats implements Parcelable {
         externalObbSize = source.readLong();
     }
 
-=======
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     public PackageStats(PackageStats pStats) {
         packageName = pStats.packageName;
         codeSize = pStats.codeSize;
         dataSize = pStats.dataSize;
         cacheSize = pStats.cacheSize;
-<<<<<<< HEAD
         externalCodeSize = pStats.externalCodeSize;
         externalDataSize = pStats.externalDataSize;
         externalCacheSize = pStats.externalCacheSize;
         externalMediaSize = pStats.externalMediaSize;
         externalObbSize = pStats.externalObbSize;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int describeContents() {
@@ -176,13 +136,10 @@ public class PackageStats implements Parcelable {
         dest.writeLong(codeSize);
         dest.writeLong(dataSize);
         dest.writeLong(cacheSize);
-<<<<<<< HEAD
         dest.writeLong(externalCodeSize);
         dest.writeLong(externalDataSize);
         dest.writeLong(externalCacheSize);
         dest.writeLong(externalMediaSize);
         dest.writeLong(externalObbSize);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

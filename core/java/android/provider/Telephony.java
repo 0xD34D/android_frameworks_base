@@ -16,12 +16,6 @@
 
 package android.provider;
 
-<<<<<<< HEAD
-=======
-import com.android.internal.telephony.CallerInfo;
-import com.google.android.mms.util.SqliteWrapper;
-
->>>>>>> 54b6cfa... Initial Contribution
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
 import android.content.ContentResolver;
@@ -29,7 +23,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-<<<<<<< HEAD
 import android.database.sqlite.SqliteWrapper;
 import android.net.Uri;
 import android.os.Environment;
@@ -38,15 +31,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
-=======
-import android.net.Uri;
-import android.telephony.PhoneNumberUtils;
-import android.telephony.TelephonyManager;
-import android.telephony.gsm.SmsMessage;
-import android.text.TextUtils;
-import android.text.util.Regex;
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,17 +44,12 @@ import java.util.regex.Pattern;
  */
 public final class Telephony {
     private static final String TAG = "Telephony";
-<<<<<<< HEAD
     private static final boolean DEBUG = true;
     private static final boolean LOCAL_LOGV = false;
 
     // Constructor
     public Telephony() {
     }
-=======
-    private static final boolean DEBUG = false;
-    private static final boolean LOCAL_LOGV = DEBUG ? Config.LOGD : Config.LOGV;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Base columns for tables that contain text based SMSs.
@@ -110,7 +89,6 @@ public final class Telephony {
         public static final String PERSON_ID = "person";
 
         /**
-<<<<<<< HEAD
          * The date the message was received
          * <P>Type: INTEGER (long)</P>
          */
@@ -121,12 +99,6 @@ public final class Telephony {
          * <P>Type: INTEGER (long)</P>
          */
         public static final String DATE_SENT = "date_sent";
-=======
-         * The date the message was sent
-         * <P>Type: INTEGER (long)</P>
-         */
-        public static final String DATE = "date";
->>>>>>> 54b6cfa... Initial Contribution
 
         /**
          * Has the message been read
@@ -135,15 +107,12 @@ public final class Telephony {
         public static final String READ = "read";
 
         /**
-<<<<<<< HEAD
          * Indicates whether this message has been seen by the user. The "seen" flag will be
          * used to figure out whether we need to throw up a statusbar notification or not.
          */
         public static final String SEEN = "seen";
 
         /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
          * The TP-Status value for the message, or -1 if no status has
          * been received
          */
@@ -151,13 +120,8 @@ public final class Telephony {
 
         public static final int STATUS_NONE = -1;
         public static final int STATUS_COMPLETE = 0;
-<<<<<<< HEAD
         public static final int STATUS_PENDING = 32;
         public static final int STATUS_FAILED = 64;
-=======
-        public static final int STATUS_PENDING = 64;
-        public static final int STATUS_FAILED = 128;
->>>>>>> 54b6cfa... Initial Contribution
 
         /**
          * The subject of the message, if present
@@ -194,7 +158,6 @@ public final class Telephony {
          * <P>Type: TEXT</P>
          */
         public static final String SERVICE_CENTER = "service_center";
-<<<<<<< HEAD
 
         /**
          * Has the message been locked?
@@ -214,9 +177,6 @@ public final class Telephony {
          */
         public static final String META_DATA = "meta_data";
 }
-=======
-    }
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Contains all text based SMS messages.
@@ -307,7 +267,6 @@ public final class Telephony {
          * @return true if the operation succeeded
          */
         public static boolean moveMessageToFolder(Context context,
-<<<<<<< HEAD
                 Uri uri, int folder, int error) {
             if (uri == null) {
                 return false;
@@ -341,21 +300,6 @@ public final class Telephony {
             }
             values.put(ERROR_CODE, error);
 
-=======
-                Uri uri, int folder) {
-            if ((uri == null) || ((folder != MESSAGE_TYPE_INBOX)
-                                  && (folder != MESSAGE_TYPE_OUTBOX)
-                                  && (folder != MESSAGE_TYPE_SENT)
-                                  && (folder != MESSAGE_TYPE_DRAFT)
-                                  && (folder != MESSAGE_TYPE_FAILED)
-                                  && (folder != MESSAGE_TYPE_QUEUED))) {
-                return false;
-            }
-
-            ContentValues values = new ContentValues(1);
-
-            values.put(TYPE, folder);
->>>>>>> 54b6cfa... Initial Contribution
             return 1 == SqliteWrapper.update(context, context.getContentResolver(),
                             uri, values, null, null);
         }
@@ -372,52 +316,6 @@ public final class Telephony {
         }
 
         /**
-<<<<<<< HEAD
-=======
-         * Returns true if the address is an email address
-         *
-         * @param address the input address to be tested
-         * @return true if address is an email address
-         */
-        public static boolean isEmailAddress(String address) {
-            /*
-             * The '@' char isn't a valid char in phone numbers. However, in SMS
-             * messages sent by carrier, the originating-address can contain
-             * non-dialable alphanumeric chars. For the purpose of thread id
-             * grouping, we don't care about those. We only care about the
-             * legitmate/dialable phone numbers (which we use the special phone
-             * number comparison) and email addresses (which we do straight up
-             * string comparison).
-             */
-            return (address != null) && (address.indexOf('@') != -1);
-        }
-
-        /**
-         * Formats an address for displaying, doing a phone number lookup in the
-         * Address Book, etc.
-         *
-         * @param context the context to use
-         * @param address the address to format
-         * @return a nicely formatted version of the sender to display
-         */
-        public static String getDisplayAddress(Context context, String address) {
-            String result;
-            int index;
-            if (isEmailAddress(address)) {
-                index = address.indexOf('@');
-                if (index != -1) {
-                    result = address.substring(0, index);
-                } else {
-                    result = address;
-                }
-            } else {
-                result = CallerInfo.getCallerId(context, address);
-            }
-            return result;
-        }
-
-        /**
->>>>>>> 54b6cfa... Initial Contribution
          * Contains all text based SMS messages in the SMS app's inbox.
          */
         public static final class Inbox implements BaseColumns, TextBasedSmsColumns {
@@ -599,7 +497,6 @@ public final class Telephony {
          */
         public static final class Intents {
             /**
-<<<<<<< HEAD
              * Set by BroadcastReceiver. Indicates the message was handled
              * successfully.
              */
@@ -625,8 +522,6 @@ public final class Telephony {
             public static final int RESULT_SMS_UNSUPPORTED = 4;
 
             /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
              * Broadcast Action: A new text based SMS message has been received
              * by the device. The intent will have the following extra
              * values:</p>
@@ -637,14 +532,10 @@ public final class Telephony {
              * </ul>
              *
              * <p>The extra values can be extracted using
-<<<<<<< HEAD
              * {@link #getMessagesFromIntent(Intent)}.</p>
              *
              * <p>If a BroadcastReceiver encounters an error while processing
              * this intent it should set the result code appropriately.</p>
-=======
-             * {@link #getMessagesFromIntent(Intent)}</p>
->>>>>>> 54b6cfa... Initial Contribution
              */
             @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
             public static final String SMS_RECEIVED_ACTION =
@@ -656,23 +547,15 @@ public final class Telephony {
              * values:</p>
              *
              * <ul>
-<<<<<<< HEAD
              *   <li><em>pdus</em> - An Object[] of byte[]s containing the PDUs
-=======
-             *   <li><em>pdus</em> - An Object[] od byte[]s containing the PDUs
->>>>>>> 54b6cfa... Initial Contribution
              *   that make up the message.</li>
              * </ul>
              *
              * <p>The extra values can be extracted using
-<<<<<<< HEAD
              * {@link #getMessagesFromIntent(Intent)}.</p>
              *
              * <p>If a BroadcastReceiver encounters an error while processing
              * this intent it should set the result code appropriately.</p>
-=======
-             * {@link #getMessagesFromIntent(Intent)}</p>
->>>>>>> 54b6cfa... Initial Contribution
              */
             @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
             public static final String DATA_SMS_RECEIVED_ACTION =
@@ -684,7 +567,6 @@ public final class Telephony {
              * values:</p>
              *
              * <ul>
-<<<<<<< HEAD
              *   <li><em>transactionId (Integer)</em> - The WAP transaction ID</li>
              *   <li><em>pduType (Integer)</em> - The WAP PDU type</li>
              *   <li><em>header (byte[])</em> - The header of the message</li>
@@ -703,20 +585,12 @@ public final class Telephony {
              * <p>If any unassigned well-known parameters are encountered, the key of the map will
              * be 'unassigned/0x...', where '...' is the hex value of the unassigned parameter.  If
              * a parameter has No-Value the value in the map will be null.</p>
-=======
-             *   <li><em>transactionId (Integer)</em> - The WAP transaction
-             *    ID</li>
-             *   <li><em>pduType (Integer)</em> - The WAP PDU type</li>
-             *   <li><em>data</em> - The data payload of the message</li>
-             * </ul>
->>>>>>> 54b6cfa... Initial Contribution
              */
             @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
             public static final String WAP_PUSH_RECEIVED_ACTION =
                     "android.provider.Telephony.WAP_PUSH_RECEIVED";
 
             /**
-<<<<<<< HEAD
              * Broadcast Action: A new Cell Broadcast message has been received
              * by the device. The intent will have the following extra
              * values:</p>
@@ -777,15 +651,12 @@ public final class Telephony {
                     "android.provider.Telephony.SMS_SERVICE_CATEGORY_PROGRAM_DATA_RECEIVED";
 
             /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
              * Broadcast Action: The SIM storage for SMS messages is full.  If
              * space is not freed, messages targeted for the SIM (class 2) may
              * not be saved.
              */
             @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
             public static final String SIM_FULL_ACTION =
-<<<<<<< HEAD
                     "android.provider.Telephony.SIM_FULL";
 
             /**
@@ -804,9 +675,6 @@ public final class Telephony {
             @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
             public static final String SMS_REJECTED_ACTION =
                 "android.provider.Telephony.SMS_REJECTED";
-=======
-                "android.provider.Telephony.SIM_FULL";
->>>>>>> 54b6cfa... Initial Contribution
 
             /**
              * Read the PDUs out of an {@link #SMS_RECEIVED_ACTION} or a
@@ -815,16 +683,10 @@ public final class Telephony {
              * @param intent the intent to read from
              * @return an array of SmsMessages for the PDUs
              */
-<<<<<<< HEAD
             public static SmsMessage[] getMessagesFromIntent(
                     Intent intent) {
                 Object[] messages = (Object[]) intent.getSerializableExtra("pdus");
                 String format = intent.getStringExtra("format");
-=======
-            public static final SmsMessage[] getMessagesFromIntent(
-                    Intent intent) {
-                Object[] messages = (Object[]) intent.getSerializableExtra("pdus");
->>>>>>> 54b6cfa... Initial Contribution
                 byte[][] pduObjs = new byte[messages.length][];
 
                 for (int i = 0; i < messages.length; i++) {
@@ -835,11 +697,7 @@ public final class Telephony {
                 SmsMessage[] msgs = new SmsMessage[pduCount];
                 for (int i = 0; i < pduCount; i++) {
                     pdus[i] = pduObjs[i];
-<<<<<<< HEAD
                     msgs[i] = SmsMessage.createFromPdu(pdus[i], format);
-=======
-                    msgs[i] = SmsMessage.createFromPdu(pdus[i]);
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 return msgs;
             }
@@ -858,7 +716,6 @@ public final class Telephony {
         public static final int MESSAGE_BOX_OUTBOX = 4;
 
         /**
-<<<<<<< HEAD
          * The date the message was received.
          * <P>Type: INTEGER (long)</P>
          */
@@ -869,12 +726,6 @@ public final class Telephony {
          * <P>Type: INTEGER (long)</P>
          */
         public static final String DATE_SENT = "date_sent";
-=======
-         * The date the message was sent.
-         * <P>Type: INTEGER (long)</P>
-         */
-        public static final String DATE = "date";
->>>>>>> 54b6cfa... Initial Contribution
 
         /**
          * The box which the message belong to, for example, MESSAGE_BOX_INBOX.
@@ -889,15 +740,12 @@ public final class Telephony {
         public static final String READ = "read";
 
         /**
-<<<<<<< HEAD
          * Indicates whether this message has been seen by the user. The "seen" flag will be
          * used to figure out whether we need to throw up a statusbar notification or not.
          */
         public static final String SEEN = "seen";
 
         /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
          * The Message-ID of the message.
          * <P>Type: TEXT</P>
          */
@@ -1298,7 +1146,6 @@ public final class Telephony {
          * <P>Type: INTEGER</P>
          */
         public static final String THREAD_ID = "thread_id";
-<<<<<<< HEAD
 
         /**
          * Has the message been locked?
@@ -1311,8 +1158,6 @@ public final class Telephony {
          * <P>Type: TEXT</P>
          */
         public static final String META_DATA = "meta_data";
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1358,10 +1203,7 @@ public final class Telephony {
          * <P>Type: INTEGER</P>
          */
         public static final String READ = "read";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         /**
          * The snippet of the latest message in the thread.
          * <P>Type: TEXT</P>
@@ -1383,14 +1225,11 @@ public final class Telephony {
          * <P>Type: INTEGER</P>
          */
         public static final String ERROR = "error";
-<<<<<<< HEAD
         /**
          * Indicates whether this thread contains any attachments.
          * <P>Type: INTEGER</P>
          */
         public static final String HAS_ATTACHMENT = "has_attachment";
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1447,35 +1286,24 @@ public final class Telephony {
                 uriBuilder.appendQueryParameter("recipient", recipient);
             }
 
-<<<<<<< HEAD
             Uri uri = uriBuilder.build();
             //if (DEBUG) Log.v(TAG, "getOrCreateThreadId uri: " + uri);
 
             Cursor cursor = SqliteWrapper.query(context, context.getContentResolver(),
                     uri, ID_PROJECTION, null, null, null);
-=======
-            Cursor cursor = SqliteWrapper.query(context, context.getContentResolver(),
-                    uriBuilder.build(), ID_PROJECTION, null, null, null);
->>>>>>> 54b6cfa... Initial Contribution
             if (cursor != null) {
                 try {
                     if (cursor.moveToFirst()) {
                         return cursor.getLong(0);
-<<<<<<< HEAD
                     } else {
                         Log.e(TAG, "getOrCreateThreadId returned no rows!");
-=======
->>>>>>> 54b6cfa... Initial Contribution
                     }
                 } finally {
                     cursor.close();
                 }
             }
 
-<<<<<<< HEAD
             Log.e(TAG, "getOrCreateThreadId failed with uri " + uri.toString());
-=======
->>>>>>> 54b6cfa... Initial Contribution
             throw new IllegalArgumentException("Unable to find or allocate a thread ID.");
         }
     }
@@ -1505,11 +1333,7 @@ public final class Telephony {
          * name-addr       =       [display-name] angle-addr
          * angle-addr      =       [CFWS] "<" addr-spec ">" [CFWS]
          */
-<<<<<<< HEAD
         public static final Pattern NAME_ADDR_EMAIL_PATTERN =
-=======
-        private static final Pattern NAME_ADDR_EMAIL_PATTERN =
->>>>>>> 54b6cfa... Initial Contribution
                 Pattern.compile("\\s*(\"[^\"]*\"|[^<>\"]+)\\s*<([^<>]+)>\\s*");
 
         /**
@@ -1517,11 +1341,7 @@ public final class Telephony {
          *                         DQUOTE *([FWS] qcontent) [FWS] DQUOTE
          *                         [CFWS]
          */
-<<<<<<< HEAD
         public static final Pattern QUOTED_STRING_PATTERN =
-=======
-        private static final Pattern QUOTED_STRING_PATTERN =
->>>>>>> 54b6cfa... Initial Contribution
                 Pattern.compile("\\s*\"([^\"]*)\"\\s*");
 
         public static final Cursor query(
@@ -1574,16 +1394,11 @@ public final class Telephony {
             }
 
             String s = extractAddrSpec(address);
-<<<<<<< HEAD
             Matcher match = Patterns.EMAIL_ADDRESS.matcher(s);
-=======
-            Matcher match = Regex.EMAIL_ADDRESS_PATTERN.matcher(s);
->>>>>>> 54b6cfa... Initial Contribution
             return match.matches();
         }
 
         /**
-<<<<<<< HEAD
          * Returns true if the number is a Phone number
          *
          * @param number the input number to be tested
@@ -1596,80 +1411,6 @@ public final class Telephony {
 
             Matcher match = Patterns.PHONE.matcher(number);
             return match.matches();
-=======
-         * Formats an address for displaying, doing a phone number lookup in the
-         * Address Book, etc.
-         *
-         * @param context the context to use
-         * @param address the address to format
-         * @return a nicely formatted version of the sender to display
-         */
-        public static String getDisplayAddress(Context context, String address) {
-            if (address == null) {
-                return "";
-            }
-
-            String localNumber = TelephonyManager.getDefault().getLine1Number();
-            String[] values = address.split(";");
-            String result = "";
-            for (int i = 0; i < values.length; i++) {
-                if (values[i].length() > 0) {
-                    if (PhoneNumberUtils.compare(values[i], localNumber)) {
-                        result = result + ";"
-                                    + context.getString(com.android.internal.R.string.me);
-                    } else if (isEmailAddress(values[i])) {
-                        result = result + ";" + getDisplayName(context, values[i]);
-                    } else {
-                        result = result + ";" + CallerInfo.getCallerId(context, values[i]);
-                    }
-                }
-            }
-
-            if (result.length() > 0) {
-                // Skip the first ';'
-                return result.substring(1);
-            }
-            return result;
-        }
-
-        private static String getEmailDisplayName(String displayString) {
-            Matcher match = QUOTED_STRING_PATTERN.matcher(displayString);
-            if (match.matches()) {
-                return match.group(1);
-            }
-
-            return displayString;
-        }
-
-        private static String getDisplayName(Context context, String email) {
-            Matcher match = NAME_ADDR_EMAIL_PATTERN.matcher(email);
-            if (match.matches()) {
-                // email has display name
-                return getEmailDisplayName(match.group(1));
-            }
-
-            Cursor cursor = SqliteWrapper.query(context, context.getContentResolver(),
-                    Contacts.ContactMethods.CONTENT_EMAIL_URI,
-                    new String[] { Contacts.ContactMethods.NAME },
-                    Contacts.ContactMethods.DATA + " = \'" + email + "\'",
-                    null, null);
-
-            if (cursor != null) {
-                try {
-                    int columnIndex = cursor.getColumnIndexOrThrow(
-                            Contacts.ContactMethods.NAME);
-                    while (cursor.moveToNext()) {
-                        String name = cursor.getString(columnIndex);
-                        if (!TextUtils.isEmpty(name)) {
-                            return name;
-                        }
-                    }
-                } finally {
-                    cursor.close();
-                }
-            }
-            return email;
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         /**
@@ -1837,11 +1578,8 @@ public final class Telephony {
              */
             public static final String _DATA = "_data";
 
-<<<<<<< HEAD
             public static final String TEXT = "text";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         public static final class Rate {
@@ -1919,7 +1657,6 @@ public final class Telephony {
         public static final Uri CONTENT_DRAFT_URI = Uri.parse(
                 "content://mms-sms/draft");
 
-<<<<<<< HEAD
         public static final Uri CONTENT_LOCKED_URI = Uri.parse(
                 "content://mms-sms/locked");
 
@@ -1931,8 +1668,6 @@ public final class Telephony {
         public static final Uri SEARCH_URI = Uri.parse(
                 "content://mms-sms/search");
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         // Constants for message protocol types.
         public static final int SMS_PROTO = 0;
         public static final int MMS_PROTO = 1;
@@ -1990,7 +1725,6 @@ public final class Telephony {
              */
             public static final String LAST_TRY = "last_try";
         }
-<<<<<<< HEAD
 
         public static final class WordsTable {
             public static final String ID = "_id";
@@ -1998,8 +1732,6 @@ public final class Telephony {
             public static final String TABLE_ID = "table_to_use";
             public static final String INDEXED_TEXT = "index_text";
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final class Carriers implements BaseColumns {
@@ -2040,7 +1772,6 @@ public final class Telephony {
 
         public static final String NUMERIC = "numeric";
 
-<<<<<<< HEAD
         public static final String AUTH_TYPE = "authtype";
 
         public static final String TYPE = "type";
@@ -2258,10 +1989,6 @@ public final class Telephony {
                 CMAS_URGENCY,
                 CMAS_CERTAINTY
         };
-=======
-        public static final String TYPE = "type";
-
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final class Intents {
@@ -2295,12 +2022,9 @@ public final class Telephony {
          *
          * It is recommended to display <em>plmn</em> before / above <em>spn</em> if
          * both are displayed.
-<<<<<<< HEAD
          *
          * <p>Note this is a protected intent that can only be sent
          * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
          */
         public static final String SPN_STRINGS_UPDATED_ACTION =
                 "android.provider.Telephony.SPN_STRINGS_UPDATED";
@@ -2311,8 +2035,3 @@ public final class Telephony {
         public static final String EXTRA_SPN        = "spn";
     }
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 54b6cfa... Initial Contribution

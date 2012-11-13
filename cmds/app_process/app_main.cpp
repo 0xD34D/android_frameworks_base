@@ -1,25 +1,14 @@
 /*
  * Main entry of app process.
-<<<<<<< HEAD
  *
  * Starts the interpreted runtime, then starts up the application.
  *
-=======
- * 
- * Starts the interpreted runtime, then starts up the application.
- * 
->>>>>>> 54b6cfa... Initial Contribution
  */
 
 #define LOG_TAG "appproc"
 
-<<<<<<< HEAD
 #include <binder/IPCThreadState.h>
 #include <binder/ProcessState.h>
-=======
-#include <utils/IPCThreadState.h>
-#include <utils/ProcessState.h>
->>>>>>> 54b6cfa... Initial Contribution
 #include <utils/Log.h>
 #include <cutils/process_name.h>
 #include <cutils/memory.h>
@@ -36,30 +25,13 @@ void app_usage()
         "Usage: app_process [java-options] cmd-dir start-class-name [options]\n");
 }
 
-<<<<<<< HEAD
-=======
-status_t app_init(const char* className, int argc, const char* const argv[])
-{
-    LOGV("Entered app_init()!\n");
-
-    AndroidRuntime* jr = AndroidRuntime::getRuntime();
-    jr->callMain(className, argc, argv);
-    
-    LOGV("Exiting app_init()!\n");
-    return NO_ERROR;
-}
-
->>>>>>> 54b6cfa... Initial Contribution
 class AppRuntime : public AndroidRuntime
 {
 public:
     AppRuntime()
         : mParentDir(NULL)
         , mClassName(NULL)
-<<<<<<< HEAD
         , mClass(NULL)
-=======
->>>>>>> 54b6cfa... Initial Contribution
         , mArgC(0)
         , mArgV(NULL)
     {
@@ -78,7 +50,6 @@ public:
         return mClassName;
     }
 
-<<<<<<< HEAD
     virtual void onVmCreated(JNIEnv* env)
     {
         if (mClassName == NULL) {
@@ -118,63 +89,29 @@ public:
         ar->callMain(mClassName, mClass, mArgC, mArgV);
 
         IPCThreadState::self()->stopProcess();
-=======
-    virtual void onStarted()
-    {
-        sp<ProcessState> proc = ProcessState::self();
-        if (proc->supportsProcesses()) {
-            LOGV("App process: starting thread pool.\n");
-            proc->startThreadPool();
-        }
-        
-        app_init(mClassName, mArgC, mArgV);
-
-        if (ProcessState::self()->supportsProcesses()) {
-            IPCThreadState::self()->stopProcess();
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     virtual void onZygoteInit()
     {
         sp<ProcessState> proc = ProcessState::self();
-<<<<<<< HEAD
         ALOGV("App process: starting thread pool.\n");
         proc->startThreadPool();
-=======
-        if (proc->supportsProcesses()) {
-            LOGV("App process: starting thread pool.\n");
-            proc->startThreadPool();
-        }       
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     virtual void onExit(int code)
     {
         if (mClassName == NULL) {
             // if zygote
-<<<<<<< HEAD
             IPCThreadState::self()->stopProcess();
-=======
-            if (ProcessState::self()->supportsProcesses()) {
-                IPCThreadState::self()->stopProcess();
-            }
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         AndroidRuntime::onExit(code);
     }
 
-<<<<<<< HEAD
 
     const char* mParentDir;
     const char* mClassName;
     jclass mClass;
-=======
-    
-    const char* mParentDir;
-    const char* mClassName;
->>>>>>> 54b6cfa... Initial Contribution
     int mArgC;
     const char* const* mArgV;
 };
@@ -196,11 +133,7 @@ int main(int argc, const char* const argv[])
     // These are global variables in ProcessState.cpp
     mArgC = argc;
     mArgV = argv;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     mArgLen = 0;
     for (int i=0; i<argc; i++) {
         mArgLen += strlen(argv[i]) + 1;
@@ -208,14 +141,7 @@ int main(int argc, const char* const argv[])
     mArgLen--;
 
     AppRuntime runtime;
-<<<<<<< HEAD
     const char* argv0 = argv[0];
-=======
-    const char *arg;
-    const char *argv0;
-
-    argv0 = argv[0];
->>>>>>> 54b6cfa... Initial Contribution
 
     // Process command line arguments
     // ignore argv[0]
@@ -223,7 +149,6 @@ int main(int argc, const char* const argv[])
     argv++;
 
     // Everything up to '--' or first non '-' arg goes to the vm
-<<<<<<< HEAD
 
     int i = runtime.addVmArguments(argc, argv);
 
@@ -276,44 +201,4 @@ int main(int argc, const char* const argv[])
         LOG_ALWAYS_FATAL("app_process: no class name or --zygote supplied.");
         return 10;
     }
-=======
-    
-    int i = runtime.addVmArguments(argc, argv);
-
-    // Next arg is parent directory
-    if (i < argc) {
-        runtime.mParentDir = argv[i++];
-    }
-
-    // Next arg is startup classname or "--zygote"
-    if (i < argc) {
-        arg = argv[i++];
-        if (0 == strcmp("--zygote", arg)) {
-            bool startSystemServer = (i < argc) ? 
-                    strcmp(argv[i], "--start-system-server") == 0 : false;
-            setArgv0(argv0, "zygote");
-            set_process_name("zygote");
-            runtime.start("com.android.internal.os.ZygoteInit",
-                startSystemServer);
-        } else {
-            set_process_name(argv0);
-
-            runtime.mClassName = arg;
-
-            // Remainder of args get passed to startup class main()
-            runtime.mArgC = argc-i;
-            runtime.mArgV = argv+i;
-
-            LOGV("App process is starting with pid=%d, class=%s.\n",
-                 getpid(), runtime.getClassName());
-            runtime.start();
-        }
-    } else {
-        LOG_ALWAYS_FATAL("app_process: no class name or --zygote supplied.");
-        fprintf(stderr, "Error: no class name or --zygote supplied.\n");
-        app_usage();
-        return 10;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -19,7 +19,6 @@ LOCAL_PATH := $(my-dir)
 ########################
 include $(CLEAR_VARS)
 
-<<<<<<< HEAD
 LOCAL_MODULE := platform.xml
 
 LOCAL_MODULE_TAGS := user
@@ -29,20 +28,10 @@ LOCAL_MODULE_CLASS := ETC
 # This will install the file in /system/etc/permissions
 #
 LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/permissions
-=======
-LOCAL_MODULE := permissions.xml
-
-LOCAL_MODULE_TAGS := user development
-
-# This will install the file in /system/etc
-#
-LOCAL_MODULE_CLASS := ETC
->>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_SRC_FILES := $(LOCAL_MODULE)
 
 include $(BUILD_PREBUILT)
-<<<<<<< HEAD
 
 ########################
 #include $(CLEAR_VARS)
@@ -60,5 +49,3 @@ include $(BUILD_PREBUILT)
 #LOCAL_SRC_FILES := $(LOCAL_MODULE)
 
 #include $(BUILD_PREBUILT)
-=======
->>>>>>> 54b6cfa... Initial Contribution

@@ -16,7 +16,6 @@
 
 package com.android.internal.widget;
 
-<<<<<<< HEAD
 import com.android.internal.R;
 import com.android.internal.telephony.ITelephony;
 import com.google.android.collect.Lists;
@@ -64,32 +63,6 @@ public class LockPatternUtils {
     private static final String OPTION_ENABLE_FACELOCK = "enable_facelock";
 
     private static final String TAG = "LockPatternUtils";
-=======
-import android.content.ContentResolver;
-import android.os.SystemClock;
-import android.provider.Settings;
-import android.security.MessageDigest;
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.google.android.collect.Lists;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.List;
-
-/**
- * Utilities for the lock patten and its settings.
- */
-public class LockPatternUtils {
-
-    private static final String TAG = "LockPatternUtils";
-    
-    private static final String LOCK_PATTERN_FILE = "/system/gesture.key";
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * The maximum number of incorrect attempts before the user is prevented
@@ -114,7 +87,6 @@ public class LockPatternUtils {
      */
     public static final long FAILED_ATTEMPT_COUNTDOWN_INTERVAL_MS = 1000L;
 
-<<<<<<< HEAD
 
     /**
      * This dictates when we start telling the user that continued failed attempts will wipe
@@ -122,8 +94,6 @@ public class LockPatternUtils {
      */
     public static final int FAILED_ATTEMPTS_BEFORE_WIPE_GRACE = 5;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * The minimum number of dots in a valid pattern.
      */
@@ -134,7 +104,6 @@ public class LockPatternUtils {
      * attempt for it to be counted against the counts that affect
      * {@link #FAILED_ATTEMPTS_BEFORE_TIMEOUT} and {@link #FAILED_ATTEMPTS_BEFORE_RESET}
      */
-<<<<<<< HEAD
     public static final int MIN_PATTERN_REGISTER_FAIL = MIN_LOCK_PATTERN_SIZE;
 
     /**
@@ -278,27 +247,6 @@ public class LockPatternUtils {
             return mCurrentUserId;
         } else {
             return UserId.getUserId(callingUid);
-=======
-    public static final int MIN_PATTERN_REGISTER_FAIL = 3;    
-
-    private final static String LOCKOUT_PERMANENT_KEY = "lockscreen.lockedoutpermanently";
-
-    private final ContentResolver mContentResolver;
-
-    private long mLockoutDeadline = 0;
-
-    private static String sLockPatternFilename;
-    
-    /**
-     * @param contentResolver Used to look up and save settings.
-     */
-    public LockPatternUtils(ContentResolver contentResolver) {
-        mContentResolver = contentResolver;
-        // Initialize the location of gesture lock file
-        if (sLockPatternFilename == null) {
-            sLockPatternFilename = android.os.Environment.getDataDirectory() 
-                    .getAbsolutePath() + LOCK_PATTERN_FILE;
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -306,7 +254,6 @@ public class LockPatternUtils {
      * Check to see if a pattern matches the saved pattern.  If no pattern exists,
      * always returns true.
      * @param pattern The pattern to check.
-<<<<<<< HEAD
      * @return Whether the pattern matches the stored one.
      */
     public boolean checkPattern(List<LockPatternView.Cell> pattern) {
@@ -329,31 +276,11 @@ public class LockPatternUtils {
         try {
             return getLockSettings().checkPassword(passwordToHash(password), userId);
         } catch (RemoteException re) {
-=======
-     * @return Whether the pattern matchees the stored one.
-     */
-    public boolean checkPattern(List<LockPatternView.Cell> pattern) {
-        try {
-            // Read all the bytes from the file
-            RandomAccessFile raf = new RandomAccessFile(sLockPatternFilename, "r");
-            final byte[] stored = new byte[(int) raf.length()];
-            int got = raf.read(stored, 0, stored.length);
-            raf.close();
-            if (got <= 0) {
-                return true;
-            }
-            // Compare the hash from the file with the entered pattern's hash
-            return Arrays.equals(stored, LockPatternUtils.patternToHash(pattern));
-        } catch (FileNotFoundException fnfe) {
-            return true;
-        } catch (IOException ioe) {
->>>>>>> 54b6cfa... Initial Contribution
             return true;
         }
     }
 
     /**
-<<<<<<< HEAD
      * Check to see if a password matches any of the passwords stored in the
      * password history.
      *
@@ -381,14 +308,11 @@ public class LockPatternUtils {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Check to see if the user has stored a lock pattern.
      * @return Whether a saved pattern exists.
      */
     public boolean savedPatternExists() {
         try {
-<<<<<<< HEAD
             return getLockSettings().havePattern(getCurrentOrCallingUserId());
         } catch (RemoteException re) {
             return false;
@@ -403,22 +327,11 @@ public class LockPatternUtils {
         try {
             return getLockSettings().havePassword(getCurrentOrCallingUserId());
         } catch (RemoteException re) {
-=======
-            // Check if we can read a byte from the file
-            RandomAccessFile raf = new RandomAccessFile(sLockPatternFilename, "r");
-            byte first = raf.readByte();
-            raf.close();
-            return true;
-        } catch (FileNotFoundException fnfe) {
-            return false;
-        } catch (IOException ioe) {
->>>>>>> 54b6cfa... Initial Contribution
             return false;
         }
     }
 
     /**
-<<<<<<< HEAD
      * Return true if the user has ever chosen a pattern.  This is true even if the pattern is
      * currently cleared.
      *
@@ -537,13 +450,10 @@ public class LockPatternUtils {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Save a lock pattern.
      * @param pattern The new pattern to save.
      */
     public void saveLockPattern(List<LockPatternView.Cell> pattern) {
-<<<<<<< HEAD
         this.saveLockPattern(pattern, false);
     }
 
@@ -772,27 +682,6 @@ public class LockPatternUtils {
         int quality =
                 (int) getLong(PASSWORD_TYPE_KEY, DevicePolicyManager.PASSWORD_QUALITY_SOMETHING);
         return quality == DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK;
-=======
-        // Compute the hash
-        final byte[] hash  = LockPatternUtils.patternToHash(pattern);
-        try {
-            // Write the hash to file
-            RandomAccessFile raf = new RandomAccessFile(sLockPatternFilename, "rw");
-            // Truncate the file if pattern is null, to clear the lock
-            if (pattern == null) {
-                raf.setLength(0);
-            } else {
-                raf.write(hash, 0, hash.length);
-            }
-            raf.close();
-        } catch (FileNotFoundException fnfe) {
-            // Cant do much, unless we want to fail over to using the settings provider
-            Log.e(TAG, "Unable to save lock pattern to " + sLockPatternFilename);
-        } catch (IOException ioe) {
-            // Cant do much
-            Log.e(TAG, "Unable to save lock pattern to " + sLockPatternFilename);
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -829,11 +718,7 @@ public class LockPatternUtils {
         }
         return new String(res);
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /*
      * Generate an SHA-1 hash for the pattern. Not the most secure, but it is
      * at least a second level of protection. First level is that the file
@@ -841,19 +726,11 @@ public class LockPatternUtils {
      * @param pattern the gesture pattern.
      * @return the hash of the pattern in a byte array.
      */
-<<<<<<< HEAD
     private static byte[] patternToHash(List<LockPatternView.Cell> pattern) {
         if (pattern == null) {
             return null;
         }
 
-=======
-    static byte[] patternToHash(List<LockPatternView.Cell> pattern) {
-        if (pattern == null) {
-            return null;
-        }
-        
->>>>>>> 54b6cfa... Initial Contribution
         final int patternSize = pattern.size();
         byte[] res = new byte[patternSize];
         for (int i = 0; i < patternSize; i++) {
@@ -869,7 +746,6 @@ public class LockPatternUtils {
         }
     }
 
-<<<<<<< HEAD
     private String getSalt() {
         long salt = getLong(LOCK_PASSWORD_SALT_KEY, 0);
         if (salt == 0) {
@@ -996,42 +872,26 @@ public class LockPatternUtils {
     public boolean isBiometricWeakLivelinessEnabled() {
         long currentFlag = getLong(Settings.Secure.LOCK_BIOMETRIC_WEAK_FLAGS, 0L);
         return ((currentFlag & FLAG_BIOMETRIC_WEAK_LIVELINESS) != 0);
-=======
-    /**
-     * @return Whether the lock pattern is enabled.
-     */
-    public boolean isLockPatternEnabled() {
-        return getBoolean(Settings.System.LOCK_PATTERN_ENABLED);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Set whether the lock pattern is enabled.
      */
     public void setLockPatternEnabled(boolean enabled) {
-<<<<<<< HEAD
         setBoolean(Settings.Secure.LOCK_PATTERN_ENABLED, enabled);
-=======
-        setBoolean(Settings.System.LOCK_PATTERN_ENABLED, enabled);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * @return Whether the visible pattern is enabled.
      */
     public boolean isVisiblePatternEnabled() {
-<<<<<<< HEAD
         return getBoolean(Settings.Secure.LOCK_PATTERN_VISIBLE, false);
-=======
-        return getBoolean(Settings.System.LOCK_PATTERN_VISIBLE);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Set whether the visible pattern is enabled.
      */
     public void setVisiblePatternEnabled(boolean enabled) {
-<<<<<<< HEAD
         setBoolean(Settings.Secure.LOCK_PATTERN_VISIBLE, enabled);
     }
 
@@ -1058,18 +918,6 @@ public class LockPatternUtils {
         final long deadline = SystemClock.elapsedRealtime() + FAILED_ATTEMPT_TIMEOUT_MS;
         setLong(LOCKOUT_ATTEMPT_DEADLINE, deadline);
         return deadline;
-=======
-        setBoolean(Settings.System.LOCK_PATTERN_VISIBLE, enabled);
-    }
-
-    /**
-     * Store the lockout deadline, meaning the user can't attempt his/her unlock
-     * pattern until the deadline has passed.  Does not persist across reboots.
-     * @param deadline The elapsed real time in millis in future.
-     */
-    public void setLockoutAttemptDeadline(long deadline) {
-        mLockoutDeadline = deadline;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1078,16 +926,12 @@ public class LockPatternUtils {
      *   enter a pattern.
      */
     public long getLockoutAttemptDeadline() {
-<<<<<<< HEAD
         final long deadline = getLong(LOCKOUT_ATTEMPT_DEADLINE, 0L);
         final long now = SystemClock.elapsedRealtime();
         if (deadline < now || deadline > (now + FAILED_ATTEMPT_TIMEOUT_MS)) {
             return 0L;
         }
         return deadline;
-=======
-        return (mLockoutDeadline <= SystemClock.elapsedRealtime()) ? 0 : mLockoutDeadline;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1096,30 +940,19 @@ public class LockPatternUtils {
      *   attempts.
      */
     public boolean isPermanentlyLocked() {
-<<<<<<< HEAD
         return getBoolean(LOCKOUT_PERMANENT_KEY, false);
-=======
-        return getBoolean(LOCKOUT_PERMANENT_KEY);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Set the state of whether the device is permanently locked, meaning the user
-<<<<<<< HEAD
      * must authenticate via other means.
      *
-=======
-     * must authenticate via other means.  If false, that means the user has gone
-     * out of permanent lock, so the existing (forgotten) lock pattern needs to
-     * be cleared.
->>>>>>> 54b6cfa... Initial Contribution
      * @param locked Whether the user is permanently locked out until they verify their
      *   credentials.  Occurs after {@link #FAILED_ATTEMPTS_BEFORE_RESET} failed
      *   attempts.
      */
     public void setPermanentlyLocked(boolean locked) {
         setBoolean(LOCKOUT_PERMANENT_KEY, locked);
-<<<<<<< HEAD
     }
 
     public boolean isEmergencyCallCapable() {
@@ -1135,13 +968,6 @@ public class LockPatternUtils {
     public boolean isEmergencyCallEnabledWhileSimLocked() {
         return mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_enable_emergency_call_while_sim_locked);
-=======
-
-        if (!locked) {
-            setLockPatternEnabled(false);
-            saveLockPattern(null);
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1157,7 +983,6 @@ public class LockPatternUtils {
         return nextAlarm;
     }
 
-<<<<<<< HEAD
     private boolean getBoolean(String secureSettingKey, boolean defaultValue) {
         try {
             return getLockSettings().getBoolean(secureSettingKey, defaultValue,
@@ -1296,21 +1121,5 @@ public class LockPatternUtils {
     public boolean getPowerButtonInstantlyLocks() {
         return getBoolean(LOCKSCREEN_POWER_BUTTON_INSTANTLY_LOCKS, true);
     }
-=======
-    private boolean getBoolean(String systemSettingKey) {
-        return 1 ==
-                android.provider.Settings.System.getInt(
-                        mContentResolver,
-                        systemSettingKey, 0);
-    }
-
-    private void setBoolean(String systemSettingKey, boolean enabled) {
-        android.provider.Settings.System.putInt(
-                        mContentResolver,
-                        systemSettingKey,
-                        enabled ? 1 : 0);
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
 
 }

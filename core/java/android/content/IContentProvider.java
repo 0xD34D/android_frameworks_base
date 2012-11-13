@@ -16,7 +16,6 @@
 
 package android.content;
 
-<<<<<<< HEAD
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
@@ -29,40 +28,15 @@ import android.os.RemoteException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-=======
-import android.database.Cursor;
-import android.database.CursorWindow;
-import android.database.IBulkCursor;
-import android.database.IContentObserver;
-import android.net.Uri;
-import android.os.RemoteException;
-import android.os.IBinder;
-import android.os.IInterface;
-import android.os.ParcelFileDescriptor;
-
-import java.io.FileNotFoundException;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * The ipc interface to talk to a content provider.
  * @hide
  */
 public interface IContentProvider extends IInterface {
-<<<<<<< HEAD
     public Cursor query(Uri url, String[] projection, String selection,
             String[] selectionArgs, String sortOrder, ICancellationSignal cancellationSignal)
                     throws RemoteException;
-=======
-    /**
-     * @hide - hide this because return type IBulkCursor and parameter
-     * IContentObserver are system private classes.
-     */
-    public IBulkCursor bulkQuery(Uri url, String[] projection,
-            String selection, String[] selectionArgs, String sortOrder, IContentObserver observer,
-            CursorWindow window) throws RemoteException;
-    public Cursor query(Uri url, String[] projection, String selection,
-            String[] selectionArgs, String sortOrder) throws RemoteException;
->>>>>>> 54b6cfa... Initial Contribution
     public String getType(Uri url) throws RemoteException;
     public Uri insert(Uri url, ContentValues initialValues)
             throws RemoteException;
@@ -73,7 +47,6 @@ public interface IContentProvider extends IInterface {
             String[] selectionArgs) throws RemoteException;
     public ParcelFileDescriptor openFile(Uri url, String mode)
             throws RemoteException, FileNotFoundException;
-<<<<<<< HEAD
     public AssetFileDescriptor openAssetFile(Uri url, String mode)
             throws RemoteException, FileNotFoundException;
     public ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations)
@@ -85,9 +58,6 @@ public interface IContentProvider extends IInterface {
     public String[] getStreamTypes(Uri url, String mimeTypeFilter) throws RemoteException;
     public AssetFileDescriptor openTypedAssetFile(Uri url, String mimeType, Bundle opts)
             throws RemoteException, FileNotFoundException;
-=======
-    public ISyncAdapter getSyncAdapter() throws RemoteException;
->>>>>>> 54b6cfa... Initial Contribution
 
     /* IPC constants */
     static final String descriptor = "android.content.IContentProvider";
@@ -97,7 +67,6 @@ public interface IContentProvider extends IInterface {
     static final int INSERT_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 2;
     static final int DELETE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 3;
     static final int UPDATE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 9;
-<<<<<<< HEAD
     static final int BULK_INSERT_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 12;
     static final int OPEN_FILE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 13;
     static final int OPEN_ASSET_FILE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 14;
@@ -106,9 +75,4 @@ public interface IContentProvider extends IInterface {
     static final int GET_STREAM_TYPES_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 21;
     static final int OPEN_TYPED_ASSET_FILE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 22;
     static final int CREATE_CANCELATION_SIGNAL_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 23;
-=======
-    static final int GET_SYNC_ADAPTER_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 10;
-    static final int BULK_INSERT_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 12;
-    static final int OPEN_FILE_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 13;
->>>>>>> 54b6cfa... Initial Contribution
 }

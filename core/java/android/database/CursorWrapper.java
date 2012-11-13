@@ -17,7 +17,6 @@
 package android.database;
 
 import android.content.ContentResolver;
-<<<<<<< HEAD
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -44,30 +43,6 @@ public class CursorWrapper implements Cursor {
      */
     public Cursor getWrappedCursor() {
         return mCursor;
-=======
-import android.database.CharArrayBuffer;
-import android.net.Uri;
-import android.os.Bundle;
-
-import java.util.Map;
-
-/**
- * Wrapper class for Cursor that delegates all calls to the actual cursor object
- */
-
-public class CursorWrapper implements Cursor {
-
-    public CursorWrapper(Cursor cursor) {
-        mCursor = cursor;
-    }
-    
-    /**
-     * @hide
-     * @deprecated
-     */
-    public void abortUpdates() {
-        mCursor.abortUpdates();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void close() {
@@ -78,26 +53,6 @@ public class CursorWrapper implements Cursor {
         return mCursor.isClosed();
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean commitUpdates() {
-        return mCursor.commitUpdates();
-    }
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean commitUpdates(
-            Map<? extends Long, ? extends Map<String, Object>> values) {
-        return mCursor.commitUpdates(values);
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public int getCount() {
         return mCursor.getCount();
     }
@@ -106,17 +61,6 @@ public class CursorWrapper implements Cursor {
         mCursor.deactivate();
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean deleteRow() {
-        return mCursor.deleteRow();
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public boolean moveToFirst() {
         return mCursor.moveToFirst();
     }
@@ -182,17 +126,6 @@ public class CursorWrapper implements Cursor {
         return mCursor.getWantsAllOnMoveCalls();
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean hasUpdates() {
-        return mCursor.hasUpdates();
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public boolean isAfterLast() {
         return mCursor.isAfterLast();
     }
@@ -209,13 +142,10 @@ public class CursorWrapper implements Cursor {
         return mCursor.isLast();
     }
 
-<<<<<<< HEAD
     public int getType(int columnIndex) {
         return mCursor.getType(columnIndex);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public boolean isNull(int columnIndex) {
         return mCursor.isNull(columnIndex);
     }
@@ -264,17 +194,6 @@ public class CursorWrapper implements Cursor {
         mCursor.setNotificationUri(cr, uri);        
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean supportsUpdates() {
-        return mCursor.supportsUpdates();
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public void unregisterContentObserver(ContentObserver observer) {
         mCursor.unregisterContentObserver(observer);        
     }
@@ -282,75 +201,5 @@ public class CursorWrapper implements Cursor {
     public void unregisterDataSetObserver(DataSetObserver observer) {
         mCursor.unregisterDataSetObserver(observer);
     }
-<<<<<<< HEAD
-=======
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean updateDouble(int columnIndex, double value) {
-        return mCursor.updateDouble(columnIndex, value);
-    }
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean updateFloat(int columnIndex, float value) {
-        return mCursor.updateFloat(columnIndex, value);
-    }
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean updateInt(int columnIndex, int value) {
-        return mCursor.updateInt(columnIndex, value);
-    }
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean updateLong(int columnIndex, long value) {
-        return mCursor.updateLong(columnIndex, value);
-    }
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean updateShort(int columnIndex, short value) {
-        return mCursor.updateShort(columnIndex, value);
-    }
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean updateString(int columnIndex, String value) {
-        return mCursor.updateString(columnIndex, value);
-    }
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean updateBlob(int columnIndex, byte[] value) {
-        return mCursor.updateBlob(columnIndex, value);
-    }
-
-    /**
-     * @hide
-     * @deprecated
-     */
-    public boolean updateToNull(int columnIndex) {
-        return mCursor.updateToNull(columnIndex);
-    }
-    
-    private Cursor mCursor;
-    
->>>>>>> 54b6cfa... Initial Contribution
 }
 

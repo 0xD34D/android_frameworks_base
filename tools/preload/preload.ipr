@@ -25,7 +25,6 @@
     <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
   </component>
   <component name="CodeStyleSettingsManager">
-<<<<<<< HEAD
     <option name="PER_PROJECT_SETTINGS">
       <value>
         <ADDITIONAL_INDENT_OPTIONS fileType="java">
@@ -48,9 +47,6 @@
         </ADDITIONAL_INDENT_OPTIONS>
       </value>
     </option>
-=======
-    <option name="PER_PROJECT_SETTINGS" />
->>>>>>> 54b6cfa... Initial Contribution
     <option name="USE_PER_PROJECT_SETTINGS" value="false" />
   </component>
   <component name="CompilerConfiguration">
@@ -139,10 +135,7 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
     <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
-<<<<<<< HEAD
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
-=======
->>>>>>> 54b6cfa... Initial Contribution
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -154,22 +147,13 @@
   <component name="IdProvider" IDEtalkID="D171F99B9178C1675593DC9A76A5CC7E" />
   <component name="InspectionProjectProfileManager">
     <option name="PROJECT_PROFILE" value="Project Default" />
-<<<<<<< HEAD
     <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
-=======
-    <option name="USE_PROJECT_LEVEL_SETTINGS" value="false" />
-    <scopes />
->>>>>>> 54b6cfa... Initial Contribution
     <profiles>
       <profile version="1.0" is_locked="false">
         <option name="myName" value="Project Default" />
         <option name="myLocal" value="false" />
-<<<<<<< HEAD
         <inspection_tool class="JavaDoc" enabled="false" level="WARNING" enabled_by_default="false">
-=======
-        <inspection_tool class="JavaDoc" level="WARNING" enabled="false">
->>>>>>> 54b6cfa... Initial Contribution
           <option name="TOP_LEVEL_CLASS_OPTIONS">
             <value>
               <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
@@ -198,7 +182,6 @@
           <option name="IGNORE_JAVADOC_PERIOD" value="true" />
           <option name="myAdditionalJavadocTags" value="" />
         </inspection_tool>
-<<<<<<< HEAD
         <inspection_tool class="JavaLangImport" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="OnDemandImport" enabled="true" level="WARNING" enabled_by_default="true" />
         <inspection_tool class="RedundantImport" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -212,16 +195,6 @@
       <item index="2" class="java.lang.String" itemvalue="INFO" />
       <item index="3" class="java.lang.String" itemvalue="ERROR" />
     </list>
-=======
-        <inspection_tool class="OnDemandImport" level="WARNING" enabled="true" />
-        <inspection_tool class="SamePackageImport" level="WARNING" enabled="true" />
-        <inspection_tool class="JavaLangImport" level="WARNING" enabled="true" />
-        <inspection_tool class="RedundantImport" level="WARNING" enabled="true" />
-        <inspection_tool class="UnusedImport" level="WARNING" enabled="true" />
-      </profile>
-    </profiles>
-    <list size="0" />
->>>>>>> 54b6cfa... Initial Contribution
   </component>
   <component name="JavacSettings">
     <option name="DEBUGGING_INFO" value="true" />
@@ -386,7 +359,6 @@
     <option name="USE_CLIENT_FILTER" value="true" />
     <option name="CLIENT" value="" />
   </component>
-<<<<<<< HEAD
   <component name="ProjectDetails">
     <option name="projectName" value="preload" />
   </component>
@@ -394,19 +366,12 @@
   <component name="ProjectKey">
     <option name="state" value="project:///Volumes/Android/donut/frameworks/base/tools/preload/preload.ipr" />
   </component>
-=======
-  <component name="ProjectFileVersion" converted="true" />
->>>>>>> 54b6cfa... Initial Contribution
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/preload.iml" filepath="$PROJECT_DIR$/preload.iml" />
     </modules>
   </component>
-<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
-=======
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
->>>>>>> 54b6cfa... Initial Contribution
     <output url="file:///tmp/preload" />
   </component>
   <component name="RmicSettings">
@@ -442,12 +407,9 @@
     <option name="myValidatorValidationEnabled" value="true" />
     <option name="myReportErrorsAsWarnings" value="true" />
   </component>
-<<<<<<< HEAD
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
-=======
->>>>>>> 54b6cfa... Initial Contribution
   <component name="SvnChangesBrowserSettings">
     <option name="USE_AUTHOR_FIELD" value="true" />
     <option name="AUTHOR" value="" />
@@ -455,18 +417,6 @@
     <option name="USE_PROJECT_SETTINGS" value="true" />
     <option name="USE_ALTERNATE_LOCATION" value="false" />
   </component>
-<<<<<<< HEAD
-=======
-  <component name="SvnConfiguration">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="PROCESS_UNRESOLVED" value="false" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="UPDATE_RUN_STATUS" value="false" />
-    <option name="UPDATE_RECURSIVELY" value="true" />
-    <option name="MERGE_DRY_RUN" value="false" />
-  </component>
->>>>>>> 54b6cfa... Initial Contribution
   <component name="VCS.FileViewConfiguration">
     <option name="SELECTED_STATUSES" value="DEFAULT" />
     <option name="SELECTED_COLUMNS" value="DEFAULT" />
@@ -476,10 +426,7 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Perforce" />
-<<<<<<< HEAD
     <mapping directory="/Volumes/Android/donut/frameworks/base" vcs="Git" />
-=======
->>>>>>> 54b6cfa... Initial Contribution
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />

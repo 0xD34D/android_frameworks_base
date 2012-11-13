@@ -16,7 +16,6 @@
 
 package android.graphics;
 
-<<<<<<< HEAD
 /**
  * A camera instance can be used to compute 3D transformations and
  * generate a matrix that can be applied, for instance, on a
@@ -26,16 +25,10 @@ public class Camera {
     /**
      * Creates a new camera, with empty transformations.
      */
-=======
-
-public class Camera {
-
->>>>>>> 54b6cfa... Initial Contribution
     public Camera() {
         nativeConstructor();
     }
 
-<<<<<<< HEAD
     /**
      * Saves the camera state. Each save should be balanced
      * with a call to {@link #restore()}.
@@ -153,19 +146,6 @@ public class Camera {
      * 
      * @param canvas The Canvas to set the transform matrix onto
      */
-=======
-    public native void save();
-    public native void restore();
-
-    public native void translate(float x, float y, float z);
-    public native void rotateX(float deg);
-    public native void rotateY(float deg);
-    public native void rotateZ(float deg);
-
-    public void getMatrix(Matrix matrix) {
-        nativeGetMatrix(matrix.native_instance);
-    }
->>>>>>> 54b6cfa... Initial Contribution
     public void applyToCanvas(Canvas canvas) {
         nativeApplyToCanvas(canvas.mNativeCanvas);
     }
@@ -173,15 +153,11 @@ public class Camera {
     public native float dotWithNormal(float dx, float dy, float dz);
     
     protected void finalize() throws Throwable {
-<<<<<<< HEAD
         try {
             nativeDestructor();
         } finally {
             super.finalize();
         }
-=======
-        nativeDestructor();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private native void nativeConstructor();
@@ -191,7 +167,3 @@ public class Camera {
     
     int native_instance;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution

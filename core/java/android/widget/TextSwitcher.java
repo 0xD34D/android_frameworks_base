@@ -21,11 +21,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Specialized {@link android.widget.ViewSwitcher} that contains
@@ -93,7 +90,6 @@ public class TextSwitcher extends ViewSwitcher {
     public void setCurrentText(CharSequence text) {
         ((TextView)getCurrentView()).setText(text);
     }
-<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -106,6 +102,4 @@ public class TextSwitcher extends ViewSwitcher {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(TextSwitcher.class.getName());
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

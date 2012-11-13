@@ -17,12 +17,9 @@
 package com.android.internal.telephony;
 
 import java.util.List;
-<<<<<<< HEAD
 
 import android.util.Log;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * {@hide}
  */
@@ -30,17 +27,10 @@ public abstract class Call {
     /* Enums */
 
     public enum State {
-<<<<<<< HEAD
         IDLE, ACTIVE, HOLDING, DIALING, ALERTING, INCOMING, WAITING, DISCONNECTED, DISCONNECTING;
 
         public boolean isAlive() {
             return !(this == IDLE || this == DISCONNECTED || this == DISCONNECTING);
-=======
-        IDLE, ACTIVE, HOLDING, DIALING, ALERTING, INCOMING, WAITING, DISCONNECTED;
-
-        public boolean isAlive() {
-            return !(this == IDLE || this == DISCONNECTED);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         public boolean isRinging() {
@@ -52,7 +42,6 @@ public abstract class Call {
         }
     }
 
-<<<<<<< HEAD
 
     /* Instance Variables */
 
@@ -69,8 +58,6 @@ public abstract class Call {
 
     protected final String LOG_TAG = "Call";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /* Instance Methods */
 
     /** Do not modify the List result!!! This list is not yours to keep
@@ -78,7 +65,6 @@ public abstract class Call {
      */
 
     public abstract List<Connection> getConnections();
-<<<<<<< HEAD
     public abstract Phone getPhone();
     public abstract boolean isMultiparty();
     public abstract void hangup() throws CallStateException;
@@ -87,32 +73,19 @@ public abstract class Call {
     /**
      * hasConnection
      *
-=======
-    public abstract State getState();
-    public abstract Phone getPhone();
-
-    /**
-     * hasConnection
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param c a Connection object
      * @return true if the call contains the connection object passed in
      */
     public boolean hasConnection(Connection c) {
         return c.getCall() == this;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * hasConnections
      * @return true if the call contains one or more connections
      */
     public boolean hasConnections() {
         List connections = getConnections();
-<<<<<<< HEAD
 
         if (connections == null) {
             return false;
@@ -132,19 +105,6 @@ public abstract class Call {
     /**
      * isIdle
      *
-=======
-        
-        if (connections == null) {
-            return false;
-        }
-        
-        return connections.size() > 0;
-    }
-    
-    /**
-     * isIdle
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * FIXME rename
      * @return true if the call contains only disconnected connections (if any)
      */
@@ -162,7 +122,6 @@ public abstract class Call {
         long time = Long.MAX_VALUE;
         Connection c;
         Connection earliest = null;
-<<<<<<< HEAD
 
         l = getConnections();
 
@@ -185,29 +144,6 @@ public abstract class Call {
         return earliest;
     }
 
-=======
-        
-        l = getConnections();
-        
-        if (l.size() == 0) {
-            return null;
-        }
-        
-        for (int i = 0, s = l.size() ; i < s ; i++) {
-            c = (Connection) l.get(i);
-            long t;
-            
-            t = c.getCreateTime();
-            
-            if (t < time) {
-                earliest = c;
-            }
-        }
-        
-        return earliest;
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     public long
     getEarliestCreateTime() {
         List l;
@@ -233,15 +169,8 @@ public abstract class Call {
 
     public long
     getEarliestConnectTime() {
-<<<<<<< HEAD
         long time = Long.MAX_VALUE;
         List l = getConnections();
-=======
-        List l;
-        long time = Long.MAX_VALUE;
-
-        l = getConnections();
->>>>>>> 54b6cfa... Initial Contribution
 
         if (l.size() == 0) {
             return 0;
@@ -259,12 +188,6 @@ public abstract class Call {
         return time;
     }
 
-<<<<<<< HEAD
-=======
-    public abstract boolean isMultiparty();
-
-    public abstract void hangup() throws CallStateException;
->>>>>>> 54b6cfa... Initial Contribution
 
     public boolean
     isDialingOrAlerting() {
@@ -276,7 +199,6 @@ public abstract class Call {
         return getState().isRinging();
     }
 
-<<<<<<< HEAD
     /**
      * Returns the Connection associated with this Call that was created
      * last, or null if there are no Connections in this Call
@@ -330,6 +252,4 @@ public abstract class Call {
             }
         }
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

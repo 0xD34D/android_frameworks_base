@@ -35,11 +35,7 @@ import java.io.OutputStream;
 
 /**
  * The DRM provider contains forward locked DRM content.
-<<<<<<< HEAD
  *
-=======
- * 
->>>>>>> 54b6cfa... Initial Contribution
  * @hide
  */
 public final class DrmStore
@@ -47,21 +43,13 @@ public final class DrmStore
     private static final String TAG = "DrmStore";
 
     public static final String AUTHORITY = "drm";
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * This is in the Manifest class of the drm provider, but that isn't visible
      * in the framework.
      */
     private static final String ACCESS_DRM_PERMISSION = "android.permission.ACCESS_DRM";
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Fields for DRM database
      */
@@ -94,31 +82,18 @@ public final class DrmStore
     }
 
     public interface Images extends Columns {
-<<<<<<< HEAD
 
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/images");
     }
 
     public interface Audio extends Columns {
 
-=======
-     
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/images");
-    }
-     
-    public interface Audio extends Columns {
-     
->>>>>>> 54b6cfa... Initial Contribution
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/audio");
     }
 
     /**
      * Utility function for inserting a file into the DRM content provider.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param cr The content resolver to use
      * @param file The file to insert
      * @param title The title for the content (or null)
@@ -126,7 +101,6 @@ public final class DrmStore
      */
     public static final Intent addDrmFile(ContentResolver cr, File file, String title) {
         FileInputStream fis = null;
-<<<<<<< HEAD
         Intent result = null;
 
         try {
@@ -162,31 +136,18 @@ public final class DrmStore
      * @return uri to the DRM record or null
      */
     public static final Intent addDrmFile(ContentResolver cr, FileInputStream fis, String title) {
-=======
->>>>>>> 54b6cfa... Initial Contribution
         OutputStream os = null;
         Intent result = null;
 
         try {
-<<<<<<< HEAD
             DrmRawContent content = new DrmRawContent(fis, (int) fis.available(),
                     DrmRawContent.DRM_MIMETYPE_MESSAGE_STRING);
             String mimeType = content.getContentType();
             long size = fis.getChannel().size();
-=======
-            fis = new FileInputStream(file);
-            DrmRawContent content = new DrmRawContent(fis, (int) file.length(),
-                    DrmRawContent.DRM_MIMETYPE_MESSAGE_STRING);
-            String mimeType = content.getContentType();
->>>>>>> 54b6cfa... Initial Contribution
 
             DrmRightsManager manager = manager = DrmRightsManager.getInstance();
             DrmRights rights = manager.queryRights(content);
             InputStream stream = content.getContentInputStream(rights);
-<<<<<<< HEAD
-=======
-            long size = stream.available();
->>>>>>> 54b6cfa... Initial Contribution
 
             Uri contentUri = null;
             if (mimeType.startsWith("audio/")) {
@@ -199,17 +160,6 @@ public final class DrmStore
 
             if (contentUri != null) {
                 ContentValues values = new ContentValues(3);
-<<<<<<< HEAD
-=======
-                // compute title from file name, if it is not specified
-                if (title == null) {
-                    title = file.getName();
-                    int lastDot = title.lastIndexOf('.');
-                    if (lastDot > 0) {
-                        title = title.substring(0, lastDot);
-                    }
-                }
->>>>>>> 54b6cfa... Initial Contribution
                 values.put(DrmStore.Columns.TITLE, title);
                 values.put(DrmStore.Columns.SIZE, size);
                 values.put(DrmStore.Columns.MIME_TYPE, mimeType);
@@ -238,11 +188,7 @@ public final class DrmStore
                 if (os != null)
                     os.close();
             } catch (IOException e) {
-<<<<<<< HEAD
                 Log.e(TAG, "IOException in DrmStore.addDrmFile()", e);
-=======
-                Log.e(TAG, "IOException in DrmTest.onCreate()", e);
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -252,11 +198,7 @@ public final class DrmStore
     /**
      * Utility function to enforce any permissions required to access DRM
      * content.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param context A context used for checking calling permission.
      */
     public static void enforceAccessDrmPermission(Context context) {
@@ -265,9 +207,5 @@ public final class DrmStore
             throw new SecurityException("Requires DRM permission");
         }
     }
-<<<<<<< HEAD
 
-=======
-     
->>>>>>> 54b6cfa... Initial Contribution
 }

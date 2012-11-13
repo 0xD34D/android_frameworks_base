@@ -17,10 +17,6 @@
 package android.graphics;
 
 public class LinearGradient extends Shader {
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
 	/**	Create a shader that draws a linear gradient along a line.
         @param x0           The x-coordinate for the start of the gradient line
         @param y0           The y-coordinate for the start of the gradient line
@@ -32,13 +28,8 @@ public class LinearGradient extends Shader {
                             the the colors are distributed evenly along the gradient line.
         @param  tile        The Shader tiling mode
 	*/
-<<<<<<< HEAD
 	public LinearGradient(float x0, float y0, float x1, float y1, int colors[], float positions[],
             TileMode tile) {
-=======
-	public LinearGradient(float x0, float y0, float x1, float y1,
-                          int colors[], float positions[], TileMode tile) {
->>>>>>> 54b6cfa... Initial Contribution
         if (colors.length < 2) {
             throw new IllegalArgumentException("needs >= 2 number of colors");
         }
@@ -46,11 +37,8 @@ public class LinearGradient extends Shader {
             throw new IllegalArgumentException("color and position arrays must be of equal length");
         }
         native_instance = nativeCreate1(x0, y0, x1, y1, colors, positions, tile.nativeInt);
-<<<<<<< HEAD
         native_shader = nativePostCreate1(native_instance, x0, y0, x1, y1, colors, positions,
                 tile.nativeInt);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
 	/**	Create a shader that draws a linear gradient along a line.
@@ -62,7 +50,6 @@ public class LinearGradient extends Shader {
         @param  color1  The color at the end of the gradient line.
         @param  tile    The Shader tiling mode
 	*/
-<<<<<<< HEAD
 	public LinearGradient(float x0, float y0, float x1, float y1, int color0, int color1,
             TileMode tile) {
         native_instance = nativeCreate2(x0, y0, x1, y1, color0, color1, tile.nativeInt);
@@ -79,17 +66,3 @@ public class LinearGradient extends Shader {
     private native int nativePostCreate2(int native_shader, float x0, float y0, float x1, float y1,
             int color0, int color1, int tileMode);
 }
-=======
-	public LinearGradient(float x0, float y0, float x1, float y1,
-                          int color0, int color1, TileMode tile) {
-        native_instance = nativeCreate2(x0, y0, x1, y1, color0, color1, tile.nativeInt);
-    }
-
-
-	private static native int nativeCreate1(float x0, float y0, float x1, float y1,
-                                            int colors[], float positions[], int tileMode);
-	private static native int nativeCreate2(float x0, float y0, float x1, float y1,
-                                            int color0, int color1, int tileMode);
-}
-
->>>>>>> 54b6cfa... Initial Contribution

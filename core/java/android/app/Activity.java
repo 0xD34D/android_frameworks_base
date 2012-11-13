@@ -16,7 +16,6 @@
 
 package android.app;
 
-<<<<<<< HEAD
 import com.android.internal.app.ActionBarImpl;
 import com.android.internal.policy.PolicyManager;
 
@@ -35,24 +34,12 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-=======
-import android.content.ComponentCallbacks;
-import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.content.res.Resources;
->>>>>>> 54b6cfa... Initial Contribution
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
-<<<<<<< HEAD
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,21 +60,6 @@ import android.util.SparseArray;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-=======
-import android.os.Bundle;
-import android.os.RemoteException;
-import android.os.Handler;
-import android.os.IBinder;
-import android.text.Selection;
-import android.text.SpannableStringBuilder;
-import android.text.method.TextKeyListener;
-import android.util.AttributeSet;
-import android.util.Config;
-import android.util.EventLog;
-import android.util.Log;
-import android.util.SparseArray;
-import android.view.ContextMenu;
->>>>>>> 54b6cfa... Initial Contribution
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -96,7 +68,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-<<<<<<< HEAD
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -111,18 +82,6 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-=======
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnCreateContextMenuListener;
-import android.widget.AdapterView;
-
-import com.android.internal.policy.PolicyManager;
-
-import java.util.ArrayList;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * An activity is a single, focused thing that the user can do.  Almost all
@@ -153,20 +112,9 @@ import java.util.ArrayList;
  * {@link android.R.styleable#AndroidManifestActivity &lt;activity&gt;}
  * declaration in their package's <code>AndroidManifest.xml</code>.</p>
  * 
-<<<<<<< HEAD
  * <p>Topics covered here:
  * <ol>
  * <li><a href="#Fragments">Fragments</a>
-=======
- * <p>The Activity class is an important part of an
- * <a href="{@docRoot}intro/lifecycle.html">application's overall lifecycle</a>,
- * and the way activities are launched and put together is a fundamental
- * part of the platform's
- * <a href="{@docRoot}intro/appmodel.html">application model</a>.</p>
- * 
- * <p>Topics covered here:
- * <ol>
->>>>>>> 54b6cfa... Initial Contribution
  * <li><a href="#ActivityLifecycle">Activity Lifecycle</a>
  * <li><a href="#ConfigurationChanges">Configuration Changes</a>
  * <li><a href="#StartingActivities">Starting Activities and Getting Results</a>
@@ -174,7 +122,6 @@ import java.util.ArrayList;
  * <li><a href="#Permissions">Permissions</a>
  * <li><a href="#ProcessLifecycle">Process Lifecycle</a>
  * </ol>
-<<<<<<< HEAD
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
@@ -199,9 +146,6 @@ import java.util.ArrayList;
  * modularize their code, build more sophisticated user interfaces for larger
  * screens, and help scale their application between small and large screens.
  *
-=======
- * 
->>>>>>> 54b6cfa... Initial Contribution
  * <a name="ActivityLifecycle"></a>
  * <h3>Activity Lifecycle</h3>
  *
@@ -260,13 +204,8 @@ import java.util.ArrayList;
  * with the user.  Between these two methods you can maintain resources that
  * are needed to show the activity to the user.  For example, you can register
  * a {@link android.content.BroadcastReceiver} in onStart() to monitor for changes
-<<<<<<< HEAD
  * that impact your UI, and unregister it in onStop() when the user no
  * longer sees what you are displaying.  The onStart() and onStop() methods
-=======
- * that impact your UI, and unregister it in onStop() when the user an no
- * longer see what you are displaying.  The onStart() and onStop() methods
->>>>>>> 54b6cfa... Initial Contribution
  * can be called multiple times, as the activity becomes visible and hidden
  * to the user.
  * 
@@ -369,11 +308,7 @@ import java.util.ArrayList;
  *             <p>Followed by either <code>onResume()</code> if the activity
  *             returns back to the front, or <code>onStop()</code> if it becomes
  *             invisible to the user.</td>
-<<<<<<< HEAD
  *         <td align="center"><font color="#800000"><strong>Pre-{@link android.os.Build.VERSION_CODES#HONEYCOMB}</strong></font></td>
-=======
- *         <td align="center"><font color="#800000"><strong>Yes</strong></font></td>
->>>>>>> 54b6cfa... Initial Contribution
  *         <td align="center"><code>onResume()</code> or<br>
  *                 <code>onStop()</code></td>
  *     </tr>
@@ -420,7 +355,6 @@ import java.util.ArrayList;
  * section for more information on how the lifecycle of a process is tied
  * to the activities it is hosting.  Note that it is important to save
  * persistent data in {@link #onPause} instead of {@link #onSaveInstanceState}
-<<<<<<< HEAD
  * because the latter is not part of the lifecycle callbacks, so will not
  * be called in every situation as described in its documentation.</p>
  *
@@ -432,11 +366,6 @@ import java.util.ArrayList;
  * safely called after {@link #onPause()} and allows and application to safely
  * wait until {@link #onStop()} to save persistent state.</p>
  *
-=======
- * because the later is not part of the lifecycle callbacks, so will not
- * be called in every situation as described in its documentation.</p>
- *
->>>>>>> 54b6cfa... Initial Contribution
  * <p>For those methods that are not marked as being killable, the activity's
  * process will not be killed by the system starting from the time the method
  * is called and continuing after it returns.  Thus an activity is in the killable
@@ -579,11 +508,7 @@ import java.util.ArrayList;
  * paused.  Note this implies
  * that the user pressing BACK from your activity does <em>not</em>
  * mean "cancel" -- it means to leave the activity with its current contents
-<<<<<<< HEAD
  * saved away.  Canceling edits in an activity must be provided through
-=======
- * saved away.  Cancelling edits in an activity must be provided through
->>>>>>> 54b6cfa... Initial Contribution
  * some other mechanism, such as an explicit "revert" or "undo" option.</p>
  *
  * <p>See the {@linkplain android.content.ContentProvider content package} for
@@ -624,11 +549,7 @@ import java.util.ArrayList;
  *         super.onCreate(savedInstanceState);
  *
  *         SharedPreferences mPrefs = getSharedPreferences();
-<<<<<<< HEAD
  *         mCurViewMode = mPrefs.getInt("view_mode", DAY_VIEW_MODE);
-=======
- *         mCurViewMode = mPrefs.getInt("view_mode" DAY_VIEW_MODE);
->>>>>>> 54b6cfa... Initial Contribution
  *     }
  *
  *     protected void onPause() {
@@ -650,7 +571,6 @@ import java.util.ArrayList;
  * tag.  By doing so, other applications will need to declare a corresponding
  * {@link android.R.styleable#AndroidManifestUsesPermission &lt;uses-permission&gt;}
  * element in their own manifest to be able to start that activity.
-<<<<<<< HEAD
  *
  * <p>When starting an Activity you can set {@link Intent#FLAG_GRANT_READ_URI_PERMISSION
  * Intent.FLAG_GRANT_READ_URI_PERMISSION} and/or {@link Intent#FLAG_GRANT_WRITE_URI_PERMISSION
@@ -664,10 +584,6 @@ import java.util.ArrayList;
  * to the existing ones it holds.
  *
  * <p>See the <a href="{@docRoot}guide/topics/security/security.html">Security and Permissions</a>
-=======
- * 
- * <p>See the <a href="{@docRoot}devel/security.html">Security Model</a>
->>>>>>> 54b6cfa... Initial Contribution
  * document for more information on permissions and security in general.
  * 
  * <a name="ProcessLifecycle"></a>
@@ -723,18 +639,11 @@ import java.util.ArrayList;
  * or finished.
  */
 public class Activity extends ContextThemeWrapper
-<<<<<<< HEAD
         implements LayoutInflater.Factory2,
         Window.Callback, KeyEvent.Callback,
         OnCreateContextMenuListener, ComponentCallbacks2 {
     private static final String TAG = "Activity";
     private static final boolean DEBUG_LIFECYCLE = false;
-=======
-        implements LayoutInflater.Factory,
-        Window.Callback, KeyEvent.Callback,
-        OnCreateContextMenuListener, ComponentCallbacks {
-    private static final String TAG = "Activity";
->>>>>>> 54b6cfa... Initial Contribution
 
     /** Standard activity result: operation canceled. */
     public static final int RESULT_CANCELED    = 0;
@@ -743,7 +652,6 @@ public class Activity extends ContextThemeWrapper
     /** Start of user-defined activity results. */
     public static final int RESULT_FIRST_USER   = 1;
 
-<<<<<<< HEAD
     private static final String WINDOW_HIERARCHY_TAG = "android:viewHierarchyState";
     private static final String FRAGMENTS_TAG = "android:fragments";
     private static final String SAVED_DIALOG_IDS_KEY = "android:savedDialogIds";
@@ -756,22 +664,10 @@ public class Activity extends ContextThemeWrapper
         Bundle mArgs;
     }
     private SparseArray<ManagedDialog> mManagedDialogs;
-=======
-    private static long sInstanceCount = 0;
-
-    private static final String WINDOW_HIERARCHY_TAG = "android:viewHierarchyState";
-    private static final String SAVED_DIALOG_IDS_KEY = "android:savedDialogIds";
-    private static final String SAVED_DIALOGS_TAG = "android:savedDialogs";
-    private static final String SAVED_DIALOG_KEY_PREFIX = "android:dialog_";
-    private static final String SAVED_SEARCH_DIALOG_KEY = "android:search_dialog";
-
-    private SparseArray<Dialog> mManagedDialogs;
->>>>>>> 54b6cfa... Initial Contribution
 
     // set by the thread after the constructor and before onCreate(Bundle savedInstanceState) is called.
     private Instrumentation mInstrumentation;
     private IBinder mToken;
-<<<<<<< HEAD
     private int mIdent;
     /*package*/ String mEmbeddedID;
     private Application mApplication;
@@ -804,48 +700,24 @@ public class Activity extends ContextThemeWrapper
     }
     /* package */ NonConfigurationInstances mLastNonConfigurationInstances;
     
-=======
-    /*package*/ String mEmbeddedID;
-    private Application mApplication;
-    private Intent mIntent;
-    private ComponentName mComponent;
-    /*package*/ ActivityInfo mActivityInfo;
-    /*package*/ ActivityThread mMainThread;
-    private Object mLastNonConfigurationInstance;
-    Activity mParent;
-    boolean mCalled;
-    private boolean mResumed;
-    private boolean mStopped;
-    boolean mFinished;
-    boolean mStartedActivity;
-    /*package*/ int mConfigChangeFlags;
-    /*package*/ Configuration mCurrentConfig;
-
->>>>>>> 54b6cfa... Initial Contribution
     private Window mWindow;
 
     private WindowManager mWindowManager;
     /*package*/ View mDecor = null;
-<<<<<<< HEAD
     /*package*/ boolean mWindowAdded = false;
     /*package*/ boolean mVisibleFromServer = false;
     /*package*/ boolean mVisibleFromClient = true;
     /*package*/ ActionBarImpl mActionBar = null;
     private boolean mEnableDefaultActionBarUp;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     private CharSequence mTitle;
     private int mTitleColor = 0;
 
-<<<<<<< HEAD
     final FragmentManagerImpl mFragments = new FragmentManagerImpl();
     
     SparseArray<LoaderManagerImpl> mAllLoaderManagers;
     LoaderManagerImpl mLoaderManager;
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private static final class ManagedCursor {
         ManagedCursor(Cursor cursor) {
             mCursor = cursor;
@@ -871,30 +743,10 @@ public class Activity extends ContextThemeWrapper
     
     protected static final int[] FOCUSED_STATE_SET = {com.android.internal.R.attr.state_focused};
 
-<<<<<<< HEAD
     private final Object mInstanceTracker = StrictMode.trackActivity(this);
 
     private Thread mUiThread;
     final Handler mHandler = new Handler();
-=======
-    private Thread mUiThread;
-    private final Handler mHandler = new Handler();
-
-    public Activity() {
-        ++sInstanceCount;
-    }
-
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        --sInstanceCount;
-    }
-    
-    public static long getInstanceCount() {
-        return sInstanceCount;
-    }
->>>>>>> 54b6cfa... Initial Contribution
 
     /** Return the intent that started this activity. */
     public Intent getIntent() {
@@ -948,7 +800,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Return the LoaderManager for this fragment, creating it if needed.
      */
     public LoaderManager getLoaderManager() {
@@ -977,8 +828,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Calls {@link android.view.Window#getCurrentFocus} on the
      * Window of this Activity to return the currently focused view.
      * 
@@ -991,21 +840,6 @@ public class Activity extends ContextThemeWrapper
         return mWindow != null ? mWindow.getCurrentFocus() : null;
     }
 
-<<<<<<< HEAD
-=======
-    @Override
-    public int getWallpaperDesiredMinimumWidth() {
-        int width = super.getWallpaperDesiredMinimumWidth();
-        return width <= 0 ? getWindowManager().getDefaultDisplay().getWidth() : width;
-    }
-
-    @Override
-    public int getWallpaperDesiredMinimumHeight() {
-        int height = super.getWallpaperDesiredMinimumHeight();
-        return height <= 0 ? getWindowManager().getDefaultDisplay().getHeight() : height;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Called when the activity is starting.  This is where most initialization
      * should go: calling {@link #setContentView(int)} to inflate the
@@ -1033,7 +867,6 @@ public class Activity extends ContextThemeWrapper
      * @see #onPostCreate
      */
     protected void onCreate(Bundle savedInstanceState) {
-<<<<<<< HEAD
         if (DEBUG_LIFECYCLE) Slog.v(TAG, "onCreate " + this + ": " + savedInstanceState);
         if (mLastNonConfigurationInstances != null) {
             mAllLoaderManagers = mLastNonConfigurationInstances.loaders;
@@ -1052,8 +885,6 @@ public class Activity extends ContextThemeWrapper
         }
         mFragments.dispatchCreate();
         getApplication().dispatchActivityCreated(this, savedInstanceState);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         mCalled = true;
     }
 
@@ -1068,25 +899,12 @@ public class Activity extends ContextThemeWrapper
     final void performRestoreInstanceState(Bundle savedInstanceState) {
         onRestoreInstanceState(savedInstanceState);
         restoreManagedDialogs(savedInstanceState);
-<<<<<<< HEAD
-=======
-        
-        // Also restore the state of a search dialog (if any)
-        // TODO more generic than just this manager
-        SearchManager searchManager = 
-            (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchManager.restoreSearchDialog(savedInstanceState, SAVED_SEARCH_DIALOG_KEY);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * This method is called after {@link #onStart} when the activity is
      * being re-initialized from a previously saved state, given here in
-<<<<<<< HEAD
      * <var>savedInstanceState</var>.  Most implementations will simply use {@link #onCreate}
-=======
-     * <var>state</var>.  Most implementations will simply use {@link #onCreate}
->>>>>>> 54b6cfa... Initial Contribution
      * to restore their state, but it is sometimes convenient to do it here
      * after all of the initialization has been done or to allow subclasses to
      * decide whether to use your default implementation.  The default
@@ -1125,16 +943,11 @@ public class Activity extends ContextThemeWrapper
 
         final int[] ids = b.getIntArray(SAVED_DIALOG_IDS_KEY);
         final int numDialogs = ids.length;
-<<<<<<< HEAD
         mManagedDialogs = new SparseArray<ManagedDialog>(numDialogs);
-=======
-        mManagedDialogs = new SparseArray<Dialog>(numDialogs);
->>>>>>> 54b6cfa... Initial Contribution
         for (int i = 0; i < numDialogs; i++) {
             final Integer dialogId = ids[i];
             Bundle dialogState = b.getBundle(savedDialogKeyFor(dialogId));
             if (dialogState != null) {
-<<<<<<< HEAD
                 // Calling onRestoreInstanceState() below will invoke dispatchOnCreate
                 // so tell createDialog() not to do it, otherwise we get an exception
                 final ManagedDialog md = new ManagedDialog();
@@ -1145,16 +958,10 @@ public class Activity extends ContextThemeWrapper
                     onPrepareDialog(dialogId, md.mDialog, md.mArgs);
                     md.mDialog.onRestoreInstanceState(dialogState);
                 }
-=======
-                final Dialog dialog = onCreateDialog(dialogId);
-                dialog.onRestoreInstanceState(dialogState);
-                mManagedDialogs.put(dialogId, dialog);
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
-<<<<<<< HEAD
     private Dialog createDialog(Integer dialogId, Bundle state, Bundle args) {
         final Dialog dialog = onCreateDialog(dialogId, args);
         if (dialog == null) {
@@ -1171,12 +978,6 @@ public class Activity extends ContextThemeWrapper
     private static String savedDialogArgsKeyFor(int key) {
         return SAVED_DIALOG_ARGS_KEY_PREFIX + key;
     }
-=======
-    private String savedDialogKeyFor(int key) {
-        return SAVED_DIALOG_KEY_PREFIX + key;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Called when activity start-up is complete (after {@link #onStart}
@@ -1202,15 +1003,9 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Called after {@link #onCreate} &mdash; or after {@link #onRestart} when  
      * the activity had been stopped, but is now again being displayed to the 
 	 * user.  It will be followed by {@link #onResume}.
-=======
-     * Called after {@link #onCreate} or {@link #onStop} when the current
-     * activity is now being displayed to the user.  It will
-     * be followed by {@link #onRestart}.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p><em>Derived classes must call through to the super class's
      * implementation of this method.  If they do not, an exception will be
@@ -1221,7 +1016,6 @@ public class Activity extends ContextThemeWrapper
      * @see #onResume
      */
     protected void onStart() {
-<<<<<<< HEAD
         if (DEBUG_LIFECYCLE) Slog.v(TAG, "onStart " + this);
         mCalled = true;
         
@@ -1242,15 +1036,6 @@ public class Activity extends ContextThemeWrapper
      * Called after {@link #onStop} when the current activity is being
      * re-displayed to the user (the user has navigated back to it).  It will
      * be followed by {@link #onStart} and then {@link #onResume}.
-=======
-        mCalled = true;
-    }
-
-    /**
-     * Called after {@link #onStart} when the current activity is being
-     * re-displayed to the user (the user has navigated back to it).  It will
-     * be followed by {@link #onResume}.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>For activities that are using raw {@link Cursor} objects (instead of
      * creating them through
@@ -1264,10 +1049,7 @@ public class Activity extends ContextThemeWrapper
      * thrown.</em></p>
      * 
      * @see #onStop
-<<<<<<< HEAD
      * @see #onStart
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @see #onResume
      */
     protected void onRestart() {
@@ -1295,11 +1077,8 @@ public class Activity extends ContextThemeWrapper
      * @see #onPause
      */
     protected void onResume() {
-<<<<<<< HEAD
         if (DEBUG_LIFECYCLE) Slog.v(TAG, "onResume " + this);
         getApplication().dispatchActivityResumed(this);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         mCalled = true;
     }
 
@@ -1318,10 +1097,7 @@ public class Activity extends ContextThemeWrapper
     protected void onPostResume() {
         final Window win = getWindow();
         if (win != null) win.makeActive();
-<<<<<<< HEAD
         if (mActionBar != null) mActionBar.setShowHideAnimationEnabled(true);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         mCalled = true;
     }
 
@@ -1360,16 +1136,7 @@ public class Activity extends ContextThemeWrapper
     final void performSaveInstanceState(Bundle outState) {
         onSaveInstanceState(outState);
         saveManagedDialogs(outState);
-<<<<<<< HEAD
         if (DEBUG_LIFECYCLE) Slog.v(TAG, "onSaveInstanceState " + this + ": " + outState);
-=======
-
-        // Also save the state of a search dialog (if any)
-        // TODO more generic than just this manager
-        SearchManager searchManager = 
-            (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchManager.saveSearchDialog(outState, SAVED_SEARCH_DIALOG_KEY);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1419,14 +1186,11 @@ public class Activity extends ContextThemeWrapper
      */
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBundle(WINDOW_HIERARCHY_TAG, mWindow.saveHierarchyState());
-<<<<<<< HEAD
         Parcelable p = mFragments.saveAllState();
         if (p != null) {
             outState.putParcelable(FRAGMENTS_TAG, p);
         }
         getApplication().dispatchActivitySaveInstanceState(this, outState);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1452,16 +1216,11 @@ public class Activity extends ContextThemeWrapper
         for (int i = 0; i < numDialogs; i++) {
             final int key = mManagedDialogs.keyAt(i);
             ids[i] = key;
-<<<<<<< HEAD
             final ManagedDialog md = mManagedDialogs.valueAt(i);
             dialogState.putBundle(savedDialogKeyFor(key), md.mDialog.onSaveInstanceState());
             if (md.mArgs != null) {
                 dialogState.putBundle(savedDialogArgsKeyFor(key), md.mArgs);
             }
-=======
-            final Dialog dialog = mManagedDialogs.valueAt(i);
-            dialogState.putBundle(savedDialogKeyFor(key), dialog.onSaveInstanceState());
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         dialogState.putIntArray(SAVED_DIALOG_IDS_KEY, ids);
@@ -1483,11 +1242,7 @@ public class Activity extends ContextThemeWrapper
      * making sure nothing is lost if there are not enough resources to start
      * the new activity without first killing this one.  This is also a good
      * place to do things like stop animations and other things that consume a
-<<<<<<< HEAD
      * noticeable amount of CPU in order to make the switch to the next activity
-=======
-     * noticeable mount of CPU in order to make the switch to the next activity
->>>>>>> 54b6cfa... Initial Contribution
      * as fast as possible, or to close resources that are exclusive access
      * such as the camera.
      * 
@@ -1512,16 +1267,12 @@ public class Activity extends ContextThemeWrapper
      * @see #onStop
      */
     protected void onPause() {
-<<<<<<< HEAD
         if (DEBUG_LIFECYCLE) Slog.v(TAG, "onPause " + this);
         getApplication().dispatchActivityPaused(this);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         mCalled = true;
     }
 
     /**
-<<<<<<< HEAD
      * Called as part of the activity lifecycle when an activity is about to go
      * into the background as the result of user choice.  For example, when the
      * user presses the Home key, {@link #onUserLeaveHint} will be called, but
@@ -1540,24 +1291,14 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Generate a new thumbnail for this activity.  This method is called before
      * pausing the activity, and should draw into <var>outBitmap</var> the
      * imagery for the desired thumbnail in the dimensions of that bitmap.  It
      * can use the given <var>canvas</var>, which is configured to draw into the
      * bitmap, for rendering if desired.
      * 
-<<<<<<< HEAD
      * <p>The default implementation returns fails and does not draw a thumbnail;
      * this will result in the platform creating its own thumbnail if needed.
-=======
-     * <p>The default implementation renders the Screen's current view
-     * hierarchy into the canvas to generate a thumbnail.
-     * 
-     * <p>If you return false, the bitmap will be filled with a default
-     * thumbnail.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param outBitmap The bitmap to contain the thumbnail.
      * @param canvas Can be used to render into the bitmap.
@@ -1570,26 +1311,7 @@ public class Activity extends ContextThemeWrapper
      * @see #onPause
      */
     public boolean onCreateThumbnail(Bitmap outBitmap, Canvas canvas) {
-<<<<<<< HEAD
         return false;
-=======
-        final View view = mDecor;
-        if (view == null) {
-            return false;
-        }
-
-        final int vw = view.getWidth();
-        final int vh = view.getHeight();
-        final int dw = outBitmap.getWidth();
-        final int dh = outBitmap.getHeight();
-
-        canvas.save();
-        canvas.scale(((float)dw)/vw, ((float)dh)/vh);
-        view.draw(canvas);
-        canvas.restore();
-
-        return true;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1615,11 +1337,7 @@ public class Activity extends ContextThemeWrapper
 
     /**
      * Called when you are no longer visible to the user.  You will next
-<<<<<<< HEAD
      * receive either {@link #onRestart}, {@link #onDestroy}, or nothing,
-=======
-     * receive either {@link #onStart}, {@link #onDestroy}, or nothing,
->>>>>>> 54b6cfa... Initial Contribution
      * depending on later user activity.
      * 
      * <p>Note that this method may never be called, in low memory situations
@@ -1636,12 +1354,9 @@ public class Activity extends ContextThemeWrapper
      * @see #onDestroy
      */
     protected void onStop() {
-<<<<<<< HEAD
         if (DEBUG_LIFECYCLE) Slog.v(TAG, "onStop " + this);
         if (mActionBar != null) mActionBar.setShowHideAnimationEnabled(false);
         getApplication().dispatchActivityStopped(this);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         mCalled = true;
     }
 
@@ -1674,15 +1389,11 @@ public class Activity extends ContextThemeWrapper
      * @see #isFinishing
      */
     protected void onDestroy() {
-<<<<<<< HEAD
         if (DEBUG_LIFECYCLE) Slog.v(TAG, "onDestroy " + this);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         mCalled = true;
 
         // dismiss any dialogs we are managing.
         if (mManagedDialogs != null) {
-<<<<<<< HEAD
             final int numDialogs = mManagedDialogs.size();
             for (int i = 0; i < numDialogs; i++) {
                 final ManagedDialog md = mManagedDialogs.valueAt(i);
@@ -1711,32 +1422,6 @@ public class Activity extends ContextThemeWrapper
         }
 
         getApplication().dispatchActivityDestroyed(this);
-=======
-
-            final int numDialogs = mManagedDialogs.size();
-            for (int i = 0; i < numDialogs; i++) {
-                final Dialog dialog = mManagedDialogs.valueAt(i);
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-            }
-        }
-        
-        // also dismiss search dialog if showing
-        // TODO more generic than just this manager
-        SearchManager searchManager = 
-            (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchManager.stopSearch();
-
-        // close any cursors we are managing.
-        int numCursors = mManagedCursors.size();
-        for (int i = 0; i < numCursors; i++) {
-            ManagedCursor c = mManagedCursors.get(i);
-            if (c != null) {
-                c.mCursor.close();
-            }
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1756,35 +1441,21 @@ public class Activity extends ContextThemeWrapper
      * @param newConfig The new device configuration.
      */
     public void onConfigurationChanged(Configuration newConfig) {
-<<<<<<< HEAD
         if (DEBUG_LIFECYCLE) Slog.v(TAG, "onConfigurationChanged " + this + ": " + newConfig);
         mCalled = true;
 
         mFragments.dispatchConfigurationChanged(newConfig);
 
-=======
-        mCalled = true;
-        
-        // also update search dialog if showing
-        // TODO more generic than just this manager
-        SearchManager searchManager = 
-            (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchManager.onConfigurationChanged(newConfig);
-        
->>>>>>> 54b6cfa... Initial Contribution
         if (mWindow != null) {
             // Pass the configuration changed event to the window
             mWindow.onConfigurationChanged(newConfig);
         }
-<<<<<<< HEAD
 
         if (mActionBar != null) {
             // Do this last; the action bar will need to access
             // view changes from above.
             mActionBar.onConfigurationChanged(newConfig);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -1821,7 +1492,6 @@ public class Activity extends ContextThemeWrapper
      * 
      * @return Returns the object previously returned by
      * {@link #onRetainNonConfigurationInstance()}.
-<<<<<<< HEAD
      *
      * @deprecated Use the new {@link Fragment} API
      * {@link Fragment#setRetainInstance(boolean)} instead; this is also
@@ -1831,11 +1501,6 @@ public class Activity extends ContextThemeWrapper
     public Object getLastNonConfigurationInstance() {
         return mLastNonConfigurationInstances != null
                 ? mLastNonConfigurationInstances.activity : null;
-=======
-     */
-    public Object getLastNonConfigurationInstance() {
-        return mLastNonConfigurationInstance;
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -1847,14 +1512,11 @@ public class Activity extends ContextThemeWrapper
      * {@link #getLastNonConfigurationInstance()} in the new activity
      * instance.
      * 
-<<<<<<< HEAD
      * <em>If you are targeting {@link android.os.Build.VERSION_CODES#HONEYCOMB}
      * or later, consider instead using a {@link Fragment} with
      * {@link Fragment#setRetainInstance(boolean)
      * Fragment.setRetainInstance(boolean}.</em>
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * <p>This function is called purely as an optimization, and you must
      * not rely on it being called.  When it is called, a number of guarantees
      * will be made to help optimize configuration switching:
@@ -1862,13 +1524,9 @@ public class Activity extends ContextThemeWrapper
      * <li> The function will be called between {@link #onStop} and
      * {@link #onDestroy}.
      * <li> A new instance of the activity will <em>always</em> be immediately
-<<<<<<< HEAD
      * created after this one's {@link #onDestroy()} is called.  In particular,
      * <em>no</em> messages will be dispatched during this time (when the returned
      * object does not have an activity to be associated with).
-=======
-     * created after this one's {@link #onDestroy()} is called.
->>>>>>> 54b6cfa... Initial Contribution
      * <li> The object you return here will <em>always</em> be available from
      * the {@link #getLastNonConfigurationInstance()} method of the following
      * activity instance as described there.
@@ -1881,7 +1539,6 @@ public class Activity extends ContextThemeWrapper
      * may change based on the configuration, including any data loaded from
      * resources such as strings, layouts, or drawables.
      * 
-<<<<<<< HEAD
      * <p>The guarantee of no message handling during the switch to the next
      * activity simplifies use with active objects.  For example if your retained
      * state is an {@link android.os.AsyncTask} you are guaranteed that its
@@ -1897,16 +1554,11 @@ public class Activity extends ContextThemeWrapper
      * @deprecated Use the new {@link Fragment} API
      * {@link Fragment#setRetainInstance(boolean)} instead; this is also
      * available on older platforms through the Android compatibility package.
-=======
-     * @return Return any Object holding the desired state to propagate to the
-     * next activity instance.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public Object onRetainNonConfigurationInstance() {
         return null;
     }
     
-<<<<<<< HEAD
     /**
      * Retrieve the non-configuration instance data that was previously
      * returned by {@link #onRetainNonConfigurationChildInstances()}.  This will
@@ -2007,10 +1659,6 @@ public class Activity extends ContextThemeWrapper
      * method and before {@link Fragment#onCreate Fragment.onCreate()}.
      */
     public void onAttachFragment(Fragment fragment) {
-=======
-    public void onLowMemory() {
-        mCalled = true;
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -2020,7 +1668,6 @@ public class Activity extends ContextThemeWrapper
      * {@link #startManagingCursor} so that the activity will manage its
      * lifecycle for you.
      * 
-<<<<<<< HEAD
      * <em>If you are targeting {@link android.os.Build.VERSION_CODES#HONEYCOMB}
      * or later, consider instead using {@link LoaderManager} instead, available
      * via {@link #getLoaderManager()}.</em>
@@ -2031,8 +1678,6 @@ public class Activity extends ContextThemeWrapper
      * not</em> automatically close the cursor and, in that case, you must call
      * {@link Cursor#close()}.</p>
      * 
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param uri The URI of the content provider to query.
      * @param projection List of columns to return.
      * @param selection SQL WHERE clause.
@@ -2041,7 +1686,6 @@ public class Activity extends ContextThemeWrapper
      * @return The Cursor that was returned by query().
      * 
      * @see ContentResolver#query(android.net.Uri , String[], String, String[], String)
-<<<<<<< HEAD
      * @see #startManagingCursor
      * @hide
      *
@@ -2050,17 +1694,6 @@ public class Activity extends ContextThemeWrapper
     @Deprecated
     public final Cursor managedQuery(Uri uri, String[] projection, String selection,
             String sortOrder) {
-=======
-     * @see #managedCommitUpdates
-     * @see #startManagingCursor
-     * @hide
-     */
-    public final Cursor managedQuery(Uri uri,
-                                     String[] projection,
-                                     String selection,
-                                     String sortOrder)
-    {
->>>>>>> 54b6cfa... Initial Contribution
         Cursor c = getContentResolver().query(uri, projection, selection, null, sortOrder);
         if (c != null) {
             startManagingCursor(c);
@@ -2075,7 +1708,6 @@ public class Activity extends ContextThemeWrapper
      * {@link #startManagingCursor} so that the activity will manage its
      * lifecycle for you.
      * 
-<<<<<<< HEAD
      * <em>If you are targeting {@link android.os.Build.VERSION_CODES#HONEYCOMB}
      * or later, consider instead using {@link LoaderManager} instead, available
      * via {@link #getLoaderManager()}.</em>
@@ -2086,8 +1718,6 @@ public class Activity extends ContextThemeWrapper
      * not</em> automatically close the cursor and, in that case, you must call
      * {@link Cursor#close()}.</p>
      * 
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param uri The URI of the content provider to query.
      * @param projection List of columns to return.
      * @param selection SQL WHERE clause.
@@ -2097,7 +1727,6 @@ public class Activity extends ContextThemeWrapper
      * @return The Cursor that was returned by query().
      * 
      * @see ContentResolver#query(android.net.Uri , String[], String, String[], String)
-<<<<<<< HEAD
      * @see #startManagingCursor
      *
      * @deprecated Use {@link CursorLoader} instead.
@@ -2105,17 +1734,6 @@ public class Activity extends ContextThemeWrapper
     @Deprecated
     public final Cursor managedQuery(Uri uri, String[] projection, String selection,
             String[] selectionArgs, String sortOrder) {
-=======
-     * @see #managedCommitUpdates
-     * @see #startManagingCursor
-     */
-    public final Cursor managedQuery(Uri uri,
-                                     String[] projection,
-                                     String selection,
-                                     String[] selectionArgs,
-                                     String sortOrder)
-    {
->>>>>>> 54b6cfa... Initial Contribution
         Cursor c = getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
         if (c != null) {
             startManagingCursor(c);
@@ -2124,43 +1742,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
-=======
-     * Wrapper around {@link Cursor#commitUpdates()} that takes care of noting
-     * that the Cursor needs to be requeried.  You can call this method in
-     * {@link #onPause} or {@link #onStop} to have the system call
-     * {@link Cursor#requery} for you if the activity is later resumed.  This
-     * allows you to avoid determing when to do the requery yourself (which is
-     * required for the Cursor to see any data changes that were committed with
-     * it).
-     * 
-     * @param c The Cursor whose changes are to be committed.
-     * 
-     * @see #managedQuery(android.net.Uri , String[], String, String[], String)
-     * @see #startManagingCursor
-     * @see Cursor#commitUpdates()
-     * @see Cursor#requery
-     * @hide
-     */
-    @Deprecated
-    public void managedCommitUpdates(Cursor c) {
-        synchronized (mManagedCursors) {
-            final int N = mManagedCursors.size();
-            for (int i=0; i<N; i++) {
-                ManagedCursor mc = mManagedCursors.get(i);
-                if (mc.mCursor == c) {
-                    c.commitUpdates();
-                    mc.mUpdated = true;
-                    return;
-                }
-            }
-            throw new RuntimeException(
-                "Cursor " + c + " is not currently managed");
-        }
-    }
-
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * This method allows the activity to take care of managing the given
      * {@link Cursor}'s lifecycle for you based on the activity's lifecycle.
      * That is, when the activity is stopped it will automatically call
@@ -2168,7 +1749,6 @@ public class Activity extends ContextThemeWrapper
      * it will call {@link Cursor#requery} for you.  When the activity is
      * destroyed, all managed Cursors will be closed automatically.
      * 
-<<<<<<< HEAD
      * <em>If you are targeting {@link android.os.Build.VERSION_CODES#HONEYCOMB}
      * or later, consider instead using {@link LoaderManager} instead, available
      * via {@link #getLoaderManager()}.</em>
@@ -2179,22 +1759,16 @@ public class Activity extends ContextThemeWrapper
      * <em>will not</em> automatically close the cursor and, in that case, you must call
      * {@link Cursor#close()}.</p>
      * 
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param c The Cursor to be managed.
      * 
      * @see #managedQuery(android.net.Uri , String[], String, String[], String)
      * @see #stopManagingCursor
-<<<<<<< HEAD
      *
      * @deprecated Use the new {@link android.content.CursorLoader} class with
      * {@link LoaderManager} instead; this is also
      * available on older platforms through the Android compatibility package.
      */
     @Deprecated
-=======
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public void startManagingCursor(Cursor c) {
         synchronized (mManagedCursors) {
             mManagedCursors.add(new ManagedCursor(c));
@@ -2206,7 +1780,6 @@ public class Activity extends ContextThemeWrapper
      * {@link #startManagingCursor}, stop the activity's management of that
      * cursor.
      * 
-<<<<<<< HEAD
      * <p><strong>Warning:</strong> After calling this method on a cursor from a managed query,
      * the system <em>will not</em> automatically close the cursor and you must call 
      * {@link Cursor#close()}.</p>
@@ -2220,12 +1793,6 @@ public class Activity extends ContextThemeWrapper
      * available on older platforms through the Android compatibility package.
      */
     @Deprecated
-=======
-     * @param c The Cursor that was being managed.
-     * 
-     * @see #startManagingCursor
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public void stopManagingCursor(Cursor c) {
         synchronized (mManagedCursors) {
             final int N = mManagedCursors.size();
@@ -2240,40 +1807,12 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * @deprecated As of {@link android.os.Build.VERSION_CODES#GINGERBREAD}
      * this is a no-op.
      * @hide
      */
     @Deprecated
     public void setPersistent(boolean isPersistent) {
-=======
-     * Control whether this activity is required to be persistent.  By default
-     * activities are not persistent; setting this to true will prevent the
-     * system from stopping this activity or its process when running low on
-     * resources.
-     * 
-     * <p><em>You should avoid using this method</em>, it has severe negative
-     * consequences on how well the system can manage its resources.  A better
-     * approach is to implement an application service that you control with
-     * {@link Context#startService} and {@link Context#stopService}.
-     * 
-     * @param isPersistent Control whether the current activity must be
-     *                     persistent, true if so, false for the normal
-     *                     behavior.
-     */
-    public void setPersistent(boolean isPersistent) {
-        if (mParent == null) {
-            try {
-                ActivityManagerNative.getDefault()
-                    .setPersistent(mToken, isPersistent);
-            } catch (RemoteException e) {
-                // Empty
-            }
-        } else {
-            throw new RuntimeException("setPersistent() not yet supported for embedded activities");
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -2285,7 +1824,6 @@ public class Activity extends ContextThemeWrapper
     public View findViewById(int id) {
         return getWindow().findViewById(id);
     }
-<<<<<<< HEAD
     
     /**
      * Retrieve a reference to this activity's ActionBar.
@@ -2328,23 +1866,11 @@ public class Activity extends ContextThemeWrapper
     public void setContentView(int layoutResID) {
         getWindow().setContentView(layoutResID);
         initActionBar();
-=======
-
-    /**
-     * Set the activity content from a layout resource.  The resource will be
-     * inflated, adding all top-level views to the activity.
-     * 
-     * @param layoutResID Resource ID to be inflated.
-     */
-    public void setContentView(int layoutResID) {
-        getWindow().setContentView(layoutResID);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Set the activity content to an explicit view.  This view is placed
      * directly into the activity's view hierarchy.  It can itself be a complex
-<<<<<<< HEAD
      * view hierarchy.  When calling this method, the layout parameters of the
      * specified view are ignored.  Both the width and the height of the view are
      * set by default to {@link ViewGroup.LayoutParams#MATCH_PARENT}. To use
@@ -2360,20 +1886,11 @@ public class Activity extends ContextThemeWrapper
     public void setContentView(View view) {
         getWindow().setContentView(view);
         initActionBar();
-=======
-     * view hierarhcy.
-     * 
-     * @param view The desired content to display.
-     */
-    public void setContentView(View view) {
-        getWindow().setContentView(view);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Set the activity content to an explicit view.  This view is placed
      * directly into the activity's view hierarchy.  It can itself be a complex
-<<<<<<< HEAD
      * view hierarchy.
      * 
      * @param view The desired content to display.
@@ -2385,15 +1902,6 @@ public class Activity extends ContextThemeWrapper
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         getWindow().setContentView(view, params);
         initActionBar();
-=======
-     * view hierarhcy.
-     * 
-     * @param view The desired content to display.
-     * @param params Layout parameters for the view.
-     */
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        getWindow().setContentView(view, params);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -2405,7 +1913,6 @@ public class Activity extends ContextThemeWrapper
      */
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         getWindow().addContentView(view, params);
-<<<<<<< HEAD
         initActionBar();
     }
 
@@ -2418,11 +1925,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-=======
-    }
-
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * Use with {@link #setDefaultKeyMode} to turn off default handling of
      * keys.
      * 
@@ -2520,7 +2022,6 @@ public class Activity extends ContextThemeWrapper
      * 
      * <p>If the focused view didn't want this event, this method is called.
      *
-<<<<<<< HEAD
      * <p>The default implementation takes care of {@link KeyEvent#KEYCODE_BACK}
      * by calling {@link #onBackPressed()}, though the behavior varies based
      * on the application compatibility mode: for
@@ -2532,10 +2033,6 @@ public class Activity extends ContextThemeWrapper
      * 
      * <p>Other additional default key handling may be performed
      * if configured with {@link #setDefaultKeyMode}.
-=======
-     * <p>The default implementation handles KEYCODE_BACK to stop the activity
-     * and go back, and other default key handling if configured with {@link #setDefaultKeyMode}.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @return Return <code>true</code> to prevent this event from being propagated
      * further, or <code>false</code> to indicate that you have not handled 
@@ -2544,7 +2041,6 @@ public class Activity extends ContextThemeWrapper
      * @see android.view.KeyEvent
      */
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
-<<<<<<< HEAD
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (getApplicationInfo().targetSdkVersion
                     >= Build.VERSION_CODES.ECLAIR) {
@@ -2552,26 +2048,17 @@ public class Activity extends ContextThemeWrapper
             } else {
                 onBackPressed();
             }
-=======
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            finish();
->>>>>>> 54b6cfa... Initial Contribution
             return true;
         }
         
         if (mDefaultKeyMode == DEFAULT_KEYS_DISABLE) {
             return false;
         } else if (mDefaultKeyMode == DEFAULT_KEYS_SHORTCUT) {
-<<<<<<< HEAD
             if (getWindow().performPanelShortcut(Window.FEATURE_OPTIONS_PANEL, 
                     keyCode, event, Menu.FLAG_ALWAYS_PERFORM_CLOSE)) {
                 return true;
             }
             return false;
-=======
-            return getWindow().performPanelShortcut(Window.FEATURE_OPTIONS_PANEL, 
-                                                    keyCode, event, Menu.FLAG_ALWAYS_PERFORM_CLOSE);
->>>>>>> 54b6cfa... Initial Contribution
         } else {
             // Common code for DEFAULT_KEYS_DIALER & DEFAULT_KEYS_SEARCH_*
             boolean clearSpannable = false;
@@ -2580,13 +2067,8 @@ public class Activity extends ContextThemeWrapper
                 clearSpannable = true;
                 handled = false;
             } else {
-<<<<<<< HEAD
                 handled = TextKeyListener.getInstance().onKeyDown(
                         null, mDefaultKeySsb, keyCode, event);
-=======
-                handled = TextKeyListener.getInstance().onKeyDown(null, mDefaultKeySsb, 
-                                                                  keyCode, event);
->>>>>>> 54b6cfa... Initial Contribution
                 if (handled && mDefaultKeySsb.length() > 0) {
                     // something useable has been typed - dispatch it now.
 
@@ -2618,7 +2100,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Default implementation of {@link KeyEvent.Callback#onKeyLongPress(int, KeyEvent)
      * KeyEvent.Callback.onKeyLongPress()}: always returns false (doesn't handle
      * the event).
@@ -2628,19 +2109,14 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Called when a key was released and not handled by any of the views
      * inside of the activity. So, for example, key presses while the cursor 
      * is inside a TextView will not trigger the event (unless it is a navigation
      * to another object) because TextView handles its own key presses.
      * 
-<<<<<<< HEAD
      * <p>The default implementation handles KEYCODE_BACK to stop the activity
      * and go back.
      * 
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @return Return <code>true</code> to prevent this event from being propagated
      * further, or <code>false</code> to indicate that you have not handled 
      * this event and it should continue to be propagated. 
@@ -2648,7 +2124,6 @@ public class Activity extends ContextThemeWrapper
      * @see KeyEvent
      */
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-<<<<<<< HEAD
         if (getApplicationInfo().targetSdkVersion
                 >= Build.VERSION_CODES.ECLAIR) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
@@ -2657,8 +2132,6 @@ public class Activity extends ContextThemeWrapper
                 return true;
             }
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         return false;
     }
 
@@ -2672,7 +2145,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-<<<<<<< HEAD
      * Called when the activity has detected the user's press of the back
      * key.  The default implementation simply finishes the current activity,
      * but you can override this to do whatever you want.
@@ -2698,8 +2170,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Called when a touch screen event was not handled by any of the views
      * under it.  This is most useful to process touch events that happen
      * outside of your window bounds, where there is no view to receive it.
@@ -2710,14 +2180,11 @@ public class Activity extends ContextThemeWrapper
      * The default implementation always returns false.
      */
     public boolean onTouchEvent(MotionEvent event) {
-<<<<<<< HEAD
         if (mWindow.shouldCloseOnTouch(this, event)) {
             finish();
             return true;
         }
         
-=======
->>>>>>> 54b6cfa... Initial Contribution
         return false;
     }
     
@@ -2738,7 +2205,6 @@ public class Activity extends ContextThemeWrapper
     public boolean onTrackballEvent(MotionEvent event) {
         return false;
     }
-<<<<<<< HEAD
 
     /**
      * Called when a generic motion event was not handled by any of the
@@ -2790,8 +2256,6 @@ public class Activity extends ContextThemeWrapper
      */
     public void onUserInteraction() {
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     
     public void onWindowAttributesChanged(WindowManager.LayoutParams params) {
         // Update window manager if: we have a view, that view is
@@ -2811,7 +2275,6 @@ public class Activity extends ContextThemeWrapper
     /**
      * Called when the current {@link Window} of the activity gains or loses
      * focus.  This is the best indicator of whether this activity is visible
-<<<<<<< HEAD
      * to the user.  The default implementation clears the key tracking
      * state, so should always be called.
      * 
@@ -2835,17 +2298,11 @@ public class Activity extends ContextThemeWrapper
      * @see #hasWindowFocus()
      * @see #onResume
      * @see View#onWindowFocusChanged(boolean)
-=======
-     * to the user.
-     *
-     * @param hasFocus Whether the window of this activity has focus.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void onWindowFocusChanged(boolean hasFocus) {
     }
     
     /**
-<<<<<<< HEAD
      * Called when the main window associated with the activity has been
      * attached to the window manager.
      * See {@link View#onAttachedToWindow() View.onAttachedToWindow()}
@@ -2885,8 +2342,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Called to process key events.  You can override this to intercept all 
      * key events before they are dispatched to the window.  Be sure to call 
      * this implementation for key events that should be handled normally.
@@ -2896,7 +2351,6 @@ public class Activity extends ContextThemeWrapper
      * @return boolean Return true if this event was consumed.
      */
     public boolean dispatchKeyEvent(KeyEvent event) {
-<<<<<<< HEAD
         onUserInteraction();
         Window win = getWindow();
         if (win.superDispatchKeyEvent(event)) {
@@ -2923,12 +2377,6 @@ public class Activity extends ContextThemeWrapper
             return true;
         }
         return onKeyShortcut(event.getKeyCode(), event);
-=======
-        if (getWindow().superDispatchKeyEvent(event)) {
-            return true;
-        }
-        return event.dispatch(this);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -2942,12 +2390,9 @@ public class Activity extends ContextThemeWrapper
      * @return boolean Return true if this event was consumed.
      */
     public boolean dispatchTouchEvent(MotionEvent ev) {
-<<<<<<< HEAD
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             onUserInteraction();
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (getWindow().superDispatchTouchEvent(ev)) {
             return true;
         }
@@ -2965,16 +2410,12 @@ public class Activity extends ContextThemeWrapper
      * @return boolean Return true if this event was consumed.
      */
     public boolean dispatchTrackballEvent(MotionEvent ev) {
-<<<<<<< HEAD
         onUserInteraction();
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (getWindow().superDispatchTrackballEvent(ev)) {
             return true;
         }
         return onTrackballEvent(ev);
     }
-<<<<<<< HEAD
 
     /**
      * Called to process generic motion events.  You can override this to
@@ -3011,9 +2452,6 @@ public class Activity extends ContextThemeWrapper
         return true;
     }
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Default implementation of
      * {@link android.view.Window.Callback#onCreatePanelView}
@@ -3035,13 +2473,9 @@ public class Activity extends ContextThemeWrapper
      */
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
         if (featureId == Window.FEATURE_OPTIONS_PANEL) {
-<<<<<<< HEAD
             boolean show = onCreateOptionsMenu(menu);
             show |= mFragments.dispatchCreateOptionsMenu(menu, getMenuInflater());
             return show;
-=======
-            return onCreateOptionsMenu(menu);
->>>>>>> 54b6cfa... Initial Contribution
         }
         return false;
     }
@@ -3058,12 +2492,8 @@ public class Activity extends ContextThemeWrapper
     public boolean onPreparePanel(int featureId, View view, Menu menu) {
         if (featureId == Window.FEATURE_OPTIONS_PANEL && menu != null) {
             boolean goforit = onPrepareOptionsMenu(menu);
-<<<<<<< HEAD
             goforit |= mFragments.dispatchPrepareOptionsMenu(menu);
             return goforit;
-=======
-            return goforit && menu.hasVisibleItems();
->>>>>>> 54b6cfa... Initial Contribution
         }
         return true;
     }
@@ -3074,7 +2504,6 @@ public class Activity extends ContextThemeWrapper
      * @return The default implementation returns true.
      */
     public boolean onMenuOpened(int featureId, Menu menu) {
-<<<<<<< HEAD
         if (featureId == Window.FEATURE_ACTION_BAR) {
             initActionBar();
             if (mActionBar != null) {
@@ -3083,8 +2512,6 @@ public class Activity extends ContextThemeWrapper
                 Log.e(TAG, "Tried to open action bar menu with no action bar");
             }
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         return true;
     }
 
@@ -3104,7 +2531,6 @@ public class Activity extends ContextThemeWrapper
                 // doesn't call through to superclass's implmeentation of each
                 // of these methods below
                 EventLog.writeEvent(50000, 0, item.getTitleCondensed());
-<<<<<<< HEAD
                 if (onOptionsItemSelected(item)) {
                     return true;
                 }
@@ -3128,14 +2554,6 @@ public class Activity extends ContextThemeWrapper
                 }
                 return mFragments.dispatchContextItemSelected(item);
 
-=======
-                return onOptionsItemSelected(item);
-                
-            case Window.FEATURE_CONTEXT_MENU:
-                EventLog.writeEvent(50000, 1, item.getTitleCondensed());
-                return onContextItemSelected(item);
-                
->>>>>>> 54b6cfa... Initial Contribution
             default:
                 return false;
         }
@@ -3153,29 +2571,22 @@ public class Activity extends ContextThemeWrapper
     public void onPanelClosed(int featureId, Menu menu) {
         switch (featureId) {
             case Window.FEATURE_OPTIONS_PANEL:
-<<<<<<< HEAD
                 mFragments.dispatchOptionsMenuClosed(menu);
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 onOptionsMenuClosed(menu);
                 break;
                 
             case Window.FEATURE_CONTEXT_MENU:
                 onContextMenuClosed(menu);
                 break;
-<<<<<<< HEAD
 
             case Window.FEATURE_ACTION_BAR:
                 initActionBar();
                 mActionBar.dispatchMenuVisibilityChanged(false);
                 break;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
-<<<<<<< HEAD
      * Declare that the options menu has changed, so should be recreated.
      * The {@link #onCreateOptionsMenu(Menu)} method will be called the next
      * time it needs to be displayed.
@@ -3185,8 +2596,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Initialize the contents of the Activity's standard options menu.  You
      * should place your menu items in to <var>menu</var>.
      * 
@@ -3255,11 +2664,7 @@ public class Activity extends ContextThemeWrapper
      * facilities.
      * 
      * <p>Derived classes should call through to the base class for it to
-<<<<<<< HEAD
      * perform the default menu handling.</p>
-=======
-     * perform the default menu handling.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param item The menu item that was selected.
      * 
@@ -3276,7 +2681,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * This method is called whenever the user chooses to navigate Up within your application's
      * activity hierarchy from the action bar.
      *
@@ -3376,8 +2780,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * This hook is called whenever the options menu is being closed (either by the user canceling
      * the menu with the back/menu button, or when an item is selected).
      *  
@@ -3459,7 +2861,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-<<<<<<< HEAD
      * Programmatically closes the most recently opened context menu, if showing.
      */
     public void closeContextMenu() {
@@ -3467,8 +2868,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * This hook is called whenever an item in a context menu is selected. The
      * default implementation simply returns false to have the normal processing
      * happen (calling the item's Runnable or sending a message to its Handler
@@ -3506,7 +2905,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * @deprecated Old no-arguments version of {@link #onCreateDialog(int, Bundle)}.
      */
     @Deprecated
@@ -3523,17 +2921,10 @@ public class Activity extends ContextThemeWrapper
      * or later, consider instead using a {@link DialogFragment} instead.</em>
      *
      * <p>If you use {@link #showDialog(int)}, the activity will call through to
-=======
-     * Callback for creating dialogs that are managed (saved and restored) for you
-     * by the activity.
-     *
-     * If you use {@link #showDialog(int)}, the activity will call through to
->>>>>>> 54b6cfa... Initial Contribution
      * this method the first time, and hang onto it thereafter.  Any dialog
      * that is created by this method will automatically be saved and restored
      * for you, including whether it is showing.
      *
-<<<<<<< HEAD
      * <p>If you would like the activity to manage saving and restoring dialogs
      * for you, you should override this method and handle any ids that are
      * passed to {@link #showDialog}.
@@ -3566,36 +2957,13 @@ public class Activity extends ContextThemeWrapper
     @Deprecated
     protected void onPrepareDialog(int id, Dialog dialog) {
         dialog.setOwnerActivity(this);
-=======
-     * If you would like the activity to manage the saving and restoring dialogs
-     * for you, you should override this method and handle any ids that are
-     * passed to {@link #showDialog}.
-     *
-     * If you would like an opportunity to prepare your dialog before it is shown,
-     * override {@link #onPrepareDialog(int, Dialog)}.
-     *
-     * @param id The id of the dialog.
-     * @return The dialog
-     *
-     * @see #onPrepareDialog(int, Dialog)
-     * @see #showDialog(int)
-     * @see #dismissDialog(int)
-     * @see #removeDialog(int)
-     */
-    protected Dialog onCreateDialog(int id) {
-        return null;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Provides an opportunity to prepare a managed dialog before it is being
-<<<<<<< HEAD
      * shown.  The default implementation calls through to
      * {@link #onPrepareDialog(int, Dialog)} for compatibility.
      * 
-=======
-     * shown.
->>>>>>> 54b6cfa... Initial Contribution
      * <p>
      * Override this if you need to update a managed dialog based on the state
      * of the application each time it is shown. For example, a time picker
@@ -3605,7 +2973,6 @@ public class Activity extends ContextThemeWrapper
      * 
      * @param id The id of the managed dialog.
      * @param dialog The dialog.
-<<<<<<< HEAD
      * @param args The dialog arguments provided to {@link #showDialog(int, Bundle)}.
      * @see #onCreateDialog(int, Bundle)
      * @see #showDialog(int)
@@ -3684,49 +3051,6 @@ public class Activity extends ContextThemeWrapper
         onPrepareDialog(id, md.mDialog, args);
         md.mDialog.show();
         return true;
-=======
-     * @see #onCreateDialog(int)
-     * @see #showDialog(int)
-     * @see #dismissDialog(int)
-     * @see #removeDialog(int)
-     */
-    protected void onPrepareDialog(int id, Dialog dialog) {
-        dialog.setOwnerActivity(this);
-    }
-
-    /**
-     * Show a dialog managed by this activity.  A call to {@link #onCreateDialog(int)}
-     * will be made with the same id the first time this is called for a given
-     * id.  From thereafter, the dialog will be automatically saved and restored.
-     *
-     * Each time a dialog is shown, {@link #onPrepareDialog(int, Dialog)} will
-     * be made to provide an opportunity to do any timely preparation.
-     *
-     * @param id The id of the managed dialog.
-     *
-     * @see #onCreateDialog(int)
-     * @see #onPrepareDialog(int, Dialog)
-     * @see #dismissDialog(int)
-     * @see #removeDialog(int)
-     */
-    public final void showDialog(int id) {
-        if (mManagedDialogs == null) {
-            mManagedDialogs = new SparseArray<Dialog>();
-        }
-        Dialog dialog = mManagedDialogs.get(id);
-        if (dialog == null) {
-            dialog = onCreateDialog(id);
-            if (dialog == null) {
-                throw new IllegalArgumentException("Activity#onCreateDialog did "
-                        + "not create a dialog for id " + id);
-            }
-            dialog.dispatchOnCreate(null);
-            mManagedDialogs.put(id, dialog);
-        }
-        
-        onPrepareDialog(id, dialog);
-        dialog.show();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -3737,7 +3061,6 @@ public class Activity extends ContextThemeWrapper
      * @throws IllegalArgumentException if the id was not previously shown via
      *   {@link #showDialog(int)}.
      *
-<<<<<<< HEAD
      * @see #onCreateDialog(int, Bundle)
      * @see #onPrepareDialog(int, Dialog, Bundle)
      * @see #showDialog(int)
@@ -3758,23 +3081,6 @@ public class Activity extends ContextThemeWrapper
             throw missingDialog(id);
         }
         md.mDialog.dismiss();
-=======
-     * @see #onCreateDialog(int)
-     * @see #onPrepareDialog(int, Dialog)
-     * @see #showDialog(int)
-     * @see #removeDialog(int)
-     */
-    public final void dismissDialog(int id) {
-        if (mManagedDialogs == null) {
-            throw missingDialog(id);
-
-        }
-        final Dialog dialog = mManagedDialogs.get(id);
-        if (dialog == null) {
-            throw missingDialog(id);
-        }
-        dialog.dismiss();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -3790,7 +3096,6 @@ public class Activity extends ContextThemeWrapper
      * Removes any internal references to a dialog managed by this Activity.
      * If the dialog is showing, it will dismiss it as part of the clean up.
      *
-<<<<<<< HEAD
      * <p>This can be useful if you know that you will never show a dialog again and
      * want to avoid the overhead of saving and restoring it in the future.
      *
@@ -3818,59 +3123,22 @@ public class Activity extends ContextThemeWrapper
                 mManagedDialogs.remove(id);
             }
         }
-=======
-     * This can be useful if you know that you will never show a dialog again and
-     * want to avoid the overhead of saving and restoring it in the future.
-     *
-     * @param id The id of the managed dialog.
-     *
-     * @see #onCreateDialog(int)
-     * @see #onPrepareDialog(int, Dialog)
-     * @see #showDialog(int)
-     * @see #dismissDialog(int)
-     */
-    public final void removeDialog(int id) {
-
-        if (mManagedDialogs == null) {
-            return;
-        }
-
-        final Dialog dialog = mManagedDialogs.get(id);
-        if (dialog == null) {
-            return;
-        }
-
-        dialog.dismiss();
-        mManagedDialogs.remove(id);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * This hook is called when the user signals the desire to start a search.
      * 
-<<<<<<< HEAD
      * <p>You can use this function as a simple way to launch the search UI, in response to a
      * menu item, search button, or other widgets within your activity. Unless overidden, 
      * calling this function is the same as calling
      * {@link #startSearch startSearch(null, false, null, false)}, which launches
      * search for the current activity as specified in its manifest, see {@link SearchManager}.
-=======
-     * <p>You can use this function as a simple way to launch the search UI, in response to a 
-     * menu item, search button, or other widgets within your activity.  Unless overidden, 
-     * calling this function is the same as calling:
-     * <p>The default implementation simply calls 
-     * {@link #startSearch startSearch(null, false, null, false)}, launching a local search.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * <p>You can override this function to force global search, e.g. in response to a dedicated
      * search key, or to block search entirely (by simply returning false).
      * 
-<<<<<<< HEAD
      * @return Returns {@code true} if search launched, and {@code false} if activity blocks it.
      *         The default implementation always returns {@code true}.
-=======
-     * @return Returns true if search launched, false if activity blocks it
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @see android.app.SearchManager
      */
@@ -3903,11 +3171,7 @@ public class Activity extends ContextThemeWrapper
      * no extra data is required.
      * @param globalSearch If false, this will only launch the search that has been specifically
      * defined by the application (which is usually defined as a local search).  If no default 
-<<<<<<< HEAD
      * search is defined in the current application or activity, global search will be launched.
-=======
-     * search is defined in the current application or activity, no search will be launched.
->>>>>>> 54b6cfa... Initial Contribution
      * If true, this will always launch a platform-global (e.g. web-based) search instead.
      * 
      * @see android.app.SearchManager
@@ -3915,20 +3179,12 @@ public class Activity extends ContextThemeWrapper
      */
     public void startSearch(String initialQuery, boolean selectInitialQuery, 
             Bundle appSearchData, boolean globalSearch) {
-<<<<<<< HEAD
         ensureSearchManager();
         mSearchManager.startSearch(initialQuery, selectInitialQuery, getComponentName(),
-=======
-        // activate the search manager and start it up!
-        SearchManager searchManager = (SearchManager)
-                        getSystemService(Context.SEARCH_SERVICE);
-        searchManager.startSearch(initialQuery, selectInitialQuery, getComponentName(),
->>>>>>> 54b6cfa... Initial Contribution
                         appSearchData, globalSearch); 
     }
 
     /**
-<<<<<<< HEAD
      * Similar to {@link #startSearch}, but actually fires off the search query after invoking
      * the search dialog.  Made available for testing purposes.
      *
@@ -3944,8 +3200,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Request that key events come to this activity. Use this if your
      * activity has no views with focus, but the activity still wants
      * a chance to process key events.
@@ -4015,7 +3269,6 @@ public class Activity extends ContextThemeWrapper
      * Returns a {@link MenuInflater} with this context.
      */
     public MenuInflater getMenuInflater() {
-<<<<<<< HEAD
         // Make sure that action views can get an appropriate theme.
         if (mMenuInflater == null) {
             initActionBar();
@@ -4031,16 +3284,6 @@ public class Activity extends ContextThemeWrapper
     @Override
     protected void onApplyThemeResource(Resources.Theme theme, int resid,
             boolean first) {
-=======
-        return new MenuInflater(this);
-    }
-
-    @Override
-    protected void onApplyThemeResource(Resources.Theme theme,
-                                      int resid,
-                                      boolean first)
-    {
->>>>>>> 54b6cfa... Initial Contribution
         if (mParent == null) {
             super.onApplyThemeResource(theme, resid, first);
         } else {
@@ -4054,7 +3297,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Same as calling {@link #startActivityForResult(Intent, int, Bundle)}
      * with no options.
      *
@@ -4071,35 +3313,24 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Launch an activity for which you would like a result when it finished.
      * When this activity exits, your
      * onActivityResult() method will be called with the given requestCode. 
      * Using a negative requestCode is the same as calling 
      * {@link #startActivity} (the activity is not launched as a sub-activity).
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * <p>Note that this method should only be used with Intent protocols
      * that are defined to return a result.  In other protocols (such as
      * {@link Intent#ACTION_MAIN} or {@link Intent#ACTION_VIEW}), you may
      * not get the result when you expect.  For example, if the activity you
      * are launching uses the singleTask launch mode, it will not run in your
      * task and thus you will immediately receive a cancel result.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * <p>As a special case, if you call startActivityForResult() with a requestCode 
      * >= 0 during the initial onCreate(Bundle savedInstanceState)/onResume() of your
      * activity, then your window will not be displayed until a result is 
      * returned back from the started activity.  This is to avoid visible 
      * flickering when redirecting to another activity. 
-<<<<<<< HEAD
      *
      * <p>This method throws {@link android.content.ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.
@@ -4116,30 +3347,11 @@ public class Activity extends ContextThemeWrapper
      * @see #startActivity 
      */
     public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-=======
-     * 
-     * <p>This method throws {@link android.content.ActivityNotFoundException}
-     * if there was no Activity found to run the given Intent.
-     * 
-     * @param intent The intent to start.
-     * @param requestCode If >= 0, this code will be returned in
-     *                    onActivityResult() when the activity exits.
-     * 
-     * @throws android.content.ActivityNotFoundException
-     * 
-     * @see #startActivity 
-     */
-    public void startActivityForResult(Intent intent, int requestCode) {
->>>>>>> 54b6cfa... Initial Contribution
         if (mParent == null) {
             Instrumentation.ActivityResult ar =
                 mInstrumentation.execStartActivity(
                     this, mMainThread.getApplicationThread(), mToken, this,
-<<<<<<< HEAD
                     intent, requestCode, options);
-=======
-                    intent, requestCode);
->>>>>>> 54b6cfa... Initial Contribution
             if (ar != null) {
                 mMainThread.sendActivityResult(
                     mToken, mEmbeddedID, requestCode, ar.getResultCode(),
@@ -4156,7 +3368,6 @@ public class Activity extends ContextThemeWrapper
                 mStartedActivity = true;
             }
         } else {
-<<<<<<< HEAD
             if (options != null) {
                 mParent.startActivityFromChild(this, intent, requestCode, options);
             } else {
@@ -4164,14 +3375,10 @@ public class Activity extends ContextThemeWrapper
                 // existing applications that may have overridden it.
                 mParent.startActivityFromChild(this, intent, requestCode);
             }
-=======
-            mParent.startActivityFromChild(this, intent, requestCode);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
-<<<<<<< HEAD
      * Same as calling {@link #startIntentSenderForResult(IntentSender, int,
      * Intent, int, int, int, Bundle)} with no options.
      *
@@ -4284,8 +3491,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Launch a new activity.  You will not receive any information about when
      * the activity exits.  This implementation overrides the base version,
      * providing information about
@@ -4298,7 +3503,6 @@ public class Activity extends ContextThemeWrapper
      * if there was no Activity found to run the given Intent.
      * 
      * @param intent The intent to start. 
-<<<<<<< HEAD
      * @param options Additional options for how the Activity should be started.
      * See {@link android.content.Context#startActivity(Intent, Bundle)
      * Context.startActivity(Intent, Bundle)} for more details.
@@ -4434,16 +3638,6 @@ public class Activity extends ContextThemeWrapper
      */
     public boolean startActivityIfNeeded(Intent intent, int requestCode) {
         return startActivityIfNeeded(intent, requestCode, null);
-=======
-     * 
-     * @throws android.content.ActivityNotFoundException
-     * 
-     * @see #startActivityForResult 
-     */
-    @Override
-    public void startActivity(Intent intent) {
-        startActivityForResult(intent, -1);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -4466,12 +3660,9 @@ public class Activity extends ContextThemeWrapper
      * @param requestCode If >= 0, this code will be returned in
      *         onActivityResult() when the activity exits, as described in
      *         {@link #startActivityForResult}.
-<<<<<<< HEAD
      * @param options Additional options for how the Activity should be started.
      * See {@link android.content.Context#startActivity(Intent, Bundle)
      * Context.startActivity(Intent, Bundle)} for more details.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @return If a new activity was launched then true is returned; otherwise
      *         false is returned and you must handle the Intent yourself.
@@ -4479,7 +3670,6 @@ public class Activity extends ContextThemeWrapper
      * @see #startActivity
      * @see #startActivityForResult
      */
-<<<<<<< HEAD
     public boolean startActivityIfNeeded(Intent intent, int requestCode, Bundle options) {
         if (mParent == null) {
             int result = ActivityManager.START_RETURN_INTENT_TO_CALLER;
@@ -4497,24 +3687,6 @@ public class Activity extends ContextThemeWrapper
 
             Instrumentation.checkStartActivityResult(result, intent);
 
-=======
-    public boolean startActivityIfNeeded(Intent intent, int requestCode) {
-        if (mParent == null) {
-            int result = IActivityManager.START_RETURN_INTENT_TO_CALLER;
-            try {
-                result = ActivityManagerNative.getDefault()
-                    .startActivity(mMainThread.getApplicationThread(),
-                            intent, intent.resolveTypeIfNeeded(
-                                    getContentResolver()),
-                            null, 0,
-                            mToken, mEmbeddedID, requestCode, true, false);
-            } catch (RemoteException e) {
-                // Empty
-            }
-            
-            Instrumentation.checkStartActivityResult(result, intent);
-            
->>>>>>> 54b6cfa... Initial Contribution
             if (requestCode >= 0) {
                 // If this start is requesting a result, we can avoid making
                 // the activity visible until the result is received.  Setting
@@ -4525,11 +3697,7 @@ public class Activity extends ContextThemeWrapper
                 // activity is finished, no matter what happens to it.
                 mStartedActivity = true;
             }
-<<<<<<< HEAD
             return result != ActivityManager.START_RETURN_INTENT_TO_CALLER;
-=======
-            return result != IActivityManager.START_RETURN_INTENT_TO_CALLER;
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         throw new UnsupportedOperationException(
@@ -4537,7 +3705,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Same as calling {@link #startNextMatchingActivity(Intent, Bundle)} with
      * no options.
      *
@@ -4556,8 +3723,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Special version of starting an activity, for use when you are replacing
      * other activity components.  You can use this to hand the Intent off
      * to the next Activity that can handle it.  You typically call this in
@@ -4567,19 +3732,15 @@ public class Activity extends ContextThemeWrapper
      * correct behavior, this must be the same as the Intent that started
      * your own activity; the only changes you can make are to the extras
      * inside of it.
-<<<<<<< HEAD
      * @param options Additional options for how the Activity should be started.
      * See {@link android.content.Context#startActivity(Intent, Bundle)
      * Context.startActivity(Intent, Bundle)} for more details.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @return Returns a boolean indicating whether there was another Activity
      * to start: true if there was a next activity to start, false if there
      * wasn't.  In general, if true is returned you will then want to call
      * finish() on yourself.
      */
-<<<<<<< HEAD
     public boolean startNextMatchingActivity(Intent intent, Bundle options) {
         if (mParent == null) {
             try {
@@ -4668,31 +3829,10 @@ public class Activity extends ContextThemeWrapper
      * This is called when a Fragment in this activity calls its 
      * {@link Fragment#startActivity} or {@link Fragment#startActivityForResult}
      * method.
-=======
-    public boolean startNextMatchingActivity(Intent intent) {
-        if (mParent == null) {
-            try {
-                return ActivityManagerNative.getDefault()
-                    .startNextMatchingActivity(mToken, intent);
-            } catch (RemoteException e) {
-                // Empty
-            }
-            return false;
-        }
-
-        throw new UnsupportedOperationException(
-            "startNextMatchingActivity can only be called from a top-level activity");
-    }
-    
-    /**
-     * This is called when a child activity of this one calls its 
-     * {@link #startActivity} or {@link #startActivityForResult} method.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * <p>This method throws {@link android.content.ActivityNotFoundException}
      * if there was no Activity found to run the given Intent.
      * 
-<<<<<<< HEAD
      * @param fragment The fragment making the call.
      * @param intent The intent to start.
      * @param requestCode Reply request code.  < 0 if reply is not requested. 
@@ -4714,32 +3854,11 @@ public class Activity extends ContextThemeWrapper
         if (ar != null) {
             mMainThread.sendActivityResult(
                 mToken, fragment.mWho, requestCode,
-=======
-     * @param child The activity making the call.
-     * @param intent The intent to start.
-     * @param requestCode Reply request code.  < 0 if reply is not requested. 
-     * 
-     * @throws android.content.ActivityNotFoundException
-     * 
-     * @see #startActivity 
-     * @see #startActivityForResult 
-     */
-    public void startActivityFromChild(Activity child, Intent intent, 
-            int requestCode) {
-        Instrumentation.ActivityResult ar =
-            mInstrumentation.execStartActivity(
-                this, mMainThread.getApplicationThread(), mToken, child,
-                intent, requestCode);
-        if (ar != null) {
-            mMainThread.sendActivityResult(
-                mToken, child.mEmbeddedID, requestCode,
->>>>>>> 54b6cfa... Initial Contribution
                 ar.getResultCode(), ar.getResultData());
         }
     }
 
     /**
-<<<<<<< HEAD
      * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender,
      * int, Intent, int, int, int, Bundle)} with no options.
      */
@@ -4791,8 +3910,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Call this to set the result that your activity will return to its
      * caller.
      * 
@@ -4814,7 +3931,6 @@ public class Activity extends ContextThemeWrapper
     /**
      * Call this to set the result that your activity will return to its
      * caller.
-<<<<<<< HEAD
      *
      * <p>As of {@link android.os.Build.VERSION_CODES#GINGERBREAD}, the Intent
      * you supply here can have {@link Intent#FLAG_GRANT_READ_URI_PERMISSION
@@ -4825,9 +3941,6 @@ public class Activity extends ContextThemeWrapper
      * process being killed and other temporary destruction) and will be added
      * to any existing set of URI permissions it already holds.
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param resultCode The result code to propagate back to the originating
      *                   activity, often RESULT_CANCELED or RESULT_OK
      * @param data The data to propagate back to the originating activity.
@@ -4889,7 +4002,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Control whether this activity's main window is visible.  This is intended
      * only for the special case of an activity that is not going to show a
      * UI itself, but can't just finish prior to onResume() because it needs
@@ -4919,8 +4031,6 @@ public class Activity extends ContextThemeWrapper
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Check to see whether this activity is in the process of finishing,
      * either because you called {@link #finish} on it or someone else
      * has requested that it finished.  This is often used in
@@ -4936,7 +4046,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Check to see whether this activity is in the process of being destroyed in order to be
      * recreated with a new configuration. This is often used in
      * {@link #onStop} to determine whether the state needs to be cleaned up or will be passed
@@ -4966,8 +4075,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Call this when your activity is done and should be closed.  The
      * ActivityResult is propagated back to whoever launched you via
      * onActivityResult().
@@ -4980,16 +4087,11 @@ public class Activity extends ContextThemeWrapper
                 resultCode = mResultCode;
                 resultData = mResultData;
             }
-<<<<<<< HEAD
             if (false) Log.v(TAG, "Finishing self: token=" + mToken);
             try {
                 if (resultData != null) {
                     resultData.setAllowFds(false);
                 }
-=======
-            if (Config.LOGV) Log.v(TAG, "Finishing self: token=" + mToken);
-            try {
->>>>>>> 54b6cfa... Initial Contribution
                 if (ActivityManagerNative.getDefault()
                     .finishActivity(mToken, resultCode, resultData)) {
                     mFinished = true;
@@ -5003,7 +4105,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Finish this activity as well as all activities immediately below it
      * in the current task that have the same affinity.  This is typically
      * used when an application can be launched on to another task (such as
@@ -5034,8 +4135,6 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * This is called when a child activity of this one calls its 
      * {@link #finish} method.  The default implementation simply calls
      * finish() on this activity (the parent), finishing the entire group.
@@ -5109,12 +4208,7 @@ public class Activity extends ContextThemeWrapper
      * @see #createPendingResult
      * @see #setResult(int)
      */
-<<<<<<< HEAD
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-=======
-    protected void onActivityResult(int requestCode, int resultCode,
-            Intent data) {
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -5132,10 +4226,7 @@ public class Activity extends ContextThemeWrapper
      * @param flags May be {@link PendingIntent#FLAG_ONE_SHOT PendingIntent.FLAG_ONE_SHOT},
      * {@link PendingIntent#FLAG_NO_CREATE PendingIntent.FLAG_NO_CREATE},
      * {@link PendingIntent#FLAG_CANCEL_CURRENT PendingIntent.FLAG_CANCEL_CURRENT},
-<<<<<<< HEAD
      * {@link PendingIntent#FLAG_UPDATE_CURRENT PendingIntent.FLAG_UPDATE_CURRENT},
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * or any of the flags as supported by
      * {@link Intent#fillIn Intent.fillIn()} to control which unspecified parts
      * of the intent that can be supplied when the actual send happens.
@@ -5151,20 +4242,12 @@ public class Activity extends ContextThemeWrapper
             int flags) {
         String packageName = getPackageName();
         try {
-<<<<<<< HEAD
             data.setAllowFds(false);
             IIntentSender target =
                 ActivityManagerNative.getDefault().getIntentSender(
                         ActivityManager.INTENT_SENDER_ACTIVITY_RESULT, packageName,
                         mParent == null ? mToken : mParent.mToken,
                         mEmbeddedID, requestCode, new Intent[] { data }, null, flags, null);
-=======
-            IIntentSender target =
-                ActivityManagerNative.getDefault().getIntentSender(
-                        IActivityManager.INTENT_SENDER_ACTIVITY_RESULT, packageName,
-                        mParent == null ? mToken : mParent.mToken,
-                        mEmbeddedID, requestCode, data, null, flags);
->>>>>>> 54b6cfa... Initial Contribution
             return target != null ? new PendingIntent(target) : null;
         } catch (RemoteException e) {
             // Empty
@@ -5313,7 +4396,6 @@ public class Activity extends ContextThemeWrapper
         return getSharedPreferences(getLocalClassName(), mode);
     }
     
-<<<<<<< HEAD
     private void ensureSearchManager() {
         if (mSearchManager != null) {
             return;
@@ -5322,8 +4404,6 @@ public class Activity extends ContextThemeWrapper
         mSearchManager = new SearchManager(this, null);
     }
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public Object getSystemService(String name) {
         if (getBaseContext() == null) {
@@ -5333,12 +4413,9 @@ public class Activity extends ContextThemeWrapper
 
         if (WINDOW_SERVICE.equals(name)) {
             return mWindowManager;
-<<<<<<< HEAD
         } else if (SEARCH_SERVICE.equals(name)) {
             ensureSearchManager();
             return mSearchManager;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
         return super.getSystemService(name);
     }
@@ -5516,18 +4593,12 @@ public class Activity extends ContextThemeWrapper
     }
 
     /**
-<<<<<<< HEAD
      * Standard implementation of
      * {@link android.view.LayoutInflater.Factory#onCreateView} used when
      * inflating with the LayoutInflater returned by {@link #getSystemService}.
      * This implementation does nothing and is for
      * pre-{@link android.os.Build.VERSION_CODES#HONEYCOMB} apps.  Newer apps
      * should use {@link #onCreateView(View, String, Context, AttributeSet)}.
-=======
-     * Stub implementation of {@link android.view.LayoutInflater.Factory#onCreateView} used when
-     * inflating with the LayoutInflater returned by {@link #getSystemService}.  This
-     * implementation simply returns null for all view names.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @see android.view.LayoutInflater#createView
      * @see android.view.Window#getLayoutInflater
@@ -5536,7 +4607,6 @@ public class Activity extends ContextThemeWrapper
         return null;
     }
 
-<<<<<<< HEAD
     /**
      * Standard implementation of
      * {@link android.view.LayoutInflater.Factory2#onCreateView(View, String, Context, AttributeSet)}
@@ -5872,8 +4942,6 @@ public class Activity extends ContextThemeWrapper
         return new Intent().setClassName(this, parentName);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     // ------------------ Internal API ------------------
     
     final void setParent(Activity parent) {
@@ -5882,7 +4950,6 @@ public class Activity extends ContextThemeWrapper
 
     final void attach(Context context, ActivityThread aThread, Instrumentation instr, IBinder token,
             Application application, Intent intent, ActivityInfo info, CharSequence title, 
-<<<<<<< HEAD
             Activity parent, String id, NonConfigurationInstances lastNonConfigurationInstances,
             Configuration config) {
         attach(context, aThread, instr, token, 0, application, intent, info, title, parent, id,
@@ -5914,19 +4981,6 @@ public class Activity extends ContextThemeWrapper
         mInstrumentation = instr;
         mToken = token;
         mIdent = ident;
-=======
-            Activity parent, String id, Object lastNonConfigurationInstance,
-            Configuration config) {
-        attachBaseContext(context);
-
-        mWindow = PolicyManager.makeNewWindow(this);
-        mWindow.setCallback(this);
-        mUiThread = Thread.currentThread();
-
-        mMainThread = aThread;
-        mInstrumentation = instr;
-        mToken = token;
->>>>>>> 54b6cfa... Initial Contribution
         mApplication = application;
         mIntent = intent;
         mComponent = intent.getComponent();
@@ -5934,16 +4988,10 @@ public class Activity extends ContextThemeWrapper
         mTitle = title;
         mParent = parent;
         mEmbeddedID = id;
-<<<<<<< HEAD
         mLastNonConfigurationInstances = lastNonConfigurationInstances;
 
         mWindow.setWindowManager(null, mToken, mComponent.flattenToString(),
                 (info.flags & ActivityInfo.FLAG_HARDWARE_ACCELERATED) != 0);
-=======
-        mLastNonConfigurationInstance = lastNonConfigurationInstance;
-
-        mWindow.setWindowManager(null, mToken, mComponent.flattenToString());
->>>>>>> 54b6cfa... Initial Contribution
         if (mParent != null) {
             mWindow.setContainer(mParent.getWindow());
         }
@@ -5951,7 +4999,6 @@ public class Activity extends ContextThemeWrapper
         mCurrentConfig = config;
     }
 
-<<<<<<< HEAD
     /** @hide */
     public final IBinder getActivityToken() {
         return mParent != null ? mParent.getActivityToken() : mToken;
@@ -5968,21 +5015,12 @@ public class Activity extends ContextThemeWrapper
         mFragments.noteStateNotSaved();
         mCalled = false;
         mFragments.execPendingActions();
-=======
-    final IBinder getActivityToken() {
-        return mParent != null ? mParent.getActivityToken() : mToken;
-    }
-
-    final void performStart() {
-        mCalled = false;
->>>>>>> 54b6cfa... Initial Contribution
         mInstrumentation.callActivityOnStart(this);
         if (!mCalled) {
             throw new SuperNotCalledException(
                 "Activity " + mComponent.toShortString() +
                 " did not call through to super.onStart()");
         }
-<<<<<<< HEAD
         mFragments.dispatchStart();
         if (mAllLoaderManagers != null) {
             for (int i=mAllLoaderManagers.size()-1; i>=0; i--) {
@@ -6021,23 +5059,6 @@ public class Activity extends ContextThemeWrapper
                 }
             }
 
-=======
-    }
-    
-    final void performRestart() {
-        final int N = mManagedCursors.size();
-        for (int i=0; i<N; i++) {
-            ManagedCursor mc = mManagedCursors.get(i);
-            if (mc.mReleased || mc.mUpdated) {
-                mc.mCursor.requery();
-                mc.mReleased = false;
-                mc.mUpdated = false;
-            }
-        }
-
-        if (mStopped) {
-            mStopped = false;
->>>>>>> 54b6cfa... Initial Contribution
             mCalled = false;
             mInstrumentation.callActivityOnRestart(this);
             if (!mCalled) {
@@ -6052,20 +5073,12 @@ public class Activity extends ContextThemeWrapper
     final void performResume() {
         performRestart();
         
-<<<<<<< HEAD
         mFragments.execPendingActions();
         
         mLastNonConfigurationInstances = null;
         
         mCalled = false;
         // mResumed is set by the instrumentation
-=======
-        mLastNonConfigurationInstance = null;
-        
-        // First call onResume() -before- setting mResumed, so we don't
-        // send out any status bar / menu notifications the client makes.
-        mCalled = false;
->>>>>>> 54b6cfa... Initial Contribution
         mInstrumentation.callActivityOnResume(this);
         if (!mCalled) {
             throw new SuperNotCalledException(
@@ -6074,16 +5087,11 @@ public class Activity extends ContextThemeWrapper
         }
 
         // Now really resume, and install the current status bar and menu.
-<<<<<<< HEAD
         mCalled = false;
         
         mFragments.dispatchResume();
         mFragments.execPendingActions();
         
-=======
-        mResumed = true;
-        mCalled = false;
->>>>>>> 54b6cfa... Initial Contribution
         onPostResume();
         if (!mCalled) {
             throw new SuperNotCalledException(
@@ -6092,7 +5100,6 @@ public class Activity extends ContextThemeWrapper
         }
     }
 
-<<<<<<< HEAD
     final void performPause() {
         mFragments.dispatchPause();
         mCalled = false;
@@ -6124,23 +5131,17 @@ public class Activity extends ContextThemeWrapper
             }
         }
         
-=======
-    final void performStop() {
->>>>>>> 54b6cfa... Initial Contribution
         if (!mStopped) {
             if (mWindow != null) {
                 mWindow.closeAllPanels();
             }
 
-<<<<<<< HEAD
             if (mToken != null && mParent == null) {
                 WindowManagerImpl.getDefault().setStoppedState(mToken, true);
             }
             
             mFragments.dispatchStop();
             
-=======
->>>>>>> 54b6cfa... Initial Contribution
             mCalled = false;
             mInstrumentation.callActivityOnStop(this);
             if (!mCalled) {
@@ -6149,7 +5150,6 @@ public class Activity extends ContextThemeWrapper
                     " did not call through to super.onStop()");
             }
     
-<<<<<<< HEAD
             synchronized (mManagedCursors) {
                 final int N = mManagedCursors.size();
                 for (int i=0; i<N; i++) {
@@ -6158,14 +5158,6 @@ public class Activity extends ContextThemeWrapper
                         mc.mCursor.deactivate();
                         mc.mReleased = true;
                     }
-=======
-            final int N = mManagedCursors.size();
-            for (int i=0; i<N; i++) {
-                ManagedCursor mc = mManagedCursors.get(i);
-                if (!mc.mReleased) {
-                    mc.mCursor.deactivate();
-                    mc.mReleased = true;
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
     
@@ -6174,7 +5166,6 @@ public class Activity extends ContextThemeWrapper
         mResumed = false;
     }
 
-<<<<<<< HEAD
     final void performDestroy() {
         mWindow.destroy();
         mFragments.dispatchDestroy();
@@ -6188,15 +5179,11 @@ public class Activity extends ContextThemeWrapper
      * @hide
      */
     public final boolean isResumed() {
-=======
-    final boolean isResumed() {
->>>>>>> 54b6cfa... Initial Contribution
         return mResumed;
     }
 
     void dispatchActivityResult(String who, int requestCode, 
         int resultCode, Intent data) {
-<<<<<<< HEAD
         if (false) Log.v(
             TAG, "Dispatching result: who=" + who + ", reqCode=" + requestCode
             + ", resCode=" + resultCode + ", data=" + data);
@@ -6208,13 +5195,6 @@ public class Activity extends ContextThemeWrapper
             if (frag != null) {
                 frag.onActivityResult(requestCode, resultCode, data);
             }
-=======
-        if (Config.LOGV) Log.v(
-            TAG, "Dispatching result: who=" + who + ", reqCode=" + requestCode
-            + ", resCode=" + resultCode + ", data=" + data);
-        if (who == null) {
-            onActivityResult(requestCode, resultCode, data);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 }

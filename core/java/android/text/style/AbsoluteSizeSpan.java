@@ -16,7 +16,6 @@
 
 package android.text.style;
 
-<<<<<<< HEAD
 import android.os.Parcel;
 import android.text.ParcelableSpan;
 import android.text.TextPaint;
@@ -30,20 +29,10 @@ public class AbsoluteSizeSpan extends MetricAffectingSpan implements ParcelableS
     /**
      * Set the text size to <code>size</code> physical pixels.
      */
-=======
-import android.graphics.Paint;
-import android.text.TextPaint;
-
-public class AbsoluteSizeSpan extends MetricAffectingSpan {
-
-    private int mSize;
-
->>>>>>> 54b6cfa... Initial Contribution
     public AbsoluteSizeSpan(int size) {
         mSize = size;
     }
 
-<<<<<<< HEAD
     /**
      * Set the text size to <code>size</code> physical pixels,
      * or to <code>size</code> device-independent pixels if
@@ -72,13 +61,10 @@ public class AbsoluteSizeSpan extends MetricAffectingSpan {
         dest.writeInt(mDip ? 1 : 0);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public int getSize() {
         return mSize;
     }
 
-<<<<<<< HEAD
     public boolean getDip() {
         return mDip;
     }
@@ -90,23 +76,14 @@ public class AbsoluteSizeSpan extends MetricAffectingSpan {
         } else {
             ds.setTextSize(mSize);
         }
-=======
-    @Override
-    public void updateDrawState(TextPaint ds) {
-        ds.setTextSize(mSize);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public void updateMeasureState(TextPaint ds) {
-<<<<<<< HEAD
         if (mDip) {
             ds.setTextSize(mSize * ds.density);
         } else {
             ds.setTextSize(mSize);
         }
-=======
-        ds.setTextSize(mSize);
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

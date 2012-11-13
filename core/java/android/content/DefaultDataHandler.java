@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.util.Stack;
 
 /**
-<<<<<<< HEAD
  * Inserts default data from InputStream, should be in XML format.
  * If the provider syncs data to the server, the imported data will be synced to the server.
  * <p>Samples:</p>
@@ -70,44 +69,6 @@ import java.util.Stack;
  *  &lt;/row>
  * &lt;/row></pre>
  *
-=======
- * insert default data from InputStream, should be in XML format:
- * if the provider syncs data to the server, the imported data will be synced to the server
- * Samples:
- *  insert one row
- * <row uri="content://contacts/people">
- *  <Col column = "name" value = "foo feebe "/>
- *  <Col column = "addr" value = "Tx"/>
- * </row>
- * 
- * delete, it must be in order of uri, select and arg
- * <del uri="content://contacts/people" select="name=? and addr=?" 
- *  arg1 = "foo feebe" arg2 ="Tx"/>
- *
- *  use first row's uri to insert into another table
- *  content://contacts/people/1/phones
- * <row uri="content://contacts/people">
- *  <col column = "name" value = "foo feebe"/>
- *  <col column = "addr" value = "Tx"/>
- *  <row postfix="phones">
- *    <col column="number" value="512-514-6535"/>
- *  </row>
- *  <row postfix="phones">
- *    <col column="cell" value="512-514-6535"/>
- *  </row>  
- * </row>
- * 
- *  insert multiple rows in to same table and same attributes:
- * <row uri="content://contacts/people" >
- *  <row>
- *   <col column= "name" value = "foo feebe"/>
- *   <col column= "addr" value = "Tx"/>
- *  </row>
- *  <row>
- *  </row>
- * </row> 
- * 
->>>>>>> 54b6cfa... Initial Contribution
  * @hide
  */ 
 public class DefaultDataHandler implements ContentInsertHandler {

@@ -17,13 +17,10 @@
 package android.graphics;
 
 public class PaintFlagsDrawFilter extends DrawFilter {
-<<<<<<< HEAD
     /** @hide **/
     public final int clearBits;
     /** @hide **/
     public final int setBits;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Subclass of DrawFilter that affects every paint by first clearing
@@ -34,11 +31,8 @@ public class PaintFlagsDrawFilter extends DrawFilter {
      * @param setBits These bits will be set in the paint's flags
      */
     public PaintFlagsDrawFilter(int clearBits, int setBits) {
-<<<<<<< HEAD
         this.clearBits = clearBits;
         this.setBits = setBits;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         // our native constructor can return 0, if the specified bits
         // are effectively a no-op
         mNativeInt = nativeConstructor(clearBits, setBits);

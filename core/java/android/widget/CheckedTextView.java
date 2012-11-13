@@ -16,25 +16,17 @@
 
 package android.widget;
 
-<<<<<<< HEAD
 import com.android.internal.R;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
-<<<<<<< HEAD
 import android.view.ViewDebug;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
-
-import com.android.internal.R;
->>>>>>> 54b6cfa... Initial Contribution
 
 
 /**
@@ -43,7 +35,6 @@ import com.android.internal.R;
  * {@link android.widget.ListView#setChoiceMode(int) setChoiceMode} has been set to
  * something other than {@link android.widget.ListView#CHOICE_MODE_NONE CHOICE_MODE_NONE}.
  *
-<<<<<<< HEAD
  * @attr ref android.R.styleable#CheckedTextView_checked
  * @attr ref android.R.styleable#CheckedTextView_checkMark
  */
@@ -54,15 +45,6 @@ public class CheckedTextView extends TextView implements Checkable {
     private int mBasePadding;
     private int mCheckMarkWidth;
     private boolean mNeedRequestlayout;
-=======
- */
-public abstract class CheckedTextView extends TextView implements Checkable {
-    private boolean mChecked;
-    private int mCheckMarkResource;
-    private Drawable mCheckMarkDrawable;
-    private int mBasePaddingRight;
-    private int mCheckMarkWidth;
->>>>>>> 54b6cfa... Initial Contribution
 
     private static final int[] CHECKED_STATE_SET = {
         R.attr.state_checked
@@ -96,12 +78,8 @@ public abstract class CheckedTextView extends TextView implements Checkable {
     public void toggle() {
         setChecked(!mChecked);
     }
-<<<<<<< HEAD
 
     @ViewDebug.ExportedProperty
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     public boolean isChecked() {
         return mChecked;
     }
@@ -115,10 +93,7 @@ public abstract class CheckedTextView extends TextView implements Checkable {
         if (mChecked != checked) {
             mChecked = checked;
             refreshDrawableState();
-<<<<<<< HEAD
             notifyAccessibilityStateChanged();
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -128,14 +103,11 @@ public abstract class CheckedTextView extends TextView implements Checkable {
      * when {@link #isChecked()} is true.
      * 
      * @param resid The Drawable to use for the checkmark.
-<<<<<<< HEAD
      *
      * @see #setCheckMarkDrawable(Drawable)
      * @see #getCheckMarkDrawable()
      *
      * @attr ref android.R.styleable#CheckedTextView_checkMark
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void setCheckMarkDrawable(int resid) {
         if (resid != 0 && resid == mCheckMarkResource) {
@@ -155,7 +127,6 @@ public abstract class CheckedTextView extends TextView implements Checkable {
      * Set the checkmark to a given Drawable. This will be drawn when {@link #isChecked()} is true.
      *
      * @param d The Drawable to use for the checkmark.
-<<<<<<< HEAD
      *
      * @see #setCheckMarkDrawable(int)
      * @see #getCheckMarkDrawable()
@@ -169,22 +140,12 @@ public abstract class CheckedTextView extends TextView implements Checkable {
         }
         mNeedRequestlayout = (d != mCheckMarkDrawable);
         if (d != null) {
-=======
-     */
-    public void setCheckMarkDrawable(Drawable d) {
-        if (d != null) {
-            if (mCheckMarkDrawable != null) {
-                mCheckMarkDrawable.setCallback(null);
-                unscheduleDrawable(mCheckMarkDrawable);
-            }
->>>>>>> 54b6cfa... Initial Contribution
             d.setCallback(this);
             d.setVisible(getVisibility() == VISIBLE, false);
             d.setState(CHECKED_STATE_SET);
             setMinHeight(d.getIntrinsicHeight());
             
             mCheckMarkWidth = d.getIntrinsicWidth();
-<<<<<<< HEAD
             d.setState(getDrawableState());
         } else {
             mCheckMarkWidth = 0;
@@ -218,21 +179,11 @@ public abstract class CheckedTextView extends TextView implements Checkable {
             requestLayout();
             mNeedRequestlayout = false;
         }
-=======
-            mPaddingRight = mCheckMarkWidth + mBasePaddingRight;
-            d.setState(getDrawableState());
-            mCheckMarkDrawable = d;
-        } else {
-            mPaddingRight = mBasePaddingRight;
-        }
-        requestLayout();
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
     public void setPadding(int left, int top, int right, int bottom) {
         super.setPadding(left, top, right, bottom);
-<<<<<<< HEAD
         mBasePadding = mPaddingRight;
     }
 
@@ -240,9 +191,6 @@ public abstract class CheckedTextView extends TextView implements Checkable {
     public void setPaddingRelative(int start, int top, int end, int bottom) {
         super.setPaddingRelative(start, top, end, bottom);
         mBasePadding = getPaddingEnd();
-=======
-        mBasePaddingRight = mPaddingRight;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -267,15 +215,9 @@ public abstract class CheckedTextView extends TextView implements Checkable {
             
             int right = getWidth();
             checkMarkDrawable.setBounds(
-<<<<<<< HEAD
                     right - mPaddingRight,
                     y, 
                     right - mPaddingRight + mCheckMarkWidth,
-=======
-                    right - mCheckMarkWidth - mBasePaddingRight, 
-                    y, 
-                    right - mBasePaddingRight, 
->>>>>>> 54b6cfa... Initial Contribution
                     y + height);
             checkMarkDrawable.draw(canvas);
         }
@@ -303,7 +245,6 @@ public abstract class CheckedTextView extends TextView implements Checkable {
             invalidate();
         }
     }
-<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -319,7 +260,4 @@ public abstract class CheckedTextView extends TextView implements Checkable {
         info.setCheckable(true);
         info.setChecked(mChecked);
     }
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
 }

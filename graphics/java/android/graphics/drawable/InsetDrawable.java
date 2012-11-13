@@ -31,7 +31,6 @@ import java.io.IOException;
  * A Drawable that insets another Drawable by a specified distance.
  * This is used when a View needs a background that is smaller than
  * the View's actual bounds.
-<<<<<<< HEAD
  *
  * <p>It can be defined in an XML file with the <code>&lt;inset></code> element. For more
  * information, see the guide to <a
@@ -43,24 +42,16 @@ import java.io.IOException;
  * @attr ref android.R.styleable#InsetDrawable_insetRight
  * @attr ref android.R.styleable#InsetDrawable_insetTop
  * @attr ref android.R.styleable#InsetDrawable_insetBottom
-=======
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class InsetDrawable extends Drawable implements Drawable.Callback
 {
     // Most of this is copied from ScaleDrawable.
-<<<<<<< HEAD
     private InsetState mInsetState;
     private final Rect mTmpRect = new Rect();
     private boolean mMutated;
 
     /*package*/ InsetDrawable() {
         this(null, null);
-=======
-
-    /*package*/ InsetDrawable() {
-        this(null);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public InsetDrawable(Drawable drawable, int inset) {
@@ -69,11 +60,7 @@ public class InsetDrawable extends Drawable implements Drawable.Callback
 
     public InsetDrawable(Drawable drawable, int insetLeft, int insetTop,
                          int insetRight, int insetBottom) {
-<<<<<<< HEAD
         this(null, null);
-=======
-        this(null);
->>>>>>> 54b6cfa... Initial Contribution
         
         mInsetState.mDrawable = drawable;
         mInsetState.mInsetLeft = insetLeft;
@@ -144,38 +131,23 @@ public class InsetDrawable extends Drawable implements Drawable.Callback
     // overrides from Drawable.Callback
 
     public void invalidateDrawable(Drawable who) {
-<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.invalidateDrawable(this);
-=======
-        if (mCallback != null) {
-            mCallback.invalidateDrawable(this);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     public void scheduleDrawable(Drawable who, Runnable what, long when) {
-<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.scheduleDrawable(this, what, when);
-=======
-        if (mCallback != null) {
-            mCallback.scheduleDrawable(this, what, when);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     public void unscheduleDrawable(Drawable who, Runnable what) {
-<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.unscheduleDrawable(this, what);
-=======
-        if (mCallback != null) {
-            mCallback.unscheduleDrawable(this, what);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -269,17 +241,12 @@ public class InsetDrawable extends Drawable implements Drawable.Callback
     @Override
     public ConstantState getConstantState() {
         if (mInsetState.canConstantState()) {
-<<<<<<< HEAD
             mInsetState.mChangingConfigurations = getChangingConfigurations();
-=======
-            mInsetState.mChangingConfigurations = super.getChangingConfigurations();
->>>>>>> 54b6cfa... Initial Contribution
             return mInsetState;
         }
         return null;
     }
 
-<<<<<<< HEAD
     @Override
     public Drawable mutate() {
         if (!mMutated && super.mutate() == this) {
@@ -308,12 +275,6 @@ public class InsetDrawable extends Drawable implements Drawable.Callback
                 } else {
                     mDrawable = orig.mDrawable.getConstantState().newDrawable();
                 }
-=======
-    final static class InsetState extends ConstantState {
-        InsetState(InsetState orig, InsetDrawable owner) {
-            if (orig != null) {
-                mDrawable = orig.mDrawable.getConstantState().newDrawable();
->>>>>>> 54b6cfa... Initial Contribution
                 mDrawable.setCallback(owner);
                 mInsetLeft = orig.mInsetLeft;
                 mInsetTop = orig.mInsetTop;
@@ -325,16 +286,12 @@ public class InsetDrawable extends Drawable implements Drawable.Callback
 
         @Override
         public Drawable newDrawable() {
-<<<<<<< HEAD
             return new InsetDrawable(this, null);
         }
         
         @Override
         public Drawable newDrawable(Resources res) {
             return new InsetDrawable(this, res);
-=======
-            return new InsetDrawable(this);
->>>>>>> 54b6cfa... Initial Contribution
         }
         
         @Override
@@ -350,33 +307,10 @@ public class InsetDrawable extends Drawable implements Drawable.Callback
 
             return mCanConstantState;
         }
-<<<<<<< HEAD
     }
 
     private InsetDrawable(InsetState state, Resources res) {
         mInsetState = new InsetState(state, this, res);
     }
-=======
-
-        Drawable mDrawable;
-        int mChangingConfigurations;
-
-        int mInsetLeft;
-        int mInsetTop;
-        int mInsetRight;
-        int mInsetBottom;
-
-        boolean mCheckedConstantState;
-        boolean mCanConstantState;
-    }
-
-    private InsetDrawable(InsetState state) {
-        InsetState as = new InsetState(state, this);
-        mInsetState = as;
-    }
-
-    private InsetState  mInsetState;
-    private final Rect  mTmpRect = new Rect();
->>>>>>> 54b6cfa... Initial Contribution
 }
 

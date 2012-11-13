@@ -26,10 +26,7 @@ public class ContentType {
     public static final String MMS_GENERIC       = "application/vnd.wap.mms-generic";
     public static final String MULTIPART_MIXED   = "application/vnd.wap.multipart.mixed";
     public static final String MULTIPART_RELATED = "application/vnd.wap.multipart.related";
-<<<<<<< HEAD
     public static final String MULTIPART_ALTERNATIVE = "application/vnd.wap.multipart.alternative";
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     public static final String TEXT_PLAIN        = "text/plain";
     public static final String TEXT_HTML         = "text/html";
@@ -42,10 +39,7 @@ public class ContentType {
     public static final String IMAGE_GIF         = "image/gif";
     public static final String IMAGE_WBMP        = "image/vnd.wap.wbmp";
     public static final String IMAGE_PNG         = "image/png";
-<<<<<<< HEAD
     public static final String IMAGE_X_MS_BMP    = "image/x-ms-bmp";
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     public static final String AUDIO_UNSPECIFIED = "audio/*";
     public static final String AUDIO_AAC         = "audio/aac";
@@ -65,10 +59,7 @@ public class ContentType {
     public static final String AUDIO_X_MPEG      = "audio/x-mpeg";
     public static final String AUDIO_X_MPG       = "audio/x-mpg";
     public static final String AUDIO_3GPP        = "audio/3gpp";
-<<<<<<< HEAD
     public static final String AUDIO_X_WAV       = "audio/x-wav";
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public static final String AUDIO_OGG         = "application/ogg";
 
     public static final String VIDEO_UNSPECIFIED = "video/*";
@@ -100,10 +91,7 @@ public class ContentType {
         sSupportedContentTypes.add(IMAGE_WBMP);
         sSupportedContentTypes.add(IMAGE_PNG);
         sSupportedContentTypes.add(IMAGE_JPG);
-<<<<<<< HEAD
         sSupportedContentTypes.add(IMAGE_X_MS_BMP);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         //supportedContentTypes.add(IMAGE_SVG); not yet supported.
 
         sSupportedContentTypes.add(AUDIO_AAC);
@@ -121,10 +109,7 @@ public class ContentType {
         sSupportedContentTypes.add(AUDIO_X_MPEG3);
         sSupportedContentTypes.add(AUDIO_X_MPEG);
         sSupportedContentTypes.add(AUDIO_X_MPG);
-<<<<<<< HEAD
         sSupportedContentTypes.add(AUDIO_X_WAV);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         sSupportedContentTypes.add(AUDIO_3GPP);
         sSupportedContentTypes.add(AUDIO_OGG);
 
@@ -146,10 +131,7 @@ public class ContentType {
         sSupportedImageTypes.add(IMAGE_WBMP);
         sSupportedImageTypes.add(IMAGE_PNG);
         sSupportedImageTypes.add(IMAGE_JPG);
-<<<<<<< HEAD
         sSupportedImageTypes.add(IMAGE_X_MS_BMP);
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
         // add supported audio types
         sSupportedAudioTypes.add(AUDIO_AAC);
@@ -168,10 +150,7 @@ public class ContentType {
         sSupportedAudioTypes.add(AUDIO_X_MPEG3);
         sSupportedAudioTypes.add(AUDIO_X_MPEG);
         sSupportedAudioTypes.add(AUDIO_X_MPG);
-<<<<<<< HEAD
         sSupportedAudioTypes.add(AUDIO_X_WAV);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         sSupportedAudioTypes.add(AUDIO_3GPP);
         sSupportedAudioTypes.add(AUDIO_OGG);
 

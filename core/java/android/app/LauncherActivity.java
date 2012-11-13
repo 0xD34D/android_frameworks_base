@@ -18,7 +18,6 @@ package android.app;
 
 import android.content.Context;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.content.pm.ComponentInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -40,17 +39,6 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-=======
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
->>>>>>> 54b6cfa... Initial Contribution
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ListView;
@@ -67,7 +55,6 @@ import java.util.List;
  *
  */
 public abstract class LauncherActivity extends ListActivity {
-<<<<<<< HEAD
     Intent mIntent;
     PackageManager mPackageManager;
     IconResizer mIconResizer;
@@ -104,15 +91,10 @@ public abstract class LauncherActivity extends ListActivity {
     }
 
     /**
-=======
-    
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * Adapter which shows the set of activities that can be performed for a given intent.
      */
     private class ActivityAdapter extends BaseAdapter implements Filterable {
         private final Object lock = new Object();
-<<<<<<< HEAD
         private ArrayList<ListItem> mOriginalValues;
 
         protected final IconResizer mIconResizer;
@@ -146,44 +128,11 @@ public abstract class LauncherActivity extends ListActivity {
         }
 
         public ListItem itemForPosition(int position) {
-=======
-        private ArrayList<ResolveInfo> mOriginalValues;
-
-        protected final Context mContext;
-        protected final Intent mIntent;
-        protected final LayoutInflater mInflater;
-
-        protected List<ResolveInfo> mActivitiesList;
-
-        private Filter mFilter;
-
-        public ActivityAdapter(Context context, Intent intent) {
-            mContext = context;
-            mIntent = new Intent(intent);
-            mIntent.setComponent(null);
-            mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            PackageManager pm = context.getPackageManager();
-            mActivitiesList = pm.queryIntentActivities(intent, 0);
-            if (mActivitiesList != null) {
-                Collections.sort(mActivitiesList, new ResolveInfo.DisplayNameComparator(pm));
-            }
-        }
-
-        public Intent intentForPosition(int position) {
->>>>>>> 54b6cfa... Initial Contribution
             if (mActivitiesList == null) {
                 return null;
             }
 
-<<<<<<< HEAD
             return mActivitiesList.get(position);
-=======
-            Intent intent = new Intent(mIntent);
-            ActivityInfo ai = mActivitiesList.get(position).activityInfo;
-            intent.setClassName(ai.applicationInfo.packageName, ai.name);
-            return intent;
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         public int getCount() {
@@ -202,11 +151,7 @@ public abstract class LauncherActivity extends ListActivity {
             View view;
             if (convertView == null) {
                 view = mInflater.inflate(
-<<<<<<< HEAD
                         com.android.internal.R.layout.activity_list_item_2, parent, false);
-=======
-                        com.android.internal.R.layout.simple_list_item_1, parent, false);
->>>>>>> 54b6cfa... Initial Contribution
             } else {
                 view = convertView;
             }
@@ -214,7 +159,6 @@ public abstract class LauncherActivity extends ListActivity {
             return view;
         }
 
-<<<<<<< HEAD
         private void bindView(View view, ListItem item) {
             TextView text = (TextView) view;
             text.setText(item.label);
@@ -224,25 +168,6 @@ public abstract class LauncherActivity extends ListActivity {
                 }
                 text.setCompoundDrawablesWithIntrinsicBounds(item.icon, null, null, null);
             }
-=======
-        private char getCandidateLetter(ResolveInfo info) {
-            PackageManager pm = mContext.getPackageManager();
-            CharSequence label = info.loadLabel(pm);
-
-            if (label == null) {
-                label = info.activityInfo.name;
-            }
-
-            return Character.toLowerCase(label.charAt(0));
-        }
-
-        private void bindView(View view, ResolveInfo info) {
-            TextView text = (TextView) view.findViewById(com.android.internal.R.id.text1);
-
-            PackageManager pm = mContext.getPackageManager();
-            CharSequence label = info.loadLabel(pm);
-            text.setText(label != null ? label : info.activityInfo.name);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         public Filter getFilter() {
@@ -251,17 +176,10 @@ public abstract class LauncherActivity extends ListActivity {
             }
             return mFilter;
         }
-<<<<<<< HEAD
         
         /**
          * An array filters constrains the content of the array adapter with a prefix. Each
          * item that does not start with the supplied prefix is removed from the list.
-=======
-
-        /**
-         * <p>An array filters constrains the content of the array adapter with a prefix. Each item that
-         * does not start with the supplied prefix is removed from the list.</p>
->>>>>>> 54b6cfa... Initial Contribution
          */
         private class ArrayFilter extends Filter {
             @Override
@@ -270,26 +188,17 @@ public abstract class LauncherActivity extends ListActivity {
 
                 if (mOriginalValues == null) {
                     synchronized (lock) {
-<<<<<<< HEAD
                         mOriginalValues = new ArrayList<ListItem>(mActivitiesList);
-=======
-                        mOriginalValues = new ArrayList<ResolveInfo>(mActivitiesList);
->>>>>>> 54b6cfa... Initial Contribution
                     }
                 }
 
                 if (prefix == null || prefix.length() == 0) {
                     synchronized (lock) {
-<<<<<<< HEAD
                         ArrayList<ListItem> list = new ArrayList<ListItem>(mOriginalValues);
-=======
-                        ArrayList<ResolveInfo> list = new ArrayList<ResolveInfo>(mOriginalValues);
->>>>>>> 54b6cfa... Initial Contribution
                         results.values = list;
                         results.count = list.size();
                     }
                 } else {
-<<<<<<< HEAD
                     final String prefixString = prefix.toString().toLowerCase();
 
                     ArrayList<ListItem> values = mOriginalValues;
@@ -301,34 +210,13 @@ public abstract class LauncherActivity extends ListActivity {
                         ListItem item = values.get(i);
 
                         String[] words = item.label.toString().toLowerCase().split(" ");
-=======
-                    final PackageManager pm = mContext.getPackageManager();
-                    final String prefixString = prefix.toString().toLowerCase();
-
-                    ArrayList<ResolveInfo> values = mOriginalValues;
-                    int count = values.size();
-
-                    ArrayList<ResolveInfo> newValues = new ArrayList<ResolveInfo>(count);
-
-                    for (int i = 0; i < count; i++) {
-                        ResolveInfo value = values.get(i);
-
-                        final CharSequence label = value.loadLabel(pm);
-                        final CharSequence name = label != null ? label : value.activityInfo.name;
-
-                        String[] words = name.toString().toLowerCase().split(" ");
->>>>>>> 54b6cfa... Initial Contribution
                         int wordCount = words.length;
 
                         for (int k = 0; k < wordCount; k++) {
                             final String word = words[k];
 
                             if (word.startsWith(prefixString)) {
-<<<<<<< HEAD
                                 newValues.add(item);
-=======
-                                newValues.add(value);
->>>>>>> 54b6cfa... Initial Contribution
                                 break;
                             }
                         }
@@ -344,11 +232,7 @@ public abstract class LauncherActivity extends ListActivity {
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 //noinspection unchecked
-<<<<<<< HEAD
                 mActivitiesList = (List<ListItem>) results.values;
-=======
-                mActivitiesList = (List<ResolveInfo>) results.values;
->>>>>>> 54b6cfa... Initial Contribution
                 if (results.count > 0) {
                     notifyDataSetChanged();
                 } else {
@@ -357,7 +241,6 @@ public abstract class LauncherActivity extends ListActivity {
             }
         }
     }
-<<<<<<< HEAD
         
     /**
      * Utility class to resize icons to match default icon size.  
@@ -583,28 +466,4 @@ public abstract class LauncherActivity extends ListActivity {
     protected boolean onEvaluateShowIcons() {
         return true;
     }
-=======
-    
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        mAdapter = new ActivityAdapter(this, getTargetIntent());
-        
-        setListAdapter(mAdapter);
-        getListView().setTextFilterEnabled(true);
-    }
-
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = ((ActivityAdapter)mAdapter).intentForPosition(position);
-
-        startActivity(intent);
-    }
-    
-    protected abstract Intent getTargetIntent();
-   
->>>>>>> 54b6cfa... Initial Contribution
 }

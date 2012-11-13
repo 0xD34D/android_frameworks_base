@@ -16,32 +16,23 @@
 
 package android.widget;
 
-<<<<<<< HEAD
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-=======
-
-import android.content.Context;
->>>>>>> 54b6cfa... Initial Contribution
 import android.content.res.TypedArray;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-<<<<<<< HEAD
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.RemoteViews.RemoteView;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Simple {@link ViewAnimator} that will animate between two or more views
  * that have been added to it.  Only one child is shown at a time.  If
  * requested, can automatically flip between each child at a regular interval.
-<<<<<<< HEAD
  *
  * @attr ref android.R.styleable#ViewFlipper_flipInterval
  * @attr ref android.R.styleable#ViewFlipper_autoStart
@@ -60,12 +51,6 @@ public class ViewFlipper extends ViewAnimator {
     private boolean mStarted = false;
     private boolean mVisible = false;
     private boolean mUserPresent = true;
-=======
- */
-public class ViewFlipper extends ViewAnimator {
-    private int mFlipInterval = 3000;
-    private boolean mKeepFlipping = false;
->>>>>>> 54b6cfa... Initial Contribution
 
     public ViewFlipper(Context context) {
         super(context);
@@ -76,7 +61,6 @@ public class ViewFlipper extends ViewAnimator {
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 com.android.internal.R.styleable.ViewFlipper);
-<<<<<<< HEAD
         mFlipInterval = a.getInt(
                 com.android.internal.R.styleable.ViewFlipper_flipInterval, DEFAULT_INTERVAL);
         mAutoStart = a.getBoolean(
@@ -137,19 +121,6 @@ public class ViewFlipper extends ViewAnimator {
      *            time in milliseconds
      */
     @android.view.RemotableViewMethod
-=======
-        mFlipInterval = a.getInt(com.android.internal.R.styleable.ViewFlipper_flipInterval,
-                3000);
-        a.recycle();
-    }
-
-    /**
-     * How long to wait before flipping to the next view
-     * 
-     * @param milliseconds
-     *            time in milliseconds
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public void setFlipInterval(int milliseconds) {
         mFlipInterval = milliseconds;
     }
@@ -158,24 +129,14 @@ public class ViewFlipper extends ViewAnimator {
      * Start a timer to cycle through child views
      */
     public void startFlipping() {
-<<<<<<< HEAD
         mStarted = true;
         updateRunning();
-=======
-        if (!mKeepFlipping) {
-            mKeepFlipping = true;
-            showOnly(mWhichChild);
-            Message msg = mHandler.obtainMessage(FLIP_MSG);
-            mHandler.sendMessageDelayed(msg, mFlipInterval);
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * No more flips
      */
     public void stopFlipping() {
-<<<<<<< HEAD
         mStarted = false;
         updateRunning();
     }
@@ -224,16 +185,12 @@ public class ViewFlipper extends ViewAnimator {
             Log.d(TAG, "updateRunning() mVisible=" + mVisible + ", mStarted=" + mStarted
                     + ", mUserPresent=" + mUserPresent + ", mRunning=" + mRunning);
         }
-=======
-        mKeepFlipping = false;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Returns true if the child views are flipping.
      */
     public boolean isFlipping() {
-<<<<<<< HEAD
         return mStarted;
     }
 
@@ -251,9 +208,6 @@ public class ViewFlipper extends ViewAnimator {
      */
     public boolean isAutoStart() {
         return mAutoStart;
-=======
-        return mKeepFlipping;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private final int FLIP_MSG = 1;
@@ -262,11 +216,7 @@ public class ViewFlipper extends ViewAnimator {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == FLIP_MSG) {
-<<<<<<< HEAD
                 if (mRunning) {
-=======
-                if (mKeepFlipping) {
->>>>>>> 54b6cfa... Initial Contribution
                     showNext();
                     msg = obtainMessage(FLIP_MSG);
                     sendMessageDelayed(msg, mFlipInterval);

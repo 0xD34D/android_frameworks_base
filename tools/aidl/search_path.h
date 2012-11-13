@@ -5,10 +5,7 @@
 
 #if __cplusplus
 #include <vector>
-<<<<<<< HEAD
 #include <string>
-=======
->>>>>>> 54b6cfa... Initial Contribution
 using namespace std;
 extern "C" {
 #endif

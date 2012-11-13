@@ -182,27 +182,6 @@ public class SortCursor extends AbstractCursor
     }
 
     @Override
-<<<<<<< HEAD
-=======
-    public boolean deleteRow()
-    {
-        return mCursor.deleteRow();
-    }
-
-    @Override
-    public boolean commitUpdates() {
-        int length = mCursors.length;
-        for (int i = 0 ; i < length ; i++) {
-            if (mCursors[i] != null) {
-                mCursors[i].commitUpdates();
-            }
-        }
-        onChange(true);
-        return true;
-    }
-
-    @Override
->>>>>>> 54b6cfa... Initial Contribution
     public String getString(int column)
     {
         return mCursor.getString(column);
@@ -239,14 +218,11 @@ public class SortCursor extends AbstractCursor
     }
 
     @Override
-<<<<<<< HEAD
     public int getType(int column) {
         return mCursor.getType(column);
     }
 
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public boolean isNull(int column)
     {
         return mCursor.isNull(column);
@@ -264,7 +240,6 @@ public class SortCursor extends AbstractCursor
         if (mCursor != null) {
             return mCursor.getColumnNames();
         } else {
-<<<<<<< HEAD
             // All of the cursors may be empty, but they can still return
             // this information.
             int length = mCursors.length;
@@ -274,9 +249,6 @@ public class SortCursor extends AbstractCursor
                 }
             }
             throw new IllegalStateException("No cursor that can return names");
-=======
-            return new String[0];
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 

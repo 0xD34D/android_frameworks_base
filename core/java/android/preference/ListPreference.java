@@ -26,11 +26,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 
 /**
-<<<<<<< HEAD
  * A {@link Preference} that displays a list of entries as
-=======
- * The {@link ListPreference} is a preference that displays a list of entries as
->>>>>>> 54b6cfa... Initial Contribution
  * a dialog.
  * <p>
  * This preference will store a string into the SharedPreferences. This string will be the value
@@ -43,10 +39,7 @@ public class ListPreference extends DialogPreference {
     private CharSequence[] mEntries;
     private CharSequence[] mEntryValues;
     private String mValue;
-<<<<<<< HEAD
     private String mSummary;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private int mClickedDialogEntryIndex;
     
     public ListPreference(Context context, AttributeSet attrs) {
@@ -57,7 +50,6 @@ public class ListPreference extends DialogPreference {
         mEntries = a.getTextArray(com.android.internal.R.styleable.ListPreference_entries);
         mEntryValues = a.getTextArray(com.android.internal.R.styleable.ListPreference_entryValues);
         a.recycle();
-<<<<<<< HEAD
 
         /* Retrieve the Preference summary attribute since it's private
          * in the Preference class.
@@ -68,10 +60,6 @@ public class ListPreference extends DialogPreference {
         a.recycle();
     }
 
-=======
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     public ListPreference(Context context) {
         this(context, null);
     }
@@ -148,7 +136,6 @@ public class ListPreference extends DialogPreference {
     }
 
     /**
-<<<<<<< HEAD
      * Returns the summary of this ListPreference. If the summary
      * has a {@linkplain java.lang.String#format String formatting}
      * marker in it (i.e. "%s" or "%1$s"), then the current entry
@@ -186,8 +173,6 @@ public class ListPreference extends DialogPreference {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Sets the value to the given index from the entry values.
      * 
      * @param index The index of the value to set.
@@ -253,7 +238,6 @@ public class ListPreference extends DialogPreference {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         mClickedDialogEntryIndex = which;
-<<<<<<< HEAD
 
                         /*
                          * Clicking on an item simulates the positive button
@@ -270,10 +254,6 @@ public class ListPreference extends DialogPreference {
          * press 'Ok'.
          */
         builder.setPositiveButton(null, null);
-=======
-                    }
-        });
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override

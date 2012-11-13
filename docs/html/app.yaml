@@ -3,7 +3,6 @@ version: 1
 runtime: python
 api_version: 1
 
-<<<<<<< HEAD
 # This file defines two mutually exclusive 
 # hander blocks:
 # - a handler for use on a local dev_appserver
@@ -37,11 +36,3 @@ handlers:
 #
 #- url: .*
 #  script: main.py
-=======
-handlers:
-
-- url: /
-  static_dir: /
-
-
->>>>>>> 54b6cfa... Initial Contribution

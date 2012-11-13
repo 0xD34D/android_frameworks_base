@@ -16,10 +16,7 @@
 
 package android.net.wifi;
 
-<<<<<<< HEAD
 import android.net.LinkProperties;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.os.Parcelable;
 import android.os.Parcel;
 
@@ -32,7 +29,6 @@ import java.util.BitSet;
  */
 public class WifiConfiguration implements Parcelable {
 
-<<<<<<< HEAD
     /**
      * In old configurations, the "private_key" field was used. However, newer
      * configurations use the key_id field with the engine_id set to "keystore".
@@ -66,8 +62,6 @@ public class WifiConfiguration implements Parcelable {
      */
     public static final String ENGINE_DISABLE = "0";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** {@hide} */
     public static final String ssidVarName = "ssid";
     /** {@hide} */
@@ -82,7 +76,6 @@ public class WifiConfiguration implements Parcelable {
     public static final String priorityVarName = "priority";
     /** {@hide} */
     public static final String hiddenSSIDVarName = "scan_ssid";
-<<<<<<< HEAD
     /** {@hide} */
     public static final int INVALID_NETWORK_ID = -1;
 
@@ -134,19 +127,13 @@ public class WifiConfiguration implements Parcelable {
     public EnterpriseField[] enterpriseFields = {
             eap, phase2, identity, anonymous_identity, password, client_cert,
             engine, engine_id, key_id, ca_cert };
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Recognized key management schemes.
      */
     public static class KeyMgmt {
         private KeyMgmt() { }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         /** WPA is not used; plaintext or static WEP could be used. */
         public static final int NONE = 0;
         /** WPA pre-shared key (requires {@code preSharedKey} to be specified). */
@@ -157,7 +144,6 @@ public class WifiConfiguration implements Parcelable {
          * generated WEP keys. */
         public static final int IEEE8021X = 3;
 
-<<<<<<< HEAD
         /** WPA2 pre-shared key for use with soft access point
           * (requires {@code preSharedKey} to be specified).
           * @hide
@@ -170,13 +156,6 @@ public class WifiConfiguration implements Parcelable {
                 "WPA2_PSK" };
     }
 
-=======
-        public static final String varName = "key_mgmt";
-
-        public static final String[] strings = { "NONE", "WPA_PSK", "WPA_EAP", "IEEE8021X" };
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Recognized security protocols.
      */
@@ -225,11 +204,7 @@ public class WifiConfiguration implements Parcelable {
         public static final int CCMP = 2;
 
         public static final String varName = "pairwise";
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         public static final String[] strings = { "NONE", "TKIP", "CCMP" };
     }
 
@@ -273,7 +248,6 @@ public class WifiConfiguration implements Parcelable {
         public static final String[] strings = { "current", "disabled", "enabled" };
     }
 
-<<<<<<< HEAD
     /** @hide */
     public static final int DISABLED_UNKNOWN_REASON                         = 0;
     /** @hide */
@@ -283,8 +257,6 @@ public class WifiConfiguration implements Parcelable {
     /** @hide */
     public static final int DISABLED_AUTH_FAILURE                           = 3;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * The ID number that the supplicant uses to identify this
      * network configuration entry. This must be passed as an argument
@@ -297,7 +269,6 @@ public class WifiConfiguration implements Parcelable {
      * @see Status
      */
     public int status;
-<<<<<<< HEAD
 
     /**
      * The code referring to a reason for disabling the network
@@ -310,12 +281,6 @@ public class WifiConfiguration implements Parcelable {
      * The network's SSID. Can either be an ASCII string,
      * which must be enclosed in double quotation marks
      * (e.g., {@code "MyNetwork"}, or a string of
-=======
-    /**
-     * The network's SSID. Can either be an ASCII string,
-     * which must be enclosed in double quotation marks
-     * (e.g., {@code &quot;MyNetwork&quot;}, or a string of
->>>>>>> 54b6cfa... Initial Contribution
      * hex digits,which are not enclosed in quotes
      * (e.g., {@code 01a243f405}).
      */
@@ -338,11 +303,7 @@ public class WifiConfiguration implements Parcelable {
     public String preSharedKey;
     /**
      * Up to four WEP keys. Either an ASCII string enclosed in double
-<<<<<<< HEAD
      * quotation marks (e.g., {@code "abcdef"} or a string
-=======
-     * quotation marks (e.g., {@code &quot;abcdef&quot;} or a string
->>>>>>> 54b6cfa... Initial Contribution
      * of hex digits (e.g., {@code 0102030405}).
      * <p/>
      * When the value of one of these keys is read, the actual key is
@@ -350,11 +311,7 @@ public class WifiConfiguration implements Parcelable {
      * string otherwise.
      */
     public String[] wepKeys;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /** Default WEP key index, ranging from 0 to 3. */
     public int wepTxKeyIndex;
 
@@ -401,7 +358,6 @@ public class WifiConfiguration implements Parcelable {
      */
     public BitSet allowedGroupCiphers;
 
-<<<<<<< HEAD
     /**
      * @hide
      */
@@ -445,18 +401,11 @@ public class WifiConfiguration implements Parcelable {
 
     public WifiConfiguration() {
         networkId = INVALID_NETWORK_ID;
-=======
-    public WifiConfiguration() {
-        networkId = -1;
->>>>>>> 54b6cfa... Initial Contribution
         SSID = null;
         BSSID = null;
         priority = 0;
         hiddenSSID = false;
-<<<<<<< HEAD
         disableReason = DISABLED_UNKNOWN_REASON;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         allowedKeyManagement = new BitSet();
         allowedProtocols = new BitSet();
         allowedAuthAlgorithms = new BitSet();
@@ -465,7 +414,6 @@ public class WifiConfiguration implements Parcelable {
         wepKeys = new String[4];
         for (int i = 0; i < wepKeys.length; i++)
             wepKeys[i] = null;
-<<<<<<< HEAD
         for (EnterpriseField field : enterpriseFields) {
             field.setValue(null);
         }
@@ -562,8 +510,6 @@ public class WifiConfiguration implements Parcelable {
         sbuf.append("\n");
 
         return sbuf.toString();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -597,7 +543,6 @@ public class WifiConfiguration implements Parcelable {
             dest.writeInt(nextSetBit);
     }
 
-<<<<<<< HEAD
     /** @hide */
     public int getAuthType() {
         if (allowedKeyManagement.get(KeyMgmt.WPA_PSK)) {
@@ -612,14 +557,11 @@ public class WifiConfiguration implements Parcelable {
         return KeyMgmt.NONE;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** Implement the Parcelable interface {@hide} */
     public int describeContents() {
         return 0;
     }
 
-<<<<<<< HEAD
     /** copy constructor {@hide} */
     public WifiConfiguration(WifiConfiguration source) {
         if (source != null) {
@@ -652,16 +594,11 @@ public class WifiConfiguration implements Parcelable {
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** Implement the Parcelable interface {@hide} */
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(networkId);
         dest.writeInt(status);
-<<<<<<< HEAD
         dest.writeInt(disableReason);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         dest.writeString(SSID);
         dest.writeString(BSSID);
         dest.writeString(preSharedKey);
@@ -676,7 +613,6 @@ public class WifiConfiguration implements Parcelable {
         writeBitSet(dest, allowedAuthAlgorithms);
         writeBitSet(dest, allowedPairwiseCiphers);
         writeBitSet(dest, allowedGroupCiphers);
-<<<<<<< HEAD
 
         for (EnterpriseField field : enterpriseFields) {
             dest.writeString(field.value());
@@ -684,8 +620,6 @@ public class WifiConfiguration implements Parcelable {
         dest.writeString(ipAssignment.name());
         dest.writeString(proxySettings.name());
         dest.writeParcelable(linkProperties, flags);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /** Implement the Parcelable interface {@hide} */
@@ -695,10 +629,7 @@ public class WifiConfiguration implements Parcelable {
                 WifiConfiguration config = new WifiConfiguration();
                 config.networkId = in.readInt();
                 config.status = in.readInt();
-<<<<<<< HEAD
                 config.disableReason = in.readInt();
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 config.SSID = in.readString();
                 config.BSSID = in.readString();
                 config.preSharedKey = in.readString();
@@ -712,7 +643,6 @@ public class WifiConfiguration implements Parcelable {
                 config.allowedAuthAlgorithms  = readBitSet(in);
                 config.allowedPairwiseCiphers = readBitSet(in);
                 config.allowedGroupCiphers    = readBitSet(in);
-<<<<<<< HEAD
 
                 for (EnterpriseField field : config.enterpriseFields) {
                     field.setValue(in.readString());
@@ -721,8 +651,6 @@ public class WifiConfiguration implements Parcelable {
                 config.ipAssignment = IpAssignment.valueOf(in.readString());
                 config.proxySettings = ProxySettings.valueOf(in.readString());
                 config.linkProperties = in.readParcelable(null);
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 return config;
             }
 

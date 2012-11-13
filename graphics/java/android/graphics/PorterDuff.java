@@ -53,26 +53,18 @@ public class PorterDuff {
         /** [Sa * Da, Sc * Dc] */
         MULTIPLY    (14),
         /** [Sa + Da - Sa * Da, Sc + Dc - Sc * Dc] */
-<<<<<<< HEAD
         SCREEN      (15),
         /** Saturate(S + D) */
         ADD         (16),
         OVERLAY     (17);
-=======
-        SCREEN      (15);
->>>>>>> 54b6cfa... Initial Contribution
 
         Mode(int nativeInt) {
             this.nativeInt = nativeInt;
         }
-<<<<<<< HEAD
 
         /**
          * @hide
          */
         public final int nativeInt;
-=======
-        final int nativeInt;
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

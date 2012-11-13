@@ -20,10 +20,6 @@ package com.google.android.mms.pdu;
 import com.google.android.mms.ContentType;
 import com.google.android.mms.InvalidHeaderValueException;
 
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 import java.io.ByteArrayInputStream;
@@ -32,11 +28,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-<<<<<<< HEAD
 import android.content.res.Resources;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 public class PduParser {
     /**
      *  The next are WAP values defined in WSP specification.
@@ -92,11 +85,7 @@ public class PduParser {
      */
     private static final String LOG_TAG = "PduParser";
     private static final boolean DEBUG = false;
-<<<<<<< HEAD
     private static final boolean LOCAL_LOGV = false;
-=======
-    private static final boolean LOCAL_LOGV = DEBUG ? Config.LOGD : Config.LOGV;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Constructor.
@@ -169,7 +158,6 @@ public class PduParser {
                 }
                 String ctTypeStr = new String(contentType);
                 if (ctTypeStr.equals(ContentType.MULTIPART_MIXED)
-<<<<<<< HEAD
                         || ctTypeStr.equals(ContentType.MULTIPART_RELATED)
                         || ctTypeStr.equals(ContentType.MULTIPART_ALTERNATIVE)) {
                     // The MMS content type must be "application/vnd.wap.multipart.mixed"
@@ -182,11 +170,6 @@ public class PduParser {
                     PduPart firstPart = mBody.getPart(0);
                     mBody.removeAll();
                     mBody.addPart(0, firstPart);
-=======
-                        || ctTypeStr.equals(ContentType.MULTIPART_RELATED)) {
-                    // The MMS content type must be "application/vnd.wap.multipart.mixed"
-                    // or "application/vnd.wap.multipart.related"
->>>>>>> 54b6cfa... Initial Contribution
                     return retrieveConf;
                 }
                 return null;
@@ -227,7 +210,6 @@ public class PduParser {
         PduHeaders headers = new PduHeaders();
 
         while (keepParsing && (pduDataStream.available() > 0)) {
-<<<<<<< HEAD
             pduDataStream.mark(1);
             int headerField = extractByteValue(pduDataStream);
             /* parse custom text header */
@@ -240,9 +222,6 @@ public class PduParser {
                 /* we should ignore it at the moment */
                 continue;
             }
-=======
-            int headerField = extractByteValue(pduDataStream);
->>>>>>> 54b6cfa... Initial Contribution
             switch (headerField) {
                 case PduHeaders.MESSAGE_TYPE:
                 {
@@ -820,7 +799,6 @@ public class PduParser {
             /* get part's data */
             if (dataLength > 0) {
                 byte[] partData = new byte[dataLength];
-<<<<<<< HEAD
                 String partContentType = new String(part.getContentType());
                 pduDataStream.read(partData, 0, dataLength);
                 if (partContentType.equalsIgnoreCase(ContentType.MULTIPART_ALTERNATIVE)) {
@@ -849,28 +827,6 @@ public class PduParser {
                     }
                     part.setData(partData);
                 }
-=======
-                pduDataStream.read(partData, 0, dataLength);
-                // Check Content-Transfer-Encoding.
-                byte[] partDataEncoding = part.getContentTransferEncoding();
-                if (null != partDataEncoding) {
-                    String encoding = new String(partDataEncoding);
-                    if (encoding.equalsIgnoreCase(PduPart.P_BASE64)) {
-                        // Decode "base64" into "binary".
-                        partData = Base64.decodeBase64(partData);
-                    } else if (encoding.equalsIgnoreCase(PduPart.P_QUOTED_PRINTABLE)) {
-                        // Decode "quoted-printable" into "binary".
-                        partData = QuotedPrintable.decodeQuotedPrintable(partData);
-                    } else {
-                        // "binary" is the default encoding.
-                    }
-                }
-                if (null == partData) {
-                    log("Decode part data error!");
-                    return null;
-                }
-                part.setData(partData);
->>>>>>> 54b6cfa... Initial Contribution
             }
 
             /* add this part to body */
@@ -978,12 +934,9 @@ public class PduParser {
         int temp = pduDataStream.read();
         assert(-1 != temp);
         int first = temp & 0xFF;
-<<<<<<< HEAD
         if (first == 0) {
             return null;    //  Blank subject, bail.
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
         pduDataStream.reset();
         if (first < TEXT_MIN) {
@@ -1608,7 +1561,6 @@ public class PduParser {
                          * Attachment = <Octet 129>
                          * Inline = <Octet 130>
                          */
-<<<<<<< HEAD
 
                         /*
                          * some carrier mmsc servers do not support content_disposition
@@ -1658,45 +1610,6 @@ public class PduParser {
                             tempPos = pduDataStream.available();
                             lastLen = length - (startPos - tempPos);
                         }
-=======
-                        int len = parseValueLength(pduDataStream);
-                        pduDataStream.mark(1);
-                        int thisStartPos = pduDataStream.available();
-                        int thisEndPos = 0;
-                        int value = pduDataStream.read();
-
-                        if (value == PduPart.P_DISPOSITION_FROM_DATA ) {
-                            part.setContentDisposition(PduPart.DISPOSITION_FROM_DATA);
-                        } else if (value == PduPart.P_DISPOSITION_ATTACHMENT) {
-                            part.setContentDisposition(PduPart.DISPOSITION_ATTACHMENT);
-                        } else if (value == PduPart.P_DISPOSITION_INLINE) {
-                            part.setContentDisposition(PduPart.DISPOSITION_INLINE);
-                        } else {
-                            pduDataStream.reset();
-                            /* Token-text */
-                            part.setContentDisposition(parseWapString(pduDataStream, TYPE_TEXT_STRING));
-                        }
-
-                        /* get filename parameter and skip other parameters */
-                        thisEndPos = pduDataStream.available();
-                        if (thisStartPos - thisEndPos < len) {
-                            value = pduDataStream.read();
-                            if (value == PduPart.P_FILENAME) { //filename is text-string
-                                part.setFilename(parseWapString(pduDataStream, TYPE_TEXT_STRING));
-                            }
-
-                            /* skip other parameters */
-                            thisEndPos = pduDataStream.available();
-                            if (thisStartPos - thisEndPos < len) {
-                                int last = len - (thisStartPos - thisEndPos);
-                                byte[] temp = new byte[last];
-                                pduDataStream.read(temp, 0, last);
-                            }
-                        }
-
-                        tempPos = pduDataStream.available();
-                        lastLen = length - (startPos - tempPos);
->>>>>>> 54b6cfa... Initial Contribution
                         break;
                     default:
                         if (LOCAL_LOGV) {

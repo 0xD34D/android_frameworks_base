@@ -19,10 +19,7 @@ package android.util;
 import org.xmlpull.v1.XmlPullParser;
 
 import android.util.AttributeSet;
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.util.XmlUtils;
 
 /**
@@ -146,9 +143,5 @@ class XmlPullAttributes implements AttributeSet {
         return getAttributeResourceValue(null, "style", 0);
     }
 
-<<<<<<< HEAD
     /*package*/ XmlPullParser mParser;
-=======
-    private XmlPullParser mParser;
->>>>>>> 54b6cfa... Initial Contribution
 }

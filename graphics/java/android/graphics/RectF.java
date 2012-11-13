@@ -16,13 +16,10 @@
 
 package android.graphics;
 
-<<<<<<< HEAD
 import java.io.PrintWriter;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.FloatMath;
 import com.android.internal.util.FastMath;
 
@@ -33,11 +30,7 @@ import com.android.internal.util.FastMath;
  * the rectangle's width and height. Note: most methods do not check to see that
  * the coordinates are sorted correctly (i.e. left <= right and top <= bottom).
  */
-<<<<<<< HEAD
 public class RectF implements Parcelable {
-=======
-public class RectF {
->>>>>>> 54b6cfa... Initial Contribution
     public float left;
     public float top;
     public float right;
@@ -53,15 +46,9 @@ public class RectF {
      * checking is performed, so the caller must ensure that left <= right and
      * top <= bottom.
      *
-<<<<<<< HEAD
      * @param left   The X coordinate of the left side of the rectangle
      * @param top    The Y coordinate of the top of the rectangle
      * @param right  The X coordinate of the right side of the rectangle
-=======
-     * @param left   The X coordinate of the left side of the rectagle
-     * @param top    The Y coordinate of the top of the rectangle
-     * @param right  The X coordinate of the right side of the rectagle
->>>>>>> 54b6cfa... Initial Contribution
      * @param bottom The Y coordinate of the bottom of the rectangle
      */
     public RectF(float left, float top, float right, float bottom) {
@@ -92,7 +79,6 @@ public class RectF {
         bottom = r.bottom;
     }
 
-<<<<<<< HEAD
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,13 +97,10 @@ public class RectF {
         return result;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public String toString() {
         return "RectF(" + left + ", " + top + ", "
                       + right + ", " + bottom + ")";
     }
-<<<<<<< HEAD
 
     /**
      * Return a string representation of the rectangle in a compact form.
@@ -149,10 +132,6 @@ public class RectF {
     }
 
     /**
-=======
-    
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * Returns true if the rectangle is empty (left >= right or top >= bottom)
      */
     public final boolean isEmpty() {
@@ -203,15 +182,9 @@ public class RectF {
      * checking is performed, so it is up to the caller to ensure that
      * left <= right and top <= bottom.
      *
-<<<<<<< HEAD
      * @param left   The X coordinate of the left side of the rectangle
      * @param top    The Y coordinate of the top of the rectangle
      * @param right  The X coordinate of the right side of the rectangle
-=======
-     * @param left   The X coordinate of the left side of the rectagle
-     * @param top    The Y coordinate of the top of the rectangle
-     * @param right  The X coordinate of the right side of the rectagle
->>>>>>> 54b6cfa... Initial Contribution
      * @param bottom The Y coordinate of the bottom of the rectangle
      */
     public void set(float left, float top, float right, float bottom) {
@@ -553,7 +526,6 @@ public class RectF {
             bottom = temp;
         }
     }
-<<<<<<< HEAD
 
     /**
      * Parcelable interface methods
@@ -604,6 +576,4 @@ public class RectF {
         right = in.readFloat();
         bottom = in.readFloat();
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

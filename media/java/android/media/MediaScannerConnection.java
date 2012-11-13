@@ -25,27 +25,15 @@ import android.media.IMediaScannerService;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.RemoteException;
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 
 /**
-<<<<<<< HEAD
  * MediaScannerConnection provides a way for applications to pass a
  * newly created or downloaded media file to the media scanner service.
  * The media scanner service will read metadata from the file and add
  * the file to the media content provider.
  * The MediaScannerConnectionClient provides an interface for the
-=======
- * MediaScannerConnection provides a way for applications to pass a 
- * newly created or downloaded media file to the media scanner service.
- * The media scanner service will read metadata from the file and add 
- * the file to the media content provider.
- * The MediaScannerConnectionClient provides an interface for the 
->>>>>>> 54b6cfa... Initial Contribution
  * media scanner service to return the Uri for a newly scanned file
  * to the client of the MediaScannerConnection class.
  */
@@ -57,13 +45,8 @@ public class MediaScannerConnection implements ServiceConnection {
     private MediaScannerConnectionClient mClient;
     private IMediaScannerService mService;
     private boolean mConnected; // true if connect() has been called since last disconnect()
-<<<<<<< HEAD
 
     private final IMediaScannerListener.Stub mListener = new IMediaScannerListener.Stub() {
-=======
-    
-    private IMediaScannerListener.Stub mListener = new IMediaScannerListener.Stub() {
->>>>>>> 54b6cfa... Initial Contribution
         public void scanCompleted(String path, Uri uri) {
             MediaScannerConnectionClient client = mClient;
             if (client != null) {
@@ -73,7 +56,6 @@ public class MediaScannerConnection implements ServiceConnection {
     };
 
     /**
-<<<<<<< HEAD
      * Interface for notifying clients of the result of scanning a
      * requested media file.
      */
@@ -89,40 +71,24 @@ public class MediaScannerConnection implements ServiceConnection {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * An interface for notifying clients of MediaScannerConnection
      * when a connection to the MediaScanner service has been established
      * and when the scanning of a file has completed.
      */
-<<<<<<< HEAD
     public interface MediaScannerConnectionClient extends OnScanCompletedListener {
         /**
          * Called to notify the client when a connection to the
          * MediaScanner service has been established.
          */
-=======
-    public interface MediaScannerConnectionClient {
-        /**
-         * Called to notify the client when a connection to the 
-         * MediaScanner service has been established.
-         */    
->>>>>>> 54b6cfa... Initial Contribution
         public void onMediaScannerConnected();
 
         /**
          * Called to notify the client when the media scanner has finished
          * scanning a file.
          * @param path the path to the file that has been scanned.
-<<<<<<< HEAD
          * @param uri the Uri for the file if the scanning operation succeeded
          * and the file was added to the media database, or null if scanning failed.
          */
-=======
-         * @param uri the Uri for the file if the scanning operation succeeded 
-         * and the file was added to the media database, or null if scanning failed. 
-         */    
->>>>>>> 54b6cfa... Initial Contribution
         public void onScanCompleted(String path, Uri uri);
     }
 
@@ -159,21 +125,13 @@ public class MediaScannerConnection implements ServiceConnection {
     public void disconnect() {
         synchronized (this) {
             if (mConnected) {
-<<<<<<< HEAD
                 if (false) {
-=======
-                if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
                     Log.v(TAG, "Disconnecting from Media Scanner");
                 }
                 try {
                     mContext.unbindService(this);
                 } catch (IllegalArgumentException ex) {
-<<<<<<< HEAD
                     if (false) {
-=======
-                    if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
                         Log.v(TAG, "disconnect failed: " + ex);
                     }
                 }
@@ -181,11 +139,7 @@ public class MediaScannerConnection implements ServiceConnection {
             }
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns whether we are connected to the media scanner service
      * @return true if we are connected, false otherwise
@@ -196,20 +150,12 @@ public class MediaScannerConnection implements ServiceConnection {
 
     /**
      * Requests the media scanner to scan a file.
-<<<<<<< HEAD
      * Success or failure of the scanning operation cannot be determined until
      * {@link MediaScannerConnectionClient#onScanCompleted(String, Uri)} is called.
      *
      * @param path the path to the file to be scanned.
      * @param mimeType  an optional mimeType for the file.
      * If mimeType is null, then the mimeType will be inferred from the file extension.
-=======
-     * @param path the path to the file to be scanned.
-     * @param mimeType  an optional mimeType for the file.
-     * If mimeType is null, then the mimeType will be inferred from the file extension.
-     * Success or failure of the scanning operation cannot be determined until 
-     * {@link MediaScannerConnectionClient#onScanCompleted(String, Uri)} is called.
->>>>>>> 54b6cfa... Initial Contribution
      */
      public void scanFile(String path, String mimeType) {
         synchronized (this) {
@@ -217,27 +163,18 @@ public class MediaScannerConnection implements ServiceConnection {
                 throw new IllegalStateException("not connected to MediaScannerService");
             }
             try {
-<<<<<<< HEAD
                 if (false) {
-=======
-                if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
                     Log.v(TAG, "Scanning file " + path);
                 }
                 mService.requestScanFile(path, mimeType, mListener);
             } catch (RemoteException e) {
-<<<<<<< HEAD
                 if (false) {
-=======
-                if (Config.LOGD) {
->>>>>>> 54b6cfa... Initial Contribution
                     Log.d(TAG, "Failed to scan file " + path);
                 }
             }
         }
     }
 
-<<<<<<< HEAD
     static class ClientProxy implements MediaScannerConnectionClient {
         final String[] mPaths;
         final String[] mMimeTypes;
@@ -298,17 +235,11 @@ public class MediaScannerConnection implements ServiceConnection {
         connection.connect();
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Part of the ServiceConnection interface.  Do not call.
      */
     public void onServiceConnected(ComponentName className, IBinder service) {
-<<<<<<< HEAD
         if (false) {
-=======
-        if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.v(TAG, "Connected to Media Scanner");
         }
         synchronized (this) {
@@ -323,11 +254,7 @@ public class MediaScannerConnection implements ServiceConnection {
      * Part of the ServiceConnection interface.  Do not call.
      */
     public void onServiceDisconnected(ComponentName className) {
-<<<<<<< HEAD
         if (false) {
-=======
-        if (Config.LOGV) {
->>>>>>> 54b6cfa... Initial Contribution
             Log.v(TAG, "Disconnected from Media Scanner");
         }
         synchronized (this) {

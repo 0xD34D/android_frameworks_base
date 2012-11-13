@@ -2,7 +2,6 @@
 **
 ** Copyright 2006, The Android Open Source Project
 **
-<<<<<<< HEAD
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
 ** You may obtain a copy of the License at
@@ -13,18 +12,6 @@
 ** distributed under the License is distributed on an "AS IS" BASIS,
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
-=======
-** Licensed under the Apache License, Version 2.0 (the "License"); 
-** you may not use this file except in compliance with the License. 
-** You may obtain a copy of the License at 
-**
-**     http://www.apache.org/licenses/LICENSE-2.0 
-**
-** Unless required by applicable law or agreed to in writing, software 
-** distributed under the License is distributed on an "AS IS" BASIS, 
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-** See the License for the specific language governing permissions and 
->>>>>>> 54b6cfa... Initial Contribution
 ** limitations under the License.
 */
 
@@ -37,15 +24,10 @@
 #include <utils/String8.h>
 
 #include "jni.h"
-<<<<<<< HEAD
 #include "JNIHelp.h"
 #include "utils/misc.h"
 #include "android_runtime/AndroidRuntime.h"
 #include "android_util_Log.h"
-=======
-#include "utils/misc.h"
-#include "android_runtime/AndroidRuntime.h"
->>>>>>> 54b6cfa... Initial Contribution
 
 #define MIN(a,b) ((a<b)?a:b)
 
@@ -61,11 +43,7 @@ struct levels_t {
 };
 static levels_t levels;
 
-<<<<<<< HEAD
 static int toLevel(const char* value)
-=======
-static int toLevel(const char* value) 
->>>>>>> 54b6cfa... Initial Contribution
 {
     switch (value[0]) {
         case 'V': return levels.verbose;
@@ -79,7 +57,6 @@ static int toLevel(const char* value)
     return levels.info;
 }
 
-<<<<<<< HEAD
 static jboolean isLoggable(const char* tag, jint level) {
     String8 key;
     key.append(LOG_NAMESPACE);
@@ -107,32 +84,10 @@ static jboolean android_util_Log_isLoggable(JNIEnv* env, jobject clazz, jstring 
 
     jboolean result = false;
     if ((strlen(chars)+sizeof(LOG_NAMESPACE)) > PROPERTY_KEY_MAX) {
-=======
-static jboolean android_util_Log_isLoggable(JNIEnv* env, jobject clazz, jstring tag, jint level)
-{
-#ifndef HAVE_ANDROID_OS
-    return false;
-#else /* HAVE_ANDROID_OS */
-    int len;
-    char key[PROPERTY_KEY_MAX];
-    char buf[PROPERTY_VALUE_MAX];
-
-    if (tag == NULL) {
-        return false;
-    }
-    
-    jboolean result = false;
-    
-    const char* chars = env->GetStringUTFChars(tag, NULL);
-
-    if ((strlen(chars)+sizeof(LOG_NAMESPACE)) > PROPERTY_KEY_MAX) {
-        jclass clazz = env->FindClass("java/lang/IllegalArgumentException");
->>>>>>> 54b6cfa... Initial Contribution
         char buf2[200];
         snprintf(buf2, sizeof(buf2), "Log tag \"%s\" exceeds limit of %d characters\n",
                 chars, PROPERTY_KEY_MAX - sizeof(LOG_NAMESPACE));
 
-<<<<<<< HEAD
         jniThrowException(env, "java/lang/IllegalArgumentException", buf2);
     } else {
         result = isLoggable(chars, level);
@@ -144,59 +99,25 @@ static jboolean android_util_Log_isLoggable(JNIEnv* env, jobject clazz, jstring 
 
 bool android_util_Log_isVerboseLogEnabled(const char* tag) {
     return isLoggable(tag, levels.verbose);
-=======
-        // release the chars!
-        env->ReleaseStringUTFChars(tag, chars);
-
-        env->ThrowNew(clazz, buf2);
-        return false;
-    } else {
-        strncpy(key, LOG_NAMESPACE, sizeof(LOG_NAMESPACE)-1);
-        strcpy(key + sizeof(LOG_NAMESPACE) - 1, chars);
-    }
-    
-    env->ReleaseStringUTFChars(tag, chars);
-
-    len = property_get(key, buf, "");
-    int logLevel = toLevel(buf);
-    return (logLevel >= 0 && level >= logLevel) ? true : false;
-#endif /* HAVE_ANDROID_OS */
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 /*
  * In class android.util.Log:
-<<<<<<< HEAD
  *  public static native int println_native(int buffer, int priority, String tag, String msg)
  */
 static jint android_util_Log_println_native(JNIEnv* env, jobject clazz,
         jint bufID, jint priority, jstring tagObj, jstring msgObj)
-=======
- *  public static native int println(int priority, String tag, String msg)
- */
-static jint android_util_Log_println(JNIEnv* env, jobject clazz,
-    jint priority, jstring tagObj, jstring msgObj)
->>>>>>> 54b6cfa... Initial Contribution
 {
     const char* tag = NULL;
     const char* msg = NULL;
 
     if (msgObj == NULL) {
-<<<<<<< HEAD
         jniThrowNullPointerException(env, "println needs a message");
         return -1;
     }
 
     if (bufID < 0 || bufID >= LOG_ID_MAX) {
         jniThrowNullPointerException(env, "bad bufID");
-=======
-        jclass npeClazz;
-
-        npeClazz = env->FindClass("java/lang/NullPointerException");
-        assert(npeClazz != NULL);
-
-        env->ThrowNew(npeClazz, "println needs a message");
->>>>>>> 54b6cfa... Initial Contribution
         return -1;
     }
 
@@ -204,11 +125,7 @@ static jint android_util_Log_println(JNIEnv* env, jobject clazz,
         tag = env->GetStringUTFChars(tagObj, NULL);
     msg = env->GetStringUTFChars(msgObj, NULL);
 
-<<<<<<< HEAD
     int res = __android_log_buf_write(bufID, (android_LogPriority)priority, tag, msg);
-=======
-    int res = android_writeLog((android_LogPriority) priority, tag, msg);
->>>>>>> 54b6cfa... Initial Contribution
 
     if (tag != NULL)
         env->ReleaseStringUTFChars(tagObj, tag);
@@ -223,11 +140,7 @@ static jint android_util_Log_println(JNIEnv* env, jobject clazz,
 static JNINativeMethod gMethods[] = {
     /* name, signature, funcPtr */
     { "isLoggable",      "(Ljava/lang/String;I)Z", (void*) android_util_Log_isLoggable },
-<<<<<<< HEAD
     { "println_native",  "(IILjava/lang/String;Ljava/lang/String;)I", (void*) android_util_Log_println_native },
-=======
-    { "println",      "(ILjava/lang/String;Ljava/lang/String;)I", (void*) android_util_Log_println },
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 int register_android_util_Log(JNIEnv* env)
@@ -235,33 +148,18 @@ int register_android_util_Log(JNIEnv* env)
     jclass clazz = env->FindClass("android/util/Log");
 
     if (clazz == NULL) {
-<<<<<<< HEAD
         ALOGE("Can't find android/util/Log");
         return -1;
     }
 
-=======
-        LOGE("Can't find android/util/Log");
-        return -1;
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     levels.verbose = env->GetStaticIntField(clazz, env->GetStaticFieldID(clazz, "VERBOSE", "I"));
     levels.debug = env->GetStaticIntField(clazz, env->GetStaticFieldID(clazz, "DEBUG", "I"));
     levels.info = env->GetStaticIntField(clazz, env->GetStaticFieldID(clazz, "INFO", "I"));
     levels.warn = env->GetStaticIntField(clazz, env->GetStaticFieldID(clazz, "WARN", "I"));
     levels.error = env->GetStaticIntField(clazz, env->GetStaticFieldID(clazz, "ERROR", "I"));
     levels.assert = env->GetStaticIntField(clazz, env->GetStaticFieldID(clazz, "ASSERT", "I"));
-<<<<<<< HEAD
 
-=======
-                
->>>>>>> 54b6cfa... Initial Contribution
     return AndroidRuntime::registerNativeMethods(env, "android/util/Log", gMethods, NELEM(gMethods));
 }
 
 }; // namespace android
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution

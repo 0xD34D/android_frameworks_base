@@ -20,10 +20,7 @@ package android.view;
 /** {@hide} */
 interface IApplicationToken
 {
-<<<<<<< HEAD
     void windowsDrawn();
-=======
->>>>>>> 54b6cfa... Initial Contribution
     void windowsVisible();
     void windowsGone();
     boolean keyDispatchingTimedOut();

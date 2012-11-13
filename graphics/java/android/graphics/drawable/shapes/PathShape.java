@@ -64,7 +64,6 @@ public class PathShape extends Shape {
         mScaleX = width / mStdWidth;
         mScaleY = height / mStdHeight;
     }
-<<<<<<< HEAD
 
     @Override
     public PathShape clone() throws CloneNotSupportedException {
@@ -72,7 +71,5 @@ public class PathShape extends Shape {
         shape.mPath = new Path(mPath);
         return shape;
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }
 

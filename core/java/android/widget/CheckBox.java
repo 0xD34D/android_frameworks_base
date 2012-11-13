@@ -18,11 +18,8 @@ package android.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 
 /**
@@ -46,12 +43,9 @@ import android.view.accessibility.AccessibilityNodeInfo;
  *     }
  * }
  * </pre>
-<<<<<<< HEAD
  *
  * <p>See the <a href="{@docRoot}guide/topics/ui/controls/checkbox.html">Checkboxes</a>
  * guide.</p>
-=======
->>>>>>> 54b6cfa... Initial Contribution
  *  
  * <p><strong>XML attributes</strong></p> 
  * <p>
@@ -73,7 +67,6 @@ public class CheckBox extends CompoundButton {
     public CheckBox(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -86,6 +79,4 @@ public class CheckBox extends CompoundButton {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(CheckBox.class.getName());
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

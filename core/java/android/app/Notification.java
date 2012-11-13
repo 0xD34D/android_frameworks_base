@@ -16,7 +16,6 @@
 
 package android.app;
 
-<<<<<<< HEAD
 import com.android.internal.R;
 
 import android.content.Context;
@@ -42,27 +41,10 @@ import android.widget.RemoteViews;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-=======
-import java.util.Date;
-
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.media.AudioManager;
-import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.pim.DateFormat;
-import android.pim.DateUtils;
-import android.text.TextUtils;
-import android.widget.RemoteViews;
-
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * A class that represents how a persistent notification is to be presented to
  * the user using the {@link android.app.NotificationManager}.
  *
-<<<<<<< HEAD
  * <p>The {@link Notification.Builder Notification.Builder} has been added to make it
  * easier to construct Notifications.</p>
  *
@@ -72,8 +54,6 @@ import android.widget.RemoteViews;
  * <a href="{@docRoot}guide/topics/ui/notifiers/notifications.html">Status Bar Notifications</a>
  * developer guide.</p>
  * </div>
-=======
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class Notification implements Parcelable
 {
@@ -81,7 +61,6 @@ public class Notification implements Parcelable
      * Use all default values (where applicable).
      */
     public static final int DEFAULT_ALL = ~0;
-<<<<<<< HEAD
 
     /**
      * Use the default notification sound. This will ignore any given
@@ -91,20 +70,10 @@ public class Notification implements Parcelable
      * @see #defaults
      */
 
-=======
-    
-    /**
-     * Use the default notification sound. This will ignore any given
-     * {@link #sound}.
-     * 
-     * @see #defaults
-     */ 
->>>>>>> 54b6cfa... Initial Contribution
     public static final int DEFAULT_SOUND = 1;
 
     /**
      * Use the default notification vibrate. This will ignore any given
-<<<<<<< HEAD
      * {@link #vibrate}. Using phone vibration requires the
      * {@link android.Manifest.permission#VIBRATE VIBRATE} permission.
      *
@@ -113,19 +82,10 @@ public class Notification implements Parcelable
 
     public static final int DEFAULT_VIBRATE = 2;
 
-=======
-     * {@link #vibrate}.
-     * 
-     * @see #defaults
-     */ 
-    public static final int DEFAULT_VIBRATE = 2;
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Use the default notification lights. This will ignore the
      * {@link #FLAG_SHOW_LIGHTS} bit, and {@link #ledARGB}, {@link #ledOffMS}, or
      * {@link #ledOnMS}.
-<<<<<<< HEAD
      *
      * @see #defaults
      */
@@ -153,30 +113,16 @@ public class Notification implements Parcelable
      *   <li>Notification of an ongoing countdown timer should be stamped with the timer's end time.
      * </ul> 
      * 
-=======
-     * 
-     * @see #defaults
-     */ 
-    public static final int DEFAULT_LIGHTS = 4;
-    
-    /**
-     * The timestamp for the notification.  The icons and expanded views
-     * are sorted by this key.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public long when;
 
     /**
      * The resource id of a drawable to use as the icon in the status bar.
-<<<<<<< HEAD
      * This is required; notifications with an invalid icon resource will not be shown.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public int icon;
 
     /**
-<<<<<<< HEAD
      * If the icon in the status bar is to have more than one level, you can set this.  Otherwise,
      * leave it at its default value of 0.
      *
@@ -196,12 +142,6 @@ public class Notification implements Parcelable
      * {@link Notification.Builder} has displayed the number in the expanded notification view.
      * 
      * If the number is 0 or negative, it is never shown.
-=======
-     * The number of events that this notification represents.  For example, if this is the
-     * new mail notification, this would be the number of unread messages.  This number is
-     * be superimposed over the icon in the status bar.  If the number is 0 or negative, it
-     * is not shown in the status bar.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public int number;
 
@@ -210,36 +150,24 @@ public class Notification implements Parcelable
      * this is an activity, it must include the
      * {@link android.content.Intent#FLAG_ACTIVITY_NEW_TASK} flag, which requires
      * that you take care of task management as described in the
-<<<<<<< HEAD
      * <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and Back
      * Stack</a> document.  In particular, make sure to read the notification section
      * <a href="{@docRoot}guide/topics/ui/notifiers/notifications.html#HandlingNotifications">Handling
      * Notifications</a> for the correct ways to launch an application from a
      * notification.
-=======
-     * <a href="{@docRoot}intro/appmodel.html">application model</a> document.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public PendingIntent contentIntent;
 
     /**
-<<<<<<< HEAD
      * The intent to execute when the notification is explicitly dismissed by the user, either with
      * the "Clear All" button or by swiping it away individually.
      *
      * This probably shouldn't be launching an activity since several of those will be sent
      * at the same time.
-=======
-     * The intent to execute when the status entry is deleted by the user
-     * with the "Clear All Notifications" button. This probably shouldn't
-     * be launching an activity since several of those will be sent at the
-     * same time.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public PendingIntent deleteIntent;
 
     /**
-<<<<<<< HEAD
      * An intent to launch instead of posting the notification to the status bar.
      *
      * @see Notification.Builder#setFullScreenIntent
@@ -251,15 +179,10 @@ public class Notification implements Parcelable
      * the status bar on large and smaller devices.
      *
      * @see #tickerView
-=======
-     * Text to scroll across the screen when this item is added to
-     * the status bar.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public CharSequence tickerText;
 
     /**
-<<<<<<< HEAD
      * The view to show as the ticker in the status bar when the notification
      * is posted.
      */
@@ -267,14 +190,10 @@ public class Notification implements Parcelable
 
     /**
      * The view that will represent this notification in the expanded status bar.
-=======
-     * The view that shows when this notification is shown in the expanded status bar.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public RemoteViews contentView;
 
     /**
-<<<<<<< HEAD
      * A large-format version of {@link #contentView}, giving the Notification an
      * opportunity to show more detail. The system UI may choose to show this
      * instead of the normal content view at its discretion.
@@ -291,21 +210,6 @@ public class Notification implements Parcelable
      *
      * <p>
      * To play the default notification sound, see {@link #defaults}.
-=======
-     * If the icon in the status bar is to have more than one level, you can set this.  Otherwise,
-     * leave it at its default value of 0.
-     *
-     * @see android.widget.ImageView#setImageLevel
-     * @see android.graphics.drawable#setLevel
-     */
-    public int iconLevel;
-
-    /**
-     * The sound to play.
-     * 
-     * <p>
-     * To play the default notification sound, see {@link #defaults}. 
->>>>>>> 54b6cfa... Initial Contribution
      * </p>
      */
     public Uri sound;
@@ -313,11 +217,7 @@ public class Notification implements Parcelable
     /**
      * Use this constant as the value for audioStreamType to request that
      * the default stream type for notifications be used.  Currently the
-<<<<<<< HEAD
      * default stream type is {@link AudioManager#STREAM_NOTIFICATION}.
-=======
-     * default stream type is STREAM_RING.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int STREAM_DEFAULT = -1;
 
@@ -328,7 +228,6 @@ public class Notification implements Parcelable
      */
     public int audioStreamType = STREAM_DEFAULT;
 
-<<<<<<< HEAD
     /**
      * The pattern with which to vibrate.
      *
@@ -336,17 +235,6 @@ public class Notification implements Parcelable
      * To vibrate the default pattern, see {@link #defaults}.
      * </p>
      *
-=======
-    
-    /**
-     * The pattern with which to vibrate. This pattern will repeat if {@link
-     * #FLAG_INSISTENT} bit is set in the {@link #flags} field.
-     * 
-     * <p>
-     * To vibrate the default pattern, see {@link #defaults}.
-     * </p>
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see android.os.Vibrator#vibrate(long[],int)
      */
     public long[] vibrate;
@@ -387,10 +275,6 @@ public class Notification implements Parcelable
      */
     public int defaults;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Bit to be bitwise-ored into the {@link #flags} field that should be
      * set if you want the LED on for this notification.
@@ -407,11 +291,7 @@ public class Notification implements Parcelable
      * because they will be set to values that work on any given hardware.
      * <p>
      * The alpha channel must be set for forward compatibility.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FLAG_SHOW_LIGHTS        = 0x00000001;
 
@@ -426,18 +306,8 @@ public class Notification implements Parcelable
 
     /**
      * Bit to be bitwise-ored into the {@link #flags} field that if set,
-<<<<<<< HEAD
      * the audio will be repeated until the notification is
      * cancelled or the notification window is opened.
-=======
-     * the audio and vibration will be repeated until the notification is
-     * cancelled.
-     *
-     * <p>
-     * NOTE: This notion will change when we have decided exactly
-     * what the UI will be.
-     * </p>
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FLAG_INSISTENT          = 0x00000004;
 
@@ -451,12 +321,8 @@ public class Notification implements Parcelable
     /**
      * Bit to be bitwise-ored into the {@link #flags} field that should be
      * set if the notification should be canceled when it is clicked by the
-<<<<<<< HEAD
      * user.  On tablets, the
 
-=======
-     * user. 
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FLAG_AUTO_CANCEL        = 0x00000010;
 
@@ -467,7 +333,6 @@ public class Notification implements Parcelable
      */
     public static final int FLAG_NO_CLEAR           = 0x00000020;
 
-<<<<<<< HEAD
     /**
      * Bit to be bitwise-ored into the {@link #flags} field that should be
      * set if this notification represents a currently running service.  This
@@ -634,27 +499,14 @@ public class Notification implements Parcelable
     /**
      * Constructs a Notification object with default values.
      * You might want to consider using {@link Builder} instead.
-=======
-    public int flags;
-
-    /**
-     * Constructs a Notification object with everything set to 0.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public Notification()
     {
         this.when = System.currentTimeMillis();
-<<<<<<< HEAD
         this.priority = PRIORITY_DEFAULT;
     }
 
     /**
-=======
-    }
-
-    /**
-     * @deprecated use {@link #Notification(int,CharSequence,long)} and {@link #setLatestEventInfo}.
->>>>>>> 54b6cfa... Initial Contribution
      * @hide
      */
     public Notification(Context context, int icon, CharSequence tickerText, long when,
@@ -676,14 +528,10 @@ public class Notification implements Parcelable
      *                      activates.
      * @param when          The time to show in the time field.  In the System.currentTimeMillis
      *                      timebase.
-<<<<<<< HEAD
      *
      * @deprecated Use {@link Builder} instead.
      */
     @Deprecated
-=======
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public Notification(int icon, CharSequence tickerText, long when)
     {
         this.icon = icon;
@@ -711,7 +559,6 @@ public class Notification implements Parcelable
             tickerText = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(parcel);
         }
         if (parcel.readInt() != 0) {
-<<<<<<< HEAD
             tickerView = RemoteViews.CREATOR.createFromParcel(parcel);
         }
         if (parcel.readInt() != 0) {
@@ -720,10 +567,6 @@ public class Notification implements Parcelable
         if (parcel.readInt() != 0) {
             largeIcon = Bitmap.CREATOR.createFromParcel(parcel);
         }
-=======
-            contentView = RemoteViews.CREATOR.createFromParcel(parcel);
-        }
->>>>>>> 54b6cfa... Initial Contribution
         defaults = parcel.readInt();
         flags = parcel.readInt();
         if (parcel.readInt() != 0) {
@@ -736,7 +579,6 @@ public class Notification implements Parcelable
         ledOnMS = parcel.readInt();
         ledOffMS = parcel.readInt();
         iconLevel = parcel.readInt();
-<<<<<<< HEAD
 
         if (parcel.readInt() != 0) {
             fullScreenIntent = PendingIntent.CREATOR.createFromParcel(parcel);
@@ -822,8 +664,6 @@ public class Notification implements Parcelable
         }
 
         return that;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int describeContents() {
@@ -858,30 +698,24 @@ public class Notification implements Parcelable
         } else {
             parcel.writeInt(0);
         }
-<<<<<<< HEAD
         if (tickerView != null) {
             parcel.writeInt(1);
             tickerView.writeToParcel(parcel, 0);
         } else {
             parcel.writeInt(0);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (contentView != null) {
             parcel.writeInt(1);
             contentView.writeToParcel(parcel, 0);
         } else {
             parcel.writeInt(0);
         }
-<<<<<<< HEAD
         if (largeIcon != null) {
             parcel.writeInt(1);
             largeIcon.writeToParcel(parcel, 0);
         } else {
             parcel.writeInt(0);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
         parcel.writeInt(defaults);
         parcel.writeInt(this.flags);
@@ -898,7 +732,6 @@ public class Notification implements Parcelable
         parcel.writeInt(ledOnMS);
         parcel.writeInt(ledOffMS);
         parcel.writeInt(iconLevel);
-<<<<<<< HEAD
 
         if (fullScreenIntent != null) {
             parcel.writeInt(1);
@@ -926,8 +759,6 @@ public class Notification implements Parcelable
         } else {
             parcel.writeInt(0);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -960,7 +791,6 @@ public class Notification implements Parcelable
      * If this is an activity, it must include the
      * {@link android.content.Intent#FLAG_ACTIVITY_NEW_TASK} flag, which requires
      * that you take care of task management as described in the
-<<<<<<< HEAD
      * <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and Back
      * Stack</a> document.
      *
@@ -994,29 +824,6 @@ public class Notification implements Parcelable
         if (this.number != 0) {
             NumberFormat f = NumberFormat.getIntegerInstance();
             contentView.setTextViewText(R.id.info, f.format(this.number));
-=======
-     * <a href="{@docRoot}intro/appmodel.html">application model</a> document.
-     */
-    public void setLatestEventInfo(Context context,
-            CharSequence contentTitle, CharSequence contentText, PendingIntent contentIntent) {
-        RemoteViews contentView = new RemoteViews(context.getPackageName(),
-                com.android.internal.R.layout.status_bar_latest_event_content);
-        if (this.icon != 0) {
-            contentView.setImageViewResource(com.android.internal.R.id.icon, this.icon);
-        }
-        if (contentTitle != null) {
-            contentView.setTextViewText(com.android.internal.R.id.title, contentTitle);
-        }
-        if (contentText != null) {
-            contentView.setTextViewText(com.android.internal.R.id.text, contentText);
-        }
-        if (this.when != 0) {
-            Date date = new Date(when);
-            CharSequence str = 
-                DateUtils.isToday(when) ? DateFormat.getTimeFormat(context).format(date)
-                    : DateFormat.getDateFormat(context).format(date);
-            contentView.setTextViewText(com.android.internal.R.id.time, str);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         this.contentView = contentView;
@@ -1026,7 +833,6 @@ public class Notification implements Parcelable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-<<<<<<< HEAD
         sb.append("Notification(pri=");
         sb.append(priority);
         sb.append(" contentView=");
@@ -1039,9 +845,6 @@ public class Notification implements Parcelable
         }
         // TODO(dsandler): defaults take precedence over local values, so reorder the branches below
         sb.append(" vibrate=");
-=======
-        sb.append("Notification(vibrate=");
->>>>>>> 54b6cfa... Initial Contribution
         if (this.vibrate != null) {
             int N = this.vibrate.length-1;
             sb.append("[");
@@ -1049,24 +852,16 @@ public class Notification implements Parcelable
                 sb.append(this.vibrate[i]);
                 sb.append(',');
             }
-<<<<<<< HEAD
             if (N != -1) {
                 sb.append(this.vibrate[N]);
             }
-=======
-            sb.append(this.vibrate[N]);
->>>>>>> 54b6cfa... Initial Contribution
             sb.append("]");
         } else if ((this.defaults & DEFAULT_VIBRATE) != 0) {
             sb.append("default");
         } else {
             sb.append("null");
         }
-<<<<<<< HEAD
         sb.append(" sound=");
-=======
-        sb.append(",sound=");
->>>>>>> 54b6cfa... Initial Contribution
         if (this.sound != null) {
             sb.append(this.sound.toString());
         } else if ((this.defaults & DEFAULT_SOUND) != 0) {
@@ -1074,7 +869,6 @@ public class Notification implements Parcelable
         } else {
             sb.append("null");
         }
-<<<<<<< HEAD
         sb.append(" defaults=0x");
         sb.append(Integer.toHexString(this.defaults));
         sb.append(" flags=0x");
@@ -2156,11 +1950,4 @@ public class Notification implements Parcelable
             return wip;
         }
     }
-=======
-        sb.append(",defaults=0x");
-        sb.append(Integer.toHexString(this.defaults));
-        sb.append(")");
-        return sb.toString();
-    }
->>>>>>> 54b6cfa... Initial Contribution
 }

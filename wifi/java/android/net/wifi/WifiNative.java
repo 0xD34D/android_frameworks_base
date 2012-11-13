@@ -16,7 +16,6 @@
 
 package android.net.wifi;
 
-<<<<<<< HEAD
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -36,24 +35,11 @@ import java.util.List;
  *
  * waitForEvent() is called on the monitor thread for events. All other methods
  * must be serialized from the framework.
-=======
-import android.net.DhcpInfo;
-
-/**
- * Native calls for sending requests to the supplicant daemon, and for
- * receiving asynchronous events. All methods of the form "xxxxCommand()"
- * must be single-threaded, to avoid requests and responses initiated
- * from multiple threads from being intermingled.
- * <p/>
- * Note that methods whose names are not of the form "xxxCommand()" do
- * not talk to the supplicant daemon.
->>>>>>> 54b6cfa... Initial Contribution
  *
  * {@hide}
  */
 public class WifiNative {
 
-<<<<<<< HEAD
     private static final boolean DBG = false;
     private final String mTAG;
     private static final int DEFAULT_GROUP_OWNER_INTENT = 7;
@@ -305,77 +291,11 @@ public class WifiNative {
    /**
      * Sets the bluetooth coexistence mode.
      *
-=======
-    static final int BLUETOOTH_COEXISTENCE_MODE_ENABLED = 0;
-    static final int BLUETOOTH_COEXISTENCE_MODE_DISABLED = 1;
-    static final int BLUETOOTH_COEXISTENCE_MODE_SENSE = 2;
-    
-    public native static String getErrorString(int errorCode);
-
-    public native static boolean loadDriver();
-    
-    public native static boolean unloadDriver();
-
-    public native static boolean startSupplicant();
-    
-    public native static boolean stopSupplicant();
-
-    public native static boolean connectToSupplicant();
-
-    public native static void closeSupplicantConnection();
-
-    public native static boolean pingCommand();
-
-    public native static boolean scanCommand();
-    
-    public native static boolean setScanModeCommand(boolean setActive);
-
-    public native static String listNetworksCommand();
-
-    public native static int addNetworkCommand();
-
-    public native static boolean setNetworkVariableCommand(int netId, String name, String value);
-
-    public native static String getNetworkVariableCommand(int netId, String name);
-
-    public native static boolean removeNetworkCommand(int netId);
-
-    public native static boolean enableNetworkCommand(int netId, boolean disableOthers);
-    
-    public native static boolean disableNetworkCommand(int netId);
-
-    public native static boolean reconnectCommand();
-
-    public native static boolean reassociateCommand();
-
-    public native static boolean disconnectCommand();
-
-    public native static String statusCommand();
-
-    public native static int getRssiCommand();
-
-    public native static int getLinkSpeedCommand();
-
-    public native static String getMacAddressCommand();
-
-    public native static String scanResultsCommand();
-
-    public native static boolean startDriverCommand();
-
-    public native static boolean stopDriverCommand();
-
-    public native static boolean setPowerModeCommand(int mode);
-
-    /**
-     * Sets the bluetooth coexistence mode.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param mode One of {@link #BLUETOOTH_COEXISTENCE_MODE_DISABLED},
      *            {@link #BLUETOOTH_COEXISTENCE_MODE_ENABLED}, or
      *            {@link #BLUETOOTH_COEXISTENCE_MODE_SENSE}.
      * @return Whether the mode was successfully set.
      */
-<<<<<<< HEAD
     public boolean setBluetoothCoexistenceMode(int mode) {
         return doBooleanCommand("DRIVER BTCOEXMODE " + mode);
     }
@@ -818,27 +738,4 @@ public class WifiNative {
     public boolean p2pServDiscCancelReq(String id) {
         return doBooleanCommand("P2P_SERV_DISC_CANCEL_REQ " + id);
     }
-=======
-    public native static boolean setBluetoothCoexistenceModeCommand(int mode);
-    
-    public native static boolean saveConfigCommand();
-
-    public native static boolean reloadConfigCommand();
-
-    public native static boolean setScanResultHandlingCommand(int mode);
-
-    public native static boolean addToBlacklistCommand(String bssid);
-
-    public native static boolean clearBlacklistCommand();
-
-    public native static boolean doDhcpRequest(DhcpInfo results);
-
-    public native static String getDhcpError();
-
-    /**
-     * Wait for the supplicant to send an event, returning the event string.
-     * @return the event string sent by the supplicant.
-     */
-    public native static String waitForEvent();
->>>>>>> 54b6cfa... Initial Contribution
 }

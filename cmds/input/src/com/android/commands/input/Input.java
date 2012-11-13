@@ -16,7 +16,6 @@
 
 package com.android.commands.input;
 
-<<<<<<< HEAD
 import android.hardware.input.InputManager;
 import android.os.SystemClock;
 import android.util.Log;
@@ -24,15 +23,6 @@ import android.view.InputDevice;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-=======
-import android.os.RemoteException;
-import android.os.ServiceManager;
-import android.os.SystemClock;
-import android.util.Log;
-import android.view.IWindowManager;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Command that sends key events to the device, either by their keycode, or by
@@ -40,10 +30,7 @@ import android.view.KeyEvent;
  */
 
 public class Input {
-<<<<<<< HEAD
     private static final String TAG = "Input";
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Command-line entry point.
@@ -62,7 +49,6 @@ public class Input {
 
         String command = args[0];
 
-<<<<<<< HEAD
         try {
             if (command.equals("text")) {
                 if (args.length == 2) {
@@ -98,21 +84,6 @@ public class Input {
         }
         System.err.println("Error: Invalid arguments for command: " + command);
         showUsage();
-=======
-        if (command.equals("text")) {
-            sendText(args[1]);
-        } else if (command.equals("keyevent")) {
-            sendKeyEvent(args[1]);
-        } else if (command.equals("motionevent")) {
-            System.err.println("Error: motionevent not yet supported.");
-            return;
-        }
-        else {
-            System.err.println("Error: Unknown command: " + command);
-            showUsage();
-            return;
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -121,10 +92,6 @@ public class Input {
      *
      * @param text is a string of characters you want to input to the device.
      */
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
     private void sendText(String text) {
 
         StringBuffer buff = new StringBuffer(text);
@@ -145,7 +112,6 @@ public class Input {
 
         char[] chars = buff.toString().toCharArray();
 
-<<<<<<< HEAD
         KeyCharacterMap kcm = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
         KeyEvent[] events = kcm.getEvents(chars);
         for(int i = 0; i < events.length; i++) {
@@ -202,57 +168,5 @@ public class Input {
         System.err.println("       input keyevent <key code number or name>");
         System.err.println("       input tap <x> <y>");
         System.err.println("       input swipe <x1> <y1> <x2> <y2>");
-=======
-        KeyCharacterMap mKeyCharacterMap = KeyCharacterMap.
-            load(KeyCharacterMap.BUILT_IN_KEYBOARD);
-
-        KeyEvent[] events = mKeyCharacterMap.getEvents(chars);
-
-        for(int i = 0; i < events.length; i++) {
-            KeyEvent event = events[i];
-            Log.i("SendKeyEvent", Integer.toString(event.getKeyCode()));
-            try {
-                (IWindowManager.Stub
-                    .asInterface(ServiceManager.getService("window")))
-                    .injectKeyEvent(event, true);
-            } catch (RemoteException e) {
-                Log.i("Input", "DeadOjbectException");
-            }
-        }
-    }
-
-    /**
-     * Send a single key event.
-     *
-     * @param event is a string representing the keycode of the key event you
-     * want to execute.
-     */
-    private void sendKeyEvent(String event) {
-        int eventCode = Integer.parseInt(event);
-        long now = SystemClock.uptimeMillis();
-        Log.i("SendKeyEvent", event);
-        try {
-            KeyEvent down = new KeyEvent(now, now, KeyEvent.ACTION_DOWN, eventCode, 0);
-            KeyEvent up = new KeyEvent(now, now, KeyEvent.ACTION_UP, eventCode, 0);
-            (IWindowManager.Stub
-                .asInterface(ServiceManager.getService("window")))
-                .injectKeyEvent(down, true);
-            (IWindowManager.Stub
-                .asInterface(ServiceManager.getService("window")))
-                .injectKeyEvent(up, true);
-        } catch (RemoteException e) {
-            Log.i("Input", "DeadOjbectException");
-        }
-    }
-
-    private void sendMotionEvent(long downTime, int action, float x, float y, 
-            float pressure, float size) {
-    }
-
-    private void showUsage() {
-        System.err.println("usage: input [text|keyevent]");
-        System.err.println("       input text <string>");
-        System.err.println("       input keyevent <event_code>");
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

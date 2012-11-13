@@ -18,7 +18,6 @@ package android.database;
 
 /**
  * A base class for Cursors that store their data in {@link CursorWindow}s.
-<<<<<<< HEAD
  * <p>
  * The cursor owns the cursor window it uses.  When the cursor is closed,
  * its window is also closed.  Likewise, when the window used by the cursor is
@@ -43,27 +42,10 @@ public abstract class AbstractWindowedCursor extends AbstractCursor {
     @Override
     public byte[] getBlob(int columnIndex) {
         checkPosition();
-=======
- */
-public abstract class AbstractWindowedCursor extends AbstractCursor
-{
-    @Override
-    public byte[] getBlob(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                return (byte[])getUpdatedField(columnIndex);
-            }
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         return mWindow.getBlob(mPos, columnIndex);
     }
 
     @Override
-<<<<<<< HEAD
     public String getString(int columnIndex) {
         checkPosition();
         return mWindow.getString(mPos, columnIndex);
@@ -72,137 +54,40 @@ public abstract class AbstractWindowedCursor extends AbstractCursor
     @Override
     public void copyStringToBuffer(int columnIndex, CharArrayBuffer buffer) {
         checkPosition();
-=======
-    public String getString(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                return (String)getUpdatedField(columnIndex);
-            }
-        }
-
-        return mWindow.getString(mPos, columnIndex);
-    }
-    
-    @Override
-    public void copyStringToBuffer(int columnIndex, CharArrayBuffer buffer)
-    {
-        checkPosition();
-        
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                super.copyStringToBuffer(columnIndex, buffer);
-            }
-        }
-        
->>>>>>> 54b6cfa... Initial Contribution
         mWindow.copyStringToBuffer(mPos, columnIndex, buffer);
     }
 
     @Override
-<<<<<<< HEAD
     public short getShort(int columnIndex) {
         checkPosition();
-=======
-    public short getShort(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                Number value = (Number)getUpdatedField(columnIndex);
-                return value.shortValue();
-            }
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         return mWindow.getShort(mPos, columnIndex);
     }
 
     @Override
-<<<<<<< HEAD
     public int getInt(int columnIndex) {
         checkPosition();
-=======
-    public int getInt(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                Number value = (Number)getUpdatedField(columnIndex);
-                return value.intValue();
-            }
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         return mWindow.getInt(mPos, columnIndex);
     }
 
     @Override
-<<<<<<< HEAD
     public long getLong(int columnIndex) {
         checkPosition();
-=======
-    public long getLong(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                Number value = (Number)getUpdatedField(columnIndex);
-                return value.longValue();
-            }
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         return mWindow.getLong(mPos, columnIndex);
     }
 
     @Override
-<<<<<<< HEAD
     public float getFloat(int columnIndex) {
         checkPosition();
-=======
-    public float getFloat(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                Number value = (Number)getUpdatedField(columnIndex);
-                return value.floatValue();
-            }
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         return mWindow.getFloat(mPos, columnIndex);
     }
 
     @Override
-<<<<<<< HEAD
     public double getDouble(int columnIndex) {
         checkPosition();
-=======
-    public double getDouble(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                Number value = (Number)getUpdatedField(columnIndex);
-                return value.doubleValue();
-            }
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         return mWindow.getDouble(mPos, columnIndex);
     }
 
     @Override
-<<<<<<< HEAD
     public boolean isNull(int columnIndex) {
         checkPosition();
         return mWindow.getType(mPos, columnIndex) == Cursor.FIELD_TYPE_NULL;
@@ -253,42 +138,6 @@ public abstract class AbstractWindowedCursor extends AbstractCursor
         if (mWindow == null) {
             throw new StaleDataException("Attempting to access a closed CursorWindow." +
                     "Most probable cause: cursor is deactivated prior to calling this method.");
-=======
-    public boolean isNull(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                return getUpdatedField(columnIndex) == null;
-            }
-        }
-
-        return mWindow.isNull(mPos, columnIndex);
-    }
-
-    public boolean isBlob(int columnIndex)
-    {
-        checkPosition();
-
-        synchronized(mUpdatedRows) {
-            if (isFieldUpdated(columnIndex)) {
-                Object object = getUpdatedField(columnIndex);
-                return object == null || object instanceof byte[];
-            }
-        }
-
-        return mWindow.isBlob(mPos, columnIndex);
-    }
-
-    @Override
-    protected void checkPosition()
-    {
-        super.checkPosition();
-        
-        if (mWindow == null) {
-            throw new StaleDataException("This cursor has changed, you must call requery()");
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -296,7 +145,6 @@ public abstract class AbstractWindowedCursor extends AbstractCursor
     public CursorWindow getWindow() {
         return mWindow;
     }
-<<<<<<< HEAD
 
     /**
      * Sets a new cursor window for the cursor to use.
@@ -323,26 +171,11 @@ public abstract class AbstractWindowedCursor extends AbstractCursor
      *
      * @return True if the cursor has an associated cursor window.
      */
-=======
-    
-    /**
-     * Set a new cursor window to cursor, usually set a remote cursor window
-     * @param window cursor window
-     */
-    public void setWindow(CursorWindow window) {
-        if (mWindow != null) {
-            mWindow.close();
-        }
-        mWindow = window;
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     public boolean hasWindow() {
         return mWindow != null;
     }
 
     /**
-<<<<<<< HEAD
      * Closes the cursor window and sets {@link #mWindow} to null.
      * @hide
      */
@@ -374,10 +207,4 @@ public abstract class AbstractWindowedCursor extends AbstractCursor
         super.onDeactivateOrClose();
         closeWindow();
     }
-=======
-     * This needs be updated in {@link #onMove} by subclasses, and
-     * needs to be set to NULL when the contents of the cursor change.
-     */
-    protected CursorWindow mWindow;
->>>>>>> 54b6cfa... Initial Contribution
 }

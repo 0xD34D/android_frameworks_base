@@ -18,7 +18,6 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_dark"
@@ -46,22 +45,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
     />
 
-=======
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#FF000000"
-        >
-
->>>>>>> 54b6cfa... Initial Contribution
     <!-- displays dots as user enters pin -->
     <LinearLayout android:id="@+id/pinDisplayGroup"
         android:orientation="horizontal"
         android:layout_centerInParent="true"
-<<<<<<< HEAD
         android:layout_width="match_parent"
-=======
-        android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_height="wrap_content"
         android:addStatesFromChildren="true"
         android:gravity="center_vertical"
@@ -75,7 +63,6 @@
         <EditText android:id="@+id/pinDisplay"
             android:layout_width="0dip"
             android:layout_weight="1"
-<<<<<<< HEAD
             android:layout_height="match_parent"
             android:maxLines="1"
             android:background="@null"
@@ -87,20 +74,6 @@
              android:src="@android:drawable/ic_input_delete"
              android:layout_width="wrap_content"
              android:layout_height="match_parent"
-=======
-            android:layout_height="fill_parent"
-            android:maxLines="1"
-            android:background="@null"
-            android:textSize="32sp"
-            android:password="true"
-            />
-
-        <ImageButton android:id="@+id/backspace"
-             style="@android:style/Widget.Button.Inset"
-             android:src="@android:drawable/ic_input_delete"
-             android:layout_width="wrap_content"
-             android:layout_height="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
              android:layout_marginTop="2dip"
              android:layout_marginRight="2dip"
              android:layout_marginBottom="2dip"
@@ -109,48 +82,24 @@
 
     </LinearLayout>
         
-<<<<<<< HEAD
     <LinearLayout
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-=======
-    <!-- header text ('Enter Pin Code') -->
-    <TextView android:id="@+id/headerText"
-        android:layout_above="@id/pinDisplayGroup"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-            />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_width="fill_parent"
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dip"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip">
 
-<<<<<<< HEAD
         <Button android:id="@+id/emergencyCallButton"
             android:text="@android:string/lockscreen_emergency_call"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-=======
-        <Button android:id="@+id/ok"
-            android:text="@android:string/ok"
-            android:layout_alignParentBottom="true"
->>>>>>> 54b6cfa... Initial Contribution
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:layout_marginBottom="8dip"
             android:layout_marginRight="8dip"
-<<<<<<< HEAD
             android:textSize="18sp"
             android:drawableLeft="@drawable/ic_emergency"
             android:drawablePadding="4dip"
@@ -159,36 +108,12 @@
         <Button android:id="@+id/ok"
             android:text="@android:string/ok"
             android:layout_alignParentBottom="true"
-=======
-            android:paddingLeft="4dip"
-            android:paddingRight="4dip"
-            android:paddingTop="8dip"
-            android:paddingBottom="8dip"
-            android:textSize="18sp"
-            android:drawablePadding="3dip"
-            />
-
-        <Button android:id="@+id/emergencyCall"
-            android:text="@android:string/lockscreen_emergency_call"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
->>>>>>> 54b6cfa... Initial Contribution
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:layout_marginBottom="8dip"
             android:layout_marginLeft="8dip"
-<<<<<<< HEAD
             android:textSize="18sp"
-=======
-            android:paddingLeft="4dip"
-            android:paddingRight="4dip"
-            android:paddingTop="8dip"
-            android:paddingBottom="8dip"
-            android:textSize="18sp"
-            android:drawableLeft="@drawable/ic_emergency"
-            android:drawablePadding="3dip"
->>>>>>> 54b6cfa... Initial Contribution
         />
     </LinearLayout>
 

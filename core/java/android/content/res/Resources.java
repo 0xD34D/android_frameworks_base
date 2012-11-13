@@ -16,7 +16,6 @@
 
 package android.content.res;
 
-<<<<<<< HEAD
 import com.android.internal.util.XmlUtils;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -67,32 +66,11 @@ import libcore.icu.NativePluralRules;
  *
  * <p>For more information about using resources, see the documentation about <a
  * href="{@docRoot}guide/topics/resources/index.html">Application Resources</a>.</p>
-=======
-
-import android.graphics.Movie;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ColorDrawable;
-import android.os.SystemProperties;
-import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.SparseArray;
-import android.util.TypedValue;
-
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-
-/**
- * Class for accessing an application's resources.  This sits on top of the
- * asset manager of the application (accessible through getAssets()) and
- * provides a higher-level API for getting typed data from the assets.
->>>>>>> 54b6cfa... Initial Contribution
  */
 public class Resources {
     static final String TAG = "Resources";
     private static final boolean DEBUG_LOAD = false;
     private static final boolean DEBUG_CONFIG = false;
-<<<<<<< HEAD
     private static final boolean DEBUG_ATTRIBUTES_CACHE = false;
     private static final boolean TRACE_FOR_PRELOAD = false;
     private static final boolean TRACE_FOR_MISS_PRELOAD = false;
@@ -101,18 +79,10 @@ public class Resources {
 
     private static final Object mSync = new Object();
     /*package*/ static Resources mSystem = null;
-=======
-
-    private static final int sSdkVersion = SystemProperties.getInt(
-            "ro.build.version.sdk", 0);
-    private static final Object mSync = new Object();
-    private static Resources mSystem = null;
->>>>>>> 54b6cfa... Initial Contribution
     
     // Information about preloaded resources.  Note that they are not
     // protected by a lock, because while preloading in zygote we are all
     // single-threaded, and after that these are immutable.
-<<<<<<< HEAD
     private static final LongSparseArray<Drawable.ConstantState> sPreloadedDrawables
             = new LongSparseArray<Drawable.ConstantState>();
     private static final LongSparseArray<ColorStateList> sPreloadedColorStateLists
@@ -135,22 +105,6 @@ public class Resources {
 
     /*package*/ TypedArray mCachedStyledAttributes = null;
     RuntimeException mLastRetrievedAttrs = null;
-=======
-    private static final SparseArray<Drawable.ConstantState> mPreloadedDrawables
-            = new SparseArray<Drawable.ConstantState>();
-    private static boolean mPreloaded;
-
-    /*package*/ final TypedValue mTmpValue = new TypedValue();
-
-    // These are protected by the mTmpValue lock.
-    private final SparseArray<WeakReference<Drawable.ConstantState> > mDrawableCache
-            = new SparseArray<WeakReference<Drawable.ConstantState> >();
-    private final SparseArray<WeakReference<ColorStateList> > mColorStateListCache
-            = new SparseArray<WeakReference<ColorStateList> >();
-    private boolean mPreloading;
-
-    /*package*/ TypedArray mCachedStyledAttributes = null;
->>>>>>> 54b6cfa... Initial Contribution
 
     private int mLastCachedXmlBlockIndex = -1;
     private final int[] mCachedXmlBlockIds = { 0, 0, 0, 0 };
@@ -159,7 +113,6 @@ public class Resources {
     /*package*/ final AssetManager mAssets;
     private final Configuration mConfiguration = new Configuration();
     /*package*/ final DisplayMetrics mMetrics = new DisplayMetrics();
-<<<<<<< HEAD
     private NativePluralRules mPluralRule;
     
     private CompatibilityInfo mCompatibilityInfo;
@@ -186,9 +139,6 @@ public class Resources {
         }
         return deviceDefault;
     }
-=======
-    PluralRule mPluralRule;
->>>>>>> 54b6cfa... Initial Contribution
     
     /**
      * This exception is thrown by the resource APIs when a requested resource
@@ -201,11 +151,7 @@ public class Resources {
         public NotFoundException(String name) {
             super(name);
         }
-<<<<<<< HEAD
     }
-=======
-    };
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Create a new Resources object on top of an existing set of assets in an
@@ -217,7 +163,6 @@ public class Resources {
      * @param config Desired device configuration to consider when 
      *               selecting/computing resource values (optional).
      */
-<<<<<<< HEAD
     public Resources(AssetManager assets, DisplayMetrics metrics, Configuration config) {
         this(assets, metrics, config, null);
     }
@@ -239,13 +184,6 @@ public class Resources {
         mAssets = assets;
         mMetrics.setToDefaults();
         mCompatibilityInfo = compInfo;
-=======
-    public Resources(AssetManager assets, DisplayMetrics metrics,
-            Configuration config) {
-        mAssets = assets;
-        mConfiguration.setToDefaults();
-        mMetrics.setToDefaults();
->>>>>>> 54b6cfa... Initial Contribution
         updateConfiguration(config, metrics);
         assets.ensureStringBlocks();
     }
@@ -293,7 +231,6 @@ public class Resources {
     }
 
     /**
-<<<<<<< HEAD
      * Return the character sequence associated with a particular resource ID for a particular
      * numerical quantity.
      *
@@ -305,11 +242,6 @@ public class Resources {
      *           entry. The value 0 is an invalid identifier.
      * @param quantity The number used to get the correct string for the current language's
      *           plural rules.
-=======
-     * @param id The desired resource identifier, as generated by the aapt
-     *           tool. This integer encodes the package, type, and resource
-     *           entry. The value 0 is an invalid identifier.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @throws NotFoundException Throws NotFoundException if the given ID does not exist.
      *
@@ -317,7 +249,6 @@ public class Resources {
      *         possibly styled text information.
      */
     public CharSequence getQuantityText(int id, int quantity) throws NotFoundException {
-<<<<<<< HEAD
         NativePluralRules rule = getPluralRule();
         CharSequence res = mAssets.getResourceBagText(id,
                 attrForQuantityCode(rule.quantityForInt(quantity)));
@@ -325,20 +256,11 @@ public class Resources {
             return res;
         }
         res = mAssets.getResourceBagText(id, ID_OTHER);
-=======
-        PluralRule rule = getPluralRule();
-        CharSequence res = mAssets.getResourceBagText(id, rule.attrForNumber(quantity));
-        if (res != null) {
-            return res;
-        }
-        res = mAssets.getResourceBagText(id, PluralRule.ID_OTHER);
->>>>>>> 54b6cfa... Initial Contribution
         if (res != null) {
             return res;
         }
         throw new NotFoundException("Plural resource ID #0x" + Integer.toHexString(id)
                 + " quantity=" + quantity
-<<<<<<< HEAD
                 + " item=" + stringForQuantityCode(rule.quantityForInt(quantity)));
     }
 
@@ -346,21 +268,11 @@ public class Resources {
         synchronized (mSync) {
             if (mPluralRule == null) {
                 mPluralRule = NativePluralRules.forLocale(mConfiguration.locale);
-=======
-                + " item=" + PluralRule.stringForQuantity(rule.quantityForNumber(quantity)));
-    }
-
-    private PluralRule getPluralRule() {
-        synchronized (mSync) {
-            if (mPluralRule == null) {
-                mPluralRule = PluralRule.ruleForLocale(mConfiguration.locale);
->>>>>>> 54b6cfa... Initial Contribution
             }
             return mPluralRule;
         }
     }
 
-<<<<<<< HEAD
     private static int attrForQuantityCode(int quantityCode) {
         switch (quantityCode) {
             case NativePluralRules.ZERO: return 0x01000005;
@@ -383,8 +295,6 @@ public class Resources {
         }
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return the string value associated with a particular resource ID.  It
      * will be stripped of any styled text information.
@@ -439,12 +349,9 @@ public class Resources {
      * stripped of any styled text information.
      * {@more}
      *
-<<<<<<< HEAD
      * <p>See <a href="{@docRoot}guide/topics/resources/string-resource.html#Plurals">String
      * Resources</a> for more on quantity strings.
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param id The desired resource identifier, as generated by the aapt
      *           tool. This integer encodes the package, type, and resource
      *           entry. The value 0 is an invalid identifier.
@@ -467,12 +374,9 @@ public class Resources {
      * Return the string value associated with a particular resource ID for a particular
      * numerical quantity.
      *
-<<<<<<< HEAD
      * <p>See <a href="{@docRoot}guide/topics/resources/string-resource.html#Plurals">String
      * Resources</a> for more on quantity strings.
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param id The desired resource identifier, as generated by the aapt
      *           tool. This integer encodes the package, type, and resource
      *           entry. The value 0 is an invalid identifier.
@@ -608,10 +512,6 @@ public class Resources {
      * 
      * @throws NotFoundException Throws NotFoundException if the given ID does not exist.
      *
-<<<<<<< HEAD
-=======
-     * @return CharSequence The string data associated with the resource, plus
->>>>>>> 54b6cfa... Initial Contribution
      * @see #getDimensionPixelOffset
      * @see #getDimensionPixelSize
      */
@@ -644,10 +544,6 @@ public class Resources {
      * 
      * @throws NotFoundException Throws NotFoundException if the given ID does not exist.
      *
-<<<<<<< HEAD
-=======
-     * @return CharSequence The string data associated with the resource, plus
->>>>>>> 54b6cfa... Initial Contribution
      * @see #getDimension
      * @see #getDimensionPixelSize
      */
@@ -682,10 +578,6 @@ public class Resources {
      *  
      * @throws NotFoundException Throws NotFoundException if the given ID does not exist.
      *
-<<<<<<< HEAD
-=======
-     * @return CharSequence The string data associated with the resource, plus
->>>>>>> 54b6cfa... Initial Contribution
      * @see #getDimension
      * @see #getDimensionPixelOffset
      */
@@ -704,7 +596,6 @@ public class Resources {
     }
 
     /**
-<<<<<<< HEAD
      * Retrieve a fractional unit for a particular resource ID.
      * 
      * @param id The desired resource identifier, as generated by the aapt
@@ -735,13 +626,10 @@ public class Resources {
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Return a drawable object associated with a particular resource ID.
      * Various types of objects will be returned depending on the underlying
      * resource -- for example, a solid color, PNG image, scalable image, etc.
      * The Drawable API hides these implementation details.
-<<<<<<< HEAD
      *
      * <p class="note"><strong>Note:</strong> Prior to
      * {@link android.os.Build.VERSION_CODES#JELLY_BEAN}, this function
@@ -756,9 +644,6 @@ public class Resources {
      * Context.obtainStyledAttributes} with
      * an array containing the resource ID of interest to create the TypedArray.</p>
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param id The desired resource identifier, as generated by the aapt
      *           tool. This integer encodes the package, type, and resource
      *           entry. The value 0 is an invalid identifier.
@@ -776,7 +661,6 @@ public class Resources {
     }
 
     /**
-<<<<<<< HEAD
      * Return a drawable object associated with a particular resource ID for the
      * given screen density in DPI. This will set the drawable's density to be
      * the device's density multiplied by the ratio of actual drawable density
@@ -820,8 +704,6 @@ public class Resources {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Return a movie object associated with the particular resource ID.
      * @param id The desired resource identifier, as generated by the aapt
      *           tool. This integer encodes the package, type, and resource
@@ -895,7 +777,6 @@ public class Resources {
     }
 
     /**
-<<<<<<< HEAD
      * Return a boolean associated with a particular resource ID.  This can be
      * used with any integral resource value, and will return true if it is
      * non-zero.
@@ -923,8 +804,6 @@ public class Resources {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Return an integer associated with a particular resource ID.
      *
      * @param id The desired resource identifier, as generated by the aapt
@@ -1038,7 +917,6 @@ public class Resources {
      */
     public InputStream openRawResource(int id) throws NotFoundException {
         synchronized (mTmpValue) {
-<<<<<<< HEAD
             return openRawResource(id, mTmpValue);
         }
     }
@@ -1067,24 +945,6 @@ public class Resources {
                     " from drawable resource ID #0x" + Integer.toHexString(id));
             rnf.initCause(e);
             throw rnf;
-=======
-            TypedValue value = mTmpValue;
-            getValue(id, value, true);
-
-            try {
-                return mAssets.openNonAsset(
-                    value.assetCookie, value.string.toString(),
-                    AssetManager.ACCESS_STREAMING);
-            } catch (Exception e) {
-                NotFoundException rnf = new NotFoundException(
-                    "File " + value.string.toString()
-                    + " from drawable resource ID #0x"
-                    + Integer.toHexString(id));
-                rnf.initCause(e);
-                throw rnf;
-            }
-
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -1146,11 +1006,7 @@ public class Resources {
      */
     public void getValue(int id, TypedValue outValue, boolean resolveRefs)
             throws NotFoundException {
-<<<<<<< HEAD
         boolean found = mAssets.getResourceValue(id, 0, outValue, resolveRefs);
-=======
-        boolean found = mAssets.getResourceValue(id, outValue, resolveRefs);
->>>>>>> 54b6cfa... Initial Contribution
         if (found) {
             return;
         }
@@ -1159,7 +1015,6 @@ public class Resources {
     }
 
     /**
-<<<<<<< HEAD
      * Get the raw value associated with a resource with associated density.
      * 
      * @param id resource identifier
@@ -1182,8 +1037,6 @@ public class Resources {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Return the raw data associated with a particular resource ID.
      * See getIdentifier() for information on how names are mapped to resource
      * IDs, and getString(int) for information on how string resources are
@@ -1267,13 +1120,8 @@ public class Resources {
          * Return a StyledAttributes holding the values defined by
          * <var>Theme</var> which are listed in <var>attrs</var>.
          * 
-<<<<<<< HEAD
          * <p>Be sure to call {@link TypedArray#recycle() TypedArray.recycle()} when you are done
          * with the array.
-=======
-         * <p>Be sure to call StyledAttributes.recycle() when you are done with
-         * the array.
->>>>>>> 54b6cfa... Initial Contribution
          * 
          * @param attrs The desired attributes.
          *
@@ -1300,13 +1148,8 @@ public class Resources {
          * Return a StyledAttributes holding the values defined by the style
          * resource <var>resid</var> which are listed in <var>attrs</var>.
          * 
-<<<<<<< HEAD
          * <p>Be sure to call {@link TypedArray#recycle() TypedArray.recycle()} when you are done
          * with the array.
-=======
-         * <p>Be sure to call StyledAttributes.recycle() when you are done with
-         * the array.
->>>>>>> 54b6cfa... Initial Contribution
          * 
          * @param resid The desired style resource.
          * @param attrs The desired attributes in the style.
@@ -1365,13 +1208,8 @@ public class Resources {
          * AttributeSet specifies a style class (through the "style" attribute),
          * that style will be applied on top of the base attributes it defines.
          * 
-<<<<<<< HEAD
          * <p>Be sure to call {@link TypedArray#recycle() TypedArray.recycle()} when you are done
          * with the array.
-=======
-         * <p>Be sure to call StyledAttributes.recycle() when you are done with
-         * the array.
->>>>>>> 54b6cfa... Initial Contribution
          * 
          * <p>When determining the final value of a particular attribute, there
          * are four inputs that come into play:</p>
@@ -1554,17 +1392,12 @@ public class Resources {
 
         return array;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Store the newly updated configuration.
      */
     public void updateConfiguration(Configuration config,
             DisplayMetrics metrics) {
-<<<<<<< HEAD
         updateConfiguration(config, metrics, null);
     }
 
@@ -1615,17 +1448,6 @@ public class Resources {
             }
             mMetrics.scaledDensity = mMetrics.density * mConfiguration.fontScale;
 
-=======
-        synchronized (mTmpValue) {
-            int configChanges = 0xfffffff;
-            if (config != null) {
-                configChanges = mConfiguration.updateFrom(config);
-            }
-            if (metrics != null) {
-                mMetrics.setTo(metrics);
-            }
-            mMetrics.scaledDensity = mMetrics.density * mConfiguration.fontScale;
->>>>>>> 54b6cfa... Initial Contribution
             String locale = null;
             if (mConfiguration.locale != null) {
                 locale = mConfiguration.locale.getLanguage();
@@ -1638,7 +1460,6 @@ public class Resources {
                 width = mMetrics.widthPixels;
                 height = mMetrics.heightPixels;
             } else {
-<<<<<<< HEAD
                 //noinspection SuspiciousNameCombination
                 width = mMetrics.heightPixels;
                 //noinspection SuspiciousNameCombination
@@ -1650,16 +1471,10 @@ public class Resources {
                             == Configuration.HARDKEYBOARDHIDDEN_YES) {
                 keyboardHidden = Configuration.KEYBOARDHIDDEN_SOFT;
             }
-=======
-                width = mMetrics.heightPixels;
-                height = mMetrics.widthPixels;
-            }
->>>>>>> 54b6cfa... Initial Contribution
             mAssets.setConfiguration(mConfiguration.mcc, mConfiguration.mnc,
                     locale, mConfiguration.orientation,
                     mConfiguration.touchscreen,
                     (int)(mMetrics.density*160), mConfiguration.keyboard,
-<<<<<<< HEAD
                     keyboardHidden, mConfiguration.navigation, width, height,
                     mConfiguration.smallestScreenWidthDp,
                     mConfiguration.screenWidthDp, mConfiguration.screenHeightDp,
@@ -1731,52 +1546,10 @@ public class Resources {
             mSystem.updateConfiguration(config, metrics, compat);
             //Log.i(TAG, "Updated system resources " + mSystem
             //        + ": " + mSystem.getConfiguration());
-=======
-                    mConfiguration.keyboardHidden,
-                    mConfiguration.navigation, width, height, sSdkVersion);
-            int N = mDrawableCache.size();
-            if (DEBUG_CONFIG) {
-                Log.d(TAG, "Cleaning up drawables config changes: 0x"
-                        + Integer.toHexString(configChanges));
-            }
-            for (int i=0; i<N; i++) {
-                WeakReference<Drawable.ConstantState> ref = mDrawableCache.valueAt(i);
-                if (ref != null) {
-                    Drawable.ConstantState cs = ref.get();
-                    if (cs != null) {
-                        if (Configuration.needNewResources(
-                                configChanges, cs.getChangingConfigurations())) {
-                            if (DEBUG_CONFIG) {
-                                Log.d(TAG, "FLUSHING #0x"
-                                        + Integer.toHexString(mDrawableCache.keyAt(i))
-                                        + " / " + cs + " with changes: 0x"
-                                        + Integer.toHexString(cs.getChangingConfigurations()));
-                            }
-                            mDrawableCache.setValueAt(i, null);
-                        } else if (DEBUG_CONFIG) {
-                            Log.d(TAG, "(Keeping #0x"
-                                    + Integer.toHexString(mDrawableCache.keyAt(i))
-                                    + " / " + cs + " with changes: 0x"
-                                    + Integer.toHexString(cs.getChangingConfigurations())
-                                    + ")");
-                        }
-                    }
-                }
-            }
-            mDrawableCache.clear();
-            mColorStateListCache.clear();
-            flushLayoutCache();
-        }
-        synchronized (mSync) {
-            if (mPluralRule != null) {
-                mPluralRule = PluralRule.ruleForLocale(config.locale);
-            }
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
-<<<<<<< HEAD
      * @hide
      */
     public static void updateSystemConfiguration(Configuration config, DisplayMetrics metrics) {
@@ -1784,19 +1557,14 @@ public class Resources {
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Return the current display metrics that are in effect for this resource 
      * object.  The returned object should be treated as read-only.
      * 
      * @return The resource's current display metrics. 
      */
     public DisplayMetrics getDisplayMetrics() {
-<<<<<<< HEAD
         if (DEBUG_CONFIG) Slog.v(TAG, "Returning DisplayMetrics: " + mMetrics.widthPixels
                 + "x" + mMetrics.heightPixels + " " + mMetrics.density);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         return mMetrics;
     }
 
@@ -1809,7 +1577,6 @@ public class Resources {
     public Configuration getConfiguration() {
         return mConfiguration;
     }
-<<<<<<< HEAD
     
     /**
      * Return the compatibility mode information for the application.
@@ -1833,10 +1600,6 @@ public class Resources {
     }
     
     /**
-=======
-
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * Return a resource identifier for the given resource name.  A fully
      * qualified resource name is of the form "package:type/entry".  The first
      * two components (package and type) are optional if defType and
@@ -1860,10 +1623,7 @@ public class Resources {
         try {
             return Integer.parseInt(name);
         } catch (Exception e) {
-<<<<<<< HEAD
             // Ignore
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
         return mAssets.getResourceIdentifier(name, defType, defPackage);
     }
@@ -1947,7 +1707,6 @@ public class Resources {
     }
     
     /**
-<<<<<<< HEAD
      * Parse a series of {@link android.R.styleable#Extra &lt;extra&gt;} tags from
      * an XML file.  You call this when you are at the parent tag of the
      * extra tags, and it will return once all of the child tags have been parsed.
@@ -2044,8 +1803,6 @@ public class Resources {
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Retrieve underlying AssetManager storage for these resources.
      */
     public final AssetManager getAssets() {
@@ -2100,7 +1857,6 @@ public class Resources {
     
     /*package*/ Drawable loadDrawable(TypedValue value, int id)
             throws NotFoundException {
-<<<<<<< HEAD
 
         if (TRACE_FOR_PRELOAD) {
             // Log only framework resources
@@ -2118,28 +1874,10 @@ public class Resources {
         }
         Drawable dr = getCachedDrawable(isColorDrawable ? mColorDrawableCache : mDrawableCache, key);
 
-=======
-        if (value.type >= TypedValue.TYPE_FIRST_COLOR_INT
-            && value.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            // Should we be caching these?  If we use constant colors much
-            // at all, most likely...
-            //System.out.println("Creating drawable for color: #" +
-            //                   Integer.toHexString(value.data));
-            Drawable dr = new ColorDrawable(value.data);
-            dr.setChangingConfigurations(value.changingConfigurations);
-            return dr;
-        }
-
-        final int key = (value.assetCookie<<24)|value.data;
-        Drawable dr = getCachedDrawable(key);
-        //System.out.println("Cached drawable @ #" +
-        //                   Integer.toHexString(key.intValue()) + ": " + dr);
->>>>>>> 54b6cfa... Initial Contribution
         if (dr != null) {
             return dr;
         }
 
-<<<<<<< HEAD
         Drawable.ConstantState cs = isColorDrawable ?
                 sPreloadedColorDrawables.get(key) : sPreloadedDrawables.get(key);
         if (cs != null) {
@@ -2200,51 +1938,6 @@ public class Resources {
                         rnf.initCause(e);
                         throw rnf;
                     }
-=======
-        Drawable.ConstantState cs = mPreloadedDrawables.get(key);
-        if (cs != null) {
-            dr = cs.newDrawable();
-            
-        } else {
-            if (value.string == null) {
-                throw new NotFoundException(
-                        "Resource is not a Drawable (color or path): " + value);
-            }
-            
-            String file = value.string.toString();
-    
-            if (DEBUG_LOAD) Log.v(TAG, "Loading drawable for cookie "
-                    + value.assetCookie + ": " + file);
-            
-            if (file.endsWith(".xml")) {
-                try {
-                    XmlResourceParser rp = loadXmlResourceParser(
-                            file, id, value.assetCookie, "drawable"); 
-                    dr = Drawable.createFromXml(this, rp);
-                    rp.close();
-                } catch (Exception e) {
-                    NotFoundException rnf = new NotFoundException(
-                        "File " + file + " from drawable resource ID #0x"
-                        + Integer.toHexString(id));
-                    rnf.initCause(e);
-                    throw rnf;
-                }
-    
-            } else {
-                try {
-                    InputStream is = mAssets.openNonAsset(
-                            value.assetCookie, file, AssetManager.ACCESS_BUFFER);
-    //                System.out.println("Opened file " + file + ": " + is);
-                    dr = Drawable.createFromStream(is, file);
-                    is.close();
-    //                System.out.println("Created stream: " + dr);
-                } catch (Exception e) {
-                    NotFoundException rnf = new NotFoundException(
-                        "File " + file + " from drawable resource ID #0x"
-                        + Integer.toHexString(id));
-                    rnf.initCause(e);
-                    throw rnf;
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -2254,7 +1947,6 @@ public class Resources {
             cs = dr.getConstantState();
             if (cs != null) {
                 if (mPreloading) {
-<<<<<<< HEAD
                     if (isColorDrawable) {
                         sPreloadedColorDrawables.put(key, cs);
                     } else {
@@ -2271,16 +1963,6 @@ public class Resources {
                             mDrawableCache.put(key, new WeakReference<Drawable.ConstantState>(cs));
                         }
                     }
-=======
-                    mPreloadedDrawables.put(key, cs);
-                }
-                synchronized (mTmpValue) {
-                    //Log.i(TAG, "Saving cached drawable @ #" +
-                    //        Integer.toHexString(key.intValue())
-                    //        + " in " + this + ": " + cs);
-                    mDrawableCache.put(
-                        key, new WeakReference<Drawable.ConstantState>(cs));
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -2288,34 +1970,21 @@ public class Resources {
         return dr;
     }
 
-<<<<<<< HEAD
     private Drawable getCachedDrawable(
             LongSparseArray<WeakReference<ConstantState>> drawableCache,
             long key) {
         synchronized (mTmpValue) {
             WeakReference<Drawable.ConstantState> wr = drawableCache.get(key);
-=======
-    private final Drawable getCachedDrawable(int key) {
-        synchronized (mTmpValue) {
-            WeakReference<Drawable.ConstantState> wr = mDrawableCache.get(key);
->>>>>>> 54b6cfa... Initial Contribution
             if (wr != null) {   // we have the key
                 Drawable.ConstantState entry = wr.get();
                 if (entry != null) {
                     //Log.i(TAG, "Returning cached drawable @ #" +
                     //        Integer.toHexString(((Integer)key).intValue())
                     //        + " in " + this + ": " + entry);
-<<<<<<< HEAD
                     return entry.newDrawable(this);
                 }
                 else {  // our entry has been purged
                     drawableCache.delete(key);
-=======
-                    return entry.newDrawable();
-                }
-                else {  // our entry has been purged
-                    mDrawableCache.delete(key);
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -2324,7 +1993,6 @@ public class Resources {
 
     /*package*/ ColorStateList loadColorStateList(TypedValue value, int id)
             throws NotFoundException {
-<<<<<<< HEAD
         if (TRACE_FOR_PRELOAD) {
             // Log only framework resources
             if ((id >>> 24) == 0x1) {
@@ -2359,15 +2027,6 @@ public class Resources {
         }
 
         csl = sPreloadedColorStateLists.get(key);
-=======
-        if (value.type >= TypedValue.TYPE_FIRST_COLOR_INT
-            && value.type <= TypedValue.TYPE_LAST_COLOR_INT) {
-            return ColorStateList.valueOf(value.data);
-        }
-
-        final int key = (value.assetCookie<<24)|value.data;
-        ColorStateList csl = getCachedColorStateList(key);
->>>>>>> 54b6cfa... Initial Contribution
         if (csl != null) {
             return csl;
         }
@@ -2399,7 +2058,6 @@ public class Resources {
         }
 
         if (csl != null) {
-<<<<<<< HEAD
             if (mPreloading) {
                 sPreloadedColorStateLists.put(key, csl);
             } else {
@@ -2409,25 +2067,13 @@ public class Resources {
                     //        + " in " + this + ": " + csl);
                     mColorStateListCache.put(key, new WeakReference<ColorStateList>(csl));
                 }
-=======
-            synchronized (mTmpValue) {
-                //Log.i(TAG, "Saving cached color state list @ #" +
-                //        Integer.toHexString(key.intValue())
-                //        + " in " + this + ": " + csl);
-                mColorStateListCache.put(
-                    key, new WeakReference<ColorStateList>(csl));
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
         return csl;
     }
 
-<<<<<<< HEAD
     private ColorStateList getCachedColorStateList(long key) {
-=======
-    private ColorStateList getCachedColorStateList(int key) {
->>>>>>> 54b6cfa... Initial Contribution
         synchronized (mTmpValue) {
             WeakReference<ColorStateList> wr = mColorStateListCache.get(key);
             if (wr != null) {   // we have the key
@@ -2437,12 +2083,7 @@ public class Resources {
                     //        Integer.toHexString(((Integer)key).intValue())
                     //        + " in " + this + ": " + entry);
                     return entry;
-<<<<<<< HEAD
                 } else {  // our entry has been purged
-=======
-                }
-                else {  // our entry has been purged
->>>>>>> 54b6cfa... Initial Contribution
                     mColorStateListCache.delete(key);
                 }
             }
@@ -2519,13 +2160,10 @@ public class Resources {
             TypedArray attrs = mCachedStyledAttributes;
             if (attrs != null) {
                 mCachedStyledAttributes = null;
-<<<<<<< HEAD
                 if (DEBUG_ATTRIBUTES_CACHE) {
                     mLastRetrievedAttrs = new RuntimeException("here");
                     mLastRetrievedAttrs.fillInStackTrace();
                 }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
                 attrs.mLength = len;
                 int fullLen = len * AssetManager.STYLE_NUM_ENTRIES;
@@ -2536,7 +2174,6 @@ public class Resources {
                 attrs.mIndices = new int[1+len];
                 return attrs;
             }
-<<<<<<< HEAD
             if (DEBUG_ATTRIBUTES_CACHE) {
                 RuntimeException here = new RuntimeException("here");
                 here.fillInStackTrace();
@@ -2546,8 +2183,6 @@ public class Resources {
                 }
                 mLastRetrievedAttrs = here;
             }
-=======
->>>>>>> 54b6cfa... Initial Contribution
             return new TypedArray(this,
                     new int[len*AssetManager.STYLE_NUM_ENTRIES],
                     new int[1+len], len);
@@ -2563,12 +2198,6 @@ public class Resources {
         mMetrics.setToDefaults();
         updateConfiguration(null, null);
         mAssets.ensureStringBlocks();
-<<<<<<< HEAD
         mCompatibilityInfo = CompatibilityInfo.DEFAULT_COMPATIBILITY_INFO;
     }
 }
-=======
-    }
-}
-
->>>>>>> 54b6cfa... Initial Contribution

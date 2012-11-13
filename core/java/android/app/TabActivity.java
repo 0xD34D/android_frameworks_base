@@ -23,7 +23,6 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 /**
-<<<<<<< HEAD
  * <p>For apps developing against {@link android.os.Build.VERSION_CODES#HONEYCOMB}
  * or later, tabs are typically presented in the UI using the new
  * {@link ActionBar#newTab() ActionBar.newTab()} and
@@ -52,10 +51,6 @@ import android.widget.TextView;
  * {@link android.os.Build.VERSION_CODES#DONUT}.
  */
 @Deprecated
-=======
- * An activity that contains and runs multiple embedded activities or views.
- */
->>>>>>> 54b6cfa... Initial Contribution
 public class TabActivity extends ActivityGroup {
     private TabHost mTabHost;
     private String mDefaultTab = null;

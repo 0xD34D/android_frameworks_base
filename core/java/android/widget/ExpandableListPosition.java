@@ -16,11 +16,8 @@
 
 package android.widget;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * ExpandableListPosition can refer to either a group's position or a child's
  * position. Referring to a child's position requires both a group position (the
@@ -29,14 +26,11 @@ import java.util.ArrayList;
  * {@link #obtainGroupPosition(int)}.
  */
 class ExpandableListPosition {
-<<<<<<< HEAD
     
     private static final int MAX_POOL_SIZE = 5;
     private static ArrayList<ExpandableListPosition> sPool =
         new ArrayList<ExpandableListPosition>(MAX_POOL_SIZE);
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * This data type represents a child position
      */
@@ -69,7 +63,6 @@ class ExpandableListPosition {
      */
     public int type;
     
-<<<<<<< HEAD
     private void resetState() {
         groupPos = 0;
         childPos = 0;
@@ -78,23 +71,6 @@ class ExpandableListPosition {
     }
     
     private ExpandableListPosition() {
-=======
-    ExpandableListPosition(int type, int groupPos, int childPos, int flatListPos) {
-        this.type = type;
-        this.flatListPos = flatListPos;
-        this.groupPos = groupPos;
-        this.childPos = childPos;
-    }
-
-    /**
-     * Used internally by the {@link #obtainChildPosition} and
-     * {@link #obtainGroupPosition} methods to construct a new object.
-     */
-    private ExpandableListPosition(int type, int groupPos, int childPos) {
-        this.type = type;
-        this.groupPos = groupPos;
-        this.childPos = childPos;
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     long getPackedPosition() {
@@ -103,19 +79,11 @@ class ExpandableListPosition {
     }
 
     static ExpandableListPosition obtainGroupPosition(int groupPosition) {
-<<<<<<< HEAD
         return obtain(GROUP, groupPosition, 0, 0);
     }
     
     static ExpandableListPosition obtainChildPosition(int groupPosition, int childPosition) {
         return obtain(CHILD, groupPosition, childPosition, 0);
-=======
-        return new ExpandableListPosition(GROUP, groupPosition, 0);
-    }
-    
-    static ExpandableListPosition obtainChildPosition(int groupPosition, int childPosition) {
-        return new ExpandableListPosition(CHILD, groupPosition, childPosition);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     static ExpandableListPosition obtainPosition(long packedPosition) {
@@ -123,7 +91,6 @@ class ExpandableListPosition {
             return null;
         }
         
-<<<<<<< HEAD
         ExpandableListPosition elp = getRecycledOrCreate(); 
         elp.groupPos = ExpandableListView.getPackedPositionGroup(packedPosition);
         if (ExpandableListView.getPackedPositionType(packedPosition) ==
@@ -169,14 +136,4 @@ class ExpandableListPosition {
             }
         }
     }
-=======
-        final int type = ExpandableListView.getPackedPositionType(packedPosition) ==
-            ExpandableListView.PACKED_POSITION_TYPE_CHILD ? CHILD : GROUP;
-        
-        return new ExpandableListPosition(type, ExpandableListView
-                .getPackedPositionGroup(packedPosition), ExpandableListView
-                .getPackedPositionChild(packedPosition));
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
 }

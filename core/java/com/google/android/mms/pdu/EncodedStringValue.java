@@ -17,10 +17,6 @@
 
 package com.google.android.mms.pdu;
 
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -34,11 +30,7 @@ import java.util.ArrayList;
 public class EncodedStringValue implements Cloneable {
     private static final String TAG = "EncodedStringValue";
     private static final boolean DEBUG = false;
-<<<<<<< HEAD
     private static final boolean LOCAL_LOGV = false;
-=======
-    private static final boolean LOCAL_LOGV = DEBUG ? Config.LOGD : Config.LOGV;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * The Char-set value.
@@ -276,7 +268,6 @@ public class EncodedStringValue implements Cloneable {
 
         return new EncodedStringValue(value.mCharacterSet, value.mData);
     }
-<<<<<<< HEAD
     
     public static EncodedStringValue[] encodeStrings(String[] array) {
         int count = array.length;
@@ -289,6 +280,4 @@ public class EncodedStringValue implements Cloneable {
         }
         return null;
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -19,11 +19,7 @@ package android.telephony;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-<<<<<<< HEAD
 import android.util.Log;
-=======
-import com.android.internal.telephony.Phone;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Contains phone state and service related information.
@@ -39,11 +35,8 @@ import com.android.internal.telephony.Phone;
  */
 public class ServiceState implements Parcelable {
 
-<<<<<<< HEAD
     static final String LOG_TAG = "PHONE";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Normal operation condition, the phone is registered
      * with an operator either in home network or in roaming.
@@ -64,7 +57,6 @@ public class ServiceState implements Parcelable {
     public static final int STATE_EMERGENCY_ONLY = 2;
 
     /**
-<<<<<<< HEAD
      * Radio of telephony is explicitly powered off.
      */
     public static final int STATE_POWER_OFF = 3;
@@ -130,12 +122,6 @@ public class ServiceState implements Parcelable {
     /** @hide */
     public static final int REGISTRATION_STATE_ROAMING = 5;
 
-=======
-     * Radio of telephony is explictly powered off.
-     */
-    public static final int STATE_POWER_OFF = 3;
-
->>>>>>> 54b6cfa... Initial Contribution
     private int mState = STATE_OUT_OF_SERVICE;
     private boolean mRoaming;
     private String mOperatorAlphaLong;
@@ -143,7 +129,6 @@ public class ServiceState implements Parcelable {
     private String mOperatorNumeric;
     private boolean mIsManualNetworkSelection;
 
-<<<<<<< HEAD
     private boolean mIsEmergencyOnly;
 
     //***** CDMA
@@ -156,8 +141,6 @@ public class ServiceState implements Parcelable {
     private int mCdmaEriIconIndex;
     private int mCdmaEriIconMode;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Create a new ServiceState from a intent notifier Bundle
      *
@@ -197,7 +180,6 @@ public class ServiceState implements Parcelable {
         mOperatorAlphaShort = s.mOperatorAlphaShort;
         mOperatorNumeric = s.mOperatorNumeric;
         mIsManualNetworkSelection = s.mIsManualNetworkSelection;
-<<<<<<< HEAD
         mRadioTechnology = s.mRadioTechnology;
         mCssIndicator = s.mCssIndicator;
         mNetworkId = s.mNetworkId;
@@ -207,8 +189,6 @@ public class ServiceState implements Parcelable {
         mCdmaEriIconIndex = s.mCdmaEriIconIndex;
         mCdmaEriIconMode = s.mCdmaEriIconMode;
         mIsEmergencyOnly = s.mIsEmergencyOnly;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -221,7 +201,6 @@ public class ServiceState implements Parcelable {
         mOperatorAlphaShort = in.readString();
         mOperatorNumeric = in.readString();
         mIsManualNetworkSelection = in.readInt() != 0;
-<<<<<<< HEAD
         mRadioTechnology = in.readInt();
         mCssIndicator = (in.readInt() != 0);
         mNetworkId = in.readInt();
@@ -231,8 +210,6 @@ public class ServiceState implements Parcelable {
         mCdmaEriIconIndex = in.readInt();
         mCdmaEriIconMode = in.readInt();
         mIsEmergencyOnly = in.readInt() != 0;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void writeToParcel(Parcel out, int flags) {
@@ -242,7 +219,6 @@ public class ServiceState implements Parcelable {
         out.writeString(mOperatorAlphaShort);
         out.writeString(mOperatorNumeric);
         out.writeInt(mIsManualNetworkSelection ? 1 : 0);
-<<<<<<< HEAD
         out.writeInt(mRadioTechnology);
         out.writeInt(mCssIndicator ? 1 : 0);
         out.writeInt(mNetworkId);
@@ -252,20 +228,14 @@ public class ServiceState implements Parcelable {
         out.writeInt(mCdmaEriIconIndex);
         out.writeInt(mCdmaEriIconMode);
         out.writeInt(mIsEmergencyOnly ? 1 : 0);
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int describeContents() {
         return 0;
     }
 
-<<<<<<< HEAD
     public static final Parcelable.Creator<ServiceState> CREATOR =
             new Parcelable.Creator<ServiceState>() {
-=======
-    public static final Parcelable.Creator<ServiceState> CREATOR = new Parcelable.Creator() {
->>>>>>> 54b6cfa... Initial Contribution
         public ServiceState createFromParcel(Parcel in) {
             return new ServiceState(in);
         }
@@ -276,11 +246,7 @@ public class ServiceState implements Parcelable {
     };
 
     /**
-<<<<<<< HEAD
      * Get current service state of phone
-=======
-     * Get current servcie state of phone
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @see #STATE_IN_SERVICE
      * @see #STATE_OUT_OF_SERVICE
@@ -304,7 +270,6 @@ public class ServiceState implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * @hide
      */
     public boolean isEmergencyOnly() {
@@ -344,11 +309,6 @@ public class ServiceState implements Parcelable {
      *
      * In GSM/UMTS, long format can be up to 16 characters long.
      * In CDMA, returns the ERI text, if set. Otherwise, returns the ONS.
-=======
-     * Get current registered operator name in long alphanumeric format
-     *
-     * In GSM/UMTS, long format can be upto 16 characters long
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @return long name of operator, null if unregistered or unknown
      */
@@ -357,15 +317,9 @@ public class ServiceState implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Get current registered operator name in short alphanumeric format.
      *
      * In GSM/UMTS, short format can be up to 8 characters long.
-=======
-     * Get current registered operator name in short lphanumeric format
-     *
-     * In GSM/UMST, short format can be upto 8 characters long
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @return short name of operator, null if unregistered or unknown
      */
@@ -374,7 +328,6 @@ public class ServiceState implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Get current registered operator numeric id.
      *
      * In GSM/UMTS, numeric format is 3 digit country code plus 2 or 3 digit
@@ -386,27 +339,12 @@ public class ServiceState implements Parcelable {
      * The country code can be decoded using
      * {@link com.android.internal.telephony.MccTable#countryCodeForMcc(int)}.
      */
-=======
-     * Get current registered operator numeric id
-     *
-     * In GSM/UMTS, numeric format is 3 digit country code plus 2 or 3 digit
-     * network code
-     *
-     * The country code can be decoded using MccTable.countryCodeForMcc()
-     *
-     * @return numeric format of operator, null if unregistered or unknown
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public String getOperatorNumeric() {
         return mOperatorNumeric;
     }
 
     /**
-<<<<<<< HEAD
      * Get current network selection mode.
-=======
-     * Get current network selection mode
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @return true if manual mode, false if automatic mode
      */
@@ -416,33 +354,21 @@ public class ServiceState implements Parcelable {
 
     @Override
     public int hashCode() {
-<<<<<<< HEAD
         return ((mState * 0x1234)
-=======
-        return (mState * 0x1234)
->>>>>>> 54b6cfa... Initial Contribution
                 + (mRoaming ? 1 : 0)
                 + (mIsManualNetworkSelection ? 1 : 0)
                 + ((null == mOperatorAlphaLong) ? 0 : mOperatorAlphaLong.hashCode())
                 + ((null == mOperatorAlphaShort) ? 0 : mOperatorAlphaShort.hashCode())
-<<<<<<< HEAD
                 + ((null == mOperatorNumeric) ? 0 : mOperatorNumeric.hashCode())
                 + mCdmaRoamingIndicator
                 + mCdmaDefaultRoamingIndicator
                 + (mIsEmergencyOnly ? 1 : 0));
-=======
-                + ((null == mOperatorNumeric) ? 0 : mOperatorNumeric.hashCode());
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public boolean equals (Object o) {
         ServiceState s;
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         try {
             s = (ServiceState) o;
         } catch (ClassCastException ex) {
@@ -453,16 +379,11 @@ public class ServiceState implements Parcelable {
             return false;
         }
 
-<<<<<<< HEAD
         return (mState == s.mState
-=======
-        return mState == s.mState
->>>>>>> 54b6cfa... Initial Contribution
                 && mRoaming == s.mRoaming
                 && mIsManualNetworkSelection == s.mIsManualNetworkSelection
                 && equalsHandlesNulls(mOperatorAlphaLong, s.mOperatorAlphaLong)
                 && equalsHandlesNulls(mOperatorAlphaShort, s.mOperatorAlphaShort)
-<<<<<<< HEAD
                 && equalsHandlesNulls(mOperatorNumeric, s.mOperatorNumeric)
                 && equalsHandlesNulls(mRadioTechnology, s.mRadioTechnology)
                 && equalsHandlesNulls(mCssIndicator, s.mCssIndicator)
@@ -543,14 +464,10 @@ public class ServiceState implements Parcelable {
                 break;
         }
         return rtString;
-=======
-                && equalsHandlesNulls(mOperatorNumeric, s.mOperatorNumeric);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public String toString() {
-<<<<<<< HEAD
         String radioTechnology = rilRadioTechnologyToString(mRadioTechnology);
 
         return (mState + " " + (mRoaming ? "roaming" : "home")
@@ -569,23 +486,11 @@ public class ServiceState implements Parcelable {
 
     private void setNullState(int state) {
         mState = state;
-=======
-        return mState + " " + (mRoaming ? "roaming" : "home")
-                + " " + mOperatorAlphaLong
-                + " " + mOperatorAlphaShort
-                + " " + mOperatorNumeric
-                + " " + (mIsManualNetworkSelection ? "(manual)" : "");
-    }
-
-    public void setStateOutOfService() {
-        mState = STATE_OUT_OF_SERVICE;
->>>>>>> 54b6cfa... Initial Contribution
         mRoaming = false;
         mOperatorAlphaLong = null;
         mOperatorAlphaShort = null;
         mOperatorNumeric = null;
         mIsManualNetworkSelection = false;
-<<<<<<< HEAD
         mRadioTechnology = 0;
         mCssIndicator = false;
         mNetworkId = -1;
@@ -603,17 +508,6 @@ public class ServiceState implements Parcelable {
 
     public void setStateOff() {
         setNullState(STATE_POWER_OFF);
-=======
-    }
-
-    public void setStateOff() {
-        mState = STATE_POWER_OFF;
-        mRoaming = false;
-        mOperatorAlphaLong = null;
-        mOperatorAlphaShort = null;
-        mOperatorNumeric = null;
-        mIsManualNetworkSelection = false;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void setState(int state) {
@@ -624,7 +518,6 @@ public class ServiceState implements Parcelable {
         mRoaming = roaming;
     }
 
-<<<<<<< HEAD
 
     /**
      * @hide
@@ -661,15 +554,12 @@ public class ServiceState implements Parcelable {
         this.mCdmaEriIconMode = mode;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void setOperatorName(String longName, String shortName, String numeric) {
         mOperatorAlphaLong = longName;
         mOperatorAlphaShort = shortName;
         mOperatorNumeric = numeric;
     }
 
-<<<<<<< HEAD
     /**
      * In CDMA, mOperatorAlphaLong can be set from the ERI text.
      * This is done from the CDMAPhone and not from the CdmaServiceStateTracker.
@@ -686,14 +576,6 @@ public class ServiceState implements Parcelable {
 
     /**
      * Test whether two objects hold the same data values or both are null.
-=======
-    public void setIsManualSelection(boolean isManual) {
-        mIsManualNetworkSelection = isManual;
-    }
-    
-    /**
-     * Test whether two objects hold the same data values or both are null
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param a first obj
      * @param b second obj
@@ -704,11 +586,7 @@ public class ServiceState implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Set ServiceState based on intent notifier map.
-=======
-     * Set ServiceState based on intent notifier map
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param m intent notifier map
      * @hide
@@ -720,7 +598,6 @@ public class ServiceState implements Parcelable {
         mOperatorAlphaShort = m.getString("operator-alpha-short");
         mOperatorNumeric = m.getString("operator-numeric");
         mIsManualNetworkSelection = m.getBoolean("manual");
-<<<<<<< HEAD
         mRadioTechnology = m.getInt("radioTechnology");
         mCssIndicator = m.getBoolean("cssIndicator");
         mNetworkId = m.getInt("networkId");
@@ -732,12 +609,6 @@ public class ServiceState implements Parcelable {
 
     /**
      * Set intent notifier Bundle based on service state.
-=======
-    }
-
-    /**
-     * Set intent notifier Bundle based on service state
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param m intent notifier Bundle
      * @hide
@@ -749,7 +620,6 @@ public class ServiceState implements Parcelable {
         m.putString("operator-alpha-short", mOperatorAlphaShort);
         m.putString("operator-numeric", mOperatorNumeric);
         m.putBoolean("manual", Boolean.valueOf(mIsManualNetworkSelection));
-<<<<<<< HEAD
         m.putInt("radioTechnology", mRadioTechnology);
         m.putBoolean("cssIndicator", mCssIndicator);
         m.putInt("networkId", mNetworkId);
@@ -859,7 +729,5 @@ public class ServiceState implements Parcelable {
                 || radioTechnology == RIL_RADIO_TECHNOLOGY_EVDO_A
                 || radioTechnology == RIL_RADIO_TECHNOLOGY_EVDO_B
                 || radioTechnology == RIL_RADIO_TECHNOLOGY_EHRPD;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

@@ -16,7 +16,6 @@
 
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
-<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
@@ -28,15 +27,3 @@
     android:checkMark="?android:attr/listChoiceIndicatorSingle"
     android:ellipsize="marquee"
 />
-=======
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:textAppearance="?android:attr/textAppearanceLargeInverse"
-    android:gravity="center_vertical"
-    android:paddingLeft="12dip"
-    android:paddingRight="7dip"
-    android:checkMark="@android:drawable/btn_radio"
-/>
-
->>>>>>> 54b6cfa... Initial Contribution

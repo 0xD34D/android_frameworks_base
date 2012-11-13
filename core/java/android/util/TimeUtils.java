@@ -19,27 +19,20 @@ package android.util;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 
-<<<<<<< HEAD
 import libcore.util.ZoneInfoDB;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-<<<<<<< HEAD
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.TimeZone;
 import java.util.Date;
 
 import com.android.internal.util.XmlUtils;
 
-<<<<<<< HEAD
 /**
  * A class containing utility methods related to time zones.
  */
@@ -59,24 +52,12 @@ public class TimeUtils {
     private static String sLastUniqueCountry = null;
 
 
-=======
-public class TimeUtils {
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Tries to return a time zone that would have had the specified offset
      * and DST value at the specified moment in the specified country.
      * Returns null if no suitable zone could be found.
      */
-<<<<<<< HEAD
     public static TimeZone getTimeZone(int offset, boolean dst, long when, String country) {
-=======
-    public static TimeZone getTimeZone(int offset, boolean dst, long when,
-                                       String country) {
-        if (country == null) {
-            return null;
-        }
-
->>>>>>> 54b6cfa... Initial Contribution
         TimeZone best = null;
 
         Resources r = Resources.getSystem();
@@ -87,7 +68,6 @@ public class TimeUtils {
         String currentName = current.getID();
         int currentOffset = current.getOffset(when);
         boolean currentDst = current.inDaylightTime(d);
-<<<<<<< HEAD
 
         for (TimeZone tz : getTimeZones(country)) {
             // If the current time zone is from the right country
@@ -196,29 +176,15 @@ public class TimeUtils {
             while (true) {
                 XmlUtils.nextElement(parser);
 
-=======
-        
-        try {
-            XmlUtils.beginDocument(parser, "timezones");
-            
-            while (true) {
-                XmlUtils.nextElement(parser);
-                
->>>>>>> 54b6cfa... Initial Contribution
                 String element = parser.getName();
                 if (element == null || !(element.equals("timezone"))) {
                     break;
                 }
-<<<<<<< HEAD
 
-=======
-                
->>>>>>> 54b6cfa... Initial Contribution
                 String code = parser.getAttributeValue(null, "code");
 
                 if (country.equals(code)) {
                     if (parser.next() == XmlPullParser.TEXT) {
-<<<<<<< HEAD
                         String zoneIdString = parser.getText();
                         TimeZone tz = TimeZone.getTimeZone(zoneIdString);
                         if (tz.getID().startsWith("GMT") == false) {
@@ -227,38 +193,12 @@ public class TimeUtils {
                             if (DBG) {
                                 Log.d(TAG, "getTimeZone('" + country + "'): found tz.getID=="
                                     + ((tz != null) ? tz.getID() : "<no tz>"));
-=======
-                        String maybe = parser.getText();
-
-                        // If the current time zone is from the right country
-                        // and meets the other known properties, keep it
-                        // instead of changing to another one.
-
-                        if (maybe.equals(currentName)) {
-                            if (currentOffset == offset && currentDst == dst) {
-                                return current;
-                            }
-                        }
-
-                        // Otherwise, take the first zone from the right
-                        // country that has the correct current offset and DST.
-                        // (Keep iterating instead of returning in case we
-                        // haven't encountered the current time zone yet.)
-
-                        if (best == null) {
-                            TimeZone tz = TimeZone.getTimeZone(maybe);
-
-                            if (tz.getOffset(when) == offset &&
-                                tz.inDaylightTime(d) == dst) {
-                                best = tz;
->>>>>>> 54b6cfa... Initial Contribution
                             }
                         }
                     }
                 }
             }
         } catch (XmlPullParserException e) {
-<<<<<<< HEAD
             Log.e(TAG, "Got xml parser exception getTimeZone('" + country + "'): e=", e);
         } catch (IOException e) {
             Log.e(TAG, "Got IO exception getTimeZone('" + country + "'): e=", e);
@@ -459,17 +399,5 @@ public class TimeUtils {
         } else {
             return Long.toString(millis);
         }
-=======
-            Log.e("TimeUtils",
-                  "Got exception while getting preferred time zone.", e);
-        } catch (IOException e) {
-            Log.e("TimeUtils",
-                  "Got exception while getting preferred time zone.", e);
-        } finally {
-            parser.close();
-        }
-        
-        return best;
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

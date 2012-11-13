@@ -45,11 +45,7 @@ public class TranslateAnimation extends Animation {
     private float mToYDelta;
 
     /**
-<<<<<<< HEAD
      * Constructor used when a TranslateAnimation is loaded from a resource.
-=======
-     * Constructor used whan an ScaleAnimation is loaded from a resource.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param context Application context to use
      * @param attrs Attribute set from which to read values
@@ -84,11 +80,7 @@ public class TranslateAnimation extends Animation {
     }
 
     /**
-<<<<<<< HEAD
      * Constructor to use when building a TranslateAnimation from code
-=======
-     * Constructor to use when building a ScaleAnimation from code
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param fromXDelta Change in X coordinate to apply at the start of the
      *        animation
@@ -112,11 +104,7 @@ public class TranslateAnimation extends Animation {
     }
 
     /**
-<<<<<<< HEAD
      * Constructor to use when building a TranslateAnimation from code
-=======
-     * Constructor to use when building a ScaleAnimation from code
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param fromXType Specifies how fromXValue should be interpreted. One of
      *        Animation.ABSOLUTE, Animation.RELATIVE_TO_SELF, or
@@ -168,10 +156,6 @@ public class TranslateAnimation extends Animation {
         if (mFromYDelta != mToYDelta) {
             dy = mFromYDelta + ((mToYDelta - mFromYDelta) * interpolatedTime);
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
         t.getMatrix().setTranslate(dx, dy);
     }
 

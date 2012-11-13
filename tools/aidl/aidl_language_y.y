@@ -19,11 +19,8 @@ static int count_brackets(const char*);
 %token ARRAY
 %token PARCELABLE
 %token INTERFACE
-<<<<<<< HEAD
 %token FLATTENABLE
 %token RPC
-=======
->>>>>>> 54b6cfa... Initial Contribution
 %token IN
 %token OUT
 %token INOUT
@@ -77,16 +74,11 @@ document_items:
     ;
 
 declaration:
-<<<<<<< HEAD
         parcelable_decl                            { $$.document_item = (document_item_type*)$1.user_data; }
-=======
-        parcelable_decl                            { $$.document_item = (document_item_type*)$1.parcelable; }
->>>>>>> 54b6cfa... Initial Contribution
     |   interface_decl                             { $$.document_item = (document_item_type*)$1.interface_item; }
     ;
 
 parcelable_decl:
-<<<<<<< HEAD
         PARCELABLE IDENTIFIER ';'                   {
                                                         user_data_type* b = (user_data_type*)malloc(sizeof(user_data_type));
                                                         b->document_item.item_type = USER_DATA_TYPE;
@@ -97,31 +89,15 @@ parcelable_decl:
                                                         b->semicolon_token = $3.buffer;
                                                         b->flattening_methods = PARCELABLE_DATA;
                                                         $$.user_data = b;
-=======
-        PARCELABLE IDENTIFIER ';'                  { 
-                                                        parcelable_type* b = (parcelable_type*)malloc(sizeof(parcelable_type));
-                                                        b->document_item.item_type = PARCELABLE_TYPE;
-                                                        b->document_item.next = NULL;
-                                                        b->parcelable_token = $1.buffer;
-                                                        b->name = $2.buffer;
-                                                        b->package = g_currentPackage ? strdup(g_currentPackage) : NULL;
-                                                        b->semicolon_token = $3.buffer;
-                                                        $$.parcelable = b;
->>>>>>> 54b6cfa... Initial Contribution
                                                     }
     |   PARCELABLE ';'                              {
                                                         fprintf(stderr, "%s:%d syntax error in parcelable declaration. Expected type name.\n",
                                                                      g_currentFilename, $1.buffer.lineno);
-<<<<<<< HEAD
                                                         $$.user_data = NULL;
-=======
-                                                        $$.parcelable = NULL;
->>>>>>> 54b6cfa... Initial Contribution
                                                     }
     |   PARCELABLE error ';'                        {
                                                         fprintf(stderr, "%s:%d syntax error in parcelable declaration. Expected type name, saw \"%s\".\n",
                                                                      g_currentFilename, $2.buffer.lineno, $2.buffer.data);
-<<<<<<< HEAD
                                                         $$.user_data = NULL;
                                                     }
     |   FLATTENABLE IDENTIFIER ';'                  {
@@ -146,20 +122,13 @@ parcelable_decl:
                                                         $$.user_data = NULL;
                                                     }
 
-=======
-                                                        $$.parcelable = NULL;
-                                                    }
->>>>>>> 54b6cfa... Initial Contribution
     ;
 
 interface_header:
         INTERFACE                                  {
                                                         interface_type* c = (interface_type*)malloc(sizeof(interface_type));
-<<<<<<< HEAD
                                                         c->document_item.item_type = INTERFACE_TYPE_BINDER;
                                                         c->document_item.next = NULL;
-=======
->>>>>>> 54b6cfa... Initial Contribution
                                                         c->interface_token = $1.buffer;
                                                         c->oneway = false;
                                                         memset(&c->oneway_token, 0, sizeof(buffer_type));
@@ -168,18 +137,14 @@ interface_header:
                                                    }
     |   ONEWAY INTERFACE                           {
                                                         interface_type* c = (interface_type*)malloc(sizeof(interface_type));
-<<<<<<< HEAD
                                                         c->document_item.item_type = INTERFACE_TYPE_BINDER;
                                                         c->document_item.next = NULL;
-=======
->>>>>>> 54b6cfa... Initial Contribution
                                                         c->interface_token = $2.buffer;
                                                         c->oneway = true;
                                                         c->oneway_token = $1.buffer;
                                                         c->comments_token = &c->oneway_token;
                                                         $$.interface_obj = c;
                                                    }
-<<<<<<< HEAD
     |   RPC                                        {
                                                         interface_type* c = (interface_type*)malloc(sizeof(interface_type));
                                                         c->document_item.item_type = INTERFACE_TYPE_RPC;
@@ -195,18 +160,11 @@ interface_header:
 interface_keywords:
         INTERFACE
     |   RPC
-=======
->>>>>>> 54b6cfa... Initial Contribution
     ;
 
 interface_decl:
         interface_header IDENTIFIER '{' interface_items '}' { 
                                                         interface_type* c = $1.interface_obj;
-<<<<<<< HEAD
-=======
-                                                        c->document_item.item_type = INTERFACE_TYPE;
-                                                        c->document_item.next = NULL;
->>>>>>> 54b6cfa... Initial Contribution
                                                         c->name = $2.buffer;
                                                         c->package = g_currentPackage ? strdup(g_currentPackage) : NULL;
                                                         c->open_brace_token = $3.buffer;
@@ -214,20 +172,12 @@ interface_decl:
                                                         c->close_brace_token = $5.buffer;
                                                         $$.interface_obj = c;
                                                     }
-<<<<<<< HEAD
     |   interface_keywords error '{' interface_items '}'     {
-=======
-    |   INTERFACE error '{' interface_items '}'     {
->>>>>>> 54b6cfa... Initial Contribution
                                                         fprintf(stderr, "%s:%d: syntax error in interface declaration.  Expected type name, saw \"%s\"\n",
                                                                     g_currentFilename, $2.buffer.lineno, $2.buffer.data);
                                                         $$.document_item = NULL;
                                                     }
-<<<<<<< HEAD
     |   interface_keywords error '}'                {
-=======
-    |   INTERFACE error '}'                             {
->>>>>>> 54b6cfa... Initial Contribution
                                                         fprintf(stderr, "%s:%d: syntax error in interface declaration.  Expected type name, saw \"%s\"\n",
                                                                     g_currentFilename, $2.buffer.lineno, $2.buffer.data);
                                                         $$.document_item = NULL;

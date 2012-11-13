@@ -16,10 +16,7 @@
 
 package com.android.internal.util;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
@@ -29,10 +26,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-<<<<<<< HEAD
 import java.util.HashSet;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -93,11 +87,7 @@ public class XmlUtils
 
         // XXX This code is copied from Integer.decode() so we don't
         // have to instantiate an Integer!
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         int value;
         int sign = 1;
         int index = 0;
@@ -144,35 +134,21 @@ public class XmlUtils
 
     public static final int
     parseUnsignedIntAttribute(CharSequence charSeq)
-<<<<<<< HEAD
     {
-=======
-    {        
->>>>>>> 54b6cfa... Initial Contribution
         String  value = charSeq.toString();
 
         long    bits;
         int     index = 0;
         int     len = value.length();
         int     base = 10;
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         if ('0' == value.charAt(index)) {
             //  Quick check for zero by itself
             if (index == (len - 1))
                 return 0;
-<<<<<<< HEAD
 
             char    c = value.charAt(index + 1);
 
-=======
-            
-            char    c = value.charAt(index + 1);
-            
->>>>>>> 54b6cfa... Initial Contribution
             if ('x' == c || 'X' == c) {     //  check for hex
                 index += 2;
                 base = 16;
@@ -184,28 +160,17 @@ public class XmlUtils
             index++;
             base = 16;
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         return (int) Long.parseLong(value.substring(index), base);
     }
 
     /**
      * Flatten a Map into an output stream as XML.  The map can later be
      * read back with readMapXml().
-<<<<<<< HEAD
      *
      * @param val The map to be flattened.
      * @param out Where to write the XML data.
      *
-=======
-     * 
-     * @param val The map to be flattened.
-     * @param out Where to write the XML data.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #writeMapXml(Map, String, XmlSerializer)
      * @see #writeListXml
      * @see #writeValueXml
@@ -224,17 +189,10 @@ public class XmlUtils
     /**
      * Flatten a List into an output stream as XML.  The list can later be
      * read back with readListXml().
-<<<<<<< HEAD
      *
      * @param val The list to be flattened.
      * @param out Where to write the XML data.
      *
-=======
-     * 
-     * @param val The list to be flattened.
-     * @param out Where to write the XML data.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #writeListXml(List, String, XmlSerializer)
      * @see #writeMapXml
      * @see #writeValueXml
@@ -254,20 +212,12 @@ public class XmlUtils
     /**
      * Flatten a Map into an XmlSerializer.  The map can later be read back
      * with readThisMapXml().
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param val The map to be flattened.
      * @param name Name attribute to include with this list's tag, or null for
      *             none.
      * @param out XmlSerializer to write the map into.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #writeMapXml(Map, OutputStream)
      * @see #writeListXml
      * @see #writeValueXml
@@ -301,20 +251,12 @@ public class XmlUtils
     /**
      * Flatten a List into an XmlSerializer.  The list can later be read back
      * with readThisListXml().
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param val The list to be flattened.
      * @param name Name attribute to include with this list's tag, or null for
      *             none.
      * @param out XmlSerializer to write the list into.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #writeListXml(List, OutputStream)
      * @see #writeMapXml
      * @see #writeValueXml
@@ -343,7 +285,6 @@ public class XmlUtils
 
         out.endTag(null, "list");
     }
-<<<<<<< HEAD
     
     public static final void writeSetXml(Set val, String name, XmlSerializer out)
             throws XmlPullParserException, java.io.IOException {
@@ -364,37 +305,23 @@ public class XmlUtils
         
         out.endTag(null, "set");
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Flatten a byte[] into an XmlSerializer.  The list can later be read back
      * with readThisByteArrayXml().
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param val The byte array to be flattened.
      * @param name Name attribute to include with this array's tag, or null for
      *             none.
      * @param out XmlSerializer to write the array into.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #writeMapXml
      * @see #writeValueXml
      */
     public static final void writeByteArrayXml(byte[] val, String name,
             XmlSerializer out)
             throws XmlPullParserException, java.io.IOException {
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         if (val == null) {
             out.startTag(null, "null");
             out.endTag(null, "null");
@@ -408,11 +335,7 @@ public class XmlUtils
 
         final int N = val.length;
         out.attribute(null, "num", Integer.toString(N));
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         StringBuilder sb = new StringBuilder(val.length*2);
         for (int i=0; i<N; i++) {
             int b = val[i];
@@ -430,20 +353,12 @@ public class XmlUtils
     /**
      * Flatten an int[] into an XmlSerializer.  The list can later be read back
      * with readThisIntArrayXml().
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param val The int array to be flattened.
      * @param name Name attribute to include with this array's tag, or null for
      *             none.
      * @param out XmlSerializer to write the array into.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #writeMapXml
      * @see #writeValueXml
      * @see #readThisIntArrayXml
@@ -451,11 +366,7 @@ public class XmlUtils
     public static final void writeIntArrayXml(int[] val, String name,
             XmlSerializer out)
             throws XmlPullParserException, java.io.IOException {
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         if (val == null) {
             out.startTag(null, "null");
             out.endTag(null, "null");
@@ -466,11 +377,7 @@ public class XmlUtils
         if (name != null) {
             out.attribute(null, "name", name);
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         final int N = val.length;
         out.attribute(null, "num", Integer.toString(N));
 
@@ -486,26 +393,15 @@ public class XmlUtils
     /**
      * Flatten an object's value into an XmlSerializer.  The value can later
      * be read back with readThisValueXml().
-<<<<<<< HEAD
      *
      * Currently supported value types are: null, String, Integer, Long,
      * Float, Double Boolean, Map, List.
      *
-=======
-     * 
-     * Currently supported value types are: null, String, Integer, Long,
-     * Float, Double Boolean, Map, List.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param v The object to be flattened.
      * @param name Name attribute to include with this value's tag, or null
      *             for none.
      * @param out XmlSerializer to write the object into.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #writeMapXml
      * @see #writeListXml
      * @see #readValueXml
@@ -551,12 +447,9 @@ public class XmlUtils
         } else if (v instanceof List) {
             writeListXml((List)v, name, out);
             return;
-<<<<<<< HEAD
         } else if (v instanceof Set) {
             writeSetXml((Set)v, name, out);
             return;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         } else if (v instanceof CharSequence) {
             // XXX This is to allow us to at least write something if
             // we encounter styled text...  but it means we will drop all
@@ -583,19 +476,11 @@ public class XmlUtils
     /**
      * Read a HashMap from an InputStream containing XML.  The stream can
      * previously have been written by writeMapXml().
-<<<<<<< HEAD
      *
      * @param in The InputStream from which to read.
      *
      * @return HashMap The resulting map.
      *
-=======
-     * 
-     * @param in The InputStream from which to read.
-     * 
-     * @return HashMap The resulting map.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #readListXml
      * @see #readValueXml
      * @see #readThisMapXml
@@ -612,19 +497,11 @@ public class XmlUtils
     /**
      * Read an ArrayList from an InputStream containing XML.  The stream can
      * previously have been written by writeListXml().
-<<<<<<< HEAD
      *
      * @param in The InputStream from which to read.
      *
      * @return ArrayList The resulting list.
      *
-=======
-     * 
-     * @param in The InputStream from which to read.
-     * 
-     * @return HashMap The resulting list.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #readMapXml
      * @see #readValueXml
      * @see #readThisListXml
@@ -637,7 +514,6 @@ public class XmlUtils
         parser.setInput(in, null);
         return (ArrayList)readValueXml(parser, new String[1]);
     }
-<<<<<<< HEAD
     
     
     /**
@@ -661,31 +537,19 @@ public class XmlUtils
         parser.setInput(in, null);
         return (HashSet) readValueXml(parser, new String[1]);
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Read a HashMap object from an XmlPullParser.  The XML data could
      * previously have been generated by writeMapXml().  The XmlPullParser
      * must be positioned <em>after</em> the tag that begins the map.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param parser The XmlPullParser from which to read the map data.
      * @param endTag Name of the tag that will end the map, usually "map".
      * @param name An array of one string, used to return the name attribute
      *             of the map's tag.
-<<<<<<< HEAD
      *
      * @return HashMap The newly generated map.
      *
-=======
-     * 
-     * @return HashMap The newly generated map.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #readMapXml
      */
     public static final HashMap readThisMapXml(XmlPullParser parser, String endTag, String[] name)
@@ -722,24 +586,14 @@ public class XmlUtils
      * Read an ArrayList object from an XmlPullParser.  The XML data could
      * previously have been generated by writeListXml().  The XmlPullParser
      * must be positioned <em>after</em> the tag that begins the list.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param parser The XmlPullParser from which to read the list data.
      * @param endTag Name of the tag that will end the list, usually "list".
      * @param name An array of one string, used to return the name attribute
      *             of the list's tag.
-<<<<<<< HEAD
      *
      * @return HashMap The newly generated list.
      *
-=======
-     * 
-     * @return HashMap The newly generated list.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #readListXml
      */
     public static final ArrayList readThisListXml(XmlPullParser parser, String endTag, String[] name)
@@ -766,7 +620,6 @@ public class XmlUtils
         throw new XmlPullParserException(
             "Document ended before " + endTag + " end tag");
     }
-<<<<<<< HEAD
     
     /**
      * Read a HashSet object from an XmlPullParser. The XML data could previously
@@ -808,41 +661,25 @@ public class XmlUtils
         throw new XmlPullParserException(
                 "Document ended before " + endTag + " end tag");
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Read an int[] object from an XmlPullParser.  The XML data could
      * previously have been generated by writeIntArrayXml().  The XmlPullParser
      * must be positioned <em>after</em> the tag that begins the list.
-<<<<<<< HEAD
      *
-=======
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @param parser The XmlPullParser from which to read the list data.
      * @param endTag Name of the tag that will end the list, usually "list".
      * @param name An array of one string, used to return the name attribute
      *             of the list's tag.
-<<<<<<< HEAD
      *
      * @return Returns a newly generated int[].
      *
-=======
-     * 
-     * @return Returns a newly generated int[].
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #readListXml
      */
     public static final int[] readThisIntArrayXml(XmlPullParser parser,
             String endTag, String[] name)
             throws XmlPullParserException, java.io.IOException {
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         int num;
         try {
             num = Integer.parseInt(parser.getAttributeValue(null, "num"));
@@ -853,11 +690,7 @@ public class XmlUtils
             throw new XmlPullParserException(
                     "Not a number in num attribute in byte-array");
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         int[] array = new int[num];
         int i = 0;
 
@@ -874,11 +707,7 @@ public class XmlUtils
                     } catch (NumberFormatException e) {
                         throw new XmlPullParserException(
                                 "Not a number in value attribute in item");
-<<<<<<< HEAD
                     }
-=======
-                    }                    
->>>>>>> 54b6cfa... Initial Contribution
                 } else {
                     throw new XmlPullParserException(
                             "Expected item tag at: " + parser.getName());
@@ -906,7 +735,6 @@ public class XmlUtils
      * previously have been written with writeMapXml(), writeListXml(), or
      * writeValueXml().  The XmlPullParser must be positioned <em>at</em> the
      * tag that defines the value.
-<<<<<<< HEAD
      *
      * @param parser The XmlPullParser from which to read the object.
      * @param name An array of one string, used to return the name attribute
@@ -914,15 +742,6 @@ public class XmlUtils
      *
      * @return Object The newly generated value object.
      *
-=======
-     * 
-     * @param parser The XmlPullParser from which to read the object.
-     * @param name An array of one string, used to return the name attribute
-     *             of the value's tag.
-     * 
-     * @return Object The newly generated value object.
-     * 
->>>>>>> 54b6cfa... Initial Contribution
      * @see #readMapXml
      * @see #readListXml
      * @see #writeValueXml
@@ -1009,15 +828,12 @@ public class XmlUtils
             name[0] = valueName;
             //System.out.println("Returning value for " + valueName + ": " + res);
             return res;
-<<<<<<< HEAD
         } else if (tagName.equals("set")) {
             parser.next();
             res = readThisSetXml(parser, "set", name);
             name[0] = valueName;
             //System.out.println("Returning value for " + valueName + ": " + res);
             return res;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         } else {
             throw new XmlPullParserException(
                 "Unknown tag: " + tagName);
@@ -1057,28 +873,19 @@ public class XmlUtils
         if (type != parser.START_TAG) {
             throw new XmlPullParserException("No start tag found");
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         if (!parser.getName().equals(firstElementName)) {
             throw new XmlPullParserException("Unexpected start tag: found " + parser.getName() +
                     ", expected " + firstElementName);
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     public static final void nextElement(XmlPullParser parser) throws XmlPullParserException, IOException
     {
         int type;
         while ((type=parser.next()) != parser.START_TAG
                    && type != parser.END_DOCUMENT) {
             ;
-<<<<<<< HEAD
         }
     }
 
@@ -1095,8 +902,5 @@ public class XmlUtils
                 return true;
             }
         }
-=======
-        }   
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

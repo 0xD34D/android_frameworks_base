@@ -26,26 +26,20 @@
 
 #include "SkPath.h"
 
-<<<<<<< HEAD
 #include <Caches.h>
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 namespace android {
 
 class SkPathGlue {
 public:
 
     static void finalizer(JNIEnv* env, jobject clazz, SkPath* obj) {
-<<<<<<< HEAD
 #ifdef USE_OPENGL_RENDERER
         if (android::uirenderer::Caches::hasInstance()) {
             android::uirenderer::Caches::getInstance().resourceCache.destructor(obj);
             return;
         }
 #endif
-=======
->>>>>>> 54b6cfa... Initial Contribution
         delete obj;
     }
 
@@ -89,14 +83,8 @@ public:
         return result;
     }
  
-<<<<<<< HEAD
     static void computeBounds(JNIEnv* env, jobject clazz, SkPath* obj, jobject bounds) {
         const SkRect& bounds_ = obj->getBounds();
-=======
-    static void computeBounds(JNIEnv* env, jobject clazz, SkPath* obj, jobject bounds, SkPath::BoundsType btype) {
-        SkRect bounds_;
-        obj->computeBounds(&bounds_, btype);
->>>>>>> 54b6cfa... Initial Contribution
         GraphicsJNI::rect_to_jrectf(bounds_, env, bounds);
     }
  
@@ -287,11 +275,7 @@ static JNINativeMethod methods[] = {
     {"native_setFillType","(II)V", (void*) SkPathGlue::setFillType},
     {"native_isEmpty","(I)Z", (void*) SkPathGlue::isEmpty},
     {"native_isRect","(ILandroid/graphics/RectF;)Z", (void*) SkPathGlue::isRect},
-<<<<<<< HEAD
     {"native_computeBounds","(ILandroid/graphics/RectF;)V", (void*) SkPathGlue::computeBounds},
-=======
-    {"native_computeBounds","(ILandroid/graphics/RectF;I)V", (void*) SkPathGlue::computeBounds},
->>>>>>> 54b6cfa... Initial Contribution
     {"native_incReserve","(II)V", (void*) SkPathGlue::incReserve},
     {"native_moveTo","(IFF)V", (void*) SkPathGlue::moveTo__FF},
     {"native_rMoveTo","(IFF)V", (void*) SkPathGlue::rMoveTo},

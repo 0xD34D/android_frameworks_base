@@ -24,17 +24,12 @@ LOCAL_PATH := $(call my-dir)
 # Instead, it depends on the R.stamp file, which lists the corresponding
 # R.java file as a prerequisite.
 # TODO: find a more appropriate way to do this.
-<<<<<<< HEAD
 framework_res_source_path := APPS/framework-res_intermediates/src
-=======
-framework-res-source-path := APPS/framework-res_intermediates/src
->>>>>>> 54b6cfa... Initial Contribution
 
 # the library
 # ============================================================
 include $(CLEAR_VARS)
 
-<<<<<<< HEAD
 # FRAMEWORKS_BASE_SUBDIRS comes from build/core/pathmap.mk
 LOCAL_SRC_FILES := $(call find-other-java-files,$(FRAMEWORKS_BASE_SUBDIRS))
 
@@ -45,10 +40,6 @@ LOCAL_SRC_FILES += \
        core/java/android/webkit/EventLogTags.logtags \
        telephony/java/com/android/internal/telephony/EventLogTags.logtags \
 
-=======
-LOCAL_SRC_FILES := $(call find-other-java-files,$(FRAMEWORKS_BASE_SUBDIRS))
-
->>>>>>> 54b6cfa... Initial Contribution
 # The following filters out code we are temporarily not including at all.
 # TODO: Move AWT and beans (and associated harmony code) back into libcore.
 # TODO: Maybe remove javax.microedition entirely?
@@ -59,11 +50,7 @@ LOCAL_SRC_FILES := $(filter-out \
 
 ## READ ME: ########################################################
 ##
-<<<<<<< HEAD
 ## When updating this list of aidl files, consider if that aidl is
-=======
-## When updading this list of aidl files, consider if that aidl is
->>>>>>> 54b6cfa... Initial Contribution
 ## part of the SDK API.  If it is, also add it to the list below that
 ## is preprocessed and distributed with the SDK.  This list should
 ## not contain any aidl files for parcelables, but the one below should
@@ -72,7 +59,6 @@ LOCAL_SRC_FILES := $(filter-out \
 ##
 ## READ ME: ########################################################
 LOCAL_SRC_FILES += \
-<<<<<<< HEAD
 	core/java/android/accessibilityservice/IAccessibilityServiceConnection.aidl \
 	core/java/android/accessibilityservice/IAccessibilityServiceClient.aidl \
 	core/java/android/accounts/IAccountManager.aidl \
@@ -115,34 +101,10 @@ LOCAL_SRC_FILES += \
 	core/java/android/content/ISyncAdapter.aidl \
 	core/java/android/content/ISyncContext.aidl \
 	core/java/android/content/ISyncStatusObserver.aidl \
-=======
-	core/java/android/accounts/IAccountsService.aidl \
-	core/java/android/app/IActivityPendingResult.aidl \
-	core/java/android/app/IActivityWatcher.aidl \
-	core/java/android/app/IAlarmManager.aidl \
-	core/java/android/app/IInstrumentationWatcher.aidl \
-	core/java/android/app/IIntentReceiver.aidl \
-	core/java/android/app/IIntentSender.aidl \
-	core/java/android/app/INotificationManager.aidl \
-	core/java/android/app/ISearchManager.aidl \
-	core/java/android/app/IServiceConnection.aidl \
-	core/java/android/app/IStatusBar.aidl \
-	core/java/android/app/IThumbnailReceiver.aidl \
-	core/java/android/app/ITransientNotification.aidl \
-	core/java/android/app/IWallpaperService.aidl \
-	core/java/android/app/IWallpaperServiceCallback.aidl \
-	core/java/android/bluetooth/IBluetoothDevice.aidl \
-	core/java/android/bluetooth/IBluetoothDeviceCallback.aidl \
-	core/java/android/bluetooth/IBluetoothHeadset.aidl \
-	core/java/android/bluetooth/IBluetoothHeadsetCallback.aidl \
-	core/java/android/content/ISyncAdapter.aidl \
-	core/java/android/content/ISyncContext.aidl \
->>>>>>> 54b6cfa... Initial Contribution
 	core/java/android/content/pm/IPackageDataObserver.aidl \
 	core/java/android/content/pm/IPackageDeleteObserver.aidl \
 	core/java/android/content/pm/IPackageInstallObserver.aidl \
 	core/java/android/content/pm/IPackageManager.aidl \
-<<<<<<< HEAD
 	core/java/android/content/pm/IPackageMoveObserver.aidl \
 	core/java/android/content/pm/IPackageStatsObserver.aidl \
 	core/java/android/database/IContentObserver.aidl \
@@ -181,28 +143,12 @@ LOCAL_SRC_FILES += \
 	core/java/android/view/accessibility/IAccessibilityInteractionConnectionCallback.aidl\
 	core/java/android/view/accessibility/IAccessibilityManager.aidl \
 	core/java/android/view/accessibility/IAccessibilityManagerClient.aidl \
-=======
-	core/java/android/content/pm/IPackageStatsObserver.aidl \
-	core/java/android/database/IContentObserver.aidl \
-	core/java/android/hardware/ISensorService.aidl \
-	core/java/android/net/IConnectivityManager.aidl \
-	core/java/android/os/ICheckinService.aidl \
-	core/java/android/os/IHardwareService.aidl \
-	core/java/android/os/IMessenger.aidl \
-	core/java/android/os/IMountService.aidl \
-	core/java/android/os/INetStatService.aidl \
-	core/java/android/os/IParentalControlCallback.aidl \
-	core/java/android/os/IPermissionController.aidl \
-	core/java/android/os/IPowerManager.aidl \
-	core/java/android/text/IClipboard.aidl \
->>>>>>> 54b6cfa... Initial Contribution
 	core/java/android/view/IApplicationToken.aidl \
 	core/java/android/view/IOnKeyguardExitResult.aidl \
 	core/java/android/view/IRotationWatcher.aidl \
 	core/java/android/view/IWindow.aidl \
 	core/java/android/view/IWindowManager.aidl \
 	core/java/android/view/IWindowSession.aidl \
-<<<<<<< HEAD
 	core/java/android/speech/IRecognitionListener.aidl \
 	core/java/android/speech/IRecognitionService.aidl \
 	core/java/android/speech/tts/ITextToSpeechCallback.aidl \
@@ -254,20 +200,10 @@ LOCAL_SRC_FILES += \
 	media/java/android/media/IRemoteControlDisplay.aidl \
 	media/java/android/media/IRemoteVolumeObserver.aidl \
 	media/java/android/media/IRingtonePlayer.aidl \
-=======
-	core/java/com/android/internal/app/IBatteryStats.aidl \
-	location/java/android/location/IGpsStatusListener.aidl \
-	location/java/android/location/ILocationListener.aidl \
-	location/java/android/location/ILocationManager.aidl \
-	media/java/android/media/IAudioService.aidl \
-	media/java/android/media/IMediaScannerListener.aidl \
-	media/java/android/media/IMediaScannerService.aidl \
->>>>>>> 54b6cfa... Initial Contribution
 	telephony/java/com/android/internal/telephony/IPhoneStateListener.aidl \
 	telephony/java/com/android/internal/telephony/IPhoneSubInfo.aidl \
 	telephony/java/com/android/internal/telephony/ITelephony.aidl \
 	telephony/java/com/android/internal/telephony/ITelephonyRegistry.aidl \
-<<<<<<< HEAD
 	telephony/java/com/android/internal/telephony/IIccPhoneBook.aidl \
 	telephony/java/com/android/internal/telephony/ISms.aidl \
 	telephony/java/com/android/internal/telephony/IWapPushManager.aidl \
@@ -290,26 +226,10 @@ LOCAL_INTERMEDIATE_SOURCES := \
 
 LOCAL_NO_STANDARD_LIBRARIES := true
 LOCAL_JAVA_LIBRARIES := bouncycastle core core-junit ext
-=======
-	telephony/java/com/android/internal/telephony/gsm/ISimPhoneBook.aidl \
-	telephony/java/com/android/internal/telephony/gsm/ISms.aidl \
-	wifi/java/android/net/wifi/IWifiManager.aidl
-
-LOCAL_AIDL_INCLUDES += $(FRAMEWORKS_BASE_JAVA_SRC_DIRS)
-
-LOCAL_INTERMEDIATE_SOURCES := \
-			$(framework-res-source-path)/android/R.java \
-			$(framework-res-source-path)/android/Manifest.java \
-			$(framework-res-source-path)/com/android/internal/R.java
-
-LOCAL_NO_STANDARD_LIBRARIES := true
-LOCAL_JAVA_LIBRARIES := core ext
->>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_MODULE := framework
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 
-<<<<<<< HEAD
 LOCAL_NO_EMMA_INSTRUMENT := true
 LOCAL_NO_EMMA_COMPILE := true
 
@@ -318,11 +238,6 @@ LOCAL_JAVA_RESOURCE_FILES += $(LOCAL_PATH)/preloaded-classes
 
 #LOCAL_JARJAR_RULES := $(LOCAL_PATH)/jarjar-rules.txt
 
-=======
-# List of classes and interfaces which should be loaded by the Zygote.
-LOCAL_JAVA_RESOURCE_FILES += $(LOCAL_PATH)/preloaded-classes
-
->>>>>>> 54b6cfa... Initial Contribution
 LOCAL_DX_FLAGS := --core-library
 
 include $(BUILD_JAVA_LIBRARY)
@@ -331,26 +246,17 @@ include $(BUILD_JAVA_LIBRARY)
 # the source for this library.
 framework_res_R_stamp := \
 	$(call intermediates-dir-for,APPS,framework-res,,COMMON)/src/R.stamp
-<<<<<<< HEAD
 $(full_classes_compiled_jar): $(framework_res_R_stamp)
-=======
-$(full_classes_jar): $(framework_res_R_stamp)
->>>>>>> 54b6cfa... Initial Contribution
 
 # Make sure that framework-res is installed when framework is.
 $(LOCAL_INSTALLED_MODULE): | $(dir $(LOCAL_INSTALLED_MODULE))framework-res.apk
 
-<<<<<<< HEAD
 framework_built := $(call java-lib-deps,framework)
-=======
-framework_built := $(LOCAL_BUILT_MODULE)
->>>>>>> 54b6cfa... Initial Contribution
 
 # AIDL files to be preprocessed and included in the SDK,
 # relative to the root of the build tree.
 # ============================================================
 aidl_files := \
-<<<<<<< HEAD
 	frameworks/base/core/java/android/accounts/IAccountManager.aidl \
 	frameworks/base/core/java/android/accounts/IAccountManagerResponse.aidl \
 	frameworks/base/core/java/android/accounts/IAccountAuthenticator.aidl \
@@ -374,23 +280,10 @@ aidl_files := \
 	frameworks/base/core/java/android/os/DropBoxManager.aidl \
 	frameworks/base/core/java/android/os/ParcelFileDescriptor.aidl \
 	frameworks/base/core/java/android/os/ParcelUuid.aidl \
-=======
-	frameworks/base/core/java/android/accounts/IAccountsService.aidl \
-	frameworks/base/core/java/android/app/Notification.aidl \
-	frameworks/base/core/java/android/app/PendingIntent.aidl \
-	frameworks/base/core/java/android/content/ComponentName.aidl \
-	frameworks/base/core/java/android/content/Intent.aidl \
-	frameworks/base/core/java/android/content/SyncStats.aidl \
-	frameworks/base/core/java/android/content/res/Configuration.aidl \
-	frameworks/base/core/java/android/net/Uri.aidl \
-	frameworks/base/core/java/android/os/Bundle.aidl \
-	frameworks/base/core/java/android/os/ParcelFileDescriptor.aidl \
->>>>>>> 54b6cfa... Initial Contribution
 	frameworks/base/core/java/android/view/KeyEvent.aidl \
 	frameworks/base/core/java/android/view/MotionEvent.aidl \
 	frameworks/base/core/java/android/view/Surface.aidl \
 	frameworks/base/core/java/android/view/WindowManager.aidl \
-<<<<<<< HEAD
 	frameworks/base/core/java/android/widget/RemoteViews.aidl \
 	frameworks/base/core/java/com/android/internal/textservice/ISpellCheckerService.aidl \
 	frameworks/base/core/java/com/android/internal/textservice/ISpellCheckerSession.aidl \
@@ -403,8 +296,6 @@ aidl_files := \
 	frameworks/base/core/java/com/android/internal/view/IInputMethodClient.aidl \
 	frameworks/base/core/java/com/android/internal/view/IInputMethodManager.aidl \
 	frameworks/base/core/java/com/android/internal/view/IInputMethodSession.aidl \
-=======
->>>>>>> 54b6cfa... Initial Contribution
 	frameworks/base/graphics/java/android/graphics/Bitmap.aidl \
 	frameworks/base/graphics/java/android/graphics/Rect.aidl \
 	frameworks/base/graphics/java/android/graphics/Region.aidl \
@@ -412,11 +303,7 @@ aidl_files := \
 	frameworks/base/location/java/android/location/Location.aidl \
 	frameworks/base/telephony/java/android/telephony/ServiceState.aidl \
 	frameworks/base/telephony/java/com/android/internal/telephony/IPhoneSubInfo.aidl \
-<<<<<<< HEAD
 	frameworks/base/telephony/java/com/android/internal/telephony/ITelephony.aidl \
-=======
-	frameworks/base/telephony/java/com/android/internal/telephony/ITelephony.aidl
->>>>>>> 54b6cfa... Initial Contribution
 
 gen := $(TARGET_OUT_COMMON_INTERMEDIATES)/framework.aidl
 $(gen): PRIVATE_SRC_FILES := $(aidl_files)
@@ -436,11 +323,7 @@ packages_to_document := \
 # Search through the base framework dirs for these packages.
 # The result will be relative to frameworks/base.
 fwbase_dirs_to_document := \
-<<<<<<< HEAD
 	test-runner/src \
-=======
-	test-runner \
->>>>>>> 54b6cfa... Initial Contribution
 	$(patsubst $(LOCAL_PATH)/%,%, \
 	  $(wildcard \
 	    $(foreach dir, $(FRAMEWORKS_BASE_JAVA_SRC_DIRS), \
@@ -449,52 +332,16 @@ fwbase_dirs_to_document := \
 	   ) \
 	 )
 
-<<<<<<< HEAD
 # include definition of libcore_to_document
 include libcore/Docs.mk
 
 # include definition of junit_to_document
 include external/junit/Common.mk
-=======
-# These are relative to dalvik/libcore
-# Intentionally not included from libcore:
-#     icu openssl suncompat support
-libcore_to_document := \
-	annotation/src/main/java/java \
-	archive/src/main/java/java \
-	auth/src/main/java/javax \
-	awt-kernel/src/main/java/java \
-	concurrent/src/main/java \
-	crypto/src/main/java/javax \
-	dalvik/src/main/java/dalvik \
-	json/src/main/java \
-	junit/src/main/java \
-	logging/src/main/java/java \
-	luni/src/main/java/java \
-	luni-kernel/src/main/java/java \
-	math/src/main/java/java \
-	nio/src/main/java/java \
-	nio_char/src/main/java/java \
-	prefs/src/main/java/java \
-	regex/src/main/java/java \
-	security/src/main/java/java \
-	security/src/main/java/javax \
-	security-kernel/src/main/java/java \
-	sql/src/main/java/java \
-	sql/src/main/java/javax \
-	text/src/main/java/java \
-	x-net/src/main/java/javax \
-	xml/src/main/java/javax \
-	xml/src/main/java/org/xml/sax \
-	xml/src/main/java/org/xmlpull/v1 \
-	xml/src/main/java/org/w3c
->>>>>>> 54b6cfa... Initial Contribution
 
 non_base_dirs := \
 	../../external/apache-http/src/org/apache/http
 
 # These are relative to frameworks/base
-<<<<<<< HEAD
 dirs_to_check_apis := \
   $(fwbase_dirs_to_document) \
 	$(non_base_dirs)
@@ -506,18 +353,10 @@ dirs_to_document := \
   $(addprefix ../../, $(FRAMEWORKS_SUPPORT_JAVA_SRC_DIRS))
 
 # These are relative to frameworks/base
-=======
-dirs_to_document := \
-	$(fwbase_dirs_to_document) \
-	$(non_base_dirs) \
-	$(addprefix ../../dalvik/libcore/, $(libcore_to_document))
-
->>>>>>> 54b6cfa... Initial Contribution
 html_dirs := \
 	$(FRAMEWORKS_BASE_SUBDIRS) \
 	$(non_base_dirs)
 
-<<<<<<< HEAD
 # Common sources for doc check and api check
 common_src_files := \
 	$(call find-other-html-files, $(html_dirs)) \
@@ -537,18 +376,11 @@ framework_docs_LOCAL_API_CHECK_SRC_FILES := \
 # This is used by ide.mk as the list of source files that are
 # always included.
 INTERNAL_SDK_SOURCE_DIRS := $(addprefix $(LOCAL_PATH)/,$(dirs_to_document))
-=======
-# These are relative to frameworks/base
-framework_docs_LOCAL_SRC_FILES := \
-	$(call find-other-java-files, $(dirs_to_document)) \
-	$(call find-other-html-files, $(html_dirs))
->>>>>>> 54b6cfa... Initial Contribution
 
 framework_docs_LOCAL_DROIDDOC_SOURCE_PATH := \
 	$(FRAMEWORKS_BASE_JAVA_SRC_DIRS)
 
 framework_docs_LOCAL_INTERMEDIATE_SOURCES := \
-<<<<<<< HEAD
 			$(framework_res_source_path)/android/R.java \
 			$(framework_res_source_path)/android/Manifest.java \
 			$(framework_res_source_path)/com/android/internal/R.java
@@ -732,37 +564,6 @@ $(INTERNAL_PLATFORM_API_FILE): $(full_target)
 $(call dist-for-goals,sdk,$(INTERNAL_PLATFORM_API_FILE))
 
 # ====  check javadoc comments but don't generate docs ========
-=======
-			$(framework-res-source-path)/android/R.java \
-			$(framework-res-source-path)/android/Manifest.java \
-			$(framework-res-source-path)/com/android/internal/R.java
-
-framework_docs_LOCAL_JAVA_LIBRARIES := \
-			core \
-			ext \
-
-framework_docs_LOCAL_MODULE_CLASS := JAVA_LIBRARIES
-framework_docs_LOCAL_DROIDDOC_HTML_DIR := docs/html
-framework_docs_LOCAL_DROIDDOC_OPTIONS := \
-		-error 1 -error 2 -error 3 -error 4 -error 6 -error 8 \
-		-overview $(LOCAL_PATH)/core/java/overview.html \
-		-hdf android.buglink 1 \
-		-hdf android.whichdoc framework
-
-sample_dir := development/samples
-
-web_docs_sample_code_flags := \
-		-hdf android.hasSamples 1 \
-		-samplecode $(sample_dir)/ApiDemos \
-		            guide/samples/ApiDemos "API Demos" \
-		-samplecode $(sample_dir)/LunarLander \
-		            guide/samples/LunarLander "Lunar Lander" \
-		-samplecode $(sample_dir)/NotePad \
-		            guide/samples/NotePad "Note Pad"
-
-
-# ====  static html  ==================================
->>>>>>> 54b6cfa... Initial Contribution
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES:=$(framework_docs_LOCAL_SRC_FILES)
@@ -771,7 +572,6 @@ LOCAL_JAVA_LIBRARIES:=$(framework_docs_LOCAL_JAVA_LIBRARIES)
 LOCAL_MODULE_CLASS:=$(framework_docs_LOCAL_MODULE_CLASS)
 LOCAL_DROIDDOC_SOURCE_PATH:=$(framework_docs_LOCAL_DROIDDOC_SOURCE_PATH)
 LOCAL_DROIDDOC_HTML_DIR:=$(framework_docs_LOCAL_DROIDDOC_HTML_DIR)
-<<<<<<< HEAD
 LOCAL_ADDITIONAL_JAVA_DIR:=$(framework_docs_LOCAL_ADDITIONAL_JAVA_DIR)
 LOCAL_ADDITIONAL_DEPENDENCIES:=$(framework_docs_LOCAL_ADDITIONAL_DEPENDENCIES)
 
@@ -818,52 +618,23 @@ LOCAL_DROIDDOC_OPTIONS:=\
 
 
 LOCAL_DROIDDOC_CUSTOM_TEMPLATE_DIR:=build/tools/droiddoc/templates-sdk
-=======
-LOCAL_MODULE:=framework
-
-framework_keep_file := $(OUT_DOCS)/$(LOCAL_MODULE)-keep.txt
-
-LOCAL_DROIDDOC_OPTIONS:=\
-		$(framework_docs_LOCAL_DROIDDOC_OPTIONS) \
-		-title "Android SDK" \
-		-keeplist $(framework_keep_file) \
-		-proofread $(OUT_DOCS)/$(LOCAL_MODULE)-proofread.txt \
-		-todo $(OUT_DOCS)/$(LOCAL_MODULE)-docs-todo.html \
-		-stubs $(TARGET_OUT_COMMON_INTERMEDIATES)/JAVA_LIBRARIES/android_stubs_current_intermediates/src \
-		-apixml $(INTERNAL_PLATFORM_API_FILE) \
-		-sdkvalues $(OUT_DOCS) \
->>>>>>> 54b6cfa... Initial Contribution
 
 include $(BUILD_DROIDDOC)
 
 static_doc_index_redirect := $(out_dir)/index.html
 $(static_doc_index_redirect): \
-<<<<<<< HEAD
 	$(LOCAL_PATH)/docs/docs-documentation-redirect.html | $(ACP)
-=======
-		$(LOCAL_PATH)/docs/docs-documentation-redirect.html | $(ACP)
->>>>>>> 54b6cfa... Initial Contribution
 	$(hide) mkdir -p $(dir $@)
 	$(hide) $(ACP) $< $@
 
 $(full_target): $(static_doc_index_redirect)
 $(full_target): $(framework_built)
-<<<<<<< HEAD
 
 # ==== docs for the web (on the google app engine server) =======================
-=======
-$(framework_keep_file): $(full_target)
-$(INTERNAL_PLATFORM_API_FILE): $(full_target)
-$(call dist-for-goals,sdk,$(INTERNAL_PLATFORM_API_FILE))
-
-
-# ====  codesite ezt templates  =======================
->>>>>>> 54b6cfa... Initial Contribution
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES:=$(framework_docs_LOCAL_SRC_FILES)
 LOCAL_INTERMEDIATE_SOURCES:=$(framework_docs_LOCAL_INTERMEDIATE_SOURCES)
-<<<<<<< HEAD
 LOCAL_STATIC_JAVA_LIBRARIES:=$(framework_docs_LOCAL_STATIC_JAVA_LIBRARIES)
 LOCAL_JAVA_LIBRARIES:=$(framework_docs_LOCAL_JAVA_LIBRARIES)
 LOCAL_MODULE_CLASS:=$(framework_docs_LOCAL_MODULE_CLASS)
@@ -889,26 +660,6 @@ include $(BUILD_DROIDDOC)
 $(full_target): framework-res-package-target
 
 # ==== docs that have all of the stuff that's @hidden =======================
-=======
-LOCAL_JAVA_LIBRARIES:=$(framework_docs_LOCAL_JAVA_LIBRARIES) framework
-LOCAL_MODULE_CLASS:=$(framework_docs_LOCAL_MODULE_CLASS)
-LOCAL_DROIDDOC_SOURCE_PATH:=$(framework_docs_LOCAL_DROIDDOC_SOURCE_PATH)
-LOCAL_DROIDDOC_HTML_DIR:=$(framework_docs_LOCAL_DROIDDOC_HTML_DIR)
-LOCAL_ADDITIONAL_JAVA_DIR:=$(call intermediates-dir-for,JAVA_LIBRARIES,framework)
-
-LOCAL_MODULE:=codesite
-LOCAL_DROIDDOC_OPTIONS:=\
-		$(framework_docs_LOCAL_DROIDDOC_OPTIONS) \
-		$(web_docs_sample_code_flags) \
-		-toroot /android/
-
-LOCAL_DROIDDOC_CUSTOM_TEMPLATE_DIR:=$(SRC_DROIDDOC_DIR)/templates-codesite
-LOCAL_DROIDDOC_CUSTOM_ASSET_DIR:=assets-google
-
-include $(BUILD_DROIDDOC)
-
-# ==== docs for the web (on the google app engine server) =======================
->>>>>>> 54b6cfa... Initial Contribution
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES:=$(framework_docs_LOCAL_SRC_FILES)
@@ -917,7 +668,6 @@ LOCAL_JAVA_LIBRARIES:=$(framework_docs_LOCAL_JAVA_LIBRARIES) framework
 LOCAL_MODULE_CLASS:=$(framework_docs_LOCAL_MODULE_CLASS)
 LOCAL_DROIDDOC_SOURCE_PATH:=$(framework_docs_LOCAL_DROIDDOC_SOURCE_PATH)
 LOCAL_DROIDDOC_HTML_DIR:=$(framework_docs_LOCAL_DROIDDOC_HTML_DIR)
-<<<<<<< HEAD
 LOCAL_ADDITIONAL_JAVA_DIR:=$(framework_docs_LOCAL_ADDITIONAL_JAVA_DIR)
 LOCAL_ADDITIONAL_DEPENDENCIES:=$(framework_docs_LOCAL_ADDITIONAL_DEPENDENCIES)
 
@@ -949,33 +699,6 @@ ext_src_files := $(call all-java-files-under,$(ext_dirs))
 ext_res_dirs := \
 	../../external/libphonenumber/java/src
 
-=======
-LOCAL_ADDITIONAL_JAVA_DIR:=$(call intermediates-dir-for,JAVA_LIBRARIES,framework)
-
-LOCAL_MODULE:=gae
-LOCAL_DROIDDOC_OPTIONS:=\
- $(framework_docs_LOCAL_DROIDDOC_OPTIONS) \
- $(web_docs_sample_code_flags) \
- -toroot /gae/
-
-LOCAL_DROIDDOC_CUSTOM_TEMPLATE_DIR:=$(SRC_DROIDDOC_DIR)/templates
-LOCAL_DROIDDOC_CUSTOM_ASSET_DIR:=assets
-
-include $(BUILD_DROIDDOC)
-
-
-# Build ext.jar
-# ============================================================
-
-ext_dirs := \
-	../../external/apache-http/src \
-	../../external/gdata/src \
-	../../external/protobuf/src \
-	../../external/tagsoup/src
-
-ext_src_files := $(call all-java-files-under,$(ext_dirs))
-
->>>>>>> 54b6cfa... Initial Contribution
 # ====  the library  =========================================
 include $(CLEAR_VARS)
 
@@ -983,7 +706,6 @@ LOCAL_SRC_FILES := $(ext_src_files)
 
 LOCAL_NO_STANDARD_LIBRARIES := true
 LOCAL_JAVA_LIBRARIES := core
-<<<<<<< HEAD
 LOCAL_JAVA_RESOURCE_DIRS := $(ext_res_dirs)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := ext
@@ -994,39 +716,13 @@ LOCAL_NO_EMMA_COMPILE := true
 LOCAL_DX_FLAGS := --core-library
 
 include $(BUILD_JAVA_LIBRARY)
-=======
-LOCAL_STATIC_JAVA_LIBRARIES := libgoogleclient
-
-LOCAL_MODULE := ext
-
-include $(BUILD_JAVA_LIBRARY)
-
-# ====  the documentation  ===================================
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := $(ext_src_files) docs/overview-ext.html
-
-LOCAL_NO_STANDARD_LIBRARIES := true
-LOCAL_JAVA_LIBRARIES := core
-
-LOCAL_MODULE := ext
-LOCAL_MODULE_CLASS := JAVA_LIBRARIES
-LOCAL_DROIDDOC_OPTIONS := -overview $(LOCAL_PATH)/docs/overview-ext.html
-
-include $(BUILD_DROIDDOC)
->>>>>>> 54b6cfa... Initial Contribution
 
 
 # Include subdirectory makefiles
 # ============================================================
 
-<<<<<<< HEAD
 # If we're building with ONE_SHOT_MAKEFILE (mm, mmm), then what the framework
 # team really wants is to build the stuff defined by this makefile.
 ifeq (,$(ONE_SHOT_MAKEFILE))
 include $(call first-makefiles-under,$(LOCAL_PATH))
-=======
-ifneq ($(SDK_ONLY),true)
-  include $(call first-makefiles-under,$(LOCAL_PATH))
->>>>>>> 54b6cfa... Initial Contribution
 endif

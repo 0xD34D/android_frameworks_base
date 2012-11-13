@@ -16,7 +16,6 @@
 
 package com.android.internal.telephony;
 
-<<<<<<< HEAD
 import android.net.LinkCapabilities;
 import android.net.LinkProperties;
 import android.os.Bundle;
@@ -24,11 +23,6 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.telephony.CellInfo;
 import android.telephony.ServiceState;
-=======
-import android.os.Bundle;
-import android.os.RemoteException;
-import android.os.ServiceManager;
->>>>>>> 54b6cfa... Initial Contribution
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -43,11 +37,7 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
     private static final boolean DBG = true;
     private ITelephonyRegistry mRegistry;
 
-<<<<<<< HEAD
     /*package*/
-=======
-    /*package*/ 
->>>>>>> 54b6cfa... Initial Contribution
     DefaultPhoneNotifier() {
         mRegistry = ITelephonyRegistry.Stub.asInterface(ServiceManager.getService(
                     "telephony.registry"));
@@ -67,7 +57,6 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
     }
 
     public void notifyServiceState(Phone sender) {
-<<<<<<< HEAD
         ServiceState ss = sender.getServiceState();
         if (ss == null) {
             ss = new ServiceState();
@@ -75,10 +64,6 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
         }
         try {
             mRegistry.notifyServiceState(ss);
-=======
-        try {
-            mRegistry.notifyServiceState(sender.getServiceState());
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead
         }
@@ -86,11 +71,7 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
 
     public void notifySignalStrength(Phone sender) {
         try {
-<<<<<<< HEAD
             mRegistry.notifySignalStrength(sender.getSignalStrength());
-=======
-            mRegistry.notifySignalStrength(sender.getSignalStrengthASU());
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead
         }
@@ -120,7 +101,6 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
         }
     }
 
-<<<<<<< HEAD
     public void notifyDataConnection(Phone sender, String reason, String apnType,
             Phone.DataState state) {
         doNotifyDataConnection(sender, reason, apnType, state);
@@ -154,27 +134,14 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
                     ((telephony!=null) ? telephony.getNetworkType() :
                     TelephonyManager.NETWORK_TYPE_UNKNOWN),
                     roaming);
-=======
-    public void notifyDataConnection(Phone sender, String reason) {
-        try {
-            mRegistry.notifyDataConnection(convertDataState(sender.getDataConnectionState()), 
-                    sender.isDataConnectivityPossible(), reason, sender.getActiveApn(),
-                    sender.getInterfaceName(null));
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead
         }
     }
 
-<<<<<<< HEAD
     public void notifyDataConnectionFailed(Phone sender, String reason, String apnType) {
         try {
             mRegistry.notifyDataConnectionFailed(reason, apnType);
-=======
-    public void notifyDataConnectionFailed(Phone sender, String reason) {
-        try {
-            mRegistry.notifyDataConnectionFailed(reason);
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead
         }
@@ -189,7 +156,6 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
             // system process is dead
         }
     }
-<<<<<<< HEAD
 
     public void notifyCellInfo(Phone sender, CellInfo cellInfo) {
         try {
@@ -207,9 +173,6 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
         }
     }
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     private void log(String s) {
         Log.d(LOG_TAG, "[PhoneNotifier] " + s);
     }
@@ -290,11 +253,8 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
                 return TelephonyManager.DATA_ACTIVITY_OUT;
             case DATAINANDOUT:
                 return TelephonyManager.DATA_ACTIVITY_INOUT;
-<<<<<<< HEAD
             case DORMANT:
                 return TelephonyManager.DATA_ACTIVITY_DORMANT;
-=======
->>>>>>> 54b6cfa... Initial Contribution
             default:
                 return TelephonyManager.DATA_ACTIVITY_NONE;
         }
@@ -312,11 +272,8 @@ public class DefaultPhoneNotifier implements PhoneNotifier {
                 return Phone.DataActivityState.DATAOUT;
             case TelephonyManager.DATA_ACTIVITY_INOUT:
                 return Phone.DataActivityState.DATAINANDOUT;
-<<<<<<< HEAD
             case TelephonyManager.DATA_ACTIVITY_DORMANT:
                 return Phone.DataActivityState.DORMANT;
-=======
->>>>>>> 54b6cfa... Initial Contribution
             default:
                 return Phone.DataActivityState.NONE;
         }

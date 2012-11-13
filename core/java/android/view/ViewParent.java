@@ -17,10 +17,7 @@
 package android.view;
 
 import android.graphics.Rect;
-<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Defines the responsibilities for a class that will be a parent of a View.
@@ -66,7 +63,6 @@ public interface ViewParent {
     /**
      * All or part of a child is dirty and needs to be redrawn.
      *
-<<<<<<< HEAD
      * <p>The location array is an array of two int values which respectively
      * define the left and the top position of the dirty child.</p>
      *
@@ -77,18 +73,6 @@ public interface ViewParent {
      *
      * <p>When this method returns a non-null value, the location array must
      * have been updated with the left and top coordinates of this ViewParent.</p>
-=======
-     * The location array is an array of two int values which respectively
-     * define the left and the top position of the dirty child.
-     *
-     * This method must return the parent of this ViewParent if the specified
-     * rectangle must be invalidated in the parent. If the specified rectangle
-     * does not require invalidation in the parent or if the parent does not
-     * exist, this method must return null.
-     *
-     * When this method returns a non-null value, the location array must
-     * have been updated with the left and top coordinates of this ViewParent.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param location An array of 2 ints containing the left and top
      *        coordinates of the child to invalidate
@@ -131,7 +115,6 @@ public interface ViewParent {
      */
     public void clearChildFocus(View child);
 
-<<<<<<< HEAD
     /**
      * Compute the visible part of a rectangular region defined in terms of a child view's
      * coordinates.
@@ -152,8 +135,6 @@ public interface ViewParent {
      * A <code>null</code> value is valid (in case you are not interested in this result)
      * @return true if the resulting rectangle is not empty, false otherwise
      */
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public boolean getChildVisibleRect(View child, Rect r, android.graphics.Point offset);
 
     /**
@@ -182,19 +163,11 @@ public interface ViewParent {
 
     /**
      * Bring up a context menu for the specified view or its ancestors.
-<<<<<<< HEAD
      *
      * <p>In most cases, a subclass does not need to override this.  However, if
      * the subclass is added directly to the window manager (for example,
      * {@link ViewManager#addView(View, android.view.ViewGroup.LayoutParams)})
      * then it should override this and show the context menu.</p>
-=======
-     * <p>
-     * In most cases, a subclass does not need to override this.  However, if
-     * the subclass is added directly to the window manager (for example,
-     * {@link ViewManager#addView(View, android.view.ViewGroup.LayoutParams)})
-     * then it should override this and show the context menu.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param originalView The source view where the context menu was first invoked
      * @return true if a context menu was displayed
@@ -210,7 +183,6 @@ public interface ViewParent {
     public void createContextMenu(ContextMenu menu);
 
     /**
-<<<<<<< HEAD
      * Start an action mode for the specified view.
      *
      * <p>In most cases, a subclass does not need to override this. However, if the
@@ -225,8 +197,6 @@ public interface ViewParent {
     public ActionMode startActionModeForChild(View originalView, ActionMode.Callback callback);
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * This method is called on the parent when a child's drawable state
      * has changed.
      *
@@ -238,23 +208,15 @@ public interface ViewParent {
      * Called when a child does not want this parent and its ancestors to
      * intercept touch events with
      * {@link ViewGroup#onInterceptTouchEvent(MotionEvent)}.
-<<<<<<< HEAD
      *
      * <p>This parent should pass this call onto its parents. This parent must obey
      * this request for the duration of the touch (that is, only clear the flag
      * after this parent has received an up or a cancel.</p>
-=======
-     * <p>
-     * This parent should pass this call onto its parents. This parent must obey
-     * this request for the duration of the touch (that is, only clear the flag
-     * after this parent has received an up or a cancel.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param disallowIntercept True if the child does not want the parent to
      *            intercept touch events.
      */
     public void requestDisallowInterceptTouchEvent(boolean disallowIntercept);
-<<<<<<< HEAD
     
     /**
      * Called when a child of this group wants a particular rectangle to be
@@ -345,6 +307,4 @@ public interface ViewParent {
      * @hide
      */
     public View findViewToTakeAccessibilityFocusFromHover(View child, View descendant);
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

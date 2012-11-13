@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -20,10 +19,6 @@ package android.content.pm;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-=======
-package android.content.pm;
-
->>>>>>> 54b6cfa... Initial Contribution
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Printer;
@@ -82,16 +77,11 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
      * Class implementing the Application's manage space
      * functionality.  From the "manageSpaceActivity"
      * attribute. This is an optional attribute and will be null if
-<<<<<<< HEAD
      * applications don't specify it in their manifest
-=======
-     * application's dont specify it in their manifest
->>>>>>> 54b6cfa... Initial Contribution
      */
     public String manageSpaceActivityName;    
     
     /**
-<<<<<<< HEAD
      * Class implementing the Application's backup functionality.  From
      * the "backupAgent" attribute.  This is an optional attribute and
      * will be null if the application does not specify it in its manifest.
@@ -108,8 +98,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
     public int uiOptions = 0;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Value for {@link #flags}: if set, this application is installed in the
      * device's system image.
      */
@@ -140,11 +128,7 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
     public static final int FLAG_PERSISTENT = 1<<3;
 
     /**
-<<<<<<< HEAD
      * Value for {@link #flags}: set to true if this application holds the
-=======
-     * Value for {@link #flags}: set to true iif this application holds the
->>>>>>> 54b6cfa... Initial Contribution
      * {@link android.Manifest.permission#FACTORY_TEST} permission and the
      * device is running in factory test mode.
      */
@@ -163,7 +147,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
      * android:allowClearUserData} of the &lt;application&gt; tag.
      */
     public static final int FLAG_ALLOW_CLEAR_USER_DATA = 1<<6;
-<<<<<<< HEAD
     
     /**
      * Value for {@link #flags}: this is set if this application has been
@@ -341,29 +324,22 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
      * {@hide}
      */
     public static final int FLAG_CANT_SAVE_STATE = 1<<28;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Flags associated with the application.  Any combination of
      * {@link #FLAG_SYSTEM}, {@link #FLAG_DEBUGGABLE}, {@link #FLAG_HAS_CODE},
      * {@link #FLAG_PERSISTENT}, {@link #FLAG_FACTORY_TEST}, and
      * {@link #FLAG_ALLOW_TASK_REPARENTING}
-<<<<<<< HEAD
      * {@link #FLAG_ALLOW_CLEAR_USER_DATA}, {@link #FLAG_UPDATED_SYSTEM_APP},
      * {@link #FLAG_TEST_ONLY}, {@link #FLAG_SUPPORTS_SMALL_SCREENS},
      * {@link #FLAG_SUPPORTS_NORMAL_SCREENS},
      * {@link #FLAG_SUPPORTS_LARGE_SCREENS}, {@link #FLAG_SUPPORTS_XLARGE_SCREENS},
      * {@link #FLAG_RESIZEABLE_FOR_SCREENS},
      * {@link #FLAG_SUPPORTS_SCREEN_DENSITIES}, {@link #FLAG_VM_SAFE_MODE}
-=======
-     * {@link #FLAG_ALLOW_CLEAR_USER_DATA}.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public int flags = 0;
     
     /**
-<<<<<<< HEAD
      * The required smallest screen width the application can run on.  If 0,
      * nothing has been specified.  Comes from
      * {@link android.R.styleable#AndroidManifestSupportsScreens_requiresSmallestWidthDp
@@ -388,26 +364,18 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
     public int largestWidthLimitDp = 0;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Full path to the location of this package.
      */
     public String sourceDir;
 
     /**
-<<<<<<< HEAD
      * Full path to the location of the publicly available parts of this
      * package (i.e. the primary resource package and manifest).  For
      * non-forward-locked apps this will be the same as {@link #sourceDir).
-=======
-     * Full path to the location of the publicly available parts of this package (i.e. the resources
-     * and manifest).  For non-forward-locked apps this will be the same as {@link #sourceDir).
->>>>>>> 54b6cfa... Initial Contribution
      */
     public String publicSourceDir;
     
     /**
-<<<<<<< HEAD
      * Full paths to the locations of extra resource packages this application
      * uses. This field is only used if there are extra resource packages,
      * otherwise it is null.
@@ -417,8 +385,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
     public String[] resourceDirs;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Paths to all shared libraries this application is linked against.  This
      * field is only set if the {@link PackageManager#GET_SHARED_LIBRARY_FILES
      * PackageManager.GET_SHARED_LIBRARY_FILES} flag was used when retrieving
@@ -431,16 +397,12 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
      * data.
      */
     public String dataDir;
-<<<<<<< HEAD
 
     /**
      * Full path to the directory where native JNI libraries are stored.
      */
     public String nativeLibraryDir;
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * The kernel user-ID that has been assigned to this application;
      * currently this is not a unique ID (multiple applications can have
@@ -449,7 +411,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
     public int uid;
     
     /**
-<<<<<<< HEAD
      * The minimum SDK version this application targets.  It may run on earlier
      * versions, but it knows how to work with any new behavior added at this
      * version.  Will be {@link android.os.Build.VERSION_CODES#CUR_DEVELOPMENT}
@@ -460,14 +421,11 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
     public int targetSdkVersion;
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * When false, indicates that all components within this application are
      * considered disabled, regardless of their individually set enabled status.
      */
     public boolean enabled = true;
 
-<<<<<<< HEAD
     /**
      * For convenient access to the current enabled setting of this app.
      * @hide
@@ -531,26 +489,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
     public boolean hasRtlSupport() {
         return (flags & FLAG_SUPPORTS_RTL) == FLAG_SUPPORTS_RTL;
     }
-=======
-    public void dump(Printer pw, String prefix) {
-        super.dumpFront(pw, prefix);
-        pw.println(prefix + "className=" + className);
-        pw.println(prefix + "permission=" + permission
-                + " uid=" + uid);
-        pw.println(prefix + "taskAffinity=" + taskAffinity);
-        pw.println(prefix + "theme=0x" + Integer.toHexString(theme));
-        pw.println(prefix + "flags=0x" + Integer.toHexString(flags)
-                + " processName=" + processName);
-        pw.println(prefix + "sourceDir=" + sourceDir);
-        pw.println(prefix + "publicSourceDir=" + publicSourceDir);
-        pw.println(prefix + "sharedLibraryFiles=" + sharedLibraryFiles);
-        pw.println(prefix + "dataDir=" + dataDir);
-        pw.println(prefix + "enabled=" + enabled);
-        pw.println(prefix+"manageSpaceActivityName="+manageSpaceActivityName);
-        pw.println(prefix+"description=0x"+Integer.toHexString(descriptionRes));
-        super.dumpBack(pw, prefix);
-    }
->>>>>>> 54b6cfa... Initial Contribution
     
     public static class DisplayNameComparator
             implements Comparator<ApplicationInfo> {
@@ -568,11 +506,7 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
                 sb = ab.packageName;
             }
             
-<<<<<<< HEAD
             return sCollator.compare(sa.toString(), sb.toString());
-=======
-            return sCollator.compare(sa, sb);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         private final Collator   sCollator = Collator.getInstance();
@@ -590,7 +524,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
         className = orig.className;
         theme = orig.theme;
         flags = orig.flags;
-<<<<<<< HEAD
         requiresSmallestWidthDp = orig.requiresSmallestWidthDp;
         compatibleWidthLimitDp = orig.compatibleWidthLimitDp;
         largestWidthLimitDp = orig.largestWidthLimitDp;
@@ -608,16 +541,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
         manageSpaceActivityName = orig.manageSpaceActivityName;
         descriptionRes = orig.descriptionRes;
         uiOptions = orig.uiOptions;
-=======
-        sourceDir = orig.sourceDir;
-        publicSourceDir = orig.publicSourceDir;
-        sharedLibraryFiles = orig.sharedLibraryFiles;
-        dataDir = orig.dataDir;
-        uid = orig.uid;
-        enabled = orig.enabled;
-        manageSpaceActivityName = orig.manageSpaceActivityName;
-        descriptionRes = orig.descriptionRes;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
 
@@ -639,7 +562,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
         dest.writeString(className);
         dest.writeInt(theme);
         dest.writeInt(flags);
-<<<<<<< HEAD
         dest.writeInt(requiresSmallestWidthDp);
         dest.writeInt(compatibleWidthLimitDp);
         dest.writeInt(largestWidthLimitDp);
@@ -658,16 +580,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
         dest.writeString(backupAgentName);
         dest.writeInt(descriptionRes);
         dest.writeInt(uiOptions);
-=======
-        dest.writeString(sourceDir);
-        dest.writeString(publicSourceDir);
-        dest.writeStringArray(sharedLibraryFiles);
-        dest.writeString(dataDir);
-        dest.writeInt(uid);
-        dest.writeInt(enabled ? 1 : 0);
-        dest.writeString(manageSpaceActivityName);
-        dest.writeInt(descriptionRes);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final Parcelable.Creator<ApplicationInfo> CREATOR
@@ -688,7 +600,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
         className = source.readString();
         theme = source.readInt();
         flags = source.readInt();
-<<<<<<< HEAD
         requiresSmallestWidthDp = source.readInt();
         compatibleWidthLimitDp = source.readInt();
         largestWidthLimitDp = source.readInt();
@@ -709,18 +620,6 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
         uiOptions = source.readInt();
     }
 
-=======
-        sourceDir = source.readString();
-        publicSourceDir = source.readString();
-        sharedLibraryFiles = source.readStringArray();
-        dataDir = source.readString();
-        uid = source.readInt();
-        enabled = source.readInt() != 0;
-        manageSpaceActivityName = source.readString();
-        descriptionRes = source.readInt();
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Retrieve the textual description of the application.  This
      * will call back on the given PackageManager to load the description from
@@ -734,18 +633,13 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
      */
     public CharSequence loadDescription(PackageManager pm) {
         if (descriptionRes != 0) {
-<<<<<<< HEAD
             CharSequence label = pm.getText(packageName, descriptionRes, this);
-=======
-            CharSequence label = pm.getText(packageName, descriptionRes, null);
->>>>>>> 54b6cfa... Initial Contribution
             if (label != null) {
                 return label;
             }
         }
         return null;
     }
-<<<<<<< HEAD
 
     /**
      * Disable compatibility mode
@@ -784,6 +678,4 @@ public class ApplicationInfo extends PackageItemInfo implements Parcelable {
     @Override protected ApplicationInfo getApplicationInfo() {
         return this;
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

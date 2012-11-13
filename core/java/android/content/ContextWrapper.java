@@ -16,17 +16,11 @@
 
 package android.content;
 
-<<<<<<< HEAD
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.database.DatabaseErrorHandler;
-=======
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
->>>>>>> 54b6cfa... Initial Contribution
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.graphics.Bitmap;
@@ -112,15 +106,12 @@ public class ContextWrapper extends Context {
         mBase.setTheme(resid);
     }
 
-<<<<<<< HEAD
     /** @hide */
     @Override
     public int getThemeResId() {
         return mBase.getThemeResId();
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public Resources.Theme getTheme() {
         return mBase.getTheme();
@@ -137,14 +128,11 @@ public class ContextWrapper extends Context {
     }
 
     @Override
-<<<<<<< HEAD
     public ApplicationInfo getApplicationInfo() {
         return mBase.getApplicationInfo();
     }
     
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public String getPackageResourcePath() {
         return mBase.getPackageResourcePath();
     }
@@ -154,15 +142,12 @@ public class ContextWrapper extends Context {
         return mBase.getPackageCodePath();
     }
 
-<<<<<<< HEAD
     /** @hide */
     @Override
     public File getSharedPrefsFile(String name) {
         return mBase.getSharedPrefsFile(name);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public SharedPreferences getSharedPreferences(String name, int mode) {
         return mBase.getSharedPreferences(name, mode);
@@ -201,7 +186,6 @@ public class ContextWrapper extends Context {
     }
     
     @Override
-<<<<<<< HEAD
     public File getExternalFilesDir(String type) {
         return mBase.getExternalFilesDir(type);
     }
@@ -212,21 +196,16 @@ public class ContextWrapper extends Context {
     }
     
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public File getCacheDir() {
         return mBase.getCacheDir();
     }
 
     @Override
-<<<<<<< HEAD
     public File getExternalCacheDir() {
         return mBase.getExternalCacheDir();
     }
 
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public File getDir(String name, int mode) {
         return mBase.getDir(name, mode);
     }
@@ -237,15 +216,12 @@ public class ContextWrapper extends Context {
     }
 
     @Override
-<<<<<<< HEAD
     public SQLiteDatabase openOrCreateDatabase(String name, int mode, CursorFactory factory,
             DatabaseErrorHandler errorHandler) {
         return mBase.openOrCreateDatabase(name, mode, factory, errorHandler);
     }
 
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public boolean deleteDatabase(String name) {
         return mBase.deleteDatabase(name);
     }
@@ -301,7 +277,6 @@ public class ContextWrapper extends Context {
     }
 
     @Override
-<<<<<<< HEAD
     public void startActivity(Intent intent, Bundle options) {
         mBase.startActivity(intent, options);
     }
@@ -333,21 +308,16 @@ public class ContextWrapper extends Context {
     }
     
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void sendBroadcast(Intent intent) {
         mBase.sendBroadcast(intent);
     }
 
-<<<<<<< HEAD
     /** @hide */
     @Override
     public void sendBroadcast(Intent intent, int userId) {
         mBase.sendBroadcast(intent, userId);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public void sendBroadcast(Intent intent, String receiverPermission) {
         mBase.sendBroadcast(intent, receiverPermission);
@@ -375,7 +345,6 @@ public class ContextWrapper extends Context {
     }
 
     @Override
-<<<<<<< HEAD
     public void sendStickyOrderedBroadcast(
         Intent intent, BroadcastReceiver resultReceiver,
         Handler scheduler, int initialCode, String initialData,
@@ -386,8 +355,6 @@ public class ContextWrapper extends Context {
     }
 
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void removeStickyBroadcast(Intent intent) {
         mBase.removeStickyBroadcast(intent);
     }
@@ -427,15 +394,12 @@ public class ContextWrapper extends Context {
         return mBase.bindService(service, conn, flags);
     }
 
-<<<<<<< HEAD
     /** @hide */
     @Override
     public boolean bindService(Intent service, ServiceConnection conn, int flags, int userId) {
         return mBase.bindService(service, conn, flags, userId);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     public void unbindService(ServiceConnection conn) {
         mBase.unbindService(conn);
@@ -548,12 +512,9 @@ public class ContextWrapper extends Context {
         throws PackageManager.NameNotFoundException {
         return mBase.createPackageContext(packageName, flags);
     }
-<<<<<<< HEAD
 
     @Override
     public boolean isRestricted() {
         return mBase.isRestricted();
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

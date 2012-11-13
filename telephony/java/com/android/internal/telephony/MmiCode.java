@@ -41,22 +41,14 @@ public interface MmiCode
      * @return Localized message for UI display, valid only in COMPLETE
      * or FAILED states. null otherwise
      */
-<<<<<<< HEAD
 
-=======
-     
->>>>>>> 54b6cfa... Initial Contribution
     public CharSequence getMessage();
 
     /**
      * Cancels pending MMI request.
      * State becomes CANCELLED unless already COMPLETE or FAILED
      */
-<<<<<<< HEAD
     public void cancel();
-=======
-    public void cancel();    
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * @return true if the network response is a REQUEST for more user input.

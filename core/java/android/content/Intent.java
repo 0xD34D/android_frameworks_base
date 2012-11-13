@@ -26,11 +26,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-<<<<<<< HEAD
 import android.graphics.Rect;
 import android.media.RemoteControlClient;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -38,11 +35,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
-<<<<<<< HEAD
 
-=======
-import android.util.TypedValue;
->>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.util.XmlUtils;
 
 import java.io.IOException;
@@ -51,10 +44,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-<<<<<<< HEAD
 import java.util.Locale;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.Set;
 
 /**
@@ -67,7 +57,6 @@ import java.util.Set;
  * {@link android.content.Context#bindService} to communicate with a
  * background {@link android.app.Service}.
  *
-<<<<<<< HEAD
  * <p>An Intent provides a facility for performing late runtime binding between the code in
  * different applications. Its most significant use is in the launching of activities, where it
  * can be thought of as the glue between activities. It is basically a passive data structure
@@ -83,15 +72,6 @@ import java.util.Set;
  * <a name="IntentStructure"></a>
  * <h3>Intent Structure</h3>
  * <p>The primary pieces of information in an intent are:</p>
-=======
- * <p>An Intent provides a facility for performing late runtime binding between
- * the code in different applications.  Its most significant use is in the
- * launching of activities, where it can be thought of as the glue between
- * activities. It is
- * basically a passive data structure holding an abstract description of an
- * action to be performed. The primary pieces of information in an intent
- * are:</p>
->>>>>>> 54b6cfa... Initial Contribution
  *
  * <ul>
  *   <li> <p><b>action</b> -- The general action to be performed, such as
@@ -107,17 +87,10 @@ import java.util.Set;
  * <p>Some examples of action/data pairs are:</p>
  *
  * <ul>
-<<<<<<< HEAD
  *   <li> <p><b>{@link #ACTION_VIEW} <i>content://contacts/people/1</i></b> -- Display
  *     information about the person whose identifier is "1".</p>
  *   </li>
  *   <li> <p><b>{@link #ACTION_DIAL} <i>content://contacts/people/1</i></b> -- Display
-=======
- *   <li> <p><b>{@link #ACTION_VIEW} <i>content://contacts/1</i></b> -- Display
- *     information about the person whose identifier is "1".</p>
- *   </li>
- *   <li> <p><b>{@link #ACTION_DIAL} <i>content://contacts/1</i></b> -- Display
->>>>>>> 54b6cfa... Initial Contribution
  *     the phone dialer with the person filled in.</p>
  *   </li>
  *   <li> <p><b>{@link #ACTION_VIEW} <i>tel:123</i></b> -- Display
@@ -128,17 +101,10 @@ import java.util.Set;
  *   <li> <p><b>{@link #ACTION_DIAL} <i>tel:123</i></b> -- Display
  *     the phone dialer with the given number filled in.</p>
  *   </li>
-<<<<<<< HEAD
  *   <li> <p><b>{@link #ACTION_EDIT} <i>content://contacts/people/1</i></b> -- Edit
  *     information about the person whose identifier is "1".</p>
  *   </li>
  *   <li> <p><b>{@link #ACTION_VIEW} <i>content://contacts/people/</i></b> -- Display
-=======
- *   <li> <p><b>{@link #ACTION_EDIT} <i>content://contacts/1</i></b> -- Edit
- *     information about the person whose identifier is "1".</p>
- *   </li>
- *   <li> <p><b>{@link #ACTION_VIEW} <i>content://contacts/</i></b> -- Display
->>>>>>> 54b6cfa... Initial Contribution
  *     a list of people, which the user can browse through.  This example is a
  *     typical top-level entry into the Contacts application, showing you the
  *     list of people. Selecting a particular person to view would result in a
@@ -202,11 +168,7 @@ import java.util.Set;
  * defined in the Intent class, but applications can also define their own.
  * These strings use java style scoping, to ensure they are unique -- for
  * example, the standard {@link #ACTION_VIEW} is called
-<<<<<<< HEAD
  * "android.intent.action.VIEW".</p>
-=======
- * "android.app.action.VIEW".</p>
->>>>>>> 54b6cfa... Initial Contribution
  *
  * <p>Put together, the set of actions, data types, categories, and extra data
  * defines a language for the system allowing for the expression of phrases
@@ -290,7 +252,6 @@ import java.util.Set;
  *
  *         &lt;activity class=".NotesList" android:label="@string/title_notes_list"&gt;
  *             &lt;intent-filter&gt;
-<<<<<<< HEAD
  *                 &lt;action android:name="android.intent.action.MAIN" /&gt;
  *                 &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
  *             &lt;/intent-filter&gt;
@@ -305,28 +266,11 @@ import java.util.Set;
  *                 &lt;action android:name="android.intent.action.GET_CONTENT" /&gt;
  *                 &lt;category android:name="android.intent.category.DEFAULT" /&gt;
  *                 &lt;data android:mimeType="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
-=======
- *                 &lt;action android:value="android.intent.action.MAIN" /&gt;
- *                 &lt;category android:value="android.intent.category.LAUNCHER" /&gt;
- *             &lt;/intent-filter&gt;
- *             &lt;intent-filter&gt;
- *                 &lt;action android:value="android.intent.action.VIEW" /&gt;
- *                 &lt;action android:value="android.intent.action.EDIT" /&gt;
- *                 &lt;action android:value="android.intent.action.PICK" /&gt;
- *                 &lt;category android:value="android.intent.category.DEFAULT" /&gt;
- *                 &lt;type android:value="vnd.android.cursor.dir/<i>vnd.google.note</i>" /&gt;
- *             &lt;/intent-filter&gt;
- *             &lt;intent-filter&gt;
- *                 &lt;action android:value="android.intent.action.GET_CONTENT" /&gt;
- *                 &lt;category android:value="android.intent.category.DEFAULT" /&gt;
- *                 &lt;type android:value="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  *             &lt;/intent-filter&gt;
  *         &lt;/activity&gt;
  *
  *         &lt;activity class=".NoteEditor" android:label="@string/title_note"&gt;
  *             &lt;intent-filter android:label="@string/resolve_edit"&gt;
-<<<<<<< HEAD
  *                 &lt;action android:name="android.intent.action.VIEW" /&gt;
  *                 &lt;action android:name="android.intent.action.EDIT" /&gt;
  *                 &lt;category android:name="android.intent.category.DEFAULT" /&gt;
@@ -337,18 +281,6 @@ import java.util.Set;
  *                 &lt;action android:name="android.intent.action.INSERT" /&gt;
  *                 &lt;category android:name="android.intent.category.DEFAULT" /&gt;
  *                 &lt;data android:mimeType="vnd.android.cursor.dir/<i>vnd.google.note</i>" /&gt;
-=======
- *                 &lt;action android:value="android.intent.action.VIEW" /&gt;
- *                 &lt;action android:value="android.intent.action.EDIT" /&gt;
- *                 &lt;category android:value="android.intent.category.DEFAULT" /&gt;
- *                 &lt;type android:value="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
- *             &lt;/intent-filter&gt;
- *
- *             &lt;intent-filter&gt;
- *                 &lt;action android:value="android.intent.action.INSERT" /&gt;
- *                 &lt;category android:value="android.intent.category.DEFAULT" /&gt;
- *                 &lt;type android:value="vnd.android.cursor.dir/<i>vnd.google.note</i>" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  *             &lt;/intent-filter&gt;
  *
  *         &lt;/activity&gt;
@@ -356,19 +288,11 @@ import java.util.Set;
  *         &lt;activity class=".TitleEditor" android:label="@string/title_edit_title"
  *                 android:theme="@android:style/Theme.Dialog"&gt;
  *             &lt;intent-filter android:label="@string/resolve_title"&gt;
-<<<<<<< HEAD
  *                 &lt;action android:name="<i>com.android.notepad.action.EDIT_TITLE</i>" /&gt;
  *                 &lt;category android:name="android.intent.category.DEFAULT" /&gt;
  *                 &lt;category android:name="android.intent.category.ALTERNATIVE" /&gt;
  *                 &lt;category android:name="android.intent.category.SELECTED_ALTERNATIVE" /&gt;
  *                 &lt;data android:mimeType="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
-=======
- *                 &lt;action android:value="<i>com.android.notepad.action.EDIT_TITLE</i>" /&gt;
- *                 &lt;category android:value="android.intent.category.DEFAULT" /&gt;
- *                 &lt;category android:value="android.intent.category.ALTERNATIVE" /&gt;
- *                 &lt;category android:value="android.intent.category.SELECTED_ALTERNATIVE" /&gt;
- *                 &lt;type android:value="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  *             &lt;/intent-filter&gt;
  *         &lt;/activity&gt;
  *
@@ -382,13 +306,8 @@ import java.util.Set;
  * <ol>
  * <li><pre>
  * &lt;intent-filter&gt;
-<<<<<<< HEAD
  *     &lt;action android:name="{@link #ACTION_MAIN android.intent.action.MAIN}" /&gt;
  *     &lt;category android:name="{@link #CATEGORY_LAUNCHER android.intent.category.LAUNCHER}" /&gt;
-=======
- *     &lt;action android:value="{@link #ACTION_MAIN android.intent.action.MAIN}" /&gt;
- *     &lt;category android:value="{@link #CATEGORY_LAUNCHER android.intent.category.LAUNCHER}" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  * &lt;/intent-filter&gt;</pre>
  * <p>This provides a top-level entry into the NotePad application: the standard
  * MAIN action is a main entry point (not requiring any other information in
@@ -396,19 +315,11 @@ import java.util.Set;
  * listed in the application launcher.</p>
  * <li><pre>
  * &lt;intent-filter&gt;
-<<<<<<< HEAD
  *     &lt;action android:name="{@link #ACTION_VIEW android.intent.action.VIEW}" /&gt;
  *     &lt;action android:name="{@link #ACTION_EDIT android.intent.action.EDIT}" /&gt;
  *     &lt;action android:name="{@link #ACTION_PICK android.intent.action.PICK}" /&gt;
  *     &lt;category android:name="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
  *     &lt;data mimeType:name="vnd.android.cursor.dir/<i>vnd.google.note</i>" /&gt;
-=======
- *     &lt;action android:value="{@link #ACTION_VIEW android.intent.action.VIEW}" /&gt;
- *     &lt;action android:value="{@link #ACTION_EDIT android.intent.action.EDIT}" /&gt;
- *     &lt;action android:value="{@link #ACTION_PICK android.intent.action.PICK}" /&gt;
- *     &lt;category android:value="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
- *     &lt;type android:value="vnd.android.cursor.dir/<i>vnd.google.note</i>" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  * &lt;/intent-filter&gt;</pre>
  * <p>This declares the things that the activity can do on a directory of
  * notes.  The type being supported is given with the &lt;type&gt; tag, where
@@ -423,15 +334,9 @@ import java.util.Set;
  * activity when its component name is not explicitly specified.</p>
  * <li><pre>
  * &lt;intent-filter&gt;
-<<<<<<< HEAD
  *     &lt;action android:name="{@link #ACTION_GET_CONTENT android.intent.action.GET_CONTENT}" /&gt;
  *     &lt;category android:name="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
  *     &lt;data android:mimeType="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
-=======
- *     &lt;action android:value="{@link #ACTION_GET_CONTENT android.intent.action.GET_CONTENT}" /&gt;
- *     &lt;category android:value="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
- *     &lt;type android:value="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  * &lt;/intent-filter&gt;</pre>
  * <p>This filter describes the ability return to the caller a note selected by
  * the user without needing to know where it came from.  The data type
@@ -454,11 +359,7 @@ import java.util.Set;
  *     <li> <p><b>{ action=android.app.action.MAIN,
  *         category=android.app.category.LAUNCHER }</b> is the actual intent
  *         used by the Launcher to populate its top-level list.</p>
-<<<<<<< HEAD
  *     <li> <p><b>{ action=android.intent.action.VIEW
-=======
- *     <li> <p><b>{ action=android.app.action.VIEW
->>>>>>> 54b6cfa... Initial Contribution
  *          data=content://com.google.provider.NotePad/notes }</b>
  *         displays a list of all the notes under
  *         "content://com.google.provider.NotePad/notes", which
@@ -482,17 +383,10 @@ import java.util.Set;
  * <ol>
  * <li><pre>
  * &lt;intent-filter android:label="@string/resolve_edit"&gt;
-<<<<<<< HEAD
  *     &lt;action android:name="{@link #ACTION_VIEW android.intent.action.VIEW}" /&gt;
  *     &lt;action android:name="{@link #ACTION_EDIT android.intent.action.EDIT}" /&gt;
  *     &lt;category android:name="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
  *     &lt;data android:mimeType="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
-=======
- *     &lt;action android:value="{@link #ACTION_VIEW android.intent.action.VIEW}" /&gt;
- *     &lt;action android:value="{@link #ACTION_EDIT android.intent.action.EDIT}" /&gt;
- *     &lt;category android:value="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
- *     &lt;type android:value="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  * &lt;/intent-filter&gt;</pre>
  * <p>The first, primary, purpose of this activity is to let the user interact
  * with a single note, as decribed by the MIME type
@@ -502,15 +396,9 @@ import java.util.Set;
  * specifying its component.</p>
  * <li><pre>
  * &lt;intent-filter&gt;
-<<<<<<< HEAD
  *     &lt;action android:name="{@link #ACTION_INSERT android.intent.action.INSERT}" /&gt;
  *     &lt;category android:name="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
  *     &lt;data android:mimeType="vnd.android.cursor.dir/<i>vnd.google.note</i>" /&gt;
-=======
- *     &lt;action android:value="{@link #ACTION_INSERT android.intent.action.INSERT}" /&gt;
- *     &lt;category android:value="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
- *     &lt;type android:value="vnd.android.cursor.dir/<i>vnd.google.note</i>" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  * &lt;/intent-filter&gt;</pre>
  * <p>The secondary use of this activity is to insert a new note entry into
  * an existing directory of notes.  This is used when the user creates a new
@@ -523,11 +411,7 @@ import java.util.Set;
  * NoteEditor activity:</p>
  *
  * <ul>
-<<<<<<< HEAD
  *     <li> <p><b>{ action=android.intent.action.VIEW
-=======
- *     <li> <p><b>{ action=android.app.action.VIEW
->>>>>>> 54b6cfa... Initial Contribution
  *          data=content://com.google.provider.NotePad/notes/<var>{ID}</var> }</b>
  *         shows the user the content of note <var>{ID}</var>.</p>
  *     <li> <p><b>{ action=android.app.action.EDIT
@@ -550,19 +434,11 @@ import java.util.Set;
  *
  * <pre>
  * &lt;intent-filter android:label="@string/resolve_title"&gt;
-<<<<<<< HEAD
  *     &lt;action android:name="<i>com.android.notepad.action.EDIT_TITLE</i>" /&gt;
  *     &lt;category android:name="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
  *     &lt;category android:name="{@link #CATEGORY_ALTERNATIVE android.intent.category.ALTERNATIVE}" /&gt;
  *     &lt;category android:name="{@link #CATEGORY_SELECTED_ALTERNATIVE android.intent.category.SELECTED_ALTERNATIVE}" /&gt;
  *     &lt;data android:mimeType="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
-=======
- *     &lt;action android:value="<i>com.android.notepad.action.EDIT_TITLE</i>" /&gt;
- *     &lt;category android:value="{@link #CATEGORY_DEFAULT android.intent.category.DEFAULT}" /&gt;
- *     &lt;category android:value="{@link #CATEGORY_ALTERNATIVE android.intent.category.ALTERNATIVE}" /&gt;
- *     &lt;category android:value="{@link #CATEGORY_SELECTED_ALTERNATIVE android.intent.category.SELECTED_ALTERNATIVE}" /&gt;
- *     &lt;type android:value="vnd.android.cursor.item/<i>vnd.google.note</i>" /&gt;
->>>>>>> 54b6cfa... Initial Contribution
  * &lt;/intent-filter&gt;</pre>
  *
  * <p>In the single intent template here, we
@@ -640,7 +516,6 @@ import java.util.Set;
  *     <li> {@link #ACTION_PACKAGE_ADDED}
  *     <li> {@link #ACTION_PACKAGE_CHANGED}
  *     <li> {@link #ACTION_PACKAGE_REMOVED}
-<<<<<<< HEAD
  *     <li> {@link #ACTION_PACKAGE_RESTARTED}
  *     <li> {@link #ACTION_PACKAGE_DATA_CLEARED}
  *     <li> {@link #ACTION_UID_REMOVED}
@@ -648,10 +523,6 @@ import java.util.Set;
  *     <li> {@link #ACTION_POWER_CONNECTED}
  *     <li> {@link #ACTION_POWER_DISCONNECTED}
  *     <li> {@link #ACTION_SHUTDOWN}
-=======
- *     <li> {@link #ACTION_UID_REMOVED}
- *     <li> {@link #ACTION_BATTERY_CHANGED}
->>>>>>> 54b6cfa... Initial Contribution
  * </ul>
  *
  * <h3>Standard Categories</h3>
@@ -666,7 +537,6 @@ import java.util.Set;
  *     <li> {@link #CATEGORY_ALTERNATIVE}
  *     <li> {@link #CATEGORY_SELECTED_ALTERNATIVE}
  *     <li> {@link #CATEGORY_LAUNCHER}
-<<<<<<< HEAD
  *     <li> {@link #CATEGORY_INFO}
  *     <li> {@link #CATEGORY_HOME}
  *     <li> {@link #CATEGORY_PREFERENCE}
@@ -677,12 +547,6 @@ import java.util.Set;
  *     <li> {@link #CATEGORY_HE_DESK_DOCK}
  *     <li> {@link #CATEGORY_CAR_MODE}
  *     <li> {@link #CATEGORY_APP_MARKET}
-=======
- *     <li> {@link #CATEGORY_HOME}
- *     <li> {@link #CATEGORY_PREFERENCE}
- *     <li> {@link #CATEGORY_GADGET}
- *     <li> {@link #CATEGORY_TEST}
->>>>>>> 54b6cfa... Initial Contribution
  * </ul>
  *
  * <h3>Standard Extra Data</h3>
@@ -691,7 +555,6 @@ import java.util.Set;
  * {@link #putExtra}.
  *
  * <ul>
-<<<<<<< HEAD
  *     <li> {@link #EXTRA_ALARM_COUNT}
  *     <li> {@link #EXTRA_BCC}
  *     <li> {@link #EXTRA_CC}
@@ -721,43 +584,15 @@ import java.util.Set;
  *     <li> {@link #EXTRA_TEXT}
  *     <li> {@link #EXTRA_TITLE}
  *     <li> {@link #EXTRA_UID}
-=======
- *     <li> {@link #EXTRA_TEMPLATE}
- *     <li> {@link #EXTRA_INTENT}
- *     <li> {@link #EXTRA_STREAM}
- *     <li> {@link #EXTRA_TEXT}
->>>>>>> 54b6cfa... Initial Contribution
  * </ul>
  *
  * <h3>Flags</h3>
  *
  * <p>These are the possible flags that can be used in the Intent via
-<<<<<<< HEAD
  * {@link #setFlags} and {@link #addFlags}.  See {@link #setFlags} for a list
  * of all possible flags.
  */
 public class Intent implements Parcelable, Cloneable {
-=======
- * {@link #setFlags} and {@link #addFlags}.
- *
- * <ul>
- *     <li> {@link #FLAG_GRANT_READ_URI_PERMISSION}
- *     <li> {@link #FLAG_GRANT_WRITE_URI_PERMISSION}
- *     <li> {@link #FLAG_FROM_BACKGROUND}
- *     <li> {@link #FLAG_DEBUG_LOG_RESOLUTION}
- *     <li> {@link #FLAG_ACTIVITY_NO_HISTORY}
- *     <li> {@link #FLAG_ACTIVITY_SINGLE_TOP}
- *     <li> {@link #FLAG_ACTIVITY_NEW_TASK}
- *     <li> {@link #FLAG_ACTIVITY_MULTIPLE_TASK}
- *     <li> {@link #FLAG_ACTIVITY_FORWARD_RESULT}
- *     <li> {@link #FLAG_ACTIVITY_PREVIOUS_IS_TOP}
- *     <li> {@link #FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS}
- *     <li> {@link #FLAG_ACTIVITY_BROUGHT_TO_FRONT}
- *     <li> {@link #FLAG_RECEIVER_REGISTERED_ONLY}
- * </ul>
- */
-public class Intent implements Parcelable {
->>>>>>> 54b6cfa... Initial Contribution
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
     // Standard intent activity actions (see action variable).
@@ -770,10 +605,7 @@ public class Intent implements Parcelable {
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_MAIN = "android.intent.action.MAIN";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Activity Action: Display the data to the user.  This is the most common
      * action performed on data -- it is the generic action you can use on
@@ -787,19 +619,13 @@ public class Intent implements Parcelable {
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_VIEW = "android.intent.action.VIEW";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * A synonym for {@link #ACTION_VIEW}, the "standard" action that is
      * performed on a piece of data.
      */
     public static final String ACTION_DEFAULT = ACTION_VIEW;
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Used to indicate that some piece of data should be attached to some other
      * place.  For example, image data could be attached to a contact.  It is up
@@ -810,10 +636,7 @@ public class Intent implements Parcelable {
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_ATTACH_DATA = "android.intent.action.ATTACH_DATA";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Activity Action: Provide explicit editable access to the given data.
      * <p>Input: {@link #getData} is URI of data to be edited.
@@ -821,10 +644,7 @@ public class Intent implements Parcelable {
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_EDIT = "android.intent.action.EDIT";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Activity Action: Pick an existing item, or insert a new item, and then edit it.
      * <p>Input: {@link #getType} is the desired MIME type of the item to create or edit.
@@ -835,10 +655,7 @@ public class Intent implements Parcelable {
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_INSERT_OR_EDIT = "android.intent.action.INSERT_OR_EDIT";
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Activity Action: Pick an item from the data, returning what was selected.
      * <p>Input: {@link #getData} is URI containing a directory of data
@@ -847,7 +664,6 @@ public class Intent implements Parcelable {
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_PICK = "android.intent.action.PICK";
-<<<<<<< HEAD
 
     /**
      * Activity Action: Creates a shortcut.
@@ -857,15 +673,6 @@ public class Intent implements Parcelable {
      * and SHORTCUT_ICON (value: Bitmap) or SHORTCUT_ICON_RESOURCE
      * (value: ShortcutIconResource).</p>
      *
-=======
-    /**
-     * Activity Action: Creates a shortcut.
-     * <p>Input: Nothing.
-     * <p>Output: An Intent representing the shortcut. The intent must contain three
-     * extras: SHORTCUT_INTENT (value: Intent), SHORTCUT_NAME (value: String),
-     * and SHORTCUT_ICON (value: Bitmap) or SHORTCUT_ICON_RESOURCE
-     * (value: ShortcutIconResource).
->>>>>>> 54b6cfa... Initial Contribution
      * @see #EXTRA_SHORTCUT_INTENT
      * @see #EXTRA_SHORTCUT_NAME
      * @see #EXTRA_SHORTCUT_ICON
@@ -903,19 +710,12 @@ public class Intent implements Parcelable {
             "android.intent.extra.shortcut.ICON_RESOURCE";
 
     /**
-<<<<<<< HEAD
      * Represents a shortcut/live folder icon resource.
      *
      * @see Intent#ACTION_CREATE_SHORTCUT
      * @see Intent#EXTRA_SHORTCUT_ICON_RESOURCE
      * @see android.provider.LiveFolders#ACTION_CREATE_LIVE_FOLDER
      * @see android.provider.LiveFolders#EXTRA_LIVE_FOLDER_ICON
-=======
-     * Represents a shortcut icon resource.
-     *
-     * @see Intent#ACTION_CREATE_SHORTCUT
-     * @see Intent#EXTRA_SHORTCUT_ICON_RESOURCE
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static class ShortcutIconResource implements Parcelable {
         /**
@@ -1009,7 +809,6 @@ public class Intent implements Parcelable {
      * always present to the user a list of the things they can do, with a
      * nice title given by the caller such as "Send this photo with:".
      * <p>
-<<<<<<< HEAD
      * If you need to grant URI permissions through a chooser, you must specify
      * the permissions to be granted on the ACTION_CHOOSER Intent
      * <em>in addition</em> to the EXTRA_INTENT inside.  This means using
@@ -1026,15 +825,6 @@ public class Intent implements Parcelable {
      * title text to display in the chooser.
      * <p>
      * Output: Depends on the protocol of {@link #EXTRA_INTENT}.
-=======
-     * As a convenience, an Intent of this form can be created with the
-     * {@link #createChooser} function.
-     * <p>Input: No data should be specified.  get*Extra must have
-     * a {@link #EXTRA_INTENT} field containing the Intent being executed,
-     * and can optionally have a {@link #EXTRA_TITLE} field containing the
-     * title text to display in the chooser.
-     * <p>Output: Depends on the protocol of {@link #EXTRA_INTENT}.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_CHOOSER = "android.intent.action.CHOOSER";
@@ -1042,7 +832,6 @@ public class Intent implements Parcelable {
     /**
      * Convenience function for creating a {@link #ACTION_CHOOSER} Intent.
      *
-<<<<<<< HEAD
      * <p>Builds a new {@link #ACTION_CHOOSER} Intent that wraps the given
      * target intent, also optionally supplying a title.  If the target
      * intent has specified {@link #FLAG_GRANT_READ_URI_PERMISSION} or
@@ -1051,8 +840,6 @@ public class Intent implements Parcelable {
      * either a direct reflection of {@link #getClipData()} if that is non-null,
      * or a new ClipData build from {@link #getData()}.
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param target The Intent that the user will be selecting an activity
      * to perform.
      * @param title Optional title that will be displayed in the chooser.
@@ -1066,7 +853,6 @@ public class Intent implements Parcelable {
         if (title != null) {
             intent.putExtra(EXTRA_TITLE, title);
         }
-<<<<<<< HEAD
 
         // Migrate any clip data and flags from target.
         int permFlags = target.getFlags()
@@ -1092,27 +878,16 @@ public class Intent implements Parcelable {
         return intent;
     }
 
-=======
-        return intent;
-    }
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Activity Action: Allow the user to select a particular kind of data and
      * return it.  This is different than {@link #ACTION_PICK} in that here we
      * just say what kind of data is desired, not a URI of existing data from
      * which the user can pick.  A ACTION_GET_CONTENT could allow the user to
      * create the data as it runs (for example taking a picture or recording a
-<<<<<<< HEAD
      * sound), let them browse over the web and download the desired data,
      * etc.
      * <p>
      * There are two main ways to use this action: if you want a specific kind
-=======
-     * sound), let them browser over the web and download the desired data,
-     * etc.
-     * <p>
-     * There are two main ways to use this action: if you want an specific kind
->>>>>>> 54b6cfa... Initial Contribution
      * of data, such as a person contact, you set the MIME type to the kind of
      * data you want and launch it with {@link Context#startActivity(Intent)}.
      * The system will then launch the best application to select that kind
@@ -1130,7 +905,6 @@ public class Intent implements Parcelable {
      * broad MIME type (such as image/* or {@literal *}/*), resulting in a
      * broad range of content types the user can select from.
      * <p>
-<<<<<<< HEAD
      * When using such a broad GET_CONTENT action, it is often desirable to
      * only pick from data that can be represented as a stream.  This is
      * accomplished by requiring the {@link #CATEGORY_OPENABLE} in the Intent.
@@ -1142,22 +916,12 @@ public class Intent implements Parcelable {
      * from a remote server but not already on the local device (thus requiring
      * they be downloaded when opened).
      * <p>
-=======
-     * When using such a broad GET_CONTENT action, it is often desireable to
-     * only pick from data that can be represented as a stream.  This is
-     * accomplished by requiring the {@link #CATEGORY_OPENABLE} in the Intent.
-     * <p>
->>>>>>> 54b6cfa... Initial Contribution
      * Input: {@link #getType} is the desired MIME type to retrieve.  Note
      * that no URI is supplied in the intent, as there are no constraints on
      * where the returned data originally comes from.  You may also include the
      * {@link #CATEGORY_OPENABLE} if you can only accept data that can be
-<<<<<<< HEAD
      * opened as a stream.  You may use {@link #EXTRA_LOCAL_ONLY} to limit content
      * selection to local data.
-=======
-     * opened as a stream.
->>>>>>> 54b6cfa... Initial Contribution
      * <p>
      * Output: The URI of the item that was picked.  This must be a content:
      * URI so that any receiver can access it.
@@ -1231,7 +995,6 @@ public class Intent implements Parcelable {
      * using EXTRA_TEXT, the MIME type should be "text/plain"; otherwise it
      * should be the MIME type of the data in EXTRA_STREAM.  Use {@literal *}/*
      * if the MIME type is unknown (this will only allow senders that can
-<<<<<<< HEAD
      * handle generic data streams).  If using {@link #EXTRA_TEXT}, you can
      * also optionally supply {@link #EXTRA_HTML_TEXT} for clients to retrieve
      * your text with HTML formatting.
@@ -1244,9 +1007,6 @@ public class Intent implements Parcelable {
      * {@link #EXTRA_TEXT} or {@link #EXTRA_STREAM} fields described below
      * for compatibility with old applications.  If you don't set a ClipData,
      * it will be copied there for you when calling {@link Context#startActivity(Intent)}.
-=======
-     * handle generic data streams).
->>>>>>> 54b6cfa... Initial Contribution
      * <p>
      * Optional standard extras, which may be interpreted by some recipients as
      * appropriate, are: {@link #EXTRA_EMAIL}, {@link #EXTRA_CC},
@@ -1257,7 +1017,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_SEND = "android.intent.action.SEND";
     /**
-<<<<<<< HEAD
      * Activity Action: Deliver multiple data to someone else.
      * <p>
      * Like {@link #ACTION_SEND}, except the data is multiple.
@@ -1296,8 +1055,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_SEND_MULTIPLE = "android.intent.action.SEND_MULTIPLE";
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Activity Action: Handle an incoming phone call.
      * <p>Input: nothing.
      * <p>Output: nothing.
@@ -1313,7 +1070,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_INSERT = "android.intent.action.INSERT";
     /**
-<<<<<<< HEAD
      * Activity Action: Create a new item in the given container, initializing it
      * from the current contents of the clipboard.
      * <p>Input: {@link #getData} is URI of the directory (vnd.android.cursor.dir/*)
@@ -1323,8 +1079,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_PASTE = "android.intent.action.PASTE";
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Activity Action: Delete the given data from its container.
      * <p>Input: {@link #getData} is URI of data to be deleted.
      * <p>Output: nothing.
@@ -1365,7 +1119,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_SEARCH = "android.intent.action.SEARCH";
     /**
-<<<<<<< HEAD
      * Activity Action: Start the platform-defined tutorial
      * <p>Input: {@link android.app.SearchManager#QUERY getStringExtra(SearchManager.QUERY)}
      * is the text to search for.  If empty, simply
@@ -1383,18 +1136,10 @@ public class Intent implements Parcelable {
      * text, Google search will be applied.
      * <p>
      * Output: nothing.
-=======
-     * Activity Action: Perform a web search.
-     * <p>Input: {@link #getData} is URI of data. If it is a url
-     * starts with http or https, the site will be opened. If it is plain text,
-     * Google search will be applied.
-     * <p>Output: nothing.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_WEB_SEARCH = "android.intent.action.WEB_SEARCH";
     /**
-<<<<<<< HEAD
      * Activity Action: Perform assist action.
      * <p>
      * Input: nothing
@@ -1403,8 +1148,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_ASSIST = "android.intent.action.ASSIST";
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Activity Action: List all available applications
      * <p>Input: Nothing.
      * <p>Output: nothing.
@@ -1453,7 +1196,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_VOICE_COMMAND = "android.intent.action.VOICE_COMMAND";
 
-<<<<<<< HEAD
     /**
      * Activity Action: Start action associated with long pressing on the
      * search key.
@@ -1592,26 +1334,20 @@ public class Intent implements Parcelable {
      */
     public static final String METADATA_SETUP_VERSION = "android.SETUP_VERSION";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
     // Standard intent broadcast actions (see action variable).
 
     /**
      * Broadcast Action: Sent after the screen turns off.
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_SCREEN_OFF = "android.intent.action.SCREEN_OFF";
     /**
      * Broadcast Action: Sent after the screen turns on.
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
@@ -1629,23 +1365,15 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_USER_PRESENT = "android.intent.action.USER_PRESENT";
 
-=======
-     */
-    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
-    public static final String ACTION_SCREEN_ON = "android.intent.action.SCREEN_ON";
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Broadcast Action: The current time has changed.  Sent every
      * minute.  You can <em>not</em> receive this through components declared
      * in manifests, only by exlicitly registering for it with
      * {@link Context#registerReceiver(BroadcastReceiver, IntentFilter)
      * Context.registerReceiver()}.
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_TIME_TICK = "android.intent.action.TIME_TICK";
@@ -1664,17 +1392,13 @@ public class Intent implements Parcelable {
      * <ul>
      *   <li><em>time-zone</em> - The java.util.TimeZone.getID() value identifying the new time zone.</li>
      * </ul>
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_TIMEZONE_CHANGED = "android.intent.action.TIMEZONE_CHANGED";
     /**
-<<<<<<< HEAD
      * Clear DNS Cache Action: This is broadcast when networks have changed and old
      * DNS entries should be tossed.
      * @hide
@@ -1682,8 +1406,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_CLEAR_DNS_CACHE = "android.intent.action.CLEAR_DNS_CACHE";
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Alarm Changed Action: This is broadcast when the AlarmClock
      * application's alarm is set or unset.  It is used by the
      * AlarmClock application and the StatusBar service.
@@ -1705,12 +1427,9 @@ public class Intent implements Parcelable {
      * such as installing alarms.  You must hold the
      * {@link android.Manifest.permission#RECEIVE_BOOT_COMPLETED} permission
      * in order to receive this broadcast.
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED";
@@ -1724,7 +1443,6 @@ public class Intent implements Parcelable {
      * Broadcast Action: Trigger the download and eventual installation
      * of a package.
      * <p>Input: {@link #getData} is the URI of the package file to download.
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
@@ -1732,14 +1450,10 @@ public class Intent implements Parcelable {
      * @deprecated This constant has never been used.
      */
     @Deprecated
-=======
-     */
->>>>>>> 54b6cfa... Initial Contribution
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_PACKAGE_INSTALL = "android.intent.action.PACKAGE_INSTALL";
     /**
      * Broadcast Action: A new application package has been installed on the
-<<<<<<< HEAD
      * device. The data contains the name of the package.  Note that the
      * newly installed package does <em>not</em> receive this broadcast.
      * <p>My include the following extras:
@@ -1751,14 +1465,10 @@ public class Intent implements Parcelable {
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
-     * device. The data contains the name of the package.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_PACKAGE_ADDED = "android.intent.action.PACKAGE_ADDED";
     /**
-<<<<<<< HEAD
      * Broadcast Action: A new version of an application package has been
      * installed, replacing an existing version that was previously installed.
      * The data contains the name of the package.
@@ -1798,16 +1508,10 @@ public class Intent implements Parcelable {
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
-     * Broadcast Action: An existing application package has been removed from
-     * the device.  The data contains the name of the package.  The package
-     * that is being installed does <em>not</em> receive this Intent.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_PACKAGE_REMOVED = "android.intent.action.PACKAGE_REMOVED";
     /**
-<<<<<<< HEAD
      * Broadcast Action: An existing application package has been completely
      * removed from the device.  The data contains the name of the package.
      * This is like {@link #ACTION_PACKAGE_REMOVED}, but only set when
@@ -1839,15 +1543,10 @@ public class Intent implements Parcelable {
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
-     * Broadcast Action: An existing application package has been changed (e.g. a component has been
-     * enabled or disabled.  The data contains the name of the package.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_PACKAGE_CHANGED = "android.intent.action.PACKAGE_CHANGED";
     /**
-<<<<<<< HEAD
      * @hide
      * Broadcast Action: Ask system services if there is any reason to
      * restart the given package.  The data contains the name of the
@@ -1875,16 +1574,10 @@ public class Intent implements Parcelable {
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
-     * Broadcast Action: The user has restarted a package, all runtime state
-     * associated with it (processes, alarms, notifications, etc) should
-     * be remove.  The data contains the name of the package.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_PACKAGE_RESTARTED = "android.intent.action.PACKAGE_RESTARTED";
     /**
-<<<<<<< HEAD
      * Broadcast Action: The user has cleared the data of a package.  This should
      * be preceded by {@link #ACTION_PACKAGE_RESTARTED}, after which all of
      * its persistent data is erased and this broadcast sent.
@@ -1998,18 +1691,6 @@ public class Intent implements Parcelable {
      * rendering the wallpaper on their own.
      */
     @Deprecated @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
-=======
-     * Broadcast Action: A user ID has been removed from the system.  The user
-     * ID number is stored in the extra data under {@link #EXTRA_UID}.
-     */
-    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
-    public static final String ACTION_UID_REMOVED = "android.intent.action.UID_REMOVED";
-    /**
-     * Broadcast Action:  The current system wallpaper has changed.  See
-     * {@link Context#getWallpaper} for retrieving the new wallpaper.
-     */
-    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
->>>>>>> 54b6cfa... Initial Contribution
     public static final String ACTION_WALLPAPER_CHANGED = "android.intent.action.WALLPAPER_CHANGED";
     /**
      * Broadcast Action: The current device {@link android.content.res.Configuration}
@@ -2021,7 +1702,6 @@ public class Intent implements Parcelable {
      * can not be restarted will need to watch for this action and handle it
      * appropriately.
      *
-<<<<<<< HEAD
      * <p class="note">
      * You can <em>not</em> receive this through components declared
      * in manifests, only by explicitly registering for it with
@@ -2031,14 +1711,11 @@ public class Intent implements Parcelable {
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @see android.content.res.Configuration
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_CONFIGURATION_CHANGED = "android.intent.action.CONFIGURATION_CHANGED";
     /**
-<<<<<<< HEAD
      * Broadcast Action: The current device's locale has changed.
      *
      * <p class="note">This is a protected intent that can only be sent
@@ -2064,33 +1741,19 @@ public class Intent implements Parcelable {
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
-     * Broadcast Action:  The charging state, or charge level of the battery has
-     * changed.
-     * 
-     * <p class="note">
-     * You can <em>not</em> receive this through components declared
-     * in manifests, only by exlicitly registering for it with
-     * {@link Context#registerReceiver(BroadcastReceiver, IntentFilter)
-     * Context.registerReceiver()}.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_BATTERY_CHANGED = "android.intent.action.BATTERY_CHANGED";
     /**
      * Broadcast Action:  Indicates low battery condition on the device.
      * This broadcast corresponds to the "Low battery warning" system dialog.
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_BATTERY_LOW = "android.intent.action.BATTERY_LOW";
     /**
-<<<<<<< HEAD
      * Broadcast Action:  Indicates the battery is now okay after being low.
      * This will be sent after {@link #ACTION_BATTERY_LOW} once the battery has
      * gone back up to an okay state.
@@ -2220,46 +1883,6 @@ public class Intent implements Parcelable {
     /**
      * Broadcast Action:  External media has been removed.
      * The path to the mount point for the removed media is contained in the Intent.mData field.
-=======
-     * Broadcast Action:  Indicates low memory condition on the device
-     */
-    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
-    public static final String ACTION_DEVICE_STORAGE_LOW = "android.intent.action.DEVICE_STORAGE_LOW";
-    /**
-     * Broadcast Action:  Indicates low memory condition on the device no longer exists
-     */
-    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
-    public static final String ACTION_DEVICE_STORAGE_OK = "android.intent.action.DEVICE_STORAGE_OK";
-    /**
-     * Broadcast Action:  Indicates low memory condition notification acknowledged by user
-     * and package management should be started.
-     * This is triggered by the user from the ACTION_DEVICE_STORAGE_LOW
-     * notification.
-     */
-    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
-    public static final String ACTION_MANAGE_PACKAGE_STORAGE = "android.intent.action.MANAGE_PACKAGE_STORAGE";
-    /**
-     * Broadcast Action:  The device has entered USB Mass Storage mode.
-     * This is used mainly for the USB Settings panel.
-     * Apps should listen for ACTION_MEDIA_MOUNTED and ACTION_MEDIA_UNMOUNTED broadcasts to be notified
-     * when the SD card file system is mounted or unmounted
-     */
-    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
-    public static final String ACTION_UMS_CONNECTED = "android.intent.action.UMS_CONNECTED";
-
-    /**
-     * Broadcast Action:  The device has exited USB Mass Storage mode.
-     * This is used mainly for the USB Settings panel.
-     * Apps should listen for ACTION_MEDIA_MOUNTED and ACTION_MEDIA_UNMOUNTED broadcasts to be notified
-     * when the SD card file system is mounted or unmounted
-     */
-    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
-    public static final String ACTION_UMS_DISCONNECTED = "android.intent.action.UMS_DISCONNECTED";
-
-    /**
-     * Broadcast Action:  External media has been removed.
-     * The path to the mount point for the removed media is contained in the Intent.mData field.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_MEDIA_REMOVED = "android.intent.action.MEDIA_REMOVED";
@@ -2272,7 +1895,6 @@ public class Intent implements Parcelable {
     public static final String ACTION_MEDIA_UNMOUNTED = "android.intent.action.MEDIA_UNMOUNTED";
 
     /**
-<<<<<<< HEAD
      * Broadcast Action:  External media is present, and being disk-checked
      * The path to the mount point for the checking media is contained in the Intent.mData field.
      */
@@ -2287,8 +1909,6 @@ public class Intent implements Parcelable {
     public static final String ACTION_MEDIA_NOFS = "android.intent.action.MEDIA_NOFS";
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Broadcast Action:  External media is present and mounted at its mount point.
      * The path to the mount point for the removed media is contained in the Intent.mData field.
      * The Intent contains an extra with name "read-only" and Boolean value to indicate if the
@@ -2299,17 +1919,12 @@ public class Intent implements Parcelable {
 
     /**
      * Broadcast Action:  External media is unmounted because it is being shared via USB mass storage.
-<<<<<<< HEAD
      * The path to the mount point for the shared media is contained in the Intent.mData field.
-=======
-     * The path to the mount point for the removed media is contained in the Intent.mData field.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_MEDIA_SHARED = "android.intent.action.MEDIA_SHARED";
 
     /**
-<<<<<<< HEAD
      * Broadcast Action:  External media is no longer being shared via USB mass storage.
      * The path to the mount point for the previously shared media is contained in the Intent.mData field.
      *
@@ -2318,8 +1933,6 @@ public class Intent implements Parcelable {
     public static final String ACTION_MEDIA_UNSHARED = "android.intent.action.MEDIA_UNSHARED";
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Broadcast Action:  External media was removed from SD card slot, but mount point was not unmounted.
      * The path to the mount point for the removed media is contained in the Intent.mData field.
      */
@@ -2382,29 +1995,20 @@ public class Intent implements Parcelable {
     // location; they are not general-purpose actions.
 
     /**
-<<<<<<< HEAD
      * Broadcast Action: A GTalk connection has been established.
-=======
-     * Broadcast Action: An GTalk connection has been established.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_GTALK_SERVICE_CONNECTED =
             "android.intent.action.GTALK_CONNECTED";
 
     /**
-<<<<<<< HEAD
      * Broadcast Action: A GTalk connection has been disconnected.
-=======
-     * Broadcast Action: An GTalk connection has been disconnected.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_GTALK_SERVICE_DISCONNECTED =
             "android.intent.action.GTALK_DISCONNECTED";
 
     /**
-<<<<<<< HEAD
      * Broadcast Action: An input method has been changed.
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
@@ -2412,8 +2016,6 @@ public class Intent implements Parcelable {
             "android.intent.action.INPUT_METHOD_CHANGED";
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * <p>Broadcast Action: The user has switched the phone into or out of Airplane Mode. One or
      * more radios have been turned off or on. The intent will have the following extra value:</p>
      * <ul>
@@ -2421,12 +2023,9 @@ public class Intent implements Parcelable {
      *   then cell radio and possibly other radios such as bluetooth or WiFi may have also been
      *   turned off</li>
      * </ul>
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_AIRPLANE_MODE_CHANGED = "android.intent.action.AIRPLANE_MODE";
@@ -2468,10 +2067,7 @@ public class Intent implements Parcelable {
      * <ul>
      *   <li><em>state</em> - 0 for unplugged, 1 for plugged. </li>
      *   <li><em>name</em> - Headset type, human readable string </li>
-<<<<<<< HEAD
      *   <li><em>microphone</em> - 1 if headset has a microphone, 0 otherwise </li>
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * </ul>
      * </ul>
      */
@@ -2480,7 +2076,6 @@ public class Intent implements Parcelable {
             "android.intent.action.HEADSET_PLUG";
 
     /**
-<<<<<<< HEAD
      * Broadcast Action: An analog audio speaker/headset plugged in or unplugged.
      *
      * <p>The intent will have the following extra values:
@@ -2573,26 +2168,16 @@ public class Intent implements Parcelable {
             = "android.intent.action.ADVANCED_SETTINGS";
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Broadcast Action: An outgoing call is about to be placed.
      *
      * <p>The Intent will have the following extra value:
      * <ul>
-<<<<<<< HEAD
      *   <li><em>{@link android.content.Intent#EXTRA_PHONE_NUMBER}</em> -
-=======
-     *   <li><em>{@link android.content.Intent#EXTRA_PHONE_NUMBER}</em> - 
->>>>>>> 54b6cfa... Initial Contribution
      *       the phone number originally intended to be dialed.</li>
      * </ul>
      * <p>Once the broadcast is finished, the resultData is used as the actual
      * number to call.  If  <code>null</code>, no call will be placed.</p>
-<<<<<<< HEAD
      * <p>It is perfectly acceptable for multiple receivers to process the
-=======
-     * <p>It is perfectly acceptable for multiple receivers to process the 
->>>>>>> 54b6cfa... Initial Contribution
      * outgoing call in turn: for example, a parental control application
      * might verify that the user is authorized to place the call at that
      * time, then a number-rewriting application might add an area code if
@@ -2600,11 +2185,7 @@ public class Intent implements Parcelable {
      * <p>For consistency, any receiver whose purpose is to prohibit phone
      * calls should have a priority of 0, to ensure it will see the final
      * phone number to be dialed.
-<<<<<<< HEAD
      * Any receiver whose purpose is to rewrite phone numbers to be called
-=======
-     * Any receiver whose purpose is to rewrite phone numbers to be called 
->>>>>>> 54b6cfa... Initial Contribution
      * should have a positive priority.
      * Negative priorities are reserved for the system for this broadcast;
      * using them may cause problems.</p>
@@ -2613,18 +2194,12 @@ public class Intent implements Parcelable {
      * <p>Emergency calls cannot be intercepted using this mechanism, and
      * other calls cannot be modified to call emergency numbers using this
      * mechanism.
-<<<<<<< HEAD
      * <p>You must hold the
      * {@link android.Manifest.permission#PROCESS_OUTGOING_CALLS}
      * permission to receive this Intent.</p>
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
-     * <p>You must hold the 
-     * {@link android.Manifest.permission#PROCESS_OUTGOING_CALLS}
-     * permission to receive this Intent.</p>
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_NEW_OUTGOING_CALL =
@@ -2633,18 +2208,14 @@ public class Intent implements Parcelable {
     /**
      * Broadcast Action: Have the device reboot.  This is only for use by
      * system code.
-<<<<<<< HEAD
      *
      * <p class="note">This is a protected intent that can only be sent
      * by the system.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_REBOOT =
             "android.intent.action.REBOOT";
 
-<<<<<<< HEAD
     /**
      * Broadcast Action:  A sticky broadcast for changes in the physical
      * docking state of the device.
@@ -2713,8 +2284,6 @@ public class Intent implements Parcelable {
     public static final String ACTION_USER_SWITCHED =
             "android.intent.action.USER_SWITCHED";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
     // Standard intent categories (see addCategory()).
@@ -2774,16 +2343,11 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.INTENT_CATEGORY)
     public static final String CATEGORY_SELECTED_ALTERNATIVE = "android.intent.category.SELECTED_ALTERNATIVE";
     /**
-<<<<<<< HEAD
      * Intended to be used as a tab inside of a containing TabActivity.
-=======
-     * Intended to be used as a tab inside of an containing TabActivity.
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.INTENT_CATEGORY)
     public static final String CATEGORY_TAB = "android.intent.category.TAB";
     /**
-<<<<<<< HEAD
      * Should be displayed in the top-level launcher.
      */
     @SdkConstant(SdkConstantType.INTENT_CATEGORY)
@@ -2795,18 +2359,6 @@ public class Intent implements Parcelable {
      */
     @SdkConstant(SdkConstantType.INTENT_CATEGORY)
     public static final String CATEGORY_INFO = "android.intent.category.INFO";
-=======
-     * This activity can be embedded inside of another activity that is hosting
-     * gadgets.
-     */
-    @SdkConstant(SdkConstantType.INTENT_CATEGORY)
-    public static final String CATEGORY_GADGET = "android.intent.category.GADGET";
-    /**
-     * Should be displayed in the top-level launcher.
-     */
-    @SdkConstant(SdkConstantType.INTENT_CATEGORY)
-    public static final String CATEGORY_LAUNCHER = "android.intent.category.LAUNCHER";
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * This is the home activity, that is the first activity that is displayed
      * when the device boots.
@@ -2825,24 +2377,15 @@ public class Intent implements Parcelable {
     public static final String CATEGORY_DEVELOPMENT_PREFERENCE = "android.intent.category.DEVELOPMENT_PREFERENCE";
     /**
      * Capable of running inside a parent activity container.
-<<<<<<< HEAD
-=======
-     *
-     * <p>Note: being removed in favor of more explicit categories such as
-     * CATEGORY_GADGET
->>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.INTENT_CATEGORY)
     public static final String CATEGORY_EMBED = "android.intent.category.EMBED";
     /**
-<<<<<<< HEAD
      * This activity allows the user to browse and download new applications.
      */
     @SdkConstant(SdkConstantType.INTENT_CATEGORY)
     public static final String CATEGORY_APP_MARKET = "android.intent.category.APP_MARKET";
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * This activity may be exercised by the monkey or other automated test tools.
      */
     @SdkConstant(SdkConstantType.INTENT_CATEGORY)
@@ -2856,11 +2399,7 @@ public class Intent implements Parcelable {
      */
     public static final String CATEGORY_UNIT_TEST = "android.intent.category.UNIT_TEST";
     /**
-<<<<<<< HEAD
      * To be used as a sample code example (not part of the normal user
-=======
-     * To be used as an sample code example (not part of the normal user
->>>>>>> 54b6cfa... Initial Contribution
      * experience).
      */
     public static final String CATEGORY_SAMPLE_CODE = "android.intent.category.SAMPLE_CODE";
@@ -2877,7 +2416,6 @@ public class Intent implements Parcelable {
      */
     public static final String CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST =
             "android.intent.category.FRAMEWORK_INSTRUMENTATION_TEST";
-<<<<<<< HEAD
     /**
      * An activity to run when device is inserted into a car dock.
      * Used with {@link #ACTION_MAIN} to launch an activity.  For more
@@ -3028,8 +2566,6 @@ public class Intent implements Parcelable {
     @SdkConstant(SdkConstantType.INTENT_CATEGORY)
     public static final String CATEGORY_APP_MUSIC = "android.intent.category.APP_MUSIC";
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
     // Standard extra data keys.
@@ -3052,7 +2588,6 @@ public class Intent implements Parcelable {
     public static final String EXTRA_TEXT = "android.intent.extra.TEXT";
 
     /**
-<<<<<<< HEAD
      * A constant String that is associated with the Intent, used with
      * {@link #ACTION_SEND} to supply an alternative to {@link #EXTRA_TEXT}
      * as HTML formatted text.  Note that you <em>must</em> also supply
@@ -3061,8 +2596,6 @@ public class Intent implements Parcelable {
     public static final String EXTRA_HTML_TEXT = "android.intent.extra.HTML_TEXT";
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * A content: URI holding a stream of data associated with the Intent,
      * used with {@link #ACTION_SEND} to supply the data being sent.
      */
@@ -3101,7 +2634,6 @@ public class Intent implements Parcelable {
     public static final String EXTRA_TITLE = "android.intent.extra.TITLE";
 
     /**
-<<<<<<< HEAD
      * A Parcelable[] of {@link Intent} or
      * {@link android.content.pm.LabeledIntent} objects as set with
      * {@link #putExtra(String, Parcelable[])} of additional activities to place
@@ -3111,15 +2643,12 @@ public class Intent implements Parcelable {
     public static final String EXTRA_INITIAL_INTENTS = "android.intent.extra.INITIAL_INTENTS";
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * A {@link android.view.KeyEvent} object containing the event that
      * triggered the creation of the Intent it is in.
      */
     public static final String EXTRA_KEY_EVENT = "android.intent.extra.KEY_EVENT";
 
     /**
-<<<<<<< HEAD
      * Set to true in {@link #ACTION_REQUEST_SHUTDOWN} to request confirmation from the user
      * before shutting down.
      *
@@ -3311,38 +2840,6 @@ public class Intent implements Parcelable {
      */
     public static final String EXTRA_USERID =
             "android.intent.extra.user_id";
-=======
-     * Used as an boolean extra field in {@link android.content.Intent#ACTION_PACKAGE_REMOVED} or
-     * {@link android.content.Intent#ACTION_PACKAGE_CHANGED} intents to override the default action
-     * of restarting the application.
-     */
-    public static final String EXTRA_DONT_KILL_APP = "android.intent.extra.DONT_KILL_APP";
-
-    /**
-     * A String holding the phone number originally entered in
-     * {@link android.content.Intent#ACTION_NEW_OUTGOING_CALL}, or the actual
-     * number to call in a {@link android.content.Intent#ACTION_CALL}.
-     */
-    public static final String EXTRA_PHONE_NUMBER = "android.intent.extra.PHONE_NUMBER";
-    /**
-     * Used as an int extra field in {@link android.content.Intent#ACTION_UID_REMOVED}
-     * intents to supply the uid the package had been assigned.  Also an optional
-     * extra in {@link android.content.Intent#ACTION_PACKAGE_REMOVED} or
-     * {@link android.content.Intent#ACTION_PACKAGE_CHANGED} for the same
-     * purpose.
-     */
-    public static final String EXTRA_UID = "android.intent.extra.UID";
-
-    /**
-     * Used as an int extra field in {@link android.app.AlarmManager} intents
-     * to tell the application being invoked how many pending alarms are being
-     * delievered with the intent.  For one-shot alarms this will always be 1.
-     * For recurring alarms, this might be greater than 1 if the device was
-     * asleep or powered off at the time an earlier alarm would have been
-     * delivered.
-     */
-    public static final String EXTRA_ALARM_COUNT = "android.intent.extra.ALARM_COUNT";
->>>>>>> 54b6cfa... Initial Contribution
 
     // ---------------------------------------------------------------------
     // ---------------------------------------------------------------------
@@ -3350,28 +2847,20 @@ public class Intent implements Parcelable {
 
     /**
      * If set, the recipient of this Intent will be granted permission to
-<<<<<<< HEAD
      * perform read operations on the Uri in the Intent's data and any URIs
      * specified in its ClipData.  When applying to an Intent's ClipData,
      * all URIs as well as recursive traversals through data or other ClipData
      * in Intent items will be granted; only the grant flags of the top-level
      * Intent are used.
-=======
-     * perform read operations on the Uri in the Intent's data.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FLAG_GRANT_READ_URI_PERMISSION = 0x00000001;
     /**
      * If set, the recipient of this Intent will be granted permission to
-<<<<<<< HEAD
      * perform write operations on the Uri in the Intent's data and any URIs
      * specified in its ClipData.  When applying to an Intent's ClipData,
      * all URIs as well as recursive traversals through data or other ClipData
      * in Intent items will be granted; only the grant flags of the top-level
      * Intent are used.
-=======
-     * perform write operations on the Uri in the Intent's data.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FLAG_GRANT_WRITE_URI_PERMISSION = 0x00000002;
     /**
@@ -3385,7 +2874,6 @@ public class Intent implements Parcelable {
      * been found to create the final resolved list.
      */
     public static final int FLAG_DEBUG_LOG_RESOLUTION = 0x00000008;
-<<<<<<< HEAD
     /**
      * If set, this intent will not match any components in packages that
      * are currently stopped.  If this is not set, then the default behavior
@@ -3406,11 +2894,6 @@ public class Intent implements Parcelable {
      * the user navigates away from it, the activity is finished.  This may also
      * be set with the {@link android.R.styleable#AndroidManifestActivity_noHistory
      * noHistory} attribute.
-=======
-
-    /**
-     * If set, the new activity is not kept in the history stack.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FLAG_ACTIVITY_NO_HISTORY = 0x40000000;
     /**
@@ -3424,15 +2907,9 @@ public class Intent implements Parcelable {
      * next task activity) defines an atomic group of activities that the
      * user can move to.  Tasks can be moved to the foreground and background;
      * all of the activities inside of a particular task always remain in
-<<<<<<< HEAD
      * the same order.  See
      * <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and Back
      * Stack</a> for more information about tasks.
-=======
-     * the same order.  See the
-     * <a href="{@docRoot}intro/appmodel.html">Application Model</a>
-     * documentation for more details on tasks.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>This flag is generally used by activities that want
      * to present a "launcher" style behavior: they give the user a list of
@@ -3461,7 +2938,6 @@ public class Intent implements Parcelable {
      * <p><strong>Because the default system does not include graphical task management,
      * you should not use this flag unless you provide some way for a user to
      * return back to the tasks you have launched.</strong>
-<<<<<<< HEAD
      *
      * <p>This flag is ignored if
      * {@link #FLAG_ACTIVITY_NEW_TASK} is not set.
@@ -3469,15 +2945,6 @@ public class Intent implements Parcelable {
      * <p>See
      * <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and Back
      * Stack</a> for more information about tasks.
-=======
-     * 
-     * <p>This flag is ignored if
-     * {@link #FLAG_ACTIVITY_NEW_TASK} is not set.
-     *
-     * <p>See the
-     * <a href="{@docRoot}intro/appmodel.html">Application Model</a>
-     * documentation for more details on tasks.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FLAG_ACTIVITY_MULTIPLE_TASK = 0x08000000;
     /**
@@ -3491,7 +2958,6 @@ public class Intent implements Parcelable {
      * of activity B, then C and D will be finished and B receive the given
      * Intent, resulting in the stack now being: A, B.
      *
-<<<<<<< HEAD
      * <p>The currently running instance of activity B in the above example will
      * either receive the new intent you are starting here in its
      * onNewIntent() method, or be itself finished and restarted with the
@@ -3500,14 +2966,6 @@ public class Intent implements Parcelable {
      * the same intent, then it will be finished and re-created; for all other
      * launch modes or if {@link #FLAG_ACTIVITY_SINGLE_TOP} is set then this
      * Intent will be delivered to the current instance's onNewIntent().
-=======
-     * <p>The currently running instance of task B in the above example will
-     * either receiving the new intent you are starting here in its
-     * onNewIntent() method, or be itself finished and restarting with the
-     * new intent.  If it has declared its launch mode to be "multiple" (the
-     * default) it will be finished and re-created; for all other launch modes
-     * it will receive the Intent in the current instance.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>This launch mode can also be used to good effect in conjunction with
      * {@link #FLAG_ACTIVITY_NEW_TASK}: if used to start the root activity
@@ -3516,15 +2974,9 @@ public class Intent implements Parcelable {
      * especially useful, for example, when launching an activity from the
      * notification manager.
      *
-<<<<<<< HEAD
      * <p>See
      * <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and Back
      * Stack</a> for more information about tasks.
-=======
-     * <p>See the
-     * <a href="{@docRoot}intro/appmodel.html">Application Model</a>
-     * documentation for more details on tasks.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FLAG_ACTIVITY_CLEAR_TOP = 0x04000000;
     /**
@@ -3566,7 +3018,6 @@ public class Intent implements Parcelable {
      */
     public static final int FLAG_ACTIVITY_RESET_TASK_IF_NEEDED = 0x00200000;
     /**
-<<<<<<< HEAD
      * This flag is not normally set by application code, but set for you by
      * the system if this activity is being launched from history
      * (longpress home key).
@@ -3653,18 +3104,11 @@ public class Intent implements Parcelable {
      * saw.   This can only be used in conjunction with {@link #FLAG_ACTIVITY_NEW_TASK}.
      */
     public static final int FLAG_ACTIVITY_TASK_ON_HOME = 0X00004000;
-=======
-     * If set, this activity is being launched from history (longpress home key).
-     */
-    public static final int FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY = 0x00100000;
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * If set, when sending a broadcast only registered receivers will be
      * called -- no BroadcastReceiver components will be launched.
      */
     public static final int FLAG_RECEIVER_REGISTERED_ONLY = 0x40000000;
-<<<<<<< HEAD
     /**
      * If set, when sending a broadcast the new broadcast will replace
      * any existing pending broadcast that matches it.  Matching is defined
@@ -3728,28 +3172,20 @@ public class Intent implements Parcelable {
      * VIEW action for that raw URI.
      */
     public static final int URI_INTENT_SCHEME = 1<<0;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     // ---------------------------------------------------------------------
 
     private String mAction;
     private Uri mData;
     private String mType;
-<<<<<<< HEAD
     private String mPackage;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private ComponentName mComponent;
     private int mFlags;
     private HashSet<String> mCategories;
     private Bundle mExtras;
-<<<<<<< HEAD
     private Rect mSourceBounds;
     private Intent mSelector;
     private ClipData mClipData;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     // ---------------------------------------------------------------------
 
@@ -3766,10 +3202,7 @@ public class Intent implements Parcelable {
         this.mAction = o.mAction;
         this.mData = o.mData;
         this.mType = o.mType;
-<<<<<<< HEAD
         this.mPackage = o.mPackage;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         this.mComponent = o.mComponent;
         this.mFlags = o.mFlags;
         if (o.mCategories != null) {
@@ -3778,7 +3211,6 @@ public class Intent implements Parcelable {
         if (o.mExtras != null) {
             this.mExtras = new Bundle(o.mExtras);
         }
-<<<<<<< HEAD
         if (o.mSourceBounds != null) {
             this.mSourceBounds = new Rect(o.mSourceBounds);
         }
@@ -3788,8 +3220,6 @@ public class Intent implements Parcelable {
         if (o.mClipData != null) {
             this.mClipData = new ClipData(o.mClipData);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -3801,10 +3231,7 @@ public class Intent implements Parcelable {
         this.mAction = o.mAction;
         this.mData = o.mData;
         this.mType = o.mType;
-<<<<<<< HEAD
         this.mPackage = o.mPackage;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         this.mComponent = o.mComponent;
         if (o.mCategories != null) {
             this.mCategories = new HashSet<String>(o.mCategories);
@@ -3830,11 +3257,7 @@ public class Intent implements Parcelable {
      * @param action The Intent action, such as ACTION_VIEW.
      */
     public Intent(String action) {
-<<<<<<< HEAD
         setAction(action);
-=======
-        mAction = action;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -3844,24 +3267,17 @@ public class Intent implements Parcelable {
      * android.intent.action.VIEW; an application's custom action would be
      * something like com.google.app.myapp.CUSTOM_ACTION.
      *
-<<<<<<< HEAD
      * <p><em>Note: scheme and host name matching in the Android framework is
      * case-sensitive, unlike the formal RFC.  As a result,
      * you should always ensure that you write your Uri with these elements
      * using lower case letters, and normalize any Uris you receive from
      * outside of Android to ensure the scheme and host is lower case.</em></p>
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param action The Intent action, such as ACTION_VIEW.
      * @param uri The Intent data URI.
      */
     public Intent(String action, Uri uri) {
-<<<<<<< HEAD
         setAction(action);
-=======
-        mAction = action;
->>>>>>> 54b6cfa... Initial Contribution
         mData = uri;
     }
 
@@ -3891,15 +3307,12 @@ public class Intent implements Parcelable {
      * construct the Intent and then calling {@link #setClass} to set its
      * class.
      *
-<<<<<<< HEAD
      * <p><em>Note: scheme and host name matching in the Android framework is
      * case-sensitive, unlike the formal RFC.  As a result,
      * you should always ensure that you write your Uri with these elements
      * using lower case letters, and normalize any Uris you receive from
      * outside of Android to ensure the scheme and host is lower case.</em></p>
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param action The Intent action, such as ACTION_VIEW.
      * @param uri The Intent data URI.
      * @param packageContext A Context of the application package implementing
@@ -3913,17 +3326,12 @@ public class Intent implements Parcelable {
      */
     public Intent(String action, Uri uri,
             Context packageContext, Class<?> cls) {
-<<<<<<< HEAD
         setAction(action);
-=======
-        mAction = action;
->>>>>>> 54b6cfa... Initial Contribution
         mData = uri;
         mComponent = new ComponentName(packageContext, cls);
     }
 
     /**
-<<<<<<< HEAD
      * Create an intent to launch the main (root) activity of a task.  This
      * is the Intent that is started when the application's is launched from
      * Home.  For anything else that wants to launch an application in the
@@ -4018,18 +3426,11 @@ public class Intent implements Parcelable {
      * category, and other intent fields, if it was returned by
      * {@link #toUri}.  If the Intent was not generate by toUri(), its data
      * will be the entire URI and its action will be ACTION_VIEW.
-=======
-     * Create an intent from a URI.  This URI may encode the action,
-     * category, and other intent fields, if it was returned by toURI().  If
-     * the Intent was not generate by toURI(), its data will be the entire URI
-     * and its action will be ACTION_VIEW.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>The URI given here must not be relative -- that is, it must include
      * the scheme and full path.
      *
      * @param uri The URI to turn into an Intent.
-<<<<<<< HEAD
      * @param flags Additional processing flags.  Either 0 or
      * {@link #URI_INTENT_SCHEME}.
      *
@@ -4057,23 +3458,12 @@ public class Intent implements Parcelable {
                 }
             }
 
-=======
-     *
-     * @return Intent The newly created Intent object.
-     *
-     * @see #toURI
-     */
-    public static Intent getIntent(String uri) throws URISyntaxException {
-        int i = 0;
-        try {
->>>>>>> 54b6cfa... Initial Contribution
             // simple case
             i = uri.lastIndexOf("#");
             if (i == -1) return new Intent(ACTION_VIEW, Uri.parse(uri));
 
             // old format Intent URI
             if (!uri.startsWith("#Intent;", i)) return getIntentOld(uri);
-<<<<<<< HEAD
 
             // new format
             Intent intent = new Intent(ACTION_VIEW);
@@ -4094,27 +3484,6 @@ public class Intent implements Parcelable {
                 // action
                 if (uri.startsWith("action=", i)) {
                     intent.setAction(value);
-=======
-            
-            // new format
-            Intent intent = new Intent(ACTION_VIEW);
-
-            // fetch data part, if present
-            if (i > 0) {
-                intent.mData = Uri.parse(uri.substring(0, i));
-            }
-            i += "#Intent;".length();
-            
-            // loop over contents of Intent, all name=value;
-            while (!uri.startsWith("end", i)) {
-                int eq = uri.indexOf('=', i);
-                int semi = uri.indexOf(';', eq);
-                String value = uri.substring(eq + 1, semi);
-
-                // action
-                if (uri.startsWith("action=", i)) {
-                    intent.mAction = value;
->>>>>>> 54b6cfa... Initial Contribution
                 }
 
                 // categories
@@ -4127,28 +3496,20 @@ public class Intent implements Parcelable {
                     intent.mType = value;
                 }
 
-<<<<<<< HEAD
                 // launch flags
-=======
-                // launch  flags
->>>>>>> 54b6cfa... Initial Contribution
                 else if (uri.startsWith("launchFlags=", i)) {
                     intent.mFlags = Integer.decode(value).intValue();
                 }
 
-<<<<<<< HEAD
                 // package
                 else if (uri.startsWith("package=", i)) {
                     intent.mPackage = value;
                 }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 // component
                 else if (uri.startsWith("component=", i)) {
                     intent.mComponent = ComponentName.unflattenFromString(value);
                 }
-<<<<<<< HEAD
 
                 // scheme
                 else if (uri.startsWith("scheme=", i)) {
@@ -4168,13 +3529,6 @@ public class Intent implements Parcelable {
                 // extra
                 else {
                     String key = Uri.decode(uri.substring(i + 2, eq));
-=======
-                
-                // extra
-                else {
-                    String key = Uri.decode(uri.substring(i + 2, eq));
-                    value = Uri.decode(value);
->>>>>>> 54b6cfa... Initial Contribution
                     // create Bundle if it doesn't already exist
                     if (intent.mExtras == null) intent.mExtras = new Bundle();
                     Bundle b = intent.mExtras;
@@ -4190,16 +3544,11 @@ public class Intent implements Parcelable {
                     else if (uri.startsWith("s.", i)) b.putShort(key, Short.parseShort(value));
                     else throw new URISyntaxException(uri, "unknown EXTRA type", i);
                 }
-<<<<<<< HEAD
 
-=======
-                
->>>>>>> 54b6cfa... Initial Contribution
                 // move to the next item
                 i = semi + 1;
             }
 
-<<<<<<< HEAD
             if (intent != baseIntent) {
                 // The Intent had a selector; fix it up.
                 baseIntent.setSelector(intent);
@@ -4225,59 +3574,34 @@ public class Intent implements Parcelable {
 
             return intent;
 
-=======
-            return intent;
-            
->>>>>>> 54b6cfa... Initial Contribution
         } catch (IndexOutOfBoundsException e) {
             throw new URISyntaxException(uri, "illegal Intent URI format", i);
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     public static Intent getIntentOld(String uri) throws URISyntaxException {
         Intent intent;
 
         int i = uri.lastIndexOf('#');
         if (i >= 0) {
-<<<<<<< HEAD
             String action = null;
             final int intentFragmentStart = i;
             boolean isIntentFragment = false;
-=======
-            Uri data = null;
-            String action = null;
-            if (i > 0) {
-                data = Uri.parse(uri.substring(0, i));
-            }
->>>>>>> 54b6cfa... Initial Contribution
 
             i++;
 
             if (uri.regionMatches(i, "action(", 0, 7)) {
-<<<<<<< HEAD
                 isIntentFragment = true;
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 i += 7;
                 int j = uri.indexOf(')', i);
                 action = uri.substring(i, j);
                 i = j + 1;
             }
 
-<<<<<<< HEAD
             intent = new Intent(action);
 
             if (uri.regionMatches(i, "categories(", 0, 11)) {
                 isIntentFragment = true;
-=======
-            intent = new Intent(action, data);
-
-            if (uri.regionMatches(i, "categories(", 0, 11)) {
->>>>>>> 54b6cfa... Initial Contribution
                 i += 11;
                 int j = uri.indexOf(')', i);
                 while (i < j) {
@@ -4292,10 +3616,7 @@ public class Intent implements Parcelable {
             }
 
             if (uri.regionMatches(i, "type(", 0, 5)) {
-<<<<<<< HEAD
                 isIntentFragment = true;
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 i += 5;
                 int j = uri.indexOf(')', i);
                 intent.mType = uri.substring(i, j);
@@ -4303,10 +3624,7 @@ public class Intent implements Parcelable {
             }
 
             if (uri.regionMatches(i, "launchFlags(", 0, 12)) {
-<<<<<<< HEAD
                 isIntentFragment = true;
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 i += 12;
                 int j = uri.indexOf(')', i);
                 intent.mFlags = Integer.decode(uri.substring(i, j)).intValue();
@@ -4314,10 +3632,7 @@ public class Intent implements Parcelable {
             }
 
             if (uri.regionMatches(i, "component(", 0, 10)) {
-<<<<<<< HEAD
                 isIntentFragment = true;
-=======
->>>>>>> 54b6cfa... Initial Contribution
                 i += 10;
                 int j = uri.indexOf(')', i);
                 int sep = uri.indexOf('!', i);
@@ -4330,14 +3645,9 @@ public class Intent implements Parcelable {
             }
 
             if (uri.regionMatches(i, "extras(", 0, 7)) {
-<<<<<<< HEAD
                 isIntentFragment = true;
                 i += 7;
 
-=======
-                i += 7;
-                
->>>>>>> 54b6cfa... Initial Contribution
                 final int closeParen = uri.indexOf(')', i);
                 if (closeParen == -1) throw new URISyntaxException(uri,
                         "EXTRA missing trailing ')'", i);
@@ -4352,11 +3662,7 @@ public class Intent implements Parcelable {
                     i++;
                     String key = uri.substring(i, j);
                     i = j + 1;
-<<<<<<< HEAD
 
-=======
-                    
->>>>>>> 54b6cfa... Initial Contribution
                     // get type-value
                     j = uri.indexOf('!', i);
                     if (j == -1 || j >= closeParen) j = closeParen;
@@ -4366,11 +3672,7 @@ public class Intent implements Parcelable {
 
                     // create Bundle if it doesn't already exist
                     if (intent.mExtras == null) intent.mExtras = new Bundle();
-<<<<<<< HEAD
 
-=======
-                    
->>>>>>> 54b6cfa... Initial Contribution
                     // add item to bundle
                     try {
                         switch (type) {
@@ -4407,11 +3709,7 @@ public class Intent implements Parcelable {
                     } catch (NumberFormatException e) {
                         throw new URISyntaxException(uri, "EXTRA value can't be parsed", i);
                     }
-<<<<<<< HEAD
 
-=======
-                    
->>>>>>> 54b6cfa... Initial Contribution
                     char ch = uri.charAt(i);
                     if (ch == ')') break;
                     if (ch != '!') throw new URISyntaxException(uri, "EXTRA missing '!'", i);
@@ -4419,15 +3717,12 @@ public class Intent implements Parcelable {
                 }
             }
 
-<<<<<<< HEAD
             if (isIntentFragment) {
                 intent.mData = Uri.parse(uri.substring(0, intentFragmentStart));
             } else {
                 intent.mData = Uri.parse(uri);
             }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
             if (intent.mAction == null) {
                 // By default, if no action is specified, then use VIEW.
                 intent.mAction = ACTION_VIEW;
@@ -4568,11 +3863,7 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Check if a category exists in the intent.
-=======
-     * Check if an category exists in the intent.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param category The category to check.
      *
@@ -4589,11 +3880,7 @@ public class Intent implements Parcelable {
      * Return the set of all categories in the intent.  If there are no categories,
      * returns NULL.
      *
-<<<<<<< HEAD
      * @return The set of categories you can examine.  Do not modify!
-=======
-     * @return Set The set of categories you can examine.  Do not modify!
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @see #hasCategory
      * @see #addCategory
@@ -4603,7 +3890,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Return the specific selector associated with this Intent.  If there is
      * none, returns null.  See {@link #setSelector} for more information.
      *
@@ -4624,8 +3910,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Sets the ClassLoader that will be used when unmarshalling
      * any Parcelable values from the extras of this Intent.
      *
@@ -4654,7 +3938,6 @@ public class Intent implements Parcelable {
     public boolean hasFileDescriptors() {
         return mExtras != null && mExtras.hasFileDescriptors();
     }
-<<<<<<< HEAD
 
     /** @hide */
     public void setAllowFds(boolean allowFds) {
@@ -4663,9 +3946,6 @@ public class Intent implements Parcelable {
         }
     }
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Retrieve extended data from the intent.
      *
@@ -4936,7 +4216,6 @@ public class Intent implements Parcelable {
      * @param name The name of the desired item.
      *
      * @return the value of an item that previously added with putExtra()
-<<<<<<< HEAD
      * or null if no ArrayList<CharSequence> value was found.
      *
      * @see #putCharSequenceArrayListExtra(String, ArrayList)
@@ -4951,8 +4230,6 @@ public class Intent implements Parcelable {
      * @param name The name of the desired item.
      *
      * @return the value of an item that previously added with putExtra()
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * or null if no boolean array value was found.
      *
      * @see #putExtra(String, boolean[])
@@ -5079,7 +4356,6 @@ public class Intent implements Parcelable {
      * @param name The name of the desired item.
      *
      * @return the value of an item that previously added with putExtra()
-<<<<<<< HEAD
      * or null if no CharSequence array value was found.
      *
      * @see #putExtra(String, CharSequence[])
@@ -5094,8 +4370,6 @@ public class Intent implements Parcelable {
      * @param name The name of the desired item.
      *
      * @return the value of an item that previously added with putExtra()
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * or null if no Bundle value was found.
      *
      * @see #putExtra(String, Bundle)
@@ -5175,7 +4449,6 @@ public class Intent implements Parcelable {
         return mFlags;
     }
 
-<<<<<<< HEAD
     /** @hide */
     public boolean isExcludingStopped() {
         return (mFlags&(FLAG_EXCLUDE_STOPPED_PACKAGES|FLAG_INCLUDE_STOPPED_PACKAGES))
@@ -5196,8 +4469,6 @@ public class Intent implements Parcelable {
         return mPackage;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Retrieve the concrete component associated with the intent.  When receiving
      * an intent, this is the component that was found to best handle it (that is,
@@ -5214,7 +4485,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Get the bounds of the sender of this intent, in screen coordinates.  This can be
      * used as a hint to the receiver for animations and the like.  Null means that there
      * is no source bounds.
@@ -5224,8 +4494,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Return the Activity component that should be used to handle this intent.
      * The appropriate component is determined based on the information in the
      * intent, evaluated as follows:
@@ -5245,12 +4513,9 @@ public class Intent implements Parcelable {
      * <p>If {@link #addCategory} has added any categories, the activity must
      * handle ALL of the categories specified.
      *
-<<<<<<< HEAD
      * <p>If {@link #getPackage} is non-NULL, only activity components in
      * that application package will be considered.
      *
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * <p>If there are no activities that satisfy all of these conditions, a
      * null string is returned.
      *
@@ -5317,11 +4582,7 @@ public class Intent implements Parcelable {
             }
         } else {
             ResolveInfo info = pm.resolveActivity(
-<<<<<<< HEAD
                 this, PackageManager.MATCH_DEFAULT_ONLY | flags);
-=======
-                this, PackageManager.MATCH_DEFAULT_ONLY);
->>>>>>> 54b6cfa... Initial Contribution
             if (info != null) {
                 ai = info.activityInfo;
             }
@@ -5342,17 +4603,12 @@ public class Intent implements Parcelable {
      * @see #getAction
      */
     public Intent setAction(String action) {
-<<<<<<< HEAD
         mAction = action != null ? action.intern() : null;
-=======
-        mAction = action;
->>>>>>> 54b6cfa... Initial Contribution
         return this;
     }
 
     /**
      * Set the data this intent is operating on.  This method automatically
-<<<<<<< HEAD
      * clears any type that was previously set by {@link #setType} or
      * {@link #setTypeAndNormalize}.
      *
@@ -5364,23 +4620,13 @@ public class Intent implements Parcelable {
      * to ensure that the scheme is converted to lower case.</em>
      *
      * @param data The Uri of the data this intent is now targeting.
-=======
-     * clears any type that was previously set by {@link #setType}.
-     *
-     * @param data The URI of the data this intent is now targeting.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @return Returns the same Intent object, for chaining multiple calls
      * into a single statement.
      *
      * @see #getData
-<<<<<<< HEAD
      * @see #setDataAndNormalize
      * @see android.net.Intent#normalize
-=======
-     * @see #setType
-     * @see #setDataAndType
->>>>>>> 54b6cfa... Initial Contribution
      */
     public Intent setData(Uri data) {
         mData = data;
@@ -5389,7 +4635,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Normalize and set the data this intent is operating on.
      *
      * <p>This method automatically clears any type that was
@@ -5429,12 +4674,6 @@ public class Intent implements Parcelable {
      * you should always write your MIME types with lower case letters,
      * or use {@link #normalizeMimeType} or {@link #setTypeAndNormalize}
      * to ensure that it is converted to lower case.</em>
-=======
-     * Set an explicit MIME data type.  This is used to create intents that
-     * only specify a type and not data, for example to indicate the type of
-     * data to return.  This method automatically clears any data that was
-     * previously set by {@link #setData}.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param type The MIME type of the data being handled by this intent.
      *
@@ -5442,14 +4681,9 @@ public class Intent implements Parcelable {
      * into a single statement.
      *
      * @see #getType
-<<<<<<< HEAD
      * @see #setTypeAndNormalize
      * @see #setDataAndType
      * @see #normalizeMimeType
-=======
-     * @see #setData
-     * @see #setDataAndType
->>>>>>> 54b6cfa... Initial Contribution
      */
     public Intent setType(String type) {
         mData = null;
@@ -5458,7 +4692,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Normalize and set an explicit MIME data type.
      *
      * <p>This is used to create intents that only specify a type and not data,
@@ -5488,14 +4721,11 @@ public class Intent implements Parcelable {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * (Usually optional) Set the data for the intent along with an explicit
      * MIME data type.  This method should very rarely be used -- it allows you
      * to override the MIME type that would ordinarily be inferred from the
      * data with your own type given here.
      *
-<<<<<<< HEAD
      * <p><em>Note: MIME type and Uri scheme matching in the
      * Android framework is case-sensitive, unlike the formal RFC definitions.
      * As a result, you should always write these elements with lower case letters,
@@ -5504,24 +4734,16 @@ public class Intent implements Parcelable {
      * to ensure that they are converted to lower case.</em>
      *
      * @param data The Uri of the data this intent is now targeting.
-=======
-     * @param data The URI of the data this intent is now targeting.
->>>>>>> 54b6cfa... Initial Contribution
      * @param type The MIME type of the data being handled by this intent.
      *
      * @return Returns the same Intent object, for chaining multiple calls
      * into a single statement.
      *
-<<<<<<< HEAD
      * @see #setType
      * @see #setData
      * @see #normalizeMimeType
      * @see android.net.Uri#normalizeScheme
      * @see #setDataAndTypeAndNormalize
-=======
-     * @see #setData
-     * @see #setType
->>>>>>> 54b6cfa... Initial Contribution
      */
     public Intent setDataAndType(Uri data, String type) {
         mData = data;
@@ -5530,7 +4752,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * (Usually optional) Normalize and set both the data Uri and an explicit
      * MIME data type.  This method should very rarely be used -- it allows you
      * to override the MIME type that would ordinarily be inferred from the
@@ -5562,10 +4783,6 @@ public class Intent implements Parcelable {
     /**
      * Add a new category to the intent.  Categories provide additional detail
      * about the action the intent performs.  When resolving an intent, only
-=======
-     * Add a new category to the intent.  Categories provide additional detail
-     * about the action the intent is perform.  When resolving an intent, only
->>>>>>> 54b6cfa... Initial Contribution
      * activities that provide <em>all</em> of the requested categories will be
      * used.
      *
@@ -5583,20 +4800,12 @@ public class Intent implements Parcelable {
         if (mCategories == null) {
             mCategories = new HashSet<String>();
         }
-<<<<<<< HEAD
         mCategories.add(category.intern());
-=======
-        mCategories.add(category);
->>>>>>> 54b6cfa... Initial Contribution
         return this;
     }
 
     /**
-<<<<<<< HEAD
      * Remove a category from an intent.
-=======
-     * Remove an category from an intent.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * @param category The category to remove.
      *
@@ -5605,7 +4814,6 @@ public class Intent implements Parcelable {
     public void removeCategory(String category) {
         if (mCategories != null) {
             mCategories.remove(category);
-<<<<<<< HEAD
             if (mCategories.size() == 0) {
                 mCategories = null;
             }
@@ -5684,12 +4892,6 @@ public class Intent implements Parcelable {
      */
     public void setClipData(ClipData clip) {
         mClipData = clip;
-=======
-            if (mCategories.size() == 0) {
-                mCategories = null;
-            }
-        }
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -6043,7 +5245,6 @@ public class Intent implements Parcelable {
      * like "com.android.contacts.ShowAll".
      *
      * @param name The name of the extra data, with package prefix.
-<<<<<<< HEAD
      * @param value The ArrayList<CharSequence> data value.
      *
      * @return Returns the same Intent object, for chaining multiple calls
@@ -6067,8 +5268,6 @@ public class Intent implements Parcelable {
      * like "com.android.contacts.ShowAll".
      *
      * @param name The name of the extra data, with package prefix.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param value The Serializable data value.
      *
      * @return Returns the same Intent object, for chaining multiple calls
@@ -6299,7 +5498,6 @@ public class Intent implements Parcelable {
      * like "com.android.contacts.ShowAll".
      *
      * @param name The name of the extra data, with package prefix.
-<<<<<<< HEAD
      * @param value The CharSequence array data value.
      *
      * @return Returns the same Intent object, for chaining multiple calls
@@ -6323,8 +5521,6 @@ public class Intent implements Parcelable {
      * like "com.android.contacts.ShowAll".
      *
      * @param name The name of the extra data, with package prefix.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param value The Bundle data value.
      *
      * @return Returns the same Intent object, for chaining multiple calls
@@ -6406,7 +5602,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Completely replace the extras in the Intent with the extras in the
      * given Intent.
      *
@@ -6431,8 +5626,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Remove extended data from the intent.
      *
      * @see #putExtra
@@ -6454,14 +5647,9 @@ public class Intent implements Parcelable {
      * FLAG_RECEIVER_* flags are all for use with
      * {@link Context#sendBroadcast(Intent) Context.sendBroadcast()}.
      *
-<<<<<<< HEAD
      * <p>See the
      * <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and Back
      * Stack</a> documentation for important information on how some of these options impact
-=======
-     * <p>See the <a href="{@docRoot}intro/appmodel.html">Application Model</a>
-     * documentation for important information on how some of these options impact
->>>>>>> 54b6cfa... Initial Contribution
      * the behavior of your application.
      *
      * @param flags The desired flags.
@@ -6476,7 +5664,6 @@ public class Intent implements Parcelable {
      * @see #FLAG_GRANT_WRITE_URI_PERMISSION
      * @see #FLAG_DEBUG_LOG_RESOLUTION
      * @see #FLAG_FROM_BACKGROUND
-<<<<<<< HEAD
      * @see #FLAG_ACTIVITY_BROUGHT_TO_FRONT
      * @see #FLAG_ACTIVITY_CLEAR_TASK
      * @see #FLAG_ACTIVITY_CLEAR_TOP
@@ -6494,17 +5681,6 @@ public class Intent implements Parcelable {
      * @see #FLAG_ACTIVITY_REORDER_TO_FRONT
      * @see #FLAG_ACTIVITY_SINGLE_TOP
      * @see #FLAG_ACTIVITY_TASK_ON_HOME
-=======
-     * @see #FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-     * @see #FLAG_ACTIVITY_BROUGHT_TO_FRONT
-     * @see #FLAG_ACTIVITY_CLEAR_TOP
-     * @see #FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
-     * @see #FLAG_ACTIVITY_FORWARD_RESULT
-     * @see #FLAG_ACTIVITY_MULTIPLE_TASK
-     * @see #FLAG_ACTIVITY_NEW_TASK
-     * @see #FLAG_ACTIVITY_NO_HISTORY
-     * @see #FLAG_ACTIVITY_SINGLE_TOP
->>>>>>> 54b6cfa... Initial Contribution
      * @see #FLAG_RECEIVER_REGISTERED_ONLY
      */
     public Intent setFlags(int flags) {
@@ -6529,7 +5705,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * (Usually optional) Set an explicit application package name that limits
      * the components this Intent will resolve to.  If left to the default
      * value of null, all components in all applications will considered.
@@ -6555,8 +5730,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * (Usually optional) Explicitly set the component to handle the intent.
      * If left with the default value of null, the system will determine the
      * appropriate class to use based on the other fields (action, data,
@@ -6644,7 +5817,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Set the bounds of the sender of this intent, in screen coordinates.  This can be
      * used as a hint to the receiver for animations and the like.  Null means that there
      * is no source bounds.
@@ -6658,8 +5830,6 @@ public class Intent implements Parcelable {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Use with {@link #fillIn} to allow the current action value to be
      * overwritten, even if it is already set.
      */
@@ -6684,7 +5854,6 @@ public class Intent implements Parcelable {
     public static final int FILL_IN_COMPONENT = 1<<3;
 
     /**
-<<<<<<< HEAD
      * Use with {@link #fillIn} to allow the current package value to be
      * overwritten, even if it is already set.
      */
@@ -6709,8 +5878,6 @@ public class Intent implements Parcelable {
     public static final int FILL_IN_CLIP_DATA = 1<<7;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Copy the contents of <var>other</var> in to this object, but only
      * where fields are not defined by this object.  For purposes of a field
      * being defined, the following pieces of data in the Intent are
@@ -6718,7 +5885,6 @@ public class Intent implements Parcelable {
      *
      * <ul>
      * <li> action, as set by {@link #setAction}.
-<<<<<<< HEAD
      * <li> data Uri and MIME type, as set by {@link #setData(Uri)},
      * {@link #setType(String)}, or {@link #setDataAndType(Uri, String)}.
      * <li> categories, as set by {@link #addCategory}.
@@ -6728,18 +5894,10 @@ public class Intent implements Parcelable {
      * <li> source bounds, as set by {@link #setSourceBounds}.
      * <li> selector, as set by {@link #setSelector(Intent)}.
      * <li> clip data, as set by {@link #setClipData(ClipData)}.
-=======
-     * <li> data URI and MIME type, as set by {@link #setData(Uri)},
-     * {@link #setType(String)}, or {@link #setDataAndType(Uri, String)}.
-     * <li> categories, as set by {@link #addCategory}.
-     * <li> component, as set by {@link #setComponent(ComponentName)} or
-     * related methods.
->>>>>>> 54b6cfa... Initial Contribution
      * <li> each top-level name in the associated extras.
      * </ul>
      *
      * <p>In addition, you can use the {@link #FILL_IN_ACTION},
-<<<<<<< HEAD
      * {@link #FILL_IN_DATA}, {@link #FILL_IN_CATEGORIES}, {@link #FILL_IN_PACKAGE},
      * {@link #FILL_IN_COMPONENT}, {@link #FILL_IN_SOURCE_BOUNDS},
      * {@link #FILL_IN_SELECTOR}, and {@link #FILL_IN_CLIP_DATA} to override
@@ -6749,11 +5907,6 @@ public class Intent implements Parcelable {
      * <p>Note: The component field will only be copied if {@link #FILL_IN_COMPONENT}
      * is explicitly specified.  The selector will only be copied if
      * {@link #FILL_IN_SELECTOR} is explicitly specified.
-=======
-     * {@link #FILL_IN_DATA}, {@link #FILL_IN_CATEGORIES}, and
-     * {@link #FILL_IN_COMPONENT} to override the restriction where the
-     * corresponding field will not be replaced if it is already set.
->>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>For example, consider Intent A with {data="foo", categories="bar"}
      * and Intent B with {action="gotit", data-type="some/thing",
@@ -6768,7 +5921,6 @@ public class Intent implements Parcelable {
      * @param flags Options to control which fields can be filled in.
      *
      * @return Returns a bit mask of {@link #FILL_IN_ACTION},
-<<<<<<< HEAD
      * {@link #FILL_IN_DATA}, {@link #FILL_IN_CATEGORIES}, {@link #FILL_IN_PACKAGE},
      * {@link #FILL_IN_COMPONENT}, {@link #FILL_IN_SOURCE_BOUNDS}, and
      * {@link #FILL_IN_SELECTOR} indicating which fields were changed.
@@ -6783,38 +5935,17 @@ public class Intent implements Parcelable {
         if ((other.mData != null || other.mType != null)
                 && ((mData == null && mType == null)
                         || (flags&FILL_IN_DATA) != 0)) {
-=======
-     * {@link #FILL_IN_DATA}, {@link #FILL_IN_CATEGORIES}, and
-     * {@link #FILL_IN_COMPONENT} indicating which fields were changed.
-     */
-    public int fillIn(Intent other, int flags) {
-        int changes = 0;
-        if ((mAction == null && other.mAction == null)
-                || (flags&FILL_IN_ACTION) != 0) {
-            mAction = other.mAction;
-            changes |= FILL_IN_ACTION;
-        }
-        if ((mData == null && mType == null &&
-                (other.mData != null || other.mType != null))
-                || (flags&FILL_IN_DATA) != 0) {
->>>>>>> 54b6cfa... Initial Contribution
             mData = other.mData;
             mType = other.mType;
             changes |= FILL_IN_DATA;
         }
-<<<<<<< HEAD
         if (other.mCategories != null
                 && (mCategories == null || (flags&FILL_IN_CATEGORIES) != 0)) {
-=======
-        if ((mCategories == null && other.mCategories == null)
-                || (flags&FILL_IN_CATEGORIES) != 0) {
->>>>>>> 54b6cfa... Initial Contribution
             if (other.mCategories != null) {
                 mCategories = new HashSet<String>(other.mCategories);
             }
             changes |= FILL_IN_CATEGORIES;
         }
-<<<<<<< HEAD
         if (other.mPackage != null
                 && (mPackage == null || (flags&FILL_IN_PACKAGE) != 0)) {
             // Only do this if mSelector is not set.
@@ -6841,22 +5972,15 @@ public class Intent implements Parcelable {
         // since otherwise the sender could force the intent somewhere the
         // originator didn't intend.
         if (other.mComponent != null && (flags&FILL_IN_COMPONENT) != 0) {
-=======
-        if ((mComponent == null && other.mComponent == null)
-                || (flags&FILL_IN_COMPONENT) != 0) {
->>>>>>> 54b6cfa... Initial Contribution
             mComponent = other.mComponent;
             changes |= FILL_IN_COMPONENT;
         }
         mFlags |= other.mFlags;
-<<<<<<< HEAD
         if (other.mSourceBounds != null
                 && (mSourceBounds == null || (flags&FILL_IN_SOURCE_BOUNDS) != 0)) {
             mSourceBounds = new Rect(other.mSourceBounds);
             changes |= FILL_IN_SOURCE_BOUNDS;
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (mExtras == null) {
             if (other.mExtras != null) {
                 mExtras = new Bundle(other.mExtras);
@@ -6906,22 +6030,11 @@ public class Intent implements Parcelable {
 
         @Override
         public boolean equals(Object obj) {
-<<<<<<< HEAD
             if (obj instanceof FilterComparison) {
                 Intent other = ((FilterComparison)obj).mIntent;
                 return mIntent.filterEquals(other);
             }
             return false;
-=======
-            Intent other;
-            try {
-                other = ((FilterComparison)obj).mIntent;
-            } catch (ClassCastException e) {
-                return false;
-            }
-
-            return mIntent.filterEquals(other);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         @Override
@@ -6978,7 +6091,6 @@ public class Intent implements Parcelable {
                 }
             }
         }
-<<<<<<< HEAD
         if (mPackage != other.mPackage) {
             if (mPackage != null) {
                 if (!mPackage.equals(other.mPackage)) {
@@ -6990,8 +6102,6 @@ public class Intent implements Parcelable {
                 }
             }
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (mComponent != other.mComponent) {
             if (mComponent != null) {
                 if (!mComponent.equals(other.mComponent)) {
@@ -7037,12 +6147,9 @@ public class Intent implements Parcelable {
         if (mType != null) {
             code += mType.hashCode();
         }
-<<<<<<< HEAD
         if (mPackage != null) {
             code += mPackage.hashCode();
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (mComponent != null) {
             code += mComponent.hashCode();
         }
@@ -7054,7 +6161,6 @@ public class Intent implements Parcelable {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
         StringBuilder b = new StringBuilder(128);
 
         b.append("Intent { ");
@@ -7107,14 +6213,6 @@ public class Intent implements Parcelable {
             }
             first = false;
             b.append("cat=[");
-=======
-        StringBuilder   b = new StringBuilder();
-
-        b.append("Intent {");
-        if (mAction != null) b.append(" action=").append(mAction);
-        if (mCategories != null) {
-            b.append(" categories={");
->>>>>>> 54b6cfa... Initial Contribution
             Iterator<String> i = mCategories.iterator();
             boolean didone = false;
             while (i.hasNext()) {
@@ -7122,7 +6220,6 @@ public class Intent implements Parcelable {
                 didone = true;
                 b.append(i.next());
             }
-<<<<<<< HEAD
             b.append("]");
         }
         if (mData != null) {
@@ -7285,40 +6382,10 @@ public class Intent implements Parcelable {
         }
         if (mType != null) {
             uri.append("type=").append(Uri.encode(mType, "/")).append(';');
-=======
-            b.append("}");
-        }
-        if (mData != null) b.append(" data=").append(mData);
-        if (mType != null) b.append(" type=").append(mType);
-        if (mFlags != 0) b.append(" flags=0x").append(Integer.toHexString(mFlags));
-        if (mComponent != null) b.append(" comp=").append(mComponent.toShortString());
-        if (mExtras != null) b.append(" (has extras)");
-        b.append(" }");
-
-        return b.toString();
-    }
-
-    public String toURI() {
-        StringBuilder uri = new StringBuilder(mData != null ? mData.toString() : "");
-
-        uri.append("#Intent;");
-
-        if (mAction != null) {
-            uri.append("action=").append(mAction).append(';');
-        }
-        if (mCategories != null) {
-            for (String category : mCategories) {
-                uri.append("category=").append(category).append(';');
-            }
-        }
-        if (mType != null) {
-            uri.append("type=").append(mType).append(';');
->>>>>>> 54b6cfa... Initial Contribution
         }
         if (mFlags != 0) {
             uri.append("launchFlags=0x").append(Integer.toHexString(mFlags)).append(';');
         }
-<<<<<<< HEAD
         if (mPackage != null) {
             uri.append("package=").append(Uri.encode(mPackage)).append(';');
         }
@@ -7330,10 +6397,6 @@ public class Intent implements Parcelable {
             uri.append("sourceBounds=")
                     .append(Uri.encode(mSourceBounds.flattenToString()))
                     .append(';');
-=======
-        if (mComponent != null) {
-            uri.append("component=").append(mComponent.flattenToShortString()).append(';');
->>>>>>> 54b6cfa... Initial Contribution
         }
         if (mExtras != null) {
             for (String key : mExtras.keySet()) {
@@ -7360,17 +6423,8 @@ public class Intent implements Parcelable {
                 }
             }
         }
-<<<<<<< HEAD
     }
 
-=======
-        
-        uri.append("end");
-
-        return uri.toString();
-    }
-    
->>>>>>> 54b6cfa... Initial Contribution
     public int describeContents() {
         return (mExtras != null) ? mExtras.describeContents() : 0;
     }
@@ -7380,7 +6434,6 @@ public class Intent implements Parcelable {
         Uri.writeToParcel(out, mData);
         out.writeString(mType);
         out.writeInt(mFlags);
-<<<<<<< HEAD
         out.writeString(mPackage);
         ComponentName.writeToParcel(mComponent, out);
 
@@ -7391,10 +6444,6 @@ public class Intent implements Parcelable {
             out.writeInt(0);
         }
 
-=======
-        ComponentName.writeToParcel(mComponent, out);
-
->>>>>>> 54b6cfa... Initial Contribution
         if (mCategories != null) {
             out.writeInt(mCategories.size());
             for (String category : mCategories) {
@@ -7404,7 +6453,6 @@ public class Intent implements Parcelable {
             out.writeInt(0);
         }
 
-<<<<<<< HEAD
         if (mSelector != null) {
             out.writeInt(1);
             mSelector.writeToParcel(out, flags);
@@ -7419,8 +6467,6 @@ public class Intent implements Parcelable {
             out.writeInt(0);
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         out.writeBundle(mExtras);
     }
 
@@ -7434,17 +6480,12 @@ public class Intent implements Parcelable {
         }
     };
 
-<<<<<<< HEAD
     /** @hide */
     protected Intent(Parcel in) {
-=======
-    private Intent(Parcel in) {
->>>>>>> 54b6cfa... Initial Contribution
         readFromParcel(in);
     }
 
     public void readFromParcel(Parcel in) {
-<<<<<<< HEAD
         setAction(in.readString());
         mData = Uri.CREATOR.createFromParcel(in);
         mType = in.readString();
@@ -7456,30 +6497,17 @@ public class Intent implements Parcelable {
             mSourceBounds = Rect.CREATOR.createFromParcel(in);
         }
 
-=======
-        mAction = in.readString();
-        mData = Uri.CREATOR.createFromParcel(in);
-        mType = in.readString();
-        mFlags = in.readInt();
-        mComponent = ComponentName.readFromParcel(in);
-
->>>>>>> 54b6cfa... Initial Contribution
         int N = in.readInt();
         if (N > 0) {
             mCategories = new HashSet<String>();
             int i;
             for (i=0; i<N; i++) {
-<<<<<<< HEAD
                 mCategories.add(in.readString().intern());
-=======
-                mCategories.add(in.readString());
->>>>>>> 54b6cfa... Initial Contribution
             }
         } else {
             mCategories = null;
         }
 
-<<<<<<< HEAD
         if (in.readInt() != 0) {
             mSelector = new Intent(in);
         }
@@ -7488,8 +6516,6 @@ public class Intent implements Parcelable {
             mClipData = new ClipData(in);
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         mExtras = in.readBundle();
     }
 
@@ -7553,15 +6579,11 @@ public class Intent implements Parcelable {
                 XmlUtils.skipCurrentTag(parser);
 
             } else if (nodeName.equals("extra")) {
-<<<<<<< HEAD
                 if (intent.mExtras == null) {
                     intent.mExtras = new Bundle();
                 }
                 resources.parseBundleExtra("extra", attrs, intent.mExtras);
                 XmlUtils.skipCurrentTag(parser);
-=======
-                parseExtra(resources, intent, parser, attrs);
->>>>>>> 54b6cfa... Initial Contribution
 
             } else {
                 XmlUtils.skipCurrentTag(parser);
@@ -7571,7 +6593,6 @@ public class Intent implements Parcelable {
         return intent;
     }
 
-<<<<<<< HEAD
     /**
      * Normalize a MIME data type.
      *
@@ -7704,50 +6725,5 @@ public class Intent implements Parcelable {
         CharSequence text = texts != null ? texts.get(which) : null;
         String htmlText = htmlTexts != null ? htmlTexts.get(which) : null;
         return new ClipData.Item(text, htmlText, null, uri);
-=======
-    private static void parseExtra(Resources resources, Intent intent, XmlPullParser parser,
-            AttributeSet attrs) throws XmlPullParserException, IOException {
-        TypedArray sa = resources.obtainAttributes(attrs,
-                com.android.internal.R.styleable.IntentExtra);
-
-        String name = sa.getString(
-                com.android.internal.R.styleable.IntentExtra_name);
-        if (name == null) {
-            sa.recycle();
-            throw new RuntimeException(
-                    "<extra> requires an android:name attribute at "
-                    + parser.getPositionDescription());
-        }
-
-        TypedValue v = sa.peekValue(
-                com.android.internal.R.styleable.IntentExtra_value);
-        if (v != null) {
-            if (v.type == TypedValue.TYPE_STRING) {
-                CharSequence cs = v.coerceToString();
-                intent.putExtra(name, cs != null ? cs.toString() : null);
-            } else if (v.type == TypedValue.TYPE_INT_BOOLEAN) {
-                intent.putExtra(name, v.data != 0);
-            } else if (v.type >= TypedValue.TYPE_FIRST_INT
-                    && v.type <= TypedValue.TYPE_LAST_INT) {
-                intent.putExtra(name, v.data);
-            } else if (v.type == TypedValue.TYPE_FLOAT) {
-                intent.putExtra(name, v.getFloat());
-            } else {
-                sa.recycle();
-                throw new RuntimeException(
-                        "<extra> only supports string, integer, float, color, and boolean at "
-                        + parser.getPositionDescription());
-            }
-        } else {
-            sa.recycle();
-            throw new RuntimeException(
-                    "<extra> requires an android:value or android:resource attribute at "
-                    + parser.getPositionDescription());
-        }
-
-        sa.recycle();
-
-        XmlUtils.skipCurrentTag(parser);
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

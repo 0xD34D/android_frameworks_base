@@ -17,7 +17,6 @@
 package android.net.http;
 
 import android.content.Context;
-<<<<<<< HEAD
 import android.util.Log;
 import org.apache.harmony.xnet.provider.jsse.FileClientSessionCache;
 import org.apache.harmony.xnet.provider.jsse.OpenSSLContextImpl;
@@ -25,36 +24,10 @@ import org.apache.harmony.xnet.provider.jsse.SSLClientSessionCache;
 import org.apache.http.Header;
 import org.apache.http.HttpException;
 import org.apache.http.HttpHost;
-=======
-
-import junit.framework.Assert;
-
-import java.io.IOException;
-
-import java.security.cert.X509Certificate;
-
-import java.net.Socket;
-import java.net.InetSocketAddress;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.apache.http.Header;
-import org.apache.http.HttpClientConnection;
-import org.apache.http.HttpException;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
->>>>>>> 54b6cfa... Initial Contribution
 import org.apache.http.HttpStatus;
 import org.apache.http.ParseException;
 import org.apache.http.ProtocolVersion;
 import org.apache.http.StatusLine;
-<<<<<<< HEAD
 import org.apache.http.message.BasicHttpRequest;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -71,43 +44,14 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.security.KeyManagementException;
 import java.security.cert.X509Certificate;
-=======
-import org.apache.http.impl.DefaultHttpClientConnection;
-import org.apache.http.message.BasicHttpRequest;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpConnectionParams;
-
-/**
- * Simple exception we throw if the SSL connection is closed by the user.
- * 
- * {@hide}
- */
-class SSLConnectionClosedByUserException extends SSLException {
-
-    public SSLConnectionClosedByUserException(String reason) {
-        super(reason);
-    }
-}
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * A Connection connecting to a secure http server or tunneling through
  * a http proxy server to a https server.
-<<<<<<< HEAD
  *
  * @hide
  */
 public class HttpsConnection extends Connection {
-=======
- */
-class HttpsConnection extends Connection {
-
-    /**
-     * SSL context
-     */
-    private static SSLContext mSslContext = null;
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * SSL socket factory
@@ -115,7 +59,6 @@ class HttpsConnection extends Connection {
     private static SSLSocketFactory mSslSocketFactory = null;
 
     static {
-<<<<<<< HEAD
         // This initialization happens in the zygote. It triggers some
         // lazy initialization that can will benefit later invocations of
         // initializeEngine().
@@ -170,44 +113,6 @@ class HttpsConnection extends Connection {
 
     private synchronized static SSLSocketFactory getSocketFactory() {
         return mSslSocketFactory;
-=======
-        // initialize the socket factory
-        try {
-            mSslContext = SSLContext.getInstance("TLS");
-            if (mSslContext != null) {
-                // here, trust managers is a single trust-all manager
-                TrustManager[] trustManagers = new TrustManager[] {
-                    new X509TrustManager() {
-                        public X509Certificate[] getAcceptedIssuers() {
-                            return null;
-                        }
-
-                        public void checkClientTrusted(
-                            X509Certificate[] certs, String authType) {
-                        }
-
-                        public void checkServerTrusted(
-                            X509Certificate[] certs, String authType) {
-                        }
-                    }
-                };
-
-                mSslContext.init(null, trustManagers, null);
-                mSslSocketFactory = mSslContext.getSocketFactory();
-            }
-        } catch (Exception t) {
-            if (HttpLog.LOGV) {
-                HttpLog.v("HttpsConnection: failed to initialize the socket factory");
-            }
-        }
-    }
-
-    /**
-     * @return The shared SSL context.
-     */
-    /*package*/ static SSLContext getContext() {
-        return mSslContext;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -227,7 +132,6 @@ class HttpsConnection extends Connection {
      */
     private boolean mAborted = false;
 
-<<<<<<< HEAD
     // Used when connecting through a proxy.
     private HttpHost mProxyHost;
 
@@ -238,15 +142,6 @@ class HttpsConnection extends Connection {
                     RequestFeeder requestFeeder) {
         super(context, host, requestFeeder);
         mProxyHost = proxy;
-=======
-    /**
-     * Contructor for a https connection.
-     */
-    HttpsConnection(Context context, HttpHost host,
-                    RequestQueue.ConnectionManager connectionManager,
-                    RequestFeeder requestFeeder) {
-        super(context, host, connectionManager, requestFeeder);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -268,12 +163,7 @@ class HttpsConnection extends Connection {
     AndroidHttpClientConnection openConnection(Request req) throws IOException {
         SSLSocket sslSock = null;
 
-<<<<<<< HEAD
         if (mProxyHost != null) {
-=======
-        HttpHost proxyHost = mConnectionManager.getProxyHost();
-        if (proxyHost != null) {
->>>>>>> 54b6cfa... Initial Contribution
             // If we have a proxy set, we first send a CONNECT request
             // to the proxy; if the proxy returns 200 OK, we negotiate
             // a secure connection to the target server via the proxy.
@@ -285,11 +175,7 @@ class HttpsConnection extends Connection {
             Socket proxySock = null;
             try {
                 proxySock = new Socket
-<<<<<<< HEAD
                     (mProxyHost.getHostName(), mProxyHost.getPort());
-=======
-                    (proxyHost.getHostName(), proxyHost.getPort());
->>>>>>> 54b6cfa... Initial Contribution
 
                 proxySock.setSoTimeout(60 * 1000);
 
@@ -319,7 +205,6 @@ class HttpsConnection extends Connection {
                 BasicHttpRequest proxyReq = new BasicHttpRequest
                     ("CONNECT", mHost.toHostString());
 
-<<<<<<< HEAD
                 // add all 'proxy' headers from the original request, we also need
                 // to add 'host' header unless we want proxy to answer us with a
                 // 400 Bad Request
@@ -327,12 +212,6 @@ class HttpsConnection extends Connection {
                     String headerName = h.getName().toLowerCase();
                     if (headerName.startsWith("proxy") || headerName.equals("keep-alive")
                             || headerName.equals("host")) {
-=======
-                // add all 'proxy' headers from the original request
-                for (Header h : req.mHttpRequest.getAllHeaders()) {
-                    String headerName = h.getName().toLowerCase();
-                    if (headerName.startsWith("proxy") || headerName.equals("keep-alive")) {
->>>>>>> 54b6cfa... Initial Contribution
                         proxyReq.addHeader(h);
                     }
                 }
@@ -376,15 +255,8 @@ class HttpsConnection extends Connection {
 
             if (statusCode == HttpStatus.SC_OK) {
                 try {
-<<<<<<< HEAD
                     sslSock = (SSLSocket) getSocketFactory().createSocket(
                             proxySock, mHost.getHostName(), mHost.getPort(), true);
-=======
-                    synchronized (mSslSocketFactory) {
-                        sslSock = (SSLSocket) mSslSocketFactory.createSocket(
-                            proxySock, mHost.getHostName(), mHost.getPort(), true);
-                    }
->>>>>>> 54b6cfa... Initial Contribution
                 } catch(IOException e) {
                     if (sslSock != null) {
                         sslSock.close();
@@ -417,20 +289,9 @@ class HttpsConnection extends Connection {
         } else {
             // if we do not have a proxy, we simply connect to the host
             try {
-<<<<<<< HEAD
                 sslSock = (SSLSocket) getSocketFactory().createSocket(
                         mHost.getHostName(), mHost.getPort());
                 sslSock.setSoTimeout(SOCKET_TIMEOUT);
-=======
-                synchronized (mSslSocketFactory) {
-                    sslSock = (SSLSocket) mSslSocketFactory.createSocket();
-                    
-                    sslSock.setSoTimeout(SOCKET_TIMEOUT);
-                    sslSock.connect(new InetSocketAddress(mHost.getHostName(),
-                            mHost.getPort()));
-                    
-                }
->>>>>>> 54b6cfa... Initial Contribution
             } catch(IOException e) {
                 if (sslSock != null) {
                     sslSock.close();
@@ -449,15 +310,6 @@ class HttpsConnection extends Connection {
         SslError error = CertificateChainValidator.getInstance().
             doHandshakeAndValidateServerCertificates(this, sslSock, mHost.getHostName());
 
-<<<<<<< HEAD
-=======
-        EventHandler eventHandler = req.getEventHandler();
-
-        // Update the certificate info (to be consistent, it is better to do it
-        // here, before we start handling SSL errors, if any)
-        eventHandler.certificate(mCertificate);
-
->>>>>>> 54b6cfa... Initial Contribution
         // Inform the user if there is a problem
         if (error != null) {
             // handleSslErrorRequest may immediately unsuspend if it wants to
@@ -469,14 +321,10 @@ class HttpsConnection extends Connection {
                 mSuspended = true;
             }
             // don't hold the lock while calling out to the event handler
-<<<<<<< HEAD
             boolean canHandle = req.getEventHandler().handleSslErrorRequest(error);
             if(!canHandle) {
                 throw new IOException("failed to handle "+ error);
             }
-=======
-            eventHandler.handleSslErrorRequest(error);
->>>>>>> 54b6cfa... Initial Contribution
             synchronized (mSuspendLock) {
                 if (mSuspended) {
                     try {
@@ -516,10 +364,7 @@ class HttpsConnection extends Connection {
         BasicHttpParams params = new BasicHttpParams();
         params.setIntParameter(HttpConnectionParams.SOCKET_BUFFER_SIZE, 8192);
         conn.bind(sslSock, params);
-<<<<<<< HEAD
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         return conn;
     }
 
@@ -574,7 +419,6 @@ class HttpsConnection extends Connection {
         return "https";
     }
 }
-<<<<<<< HEAD
 
 /**
  * Simple exception we throw if the SSL connection is closed by the user.
@@ -587,5 +431,3 @@ class SSLConnectionClosedByUserException extends SSLException {
         super(reason);
     }
 }
-=======
->>>>>>> 54b6cfa... Initial Contribution

@@ -31,11 +31,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.android.internal.policy.PolicyManager;
@@ -80,10 +77,7 @@ public class MediaController extends FrameLayout {
     private WindowManager       mWindowManager;
     private Window              mWindow;
     private View                mDecor;
-<<<<<<< HEAD
     private WindowManager.LayoutParams mDecorLayoutParams;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private ProgressBar         mProgress;
     private TextView            mEndTime, mCurrentTime;
     private boolean             mShowing;
@@ -121,30 +115,16 @@ public class MediaController extends FrameLayout {
         super(context);
         mContext = context;
         mUseFastForward = useFastForward;
-<<<<<<< HEAD
         initFloatingWindowLayout();
-=======
->>>>>>> 54b6cfa... Initial Contribution
         initFloatingWindow();
     }
 
     public MediaController(Context context) {
-<<<<<<< HEAD
         this(context, true);
     }
 
     private void initFloatingWindow() {
         mWindowManager = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
-=======
-        super(context);
-        mContext = context;
-        mUseFastForward = true;
-        initFloatingWindow();
-    }
-
-    private void initFloatingWindow() {
-        mWindowManager = (WindowManager)mContext.getSystemService("window");
->>>>>>> 54b6cfa... Initial Contribution
         mWindow = PolicyManager.makeNewWindow(mContext);
         mWindow.setWindowManager(mWindowManager, null, null);
         mWindow.requestFeature(Window.FEATURE_NO_TITLE);
@@ -163,7 +143,6 @@ public class MediaController extends FrameLayout {
         requestFocus();
     }
 
-<<<<<<< HEAD
     // Allocate and initialize the static parts of mDecorLayoutParams. Must
     // also call updateFloatingWindowLayout() to fill in the dynamic parts
     // (y and width) before mDecorLayoutParams can be used.
@@ -206,8 +185,6 @@ public class MediaController extends FrameLayout {
         }
     };
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private OnTouchListener mTouchListener = new OnTouchListener() {
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -230,7 +207,6 @@ public class MediaController extends FrameLayout {
      * @param view The view to which to anchor the controller when it is visible.
      */
     public void setAnchorView(View view) {
-<<<<<<< HEAD
         if (mAnchor != null) {
             mAnchor.removeOnLayoutChangeListener(mLayoutChangeListener);
         }
@@ -242,13 +218,6 @@ public class MediaController extends FrameLayout {
         FrameLayout.LayoutParams frameParams = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
-=======
-        mAnchor = view;
-
-        FrameLayout.LayoutParams frameParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT,
-                ViewGroup.LayoutParams.FILL_PARENT
->>>>>>> 54b6cfa... Initial Contribution
         );
 
         removeAllViews();
@@ -330,7 +299,6 @@ public class MediaController extends FrameLayout {
     }
 
     /**
-<<<<<<< HEAD
      * Disable pause or seek buttons if the stream cannot be paused or seeked.
      * This requires the control interface to be a MediaPlayerControlExt
      */
@@ -354,15 +322,12 @@ public class MediaController extends FrameLayout {
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Show the controller on screen. It will go away
      * automatically after 'timeout' milliseconds of inactivity.
      * @param timeout The timeout in milliseconds. Use 0 to show
      * the controller until hide() is called.
      */
     public void show(int timeout) {
-<<<<<<< HEAD
         if (!mShowing && mAnchor != null) {
             setProgress();
             if (mPauseButton != null) {
@@ -371,26 +336,6 @@ public class MediaController extends FrameLayout {
             disableUnsupportedButtons();
             updateFloatingWindowLayout();
             mWindowManager.addView(mDecor, mDecorLayoutParams);
-=======
-
-        if (!mShowing && mAnchor != null) {
-            setProgress();
-
-            int [] anchorpos = new int[2];
-            mAnchor.getLocationOnScreen(anchorpos);
-
-            WindowManager.LayoutParams p = new WindowManager.LayoutParams();
-            p.gravity = Gravity.TOP;
-            p.width = mAnchor.getWidth();
-            p.height = LayoutParams.WRAP_CONTENT;
-            p.x = 0;
-            p.y = anchorpos[1] + mAnchor.getHeight() - p.height;
-            p.format = PixelFormat.TRANSLUCENT;
-            p.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
-            p.token = null;
-            p.windowAnimations = 0; // android.R.style.DropDownAnimationDown;
-            mWindowManager.addView(mDecor, p);
->>>>>>> 54b6cfa... Initial Contribution
             mShowing = true;
         }
         updatePausePlay();
@@ -502,7 +447,6 @@ public class MediaController extends FrameLayout {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         int keyCode = event.getKeyCode();
-<<<<<<< HEAD
         final boolean uniqueDown = event.getRepeatCount() == 0
                 && event.getAction() == KeyEvent.ACTION_DOWN;
         if (keyCode ==  KeyEvent.KEYCODE_HEADSETHOOK
@@ -544,23 +488,6 @@ public class MediaController extends FrameLayout {
         }
 
         show(sDefaultTimeout);
-=======
-        if (event.getRepeatCount() == 0 && event.isDown() && (
-                keyCode ==  KeyEvent.KEYCODE_HEADSETHOOK ||
-                keyCode ==  KeyEvent.KEYCODE_SPACE)) {
-            doPauseResume();
-            show(sDefaultTimeout);
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN ||
-                keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-            // don't show the controls for volume adjustment
-            return super.dispatchKeyEvent(event);
-        } else if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_MENU) {
-            hide();
-        } else {
-            show(sDefaultTimeout);
-        }
->>>>>>> 54b6cfa... Initial Contribution
         return super.dispatchKeyEvent(event);
     }
 
@@ -572,7 +499,6 @@ public class MediaController extends FrameLayout {
     };
 
     private void updatePausePlay() {
-<<<<<<< HEAD
         if (mRoot == null || mPauseButton == null)
             return;
 
@@ -580,19 +506,6 @@ public class MediaController extends FrameLayout {
             mPauseButton.setImageResource(com.android.internal.R.drawable.ic_media_pause);
         } else {
             mPauseButton.setImageResource(com.android.internal.R.drawable.ic_media_play);
-=======
-        if (mRoot == null)
-            return;
-
-        ImageButton button = (ImageButton) mRoot.findViewById(com.android.internal.R.id.pause);
-        if (button == null)
-            return;
-
-        if (mPlayer.isPlaying()) {
-            button.setImageResource(com.android.internal.R.drawable.ic_media_pause);
-        } else {
-            button.setImageResource(com.android.internal.R.drawable.ic_media_play);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -605,7 +518,6 @@ public class MediaController extends FrameLayout {
         updatePausePlay();
     }
 
-<<<<<<< HEAD
     // There are two scenarios that can trigger the seekbar listener to trigger:
     //
     // The first is the user using the touchpad to adjust the posititon of the
@@ -645,36 +557,16 @@ public class MediaController extends FrameLayout {
                 mCurrentTime.setText(stringForTime( (int) newposition));
         }
 
-=======
-    private OnSeekBarChangeListener mSeekListener = new OnSeekBarChangeListener() {
-        long duration;
-        public void onStartTrackingTouch(SeekBar bar) {
-            show(3600000);
-            duration = mPlayer.getDuration();
-        }
-        public void onProgressChanged(SeekBar bar, int progress, boolean fromtouch) {
-            if (fromtouch) {
-                mDragging = true;
-                long newposition = (duration * progress) / 1000L;
-                mPlayer.seekTo( (int) newposition);
-                if (mCurrentTime != null)
-                    mCurrentTime.setText(stringForTime( (int) newposition));
-            }
-        }
->>>>>>> 54b6cfa... Initial Contribution
         public void onStopTrackingTouch(SeekBar bar) {
             mDragging = false;
             setProgress();
             updatePausePlay();
             show(sDefaultTimeout);
-<<<<<<< HEAD
 
             // Ensure that progress is properly updated in the future,
             // the call to show() does not guarantee this because it is a
             // no-op if we are already showing.
             mHandler.sendEmptyMessage(SHOW_PROGRESS);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
     };
 
@@ -698,7 +590,6 @@ public class MediaController extends FrameLayout {
         if (mProgress != null) {
             mProgress.setEnabled(enabled);
         }
-<<<<<<< HEAD
         disableUnsupportedButtons();
         super.setEnabled(enabled);
     }
@@ -713,10 +604,6 @@ public class MediaController extends FrameLayout {
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(MediaController.class.getName());
-=======
-
-        super.setEnabled(enabled);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     private View.OnClickListener mRewListener = new View.OnClickListener() {
@@ -778,12 +665,8 @@ public class MediaController extends FrameLayout {
         void    seekTo(int pos);
         boolean isPlaying();
         int     getBufferPercentage();
-<<<<<<< HEAD
         boolean canPause();
         boolean canSeekBackward();
         boolean canSeekForward();
     }
-=======
-    };
->>>>>>> 54b6cfa... Initial Contribution
 }

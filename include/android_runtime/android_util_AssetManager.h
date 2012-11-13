@@ -17,11 +17,7 @@
 #ifndef android_util_AssetManager_H
 #define android_util_AssetManager_H
 
-<<<<<<< HEAD
 #include <androidfw/AssetManager.h>
-=======
-#include <utils/AssetManager.h>
->>>>>>> 54b6cfa... Initial Contribution
 
 #include "jni.h"
 

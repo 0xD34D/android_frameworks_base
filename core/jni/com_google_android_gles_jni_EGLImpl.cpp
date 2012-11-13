@@ -2,7 +2,6 @@
 **
 ** Copyright 2006, The Android Open Source Project
 **
-<<<<<<< HEAD
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
 ** You may obtain a copy of the License at
@@ -38,37 +37,6 @@
 
 namespace android {
 
-=======
-** Licensed under the Apache License, Version 2.0 (the "License"); 
-** you may not use this file except in compliance with the License. 
-** You may obtain a copy of the License at 
-**
-**     http://www.apache.org/licenses/LICENSE-2.0 
-**
-** Unless required by applicable law or agreed to in writing, software 
-** distributed under the License is distributed on an "AS IS" BASIS, 
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-** See the License for the specific language governing permissions and 
-** limitations under the License.
-*/
-
-#include <android_runtime/AndroidRuntime.h>
-#include <utils/misc.h>
-
-#include <GLES/egl.h>
-#include <GLES/gl.h>
-
-#include <ui/EGLNativeWindowSurface.h>
-#include <ui/Surface.h>
-#include <graphics/SkBitmap.h>
-#include <graphics/SkPixelRef.h>
-
-namespace android {
-
-static jclass gDisplay_class;
-static jclass gContext_class;
-static jclass gSurface_class;
->>>>>>> 54b6cfa... Initial Contribution
 static jclass gConfig_class;
 
 static jmethodID gConfig_ctorID;
@@ -78,36 +46,8 @@ static jfieldID gContext_EGLContextFieldID;
 static jfieldID gSurface_EGLSurfaceFieldID;
 static jfieldID gSurface_NativePixelRefFieldID;
 static jfieldID gConfig_EGLConfigFieldID;
-<<<<<<< HEAD
 static jfieldID gBitmap_NativeBitmapFieldID;
 
-=======
-static jfieldID gSurface_SurfaceFieldID;
-static jfieldID gBitmap_NativeBitmapFieldID;
-
-static __attribute__((noinline))
-void doThrow(JNIEnv* env, const char* exc, const char* msg = NULL)
-{
-    jclass npeClazz = env->FindClass(exc);
-    env->ThrowNew(npeClazz, msg);
-}
-
-static __attribute__((noinline))
-bool hasException(JNIEnv *env) {
-    if (env->ExceptionCheck() != 0) {
-        env->ExceptionDescribe();
-        return true;
-    }
-    return false;
-}
-
-static __attribute__((noinline))
-jclass make_globalref(JNIEnv* env, const char classname[]) {
-    jclass c = env->FindClass(classname);
-    return (jclass)env->NewGlobalRef(c);
-}
-
->>>>>>> 54b6cfa... Initial Contribution
 static inline EGLDisplay getDisplay(JNIEnv* env, jobject o) {
     if (!o) return EGL_NO_DISPLAY;
     return (EGLDisplay)env->GetIntField(o, gDisplay_EGLDisplayFieldID);
@@ -126,7 +66,6 @@ static inline EGLConfig getConfig(JNIEnv* env, jobject o) {
 }
 static void nativeClassInit(JNIEnv *_env, jclass eglImplClass)
 {
-<<<<<<< HEAD
     jclass config_class = _env->FindClass("com/google/android/gles_jni/EGLConfigImpl");
     gConfig_class = (jclass) _env->NewGlobalRef(config_class);
     gConfig_ctorID = _env->GetMethodID(gConfig_class,  "<init>", "(I)V");
@@ -183,31 +122,6 @@ static jboolean jni_eglInitialize(JNIEnv *_env, jobject _this, jobject display,
         return JNI_FALSE;
     }
 
-=======
-    gDisplay_class = make_globalref(_env, "com/google/android/gles_jni/EGLDisplayImpl");
-    gContext_class = make_globalref(_env, "com/google/android/gles_jni/EGLContextImpl");
-    gSurface_class = make_globalref(_env, "com/google/android/gles_jni/EGLSurfaceImpl");
-    gConfig_class  = make_globalref(_env, "com/google/android/gles_jni/EGLConfigImpl");
-
-    gConfig_ctorID  = _env->GetMethodID(gConfig_class,  "<init>", "(I)V");
-    
-    gDisplay_EGLDisplayFieldID = _env->GetFieldID(gDisplay_class, "mEGLDisplay", "I");
-    gContext_EGLContextFieldID = _env->GetFieldID(gContext_class, "mEGLContext", "I");
-    gSurface_EGLSurfaceFieldID = _env->GetFieldID(gSurface_class, "mEGLSurface", "I");
-    gSurface_NativePixelRefFieldID = _env->GetFieldID(gSurface_class, "mNativePixelRef", "I");
-    gConfig_EGLConfigFieldID   = _env->GetFieldID(gConfig_class,  "mEGLConfig",  "I");
-
-    jclass surface_class = _env->FindClass("android/view/Surface");
-    gSurface_SurfaceFieldID = _env->GetFieldID(surface_class, "mSurface", "I");
-
-    jclass bitmap_class = _env->FindClass("android/graphics/Bitmap");
-    gBitmap_NativeBitmapFieldID = _env->GetFieldID(bitmap_class, "mNativeBitmap", "I");    
-}
-
-jboolean jni_eglInitialize(JNIEnv *_env, jobject _this, jobject display,
-        jintArray major_minor) {
-    
->>>>>>> 54b6cfa... Initial Contribution
     EGLDisplay dpy = getDisplay(_env, display);
     jboolean success = eglInitialize(dpy, NULL, NULL);
     if (success && major_minor) {
@@ -223,7 +137,6 @@ jboolean jni_eglInitialize(JNIEnv *_env, jobject _this, jobject display,
     return success;
 }
 
-<<<<<<< HEAD
 static jboolean jni_eglQueryContext(JNIEnv *_env, jobject _this, jobject display,
         jobject context, jint attribute, jintArray value) {
     if (display == NULL || context == NULL || value == NULL
@@ -233,16 +146,6 @@ static jboolean jni_eglQueryContext(JNIEnv *_env, jobject _this, jobject display
     }
     EGLDisplay dpy = getDisplay(_env, display);
     EGLContext ctx = getContext(_env, context);
-=======
-jboolean jni_eglQueryContext(JNIEnv *_env, jobject _this, jobject display,
-        jobject context, jint attribute, jintArray value) {
-    EGLDisplay dpy = getDisplay(_env, display);
-    EGLContext ctx = getContext(_env, context);
-    if (value == NULL) {
-        doThrow(_env, "java/lang/NullPointerException");
-        return JNI_FALSE;
-    }
->>>>>>> 54b6cfa... Initial Contribution
     jboolean success = JNI_FALSE;
     int len = _env->GetArrayLength(value);
     if (len) {
@@ -252,7 +155,6 @@ jboolean jni_eglQueryContext(JNIEnv *_env, jobject _this, jobject display,
     }
     return success;
 }
-<<<<<<< HEAD
 
 static jboolean jni_eglQuerySurface(JNIEnv *_env, jobject _this, jobject display,
         jobject surface, jint attribute, jintArray value) {
@@ -264,17 +166,6 @@ static jboolean jni_eglQuerySurface(JNIEnv *_env, jobject _this, jobject display
     EGLDisplay dpy = getDisplay(_env, display);
     EGLContext sur = getSurface(_env, surface);
 
-=======
-    
-jboolean jni_eglQuerySurface(JNIEnv *_env, jobject _this, jobject display,
-        jobject surface, jint attribute, jintArray value) {
-    EGLDisplay dpy = getDisplay(_env, display);
-    EGLContext sur = getSurface(_env, surface);
-    if (value == NULL) {
-        doThrow(_env, "java/lang/NullPointerException");
-        return JNI_FALSE;
-    }
->>>>>>> 54b6cfa... Initial Contribution
     jboolean success = JNI_FALSE;
     int len = _env->GetArrayLength(value);
     if (len) {
@@ -285,7 +176,6 @@ jboolean jni_eglQuerySurface(JNIEnv *_env, jobject _this, jobject display,
     return success;
 }
 
-<<<<<<< HEAD
 static jint jni_getInitCount(JNIEnv *_env, jobject _clazz, jobject display) {
     EGLDisplay dpy = getDisplay(_env, display);
     egl_display_t* eglDisplay = get_display_nowake(dpy);
@@ -323,31 +213,12 @@ static jboolean jni_eglChooseConfig(JNIEnv *_env, jobject _this, jobject display
     }
 
     if (success && configs!=NULL) {
-=======
-jboolean jni_eglChooseConfig(JNIEnv *_env, jobject _this, jobject display,
-        jintArray attrib_list, jobjectArray configs, jint config_size, jintArray num_config) {    
-    EGLDisplay dpy = getDisplay(_env, display);
-    if (attrib_list==NULL || configs==NULL || num_config==NULL) {
-        doThrow(_env, "java/lang/NullPointerException");
-        return JNI_FALSE;
-    }
-    jboolean success = JNI_FALSE;
-    jint* attrib_base  = (jint *)_env->GetPrimitiveArrayCritical(attrib_list, (jboolean *)0);
-    jint* num_base     = (jint *)_env->GetPrimitiveArrayCritical(num_config, (jboolean *)0);
-    EGLConfig nativeConfigs[config_size];
-    success = eglChooseConfig(dpy, attrib_base, nativeConfigs, config_size, num_base);
-    int num = num_base[0];
-    _env->ReleasePrimitiveArrayCritical(num_config, num_base, JNI_ABORT);
-    _env->ReleasePrimitiveArrayCritical(attrib_list, attrib_base, JNI_ABORT);
-    if (success) {
->>>>>>> 54b6cfa... Initial Contribution
         for (int i=0 ; i<num ; i++) {
             jobject obj = _env->NewObject(gConfig_class, gConfig_ctorID, (jint)nativeConfigs[i]);
             _env->SetObjectArrayElement(configs, i, obj);
         }
     }
     return success;
-<<<<<<< HEAD
 }
 
 static jint jni_eglCreateContext(JNIEnv *_env, jobject _this, jobject display,
@@ -378,40 +249,6 @@ static jint jni_eglCreatePbufferSurface(JNIEnv *_env, jobject _this, jobject dis
     jint* base = beginNativeAttribList(_env, attrib_list);
     EGLSurface sur = eglCreatePbufferSurface(dpy, cnf, base);
     endNativeAttributeList(_env, attrib_list, base);
-=======
-} 
-
-jint jni_eglCreateContext(JNIEnv *_env, jobject _this, jobject display,
-        jobject config, jobject share_context, jintArray attrib_list) {
-    EGLDisplay dpy = getDisplay(_env, display);
-    EGLConfig  cnf = getConfig(_env, config);
-    EGLContext shr = getContext(_env, share_context);
-    jint* base = 0;
-    if (attrib_list) {
-        // XXX: if array is malformed, we should return an NPE instead of segfault
-        base = (jint *)_env->GetPrimitiveArrayCritical(attrib_list, (jboolean *)0);
-    }
-    EGLContext ctx = eglCreateContext(dpy, cnf, shr, base);
-    if (attrib_list) {
-        _env->ReleasePrimitiveArrayCritical(attrib_list, base, JNI_ABORT);
-    }
-    return (jint)ctx;
-}
-
-jint jni_eglCreatePbufferSurface(JNIEnv *_env, jobject _this, jobject display,
-        jobject config, jintArray attrib_list) {
-    EGLDisplay dpy = getDisplay(_env, display);
-    EGLConfig  cnf = getConfig(_env, config);
-    jint* base = 0;
-    if (attrib_list) {
-        // XXX: if array is malformed, we should return an NPE instead of segfault
-        base = (jint *)_env->GetPrimitiveArrayCritical(attrib_list, (jboolean *)0);
-    }
-    EGLSurface sur = eglCreatePbufferSurface(dpy, cnf, base);
-    if (attrib_list) {
-        _env->ReleasePrimitiveArrayCritical(attrib_list, base, JNI_ABORT);
-    }
->>>>>>> 54b6cfa... Initial Contribution
     return (jint)sur;
 }
 
@@ -426,7 +263,6 @@ static PixelFormat convertPixelFormat(SkBitmap::Config format)
     }
 }
 
-<<<<<<< HEAD
 static void jni_eglCreatePixmapSurface(JNIEnv *_env, jobject _this, jobject out_sur,
         jobject display, jobject config, jobject native_pixmap,
         jintArray attrib_list)
@@ -436,12 +272,6 @@ static void jni_eglCreatePixmapSurface(JNIEnv *_env, jobject _this, jobject out_
         jniThrowException(_env, "java/lang/IllegalArgumentException", NULL);
         return;
     }
-=======
-void jni_eglCreatePixmapSurface(JNIEnv *_env, jobject _this, jobject out_sur,
-        jobject display, jobject config, jobject native_pixmap,
-        jintArray attrib_list) 
-{
->>>>>>> 54b6cfa... Initial Contribution
     EGLDisplay dpy = getDisplay(_env, display);
     EGLConfig  cnf = getConfig(_env, config);
     jint* base = 0;
@@ -451,7 +281,6 @@ void jni_eglCreatePixmapSurface(JNIEnv *_env, jobject _this, jobject out_sur,
                     gBitmap_NativeBitmapFieldID);
     SkPixelRef* ref = nativeBitmap ? nativeBitmap->pixelRef() : 0;
     if (ref == NULL) {
-<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "Bitmap has no PixelRef");
         return;
     }
@@ -459,15 +288,6 @@ void jni_eglCreatePixmapSurface(JNIEnv *_env, jobject _this, jobject out_sur,
     SkSafeRef(ref);
     ref->lockPixels();
 
-=======
-        doThrow(_env, "java/lang/NullPointerException", "Bitmap has no PixelRef");
-        return;
-    }
-    
-    ref->safeRef();
-    ref->lockPixels();
-    
->>>>>>> 54b6cfa... Initial Contribution
     egl_native_pixmap_t pixmap;
     pixmap.version = sizeof(pixmap);
     pixmap.width  = nativeBitmap->width();
@@ -475,29 +295,16 @@ void jni_eglCreatePixmapSurface(JNIEnv *_env, jobject _this, jobject out_sur,
     pixmap.stride = nativeBitmap->rowBytes() / nativeBitmap->bytesPerPixel();
     pixmap.format = convertPixelFormat(nativeBitmap->config());
     pixmap.data   = (uint8_t*)ref->pixels();
-<<<<<<< HEAD
 
     base = beginNativeAttribList(_env, attrib_list);
     EGLSurface sur = eglCreatePixmapSurface(dpy, cnf, &pixmap, base);
     endNativeAttributeList(_env, attrib_list, base);
-=======
-    
-    if (attrib_list) {
-        // XXX: if array is malformed, we should return an NPE instead of segfault
-        base = (jint *)_env->GetPrimitiveArrayCritical(attrib_list, (jboolean *)0);
-    }
-    EGLSurface sur = eglCreatePixmapSurface(dpy, cnf, &pixmap, base);
-    if (attrib_list) {
-        _env->ReleasePrimitiveArrayCritical(attrib_list, base, JNI_ABORT);
-    }
->>>>>>> 54b6cfa... Initial Contribution
 
     if (sur != EGL_NO_SURFACE) {
         _env->SetIntField(out_sur, gSurface_EGLSurfaceFieldID, (int)sur);
         _env->SetIntField(out_sur, gSurface_NativePixelRefFieldID, (int)ref);
     } else {
         ref->unlockPixels();
-<<<<<<< HEAD
         SkSafeUnref(ref);
     }
 }
@@ -572,58 +379,10 @@ static jboolean jni_eglGetConfigAttrib(JNIEnv *_env, jobject _this, jobject disp
     success = eglGetConfigAttrib(dpy, cnf, attribute, &localValue);
     if (success) {
         _env->SetIntArrayRegion(value, 0, 1, &localValue);
-=======
-        ref->safeUnref();
-    }
-}
-
-jint jni_eglCreateWindowSurface(JNIEnv *_env, jobject _this, jobject display,
-        jobject config, jobject native_window, jintArray attrib_list) {
-    EGLDisplay dpy = getDisplay(_env, display);
-    EGLContext cnf = getConfig(_env, config);
-    Surface* window = 0;
-    if (native_window == NULL) {
-not_valid_surface:
-        doThrow(_env, "java/lang/NullPointerException",
-                "Make sure the SurfaceView or associated SurfaceHolder has a valid Surface");
-        return 0;
-    }
-    window = (Surface*)_env->GetIntField(native_window, gSurface_SurfaceFieldID);
-    if (window == NULL)
-        goto not_valid_surface;
-
-    jint* base = 0;
-    if (attrib_list) {
-        // XXX: if array is malformed, we should return an NPE instead of segfault
-        base = (jint *)_env->GetPrimitiveArrayCritical(attrib_list, (jboolean *)0);
-    }
-    EGLSurface sur = eglCreateWindowSurface(dpy, cnf, new EGLNativeWindowSurface(window), base);
-    if (attrib_list) {
-        _env->ReleasePrimitiveArrayCritical(attrib_list, base, JNI_ABORT);
-    }
-    return (jint)sur;
-}
-
-jboolean jni_eglGetConfigAttrib(JNIEnv *_env, jobject _this, jobject display,
-        jobject config, jint attribute, jintArray value) {
-    EGLDisplay dpy = getDisplay(_env, display);
-    EGLContext cnf = getConfig(_env, config);
-    if (value == NULL) {
-        doThrow(_env, "java/lang/NullPointerException");
-        return JNI_FALSE;
-    }
-    jboolean success = JNI_FALSE;
-    int len = _env->GetArrayLength(value);
-    if (len) {
-        jint* base = (jint *)_env->GetPrimitiveArrayCritical(value, (jboolean *)0);
-        success = eglGetConfigAttrib(dpy, cnf, attribute, base);
-        _env->ReleasePrimitiveArrayCritical(value, base, JNI_ABORT);
->>>>>>> 54b6cfa... Initial Contribution
     }
     return success;
 }
 
-<<<<<<< HEAD
 static jboolean jni_eglGetConfigs(JNIEnv *_env, jobject _this, jobject display,
         jobjectArray configs, jint config_size, jintArray num_config) {
     if (display == NULL || (configs != NULL && _env->GetArrayLength(configs) < config_size)
@@ -646,46 +405,16 @@ static jboolean jni_eglGetConfigs(JNIEnv *_env, jobject _this, jobject display,
         for (int i=0 ; i<num ; i++) {
             jobject obj = _env->NewObject(gConfig_class, gConfig_ctorID, (jint)nativeConfigs[i]);
             _env->SetObjectArrayElement(configs, i, obj);
-=======
-jboolean jni_eglGetConfigs(JNIEnv *_env, jobject _this, jobject display,
-        jobjectArray configs, jint config_size, jintArray num_config) {
-    EGLDisplay dpy = getDisplay(_env, display);
-    jboolean success = JNI_FALSE;
-    if (num_config == NULL) {
-        doThrow(_env, "java/lang/NullPointerException");
-        return JNI_FALSE;
-    }
-    jint* num_base = (jint *)_env->GetPrimitiveArrayCritical(num_config, (jboolean *)0);
-    EGLConfig nativeConfigs[config_size];
-    success = eglGetConfigs(dpy, configs ? nativeConfigs : 0, config_size, num_base);
-    int num = num_base[0];
-    _env->ReleasePrimitiveArrayCritical(num_config, num_base, JNI_ABORT);
-
-    if (success && configs) {
-        for (int i=0 ; i<num ; i++) {
-            jobject obj = _env->GetObjectArrayElement(configs, i);
-            if (obj == NULL) {
-                doThrow(_env, "java/lang/NullPointerException");
-                break;
-            }
-            _env->SetIntField(obj, gConfig_EGLConfigFieldID, (jint)nativeConfigs[i]);
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
     return success;
 }
-<<<<<<< HEAD
 
 static jint jni_eglGetError(JNIEnv *_env, jobject _this) {
-=======
-    
-jint jni_eglGetError(JNIEnv *_env, jobject _this) {
->>>>>>> 54b6cfa... Initial Contribution
     EGLint error = eglGetError();
     return error;
 }
 
-<<<<<<< HEAD
 static jint jni_eglGetCurrentContext(JNIEnv *_env, jobject _this) {
     return (jint)eglGetCurrentContext();
 }
@@ -707,35 +436,16 @@ static jboolean jni_eglDestroyContext(JNIEnv *_env, jobject _this, jobject displ
         jniThrowException(_env, "java/lang/IllegalArgumentException", NULL);
         return JNI_FALSE;
     }
-=======
-jint jni_eglGetCurrentContext(JNIEnv *_env, jobject _this) {
-    return (jint)eglGetCurrentContext();
-}
-
-jint jni_eglGetCurrentDisplay(JNIEnv *_env, jobject _this) {
-    return (jint)eglGetCurrentDisplay();
-}
-
-jint jni_eglGetCurrentSurface(JNIEnv *_env, jobject _this, jint readdraw) {
-    return (jint)eglGetCurrentSurface(readdraw);
-}
-
-jboolean jni_eglDestroyContext(JNIEnv *_env, jobject _this, jobject display, jobject context) {
->>>>>>> 54b6cfa... Initial Contribution
     EGLDisplay dpy = getDisplay(_env, display);
     EGLContext ctx = getContext(_env, context);
     return eglDestroyContext(dpy, ctx);
 }
 
-<<<<<<< HEAD
 static jboolean jni_eglDestroySurface(JNIEnv *_env, jobject _this, jobject display, jobject surface) {
     if (display == NULL || surface == NULL) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", NULL);
         return JNI_FALSE;
     }
-=======
-jboolean jni_eglDestroySurface(JNIEnv *_env, jobject _this, jobject display, jobject surface) {
->>>>>>> 54b6cfa... Initial Contribution
     EGLDisplay dpy = getDisplay(_env, display);
     EGLSurface sur = getSurface(_env, surface);
 
@@ -744,17 +454,12 @@ jboolean jni_eglDestroySurface(JNIEnv *_env, jobject _this, jobject display, job
                 gSurface_NativePixelRefFieldID));
         if (ref) {
             ref->unlockPixels();
-<<<<<<< HEAD
             SkSafeUnref(ref);
-=======
-            ref->safeUnref();
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
     return eglDestroySurface(dpy, sur);
 }
 
-<<<<<<< HEAD
 static jint jni_eglGetDisplay(JNIEnv *_env, jobject _this, jobject native_display) {
     return (jint)eglGetDisplay(EGL_DEFAULT_DISPLAY);
 }
@@ -764,13 +469,6 @@ static jboolean jni_eglMakeCurrent(JNIEnv *_env, jobject _this, jobject display,
         jniThrowException(_env, "java/lang/IllegalArgumentException", NULL);
         return JNI_FALSE;
     }
-=======
-jint jni_eglGetDisplay(JNIEnv *_env, jobject _this, jobject native_display) {
-    return (jint)eglGetDisplay(EGL_DEFAULT_DISPLAY);
-}
-
-jboolean jni_eglMakeCurrent(JNIEnv *_env, jobject _this, jobject display, jobject draw, jobject read, jobject context) {
->>>>>>> 54b6cfa... Initial Contribution
     EGLDisplay dpy = getDisplay(_env, display);
     EGLSurface sdr = getSurface(_env, draw);
     EGLSurface srd = getSurface(_env, read);
@@ -778,7 +476,6 @@ jboolean jni_eglMakeCurrent(JNIEnv *_env, jobject _this, jobject display, jobjec
     return eglMakeCurrent(dpy, sdr, srd, ctx);
 }
 
-<<<<<<< HEAD
 static jstring jni_eglQueryString(JNIEnv *_env, jobject _this, jobject display, jint name) {
     if (display == NULL) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", NULL);
@@ -794,35 +491,20 @@ static jboolean jni_eglSwapBuffers(JNIEnv *_env, jobject _this, jobject display,
         jniThrowException(_env, "java/lang/IllegalArgumentException", NULL);
         return JNI_FALSE;
     }
-=======
-jstring jni_eglQueryString(JNIEnv *_env, jobject _this, jobject display, jint name) {
-    EGLDisplay dpy = getDisplay(_env, display);
-    const char* chars = eglQueryString(dpy, name);
-    return _env->NewString((const jchar *)chars,
-                            (jsize)strlen((const char *)chars));
-}
-
-jboolean jni_eglSwapBuffers(JNIEnv *_env, jobject _this, jobject display, jobject surface) {
->>>>>>> 54b6cfa... Initial Contribution
     EGLDisplay dpy = getDisplay(_env, display);
     EGLSurface sur = getSurface(_env, surface);
     return eglSwapBuffers(dpy, sur);
 }
 
-<<<<<<< HEAD
 static jboolean jni_eglTerminate(JNIEnv *_env, jobject _this, jobject display) {
     if (display == NULL) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", NULL);
         return JNI_FALSE;
     }
-=======
-jboolean jni_eglTerminate(JNIEnv *_env, jobject _this, jobject display) {
->>>>>>> 54b6cfa... Initial Contribution
     EGLDisplay dpy = getDisplay(_env, display);
     return eglTerminate(dpy);
 }
 
-<<<<<<< HEAD
 static jboolean jni_eglCopyBuffers(JNIEnv *_env, jobject _this, jobject display,
         jobject surface, jobject native_pixmap) {
     if (display == NULL || surface == NULL || native_pixmap == NULL) {
@@ -838,19 +520,6 @@ static jboolean jni_eglWaitGL(JNIEnv *_env, jobject _this) {
 }
 
 static jboolean jni_eglWaitNative(JNIEnv *_env, jobject _this, jint engine, jobject bindTarget) {
-=======
-jboolean jni_eglCopyBuffers(JNIEnv *_env, jobject _this, jobject display,
-        jobject surface, jobject native_pixmap) {
-    // TODO: implement me
-    return JNI_FALSE;
-}
-
-jboolean jni_eglWaitGL(JNIEnv *_env, jobject _this) {
-    return eglWaitGL();
-}
-
-jboolean jni_eglWaitNative(JNIEnv *_env, jobject _this, jint engine, jobject bindTarget) {
->>>>>>> 54b6cfa... Initial Contribution
     return eglWaitNative(engine);
 }
 
@@ -870,11 +539,8 @@ static JNINativeMethod methods[] = {
 {"eglInitialize",   "(" DISPLAY "[I)Z", (void*)jni_eglInitialize },
 {"eglQueryContext", "(" DISPLAY CONTEXT "I[I)Z", (void*)jni_eglQueryContext },
 {"eglQuerySurface", "(" DISPLAY SURFACE "I[I)Z", (void*)jni_eglQuerySurface },
-<<<<<<< HEAD
 {"eglReleaseThread","()Z", (void*)jni_eglReleaseThread },
 {"getInitCount",    "(" DISPLAY ")I", (void*)jni_getInitCount },
-=======
->>>>>>> 54b6cfa... Initial Contribution
 {"eglChooseConfig", "(" DISPLAY "[I[" CONFIG "I[I)Z", (void*)jni_eglChooseConfig },
 {"_eglCreateContext","(" DISPLAY CONFIG CONTEXT "[I)I", (void*)jni_eglCreateContext },
 {"eglGetConfigs",   "(" DISPLAY "[" CONFIG "I[I)Z", (void*)jni_eglGetConfigs },
@@ -890,10 +556,7 @@ static JNINativeMethod methods[] = {
 {"_eglCreatePbufferSurface","(" DISPLAY CONFIG "[I)I", (void*)jni_eglCreatePbufferSurface },
 {"_eglCreatePixmapSurface", "(" SURFACE DISPLAY CONFIG OBJECT "[I)V", (void*)jni_eglCreatePixmapSurface },
 {"_eglCreateWindowSurface", "(" DISPLAY CONFIG OBJECT "[I)I", (void*)jni_eglCreateWindowSurface },
-<<<<<<< HEAD
 {"_eglCreateWindowSurfaceTexture", "(" DISPLAY CONFIG OBJECT "[I)I", (void*)jni_eglCreateWindowSurfaceTexture },
-=======
->>>>>>> 54b6cfa... Initial Contribution
 {"eglDestroyContext",      "(" DISPLAY CONTEXT ")Z", (void*)jni_eglDestroyContext },
 {"eglDestroySurface",      "(" DISPLAY SURFACE ")Z", (void*)jni_eglDestroySurface },
 {"eglMakeCurrent",         "(" DISPLAY SURFACE SURFACE CONTEXT")Z", (void*)jni_eglMakeCurrent },
@@ -910,7 +573,3 @@ int register_com_google_android_gles_jni_EGLImpl(JNIEnv *_env)
             android::classPathName, android::methods, NELEM(android::methods));
     return err;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution

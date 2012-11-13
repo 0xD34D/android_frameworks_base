@@ -80,7 +80,6 @@ static jlong android_os_SystemClock_currentThreadTimeMillis(JNIEnv* env,
 }
 
 /*
-<<<<<<< HEAD
  * native public static long currentThreadTimeMicro();
  */
 static jlong android_os_SystemClock_currentThreadTimeMicro(JNIEnv* env,
@@ -113,8 +112,6 @@ static jlong android_os_SystemClock_currentTimeMicro(JNIEnv* env,
 }
 
 /*
-=======
->>>>>>> 54b6cfa... Initial Contribution
  * JNI registration.
  */
 static JNINativeMethod gMethods[] = {
@@ -127,13 +124,10 @@ static JNINativeMethod gMethods[] = {
             (void*) android_os_SystemClock_elapsedRealtime },
     { "currentThreadTimeMillis",      "()J",
             (void*) android_os_SystemClock_currentThreadTimeMillis },
-<<<<<<< HEAD
     { "currentThreadTimeMicro",       "()J",
             (void*) android_os_SystemClock_currentThreadTimeMicro },
     { "currentTimeMicro",             "()J",
             (void*) android_os_SystemClock_currentTimeMicro },
-=======
->>>>>>> 54b6cfa... Initial Contribution
 };
 int register_android_os_SystemClock(JNIEnv* env)
 {

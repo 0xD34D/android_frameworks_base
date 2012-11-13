@@ -21,10 +21,6 @@
 #define TOKEN_MAX     8     /* max number of arguments in buffer */
 #define REPLY_MAX     256   /* largest reply allowed */
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
 static int do_ping(char **arg, char reply[REPLY_MAX])
 {
     return 0;
@@ -53,7 +49,6 @@ static int do_rm_dex(char **arg, char reply[REPLY_MAX])
 
 static int do_remove(char **arg, char reply[REPLY_MAX])
 {
-<<<<<<< HEAD
     return uninstall(arg[0], atoi(arg[1])); /* pkgname, userid */
 }
 
@@ -65,18 +60,11 @@ static int do_rename(char **arg, char reply[REPLY_MAX])
 static int do_fixuid(char **arg, char reply[REPLY_MAX])
 {
     return fix_uid(arg[0], atoi(arg[1]), atoi(arg[2])); /* pkgname, uid, gid */
-=======
-    return uninstall(arg[0]); /* pkgname */
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 static int do_free_cache(char **arg, char reply[REPLY_MAX]) /* TODO int:free_size */
 {
-<<<<<<< HEAD
     return free_cache((int64_t)atoll(arg[0])); /* free_size */
-=======
-    return free_cache(atoi(arg[0])); /* free_size */
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 static int do_rm_cache(char **arg, char reply[REPLY_MAX])
@@ -91,7 +79,6 @@ static int do_protect(char **arg, char reply[REPLY_MAX])
 
 static int do_get_size(char **arg, char reply[REPLY_MAX])
 {
-<<<<<<< HEAD
     int64_t codesize = 0;
     int64_t datasize = 0;
     int64_t cachesize = 0;
@@ -107,23 +94,11 @@ static int do_get_size(char **arg, char reply[REPLY_MAX])
      */
     snprintf(reply, REPLY_MAX, "%" PRId64 " %" PRId64 " %" PRId64 " %" PRId64,
             codesize, datasize, cachesize, asecsize);
-=======
-    int codesize = 0;
-    int datasize = 0;
-    int cachesize = 0;
-    int res = 0;
-
-        /* pkgdir, apkpath */
-    res = get_size(arg[0], arg[1], arg[2], &codesize, &datasize, &cachesize);
-
-    sprintf(reply,"%d %d %d", codesize, datasize, cachesize);
->>>>>>> 54b6cfa... Initial Contribution
     return res;
 }
 
 static int do_rm_user_data(char **arg, char reply[REPLY_MAX])
 {
-<<<<<<< HEAD
     return delete_user_data(arg[0], atoi(arg[1])); /* pkgname, userid */
 }
 
@@ -155,9 +130,6 @@ static int do_linklib(char **arg, char reply[REPLY_MAX])
 static int do_unlinklib(char **arg, char reply[REPLY_MAX])
 {
     return unlinklib(arg[0]);
-=======
-    return delete_user_data(arg[0]); /* pkgname */
->>>>>>> 54b6cfa... Initial Contribution
 }
 
 struct cmdinfo {
@@ -172,7 +144,6 @@ struct cmdinfo cmds[] = {
     { "dexopt",               3, do_dexopt },
     { "movedex",              2, do_move_dex },
     { "rmdex",                1, do_rm_dex },
-<<<<<<< HEAD
     { "remove",               2, do_remove },
     { "rename",               2, do_rename },
     { "fixuid",               3, do_fixuid },
@@ -187,14 +158,6 @@ struct cmdinfo cmds[] = {
     { "mkuserdata",           3, do_mk_user_data },
     { "rmuser",               1, do_rm_user },
     { "cloneuserdata",        3, do_clone_user_data },
-=======
-    { "remove",               1, do_remove },
-    { "freecache",            1, do_free_cache },
-    { "rmcache",              1, do_rm_cache },
-    { "protect",              2, do_protect },
-    { "getsize",              3, do_get_size },
-    { "rmuserdata",           1, do_rm_user_data },
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 static int readx(int s, void *_buf, int count)
@@ -206,19 +169,11 @@ static int readx(int s, void *_buf, int count)
         r = read(s, buf + n, count - n);
         if (r < 0) {
             if (errno == EINTR) continue;
-<<<<<<< HEAD
             ALOGE("read error: %s\n", strerror(errno));
             return -1;
         }
         if (r == 0) {
             ALOGE("eof\n");
-=======
-            LOGE("read error: %s\n", strerror(errno));
-            return -1;
-        }
-        if (r == 0) {
-            LOGE("eof\n");
->>>>>>> 54b6cfa... Initial Contribution
             return -1; /* EOF */
         }
         n += r;
@@ -235,11 +190,7 @@ static int writex(int s, const void *_buf, int count)
         r = write(s, buf + n, count - n);
         if (r < 0) {
             if (errno == EINTR) continue;
-<<<<<<< HEAD
             ALOGE("write error: %s\n", strerror(errno));
-=======
-            LOGE("write error: %s\n", strerror(errno));
->>>>>>> 54b6cfa... Initial Contribution
             return -1;
         }
         n += r;
@@ -261,11 +212,7 @@ static int execute(int s, char cmd[BUFFER_MAX])
     unsigned short count;
     int ret = -1;
 
-<<<<<<< HEAD
 //    ALOGI("execute('%s')\n", cmd);
-=======
-//    LOGI("execute('%s')\n", cmd);
->>>>>>> 54b6cfa... Initial Contribution
 
         /* default reply is "" */
     reply[0] = 0;
@@ -278,11 +225,7 @@ static int execute(int s, char cmd[BUFFER_MAX])
             n++;
             arg[n] = cmd;
             if (n == TOKEN_MAX) {
-<<<<<<< HEAD
                 ALOGE("too many arguments\n");
-=======
-                LOGE("too many arguments\n");
->>>>>>> 54b6cfa... Initial Contribution
                 goto done;
             }
         }
@@ -292,11 +235,7 @@ static int execute(int s, char cmd[BUFFER_MAX])
     for (i = 0; i < sizeof(cmds) / sizeof(cmds[0]); i++) {
         if (!strcmp(cmds[i].name,arg[0])) {
             if (n != cmds[i].numargs) {
-<<<<<<< HEAD
                 ALOGE("%s requires %d arguments (%d given)\n",
-=======
-                LOGE("%s requires %d arguments (%d given)\n",
->>>>>>> 54b6cfa... Initial Contribution
                      cmds[i].name, cmds[i].numargs, n);
             } else {
                 ret = cmds[i].func(arg + 1, reply);
@@ -304,11 +243,7 @@ static int execute(int s, char cmd[BUFFER_MAX])
             goto done;
         }
     }
-<<<<<<< HEAD
     ALOGE("unsupported command '%s'\n", arg[0]);
-=======
-    LOGE("unsupported command '%s'\n", arg[0]);
->>>>>>> 54b6cfa... Initial Contribution
 
 done:
     if (reply[0]) {
@@ -319,17 +254,12 @@ done:
     if (n > BUFFER_MAX) n = BUFFER_MAX;
     count = n;
 
-<<<<<<< HEAD
 //    ALOGI("reply: '%s'\n", cmd);
-=======
-//    LOGI("reply: '%s'\n", cmd);
->>>>>>> 54b6cfa... Initial Contribution
     if (writex(s, &count, sizeof(count))) return -1;
     if (writex(s, cmd, count)) return -1;
     return 0;
 }
 
-<<<<<<< HEAD
 /**
  * Initialize all the global variables that are used elsewhere. Returns 0 upon
  * success and -1 on error.
@@ -430,15 +360,11 @@ int initialize_directories() {
 }
 
 int main(const int argc, const char *argv[]) {
-=======
-int main(const int argc, const char *argv[]) {    
->>>>>>> 54b6cfa... Initial Contribution
     char buf[BUFFER_MAX];
     struct sockaddr addr;
     socklen_t alen;
     int lsocket, s, count;
 
-<<<<<<< HEAD
     if (initialize_globals() < 0) {
         ALOGE("Could not initialize globals; exiting.\n");
         exit(1);
@@ -456,15 +382,6 @@ int main(const int argc, const char *argv[]) {
     }
     if (listen(lsocket, 5)) {
         ALOGE("Listen on socket failed: %s\n", strerror(errno));
-=======
-    lsocket = android_get_control_socket(SOCKET_PATH);
-    if (lsocket < 0) {
-        LOGE("Failed to get socket from environment: %s\n", strerror(errno));
-        exit(1);
-    }
-    if (listen(lsocket, 5)) {
-        LOGE("Listen on socket failed: %s\n", strerror(errno));
->>>>>>> 54b6cfa... Initial Contribution
         exit(1);
     }
     fcntl(lsocket, F_SETFD, FD_CLOEXEC);
@@ -473,16 +390,11 @@ int main(const int argc, const char *argv[]) {
         alen = sizeof(addr);
         s = accept(lsocket, &addr, &alen);
         if (s < 0) {
-<<<<<<< HEAD
             ALOGE("Accept failed: %s\n", strerror(errno));
-=======
-            LOGE("Accept failed: %s\n", strerror(errno));
->>>>>>> 54b6cfa... Initial Contribution
             continue;
         }
         fcntl(s, F_SETFD, FD_CLOEXEC);
 
-<<<<<<< HEAD
         ALOGI("new connection\n");
         for (;;) {
             unsigned short count;
@@ -496,31 +408,12 @@ int main(const int argc, const char *argv[]) {
             }
             if (readx(s, buf, count)) {
                 ALOGE("failed to read command\n");
-=======
-        LOGI("new connection\n");
-        for (;;) {
-            unsigned short count;
-            if (readx(s, &count, sizeof(count))) {
-                LOGE("failed to read size\n");
-                break;
-            }
-            if ((count < 1) || (count >= BUFFER_MAX)) {
-                LOGE("invalid size %d\n", count);
-                break;
-            }
-            if (readx(s, buf, count)) {
-                LOGE("failed to read command\n");
->>>>>>> 54b6cfa... Initial Contribution
                 break;
             }
             buf[count] = 0;
             if (execute(s, buf)) break;
         }
-<<<<<<< HEAD
         ALOGI("closing connection\n");
-=======
-        LOGI("closing connection\n");
->>>>>>> 54b6cfa... Initial Contribution
         close(s);
     }
 

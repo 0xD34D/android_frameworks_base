@@ -69,7 +69,6 @@ public final class ServiceManager {
      */
     public static void addService(String name, IBinder service) {
         try {
-<<<<<<< HEAD
             getIServiceManager().addService(name, service, false);
         } catch (RemoteException e) {
             Log.e(TAG, "error in addService", e);
@@ -88,9 +87,6 @@ public final class ServiceManager {
     public static void addService(String name, IBinder service, boolean allowIsolated) {
         try {
             getIServiceManager().addService(name, service, allowIsolated);
-=======
-            getIServiceManager().addService(name, service);
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             Log.e(TAG, "error in addService", e);
         }
@@ -135,11 +131,7 @@ public final class ServiceManager {
      * @hide
      */
     public static void initServiceCache(Map<String, IBinder> cache) {
-<<<<<<< HEAD
         if (sCache.size() != 0) {
-=======
-        if (sCache.size() != 0 && Process.supportsProcesses()) {
->>>>>>> 54b6cfa... Initial Contribution
             throw new IllegalStateException("setServiceCache may only be called once");
         }
         sCache.putAll(cache);

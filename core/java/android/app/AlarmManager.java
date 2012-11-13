@@ -16,15 +16,8 @@
 
 package android.app;
 
-<<<<<<< HEAD
 import android.content.Intent;
 import android.os.RemoteException;
-=======
-import android.content.Context;
-import android.content.Intent;
-import android.os.RemoteException;
-import android.os.ServiceManager;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * This class provides access to the system alarm services.  These allow you
@@ -34,7 +27,6 @@ import android.os.ServiceManager;
  * if it is not already running.  Registered alarms are retained while the
  * device is asleep (and can optionally wake the device up if they go off
  * during that time), but will be cleared if it is turned off and rebooted.
-<<<<<<< HEAD
  * 
  * <p>The Alarm Manager holds a CPU wake lock as long as the alarm receiver's
  * onReceive() method is executing. This guarantees that the phone will not sleep
@@ -46,8 +38,6 @@ import android.os.ServiceManager;
  * To prevent this, your BroadcastReceiver and Service will need to implement a
  * separate wake lock policy to ensure that the phone continues running until the
  * service becomes available.
-=======
->>>>>>> 54b6cfa... Initial Contribution
  *
  * <p><b>Note: The Alarm Manager is intended for cases where you want to have
  * your application code run at a specific time, even if your application is
@@ -90,7 +80,6 @@ public class AlarmManager
      */
     public static final int ELAPSED_REALTIME = 3;
 
-<<<<<<< HEAD
     private final IAlarmManager mService;
 
     /**
@@ -98,19 +87,6 @@ public class AlarmManager
      */
     AlarmManager(IAlarmManager service) {
         mService = service;
-=======
-    private static IAlarmManager mService;
-
-    static {
-        mService = IAlarmManager.Stub.asInterface(
-                    ServiceManager.getService(Context.ALARM_SERVICE));
-    }
-    
-    /**
-     * package private on purpose
-     */
-    AlarmManager() {
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -126,11 +102,7 @@ public class AlarmManager
      * this one.
      *
      * <p>
-<<<<<<< HEAD
      * The alarm is an intent broadcast that goes to a broadcast receiver that
-=======
-     * The alarm is an intent broadcast that goes to an intent receiver that
->>>>>>> 54b6cfa... Initial Contribution
      * you registered with {@link android.content.Context#registerReceiver}
      * or through the &lt;receiver&gt; tag in an AndroidManifest.xml file.
      *
@@ -143,13 +115,8 @@ public class AlarmManager
      *  
      * @param type One of ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC or
      *             RTC_WAKEUP.
-<<<<<<< HEAD
      * @param triggerAtMillis time in milliseconds that the alarm should go
      * off, using the appropriate clock (depending on the alarm type).
-=======
-     * @param triggerAtTime Time the alarm should go off, using the
-     *                      appropriate clock (depending on the alarm type).
->>>>>>> 54b6cfa... Initial Contribution
      * @param operation Action to perform when the alarm goes off;
      * typically comes from {@link PendingIntent#getBroadcast
      * IntentSender.getBroadcast()}.
@@ -165,15 +132,9 @@ public class AlarmManager
      * @see #RTC
      * @see #RTC_WAKEUP
      */
-<<<<<<< HEAD
     public void set(int type, long triggerAtMillis, PendingIntent operation) {
         try {
             mService.set(type, triggerAtMillis, operation);
-=======
-    public void set(int type, long triggerAtTime, PendingIntent operation) {
-        try {
-            mService.set(type, triggerAtTime, operation);
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
         }
     }
@@ -206,16 +167,10 @@ public class AlarmManager
      *
      * @param type One of ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP}, RTC or
      *             RTC_WAKEUP.
-<<<<<<< HEAD
      * @param triggerAtMillis time in milliseconds that the alarm should first
      * go off, using the appropriate clock (depending on the alarm type).
      * @param intervalMillis interval in milliseconds between subsequent repeats
      * of the alarm.
-=======
-     * @param triggerAtTime Time the alarm should first go off, using the
-     *                      appropriate clock (depending on the alarm type).
-     * @param interval Interval between subsequent repeats of the alarm.
->>>>>>> 54b6cfa... Initial Contribution
      * @param operation Action to perform when the alarm goes off;
      * typically comes from {@link PendingIntent#getBroadcast
      * IntentSender.getBroadcast()}.
@@ -231,23 +186,15 @@ public class AlarmManager
      * @see #RTC
      * @see #RTC_WAKEUP
      */
-<<<<<<< HEAD
     public void setRepeating(int type, long triggerAtMillis,
             long intervalMillis, PendingIntent operation) {
         try {
             mService.setRepeating(type, triggerAtMillis, intervalMillis, operation);
-=======
-    public void setRepeating(int type, long triggerAtTime, long interval,
-            PendingIntent operation) {
-        try {
-            mService.setRepeating(type, triggerAtTime, interval, operation);
->>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
         }
     }
 
     /**
-<<<<<<< HEAD
      * Available inexact recurrence intervals recognized by
      * {@link #setInexactRepeating(int, long, long, PendingIntent)} 
      */
@@ -314,8 +261,6 @@ public class AlarmManager
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Remove any alarms with a matching {@link Intent}.
      * Any alarm, of any type, whose Intent matches this one (as defined by
      * {@link Intent#filterEquals}), will be canceled.
@@ -331,7 +276,6 @@ public class AlarmManager
         } catch (RemoteException ex) {
         }
     }
-<<<<<<< HEAD
 
     /**
      * Set the system wall clock time.
@@ -352,9 +296,6 @@ public class AlarmManager
      *
      * @param timeZone in the format understood by {@link java.util.TimeZone}
      */
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     public void setTimeZone(String timeZone) {
         try {
             mService.setTimeZone(timeZone);

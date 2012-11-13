@@ -7,7 +7,6 @@
 #define __AAPT_ASSETS_H
 
 #include <stdlib.h>
-<<<<<<< HEAD
 #include <androidfw/AssetManager.h>
 #include <androidfw/ResourceTypes.h>
 #include <utils/KeyedVector.h>
@@ -17,24 +16,12 @@
 #include <utils/String8.h>
 #include <utils/Vector.h>
 #include "ZipFile.h"
-=======
-#include <utils/AssetManager.h>
-#include <utils/KeyedVector.h>
-#include <utils/String8.h>
-#include <utils/ResourceTypes.h>
-#include <utils/SortedVector.h>
-#include <utils/String8.h>
-#include <utils/Vector.h>
-#include <utils/RefBase.h>
-#include <utils/ZipFile.h>
->>>>>>> 54b6cfa... Initial Contribution
 
 #include "Bundle.h"
 #include "SourcePos.h"
 
 using namespace android;
 
-<<<<<<< HEAD
 
 extern const char * const gDefaultIgnoreAssets;
 extern const char * gUserIgnoreAssets;
@@ -43,30 +30,21 @@ bool valid_symbol_name(const String8& str);
 
 class AaptAssets;
 
-=======
-bool valid_symbol_name(const String8& str);
-
->>>>>>> 54b6cfa... Initial Contribution
 enum {
     AXIS_NONE = 0,
     AXIS_MCC = 1,
     AXIS_MNC,
     AXIS_LANGUAGE,
     AXIS_REGION,
-<<<<<<< HEAD
     AXIS_SCREENLAYOUTSIZE,
     AXIS_SCREENLAYOUTLONG,
     AXIS_ORIENTATION,
     AXIS_UIMODETYPE,
     AXIS_UIMODENIGHT,
-=======
-    AXIS_ORIENTATION,
->>>>>>> 54b6cfa... Initial Contribution
     AXIS_DENSITY,
     AXIS_TOUCHSCREEN,
     AXIS_KEYSHIDDEN,
     AXIS_KEYBOARD,
-<<<<<<< HEAD
     AXIS_NAVHIDDEN,
     AXIS_NAVIGATION,
     AXIS_SCREENSIZE,
@@ -77,11 +55,6 @@ enum {
 
     AXIS_START = AXIS_MCC,
     AXIS_END = AXIS_VERSION,
-=======
-    AXIS_NAVIGATION,
-    AXIS_SCREENSIZE,
-    AXIS_VERSION
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 /**
@@ -91,33 +64,13 @@ enum {
 struct AaptGroupEntry
 {
 public:
-<<<<<<< HEAD
     AaptGroupEntry() : mParamsChanged(true) { }
     AaptGroupEntry(const String8& _locale, const String8& _vendor)
         : locale(_locale), vendor(_vendor), mParamsChanged(true) { }
-=======
-    AaptGroupEntry() { }
-    AaptGroupEntry(const String8& _locale, const String8& _vendor)
-        : locale(_locale), vendor(_vendor) { }
-
-    String8 mcc;
-    String8 mnc;
-    String8 locale;
-    String8 vendor;
-    String8 orientation;
-    String8 density;
-    String8 touchscreen;
-    String8 keysHidden;
-    String8 keyboard;
-    String8 navigation;
-    String8 screenSize;
-    String8 version;
->>>>>>> 54b6cfa... Initial Contribution
 
     bool initFromDirName(const char* dir, String8* resType);
 
     static status_t parseNamePart(const String8& part, int* axis, uint32_t* value);
-<<<<<<< HEAD
 
     static uint32_t getConfigValueForAxis(const ResTable_config& config, int axis);
 
@@ -132,36 +85,21 @@ public:
     static bool getOrientationName(const char* name, ResTable_config* out = NULL);
     static bool getUiModeTypeName(const char* name, ResTable_config* out = NULL);
     static bool getUiModeNightName(const char* name, ResTable_config* out = NULL);
-=======
-    
-    static bool getMccName(const char* name, ResTable_config* out = NULL);
-    static bool getMncName(const char* name, ResTable_config* out = NULL);
-    static bool getLocaleName(const char* name, ResTable_config* out = NULL);
-    static bool getOrientationName(const char* name, ResTable_config* out = NULL);
->>>>>>> 54b6cfa... Initial Contribution
     static bool getDensityName(const char* name, ResTable_config* out = NULL);
     static bool getTouchscreenName(const char* name, ResTable_config* out = NULL);
     static bool getKeysHiddenName(const char* name, ResTable_config* out = NULL);
     static bool getKeyboardName(const char* name, ResTable_config* out = NULL);
     static bool getNavigationName(const char* name, ResTable_config* out = NULL);
-<<<<<<< HEAD
     static bool getNavHiddenName(const char* name, ResTable_config* out = NULL);
     static bool getScreenSizeName(const char* name, ResTable_config* out = NULL);
     static bool getSmallestScreenWidthDpName(const char* name, ResTable_config* out = NULL);
     static bool getScreenWidthDpName(const char* name, ResTable_config* out = NULL);
     static bool getScreenHeightDpName(const char* name, ResTable_config* out = NULL);
-=======
-    static bool getScreenSizeName(const char* name, ResTable_config* out = NULL);
->>>>>>> 54b6cfa... Initial Contribution
     static bool getVersionName(const char* name, ResTable_config* out = NULL);
 
     int compare(const AaptGroupEntry& o) const;
 
-<<<<<<< HEAD
     const ResTable_config& toParams() const;
-=======
-    ResTable_config toParams() const;
->>>>>>> 54b6cfa... Initial Contribution
 
     inline bool operator<(const AaptGroupEntry& o) const { return compare(o) < 0; }
     inline bool operator<=(const AaptGroupEntry& o) const { return compare(o) <= 0; }
@@ -172,7 +110,6 @@ public:
 
     String8 toString() const;
     String8 toDirName(const String8& resType) const;
-<<<<<<< HEAD
 
     const String8& getVersionString() const { return version; }
 
@@ -200,8 +137,6 @@ private:
 
     mutable bool mParamsChanged;
     mutable ResTable_config mParams;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 inline int compare_type(const AaptGroupEntry& lhs, const AaptGroupEntry& rhs)
@@ -215,10 +150,7 @@ inline int strictly_order_type(const AaptGroupEntry& lhs, const AaptGroupEntry& 
 }
 
 class AaptGroup;
-<<<<<<< HEAD
 class FilePathStore;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * A single asset file we know about.
@@ -238,13 +170,9 @@ public:
         {
             //printf("new AaptFile created %s\n", (const char*)sourceFile);
         }
-<<<<<<< HEAD
     virtual ~AaptFile() {
         free(mData);
     }
-=======
-    virtual ~AaptFile() { }
->>>>>>> 54b6cfa... Initial Contribution
 
     const String8& getPath() const { return mPath; }
     const AaptGroupEntry& getGroupEntry() const { return mGroupEntry; }
@@ -307,11 +235,7 @@ public:
     status_t addFile(const sp<AaptFile>& file);
     void removeFile(size_t index);
 
-<<<<<<< HEAD
     void print(const String8& prefix) const;
-=======
-    void print() const;
->>>>>>> 54b6cfa... Initial Contribution
 
     String8 getPrintableSource() const;
 
@@ -323,11 +247,7 @@ private:
 };
 
 /**
-<<<<<<< HEAD
  * A single directory of assets, which can contain files and other
-=======
- * A single directory of assets, which can contain for files and other
->>>>>>> 54b6cfa... Initial Contribution
  * sub-directories.
  */
 class AaptDir : public RefBase
@@ -344,31 +264,11 @@ public:
     const DefaultKeyedVector<String8, sp<AaptGroup> >& getFiles() const { return mFiles; }
     const DefaultKeyedVector<String8, sp<AaptDir> >& getDirs() const { return mDirs; }
 
-<<<<<<< HEAD
     virtual status_t addFile(const String8& name, const sp<AaptGroup>& file);
-=======
-    status_t addFile(const String8& name, const sp<AaptGroup>& file);
-    status_t addDir(const String8& name, const sp<AaptDir>& dir);
-
-    sp<AaptDir> makeDir(const String8& name);
->>>>>>> 54b6cfa... Initial Contribution
 
     void removeFile(const String8& name);
     void removeDir(const String8& name);
 
-<<<<<<< HEAD
-=======
-    status_t renameFile(const sp<AaptFile>& file, const String8& newName);
-
-    status_t addLeafFile(const String8& leafName,
-                         const sp<AaptFile>& file);
-
-    virtual ssize_t slurpFullTree(Bundle* bundle,
-                                  const String8& srcDir,
-                                  const AaptGroupEntry& kind,
-                                  const String8& resType);
-
->>>>>>> 54b6cfa... Initial Contribution
     /*
      * Perform some sanity checks on the names of files and directories here.
      * In particular:
@@ -388,16 +288,11 @@ public:
      */
     status_t validate() const;
 
-<<<<<<< HEAD
     void print(const String8& prefix) const;
-=======
-    void print() const;
->>>>>>> 54b6cfa... Initial Contribution
 
     String8 getPrintableSource() const;
 
 private:
-<<<<<<< HEAD
     friend class AaptAssets;
 
     status_t addDir(const String8& name, const sp<AaptDir>& dir);
@@ -410,8 +305,6 @@ private:
                                   const String8& resType,
                                   sp<FilePathStore>& fullResPaths);
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     String8 mLeaf;
     String8 mPath;
 
@@ -426,28 +319,16 @@ class AaptSymbolEntry
 {
 public:
     AaptSymbolEntry()
-<<<<<<< HEAD
         : isPublic(false), isJavaSymbol(false), typeCode(TYPE_UNKNOWN)
     {
     }
     AaptSymbolEntry(const String8& _name)
         : name(_name), isPublic(false), isJavaSymbol(false), typeCode(TYPE_UNKNOWN)
-=======
-        : isPublic(false), typeCode(TYPE_UNKNOWN)
-    {
-    }
-    AaptSymbolEntry(const String8& _name)
-        : name(_name), isPublic(false), typeCode(TYPE_UNKNOWN)
->>>>>>> 54b6cfa... Initial Contribution
     {
     }
     AaptSymbolEntry(const AaptSymbolEntry& o)
         : name(o.name), sourcePos(o.sourcePos), isPublic(o.isPublic)
-<<<<<<< HEAD
         , isJavaSymbol(o.isJavaSymbol), comment(o.comment), typeComment(o.typeComment)
-=======
-        , comment(o.comment), typeComment(o.typeComment)
->>>>>>> 54b6cfa... Initial Contribution
         , typeCode(o.typeCode), int32Val(o.int32Val), stringVal(o.stringVal)
     {
     }
@@ -455,10 +336,7 @@ public:
     {
         sourcePos = o.sourcePos;
         isPublic = o.isPublic;
-<<<<<<< HEAD
         isJavaSymbol = o.isJavaSymbol;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         comment = o.comment;
         typeComment = o.typeComment;
         typeCode = o.typeCode;
@@ -471,10 +349,7 @@ public:
     
     SourcePos sourcePos;
     bool isPublic;
-<<<<<<< HEAD
     bool isJavaSymbol;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     
     String16 comment;
     String16 typeComment;
@@ -532,7 +407,6 @@ public:
         return NO_ERROR;
     }
 
-<<<<<<< HEAD
     status_t makeSymbolJavaSymbol(const String8& name, const SourcePos& pos) {
         if (!check_valid_symbol_name(name, pos, "symbol")) {
             return BAD_VALUE;
@@ -542,8 +416,6 @@ public:
         return NO_ERROR;
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     void appendComment(const String8& name, const String16& comment, const SourcePos& pos) {
         if (comment.size() <= 0) {
             return;
@@ -584,11 +456,8 @@ public:
         return sym;
     }
 
-<<<<<<< HEAD
     status_t applyJavaSymbols(const sp<AaptSymbols>& javaSymbols);
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     const KeyedVector<String8, AaptSymbolEntry>& getSymbols() const
         { return mSymbols; }
     const DefaultKeyedVector<String8, sp<AaptSymbols> >& getNestedSymbols() const
@@ -631,7 +500,6 @@ private:
     AaptSymbolEntry                                 mDefSymbol;
 };
 
-<<<<<<< HEAD
 class ResourceTypeSet : public RefBase,
                         public KeyedVector<String8,sp<AaptGroup> >
 {
@@ -648,15 +516,12 @@ public:
     FilePathStore();
 };
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * Asset hierarchy being operated on.
  */
 class AaptAssets : public AaptDir
 {
 public:
-<<<<<<< HEAD
     AaptAssets();
     virtual ~AaptAssets() { delete mRes; }
 
@@ -670,15 +535,6 @@ public:
     const SortedVector<AaptGroupEntry>& getGroupEntries() const;
 
     virtual status_t addFile(const String8& name, const sp<AaptGroup>& file);
-=======
-    AaptAssets() : AaptDir(String8(), String8()), mHaveIncludedAssets(false) { }
-    virtual ~AaptAssets() { }
-
-    const String8& getPackage() const { return mPackage; }
-    void setPackage(const String8& package) { mPackage = package; mSymbolsPrivatePackage = package; }
-
-    const SortedVector<AaptGroupEntry>& getGroupEntries() const { return mGroupEntries; }
->>>>>>> 54b6cfa... Initial Contribution
 
     sp<AaptFile> addFile(const String8& filePath,
                          const AaptGroupEntry& entry,
@@ -691,7 +547,6 @@ public:
                      const sp<AaptFile>& file,
                      const String8& resType);
 
-<<<<<<< HEAD
     void addGroupEntry(const AaptGroupEntry& entry) { mGroupEntries.add(entry); }
     
     ssize_t slurpFromArgs(Bundle* bundle);
@@ -701,24 +556,10 @@ public:
     sp<AaptSymbols> getJavaSymbolsFor(const String8& name);
 
     status_t applyJavaSymbols();
-=======
-    ssize_t slurpFromArgs(Bundle* bundle);
-
-    virtual ssize_t slurpFullTree(Bundle* bundle,
-                                  const String8& srcDir,
-                                  const AaptGroupEntry& kind,
-                                  const String8& resType);
-
-    ssize_t slurpResourceTree(Bundle* bundle, const String8& srcDir);
-    ssize_t slurpResourceZip(Bundle* bundle, const char* filename);
-
-    sp<AaptSymbols> getSymbolsFor(const String8& name);
->>>>>>> 54b6cfa... Initial Contribution
 
     const DefaultKeyedVector<String8, sp<AaptSymbols> >& getSymbols() const { return mSymbols; }
 
     String8 getSymbolsPrivatePackage() const { return mSymbolsPrivatePackage; }
-<<<<<<< HEAD
     void setSymbolsPrivatePackage(const String8& pkg) {
         mSymbolsPrivatePackage = pkg;
         mHavePrivateSymbols = mSymbolsPrivatePackage != mPackage;
@@ -728,15 +569,10 @@ public:
 
     bool isJavaSymbol(const AaptSymbolEntry& sym, bool includePrivate) const;
 
-=======
-    void setSymbolsPrivatePackage(const String8& pkg) { mSymbolsPrivatePackage = pkg; }
-    
->>>>>>> 54b6cfa... Initial Contribution
     status_t buildIncludedResources(Bundle* bundle);
     status_t addIncludedResources(const sp<AaptFile>& file);
     const ResTable& getIncludedResources() const;
 
-<<<<<<< HEAD
     void print(const String8& prefix) const;
 
     inline const Vector<sp<AaptDir> >& resDirs() const { return mResDirs; }
@@ -788,22 +624,6 @@ private:
 
     sp<FilePathStore> mFullResPaths;
     sp<FilePathStore> mFullAssetPaths;
-=======
-    void print() const;
-
-    inline const Vector<sp<AaptDir> >& resDirs() { return mDirs; }
-
-private:
-    String8 mPackage;
-    SortedVector<AaptGroupEntry> mGroupEntries;
-    DefaultKeyedVector<String8, sp<AaptSymbols> > mSymbols;
-    String8 mSymbolsPrivatePackage;
-
-    Vector<sp<AaptDir> > mDirs;
-
-    bool mHaveIncludedAssets;
-    AssetManager mIncludedAssets;
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 #endif // __AAPT_ASSETS_H

@@ -17,11 +17,8 @@
 
 package android.database;
 
-<<<<<<< HEAD
 import android.net.Uri;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * @hide
  */
@@ -32,9 +29,5 @@ interface IContentObserver
      * observed. selfUpdate is true if the update was caused by a call to
      * commit on the cursor that is being observed.
      */
-<<<<<<< HEAD
     oneway void onChange(boolean selfUpdate, in Uri uri);
-=======
-    oneway void onChange(boolean selfUpdate);
->>>>>>> 54b6cfa... Initial Contribution
 }

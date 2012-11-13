@@ -25,11 +25,7 @@ enabled.
     android:orientation="vertical" 
     android:fitsSystemWindows="true">
     <TextView android:id="@android:id/title" style="?android:attr/windowTitleStyle"
-<<<<<<< HEAD
         android:layout_width="match_parent" 
-=======
-        android:layout_width="fill_parent" 
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_height="wrap_content"
         android:minHeight="53dip"
         android:paddingTop="9dip"
@@ -37,22 +33,13 @@ enabled.
         android:paddingLeft="10dip"
         android:paddingRight="10dip" />
     <FrameLayout
-<<<<<<< HEAD
         android:layout_width="match_parent" android:layout_height="wrap_content"
-=======
-        android:layout_width="fill_parent" android:layout_height="wrap_content"
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_weight="1"
         android:orientation="vertical"
         android:foreground="?android:attr/windowContentOverlay">
         <FrameLayout android:id="@android:id/content"
-<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-=======
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
->>>>>>> 54b6cfa... Initial Contribution
     </FrameLayout>
 </LinearLayout>
 

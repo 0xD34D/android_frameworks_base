@@ -15,15 +15,9 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<<<<<<< HEAD
     <item android:state_window_focused="false" android:state_enabled="true"
         android:drawable="@drawable/btn_dialog_normal" />
     <item android:state_window_focused="false" android:state_enabled="false"
-=======
-﻿    <item android:state_window_focused="false" android:state_enabled="true"
-        android:drawable="@drawable/btn_dialog_normal" />
-﻿    <item android:state_window_focused="false" android:state_enabled="false"
->>>>>>> 54b6cfa... Initial Contribution
         android:drawable="@drawable/btn_dialog_disable" />
     <item android:state_pressed="true"
         android:drawable="@drawable/btn_dialog_pressed" />

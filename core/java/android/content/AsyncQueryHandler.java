@@ -24,11 +24,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
-<<<<<<< HEAD
 import java.lang.ref.WeakReference;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * A helper class to help make handling asynchronous {@link ContentResolver}
  * queries easier.
@@ -41,13 +38,8 @@ public abstract class AsyncQueryHandler extends Handler {
     private static final int EVENT_ARG_INSERT = 2;
     private static final int EVENT_ARG_UPDATE = 3;
     private static final int EVENT_ARG_DELETE = 4;
-<<<<<<< HEAD
 
     /* package */ final WeakReference<ContentResolver> mResolver;
-=======
-    
-    /* package */ ContentResolver mResolver;
->>>>>>> 54b6cfa... Initial Contribution
 
     private static Looper sLooper = null;
 
@@ -72,26 +64,18 @@ public abstract class AsyncQueryHandler extends Handler {
 
         @Override
         public void handleMessage(Message msg) {
-<<<<<<< HEAD
             final ContentResolver resolver = mResolver.get();
             if (resolver == null) return;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
             WorkerArgs args = (WorkerArgs) msg.obj;
 
             int token = msg.what;
             int event = msg.arg1;
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 54b6cfa... Initial Contribution
             switch (event) {
                 case EVENT_ARG_QUERY:
                     Cursor cursor;
                     try {
-<<<<<<< HEAD
                         cursor = resolver.query(args.uri, args.projection,
                                 args.selection, args.selectionArgs,
                                 args.orderBy);
@@ -102,12 +86,6 @@ public abstract class AsyncQueryHandler extends Handler {
                         }
                     } catch (Exception e) {
                         Log.w(TAG, "Exception thrown during handling EVENT_ARG_QUERY", e);
-=======
-                        cursor = mResolver.query(args.uri, args.projection,
-                                args.selection, args.selectionArgs,
-                                args.orderBy);
-                    } catch (Exception e) {
->>>>>>> 54b6cfa... Initial Contribution
                         cursor = null;
                     }
 
@@ -115,7 +93,6 @@ public abstract class AsyncQueryHandler extends Handler {
                     break;
 
                 case EVENT_ARG_INSERT:
-<<<<<<< HEAD
                     args.result = resolver.insert(args.uri, args.values);
                     break;
 
@@ -127,22 +104,6 @@ public abstract class AsyncQueryHandler extends Handler {
                 case EVENT_ARG_DELETE:
                     args.result = resolver.delete(args.uri, args.selection, args.selectionArgs);
                     break;
-=======
-                    args.result = mResolver.insert(args.uri, args.values);
-                    break;
-
-                case EVENT_ARG_UPDATE:
-                    int r = mResolver.update(args.uri, args.values, args.selection,
-                            args.selectionArgs);
-                    args.result = new Integer(r);
-                    break;
-
-                case EVENT_ARG_DELETE:
-                    int r2 = mResolver.delete(args.uri, args.selection, args.selectionArgs);
-                    args.result = new Integer(r2);
-                    break;
-
->>>>>>> 54b6cfa... Initial Contribution
             }
 
             // passing the original token value back to the caller
@@ -162,20 +123,12 @@ public abstract class AsyncQueryHandler extends Handler {
 
     public AsyncQueryHandler(ContentResolver cr) {
         super();
-<<<<<<< HEAD
         mResolver = new WeakReference<ContentResolver>(cr);
-=======
-        mResolver = cr;
->>>>>>> 54b6cfa... Initial Contribution
         synchronized (AsyncQueryHandler.class) {
             if (sLooper == null) {
                 HandlerThread thread = new HandlerThread("AsyncQueryWorker");
                 thread.start();
-<<<<<<< HEAD
 
-=======
-                
->>>>>>> 54b6cfa... Initial Contribution
                 sLooper = thread.getLooper();
             }
         }
@@ -193,7 +146,6 @@ public abstract class AsyncQueryHandler extends Handler {
      * @param token A token passed into {@link #onQueryComplete} to identify
      *  the query.
      * @param cookie An object that gets passed into {@link #onQueryComplete}
-<<<<<<< HEAD
      * @param uri The URI, using the content:// scheme, for the content to
      *         retrieve.
      * @param projection A list of which columns to return. Passing null will
@@ -208,8 +160,6 @@ public abstract class AsyncQueryHandler extends Handler {
      * @param orderBy How to order the rows, formatted as an SQL ORDER BY
      *         clause (excluding the ORDER BY itself). Passing null will use the
      *         default sort order, which may be unordered.
-=======
->>>>>>> 54b6cfa... Initial Contribution
      */
     public void startQuery(int token, Object cookie, Uri uri,
             String[] projection, String selection, String[] selectionArgs,
@@ -329,13 +279,8 @@ public abstract class AsyncQueryHandler extends Handler {
      * Called when an asynchronous query is completed.
      *
      * @param token the token to identify the query, passed in from
-<<<<<<< HEAD
      *            {@link #startQuery}.
      * @param cookie the cookie object passed in from {@link #startQuery}.
-=======
-     *        {@link #startQuery}.
-     * @param cookie the cookie object that's passed in from {@link #startQuery}.
->>>>>>> 54b6cfa... Initial Contribution
      * @param cursor The cursor holding the results from the query.
      */
     protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
@@ -392,11 +337,7 @@ public abstract class AsyncQueryHandler extends Handler {
 
         int token = msg.what;
         int event = msg.arg1;
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         // pass token back to caller on each callback.
         switch (event) {
             case EVENT_ARG_QUERY:

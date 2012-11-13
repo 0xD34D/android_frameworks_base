@@ -18,19 +18,15 @@ package android.view;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-<<<<<<< HEAD
 import android.text.method.MetaKeyKeyListener;
 import android.util.Log;
 import android.util.Slog;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.view.KeyCharacterMap;
 import android.view.KeyCharacterMap.KeyData;
 
 /**
-<<<<<<< HEAD
  * Object used to report key and button events.
  * <p>
  * Each key press is described by a sequence of key events.  A key press
@@ -914,106 +910,6 @@ public class KeyEvent extends InputEvent implements Parcelable {
      * Use {@link #getMaxKeyCode()} instead.
      */
     @Deprecated
-=======
- * Contains constants for key events.
- */
-public class KeyEvent implements Parcelable {
-    // key codes
-    public static final int KEYCODE_UNKNOWN         = 0;
-    public static final int KEYCODE_SOFT_LEFT       = 1;
-    public static final int KEYCODE_SOFT_RIGHT      = 2;
-    public static final int KEYCODE_HOME            = 3;
-    public static final int KEYCODE_BACK            = 4;
-    public static final int KEYCODE_CALL            = 5;
-    public static final int KEYCODE_ENDCALL         = 6;
-    public static final int KEYCODE_0               = 7;
-    public static final int KEYCODE_1               = 8;
-    public static final int KEYCODE_2               = 9;
-    public static final int KEYCODE_3               = 10;
-    public static final int KEYCODE_4               = 11;
-    public static final int KEYCODE_5               = 12;
-    public static final int KEYCODE_6               = 13;
-    public static final int KEYCODE_7               = 14;
-    public static final int KEYCODE_8               = 15;
-    public static final int KEYCODE_9               = 16;
-    public static final int KEYCODE_STAR            = 17;
-    public static final int KEYCODE_POUND           = 18;
-    public static final int KEYCODE_DPAD_UP         = 19;
-    public static final int KEYCODE_DPAD_DOWN       = 20;
-    public static final int KEYCODE_DPAD_LEFT       = 21;
-    public static final int KEYCODE_DPAD_RIGHT      = 22;
-    public static final int KEYCODE_DPAD_CENTER     = 23;
-    public static final int KEYCODE_VOLUME_UP       = 24;
-    public static final int KEYCODE_VOLUME_DOWN     = 25;
-    public static final int KEYCODE_POWER           = 26;
-    public static final int KEYCODE_CAMERA          = 27;
-    public static final int KEYCODE_CLEAR           = 28;
-    public static final int KEYCODE_A               = 29;
-    public static final int KEYCODE_B               = 30;
-    public static final int KEYCODE_C               = 31;
-    public static final int KEYCODE_D               = 32;
-    public static final int KEYCODE_E               = 33;
-    public static final int KEYCODE_F               = 34;
-    public static final int KEYCODE_G               = 35;
-    public static final int KEYCODE_H               = 36;
-    public static final int KEYCODE_I               = 37;
-    public static final int KEYCODE_J               = 38;
-    public static final int KEYCODE_K               = 39;
-    public static final int KEYCODE_L               = 40;
-    public static final int KEYCODE_M               = 41;
-    public static final int KEYCODE_N               = 42;
-    public static final int KEYCODE_O               = 43;
-    public static final int KEYCODE_P               = 44;
-    public static final int KEYCODE_Q               = 45;
-    public static final int KEYCODE_R               = 46;
-    public static final int KEYCODE_S               = 47;
-    public static final int KEYCODE_T               = 48;
-    public static final int KEYCODE_U               = 49;
-    public static final int KEYCODE_V               = 50;
-    public static final int KEYCODE_W               = 51;
-    public static final int KEYCODE_X               = 52;
-    public static final int KEYCODE_Y               = 53;
-    public static final int KEYCODE_Z               = 54;
-    public static final int KEYCODE_COMMA           = 55;
-    public static final int KEYCODE_PERIOD          = 56;
-    public static final int KEYCODE_ALT_LEFT        = 57;
-    public static final int KEYCODE_ALT_RIGHT       = 58;
-    public static final int KEYCODE_SHIFT_LEFT      = 59;
-    public static final int KEYCODE_SHIFT_RIGHT     = 60;
-    public static final int KEYCODE_TAB             = 61;
-    public static final int KEYCODE_SPACE           = 62;
-    public static final int KEYCODE_SYM             = 63;
-    public static final int KEYCODE_EXPLORER        = 64;
-    public static final int KEYCODE_ENVELOPE        = 65;
-    public static final int KEYCODE_ENTER         = 66;
-    public static final int KEYCODE_DEL             = 67;
-    public static final int KEYCODE_GRAVE           = 68;
-    public static final int KEYCODE_MINUS           = 69;
-    public static final int KEYCODE_EQUALS          = 70;
-    public static final int KEYCODE_LEFT_BRACKET    = 71;
-    public static final int KEYCODE_RIGHT_BRACKET   = 72;
-    public static final int KEYCODE_BACKSLASH       = 73;
-    public static final int KEYCODE_SEMICOLON       = 74;
-    public static final int KEYCODE_APOSTROPHE      = 75;
-    public static final int KEYCODE_SLASH           = 76;
-    public static final int KEYCODE_AT              = 77;
-    public static final int KEYCODE_NUM             = 78;
-    public static final int KEYCODE_HEADSETHOOK     = 79;
-    public static final int KEYCODE_FOCUS           = 80;   // *Camera* focus
-    public static final int KEYCODE_PLUS            = 81;
-    public static final int KEYCODE_MENU            = 82;
-    public static final int KEYCODE_NOTIFICATION    = 83;
-    public static final int KEYCODE_SEARCH          = 84;
-
-    // NOTE: If you add a new keycode here you must also add it to:
-    //  isSystem()
-    //  include/ui/KeycodeLabels.h
-    //  tools/puppet_master/PuppetMaster/nav_keys.py
-    //  apps/common/res/values/attrs.xml
-    //  commands/monkey/Monkey.java
-    //  emulator?
-    
->>>>>>> 54b6cfa... Initial Contribution
     public static final int MAX_KEYCODE             = 84;
 
     /**
@@ -1026,22 +922,16 @@ public class KeyEvent implements Parcelable {
     public static final int ACTION_UP               = 1;
     /**
      * {@link #getAction} value: multiple duplicate key events have
-<<<<<<< HEAD
      * occurred in a row, or a complex string is being delivered.  If the
      * key code is not {#link {@link #KEYCODE_UNKNOWN} then the
      * {#link {@link #getRepeatCount()} method returns the number of times
      * the given key code should be executed.
      * Otherwise, if the key code is {@link #KEYCODE_UNKNOWN}, then
      * this is a sequence of characters as returned by {@link #getCharacters}.
-=======
-     * occurred in a row.  The {#link {@link #getRepeatCount()} method returns
-     * the number of duplicates.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int ACTION_MULTIPLE         = 2;
 
     /**
-<<<<<<< HEAD
      * SHIFT key locked in CAPS mode.
      * Reserved for use by {@link MetaKeyKeyListener} for a published constant in its API.
      * @hide
@@ -1071,8 +961,6 @@ public class KeyEvent implements Parcelable {
     public static final int META_SELECTING = 0x800;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * <p>This mask is used to check whether one of the ALT meta keys is pressed.</p>
      *
      * @see #isAltPressed()
@@ -1137,7 +1025,6 @@ public class KeyEvent implements Parcelable {
     public static final int META_SYM_ON = 0x4;
 
     /**
-<<<<<<< HEAD
      * <p>This mask is used to check whether the FUNCTION meta key is pressed.</p>
      *
      * @see #isFunctionPressed()
@@ -1257,14 +1144,11 @@ public class KeyEvent implements Parcelable {
             | META_META_LEFT_ON | META_META_RIGHT_ON;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * This mask is set if the device woke because of this key event.
      */
     public static final int FLAG_WOKE_HERE = 0x1;
     
     /**
-<<<<<<< HEAD
      * This mask is set if the key event was generated by a software keyboard.
      */
     public static final int FLAG_SOFT_KEYBOARD = 0x2;
@@ -1365,8 +1249,6 @@ public class KeyEvent implements Parcelable {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Get the character that is produced by putting accent on the character
      * c.
      * For example, getDeadChar('`', 'e') returns &egrave;.
@@ -1375,7 +1257,6 @@ public class KeyEvent implements Parcelable {
         return KeyCharacterMap.getDeadChar(accent, c);
     }
     
-<<<<<<< HEAD
     static final boolean DEBUG = false;
     static final String TAG = "KeyEvent";
 
@@ -1405,21 +1286,6 @@ public class KeyEvent implements Parcelable {
          * KeyEvent.startTracking()} to have the framework track the event
          * through its {@link #onKeyUp(int, KeyEvent)} and also call your
          * {@link #onKeyLongPress(int, KeyEvent)} if it occurs.
-=======
-    private int mMetaState;
-    private int mAction;
-    private int mKeyCode;
-    private int mScancode;
-    private int mRepeatCount;
-    private int mDeviceId;
-    private int mFlags;
-    private long mDownTime;
-    private long mEventTime;
-
-    public interface Callback {
-        /**
-         * Called when a key down event has occurred.
->>>>>>> 54b6cfa... Initial Contribution
          * 
          * @param keyCode The value in event.getKeyCode().
          * @param event Description of the key event.
@@ -1430,7 +1296,6 @@ public class KeyEvent implements Parcelable {
         boolean onKeyDown(int keyCode, KeyEvent event);
 
         /**
-<<<<<<< HEAD
          * Called when a long press has occurred.  If you return true,
          * the final key up will have {@link KeyEvent#FLAG_CANCELED} and
          * {@link KeyEvent#FLAG_CANCELED_LONG_PRESS} set.  Note that in
@@ -1447,8 +1312,6 @@ public class KeyEvent implements Parcelable {
         boolean onKeyLongPress(int keyCode, KeyEvent event);
 
         /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
          * Called when a key up event has occurred.
          * 
          * @param keyCode The value in event.getKeyCode().
@@ -1473,7 +1336,6 @@ public class KeyEvent implements Parcelable {
         boolean onKeyMultiple(int keyCode, int count, KeyEvent event);
     }
 
-<<<<<<< HEAD
     static {
         populateKeycodeSymbolicNames();
     }
@@ -1481,8 +1343,6 @@ public class KeyEvent implements Parcelable {
     private KeyEvent() {
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Create a new key event.
      * 
@@ -1494,10 +1354,7 @@ public class KeyEvent implements Parcelable {
         mAction = action;
         mKeyCode = code;
         mRepeatCount = 0;
-<<<<<<< HEAD
         mDeviceId = KeyCharacterMap.VIRTUAL_KEYBOARD;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1520,10 +1377,7 @@ public class KeyEvent implements Parcelable {
         mAction = action;
         mKeyCode = code;
         mRepeatCount = repeat;
-<<<<<<< HEAD
         mDeviceId = KeyCharacterMap.VIRTUAL_KEYBOARD;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1548,7 +1402,6 @@ public class KeyEvent implements Parcelable {
         mKeyCode = code;
         mRepeatCount = repeat;
         mMetaState = metaState;
-<<<<<<< HEAD
         mDeviceId = KeyCharacterMap.VIRTUAL_KEYBOARD;
     }
 
@@ -1579,8 +1432,6 @@ public class KeyEvent implements Parcelable {
         mMetaState = metaState;
         mDeviceId = deviceId;
         mScanCode = scancode;
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1596,7 +1447,6 @@ public class KeyEvent implements Parcelable {
      * @param repeat A repeat count for down events (> 0 if this is after the
      * initial down) or event count for multiple events.
      * @param metaState Flags indicating which meta keys are currently pressed.
-<<<<<<< HEAD
      * @param deviceId The device ID that generated the key event.
      * @param scancode Raw device scan code of the event.
      * @param flags The flags for this key event
@@ -1604,28 +1454,15 @@ public class KeyEvent implements Parcelable {
     public KeyEvent(long downTime, long eventTime, int action,
                     int code, int repeat, int metaState,
                     int deviceId, int scancode, int flags) {
-=======
-     * @param device The device ID that generated the key event.
-     * @param scancode Raw device scan code of the event.
-     */
-    public KeyEvent(long downTime, long eventTime, int action,
-                    int code, int repeat, int metaState,
-                    int device, int scancode) {
->>>>>>> 54b6cfa... Initial Contribution
         mDownTime = downTime;
         mEventTime = eventTime;
         mAction = action;
         mKeyCode = code;
         mRepeatCount = repeat;
         mMetaState = metaState;
-<<<<<<< HEAD
         mDeviceId = deviceId;
         mScanCode = scancode;
         mFlags = flags;
-=======
-        mDeviceId = device;
-        mScancode = scancode;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1641,7 +1478,6 @@ public class KeyEvent implements Parcelable {
      * @param repeat A repeat count for down events (> 0 if this is after the
      * initial down) or event count for multiple events.
      * @param metaState Flags indicating which meta keys are currently pressed.
-<<<<<<< HEAD
      * @param deviceId The device ID that generated the key event.
      * @param scancode Raw device scan code of the event.
      * @param flags The flags for this key event
@@ -1650,22 +1486,12 @@ public class KeyEvent implements Parcelable {
     public KeyEvent(long downTime, long eventTime, int action,
                     int code, int repeat, int metaState,
                     int deviceId, int scancode, int flags, int source) {
-=======
-     * @param device The device ID that generated the key event.
-     * @param scancode Raw device scan code of the event.
-     * @param flags The flags for this key event
-     */
-    public KeyEvent(long downTime, long eventTime, int action,
-                    int code, int repeat, int metaState,
-                    int device, int scancode, int flags) {
->>>>>>> 54b6cfa... Initial Contribution
         mDownTime = downTime;
         mEventTime = eventTime;
         mAction = action;
         mKeyCode = code;
         mRepeatCount = repeat;
         mMetaState = metaState;
-<<<<<<< HEAD
         mDeviceId = deviceId;
         mScanCode = scancode;
         mFlags = flags;
@@ -1711,31 +1537,20 @@ public class KeyEvent implements Parcelable {
         mScanCode = origEvent.mScanCode;
         mFlags = origEvent.mFlags;
         mCharacters = origEvent.mCharacters;
-=======
-        mDeviceId = device;
-        mScancode = scancode;
-        mFlags = flags;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Copy an existing key event, modifying its time and repeat count.
      * 
-<<<<<<< HEAD
      * @deprecated Use {@link #changeTimeRepeat(KeyEvent, long, int)}
      * instead.
      * 
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * @param origEvent The existing event to be copied.
      * @param eventTime The new event time
      * (in {@link android.os.SystemClock#uptimeMillis}) of the event.
      * @param newRepeat The new repeat count of the event.
      */
-<<<<<<< HEAD
     @Deprecated
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public KeyEvent(KeyEvent origEvent, long eventTime, int newRepeat) {
         mDownTime = origEvent.mDownTime;
         mEventTime = eventTime;
@@ -1744,7 +1559,6 @@ public class KeyEvent implements Parcelable {
         mRepeatCount = newRepeat;
         mMetaState = origEvent.mMetaState;
         mDeviceId = origEvent.mDeviceId;
-<<<<<<< HEAD
         mSource = origEvent.mSource;
         mScanCode = origEvent.mScanCode;
         mFlags = origEvent.mFlags;
@@ -2359,93 +2173,6 @@ public class KeyEvent implements Parcelable {
         return metaStateHasModifiers(mMetaState, modifiers);
     }
 
-=======
-        mScancode = origEvent.mScancode;
-        mFlags = origEvent.mFlags;
-    }
-
-    /**
-     * Don't use in new code, instead explicitly check
-     * {@link #getAction()}.
-     * 
-     * @return If the action is ACTION_DOWN, returns true; else false.
-     *
-     * @deprecated
-     * @hide
-     */
-    @Deprecated public final boolean isDown() {
-        return mAction == ACTION_DOWN;
-    }
-
-    /**
-     * Is this a system key?  System keys can not be used for menu shortcuts.
-     * 
-     * TODO: this information should come from a table somewhere.
-     * TODO: should the dpad keys be here?  arguably, because they also shouldn't be menu shortcuts
-     */
-    public final boolean isSystem() {
-        switch (mKeyCode) {
-        case KEYCODE_MENU:
-        case KEYCODE_SOFT_RIGHT:
-        case KEYCODE_HOME:
-        case KEYCODE_BACK:
-        case KEYCODE_CALL:
-        case KEYCODE_ENDCALL:
-        case KEYCODE_VOLUME_UP:
-        case KEYCODE_VOLUME_DOWN:
-        case KEYCODE_POWER:
-        case KEYCODE_HEADSETHOOK:
-        case KEYCODE_CAMERA:
-        case KEYCODE_FOCUS:
-        case KEYCODE_SEARCH:
-            return true;
-        default:
-            return false;
-        }
-    }
-
-
-    /**
-     * <p>Returns the state of the meta keys.</p>
-     *
-     * @return an integer in which each bit set to 1 represents a pressed
-     *         meta key
-     *
-     * @see #isAltPressed()
-     * @see #isShiftPressed()
-     * @see #isSymPressed()
-     * @see #META_ALT_ON
-     * @see #META_SHIFT_ON
-     * @see #META_SYM_ON
-     */
-    public final int getMetaState() {
-        return mMetaState;
-    }
-
-    /**
-     * Returns the flags for this key event.
-     *
-     * @see #FLAG_WOKE_HERE
-     */
-    public final int getFlags() {
-        return mFlags;
-    }
-
-    /**
-     * Returns true if this key code is a modifier key.
-     *
-     * @return whether the provided keyCode is one of
-     * {@link #KEYCODE_SHIFT_LEFT} {@link #KEYCODE_SHIFT_RIGHT},
-     * {@link #KEYCODE_ALT_LEFT}, {@link #KEYCODE_ALT_RIGHT}
-     * or {@link #KEYCODE_SYM}.
-     */
-    public static boolean isModifierKey(int keyCode) {
-        return keyCode == KEYCODE_SHIFT_LEFT || keyCode == KEYCODE_SHIFT_RIGHT
-                || keyCode == KEYCODE_ALT_LEFT || keyCode == KEYCODE_ALT_RIGHT
-                || keyCode == KEYCODE_SYM;
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * <p>Returns the pressed state of the ALT meta key.</p>
      *
@@ -2485,7 +2212,6 @@ public class KeyEvent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * <p>Returns the pressed state of the CTRL meta key.</p>
      *
      * @return true if the CTRL key is pressed, false otherwise
@@ -2560,8 +2286,6 @@ public class KeyEvent implements Parcelable {
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Retrieve the action of this key event.  May be either
      * {@link #ACTION_DOWN}, {@link #ACTION_UP}, or {@link #ACTION_MULTIPLE}.
      * 
@@ -2572,7 +2296,6 @@ public class KeyEvent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * For {@link #ACTION_UP} events, indicates that the event has been
      * canceled as per {@link #FLAG_CANCELED}.
      */
@@ -2611,10 +2334,6 @@ public class KeyEvent implements Parcelable {
     /**
      * Retrieve the key code of the key event.  This is the physical key that
      * was pressed, <em>not</em> the Unicode character.
-=======
-     * Retrieve the key code of the key event.  This is the physical key that
-     * was pressed -- not the Unicode character.
->>>>>>> 54b6cfa... Initial Contribution
      * 
      * @return The key code of the event.
      */
@@ -2623,7 +2342,6 @@ public class KeyEvent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * For the special case of a {@link #ACTION_MULTIPLE} event with key
      * code of {@link #KEYCODE_UNKNOWN}, this is a raw string of characters
      * associated with the event.  In all other cases it is null.
@@ -2636,8 +2354,6 @@ public class KeyEvent implements Parcelable {
     }
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Retrieve the hardware key id of this key event.  These values are not
      * reliable and vary from device to device.
      *
@@ -2645,11 +2361,7 @@ public class KeyEvent implements Parcelable {
      * Mostly this is here for debugging purposes.
      */
     public final int getScanCode() {
-<<<<<<< HEAD
         return mScanCode;
-=======
-        return mScancode;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -2680,7 +2392,6 @@ public class KeyEvent implements Parcelable {
     }
 
     /**
-<<<<<<< HEAD
      * Retrieve the time this event occurred,
      * in the {@link android.os.SystemClock#uptimeMillis} time base.
      *
@@ -2688,20 +2399,11 @@ public class KeyEvent implements Parcelable {
      * in the {@link android.os.SystemClock#uptimeMillis} time base.
      */
     @Override
-=======
-     * Retrieve the time this event occurred, 
-     * in the {@link android.os.SystemClock#uptimeMillis} time base.
-     * 
-     * @return Returns the time this event occurred, 
-     * in the {@link android.os.SystemClock#uptimeMillis} time base.
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public final long getEventTime() {
         return mEventTime;
     }
 
     /**
-<<<<<<< HEAD
      * Retrieve the time this event occurred,
      * in the {@link android.os.SystemClock#uptimeMillis} time base but with
      * nanosecond (instead of millisecond) precision.
@@ -2718,37 +2420,20 @@ public class KeyEvent implements Parcelable {
     @Override
     public final long getEventTimeNano() {
         return mEventTime * 1000000L;
-=======
-     * Return the id for the keyboard that this event came from.  A device
-     * id of 0 indicates the event didn't come from a physical device and
-     * maps to the default keymap.  The other numbers are arbitrary and
-     * you shouldn't depend on the values.
-     * 
-     * @see KeyCharacterMap#load
-     */
-    public final int getDeviceId() {
-        return mDeviceId;
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Renamed to {@link #getDeviceId}.
      * 
      * @hide
-<<<<<<< HEAD
      * @deprecated use {@link #getDeviceId()} instead.
      */
     @Deprecated
-=======
-     * @deprecated
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public final int getKeyboardDevice() {
         return mDeviceId;
     }
 
     /**
-<<<<<<< HEAD
      * Gets the {@link KeyCharacterMap} associated with the keyboard device.
      *
      * @return The associated key character map.
@@ -2779,23 +2464,10 @@ public class KeyEvent implements Parcelable {
      * Returns the Unicode character that the specified key would produce
      * when the specified meta bits (see {@link MetaKeyKeyListener})
      * were active.
-=======
-     * Get the primary character for this key.  In other words, the label
-     * that is physically printed on it.
-     */
-    public char getDisplayLabel() {
-        return KeyCharacterMap.load(mDeviceId).getDisplayLabel(mKeyCode);
-    }
-    
-    /**
-     * <p>
-     * Returns the Unicode character that the key would produce.
->>>>>>> 54b6cfa... Initial Contribution
      * </p><p>
      * Returns 0 if the key is not one that is used to type Unicode
      * characters.
      * </p><p>
-<<<<<<< HEAD
      * If the return value has bit {@link KeyCharacterMap#COMBINING_ACCENT} set, the
      * key is a "dead key" that should be combined with another to
      * actually produce a character -- see {@link KeyCharacterMap#getDeadChar} --
@@ -2803,37 +2475,22 @@ public class KeyEvent implements Parcelable {
      * </p>
      *
      * @return The associated character or combining accent, or 0 if none.
-=======
-     * If the return value has bit 
-     * {@link KeyCharacterMap#COMBINING_ACCENT} 
-     * set, the key is a "dead key" that should be combined with another to
-     * actually produce a character -- see {@link #getDeadChar} --
-     * after masking with 
-     * {@link KeyCharacterMap#COMBINING_ACCENT_MASK}.
-     * </p>
->>>>>>> 54b6cfa... Initial Contribution
      */
     public int getUnicodeChar() {
         return getUnicodeChar(mMetaState);
     }
     
     /**
-<<<<<<< HEAD
      * Gets the Unicode character generated by the specified key and meta
      * key state combination.
      * <p>
      * Returns the Unicode character that the specified key would produce
      * when the specified meta bits (see {@link MetaKeyKeyListener})
      * were active.
-=======
-     * <p>
-     * Returns the Unicode character that the key would produce.
->>>>>>> 54b6cfa... Initial Contribution
      * </p><p>
      * Returns 0 if the key is not one that is used to type Unicode
      * characters.
      * </p><p>
-<<<<<<< HEAD
      * If the return value has bit {@link KeyCharacterMap#COMBINING_ACCENT} set, the
      * key is a "dead key" that should be combined with another to
      * actually produce a character -- see {@link KeyCharacterMap#getDeadChar} --
@@ -2872,40 +2529,12 @@ public class KeyEvent implements Parcelable {
      *
      * @param chars The array of matching characters to consider.
      * @return The matching associated character, or 0 if none.
-=======
-     * If the return value has bit 
-     * {@link KeyCharacterMap#COMBINING_ACCENT} 
-     * set, the key is a "dead key" that should be combined with another to
-     * actually produce a character -- see {@link #getDeadChar} -- after masking
-     * with {@link KeyCharacterMap#COMBINING_ACCENT_MASK}.
-     * </p>
-     */
-    public int getUnicodeChar(int meta) {
-        return KeyCharacterMap.load(mDeviceId).get(mKeyCode, meta);
-    }
-    
-    /**
-     * Get the characters conversion data for the key event..
-     *
-     * @param results a {@link KeyData} that will be filled with the results.
-     *
-     * @return whether the key was mapped or not.  If the key was not mapped,
-     *         results is not modified.
-     */
-    public boolean getKeyData(KeyData results) {
-        return KeyCharacterMap.load(mDeviceId).getKeyData(mKeyCode, results);
-    }
-    
-    /**
-     * The same as {@link #getMatch(char[],int) getMatch(chars, 0)}.
->>>>>>> 54b6cfa... Initial Contribution
      */
     public char getMatch(char[] chars) {
         return getMatch(chars, 0);
     }
     
     /**
-<<<<<<< HEAD
      * Gets the first character in the character array that can be generated
      * by the specified key code.  If there are multiple choices, prefers
      * the one that would be generated with the specified meta key modifier state.
@@ -2957,33 +2586,6 @@ public class KeyEvent implements Parcelable {
     @Deprecated
     public final boolean dispatch(Callback receiver) {
         return dispatch(receiver, null, null);
-=======
-     * If one of the chars in the array can be generated by the keyCode of this
-     * key event, return the char; otherwise return '\0'.
-     * @param chars the characters to try to find
-     * @param modifiers the modifier bits to prefer.  If any of these bits
-     *                  are set, if there are multiple choices, that could
-     *                  work, the one for this modifier will be set.
-     */
-    public char getMatch(char[] chars, int modifiers) {
-        return KeyCharacterMap.load(mDeviceId).getMatch(mKeyCode, chars, modifiers);
-    }
-    
-    /**
-     * Gets the number or symbol associated with the key.  The character value
-     * is returned, not the numeric value.  If the key is not a number, but is
-     * a symbol, the symbol is retuned.
-     */
-    public char getNumber() {
-        return KeyCharacterMap.load(mDeviceId).getNumber(mKeyCode);
-    }
-    
-    /**
-     * Does the key code of this key produce a glyph?
-     */
-    public boolean isPrintingKey() {
-        return KeyCharacterMap.load(mDeviceId).isPrintingKey(mKeyCode);
->>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -2992,7 +2594,6 @@ public class KeyEvent implements Parcelable {
      * be made to deliver a single normal event.
      * 
      * @param receiver The Callback that will be given the event.
-<<<<<<< HEAD
      * @param state State information retained across events.
      * @param target The target of the dispatch, for use in tracking.
      * 
@@ -3029,16 +2630,6 @@ public class KeyEvent implements Parcelable {
                 if (state != null) {
                     state.handleUpEvent(this);
                 }
-=======
-     * 
-     * @return The return value from the Callback method that was called.
-     */
-    public final boolean dispatch(Callback receiver) {
-        switch (mAction) {
-            case ACTION_DOWN:
-                return receiver.onKeyDown(mKeyCode, this);
-            case ACTION_UP:
->>>>>>> 54b6cfa... Initial Contribution
                 return receiver.onKeyUp(mKeyCode, this);
             case ACTION_MULTIPLE:
                 final int count = mRepeatCount;
@@ -3046,7 +2637,6 @@ public class KeyEvent implements Parcelable {
                 if (receiver.onKeyMultiple(code, count, this)) {
                     return true;
                 }
-<<<<<<< HEAD
                 if (code != KeyEvent.KEYCODE_UNKNOWN) {
                     mAction = ACTION_DOWN;
                     mRepeatCount = 0;
@@ -3060,23 +2650,10 @@ public class KeyEvent implements Parcelable {
                     return handled;
                 }
                 return false;
-=======
-                mAction = ACTION_DOWN;
-                mRepeatCount = 0;
-                boolean handled = receiver.onKeyDown(code, this);
-                if (handled) {
-                    mAction = ACTION_UP;
-                    receiver.onKeyUp(code, this);
-                }
-                mAction = ACTION_MULTIPLE;
-                mRepeatCount = count;
-                return handled;
->>>>>>> 54b6cfa... Initial Contribution
         }
         return false;
     }
 
-<<<<<<< HEAD
     /**
      * Use with {@link KeyEvent#dispatch(Callback, DispatcherState, Object)}
      * for more advanced key dispatching, such as long presses.
@@ -3286,31 +2863,19 @@ public class KeyEvent implements Parcelable {
             i += 1;
         }
         return result.toString();
-=======
-    public String toString() {
-        return "KeyEvent{action=" + mAction + " code=" + mKeyCode
-            + " repeat=" + mRepeatCount
-            + " meta=" + mMetaState + " scancode=" + mScancode
-            + " mFlags=" + mFlags + "}";
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final Parcelable.Creator<KeyEvent> CREATOR
             = new Parcelable.Creator<KeyEvent>() {
         public KeyEvent createFromParcel(Parcel in) {
-<<<<<<< HEAD
             in.readInt(); // skip token, we already know this is a KeyEvent
             return KeyEvent.createFromParcelBody(in);
-=======
-            return new KeyEvent(in);
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         public KeyEvent[] newArray(int size) {
             return new KeyEvent[size];
         }
     };
-<<<<<<< HEAD
     
     /** @hide */
     public static KeyEvent createFromParcelBody(Parcel in) {
@@ -3335,43 +2900,16 @@ public class KeyEvent implements Parcelable {
 
         out.writeInt(mDeviceId);
         out.writeInt(mSource);
-=======
-
-    public int describeContents() {
-        return 0;
-    }
-
-    public void writeToParcel(Parcel out, int flags) {
->>>>>>> 54b6cfa... Initial Contribution
         out.writeInt(mAction);
         out.writeInt(mKeyCode);
         out.writeInt(mRepeatCount);
         out.writeInt(mMetaState);
-<<<<<<< HEAD
         out.writeInt(mScanCode);
-=======
-        out.writeInt(mDeviceId);
-        out.writeInt(mScancode);
->>>>>>> 54b6cfa... Initial Contribution
         out.writeInt(mFlags);
         out.writeLong(mDownTime);
         out.writeLong(mEventTime);
     }
 
-<<<<<<< HEAD
     private native boolean native_isSystemKey(int keyCode);
     private native boolean native_hasDefaultAction(int keyCode);
-=======
-    private KeyEvent(Parcel in) {
-        mAction = in.readInt();
-        mKeyCode = in.readInt();
-        mRepeatCount = in.readInt();
-        mMetaState = in.readInt();
-        mDeviceId = in.readInt();
-        mScancode = in.readInt();
-        mFlags = in.readInt();
-        mDownTime = in.readLong();
-        mEventTime = in.readLong();
-    }
->>>>>>> 54b6cfa... Initial Contribution
 }

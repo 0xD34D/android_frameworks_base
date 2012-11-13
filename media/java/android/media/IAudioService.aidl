@@ -16,7 +16,6 @@
 
 package android.media;
 
-<<<<<<< HEAD
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
@@ -30,8 +29,6 @@ import android.media.IRingtonePlayer;
 import android.net.Uri;
 import android.view.KeyEvent;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 /**
  * {@hide}
  */
@@ -39,7 +36,6 @@ interface IAudioService {
     
     void adjustVolume(int direction, int flags);
 
-<<<<<<< HEAD
     oneway void adjustLocalOrRemoteStreamVolume(int streamType, int direction);
 
     void adjustSuggestedStreamVolume(int direction, int suggestedStreamType, int flags);
@@ -76,22 +72,6 @@ interface IAudioService {
 
     int getLastAudibleMasterVolume();
 
-=======
-    void adjustSuggestedStreamVolume(int direction, int suggestedStreamType, int flags);
-    
-    void adjustStreamVolume(int streamType, int direction, int flags);
-    
-    void setStreamVolume(int streamType, int index, int flags);
-    
-   	void setStreamSolo(int streamType, boolean state, IBinder cb);
-   	
-   	void setStreamMute(int streamType, boolean state, IBinder cb);
-    
-    int getStreamVolume(int streamType);
-    
-    int getStreamMaxVolume(int streamType);
-    
->>>>>>> 54b6cfa... Initial Contribution
     void setRingerMode(int ringerMode);
     
     int getRingerMode();
@@ -101,7 +81,6 @@ interface IAudioService {
     int getVibrateSetting(int vibrateType);
     
     boolean shouldVibrate(int vibrateType);
-<<<<<<< HEAD
 
     void setMode(int mode, IBinder cb);
 
@@ -172,29 +151,4 @@ interface IAudioService {
     int setBluetoothA2dpDeviceConnectionState(in BluetoothDevice device, int state);
 
     AudioRoutesInfo startWatchingRoutes(in IAudioRoutesObserver observer);
-=======
-    
-    void setMicrophoneMute(boolean on);
-
-    boolean isMicrophoneMute();
-
-    void setMode(int mode);
-
-    int getMode();
-
-    void setRouting(int mode, int routes, int mask);
-
-    int getRouting(int mode);
-
-    boolean isMusicActive();
-
-    void setParameter(String key, String value);
-
-    oneway void playSoundEffect(int effectType);
-  
-    boolean loadSoundEffects();
-  
-    oneway void unloadSoundEffects();
-
->>>>>>> 54b6cfa... Initial Contribution
 }

@@ -17,10 +17,7 @@
 package com.android.server.am;
 
 import android.content.Context;
-<<<<<<< HEAD
 import android.content.DialogInterface;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.os.Handler;
 import android.os.Message;
 
@@ -53,11 +50,7 @@ class AppWaitingForDebuggerDialog extends BaseErrorDialog {
         text.append(" is waiting for the debugger to attach.");
 
         setMessage(text.toString());
-<<<<<<< HEAD
         setButton(DialogInterface.BUTTON_POSITIVE, "Force Close", mHandler.obtainMessage(1, app));
-=======
-        setButton("Force Close", mHandler.obtainMessage(1, app));
->>>>>>> 54b6cfa... Initial Contribution
         setTitle("Waiting For Debugger");
         getWindow().setTitle("Waiting For Debugger: " + app.info.processName);
     }
@@ -70,12 +63,7 @@ class AppWaitingForDebuggerDialog extends BaseErrorDialog {
             switch (msg.what) {
                 case 1:
                     // Kill the application.
-<<<<<<< HEAD
                     mService.killAppAtUsersRequest(mProc, AppWaitingForDebuggerDialog.this);
-=======
-                    mService.killAppAtUsersRequest(mProc,
-                            AppWaitingForDebuggerDialog.this, true);
->>>>>>> 54b6cfa... Initial Contribution
                     break;
             }
         }

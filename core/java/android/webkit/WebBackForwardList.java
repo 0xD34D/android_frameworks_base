@@ -16,10 +16,6 @@
 
 package android.webkit;
 
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -35,25 +31,16 @@ public class WebBackForwardList implements Cloneable, Serializable {
     private ArrayList<WebHistoryItem> mArray;
     // Flag to indicate that the list is invalid
     private boolean mClearPending;
-<<<<<<< HEAD
     // CallbackProxy to issue client callbacks.
     private final CallbackProxy mCallbackProxy;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Construct a back/forward list used by clients of WebView.
      */
-<<<<<<< HEAD
     /*package*/ WebBackForwardList(CallbackProxy proxy) {
         mCurrentIndex = -1;
         mArray = new ArrayList<WebHistoryItem>();
         mCallbackProxy = proxy;
-=======
-    /*package*/ WebBackForwardList() {
-        mCurrentIndex = -1;
-        mArray = new ArrayList<WebHistoryItem>();
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -132,12 +119,9 @@ public class WebBackForwardList implements Cloneable, Serializable {
         }
         // Add the item to the list.
         mArray.add(item);
-<<<<<<< HEAD
         if (mCallbackProxy != null) {
             mCallbackProxy.onNewHistoryItem(item);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -154,20 +138,12 @@ public class WebBackForwardList implements Cloneable, Serializable {
     }
 
     /* Remove the item at the given index. Called by JNI only. */
-<<<<<<< HEAD
     private synchronized void removeHistoryItem(int index) {
-=======
-    private void removeHistoryItem(int index) {
->>>>>>> 54b6cfa... Initial Contribution
         // XXX: This is a special case. Since the callback is only triggered
         // when removing the first item, we can assert that the index is 0.
         // This lets us change the current index without having to query the
         // native BackForwardList.
-<<<<<<< HEAD
         if (DebugFlags.WEB_BACK_FORWARD_LIST && (index != 0)) {
-=======
-        if (Config.DEBUG && (index != 0)) {
->>>>>>> 54b6cfa... Initial Contribution
             throw new AssertionError();
         }
         final WebHistoryItem h = mArray.remove(index);
@@ -182,11 +158,7 @@ public class WebBackForwardList implements Cloneable, Serializable {
      * webkit package classes.
      */
     protected synchronized WebBackForwardList clone() {
-<<<<<<< HEAD
         WebBackForwardList l = new WebBackForwardList(null);
-=======
-        WebBackForwardList l = new WebBackForwardList();
->>>>>>> 54b6cfa... Initial Contribution
         if (mClearPending) {
             // If a clear is pending, return a copy with only the current item.
             l.addHistoryItem(getCurrentItem());
@@ -208,12 +180,9 @@ public class WebBackForwardList implements Cloneable, Serializable {
      */
     /*package*/ synchronized void setCurrentIndex(int newIndex) {
         mCurrentIndex = newIndex;
-<<<<<<< HEAD
         if (mCallbackProxy != null) {
             mCallbackProxy.onIndexChanged(getItemAtIndex(newIndex), newIndex);
         }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**

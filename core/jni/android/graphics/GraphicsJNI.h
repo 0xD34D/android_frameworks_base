@@ -1,7 +1,6 @@
 #ifndef GraphicsJNI_DEFINED
 #define GraphicsJNI_DEFINED
 
-<<<<<<< HEAD
 #include "SkBitmap.h"
 #include "SkDevice.h"
 #include "SkPixelRef.h"
@@ -10,11 +9,6 @@
 #include "SkRect.h"
 #include "../images/SkBitmapRegionDecoder.h"
 #include "../images/SkImageDecoder.h"
-=======
-#include "SkPoint.h"
-#include "SkRect.h"
-#include "SkBitmap.h"
->>>>>>> 54b6cfa... Initial Contribution
 #include <jni.h>
 
 class SkCanvas;
@@ -35,7 +29,6 @@ public:
     static SkRect* jrectf_to_rect(JNIEnv*, jobject jrectf, SkRect*);
     static SkRect* jrect_to_rect(JNIEnv*, jobject jrect, SkRect*);
     static void rect_to_jrectf(const SkRect&, JNIEnv*, jobject jrectf);
-<<<<<<< HEAD
 
     static void set_jpoint(JNIEnv*, jobject jrect, int x, int y);
 
@@ -45,32 +38,16 @@ public:
     static SkPoint* jpointf_to_point(JNIEnv*, jobject jpointf, SkPoint* point);
     static void point_to_jpointf(const SkPoint& point, JNIEnv*, jobject jpointf);
 
-=======
-    
-    static void set_jpoint(JNIEnv*, jobject jrect, int x, int y);
-    
-    static SkIPoint* jpoint_to_ipoint(JNIEnv*, jobject jpoint, SkIPoint* point);
-    static void ipoint_to_jpoint(const SkIPoint& point, JNIEnv*, jobject jpoint);
-    
-    static SkPoint* jpointf_to_point(JNIEnv*, jobject jpointf, SkPoint* point);
-    static void point_to_jpointf(const SkPoint& point, JNIEnv*, jobject jpointf);
-  
->>>>>>> 54b6cfa... Initial Contribution
     static SkCanvas* getNativeCanvas(JNIEnv*, jobject canvas);
     static SkPaint*  getNativePaint(JNIEnv*, jobject paint);
     static SkBitmap* getNativeBitmap(JNIEnv*, jobject bitmap);
     static SkPicture* getNativePicture(JNIEnv*, jobject picture);
     static SkRegion* getNativeRegion(JNIEnv*, jobject region);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /** Return the corresponding native config from the java Config enum,
         or kNo_Config if the java object is null.
     */
     static SkBitmap::Config getNativeBitmapConfig(JNIEnv*, jobject jconfig);
-<<<<<<< HEAD
 
     /** Create a java Bitmap object given the native bitmap (required) and optional
         storage array (may be null).
@@ -88,24 +65,6 @@ public:
 
     static jbyteArray allocateJavaPixelRef(JNIEnv* env, SkBitmap* bitmap,
                                      SkColorTable* ctable);
-=======
-    
-    /** Create a java Bitmap object given the native bitmap (required) and optional
-        storage array (may be null). If storage is specified, then it must already be
-        locked, and its native address set as the bitmap's pixels. If storage is null,
-        then the bitmap must be an owner of its natively allocated pixels (via allocPixels).
-        */
-    static jobject createBitmap(JNIEnv* env, SkBitmap* bitmap, bool isMutable,
-                                jbyteArray ninePatch);
-    
-    static jobject createRegion(JNIEnv* env, SkRegion* region);
-
-    /** Set a pixelref for the bitmap (needs setConfig to already be called)
-        Returns true on success. If it returns false, then it failed, and the
-        appropriate exception will have been raised.
-    */
-    static bool setJavaPixelRef(JNIEnv*, SkBitmap*, SkColorTable* ctable);
->>>>>>> 54b6cfa... Initial Contribution
 
     /** Copy the colors in colors[] to the bitmap, convert to the correct
         format along the way.
@@ -113,7 +72,6 @@ public:
     static bool SetPixels(JNIEnv* env, jintArray colors, int srcOffset,
                           int srcStride, int x, int y, int width, int height,
                           const SkBitmap& dstBitmap);
-<<<<<<< HEAD
 
     static jbyteArray getBitmapStorageObj(SkPixelRef *pixref);
 };
@@ -176,16 +134,11 @@ private:
  *  ensure that the allocated buffer is properly accounted for with a
  *  reference in the heap (or a JNI global reference).
  */
-=======
-};
-
->>>>>>> 54b6cfa... Initial Contribution
 class JavaPixelAllocator : public SkBitmap::Allocator {
 public:
     JavaPixelAllocator(JNIEnv* env);
     // overrides
     virtual bool allocPixelRef(SkBitmap* bitmap, SkColorTable* ctable);
-<<<<<<< HEAD
 
     /** Return the Java array object created for the last allocation.
      *  This returns a local JNI reference which the caller is responsible
@@ -214,16 +167,10 @@ private:
 enum JNIAccess {
     kRO_JNIAccess,
     kRW_JNIAccess
-=======
-    
-private:
-    JNIEnv* fEnv;
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 class AutoJavaFloatArray {
 public:
-<<<<<<< HEAD
     AutoJavaFloatArray(JNIEnv* env, jfloatArray array,
                        int minLength = 0, JNIAccess = kRW_JNIAccess);
     ~AutoJavaFloatArray();
@@ -231,40 +178,22 @@ public:
     float* ptr() const { return fPtr; }
     int    length() const { return fLen; }
 
-=======
-    AutoJavaFloatArray(JNIEnv* env, jfloatArray array, int minLength = 0);
-    ~AutoJavaFloatArray();
-    
-    float* ptr() const { return fPtr; }
-    int    length() const { return fLen; }
-    
->>>>>>> 54b6cfa... Initial Contribution
 private:
     JNIEnv*     fEnv;
     jfloatArray fArray;
     float*      fPtr;
     int         fLen;
-<<<<<<< HEAD
     int         fReleaseMode;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 class AutoJavaIntArray {
 public:
     AutoJavaIntArray(JNIEnv* env, jintArray array, int minLength = 0);
     ~AutoJavaIntArray();
-<<<<<<< HEAD
 
     jint* ptr() const { return fPtr; }
     int    length() const { return fLen; }
 
-=======
-    
-    jint* ptr() const { return fPtr; }
-    int    length() const { return fLen; }
-    
->>>>>>> 54b6cfa... Initial Contribution
 private:
     JNIEnv*     fEnv;
     jintArray fArray;
@@ -274,7 +203,6 @@ private:
 
 class AutoJavaShortArray {
 public:
-<<<<<<< HEAD
     AutoJavaShortArray(JNIEnv* env, jshortArray array,
                        int minLength = 0, JNIAccess = kRW_JNIAccess);
     ~AutoJavaShortArray();
@@ -282,40 +210,22 @@ public:
     jshort* ptr() const { return fPtr; }
     int    length() const { return fLen; }
 
-=======
-    AutoJavaShortArray(JNIEnv* env, jshortArray array, int minLength = 0);
-    ~AutoJavaShortArray();
-    
-    jshort* ptr() const { return fPtr; }
-    int    length() const { return fLen; }
-    
->>>>>>> 54b6cfa... Initial Contribution
 private:
     JNIEnv*     fEnv;
     jshortArray fArray;
     jshort*      fPtr;
     int         fLen;
-<<<<<<< HEAD
     int         fReleaseMode;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 class AutoJavaByteArray {
 public:
     AutoJavaByteArray(JNIEnv* env, jbyteArray array, int minLength = 0);
     ~AutoJavaByteArray();
-<<<<<<< HEAD
 
     jbyte* ptr() const { return fPtr; }
     int    length() const { return fLen; }
 
-=======
-    
-    jbyte* ptr() const { return fPtr; }
-    int    length() const { return fLen; }
-    
->>>>>>> 54b6cfa... Initial Contribution
 private:
     JNIEnv*     fEnv;
     jbyteArray fArray;
@@ -323,20 +233,13 @@ private:
     int         fLen;
 };
 
-<<<<<<< HEAD
-=======
-void doThrow(JNIEnv* env, const char* exc, const char* msg = NULL);
->>>>>>> 54b6cfa... Initial Contribution
 void doThrowNPE(JNIEnv* env);
 void doThrowAIOOBE(JNIEnv* env); // Array Index Out Of Bounds Exception
 void doThrowIAE(JNIEnv* env, const char* msg = NULL);   // Illegal Argument
 void doThrowRE(JNIEnv* env, const char* msg = NULL);   // Runtime
 void doThrowISE(JNIEnv* env, const char* msg = NULL);   // Illegal State
 void doThrowOOME(JNIEnv* env, const char* msg = NULL);   // Out of memory
-<<<<<<< HEAD
 void doThrowIOE(JNIEnv* env, const char* msg = NULL);   // IO Exception
-=======
->>>>>>> 54b6cfa... Initial Contribution
 
 #define NPE_CHECK_RETURN_ZERO(env, object)    \
     do { if (NULL == (object)) { doThrowNPE(env); return 0; } } while (0)
@@ -345,7 +248,3 @@ void doThrowIOE(JNIEnv* env, const char* msg = NULL);   // IO Exception
     do { if (NULL == (object)) { doThrowNPE(env); return; } } while (0)
 
 #endif
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution

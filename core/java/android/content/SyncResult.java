@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -15,15 +14,12 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 package android.content;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
-<<<<<<< HEAD
  * This class is used to communicate the results of a sync operation to the SyncManager.
  * Based on the values here the SyncManager will determine the disposition of the
  * sync and whether or not a new sync operation needs to be scheduled in the future.
@@ -99,28 +95,12 @@ public final class SyncResult implements Parcelable {
      * sync request when a sync is already underway. The SyncManager will reschedule the
      * sync request to try again later.
      */
-=======
- * This class is used to store information about the result of a sync
- * 
- * @hide
- */
-public final class SyncResult implements Parcelable {
-    public final boolean syncAlreadyInProgress;
-    public boolean tooManyDeletions;
-    public boolean tooManyRetries;
-    public boolean databaseError;
-    public boolean fullSyncRequested;
-    public boolean partialSyncUnavailable;
-    public boolean moreRecordsToGet;
-    public final SyncStats stats;
->>>>>>> 54b6cfa... Initial Contribution
     public static final SyncResult ALREADY_IN_PROGRESS;
 
     static {
         ALREADY_IN_PROGRESS = new SyncResult(true);
     }
 
-<<<<<<< HEAD
     /**
      * Create a "clean" SyncResult. If this is returned without any changes then the
      * SyncManager will consider the sync to have completed successfully. The various fields
@@ -135,20 +115,15 @@ public final class SyncResult implements Parcelable {
      * {@link SyncResult#hasHardError()} and  {@link SyncResult#hasSoftError()}. If both are
      * true then the SyncManager treats it as a hard error, not a soft error.
      */
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public SyncResult() {
         this(false);
     }
 
-<<<<<<< HEAD
     /**
      * Internal helper for creating a clean SyncResult or one that indicated that
      * a sync is already in progress.
      * @param syncAlreadyInProgress if true then set the {@link #syncAlreadyInProgress} flag
      */
-=======
->>>>>>> 54b6cfa... Initial Contribution
     private SyncResult(boolean syncAlreadyInProgress) {
         this.syncAlreadyInProgress = syncAlreadyInProgress;
         this.tooManyDeletions = false;
@@ -156,10 +131,7 @@ public final class SyncResult implements Parcelable {
         this.fullSyncRequested = false;
         this.partialSyncUnavailable = false;
         this.moreRecordsToGet = false;
-<<<<<<< HEAD
         this.delayUntil = 0;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         this.stats = new SyncStats();
     }
 
@@ -171,7 +143,6 @@ public final class SyncResult implements Parcelable {
         fullSyncRequested = parcel.readInt() != 0;
         partialSyncUnavailable = parcel.readInt() != 0;
         moreRecordsToGet = parcel.readInt() != 0;
-<<<<<<< HEAD
         delayUntil = parcel.readLong();
         stats = new SyncStats(parcel);
     }
@@ -191,11 +162,6 @@ public final class SyncResult implements Parcelable {
      * <li> {@link #databaseError}
      * @return true if a hard error is indicated
      */
-=======
-        stats = new SyncStats(parcel);
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public boolean hasHardError() {
         return stats.numParseExceptions > 0
                 || stats.numConflictDetectedExceptions > 0
@@ -205,7 +171,6 @@ public final class SyncResult implements Parcelable {
                 || databaseError;
     }
 
-<<<<<<< HEAD
     /**
      * Convenience method for determining if the SyncResult indicates that a soft error
      * occurred. See {@link #SyncResult()} for an explanation of what the SyncManager does
@@ -218,19 +183,14 @@ public final class SyncResult implements Parcelable {
      * </ul>
      * @return true if a hard error is indicated
      */
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public boolean hasSoftError() {
         return syncAlreadyInProgress || stats.numIoExceptions > 0;
     }
 
-<<<<<<< HEAD
     /**
      * A convenience method for determining of the SyncResult indicates that an error occurred.
      * @return true if either a soft or hard error occurred
      */
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public boolean hasError() {
         return hasSoftError() || hasHardError();
     }
@@ -241,13 +201,10 @@ public final class SyncResult implements Parcelable {
                 || stats.numUpdates > 0;
     }
 
-<<<<<<< HEAD
     /**
      * Clears the SyncResult to a clean state. Throws an {@link UnsupportedOperationException}
      * if this is called when {@link #syncAlreadyInProgress} is set.
      */
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void clear() {
         if (syncAlreadyInProgress) {
             throw new UnsupportedOperationException(
@@ -259,10 +216,7 @@ public final class SyncResult implements Parcelable {
         fullSyncRequested = false;
         partialSyncUnavailable = false;
         moreRecordsToGet = false;
-<<<<<<< HEAD
         delayUntil = 0;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         stats.clear();
     }
 
@@ -288,17 +242,13 @@ public final class SyncResult implements Parcelable {
         parcel.writeInt(fullSyncRequested ? 1 : 0);
         parcel.writeInt(partialSyncUnavailable ? 1 : 0);
         parcel.writeInt(moreRecordsToGet ? 1 : 0);
-<<<<<<< HEAD
         parcel.writeLong(delayUntil);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         stats.writeToParcel(parcel, flags);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-<<<<<<< HEAD
         sb.append("SyncResult:");
         if (syncAlreadyInProgress) {
             sb.append(" syncAlreadyInProgress: ").append(syncAlreadyInProgress);
@@ -313,16 +263,6 @@ public final class SyncResult implements Parcelable {
         if (moreRecordsToGet) sb.append(" moreRecordsToGet: ").append(moreRecordsToGet);
         if (delayUntil > 0) sb.append(" delayUntil: ").append(delayUntil);
         sb.append(stats);
-=======
-        sb.append(" syncAlreadyInProgress: ").append(syncAlreadyInProgress);
-        sb.append(" tooManyDeletions: ").append(tooManyDeletions);
-        sb.append(" tooManyRetries: ").append(tooManyRetries);
-        sb.append(" databaseError: ").append(databaseError);
-        sb.append(" fullSyncRequested: ").append(fullSyncRequested);
-        sb.append(" partialSyncUnavailable: ").append(partialSyncUnavailable);
-        sb.append(" moreRecordsToGet: ").append(moreRecordsToGet);
-        sb.append(" stats: ").append(stats);
->>>>>>> 54b6cfa... Initial Contribution
         return sb.toString();
     }
 

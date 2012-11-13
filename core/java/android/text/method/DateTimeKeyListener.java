@@ -16,15 +16,11 @@
 
 package android.text.method;
 
-<<<<<<< HEAD
 import android.text.InputType;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 import android.view.KeyEvent;
 
 /**
  * For entering dates and times in the same text field.
-<<<<<<< HEAD
  * <p></p>
  * As for all implementations of {@link KeyListener}, this class is only concerned
  * with hardware keyboards.  Software input methods have no obligation to trigger
@@ -37,11 +33,6 @@ public class DateTimeKeyListener extends NumberKeyListener
                 | InputType.TYPE_DATETIME_VARIATION_NORMAL;
     }
     
-=======
- */
-public class DateTimeKeyListener extends NumberKeyListener
-{
->>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected char[] getAcceptedChars()
     {

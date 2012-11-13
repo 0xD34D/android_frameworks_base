@@ -17,11 +17,7 @@ extern const char* const RESOURCES_ANDROID_NAMESPACE;
 
 bool isWhitespace(const char16_t* str);
 
-<<<<<<< HEAD
 String16 getNamespaceResourcePackage(String16 namespaceUri, bool* outIsPublic = NULL);
-=======
-String16 getNamespaceResourcePackage(String16 namespaceUri);
->>>>>>> 54b6cfa... Initial Contribution
 
 status_t parseStyledString(Bundle* bundle,
                            const char* fileName,
@@ -29,10 +25,7 @@ status_t parseStyledString(Bundle* bundle,
                            const String16& endTag,
                            String16* outString,
                            Vector<StringPool::entry_style_span>* outSpans,
-<<<<<<< HEAD
                            bool isFormatted,
-=======
->>>>>>> 54b6cfa... Initial Contribution
                            bool isPseudolocalizable);
 
 void printXMLBlock(ResXMLTree* block);
@@ -76,11 +69,8 @@ public:
     const String16& getElementName() const;
     const Vector<sp<XMLNode> >& getChildren() const;
 
-<<<<<<< HEAD
     const String8& getFilename() const;
     
-=======
->>>>>>> 54b6cfa... Initial Contribution
     struct attribute_entry {
         attribute_entry() : index(~(uint32_t)0), nameResId(0)
         {
@@ -104,13 +94,10 @@ public:
 
     const Vector<attribute_entry>& getAttributes() const;
 
-<<<<<<< HEAD
     const attribute_entry* getAttribute(const String16& ns, const String16& name) const;
     
     attribute_entry* editAttribute(const String16& ns, const String16& name);
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     const String16& getCData() const;
 
     const String16& getComment() const;
@@ -118,7 +105,6 @@ public:
     int32_t getStartLineNumber() const;
     int32_t getEndLineNumber() const;
 
-<<<<<<< HEAD
     sp<XMLNode> searchElement(const String16& tagNamespace, const String16& tagName);
     
     sp<XMLNode> getChildElement(const String16& tagNamespace, const String16& tagName);
@@ -127,10 +113,6 @@ public:
 
     status_t insertChildAt(const sp<XMLNode>& child, size_t index);
 
-=======
-    status_t addChild(const sp<XMLNode>& child);
-
->>>>>>> 54b6cfa... Initial Contribution
     status_t addAttribute(const String16& ns, const String16& name,
                           const String16& value);
 
@@ -145,11 +127,8 @@ public:
 
     void removeWhitespace(bool stripAll=true, const char** cDataTags=NULL);
 
-<<<<<<< HEAD
     void setUTF8(bool val) { mUTF8 = val; }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     status_t parseValues(const sp<AaptAssets>& assets, ResourceTable* table);
 
     status_t assignResourceIds(const sp<AaptAssets>& assets,
@@ -215,12 +194,9 @@ private:
     String8 mFilename;
     int32_t mStartLineNumber;
     int32_t mEndLineNumber;
-<<<<<<< HEAD
 
     // Encode compiled XML with UTF-8 StringPools?
     bool mUTF8;
-=======
->>>>>>> 54b6cfa... Initial Contribution
 };
 
 #endif

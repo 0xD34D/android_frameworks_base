@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -15,8 +14,6 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 package android.content.pm;
 
 import android.os.Parcel;
@@ -48,7 +45,6 @@ public class PackageInfo implements Parcelable {
     public String versionName;
     
     /**
-<<<<<<< HEAD
      * The shared user ID name of this package, as specified by the &lt;manifest&gt;
      * tag's {@link android.R.styleable#AndroidManifest_sharedUserId sharedUserId}
      * attribute.
@@ -63,15 +59,12 @@ public class PackageInfo implements Parcelable {
     public int sharedUserLabel;
     
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Information collected from the &lt;application&gt; tag, or null if
      * there was none.
      */
     public ApplicationInfo applicationInfo;
     
     /**
-<<<<<<< HEAD
      * The time at which the app was first installed.  Units are as
      * per {@link System#currentTimeMillis()}.
      */
@@ -84,8 +77,6 @@ public class PackageInfo implements Parcelable {
     public long lastUpdateTime;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * All kernel group-IDs that have been assigned to this package.
      * This is only filled in if the flag {@link PackageManager#GET_GIDS} was set.
      */
@@ -150,7 +141,6 @@ public class PackageInfo implements Parcelable {
     public String[] requestedPermissions;
     
     /**
-<<<<<<< HEAD
      * Array of flags of all {@link android.R.styleable#AndroidManifestUsesPermission
      * &lt;uses-permission&gt;} tags included under &lt;manifest&gt;,
      * or null if there were none.  This is only filled in if the flag
@@ -175,13 +165,10 @@ public class PackageInfo implements Parcelable {
     public static final int REQUESTED_PERMISSION_GRANTED = 1<<1;
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Array of all signatures read from the package file.  This is only filled
      * in if the flag {@link PackageManager#GET_SIGNATURES} was set.
      */
     public Signature[] signatures;
-<<<<<<< HEAD
     
     /**
      * Application specified preferred configuration
@@ -231,9 +218,6 @@ public class PackageInfo implements Parcelable {
      */
     public int installLocation = INSTALL_LOCATION_INTERNAL_ONLY;
     
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
     public PackageInfo() {
     }
 
@@ -251,22 +235,16 @@ public class PackageInfo implements Parcelable {
         dest.writeString(packageName);
         dest.writeInt(versionCode);
         dest.writeString(versionName);
-<<<<<<< HEAD
         dest.writeString(sharedUserId);
         dest.writeInt(sharedUserLabel);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         if (applicationInfo != null) {
             dest.writeInt(1);
             applicationInfo.writeToParcel(dest, parcelableFlags);
         } else {
             dest.writeInt(0);
         }
-<<<<<<< HEAD
         dest.writeLong(firstInstallTime);
         dest.writeLong(lastUpdateTime);
-=======
->>>>>>> 54b6cfa... Initial Contribution
         dest.writeIntArray(gids);
         dest.writeTypedArray(activities, parcelableFlags);
         dest.writeTypedArray(receivers, parcelableFlags);
@@ -275,15 +253,11 @@ public class PackageInfo implements Parcelable {
         dest.writeTypedArray(instrumentation, parcelableFlags);
         dest.writeTypedArray(permissions, parcelableFlags);
         dest.writeStringArray(requestedPermissions);
-<<<<<<< HEAD
         dest.writeIntArray(requestedPermissionsFlags);
         dest.writeTypedArray(signatures, parcelableFlags);
         dest.writeTypedArray(configPreferences, parcelableFlags);
         dest.writeTypedArray(reqFeatures, parcelableFlags);
         dest.writeInt(installLocation);
-=======
-        dest.writeTypedArray(signatures, parcelableFlags);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final Parcelable.Creator<PackageInfo> CREATOR
@@ -301,20 +275,14 @@ public class PackageInfo implements Parcelable {
         packageName = source.readString();
         versionCode = source.readInt();
         versionName = source.readString();
-<<<<<<< HEAD
         sharedUserId = source.readString();
         sharedUserLabel = source.readInt();
-=======
->>>>>>> 54b6cfa... Initial Contribution
         int hasApp = source.readInt();
         if (hasApp != 0) {
             applicationInfo = ApplicationInfo.CREATOR.createFromParcel(source);
         }
-<<<<<<< HEAD
         firstInstallTime = source.readLong();
         lastUpdateTime = source.readLong();
-=======
->>>>>>> 54b6cfa... Initial Contribution
         gids = source.createIntArray();
         activities = source.createTypedArray(ActivityInfo.CREATOR);
         receivers = source.createTypedArray(ActivityInfo.CREATOR);
@@ -323,14 +291,10 @@ public class PackageInfo implements Parcelable {
         instrumentation = source.createTypedArray(InstrumentationInfo.CREATOR);
         permissions = source.createTypedArray(PermissionInfo.CREATOR);
         requestedPermissions = source.createStringArray();
-<<<<<<< HEAD
         requestedPermissionsFlags = source.createIntArray();
         signatures = source.createTypedArray(Signature.CREATOR);
         configPreferences = source.createTypedArray(ConfigurationInfo.CREATOR);
         reqFeatures = source.createTypedArray(FeatureInfo.CREATOR);
         installLocation = source.readInt();
-=======
-        signatures = source.createTypedArray(Signature.CREATOR);
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

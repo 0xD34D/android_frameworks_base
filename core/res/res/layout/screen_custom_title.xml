@@ -15,17 +15,12 @@
 -->
 
 <!--
-<<<<<<< HEAD
 This is a custom layout for a screen.
-=======
-This is an custom layout for a screen.
->>>>>>> 54b6cfa... Initial Contribution
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
-<<<<<<< HEAD
     <!-- Popout bar for action modes -->
     <ViewStub android:id="@+id/action_mode_bar_stub"
               android:inflatedId="@+id/action_mode_bar"
@@ -35,19 +30,11 @@ This is an custom layout for a screen.
 
     <FrameLayout android:id="@android:id/title_container" 
         android:layout_width="match_parent" 
-=======
-    <FrameLayout android:id="@android:id/title_container" 
-        android:layout_width="fill_parent" 
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_height="?android:attr/windowTitleSize"
         style="?android:attr/windowTitleBackgroundStyle">
     </FrameLayout>
     <FrameLayout android:id="@android:id/content"
-<<<<<<< HEAD
         android:layout_width="match_parent" 
-=======
-        android:layout_width="fill_parent" 
->>>>>>> 54b6cfa... Initial Contribution
         android:layout_height="0dip"
         android:layout_weight="1"
         android:foregroundGravity="fill_horizontal|top"

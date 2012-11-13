@@ -7,16 +7,12 @@ LOCAL_SRC_FILES:= \
 LOCAL_SHARED_LIBRARIES := \
 	libcutils \
 	libutils \
-<<<<<<< HEAD
 	libbinder \
-=======
->>>>>>> 54b6cfa... Initial Contribution
 	libandroid_runtime
 
 LOCAL_MODULE:= app_process
 
 include $(BUILD_EXECUTABLE)
-<<<<<<< HEAD
 
 
 # Build a variant of app_process binary linked with ASan runtime.
@@ -43,5 +39,3 @@ LOCAL_ADDRESS_SANITIZER := true
 include $(BUILD_EXECUTABLE)
 
 endif # ifeq($(TARGET_ARCH),arm)
-=======
->>>>>>> 54b6cfa... Initial Contribution

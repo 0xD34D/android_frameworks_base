@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
@@ -15,13 +14,10 @@
  * limitations under the License.
  */
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
 #include "SkRegion.h"
 #include "SkPath.h"
 #include "GraphicsJNI.h"
 
-<<<<<<< HEAD
 #include <binder/Parcel.h>
 #include "android_os_Parcel.h"
 #include "android_util_Binder.h"
@@ -30,9 +26,6 @@
 #include <android_runtime/AndroidRuntime.h>
 
 namespace android {
-=======
-#include <jni.h>
->>>>>>> 54b6cfa... Initial Contribution
 
 static jfieldID gRegion_nativeInstanceFieldID;
 
@@ -77,11 +70,7 @@ static jboolean Region_getBoundaryPath(JNIEnv* env, jobject, const SkRegion* reg
 
 static jboolean Region_op0(JNIEnv* env, jobject, SkRegion* dst, int left, int top, int right, int bottom, int op) {
     SkIRect ir;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     ir.set(left, top, right, bottom);
     return dst->op(ir, (SkRegion::Op)op);
 }
@@ -96,28 +85,16 @@ static jboolean Region_op2(JNIEnv* env, jobject, SkRegion* dst, const SkRegion* 
     return dst->op(*region1, *region2, (SkRegion::Op)op);
 }
 
-<<<<<<< HEAD
 ////////////////////////////////////  These are methods, not static
-=======
-////////////////////////////////////  These are methods, not static 
->>>>>>> 54b6cfa... Initial Contribution
 
 static jboolean Region_isEmpty(JNIEnv* env, jobject region) {
     return GetSkRegion(env, region)->isEmpty();
 }
-<<<<<<< HEAD
 
 static jboolean Region_isRect(JNIEnv* env, jobject region) {
     return GetSkRegion(env, region)->isRect();
 }
 
-=======
- 
-static jboolean Region_isRect(JNIEnv* env, jobject region) {
-    return GetSkRegion(env, region)->isRect();
-}
- 
->>>>>>> 54b6cfa... Initial Contribution
 static jboolean Region_isComplex(JNIEnv* env, jobject region) {
     return GetSkRegion(env, region)->isComplex();
 }
@@ -125,37 +102,21 @@ static jboolean Region_isComplex(JNIEnv* env, jobject region) {
 static jboolean Region_contains(JNIEnv* env, jobject region, int x, int y) {
     return GetSkRegion(env, region)->contains(x, y);
 }
-<<<<<<< HEAD
 
 static jboolean Region_quickContains(JNIEnv* env, jobject region, int left, int top, int right, int bottom) {
     return GetSkRegion(env, region)->quickContains(left, top, right, bottom);
 }
 
-=======
- 
-static jboolean Region_quickContains(JNIEnv* env, jobject region, int left, int top, int right, int bottom) {
-    return GetSkRegion(env, region)->quickContains(left, top, right, bottom);
-}
- 
->>>>>>> 54b6cfa... Initial Contribution
 static jboolean Region_quickRejectIIII(JNIEnv* env, jobject region, int left, int top, int right, int bottom) {
     SkIRect ir;
     ir.set(left, top, right, bottom);
     return GetSkRegion(env, region)->quickReject(ir);
 }
-<<<<<<< HEAD
 
 static jboolean Region_quickRejectRgn(JNIEnv* env, jobject region, jobject other) {
     return GetSkRegion(env, region)->quickReject(*GetSkRegion(env, other));
 }
 
-=======
- 
-static jboolean Region_quickRejectRgn(JNIEnv* env, jobject region, jobject other) {
-    return GetSkRegion(env, region)->quickReject(*GetSkRegion(env, other));
-}
- 
->>>>>>> 54b6cfa... Initial Contribution
 static void Region_translate(JNIEnv* env, jobject region, int x, int y, jobject dst) {
     SkRegion* rgn = GetSkRegion(env, region);
     if (dst)
@@ -164,7 +125,6 @@ static void Region_translate(JNIEnv* env, jobject region, int x, int y, jobject 
         rgn->translate(x, y);
 }
 
-<<<<<<< HEAD
 // Scale the rectangle by given scale and set the reuslt to the dst.
 static void scale_rect(SkIRect* dst, const SkIRect& src, float scale) {
    dst->fLeft = (int)::roundf(src.fLeft * scale);
@@ -207,19 +167,11 @@ static jstring Region_toString(JNIEnv* env, jobject clazz, SkRegion* region) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-=======
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-#include "Parcel.h"
-#include "android_util_Binder.h"
-
->>>>>>> 54b6cfa... Initial Contribution
 static SkRegion* Region_createFromParcel(JNIEnv* env, jobject clazz, jobject parcel)
 {
     if (parcel == NULL) {
         return NULL;
     }
-<<<<<<< HEAD
 
     android::Parcel* p = android::parcelForJavaObject(env, parcel);
 
@@ -227,15 +179,6 @@ static SkRegion* Region_createFromParcel(JNIEnv* env, jobject clazz, jobject par
     size_t size = p->readInt32();
     region->unflatten(p->readInplace(size));
 
-=======
-    
-    android::Parcel* p = android::parcelForJavaObject(env, parcel);
-    
-    SkRegion* region = new SkRegion;
-    size_t size = p->readInt32();
-    region->unflatten(p->readInplace(size));
-    
->>>>>>> 54b6cfa... Initial Contribution
     return region;
 }
 
@@ -244,11 +187,7 @@ static jboolean Region_writeToParcel(JNIEnv* env, jobject clazz, const SkRegion*
     if (parcel == NULL) {
         return false;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     android::Parcel* p = android::parcelForJavaObject(env, parcel);
 
     size_t size = region->flatten(NULL);
@@ -260,7 +199,6 @@ static jboolean Region_writeToParcel(JNIEnv* env, jobject clazz, const SkRegion*
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
 static jboolean Region_equals(JNIEnv* env, jobject clazz, const SkRegion *r1, const SkRegion* r2)
 {
   return (jboolean) (*r1 == *r2);
@@ -272,12 +210,6 @@ struct RgnIterPair {
     SkRegion            fRgn;   // a copy of the caller's region
     SkRegion::Iterator  fIter;  // an iterator acting upon the copy (fRgn)
 
-=======
-struct RgnIterPair {
-    SkRegion            fRgn;   // a copy of the caller's region
-    SkRegion::Iterator  fIter;  // an iterator acting upon the copy (fRgn)
-    
->>>>>>> 54b6cfa... Initial Contribution
     RgnIterPair(const SkRegion& rgn) : fRgn(rgn) {
         // have our iterator reference our copy (fRgn), so we know it will be
         // unchanged for the lifetime of the iterator
@@ -287,11 +219,7 @@ struct RgnIterPair {
 
 static RgnIterPair* RegionIter_constructor(JNIEnv* env, jobject, const SkRegion* region)
 {
-<<<<<<< HEAD
     SkASSERT(region);
-=======
-    SkASSERT(region);    
->>>>>>> 54b6cfa... Initial Contribution
     return new RgnIterPair(*region);
 }
 
@@ -317,11 +245,6 @@ static jboolean RegionIter_next(JNIEnv* env, jobject, RgnIterPair* pair, jobject
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
-=======
-#include <android_runtime/AndroidRuntime.h>
-
->>>>>>> 54b6cfa... Initial Contribution
 static JNINativeMethod gRegionIterMethods[] = {
     { "nativeConstructor",  "(I)I",                         (void*)RegionIter_constructor   },
     { "nativeDestructor",   "(I)V",                         (void*)RegionIter_destructor    },
@@ -348,7 +271,6 @@ static JNINativeMethod gRegionMethods[] = {
     { "quickContains",          "(IIII)Z",                          (void*)Region_quickContains     },
     { "quickReject",            "(IIII)Z",                          (void*)Region_quickRejectIIII   },
     { "quickReject",            "(Landroid/graphics/Region;)Z",     (void*)Region_quickRejectRgn    },
-<<<<<<< HEAD
     { "scale",                  "(FLandroid/graphics/Region;)V",    (void*)Region_scale             },
     { "translate",              "(IILandroid/graphics/Region;)V",   (void*)Region_translate         },
     { "nativeToString",         "(I)Ljava/lang/String;",            (void*)Region_toString          },
@@ -358,24 +280,11 @@ static JNINativeMethod gRegionMethods[] = {
     { "nativeEquals",           "(II)Z",                            (void*)Region_equals            },
 };
 
-=======
-    { "translate",              "(IILandroid/graphics/Region;)V",   (void*)Region_translate         },
-    // parceling methods
-    { "nativeCreateFromParcel", "(Landroid/os/Parcel;)I",           (void*)Region_createFromParcel  },
-    { "nativeWriteToParcel",    "(ILandroid/os/Parcel;)Z",          (void*)Region_writeToParcel     }
-};
-
-int register_android_graphics_Region(JNIEnv* env);
->>>>>>> 54b6cfa... Initial Contribution
 int register_android_graphics_Region(JNIEnv* env)
 {
     jclass clazz = env->FindClass("android/graphics/Region");
     SkASSERT(clazz);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     gRegion_nativeInstanceFieldID = env->GetFieldID(clazz, "mNativeRegion", "I");
     SkASSERT(gRegion_nativeInstanceFieldID);
 
@@ -387,12 +296,9 @@ int register_android_graphics_Region(JNIEnv* env)
     return android::AndroidRuntime::registerNativeMethods(env, "android/graphics/RegionIterator",
                                                        gRegionIterMethods, SK_ARRAY_COUNT(gRegionIterMethods));
 }
-<<<<<<< HEAD
 
 SkRegion* android_graphics_Region_getSkRegion(JNIEnv* env, jobject regionObj) {
     return GetSkRegion(env, regionObj);
 }
 
 } // namespace android
-=======
->>>>>>> 54b6cfa... Initial Contribution

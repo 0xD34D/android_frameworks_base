@@ -16,7 +16,6 @@
 
 package android.telephony;
 
-<<<<<<< HEAD
 import com.android.i18n.phonenumbers.NumberParseException;
 import com.android.i18n.phonenumbers.PhoneNumberUtil;
 import com.android.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
@@ -41,19 +40,6 @@ import static com.android.internal.telephony.TelephonyProperties.PROPERTY_ICC_OP
 import static com.android.internal.telephony.TelephonyProperties.PROPERTY_IDP_STRING;
 import static com.android.internal.telephony.TelephonyProperties.PROPERTY_OPERATOR_ISO_COUNTRY;
 
-=======
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.SystemProperties;
-import android.provider.Contacts;
-import android.text.Editable;
-import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
-import android.util.SparseIntArray;
-
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,15 +62,12 @@ public class PhoneNumberUtils
     public static final char WILD = 'N';
 
     /*
-<<<<<<< HEAD
      * Calling Line Identification Restriction (CLIR)
      */
     private static final String CLIR_ON = "*31#";
     private static final String CLIR_OFF = "#31#";
 
     /*
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * TOA = TON + NPI
      * See TS 24.008 section 10.5.4.7 for details.
      * These are the only really useful TOA values
@@ -92,12 +75,9 @@ public class PhoneNumberUtils
     public static final int TOA_International = 0x91;
     public static final int TOA_Unknown = 0x81;
 
-<<<<<<< HEAD
     static final String LOG_TAG = "PhoneNumberUtils";
     private static final boolean DBG = false;
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /*
      * global-phone-number = ["+"] 1*( DIGIT / written-sep )
      * written-sep         = ("-"/".")
@@ -144,7 +124,6 @@ public class PhoneNumberUtils
         return c == PAUSE || c == WAIT;
     }
 
-<<<<<<< HEAD
     private static boolean
     isPause (char c){
         return c == 'p'||c == 'P';
@@ -161,8 +140,6 @@ public class PhoneNumberUtils
         return !isDialable(ch) && !(('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z'));
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** Extracts the phone number from an Intent.
      *
      * @param intent the intent to get the number of
@@ -177,7 +154,6 @@ public class PhoneNumberUtils
         Uri uri = intent.getData();
         String scheme = uri.getScheme();
 
-<<<<<<< HEAD
         if (scheme.equals("tel") || scheme.equals("sip")) {
             return uri.getSchemeSpecificPart();
         }
@@ -186,14 +162,6 @@ public class PhoneNumberUtils
         // CALL_PRIVILEGED permission).
         if (scheme.equals("voicemail")) {
             return TelephonyManager.getDefault().getCompleteVoiceMailNumber();
-=======
-        if (scheme.equals("tel")) {
-            return uri.getSchemeSpecificPart();
-        }
-
-        if (scheme.equals("voicemail")) {
-            return TelephonyManager.getDefault().getVoiceMailNumber();
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (context == null) {
@@ -201,7 +169,6 @@ public class PhoneNumberUtils
         }
 
         String type = intent.resolveType(context);
-<<<<<<< HEAD
         String phoneColumn = null;
 
         // Correctly read out the phone entry based on requested provider
@@ -219,17 +186,6 @@ public class PhoneNumberUtils
             try {
                 if (c.moveToFirst()) {
                     number = c.getString(c.getColumnIndex(phoneColumn));
-=======
-
-        Cursor c = context.getContentResolver().query(
-                uri, new String[]{ Contacts.People.Phones.NUMBER },
-                null, null, null);
-        if (c != null) {
-            try {
-                if (c.moveToFirst()) {
-                    number = c.getString(
-                            c.getColumnIndex(Contacts.People.Phones.NUMBER));
->>>>>>> 54b6cfa... Initial Contribution
                 }
             } finally {
                 c.close();
@@ -247,11 +203,6 @@ public class PhoneNumberUtils
      *  Please note that the GSM wild character is allowed in the result.
      *  This must be resolved before dialing.
      *
-<<<<<<< HEAD
-=======
-     *  Allows + only in the first  position in the result string.
-     *
->>>>>>> 54b6cfa... Initial Contribution
      *  Returns null if phoneNumber == null
      */
     public static String
@@ -262,7 +213,6 @@ public class PhoneNumberUtils
 
         int len = phoneNumber.length();
         StringBuilder ret = new StringBuilder(len);
-<<<<<<< HEAD
 
         for (int i = 0; i < len; i++) {
             char c = phoneNumber.charAt(i);
@@ -313,14 +263,6 @@ public class PhoneNumberUtils
                 haveSeenPlus = true;
             }
             if (isDialable(c)) {
-=======
-        boolean firstCharAdded = false;
-
-        for (int i = 0; i < len; i++) {
-            char c = phoneNumber.charAt(i);
-            if (isDialable(c) && (c != '+' || !firstCharAdded)) {
-                firstCharAdded = true;
->>>>>>> 54b6cfa... Initial Contribution
                 ret.append(c);
             } else if (isStartsPostDial (c)) {
                 break;
@@ -344,15 +286,11 @@ public class PhoneNumberUtils
 
         for (int i = 0; i < len; i++) {
             char c = phoneNumber.charAt(i);
-<<<<<<< HEAD
             // Character.digit() supports ASCII and Unicode digits (fullwidth, Arabic-Indic, etc.)
             int digit = Character.digit(c, 10);
             if (digit != -1) {
                 ret.append(digit);
             } else if (isNonSeparator(c)) {
-=======
-            if (isNonSeparator(c)) {
->>>>>>> 54b6cfa... Initial Contribution
                 ret.append(c);
             }
         }
@@ -360,7 +298,6 @@ public class PhoneNumberUtils
         return ret.toString();
     }
 
-<<<<<<< HEAD
     /**
      * Translates keypad letters to actual digits (e.g. 1-800-GOOG-411 will
      * become 1-800-4664-411), and then strips all separators (e.g. 1-800-4664-411 will become
@@ -401,8 +338,6 @@ public class PhoneNumberUtils
         return ret.toString();
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** or -1 if both are negative */
     static private int
     minPositive (int a, int b) {
@@ -417,12 +352,9 @@ public class PhoneNumberUtils
         }
     }
 
-<<<<<<< HEAD
     private static void log(String msg) {
         Log.d(LOG_TAG, msg);
     }
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /** index of the last character of the network portion
      *  (eg anything after is a post-dial string)
      */
@@ -476,7 +408,6 @@ public class PhoneNumberUtils
     }
 
     /**
-<<<<<<< HEAD
      * Compare phone numbers a and b, return true if they're identical enough for caller ID purposes.
      */
     public static boolean compare(String a, String b) {
@@ -504,13 +435,10 @@ public class PhoneNumberUtils
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Compare phone numbers a and b, return true if they're identical
      * enough for caller ID purposes.
      *
      * - Compares from right to left
-<<<<<<< HEAD
      * - requires MIN_MATCH (7) characters to match
      * - handles common trunk prefixes and international prefixes
      *   (basically, everything except the Russian trunk prefix)
@@ -526,18 +454,6 @@ public class PhoneNumberUtils
         int matched;
         int numNonDialableCharsInA = 0;
         int numNonDialableCharsInB = 0;
-=======
-     * - requires MIN_MATCH (5) characters to match
-     * - handles common trunk prefixes and international prefixes
-     *   (basically, everything except the Russian trunk prefix)
-     *
-     * Tolerates nulls
-     */
-    public static boolean
-    compare(String a, String b) {
-        int ia, ib;
-        int matched;
->>>>>>> 54b6cfa... Initial Contribution
 
         if (a == null || b == null) return a == b;
 
@@ -558,10 +474,7 @@ public class PhoneNumberUtils
             if (!isDialable(ca)) {
                 ia--;
                 skipCmp = true;
-<<<<<<< HEAD
                 numNonDialableCharsInA++;
-=======
->>>>>>> 54b6cfa... Initial Contribution
             }
 
             cb = b.charAt(ib);
@@ -569,10 +482,7 @@ public class PhoneNumberUtils
             if (!isDialable(cb)) {
                 ib--;
                 skipCmp = true;
-<<<<<<< HEAD
                 numNonDialableCharsInB++;
-=======
->>>>>>> 54b6cfa... Initial Contribution
             }
 
             if (!skipCmp) {
@@ -584,7 +494,6 @@ public class PhoneNumberUtils
         }
 
         if (matched < MIN_MATCH) {
-<<<<<<< HEAD
             int effectiveALen = a.length() - numNonDialableCharsInA;
             int effectiveBLen = b.length() - numNonDialableCharsInB;
 
@@ -595,15 +504,6 @@ public class PhoneNumberUtils
                 return true;
             }
 
-=======
-            int aLen = a.length();
-
-            // if the input strings match, but their lengths < MIN_MATCH,
-            // treat them as equal.
-            if (aLen == b.length() && aLen == matched) {
-                return true;
-            }
->>>>>>> 54b6cfa... Initial Contribution
             return false;
         }
 
@@ -643,7 +543,6 @@ public class PhoneNumberUtils
     }
 
     /**
-<<<<<<< HEAD
      * @hide
      */
     public static boolean
@@ -798,8 +697,6 @@ public class PhoneNumberUtils
     }
 
     /**
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * Returns the rightmost MIN_MATCH (5) characters in the network portion
      * in *reversed* order
      *
@@ -810,11 +707,7 @@ public class PhoneNumberUtils
      */
     public static String
     toCallerIDMinMatch(String phoneNumber) {
-<<<<<<< HEAD
         String np = extractNetworkPortionAlt(phoneNumber);
-=======
-        String np = extractNetworkPortion(phoneNumber);
->>>>>>> 54b6cfa... Initial Contribution
         return internalGetStrippedReversed(np, MIN_MATCH);
     }
 
@@ -827,11 +720,7 @@ public class PhoneNumberUtils
      */
     public static String
     getStrippedReversed(String phoneNumber) {
-<<<<<<< HEAD
         String np = extractNetworkPortionAlt(phoneNumber);
-=======
-        String np = extractNetworkPortion(phoneNumber);
->>>>>>> 54b6cfa... Initial Contribution
 
         if (np == null) return null;
 
@@ -892,71 +781,14 @@ public class PhoneNumberUtils
     }
 
     /**
-<<<<<<< HEAD
-=======
-     * Phone numbers are stored in "lookup" form in the database
-     * as reversed strings to allow for caller ID lookup
-     *
-     * This method takes a phone number and makes a valid SQL "LIKE"
-     * string that will match the lookup form
-     *
-     */
-    /** all of a up to len must be an international prefix or
-     *  separators/non-dialing digits
-     */
-    private static boolean
-    matchIntlPrefix(String a, int len) {
-        /* '([^0-9*#+pwn]\+[^0-9*#+pwn] | [^0-9*#+pwn]0(0|11)[^0-9*#+pwn] )$' */
-        /*        0       1                           2 3 45               */
-
-        int state = 0;
-        for (int i = 0 ; i < len ; i++) {
-            char c = a.charAt(i);
-
-            switch (state) {
-                case 0:
-                    if      (c == '+') state = 1;
-                    else if (c == '0') state = 2;
-                    else if (isNonSeparator(c)) return false;
-                break;
-
-                case 2:
-                    if      (c == '0') state = 3;
-                    else if (c == '1') state = 4;
-                    else if (isNonSeparator(c)) return false;
-                break;
-
-                case 4:
-                    if      (c == '1') state = 5;
-                    else if (isNonSeparator(c)) return false;
-                break;
-
-                default:
-                    if (isNonSeparator(c)) return false;
-                break;
-
-            }
-        }
-
-        return state == 1 || state == 3 || state == 5;
-    }
-
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      *  3GPP TS 24.008 10.5.4.7
      *  Called Party BCD Number
      *
      *  See Also TS 51.011 10.5.1 "dialing number/ssc string"
-<<<<<<< HEAD
      *  and TS 11.11 "10.3.1 EF adn (Abbreviated dialing numbers)"
      *
      * @param bytes the data buffer
      * @param offset should point to the TOA (aka. TON/NPI) octet after the length byte
-=======
-     *
-     * @param bytes the data buffer
-     * @param offset should point to the TOI/NPI octet after the length byte
->>>>>>> 54b6cfa... Initial Contribution
      * @param length is the number of bytes including TOA byte
      *                and must be at least 2
      *
@@ -967,41 +799,26 @@ public class PhoneNumberUtils
      */
     public static String
     calledPartyBCDToString (byte[] bytes, int offset, int length) {
-<<<<<<< HEAD
         boolean prependPlus = false;
-=======
-        boolean prependedPlus = false;
->>>>>>> 54b6cfa... Initial Contribution
         StringBuilder ret = new StringBuilder(1 + length * 2);
 
         if (length < 2) {
             return "";
         }
 
-<<<<<<< HEAD
         //Only TON field should be taken in consideration
         if ((bytes[offset] & 0xf0) == (TOA_International & 0xf0)) {
             prependPlus = true;
-=======
-        if ((bytes[offset] & 0xff) == TOA_International) {
-            ret.append("+");
-            prependedPlus = true;
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         internalCalledPartyBCDFragmentToString(
                 ret, bytes, offset + 1, length - 1);
 
-<<<<<<< HEAD
         if (prependPlus && ret.length() == 0) {
-=======
-        if (prependedPlus && ret.length() == 1) {
->>>>>>> 54b6cfa... Initial Contribution
             // If the only thing there is a prepended plus, return ""
             return "";
         }
 
-<<<<<<< HEAD
         if (prependPlus) {
             // This is an "international number" and should have
             // a plus prepended to the dialing number. But there
@@ -1077,8 +894,6 @@ public class PhoneNumberUtils
             }
         }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
         return ret.toString();
     }
 
@@ -1098,17 +913,10 @@ public class PhoneNumberUtils
 
             // FIXME(mkf) TS 23.040 9.1.2.3 says
             // "if a mobile receives 1111 in a position prior to
-<<<<<<< HEAD
             // the last semi-octet then processing shall commence with
             // the next semi-octet and the intervening
             // semi-octet shall be ignored"
             // How does this jive with 24.008 10.5.4.7
-=======
-            // the last semi-octet then processing shall commense with
-            // the next semi-octet and the intervening
-            // semi-octet shall be ignored"
-            // How does this jive with 24,008 10.5.4.7
->>>>>>> 54b6cfa... Initial Contribution
 
             b = (byte)((bytes[i] >> 4) & 0xf);
 
@@ -1174,20 +982,6 @@ public class PhoneNumberUtils
     }
 
     /**
-<<<<<<< HEAD
-=======
-     * Note: calls extractNetworkPortion(), so do not use for
-     * SIM EF[ADN] style records
-     *
-     * Exceptions thrown if extractNetworkPortion(s).length() == 0
-     */
-    public static byte[]
-    networkPortionToCalledPartyBCD(String s) {
-        return numberToCalledPartyBCD(extractNetworkPortion(s));
-    }
-
-    /**
->>>>>>> 54b6cfa... Initial Contribution
      * Return true iff the network portion of <code>address</code> is,
      * as far as we can tell on the device, suitable for use as an SMS
      * destination address.
@@ -1219,7 +1013,6 @@ public class PhoneNumberUtils
         return true;
     }
 
-<<<<<<< HEAD
     private static boolean isNonSeparator(String address) {
         for (int i = 0, count = address.length(); i < count; i++) {
             if (!isNonSeparator(address.charAt(i))) {
@@ -1240,36 +1033,25 @@ public class PhoneNumberUtils
         return numberToCalledPartyBCDHelper(networkPortion, false);
     }
 
-=======
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * Same as {@link #networkPortionToCalledPartyBCD}, but includes a
      * one-byte length prefix.
      */
     public static byte[]
     networkPortionToCalledPartyBCDWithLength(String s) {
-<<<<<<< HEAD
         String networkPortion = extractNetworkPortion(s);
         return numberToCalledPartyBCDHelper(networkPortion, true);
-=======
-        return numberToCalledPartyBCDWithLength(extractNetworkPortion(s));
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Convert a dialing number to BCD byte array
      *
      * @param number dialing number string
-<<<<<<< HEAD
      *        if the dialing number starts with '+', set to international TOA
-=======
-     *        if the dialing number starts with '+', set to internationl TOA
->>>>>>> 54b6cfa... Initial Contribution
      * @return BCD byte array
      */
     public static byte[]
     numberToCalledPartyBCD(String number) {
-<<<<<<< HEAD
         return numberToCalledPartyBCDHelper(number, false);
     }
 
@@ -1326,146 +1108,6 @@ public class PhoneNumberUtils
         "US", // United States
         "CA", // Canada
         "AS", // American Samoa
-=======
-        // The extra byte required for '+' is taken into consideration while calculating
-        // length of ret.
-        int size = ((number.charAt(0) == '+') ? number.length() - 1 : number.length());
-        byte[] ret = new byte[(size + 1) / 2 + 1];
-
-        return numberToCalledPartyBCDHelper(ret, 0, number);
-    }
-
-    /**
-     * Same as {@link #numberToCalledPartyBCD}, but includes a
-     * one-byte length prefix.
-     */
-    private static byte[]
-    numberToCalledPartyBCDWithLength(String number) {
-        // The extra byte required for '+' is taken into consideration while calculating
-        // length of ret.
-        int size = ((number.charAt(0) == '+') ? number.length() - 1 : number.length());
-        int length = (size + 1) / 2 + 1;
-        byte[] ret = new byte[length + 1];
-
-        ret[0] = (byte) (length & 0xff);
-        return numberToCalledPartyBCDHelper(ret, 1, number);
-    }
-
-    private static byte[]
-    numberToCalledPartyBCDHelper(byte[] ret, int offset, String number) {
-        int size;
-        int curChar;
-
-        size = number.length();
-
-        if (number.charAt(0) == '+') {
-            curChar = 1;
-            ret[offset] = (byte) TOA_International;
-        } else {
-            curChar = 0;
-            ret[offset] = (byte) TOA_Unknown;
-        }
-
-        int countFullBytes = ret.length - offset - 1 - ((size - curChar) & 1);
-        for (int i = 1; i < 1 + countFullBytes; i++) {
-            ret[offset + i]
-                    = (byte) ((charToBCD(number.charAt(curChar++)))
-                              | (charToBCD(number.charAt(curChar++))) << 4);
-        }
-
-        // The left-over octet for odd-length phone numbers should be
-        // filled with 0xf.
-        if (countFullBytes + offset < ret.length - 1) {
-            ret[ret.length - 1]
-                    = (byte) (charToBCD(number.charAt(curChar))
-                              | (0xf << 4));
-        }
-        return ret;
-    }
-
-    /** all of 'a' up to len must match non-US trunk prefix ('0') */
-    private static boolean
-    matchTrunkPrefix(String a, int len) {
-        boolean found;
-
-        found = false;
-
-        for (int i = 0 ; i < len ; i++) {
-            char c = a.charAt(i);
-
-            if (c == '0' && !found) {
-                found = true;
-            } else if (isNonSeparator(c)) {
-                return false;
-            }
-        }
-
-        return found;
-    }
-
-    /** all of 'a' up to len must be a (+|00|011)country code)
-     *  We're fast and loose with the country code. Any \d{1,3} matches */
-    private static boolean
-    matchIntlPrefixAndCC(String a, int len) {
-        /*  [^0-9*#+pwn]*(\+|0(0|11)\d\d?\d? [^0-9*#+pwn] $ */
-        /*      0          1 2 3 45  6 7  8                 */
-
-        int state = 0;
-        for (int i = 0 ; i < len ; i++ ) {
-            char c = a.charAt(i);
-
-            switch (state) {
-                case 0:
-                    if      (c == '+') state = 1;
-                    else if (c == '0') state = 2;
-                    else if (isNonSeparator(c)) return false;
-                break;
-
-                case 2:
-                    if      (c == '0') state = 3;
-                    else if (c == '1') state = 4;
-                    else if (isNonSeparator(c)) return false;
-                break;
-
-                case 4:
-                    if      (c == '1') state = 5;
-                    else if (isNonSeparator(c)) return false;
-                break;
-
-                case 1:
-                case 3:
-                case 5:
-                    if      (isISODigit(c)) state = 6;
-                    else if (isNonSeparator(c)) return false;
-                break;
-
-                case 6:
-                case 7:
-                    if      (isISODigit(c)) state++;
-                    else if (isNonSeparator(c)) return false;
-                break;
-
-                default:
-                    if (isNonSeparator(c)) return false;
-            }
-        }
-
-        return state == 6 || state == 7 || state == 8;
-    }
-
-    //================ Number formatting =========================
-
-    /** The current locale is unknown, look for a country code or don't format */
-    public static final int FORMAT_UNKNOWN = 0;
-    /** NANP formatting */
-    public static final int FORMAT_NANP = 1;
-
-    /** List of country codes for countries that use the NANP */
-    private static final String[] NANP_COUNTRIES = new String[] {
-        "US", // United States
-        "CA", // Canada
-        "AS", // American Samoa
->>>>>>> 54b6cfa... Initial Contribution
         "AI", // Anguilla
         "AG", // Antigua and Barbuda
         "BS", // Bahamas
@@ -1480,11 +1122,7 @@ public class PhoneNumberUtils
         "JM", // Jamaica
         "PR", // Puerto Rico
         "MS", // Montserrat
-<<<<<<< HEAD
         "MP", // Northern Mariana Islands
-=======
-        "NP", // Northern Mariana Islands
->>>>>>> 54b6cfa... Initial Contribution
         "KN", // Saint Kitts and Nevis
         "LC", // Saint Lucia
         "VC", // Saint Vincent and the Grenadines
@@ -1497,13 +1135,8 @@ public class PhoneNumberUtils
      * Breaks the given number down and formats it according to the rules
      * for the country the number is from.
      *
-<<<<<<< HEAD
      * @param source The phone number to format
      * @return A locally acceptable formatting of the input, or the raw input if
-=======
-     * @param source the phone number to format
-     * @return a locally acceptable formatting of the input, or the raw input if
->>>>>>> 54b6cfa... Initial Contribution
      *  formatting rules aren't known for the number
      */
     public static String formatNumber(String source) {
@@ -1513,7 +1146,6 @@ public class PhoneNumberUtils
     }
 
     /**
-<<<<<<< HEAD
      * Formats the given number with the given formatting type. Currently
      * {@link #FORMAT_NANP} and {@link #FORMAT_JAPAN} are supported as a formating type.
      *
@@ -1535,18 +1167,11 @@ public class PhoneNumberUtils
      *
      * @param locale The locale of interest, usually {@link Locale#getDefault()}
      * @return The formatting type for the given locale, or FORMAT_UNKNOWN if the formatting
-=======
-     * Returns the phone number formatting type for the given locale.
-     *
-     * @param locale The locale of interest, usually {@link Locale#getDefault()}
-     * @return the formatting type for the given locale, or FORMAT_UNKNOWN if the formatting
->>>>>>> 54b6cfa... Initial Contribution
      * rules are not known for the given locale
      */
     public static int getFormatTypeForLocale(Locale locale) {
         String country = locale.getCountry();
 
-<<<<<<< HEAD
         return getFormatTypeFromCountryCode(country);
     }
 
@@ -1557,29 +1182,10 @@ public class PhoneNumberUtils
      * @param text The number to be formatted, will be modified with the formatting
      * @param defaultFormattingType The default formatting rules to apply if the number does
      * not begin with +[country_code]
-=======
-        // Check for the NANP countries
-        int length = NANP_COUNTRIES.length;
-        for (int i = 0; i < length; i++) {
-            if (NANP_COUNTRIES[i].equals(country)) {
-                return FORMAT_NANP;
-            }
-        }
-        return FORMAT_UNKNOWN;
-    }
-
-    /**
-     * Formats a phone number in-place. Currently only supports NANP formatting.
-     *
-     * @param text The number to be formatted, will be modified with the formatting
-     * @param defaultFormattingType The default formatting rules to apply if the number does
-     * not begin with +<country_code>
->>>>>>> 54b6cfa... Initial Contribution
      */
     public static void formatNumber(Editable text, int defaultFormattingType) {
         int formatType = defaultFormattingType;
 
-<<<<<<< HEAD
         if (text.length() > 2 && text.charAt(0) == '+') {
             if (text.charAt(1) == '1') {
                 formatType = FORMAT_NANP;
@@ -1588,14 +1194,6 @@ public class PhoneNumberUtils
                 formatType = FORMAT_JAPAN;
             } else {
                 formatType = FORMAT_UNKNOWN;
-=======
-        // This only handles +1 for now
-        if (text.length() > 2 && text.charAt(0) == '+') {
-            if (text.charAt(1) == '1') {
-                formatType = FORMAT_NANP;
-            } else {
-                return;
->>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -1603,15 +1201,12 @@ public class PhoneNumberUtils
             case FORMAT_NANP:
                 formatNanpNumber(text);
                 return;
-<<<<<<< HEAD
             case FORMAT_JAPAN:
                 formatJapaneseNumber(text);
                 return;
             case FORMAT_UNKNOWN:
                 removeDashes(text);
                 return;
-=======
->>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -1625,10 +1220,7 @@ public class PhoneNumberUtils
      * as:
      *
      * <p><code>
-<<<<<<< HEAD
      * xxxxx
-=======
->>>>>>> 54b6cfa... Initial Contribution
      * xxx-xxxx
      * xxx-xxx-xxxx
      * 1-xxx-xxx-xxxx
@@ -1642,7 +1234,6 @@ public class PhoneNumberUtils
         if (length > "+1-nnn-nnn-nnnn".length()) {
             // The string is too long to be formatted
             return;
-<<<<<<< HEAD
         } else if (length <= 5) {
             // The string is either a shortcode or too short to be formatted
             return;
@@ -1652,20 +1243,6 @@ public class PhoneNumberUtils
 
         // Strip the dashes first, as we're going to add them back
         removeDashes(text);
-=======
-        }
-        CharSequence saved = text.subSequence(0, length);
-        
-        // Strip the dashes first, as we're going to add them back
-        int p = 0;
-        while (p < text.length()) {
-            if (text.charAt(p) == '-') {
-                text.delete(p, p + 1);
-            } else {
-                p++;
-            }
-        }
->>>>>>> 54b6cfa... Initial Contribution
         length = text.length();
 
         // When scanning the number we record where dashes need to be added,
@@ -1737,11 +1314,7 @@ public class PhoneNumberUtils
             int pos = dashPositions[i];
             text.replace(pos + i, pos + i, "-");
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         // Remove trailing dashes
         int len = text.length();
         while (len > 0) {
@@ -1754,7 +1327,6 @@ public class PhoneNumberUtils
         }
     }
 
-<<<<<<< HEAD
     /**
      * Formats a phone number in-place using the Japanese formatting rules.
      * Numbers will be formatted as:
@@ -2118,34 +1690,11 @@ public class PhoneNumberUtils
             // then read-only ecclist property since old RIL only uses this
             numbers = SystemProperties.get("ro.ril.ecclist");
         }
-=======
-    // Three and four digit phone numbers for either special services
-    // or from the network (eg carrier-originated SMS messages) should
-    // not match
-    static final int MIN_MATCH = 5;
-
-    /**
-     * isEmergencyNumber: checks a given number against the list of
-     *   emergency numbers provided by the RIL and SIM card.
-     *
-     * @param number the number to look up.
-     * @return if the number is in the list of emergency numbers
-     * listed in the ril / sim, then return true, otherwise false.
-     */
-    public static boolean isEmergencyNumber(String number) {
-        // Strip the separators from the number before comparing it 
-        // to the list.
-        number = extractNetworkPortion(number);
-        
-        // retrieve the list of emergency numbers
-        String numbers = SystemProperties.get("ro.ril.ecclist");
->>>>>>> 54b6cfa... Initial Contribution
 
         if (!TextUtils.isEmpty(numbers)) {
             // searches through the comma-separated list for a match,
             // return true if one is found.
             for (String emergencyNum : numbers.split(",")) {
-<<<<<<< HEAD
                 // It is not possible to append additional digits to an emergency number to dial
                 // the number in Brazil - it won't connect.
                 if (useExactMatch || "BR".equalsIgnoreCase(defaultCountryIso)) {
@@ -2156,17 +1705,12 @@ public class PhoneNumberUtils
                     if (number.startsWith(emergencyNum)) {
                         return true;
                     }
-=======
-                if (emergencyNum.equals(number)) {
-                    return true;
->>>>>>> 54b6cfa... Initial Contribution
                 }
             }
             // no matches found against the list!
             return false;
         }
 
-<<<<<<< HEAD
         Log.d(LOG_TAG, "System property doesn't provide any emergency numbers."
                 + " Use embedded logic for determining ones.");
 
@@ -2294,10 +1838,6 @@ public class PhoneNumberUtils
         // compare tolerates null so we need to make sure that we
         // don't return true when both are null.
         return !TextUtils.isEmpty(number) && compare(number, vmNumber);
-=======
-        //no ecclist system property, so use our own list.
-        return (number.equals("112") || number.equals("911"));
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -2360,7 +1900,6 @@ public class PhoneNumberUtils
         KEYPAD_MAP.put('w', '9'); KEYPAD_MAP.put('x', '9'); KEYPAD_MAP.put('y', '9'); KEYPAD_MAP.put('z', '9');
         KEYPAD_MAP.put('W', '9'); KEYPAD_MAP.put('X', '9'); KEYPAD_MAP.put('Y', '9'); KEYPAD_MAP.put('Z', '9');
     }
-<<<<<<< HEAD
 
     //================ Plus Code formatting =========================
     private static final char PLUS_SIGN_CHAR = '+';
@@ -2999,6 +2538,4 @@ public class PhoneNumberUtils
     }
 
     //==== End of utility methods used only in compareStrictly() =====
-=======
->>>>>>> 54b6cfa... Initial Contribution
 }

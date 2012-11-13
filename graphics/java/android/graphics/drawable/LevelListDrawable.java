@@ -26,7 +26,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 /**
-<<<<<<< HEAD
  * A resource that manages a number of alternate Drawables, each assigned a maximum numerical value.
  * Setting the level value of the object with {@link #setLevel(int)} will load the image with the next
  * greater or equal value assigned to its max attribute.
@@ -62,21 +61,6 @@ public class LevelListDrawable extends DrawableContainer {
 
     public LevelListDrawable() {
         this(null, null);
-=======
- * 
- * A resource that contains a number of alternate images, each assigned a maximum numerical value. 
- * Setting the level value of the object with {@link #setLevel(int)} will load the image with the next 
- * greater or equal value assigned to its max attribute. See <a href="{@docRoot}reference/available-resources.html#levellistdrawable">
- * Level List</a> in the Resources topic to learn how to specify this type as an XML resource. A good example use of 
- * a LevelListDrawable would be a battery level indicator icon, with different images to indicate the current
- * battery level.
- *
- */
-public class LevelListDrawable extends DrawableContainer {
-    public LevelListDrawable()
-    {
-        this(null);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void addLevel(int low, int high, Drawable drawable) {
@@ -86,11 +70,7 @@ public class LevelListDrawable extends DrawableContainer {
             onLevelChange(getLevel());
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     // overrides from Drawable
 
     @Override
@@ -101,7 +81,6 @@ public class LevelListDrawable extends DrawableContainer {
         }
         return super.onLevelChange(level);
     }
-<<<<<<< HEAD
 
     @Override
     public void inflate(Resources r, XmlPullParser parser, AttributeSet attrs)
@@ -109,31 +88,15 @@ public class LevelListDrawable extends DrawableContainer {
 
         super.inflate(r, parser, attrs);
 
-=======
-    
-    @Override public void inflate(Resources r, XmlPullParser parser,
-            AttributeSet attrs)
-    throws XmlPullParserException, IOException {
-        super.inflate(r, parser, attrs);
-        
->>>>>>> 54b6cfa... Initial Contribution
         int type;
 
         int low = 0;
 
-<<<<<<< HEAD
         final int innerDepth = parser.getDepth() + 1;
         int depth;
         while ((type = parser.next()) != XmlPullParser.END_DOCUMENT
                 && ((depth = parser.getDepth()) >= innerDepth
                 || type != XmlPullParser.END_TAG)) {
-=======
-        final int innerDepth = parser.getDepth()+1;
-        int depth;
-        while ((type=parser.next()) != XmlPullParser.END_DOCUMENT
-               && ((depth=parser.getDepth()) >= innerDepth
-                       || type != XmlPullParser.END_TAG)) {
->>>>>>> 54b6cfa... Initial Contribution
             if (type != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -141,24 +104,16 @@ public class LevelListDrawable extends DrawableContainer {
             if (depth > innerDepth || !parser.getName().equals("item")) {
                 continue;
             }
-<<<<<<< HEAD
 
             TypedArray a = r.obtainAttributes(attrs,
                     com.android.internal.R.styleable.LevelListDrawableItem);
 
-=======
-            
-            TypedArray a = r.obtainAttributes(attrs,
-                    com.android.internal.R.styleable.LevelListDrawableItem);
-            
->>>>>>> 54b6cfa... Initial Contribution
             low = a.getInt(
                     com.android.internal.R.styleable.LevelListDrawableItem_minLevel, 0);
             int high = a.getInt(
                     com.android.internal.R.styleable.LevelListDrawableItem_maxLevel, 0);
             int drawableRes = a.getResourceId(
                     com.android.internal.R.styleable.LevelListDrawableItem_drawable, 0);
-<<<<<<< HEAD
 
             a.recycle();
 
@@ -167,51 +122,27 @@ public class LevelListDrawable extends DrawableContainer {
                         + ": <item> tag requires a 'maxLevel' attribute");
             }
 
-=======
-            
-            a.recycle();
-            
-            if (high < 0) {
-                throw new XmlPullParserException(parser.getPositionDescription()
-                    + ": <item> tag requires a 'maxLevel' attribute");
-            }
-            
->>>>>>> 54b6cfa... Initial Contribution
             Drawable dr;
             if (drawableRes != 0) {
                 dr = r.getDrawable(drawableRes);
             } else {
-<<<<<<< HEAD
                 while ((type = parser.next()) == XmlPullParser.TEXT) {
-=======
-                while ((type=parser.next()) == XmlPullParser.TEXT) {
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 if (type != XmlPullParser.START_TAG) {
                     throw new XmlPullParserException(
                             parser.getPositionDescription()
-<<<<<<< HEAD
                                     + ": <item> tag requires a 'drawable' attribute or "
                                     + "child tag defining a drawable");
-=======
-                            + ": <item> tag requires a 'drawable' attribute or "
-                            + "child tag defining a drawable");
->>>>>>> 54b6cfa... Initial Contribution
                 }
                 dr = Drawable.createFromXmlInner(r, parser, attrs);
             }
 
             mLevelListState.addLevel(low, high, dr);
-<<<<<<< HEAD
-=======
-            low = high+1;
->>>>>>> 54b6cfa... Initial Contribution
         }
 
         onLevelChange(getLevel());
     }
 
-<<<<<<< HEAD
     @Override
     public Drawable mutate() {
         if (!mMutated && super.mutate() == this) {
@@ -228,13 +159,6 @@ public class LevelListDrawable extends DrawableContainer {
 
         LevelListState(LevelListState orig, LevelListDrawable owner, Resources res) {
             super(orig, owner, res);
-=======
-    private final static class LevelListState extends DrawableContainerState
-    {
-        LevelListState(LevelListState orig, LevelListDrawable owner)
-        {
-            super(orig, owner);
->>>>>>> 54b6cfa... Initial Contribution
 
             if (orig != null) {
                 mLows = orig.mLows;
@@ -245,31 +169,17 @@ public class LevelListDrawable extends DrawableContainer {
             }
         }
 
-<<<<<<< HEAD
         public void addLevel(int low, int high, Drawable drawable) {
-=======
-        public void addLevel(int low, int high, Drawable drawable)
-        {
->>>>>>> 54b6cfa... Initial Contribution
             int pos = addChild(drawable);
             mLows[pos] = low;
             mHighs[pos] = high;
         }
 
-<<<<<<< HEAD
         public int indexOfLevel(int level) {
             final int[] lows = mLows;
             final int[] highs = mHighs;
             final int N = getChildCount();
             for (int i = 0; i < N; i++) {
-=======
-        public int indexOfLevel(int level)
-        {
-            final int[] lows = mLows;
-            final int[] highs = mHighs;
-            final int N = getChildCount();
-            for (int i=0; i<N; i++) {
->>>>>>> 54b6cfa... Initial Contribution
                 if (level >= lows[i] && level <= highs[i]) {
                     return i;
                 }
@@ -278,7 +188,6 @@ public class LevelListDrawable extends DrawableContainer {
         }
 
         @Override
-<<<<<<< HEAD
         public Drawable newDrawable() {
             return new LevelListDrawable(this, null);
         }
@@ -290,16 +199,6 @@ public class LevelListDrawable extends DrawableContainer {
 
         @Override
         public void growArray(int oldSize, int newSize) {
-=======
-        public Drawable newDrawable()
-        {
-            return new LevelListDrawable(this);
-        }
-
-        @Override
-        public void growArray(int oldSize, int newSize)
-        {
->>>>>>> 54b6cfa... Initial Contribution
             super.growArray(oldSize, newSize);
             int[] newInts = new int[newSize];
             System.arraycopy(mLows, 0, newInts, 0, oldSize);
@@ -308,29 +207,13 @@ public class LevelListDrawable extends DrawableContainer {
             System.arraycopy(mHighs, 0, newInts, 0, oldSize);
             mHighs = newInts;
         }
-<<<<<<< HEAD
     }
 
     private LevelListDrawable(LevelListState state, Resources res) {
         LevelListState as = new LevelListState(state, this, res);
-=======
-
-        private int[]   mLows;
-        private int[]   mHighs;
-    }
-
-    private LevelListDrawable(LevelListState state)
-    {
-        LevelListState as = new LevelListState(state, this);
->>>>>>> 54b6cfa... Initial Contribution
         mLevelListState = as;
         setConstantState(as);
         onLevelChange(getLevel());
     }
-<<<<<<< HEAD
-=======
-
-    private final LevelListState mLevelListState;
->>>>>>> 54b6cfa... Initial Contribution
 }
 

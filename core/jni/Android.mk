@@ -11,7 +11,6 @@ else
 	LOCAL_CFLAGS += -DPACKED=""
 endif
 
-<<<<<<< HEAD
 ifeq ($(WITH_JIT),true)
 	LOCAL_CFLAGS += -DWITH_JIT
 endif
@@ -67,35 +66,10 @@ LOCAL_SRC_FILES:= \
 	android_os_MessageQueue.cpp \
 	android_os_ParcelFileDescriptor.cpp \
 	android_os_Parcel.cpp \
-=======
-LOCAL_SRC_FILES:= \
-	ActivityManager.cpp \
-	AndroidRuntime.cpp \
-	CursorWindow.cpp \
-	com_google_android_gles_jni_EGLImpl.cpp \
-	com_google_android_gles_jni_GLImpl.cpp.arm \
-	android_database_CursorWindow.cpp \
-	android_database_SQLiteDebug.cpp \
-	android_database_SQLiteDatabase.cpp \
-	android_database_SQLiteProgram.cpp \
-	android_database_SQLiteQuery.cpp \
-	android_database_SQLiteStatement.cpp \
-	android_view_Display.cpp \
-	android_view_Surface.cpp \
-	android_view_ViewRoot.cpp \
-	android_text_AndroidCharacter.cpp \
-	android_text_KeyCharacterMap.cpp \
-	android_os_Debug.cpp \
-	android_os_Exec.cpp \
-	android_os_FileUtils.cpp \
-	android_os_MemoryFile.cpp \
-	android_os_ParcelFileDescriptor.cpp \
->>>>>>> 54b6cfa... Initial Contribution
 	android_os_Power.cpp \
 	android_os_StatFs.cpp \
 	android_os_SystemClock.cpp \
 	android_os_SystemProperties.cpp \
-<<<<<<< HEAD
 	android_os_Trace.cpp \
 	android_os_UEventObserver.cpp \
 	android_net_LocalSocketImpl.cpp \
@@ -104,18 +78,6 @@ LOCAL_SRC_FILES:= \
 	android_net_wifi_Wifi.cpp \
 	android_nio_utils.cpp \
 	android_text_format_Time.cpp \
-=======
-	android_os_UEventObserver.cpp \
-	android_os_NetStat.cpp \
-	android_os_Hardware.cpp \
-	android_net_LocalSocketImpl.cpp \
-	android_net_NetUtils.cpp \
-	android_net_wifi_Wifi.cpp \
-	android_nio_utils.cpp \
-	android_pim_EventRecurrence.cpp \
-	android_pim_Time.cpp \
-	android_security_Md5MessageDigest.cpp \
->>>>>>> 54b6cfa... Initial Contribution
 	android_util_AssetManager.cpp \
 	android_util_Binder.cpp \
 	android_util_EventLog.cpp \
@@ -124,11 +86,7 @@ LOCAL_SRC_FILES:= \
 	android_util_Process.cpp \
 	android_util_StringBlock.cpp \
 	android_util_XmlBlock.cpp \
-<<<<<<< HEAD
 	android/graphics/AutoDecodeCancel.cpp \
-=======
-	android_util_Base64.cpp \
->>>>>>> 54b6cfa... Initial Contribution
 	android/graphics/Bitmap.cpp \
 	android/graphics/BitmapFactory.cpp \
 	android/graphics/Camera.cpp \
@@ -137,24 +95,15 @@ LOCAL_SRC_FILES:= \
 	android/graphics/DrawFilter.cpp \
 	android/graphics/CreateJavaOutputStreamAdaptor.cpp \
 	android/graphics/Graphics.cpp \
-<<<<<<< HEAD
 	android/graphics/HarfbuzzSkia.cpp \
-=======
->>>>>>> 54b6cfa... Initial Contribution
 	android/graphics/Interpolator.cpp \
 	android/graphics/LayerRasterizer.cpp \
 	android/graphics/MaskFilter.cpp \
 	android/graphics/Matrix.cpp \
 	android/graphics/Movie.cpp \
-<<<<<<< HEAD
 	android/graphics/NinePatch.cpp \
 	android/graphics/NinePatchImpl.cpp \
 	android/graphics/NinePatchPeeker.cpp \
-=======
-	android/graphics/NIOBuffer.cpp \
-	android/graphics/NinePatch.cpp \
-	android/graphics/NinePatchImpl.cpp \
->>>>>>> 54b6cfa... Initial Contribution
 	android/graphics/Paint.cpp \
 	android/graphics/Path.cpp \
 	android/graphics/PathMeasure.cpp \
@@ -162,7 +111,6 @@ LOCAL_SRC_FILES:= \
 	android_graphics_PixelFormat.cpp \
 	android/graphics/Picture.cpp \
 	android/graphics/PorterDuff.cpp \
-<<<<<<< HEAD
 	android/graphics/BitmapRegionDecoder.cpp \
 	android/graphics/Rasterizer.cpp \
 	android/graphics/Region.cpp \
@@ -185,22 +133,10 @@ LOCAL_SRC_FILES:= \
 	android_hardware_UsbDevice.cpp \
 	android_hardware_UsbDeviceConnection.cpp \
 	android_hardware_UsbRequest.cpp \
-=======
-	android/graphics/Rasterizer.cpp \
-	android/graphics/Region.cpp \
-	android/graphics/Shader.cpp \
-	android/graphics/Typeface.cpp \
-	android/graphics/Xfermode.cpp \
-	android_media_AudioSystem.cpp \
-	android_media_ToneGenerator.cpp \
-	android_hardware_Camera.cpp \
-	android_hardware_SensorManager.cpp \
->>>>>>> 54b6cfa... Initial Contribution
 	android_debug_JNITest.cpp \
 	android_util_FileObserver.cpp \
 	android/opengl/poly_clip.cpp.arm \
 	android/opengl/util.cpp.arm \
-<<<<<<< HEAD
 	android_bluetooth_HeadsetBase.cpp \
 	android_bluetooth_common.cpp \
 	android_bluetooth_BluetoothAudioGateway.cpp \
@@ -221,26 +157,10 @@ LOCAL_SRC_FILES:= \
 	android_content_res_ObbScanner.cpp \
 	android_content_res_Configuration.cpp \
     android_animation_PropertyValuesHolder.cpp
-=======
-	android_bluetooth_Database.cpp \
-	android_bluetooth_HeadsetBase.cpp \
-	android_bluetooth_common.cpp \
-	android_bluetooth_BluetoothAudioGateway.cpp \
-	android_bluetooth_RfcommSocket.cpp \
-	android_bluetooth_ScoSocket.cpp \
-	android_server_BluetoothDeviceService.cpp \
-	android_server_BluetoothEventLoop.cpp \
-	android_message_digest_sha1.cpp \
-	android_ddm_DdmHandleNativeHeap.cpp \
-	android_location_GpsLocationProvider.cpp \
-	com_android_internal_os_ZygoteInit.cpp \
-	com_android_internal_graphics_NativeUtils.cpp
->>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_C_INCLUDES += \
 	$(JNI_H_INCLUDE) \
 	$(LOCAL_PATH)/android/graphics \
-<<<<<<< HEAD
 	$(LOCAL_PATH)/../../libs/hwui \
 	$(LOCAL_PATH)/../../../native/opengl/libs \
 	$(call include-path-for, bluedroid) \
@@ -252,12 +172,6 @@ LOCAL_C_INCLUDES += \
 	external/skia/include/images \
 	external/skia/src/ports \
 	external/skia/include/utils \
-=======
-	$(call include-path-for, corecg graphics) \
-	$(call include-path-for, libhardware)/hardware \
-	$(LOCAL_PATH)/../../include/ui \
-	$(LOCAL_PATH)/../../include/utils \
->>>>>>> 54b6cfa... Initial Contribution
 	external/sqlite/dist \
 	external/sqlite/android \
 	external/expat/lib \
@@ -265,7 +179,6 @@ LOCAL_C_INCLUDES += \
 	external/tremor/Tremor \
 	external/icu4c/i18n \
 	external/icu4c/common \
-<<<<<<< HEAD
 	external/jpeg \
 	external/harfbuzz/contrib \
 	external/harfbuzz/src \
@@ -275,15 +188,10 @@ LOCAL_C_INCLUDES += \
 
 LOCAL_SHARED_LIBRARIES := \
 	libandroidfw \
-=======
-
-LOCAL_SHARED_LIBRARIES := \
->>>>>>> 54b6cfa... Initial Contribution
 	libexpat \
 	libnativehelper \
 	libcutils \
 	libutils \
-<<<<<<< HEAD
 	libbinder \
 	libnetutils \
 	libui \
@@ -298,22 +206,11 @@ LOCAL_SHARED_LIBRARIES := \
 	libETC1 \
 	libhardware \
 	libhardware_legacy \
-=======
-	libnetutils \
-	libui \
-	libsgl \
-	libcorecg \
-	libsqlite \
-	libdvm \
-	libGLES_CM \
-	libhardware \
->>>>>>> 54b6cfa... Initial Contribution
 	libsonivox \
 	libcrypto \
 	libssl \
 	libicuuc \
 	libicui18n \
-<<<<<<< HEAD
 	libmedia \
 	libmedia_native \
 	libwpa_client \
@@ -325,25 +222,15 @@ LOCAL_SHARED_LIBRARIES := \
 ifeq ($(USE_OPENGL_RENDERER),true)
 	LOCAL_SHARED_LIBRARIES += libhwui
 endif
-=======
-	libicudata \
-	libmedia \
-	libwpa_client
->>>>>>> 54b6cfa... Initial Contribution
 
 ifeq ($(BOARD_HAVE_BLUETOOTH),true)
 LOCAL_C_INCLUDES += \
 	external/dbus \
-<<<<<<< HEAD
 	system/bluetooth/bluez-clean-headers
-=======
-	external/bluez/libs/include
->>>>>>> 54b6cfa... Initial Contribution
 LOCAL_CFLAGS += -DHAVE_BLUETOOTH
 LOCAL_SHARED_LIBRARIES += libbluedroid libdbus
 endif
 
-<<<<<<< HEAD
 LOCAL_SHARED_LIBRARIES += \
 	libdl
 # we need to access the private Bionic header
@@ -352,21 +239,6 @@ LOCAL_CFLAGS += -I$(LOCAL_PATH)/../../../../bionic/libc/private
 
 LOCAL_LDLIBS += -lpthread -ldl
 
-=======
-ifeq ($(TARGET_ARCH),arm)
-LOCAL_SHARED_LIBRARIES += \
-	libdl
-endif
-
-LOCAL_LDLIBS += -lpthread -ldl
-
-ifeq ($(TARGET_OS),linux)
-ifeq ($(TARGET_ARCH),x86)
-LOCAL_LDLIBS += -lrt
-endif
-endif
-
->>>>>>> 54b6cfa... Initial Contribution
 ifeq ($(WITH_MALLOC_LEAK_CHECK),true)
 	LOCAL_CFLAGS += -DMALLOC_LEAK_CHECK
 endif
@@ -375,8 +247,4 @@ LOCAL_MODULE:= libandroid_runtime
 
 include $(BUILD_SHARED_LIBRARY)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 54b6cfa... Initial Contribution
 include $(call all-makefiles-under,$(LOCAL_PATH))

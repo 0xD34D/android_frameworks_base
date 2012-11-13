@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD
-=======
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Arrays;
->>>>>>> 54b6cfa... Initial Contribution
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
-<<<<<<< HEAD
-=======
-import java.util.Collections;
-import java.util.TreeSet;
->>>>>>> 54b6cfa... Initial Contribution
 import java.io.Serializable;
 
 /**
@@ -39,62 +28,6 @@ class Proc implements Serializable {
 
     private static final long serialVersionUID = 0;
 
-<<<<<<< HEAD
-=======
-    /**
-     * Default percentage of time to cut off of app class loading times.
-     */
-    static final int PERCENTAGE_TO_PRELOAD = 75;
-
-    /**
-     * Maximum number of classes to preload for a given process.
-     */
-    static final int MAX_TO_PRELOAD = 100;
-
-    /** Name of system server process. */
-    private static final String SYSTEM_SERVER = "system_server";
-
-    /** Names of non-application processes. */
-    private static final Set<String> NOT_FROM_ZYGOTE
-            = new HashSet<String>(Arrays.asList(
-                    "zygote",
-                    "dexopt",
-                    "unknown",
-                    SYSTEM_SERVER,
-                    "com.android.development",
-                    "app_process" // am
-            ));
-
-    /** Long running services. */
-    private static final Set<String> SERVICES
-            = new HashSet<String>(Arrays.asList(
-                    SYSTEM_SERVER,
-                    "com.android.home",
-// Commented out to make sure DefaultTimeZones gets preloaded.
-//                    "com.android.phone",
-                    "com.google.process.content",
-                    "com.android.process.media"
-            ));
-
-    /**
-     * Classes which we shouldn't load from the Zygote.
-     */
-    static final Set<String> EXCLUDED_CLASSES
-            = new HashSet<String>(Arrays.asList(
-        // Binders
-        "android.app.AlarmManager",
-        "android.app.SearchManager",
-        "android.os.FileObserver",
-        "com.android.server.PackageManagerService$AppDirObserver",
-
-        // Threads
-        "java.lang.ProcessManager",
-
-        // This class was deleted.
-        "java.math.Elementary"
-    ));
-
->>>>>>> 54b6cfa... Initial Contribution
     /** Parent process. */
     final Proc parent;
 
@@ -140,91 +73,11 @@ class Proc implements Serializable {
     }
 
     /**
-<<<<<<< HEAD
      * Returns true if this process comes from the zygote.
      */
     public boolean fromZygote() {
         return parent != null && parent.name.equals("zygote")
                 && !name.equals("com.android.development");
-=======
-     * Returns the percentage of time we should cut by preloading for this
-     * app.
-     */
-    int percentageToPreload() {
-        return PERCENTAGE_TO_PRELOAD;
-    }
-
-    /**
-     * Is this a long running process?
-     */
-    boolean isService() {
-        return SERVICES.contains(this.name);
-    }
-
-    /**
-     * Returns a list of classes which should be preloaded.
-     */
-    List<LoadedClass> highestRankedClasses() {
-        if (NOT_FROM_ZYGOTE.contains(this.name)) {
-            return Collections.emptyList();
-        }
-
-        // Sort by rank.
-        Operation[] ranked = new Operation[operations.size()];
-        ranked = operations.toArray(ranked);
-        Arrays.sort(ranked, new ClassRank());
-
-        // The percentage of time to save by preloading.
-        int timeToSave = totalTimeMicros() * percentageToPreload() / 100;
-        int timeSaved = 0;
-
-        boolean service = isService();
-
-        List<LoadedClass> highest = new ArrayList<LoadedClass>();
-        for (Operation operation : ranked) {
-            if (highest.size() >= MAX_TO_PRELOAD) {
-                System.out.println(name + " got "
-                        + (timeSaved * 100 / timeToSave) + "% through");
-
-                break;
-            }
-
-            if (timeSaved >= timeToSave) {
-                break;
-            }
-
-            if (EXCLUDED_CLASSES.contains(operation.loadedClass.name)
-                    || !operation.loadedClass.systemClass) {
-                continue;
-            }
-
-            // Only load java.* class for services.
-            if (!service || operation.loadedClass.name.startsWith("java.")) {
-                highest.add(operation.loadedClass);
-            }
-
-            // For services, still count the time even if it's not in java.* 
-            timeSaved += operation.medianExclusiveTimeMicros();
-        }
-
-        return highest;
-    }
-
-    /**
-     * Total time spent class loading and initializing.
-     */
-    int totalTimeMicros() {
-        int totalTime = 0;
-        for (Operation operation : operations) {
-            totalTime += operation.medianExclusiveTimeMicros();
-        }
-        return totalTime;
-    }
-
-    /** Returns true if this process is an app. */
-    public boolean isApplication() {
-        return !NOT_FROM_ZYGOTE.contains(name);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**

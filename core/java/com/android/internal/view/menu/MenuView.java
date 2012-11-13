@@ -22,11 +22,7 @@ import com.android.internal.view.menu.MenuItemImpl;
 import android.graphics.drawable.Drawable;
 
 /**
-<<<<<<< HEAD
  * Minimal interface for a menu view.  {@link #initialize(MenuBuilder)} must be called for the
-=======
- * Minimal interface for a menu view.  {@link #initialize(MenuBuilder, int)} must be called for the
->>>>>>> 54b6cfa... Initial Contribution
  * menu to be functional.
  * 
  * @hide
@@ -37,23 +33,8 @@ public interface MenuView {
      * view is inflated.
      * 
      * @param menu The menu that this MenuView should display.
-<<<<<<< HEAD
      */
     public void initialize(MenuBuilder menu);
-=======
-     * @param menuType The type of this menu, one of 
-     *            {@link MenuBuilder#TYPE_ICON}, {@link MenuBuilder#TYPE_EXPANDED},
-     *            {@link MenuBuilder#TYPE_DIALOG}).
-     */
-    public void initialize(MenuBuilder menu, int menuType);
-
-    /**
-     * Forces the menu view to update its view to reflect the new state of the menu.
-     * 
-     * @param cleared Whether the menu was cleared or just modified.
-     */
-    public void updateChildren(boolean cleared);
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Returns the default animations to be used for this menu when entering/exiting.

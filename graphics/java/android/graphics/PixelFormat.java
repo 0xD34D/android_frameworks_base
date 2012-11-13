@@ -18,12 +18,7 @@ package android.graphics;
 
 public class PixelFormat
 {
-<<<<<<< HEAD
     /* these constants need to match those in hardware/hardware.h */
-=======
-    /* these constants need to match those
-       in ui/PixelFormat.h & pixelflinger/format.h */
->>>>>>> 54b6cfa... Initial Contribution
     
     public static final int UNKNOWN     = 0;
 
@@ -44,7 +39,6 @@ public class PixelFormat
     public static final int RGB_888     = 3;
     public static final int RGB_565     = 4;
 
-<<<<<<< HEAD
     @Deprecated
     public static final int RGBA_5551   = 6;
     @Deprecated
@@ -83,25 +77,6 @@ public class PixelFormat
      * ImageFormat.JPEG} instead.
      */
     @Deprecated
-=======
-    public static final int RGBA_5551   = 6;
-    public static final int RGBA_4444   = 7;
-    public static final int A_8         = 8;
-    public static final int L_8         = 9;
-    public static final int LA_88       = 0xA;
-    public static final int RGB_332     = 0xB;
-    
-    /**
-     * YCbCr formats, used for video. These are not necessarily supported
-     * by the hardware.
-     */
-    public static final int YCbCr_422_SP= 0x10;
-    public static final int YCbCr_420_SP= 0x11;
-
-    /**
-     * Encoded formats.  These are not necessarily supported by the hardware.
-     */
->>>>>>> 54b6cfa... Initial Contribution
     public static final int JPEG        = 0x100;
 
     /*

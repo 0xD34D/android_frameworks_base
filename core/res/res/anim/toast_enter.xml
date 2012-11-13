@@ -19,11 +19,6 @@
 -->
 
 <alpha xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
         android:interpolator="@interpolator/decelerate_quad"
         android:fromAlpha="0.0" android:toAlpha="1.0"
         android:duration="@android:integer/config_longAnimTime" />
-=======
-        android:interpolator="@anim/decelerate_interpolator"
-        android:fromAlpha="0.0" android:toAlpha="1.0" android:duration="400" />
->>>>>>> 54b6cfa... Initial Contribution

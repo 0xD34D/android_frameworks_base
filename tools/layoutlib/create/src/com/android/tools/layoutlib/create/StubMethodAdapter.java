@@ -27,19 +27,11 @@ import org.objectweb.asm.Type;
  * This method adapter rewrites a method by discarding the original code and generating
  * a stub depending on the return type. Original annotations are passed along unchanged.
  */
-<<<<<<< HEAD
 class StubMethodAdapter extends MethodVisitor {
 
     private static String CONSTRUCTOR = "<init>";
     private static String CLASS_INIT = "<clinit>";
 
-=======
-class StubMethodAdapter implements MethodVisitor {
-
-    private static String CONSTRUCTOR = "<init>";
-    private static String CLASS_INIT = "<clinit>";
-    
->>>>>>> 54b6cfa... Initial Contribution
     /** The parent method writer */
     private MethodVisitor mParentVisitor;
     /** The method return type. Can be null. */
@@ -48,42 +40,27 @@ class StubMethodAdapter implements MethodVisitor {
     private String mInvokeSignature;
     /** Flag to output the first line number. */
     private boolean mOutputFirstLineNumber = true;
-<<<<<<< HEAD
     /** Flag that is true when implementing a constructor, to accept all original
-=======
-    /** Flag that is true when implementing a constructor, to accept all original 
->>>>>>> 54b6cfa... Initial Contribution
      *  code calling the original super constructor. */
     private boolean mIsInitMethod = false;
 
     private boolean mMessageGenerated;
     private final boolean mIsStatic;
-<<<<<<< HEAD
     private final boolean mIsNative;
 
     public StubMethodAdapter(MethodVisitor mv, String methodName, Type returnType,
             String invokeSignature, boolean isStatic, boolean isNative) {
         super(Opcodes.ASM4);
-=======
-
-    public StubMethodAdapter(MethodVisitor mv, String methodName, Type returnType,
-            String invokeSignature, boolean isStatic) {
->>>>>>> 54b6cfa... Initial Contribution
         mParentVisitor = mv;
         mReturnType = returnType;
         mInvokeSignature = invokeSignature;
         mIsStatic = isStatic;
-<<<<<<< HEAD
         mIsNative = isNative;
 
-=======
-        
->>>>>>> 54b6cfa... Initial Contribution
         if (CONSTRUCTOR.equals(methodName) || CLASS_INIT.equals(methodName)) {
             mIsInitMethod = true;
         }
     }
-<<<<<<< HEAD
 
     private void generateInvoke() {
         /* Generates the code:
@@ -106,36 +83,6 @@ class StubMethodAdapter implements MethodVisitor {
                     "com/android/tools/layoutlib/create/OverrideMethod",
                     "invokeV",
                     "(Ljava/lang/String;ZLjava/lang/Object;)V");
-=======
-    
-    private void generateInvoke() {
-        /* Generates the code:
-         *  OverrideMethod.invoke("signature", this);
-         */
-        mParentVisitor.visitLdcInsn(mInvokeSignature);
-        if (mIsStatic) {
-            mParentVisitor.visitInsn(Opcodes.ACONST_NULL); // push null
-        } else {
-            mParentVisitor.visitVarInsn(Opcodes.ALOAD, 0); // push this
-        }
-        mParentVisitor.visitMethodInsn(Opcodes.INVOKESTATIC,
-                "com/android/tools/layoutlib/create/OverrideMethod",
-                "invoke",
-                "(Ljava/lang/String;Ljava/lang/Object;)V");
-    }
-    
-    private void generateReturn() {
-        /* Generates one of, depending on the return type:
-         *   return;
-         *   return 0;
-         *   return 0L;
-         *   return 0.0f;
-         *   return 0.0;
-         *   return null;
-         */
-        switch(mReturnType != null ? mReturnType.getSort() : Type.VOID) {
-        case Type.VOID:
->>>>>>> 54b6cfa... Initial Contribution
             mParentVisitor.visitInsn(Opcodes.RETURN);
             break;
         case Type.BOOLEAN:
@@ -143,7 +90,6 @@ class StubMethodAdapter implements MethodVisitor {
         case Type.BYTE:
         case Type.SHORT:
         case Type.INT:
-<<<<<<< HEAD
             mParentVisitor.visitMethodInsn(Opcodes.INVOKESTATIC,
                     "com/android/tools/layoutlib/create/OverrideMethod",
                     "invokeI",
@@ -188,26 +134,10 @@ class StubMethodAdapter implements MethodVisitor {
                     "com/android/tools/layoutlib/create/OverrideMethod",
                     "invokeD",
                     "(Ljava/lang/String;ZLjava/lang/Object;)D");
-=======
-            mParentVisitor.visitInsn(Opcodes.ICONST_0);
-            mParentVisitor.visitInsn(Opcodes.IRETURN);
-            break;
-        case Type.LONG:
-            mParentVisitor.visitInsn(Opcodes.LCONST_0);
-            mParentVisitor.visitInsn(Opcodes.LRETURN);
-            break;
-        case Type.FLOAT:
-            mParentVisitor.visitInsn(Opcodes.FCONST_0);
-            mParentVisitor.visitInsn(Opcodes.FRETURN);
-            break;
-        case Type.DOUBLE:
-            mParentVisitor.visitInsn(Opcodes.DCONST_0);
->>>>>>> 54b6cfa... Initial Contribution
             mParentVisitor.visitInsn(Opcodes.DRETURN);
             break;
         case Type.ARRAY:
         case Type.OBJECT:
-<<<<<<< HEAD
             mParentVisitor.visitMethodInsn(Opcodes.INVOKESTATIC,
                     "com/android/tools/layoutlib/create/OverrideMethod",
                     "invokeA",
@@ -244,15 +174,6 @@ class StubMethodAdapter implements MethodVisitor {
 
     /* Pass down to visitor writer. In this implementation, either do nothing. */
     @Override
-=======
-            mParentVisitor.visitInsn(Opcodes.ACONST_NULL);
-            mParentVisitor.visitInsn(Opcodes.ARETURN);
-            break;
-        }
-    }
-
-    /* Pass down to visitor writer. In this implementation, either do nothing. */
->>>>>>> 54b6cfa... Initial Contribution
     public void visitCode() {
         mParentVisitor.visitCode();
     }
@@ -262,42 +183,24 @@ class StubMethodAdapter implements MethodVisitor {
      * For non-constructor, generate the messaging code and the return statement
      * if it hasn't been done before.
      */
-<<<<<<< HEAD
     @Override
     public void visitMaxs(int maxStack, int maxLocals) {
         if (!mIsInitMethod && !mMessageGenerated) {
             generateInvoke();
-=======
-    public void visitMaxs(int maxStack, int maxLocals) {
-        if (!mIsInitMethod && !mMessageGenerated) {
-            generateInvoke();
-            generateReturn();
->>>>>>> 54b6cfa... Initial Contribution
             mMessageGenerated = true;
         }
         mParentVisitor.visitMaxs(maxStack, maxLocals);
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
     /**
      * End of visiting.
      * For non-constructor, generate the messaging code and the return statement
      * if it hasn't been done before.
      */
-<<<<<<< HEAD
     @Override
     public void visitEnd() {
         if (!mIsInitMethod && !mMessageGenerated) {
             generateInvoke();
-=======
-    public void visitEnd() {
-        if (!mIsInitMethod && !mMessageGenerated) {
-            generateInvoke();
-            generateReturn();
->>>>>>> 54b6cfa... Initial Contribution
             mMessageGenerated = true;
             mParentVisitor.visitMaxs(1, 1);
         }
@@ -305,37 +208,25 @@ class StubMethodAdapter implements MethodVisitor {
     }
 
     /* Writes all annotation from the original method. */
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
         return mParentVisitor.visitAnnotation(desc, visible);
     }
 
     /* Writes all annotation default values from the original method. */
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public AnnotationVisitor visitAnnotationDefault() {
         return mParentVisitor.visitAnnotationDefault();
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public AnnotationVisitor visitParameterAnnotation(int parameter, String desc,
             boolean visible) {
         return mParentVisitor.visitParameterAnnotation(parameter, desc, visible);
     }
 
     /* Writes all attributes from the original method. */
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitAttribute(Attribute attr) {
         mParentVisitor.visitAttribute(attr);
     }
@@ -344,10 +235,7 @@ class StubMethodAdapter implements MethodVisitor {
      * Only writes the first line number present in the original code so that source
      * viewers can direct to the correct method, even if the content doesn't match.
      */
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitLineNumber(int line, Label start) {
         if (mIsInitMethod || mOutputFirstLineNumber) {
             mParentVisitor.visitLineNumber(line, start);
@@ -358,10 +246,7 @@ class StubMethodAdapter implements MethodVisitor {
     /**
      * For non-constructor, rewrite existing "return" instructions to write the message.
      */
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitInsn(int opcode) {
         if (mIsInitMethod) {
             switch (opcode) {
@@ -371,7 +256,6 @@ class StubMethodAdapter implements MethodVisitor {
             case Opcodes.FRETURN:
             case Opcodes.IRETURN:
             case Opcodes.LRETURN:
-<<<<<<< HEAD
                 // Pop the last word from the stack since invoke will generate its own return.
                 generatePop();
                 generateInvoke();
@@ -384,105 +268,69 @@ class StubMethodAdapter implements MethodVisitor {
     }
 
     @Override
-=======
-                generateInvoke();
-                mMessageGenerated = true;
-            }
-            mParentVisitor.visitInsn(opcode);
-        }
-    }
-
->>>>>>> 54b6cfa... Initial Contribution
     public void visitLabel(Label label) {
         if (mIsInitMethod) {
             mParentVisitor.visitLabel(label);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitTryCatchBlock(Label start, Label end, Label handler, String type) {
         if (mIsInitMethod) {
             mParentVisitor.visitTryCatchBlock(start, end, handler, type);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitMethodInsn(int opcode, String owner, String name, String desc) {
         if (mIsInitMethod) {
             mParentVisitor.visitMethodInsn(opcode, owner, name, desc);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitFieldInsn(int opcode, String owner, String name, String desc) {
         if (mIsInitMethod) {
             mParentVisitor.visitFieldInsn(opcode, owner, name, desc);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitFrame(int type, int nLocal, Object[] local, int nStack, Object[] stack) {
         if (mIsInitMethod) {
             mParentVisitor.visitFrame(type, nLocal, local, nStack, stack);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitIincInsn(int var, int increment) {
         if (mIsInitMethod) {
             mParentVisitor.visitIincInsn(var, increment);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitIntInsn(int opcode, int operand) {
         if (mIsInitMethod) {
             mParentVisitor.visitIntInsn(opcode, operand);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitJumpInsn(int opcode, Label label) {
         if (mIsInitMethod) {
             mParentVisitor.visitJumpInsn(opcode, label);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitLdcInsn(Object cst) {
         if (mIsInitMethod) {
             mParentVisitor.visitLdcInsn(cst);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitLocalVariable(String name, String desc, String signature,
             Label start, Label end, int index) {
         if (mIsInitMethod) {
@@ -490,58 +338,39 @@ class StubMethodAdapter implements MethodVisitor {
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
         if (mIsInitMethod) {
             mParentVisitor.visitLookupSwitchInsn(dflt, keys, labels);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitMultiANewArrayInsn(String desc, int dims) {
         if (mIsInitMethod) {
             mParentVisitor.visitMultiANewArrayInsn(desc, dims);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitTableSwitchInsn(int min, int max, Label dflt, Label[] labels) {
         if (mIsInitMethod) {
             mParentVisitor.visitTableSwitchInsn(min, max, dflt, labels);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitTypeInsn(int opcode, String type) {
         if (mIsInitMethod) {
             mParentVisitor.visitTypeInsn(opcode, type);
         }
     }
 
-<<<<<<< HEAD
     @Override
-=======
->>>>>>> 54b6cfa... Initial Contribution
     public void visitVarInsn(int opcode, int var) {
         if (mIsInitMethod) {
             mParentVisitor.visitVarInsn(opcode, var);
         }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 54b6cfa... Initial Contribution
 }

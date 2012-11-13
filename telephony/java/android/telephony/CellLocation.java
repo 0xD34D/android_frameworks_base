@@ -19,7 +19,6 @@ package android.telephony;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.ServiceManager;
-<<<<<<< HEAD
 import android.os.SystemProperties;
 import android.provider.Settings;
 
@@ -31,14 +30,6 @@ import com.android.internal.telephony.Phone;
 
 /**
  * Abstract class that represents the location of the device.  {@more}
-=======
-import android.telephony.gsm.GsmCellLocation;
-import com.android.internal.telephony.ITelephony;
-
-/**
- * Abstract class that represents the location of the device.  Currently the only
- * subclass is {@link android.telephony.gsm.GsmCellLocation}.  {@more}
->>>>>>> 54b6cfa... Initial Contribution
  */
 public abstract class CellLocation {
 
@@ -70,7 +61,6 @@ public abstract class CellLocation {
      * @hide
      */
     public static CellLocation newFromBundle(Bundle bundle) {
-<<<<<<< HEAD
         // TelephonyManager.getDefault().getCurrentPhoneType() handles the case when
         // ITelephony interface is not up yet.
         switch(TelephonyManager.getDefault().getCurrentPhoneType()) {
@@ -81,9 +71,6 @@ public abstract class CellLocation {
         default:
             return null;
         }
-=======
-        return new GsmCellLocation(bundle);
->>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -92,7 +79,6 @@ public abstract class CellLocation {
     public abstract void fillInNotifierBundle(Bundle bundle);
 
     /**
-<<<<<<< HEAD
      * @hide
      */
     public abstract boolean isEmpty();
@@ -113,11 +99,5 @@ public abstract class CellLocation {
         default:
             return null;
         }
-=======
-     * Return a new CellLocation object representing an unknown location.
-     */
-    public static CellLocation getEmpty() {
-        return new GsmCellLocation();
->>>>>>> 54b6cfa... Initial Contribution
     }
 }

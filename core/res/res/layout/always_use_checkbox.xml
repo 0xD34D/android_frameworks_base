@@ -16,7 +16,6 @@
 
 <!-- Check box that is displayed in the activity resolver UI for the user
      to make their selection the preferred activity. -->
-<<<<<<< HEAD
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -29,23 +28,10 @@
         android:id="@+id/alwaysUse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-=======
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-    
-    <CheckBox
-        android:id="@+id/alwaysUse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
->>>>>>> 54b6cfa... Initial Contribution
         android:focusable="true"
         android:clickable="true" />
     
     <TextView 
-<<<<<<< HEAD
         android:id="@+id/clearDefaultHint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,24 +40,3 @@
         android:visibility="gone"
         android:text="@string/clearDefaultHintMsg" />
 </LinearLayout>
-=======
-        android:id="@+id/useDefaultText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingLeft="6dip"
-        android:layout_toRightOf="@id/alwaysUse"
-        android:text="@string/alwaysUse" />
-
-    <TextView 
-        android:id="@+id/clearDefaultHint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:paddingLeft="6dip"
-        android:visibility="gone"
-        android:layout_below="@id/useDefaultText"
-        android:layout_toRightOf="@id/alwaysUse"
-        android:text="@string/clearDefaultHintMsg" />
-</RelativeLayout>
->>>>>>> 54b6cfa... Initial Contribution

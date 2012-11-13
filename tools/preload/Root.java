@@ -46,11 +46,7 @@ public class Root implements Serializable {
     final Map<String, LoadedClass> loadedClasses
             = new HashMap<String, LoadedClass>();
 
-<<<<<<< HEAD
     MemoryUsage baseline = MemoryUsage.baseline();
-=======
-    final MemoryUsage baseline = MemoryUsage.baseline();
->>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Records class loads and initializations.

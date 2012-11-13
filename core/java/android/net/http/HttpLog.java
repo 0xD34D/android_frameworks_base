@@ -23,10 +23,6 @@ package android.net.http;
 import android.os.SystemClock;
 
 import android.util.Log;
-<<<<<<< HEAD
-=======
-import android.util.Config;
->>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * {@hide}
@@ -35,11 +31,7 @@ class HttpLog {
     private final static String LOGTAG = "http";
 
     private static final boolean DEBUG = false;
-<<<<<<< HEAD
     static final boolean LOGV = false;
-=======
-    static final boolean LOGV = DEBUG ? Config.LOGD : Config.LOGV;
->>>>>>> 54b6cfa... Initial Contribution
 
     static void v(String logMe) {
         Log.v(LOGTAG, SystemClock.uptimeMillis() + " " + Thread.currentThread().getName() + " " + logMe);
