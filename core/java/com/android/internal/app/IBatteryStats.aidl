@@ -16,6 +16,7 @@
 
 package com.android.internal.app;
 
+<<<<<<< HEAD
 import com.android.internal.os.BatteryStatsImpl;
 
 import android.os.WorkSource;
@@ -70,6 +71,12 @@ interface IBatteryStats {
     void noteWifiMulticastDisabledFromSource(in WorkSource ws);
     void noteNetworkInterfaceType(String iface, int type);
     void setBatteryState(int status, int health, int plugType, int level, int temp, int volt);
+=======
+interface IBatteryStats {
+    void noteStartWakelock(int uid, String name, int type);
+    void noteStopWakelock(int uid, String name, int type);
+    void setOnBattery(boolean onBattery);
+>>>>>>> 54b6cfa... Initial Contribution
     long getAwakeTimeBattery();
     long getAwakeTimePlugged();
 }

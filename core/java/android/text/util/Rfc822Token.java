@@ -114,7 +114,11 @@ public class Rfc822Token {
         for (int i = 0; i < len; i++) {
             char c = name.charAt(i);
 
+<<<<<<< HEAD
             if (! ((c >= 'A' && c <= 'Z') ||
+=======
+            if (! ((c >= 'A' && i <= 'Z') ||
+>>>>>>> 54b6cfa... Initial Contribution
                    (c >= 'a' && c <= 'z') ||
                    (c == ' ') ||
                    (c >= '0' && c <= '9'))) {
@@ -168,6 +172,7 @@ public class Rfc822Token {
 
         return sb.toString();
     }
+<<<<<<< HEAD
 
     public int hashCode() {
         int result = 17;
@@ -194,5 +199,7 @@ public class Rfc822Token {
                 stringEquals(mAddress, other.mAddress) &&
                 stringEquals(mComment, other.mComment));
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }
 

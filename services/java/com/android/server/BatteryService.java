@@ -17,15 +17,22 @@
 package com.android.server;
 
 import com.android.internal.app.IBatteryStats;
+<<<<<<< HEAD
 import com.android.server.am.BatteryStatsService;
 
 import android.app.ActivityManagerNative;
 import android.content.ContentResolver;
+=======
+import com.android.server.am.BatteryStats;
+
+import android.app.ActivityManagerNative;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.BatteryManager;
 import android.os.Binder;
+<<<<<<< HEAD
 import android.os.FileUtils;
 import android.os.IBinder;
 import android.os.DropBoxManager;
@@ -45,6 +52,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
+=======
+import android.os.RemoteException;
+import android.os.UEventObserver;
+import android.util.Config;
+import android.util.EventLog;
+import android.util.Log;
+
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+import java.lang.String;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * <p>BatteryService monitors the charging status, and charge level of the device
@@ -70,6 +88,7 @@ import java.util.Arrays;
  */
 class BatteryService extends Binder {
     private static final String TAG = BatteryService.class.getSimpleName();
+<<<<<<< HEAD
 
     private static final boolean LOCAL_LOGV = false;
 
@@ -91,6 +110,17 @@ class BatteryService extends Binder {
     private final Context mContext;
     private final IBatteryStats mBatteryStats;
 
+=======
+    
+    static final int LOG_BATTERY_LEVEL = 2722;
+    static final int LOG_BATTERY_STATUS = 2723;
+    
+    static final int BATTERY_SCALE = 100;    // battery capacity is a percentage
+
+    private final Context mContext;
+    private final IBatteryStats mBatteryStats;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private boolean mAcOnline;
     private boolean mUsbOnline;
     private int mBatteryStatus;
@@ -100,8 +130,11 @@ class BatteryService extends Binder {
     private int mBatteryVoltage;
     private int mBatteryTemperature;
     private String mBatteryTechnology;
+<<<<<<< HEAD
     private boolean mBatteryLevelCritical;
     private int mInvalidCharger;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     private int mLastBatteryStatus;
     private int mLastBatteryHealth;
@@ -109,6 +142,7 @@ class BatteryService extends Binder {
     private int mLastBatteryLevel;
     private int mLastBatteryVoltage;
     private int mLastBatteryTemperature;
+<<<<<<< HEAD
     private boolean mLastBatteryLevelCritical;
     private int mLastInvalidCharger;
 
@@ -143,6 +177,17 @@ class BatteryService extends Binder {
         if (new File("/sys/devices/virtual/switch/invalid_charger/state").exists()) {
             mInvalidChargerObserver.startObserving("DEVPATH=/devices/virtual/switch/invalid_charger");
         }
+=======
+    
+    private int mPlugType;
+    private int mLastPlugType;
+    
+    public BatteryService(Context context) {
+        mContext = context;
+        mBatteryStats = BatteryStats.getService();
+
+        mUEventObserver.startObserving("DEVPATH=/class/power_supply");
+>>>>>>> 54b6cfa... Initial Contribution
 
         // set initial status
         update();
@@ -153,6 +198,7 @@ class BatteryService extends Binder {
         return (mAcOnline || mUsbOnline || mBatteryStatus == BatteryManager.BATTERY_STATUS_UNKNOWN);
     }
 
+<<<<<<< HEAD
     final boolean isPowered(int plugTypeSet) {
         // assume we are powered if battery state is unknown so
         // the "stay on while plugged in" option will work.
@@ -177,12 +223,16 @@ class BatteryService extends Binder {
     }
 
     private UEventObserver mPowerSupplyObserver = new UEventObserver() {
+=======
+    private UEventObserver mUEventObserver = new UEventObserver() {
+>>>>>>> 54b6cfa... Initial Contribution
         @Override
         public void onUEvent(UEventObserver.UEvent event) {
             update();
         }
     };
 
+<<<<<<< HEAD
     private UEventObserver mInvalidChargerObserver = new UEventObserver() {
         @Override
         public void onUEvent(UEventObserver.UEvent event) {
@@ -194,11 +244,14 @@ class BatteryService extends Binder {
         }
     };
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // returns battery level as a percentage
     final int getBatteryLevel() {
         return mBatteryLevel;
     }
 
+<<<<<<< HEAD
     void systemReady() {
         // check our power situation now that it is safe to display the shutdown dialog.
         shutdownIfNoPower();
@@ -227,10 +280,13 @@ class BatteryService extends Binder {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private native void native_update();
 
     private synchronized final void update() {
         native_update();
+<<<<<<< HEAD
         processValues();
     }
 
@@ -239,11 +295,14 @@ class BatteryService extends Binder {
         long dischargeDuration = 0;
 
         mBatteryLevelCritical = mBatteryLevel <= mCriticalBatteryLevel;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (mAcOnline) {
             mPlugType = BatteryManager.BATTERY_PLUGGED_AC;
         } else if (mUsbOnline) {
             mPlugType = BatteryManager.BATTERY_PLUGGED_USB;
         } else {
+<<<<<<< HEAD
             mPlugType = BATTERY_PLUGGED_NONE;
         }
         
@@ -259,12 +318,17 @@ class BatteryService extends Binder {
         shutdownIfNoPower();
         shutdownIfOverTemp();
 
+=======
+            mPlugType = 0;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         if (mBatteryStatus != mLastBatteryStatus ||
                 mBatteryHealth != mLastBatteryHealth ||
                 mBatteryPresent != mLastBatteryPresent ||
                 mBatteryLevel != mLastBatteryLevel ||
                 mPlugType != mLastPlugType ||
                 mBatteryVoltage != mLastBatteryVoltage ||
+<<<<<<< HEAD
                 mBatteryTemperature != mLastBatteryTemperature ||
                 mInvalidCharger != mLastInvalidCharger) {
 
@@ -288,17 +352,26 @@ class BatteryService extends Binder {
                     mDischargeStartLevel = mBatteryLevel;
                 }
             }
+=======
+                mBatteryTemperature != mLastBatteryTemperature) {
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (mBatteryStatus != mLastBatteryStatus ||
                     mBatteryHealth != mLastBatteryHealth ||
                     mBatteryPresent != mLastBatteryPresent ||
                     mPlugType != mLastPlugType) {
+<<<<<<< HEAD
                 EventLog.writeEvent(EventLogTags.BATTERY_STATUS,
+=======
+                EventLog.writeEvent(LOG_BATTERY_STATUS,
+>>>>>>> 54b6cfa... Initial Contribution
                         mBatteryStatus, mBatteryHealth, mBatteryPresent ? 1 : 0,
                         mPlugType, mBatteryTechnology);
             }
             if (mBatteryLevel != mLastBatteryLevel ||
                     mBatteryVoltage != mLastBatteryVoltage ||
                     mBatteryTemperature != mLastBatteryTemperature) {
+<<<<<<< HEAD
                 EventLog.writeEvent(EventLogTags.BATTERY_LEVEL,
                         mBatteryLevel, mBatteryVoltage, mBatteryTemperature);
             }
@@ -358,6 +431,12 @@ class BatteryService extends Binder {
                 logOutlier(dischargeDuration);
             }
 
+=======
+                EventLog.writeEvent(LOG_BATTERY_LEVEL,
+                        mBatteryLevel, mBatteryVoltage, mBatteryTemperature);
+            }
+            
+>>>>>>> 54b6cfa... Initial Contribution
             mLastBatteryStatus = mBatteryStatus;
             mLastBatteryHealth = mBatteryHealth;
             mLastBatteryPresent = mBatteryPresent;
@@ -365,14 +444,20 @@ class BatteryService extends Binder {
             mLastPlugType = mPlugType;
             mLastBatteryVoltage = mBatteryVoltage;
             mLastBatteryTemperature = mBatteryTemperature;
+<<<<<<< HEAD
             mLastBatteryLevelCritical = mBatteryLevelCritical;
             mLastInvalidCharger = mInvalidCharger;
+=======
+            
+            sendIntent();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     private final void sendIntent() {
         //  Pack up the values and broadcast them to everyone
         Intent intent = new Intent(Intent.ACTION_BATTERY_CHANGED);
+<<<<<<< HEAD
         intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY
                 | Intent.FLAG_RECEIVER_REPLACE_PENDING);
 
@@ -394,16 +479,47 @@ class BatteryService extends Binder {
             Slog.d(TAG, "level:" + mBatteryLevel +
                     " scale:" + BATTERY_SCALE + " status:" + mBatteryStatus +
                     " health:" + mBatteryHealth +  " present:" + mBatteryPresent +
+=======
+        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        try {
+            mBatteryStats.setOnBattery(mPlugType == 0);
+        } catch (RemoteException e) {
+            // Should never happen.
+        }
+        
+        int icon = getIcon(mBatteryLevel);
+
+        intent.putExtra("status", mBatteryStatus);
+        intent.putExtra("health", mBatteryHealth);
+        intent.putExtra("present", mBatteryPresent);
+        intent.putExtra("level", mBatteryLevel);
+        intent.putExtra("scale", BATTERY_SCALE);
+        intent.putExtra("icon-small", icon);
+        intent.putExtra("plugged", mPlugType);
+        intent.putExtra("voltage", mBatteryVoltage);
+        intent.putExtra("temperature", mBatteryTemperature);
+        intent.putExtra("technology", mBatteryTechnology);
+
+        if (false) {
+            Log.d(TAG, "updateBattery level:" + mBatteryLevel +
+                    " scale:" + BATTERY_SCALE + " status:" + mBatteryStatus + 
+                    " health:" + mBatteryHealth +  " present:" + mBatteryPresent + 
+>>>>>>> 54b6cfa... Initial Contribution
                     " voltage: " + mBatteryVoltage +
                     " temperature: " + mBatteryTemperature +
                     " technology: " + mBatteryTechnology +
                     " AC powered:" + mAcOnline + " USB powered:" + mUsbOnline +
+<<<<<<< HEAD
                     " icon:" + icon  + " invalid charger:" + mInvalidCharger);
+=======
+                    " icon:" + icon );
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         ActivityManagerNative.broadcastStickyIntent(intent, null);
     }
 
+<<<<<<< HEAD
     private final void logBatteryStats() {
         IBinder batteryInfoService = ServiceManager.getService(BATTERY_STATS_SERVICE_NAME);
         if (batteryInfoService == null) return;
@@ -482,6 +598,15 @@ class BatteryService extends Binder {
             } else {
                 return com.android.internal.R.drawable.stat_sys_battery;
             }
+=======
+    private final int getIcon(int level) {
+        if (mBatteryStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
+            return com.android.internal.R.drawable.stat_sys_battery_charge;
+        } else if (mBatteryStatus == BatteryManager.BATTERY_STATUS_DISCHARGING ||
+                mBatteryStatus == BatteryManager.BATTERY_STATUS_NOT_CHARGING ||
+                mBatteryStatus == BatteryManager.BATTERY_STATUS_FULL) {
+            return com.android.internal.R.drawable.stat_sys_battery;
+>>>>>>> 54b6cfa... Initial Contribution
         } else {
             return com.android.internal.R.drawable.stat_sys_battery_unknown;
         }
@@ -489,15 +614,22 @@ class BatteryService extends Binder {
 
     @Override
     protected void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
+<<<<<<< HEAD
         if (mContext.checkCallingOrSelfPermission(android.Manifest.permission.DUMP)
                 != PackageManager.PERMISSION_GRANTED) {
 
+=======
+        if (mContext.checkCallingPermission("android.permission.DUMP")
+                != PackageManager.PERMISSION_GRANTED) {
+            
+>>>>>>> 54b6cfa... Initial Contribution
             pw.println("Permission Denial: can't dump Battery service from from pid="
                     + Binder.getCallingPid()
                     + ", uid=" + Binder.getCallingUid());
             return;
         }
 
+<<<<<<< HEAD
         if (args == null || args.length == 0 || "-a".equals(args[0])) {
             synchronized (this) {
                 pw.println("Current Battery Service state:");
@@ -604,3 +736,20 @@ class BatteryService extends Binder {
     }
 }
 
+=======
+        synchronized (this) {
+            pw.println("Current Battery Service state:");
+            pw.println("  AC powered: " + mAcOnline);
+            pw.println("  USB powered: " + mUsbOnline);
+            pw.println("  status: " + mBatteryStatus);
+            pw.println("  health: " + mBatteryHealth);
+            pw.println("  present: " + mBatteryPresent);
+            pw.println("  level: " + mBatteryLevel);
+            pw.println("  scale: " + BATTERY_SCALE);
+            pw.println("  voltage:" + mBatteryVoltage);
+            pw.println("  temperature: " + mBatteryTemperature);
+            pw.println("  technology: " + mBatteryTechnology);
+        }
+    }
+}
+>>>>>>> 54b6cfa... Initial Contribution

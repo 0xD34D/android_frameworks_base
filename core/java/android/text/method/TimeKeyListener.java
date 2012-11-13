@@ -17,6 +17,7 @@
 package android.text.method;
 
 import android.view.KeyEvent;
+<<<<<<< HEAD
 import android.text.InputType;
 
 /**
@@ -33,6 +34,14 @@ public class TimeKeyListener extends NumberKeyListener
         | InputType.TYPE_DATETIME_VARIATION_TIME;
     }
     
+=======
+
+/**
+ * For entering times in a text field.
+ */
+public class TimeKeyListener extends NumberKeyListener
+{
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected char[] getAcceptedChars()
     {

@@ -16,6 +16,7 @@
 
 package com.android.server.am;
 
+<<<<<<< HEAD
 import android.content.IIntentReceiver;
 import android.content.Intent;
 import android.os.Binder;
@@ -24,6 +25,13 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.PrintWriterPrinter;
 import android.util.Printer;
+=======
+import android.app.IIntentReceiver;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,8 +50,11 @@ class ReceiverList extends ArrayList<BroadcastFilter>
     BroadcastRecord curBroadcast = null;
     boolean linkedToDeath = false;
 
+<<<<<<< HEAD
     String stringName;
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     ReceiverList(ActivityManagerService _owner, ProcessRecord _app,
             int _pid, int _uid, IIntentReceiver _receiver) {
         owner = _owner;
@@ -67,6 +78,7 @@ class ReceiverList extends ArrayList<BroadcastFilter>
     }
     
     void dumpLocal(PrintWriter pw, String prefix) {
+<<<<<<< HEAD
         pw.print(prefix); pw.print("app="); pw.print(app);
             pw.print(" pid="); pw.print(pid); pw.print(" uid="); pw.println(uid);
         if (curBroadcast != null || linkedToDeath) {
@@ -77,20 +89,37 @@ class ReceiverList extends ArrayList<BroadcastFilter>
     
     void dump(PrintWriter pw, String prefix) {
         Printer pr = new PrintWriterPrinter(pw);
+=======
+        pw.println(prefix + "receiver=IBinder "
+                + Integer.toHexString(System.identityHashCode(receiver.asBinder())));
+        pw.println(prefix + "app=" + app + " pid=" + pid + " uid=" + uid);
+        pw.println(prefix + "curBroadcast=" + curBroadcast
+                + " linkedToDeath=" + linkedToDeath);
+    }
+    
+    void dump(PrintWriter pw, String prefix) {
+        pw.println(prefix + this);
+>>>>>>> 54b6cfa... Initial Contribution
         dumpLocal(pw, prefix);
         String p2 = prefix + "  ";
         final int N = size();
         for (int i=0; i<N; i++) {
             BroadcastFilter bf = get(i);
+<<<<<<< HEAD
             pw.print(prefix); pw.print("Filter #"); pw.print(i);
                     pw.print(": BroadcastFilter{");
                     pw.print(Integer.toHexString(System.identityHashCode(bf)));
                     pw.println('}');
             bf.dumpInReceiverList(pw, pr, p2);
+=======
+            pw.println(prefix + "Filter #" + i + ": " + bf);
+            bf.dump(pw, p2);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
     public String toString() {
+<<<<<<< HEAD
         if (stringName != null) {
             return stringName;
         }
@@ -107,5 +136,13 @@ class ReceiverList extends ArrayList<BroadcastFilter>
         sb.append(Integer.toHexString(System.identityHashCode(receiver.asBinder())));
         sb.append('}');
         return stringName = sb.toString();
+=======
+        return "ReceiverList{"
+            + Integer.toHexString(System.identityHashCode(this))
+            + " " + pid + " " + (app != null ? app.processName : "(unknown name)")
+            + "/" + uid + " client "
+            + Integer.toHexString(System.identityHashCode(receiver.asBinder()))
+            + "}";
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

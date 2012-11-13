@@ -54,7 +54,11 @@ public abstract class AbsSavedState implements Parcelable {
      */
     protected AbsSavedState(Parcel source) {
         // FIXME need class loader
+<<<<<<< HEAD
         Parcelable superState = source.readParcelable(null);
+=======
+        Parcelable superState = (Parcelable) source.readParcelable(null);
+>>>>>>> 54b6cfa... Initial Contribution
          
         mSuperState = superState != null ? superState : EMPTY_STATE;
     }
@@ -75,7 +79,11 @@ public abstract class AbsSavedState implements Parcelable {
         = new Parcelable.Creator<AbsSavedState>() {
         
         public AbsSavedState createFromParcel(Parcel in) {
+<<<<<<< HEAD
             Parcelable superState = in.readParcelable(null);
+=======
+            Parcelable superState = (Parcelable) in.readParcelable(null);
+>>>>>>> 54b6cfa... Initial Contribution
             if (superState != null) {
                 throw new IllegalStateException("superState must be null");
             }

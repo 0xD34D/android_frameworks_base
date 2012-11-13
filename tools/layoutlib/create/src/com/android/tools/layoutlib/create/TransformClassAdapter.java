@@ -16,6 +16,10 @@
 
 package com.android.tools.layoutlib.create;
 
+<<<<<<< HEAD
+=======
+import org.objectweb.asm.ClassAdapter;
+>>>>>>> 54b6cfa... Initial Contribution
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -25,9 +29,15 @@ import org.objectweb.asm.Type;
 import java.util.Set;
 
 /**
+<<<<<<< HEAD
  * Class adapter that can stub some or all of the methods of the class.
  */
 class TransformClassAdapter extends ClassVisitor {
+=======
+ * Class adapter that can stub some or all of the methods of the class. 
+ */
+class TransformClassAdapter extends ClassAdapter {
+>>>>>>> 54b6cfa... Initial Contribution
 
     /** True if all methods should be stubbed, false if only native ones must be stubbed. */
     private final boolean mStubAll;
@@ -40,12 +50,21 @@ class TransformClassAdapter extends ClassVisitor {
 
     /**
      * Creates a new class adapter that will stub some or all methods.
+<<<<<<< HEAD
      * @param logger
      * @param stubMethods  list of method signatures to always stub out
      * @param deleteReturns list of types that trigger the deletion of methods returning them.
      * @param className The name of the class being modified
      * @param cv The parent class writer visitor
      * @param stubNativesOnly True if only native methods should be stubbed. False if all
+=======
+     * @param logger 
+     * @param stubMethods 
+     * @param deleteReturns list of types that trigger the deletion of methods returning them.
+     * @param className The name of the class being modified
+     * @param cv The parent class writer visitor
+     * @param stubNativesOnly True if only native methods should be stubbed. False if all 
+>>>>>>> 54b6cfa... Initial Contribution
      *                        methods should be stubbed.
      * @param hasNative True if the method has natives, in which case its access should be
      *                  changed.
@@ -53,7 +72,11 @@ class TransformClassAdapter extends ClassVisitor {
     public TransformClassAdapter(Log logger, Set<String> stubMethods,
             Set<String> deleteReturns, String className, ClassVisitor cv,
             boolean stubNativesOnly, boolean hasNative) {
+<<<<<<< HEAD
         super(Opcodes.ASM4, cv);
+=======
+        super(cv);
+>>>>>>> 54b6cfa... Initial Contribution
         mLog = logger;
         mStubMethods = stubMethods;
         mClassName = className;
@@ -66,6 +89,7 @@ class TransformClassAdapter extends ClassVisitor {
     @Override
     public void visit(int version, int access, String name,
             String signature, String superName, String[] interfaces) {
+<<<<<<< HEAD
 
         // This class might be being renamed.
         name = mClassName;
@@ -75,6 +99,15 @@ class TransformClassAdapter extends ClassVisitor {
             access = access & ~(Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED);
             access |= Opcodes.ACC_PUBLIC;
         }
+=======
+        
+        // This class might be being renamed.
+        name = mClassName;
+        
+        // remove protected or private and set as public
+        access = access & ~(Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED);
+        access |= Opcodes.ACC_PUBLIC;
+>>>>>>> 54b6cfa... Initial Contribution
         // remove final
         access = access & ~Opcodes.ACC_FINAL;
         // note: leave abstract classes as such
@@ -83,15 +116,24 @@ class TransformClassAdapter extends ClassVisitor {
         mIsInterface = ((access & Opcodes.ACC_INTERFACE) != 0);
         super.visit(version, access, name, signature, superName, interfaces);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /* Visits the header of an inner class. */
     @Override
     public void visitInnerClass(String name, String outerName, String innerName, int access) {
         // remove protected or private and set as public
+<<<<<<< HEAD
         if (Main.sOptions.generatePublicAccess) {
             access = access & ~(Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED);
             access |= Opcodes.ACC_PUBLIC;
         }
+=======
+        access = access & ~(Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED);
+        access |= Opcodes.ACC_PUBLIC;
+>>>>>>> 54b6cfa... Initial Contribution
         // remove final
         access = access & ~Opcodes.ACC_FINAL;
         // note: leave abstract classes as such
@@ -104,7 +146,11 @@ class TransformClassAdapter extends ClassVisitor {
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc,
             String signature, String[] exceptions) {
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if (mDeleteReturns != null) {
             Type t = Type.getReturnType(desc);
             if (t.getSort() == Type.OBJECT) {
@@ -120,10 +166,15 @@ class TransformClassAdapter extends ClassVisitor {
         String methodSignature = mClassName.replace('/', '.') + "#" + name;
 
         // change access to public
+<<<<<<< HEAD
         if (Main.sOptions.generatePublicAccess) {
             access &= ~(Opcodes.ACC_PROTECTED | Opcodes.ACC_PRIVATE);
             access |= Opcodes.ACC_PUBLIC;
         }
+=======
+        access &= ~(Opcodes.ACC_PROTECTED | Opcodes.ACC_PRIVATE);
+        access |= Opcodes.ACC_PUBLIC;
+>>>>>>> 54b6cfa... Initial Contribution
 
         // remove final
         access = access & ~Opcodes.ACC_FINAL;
@@ -136,6 +187,7 @@ class TransformClassAdapter extends ClassVisitor {
              (access & Opcodes.ACC_NATIVE) != 0) ||
              mStubMethods.contains(methodSignature)) {
 
+<<<<<<< HEAD
             boolean isStatic = (access & Opcodes.ACC_STATIC) != 0;
             boolean isNative = (access & Opcodes.ACC_NATIVE) != 0;
 
@@ -148,22 +200,44 @@ class TransformClassAdapter extends ClassVisitor {
             MethodVisitor mw = super.visitMethod(access, name, desc, signature, exceptions);
             return new StubMethodAdapter(mw, name, returnType(desc), invokeSignature,
                     isStatic, isNative);
+=======
+            // remove abstract, final and native
+            access = access & ~(Opcodes.ACC_ABSTRACT | Opcodes.ACC_FINAL | Opcodes.ACC_NATIVE);
+            
+            boolean isStatic = (access & Opcodes.ACC_STATIC) != 0;
+            
+            String invokeSignature = methodSignature + desc;
+            mLog.debug("  Stub: %s", invokeSignature);
+            
+            MethodVisitor mw = super.visitMethod(access, name, desc, signature, exceptions);
+            return new StubMethodAdapter(mw, name, returnType(desc), invokeSignature, isStatic);
+>>>>>>> 54b6cfa... Initial Contribution
 
         } else {
             mLog.debug("  Keep: %s %s", name, desc);
             return super.visitMethod(access, name, desc, signature, exceptions);
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /* Visits a field. Makes it public. */
     @Override
     public FieldVisitor visitField(int access, String name, String desc, String signature,
             Object value) {
         // change access to public
+<<<<<<< HEAD
         if (Main.sOptions.generatePublicAccess) {
             access &= ~(Opcodes.ACC_PROTECTED | Opcodes.ACC_PRIVATE);
             access |= Opcodes.ACC_PUBLIC;
         }
+=======
+        access &= ~(Opcodes.ACC_PROTECTED | Opcodes.ACC_PRIVATE);
+        access |= Opcodes.ACC_PUBLIC;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         return super.visitField(access, name, desc, signature, value);
     }
 

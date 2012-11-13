@@ -18,20 +18,33 @@ package android.text.method;
 
 import android.view.KeyEvent;
 import android.view.View;
+<<<<<<< HEAD
+=======
+import android.os.Message;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.*;
 import android.text.method.TextKeyListener.Capitalize;
+<<<<<<< HEAD
 import android.util.SparseArray;
+=======
+import android.widget.TextView;
+import android.util.SparseArray;
+import android.util.SparseIntArray;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * This is the standard key listener for alphabetic input on 12-key
  * keyboards.  You should generally not need to instantiate this yourself;
  * TextKeyListener will do it for you.
+<<<<<<< HEAD
  * <p></p>
  * As for all implementations of {@link KeyListener}, this class is only concerned
  * with hardware keyboards.  Software input methods have no obligation to trigger
  * the methods in this class.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class MultiTapKeyListener extends BaseKeyListener
         implements SpanWatcher {
@@ -78,10 +91,13 @@ public class MultiTapKeyListener extends BaseKeyListener
         return sInstance[off];
     }
 
+<<<<<<< HEAD
     public int getInputType() {
         return makeTextContentType(mCapitalize, mAutoText);
     }
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean onKeyDown(View view, Editable content,
                              int keyCode, KeyEvent event) {
         int selStart, selEnd;
@@ -120,7 +136,11 @@ public class MultiTapKeyListener extends BaseKeyListener
                     content.replace(selStart, selEnd,
                                     String.valueOf(current).toUpperCase());
                     removeTimeouts(content);
+<<<<<<< HEAD
                     new Timeout(content); // for its side effects
+=======
+                    Timeout t = new Timeout(content);
+>>>>>>> 54b6cfa... Initial Contribution
 
                     return true;
                 }
@@ -128,7 +148,11 @@ public class MultiTapKeyListener extends BaseKeyListener
                     content.replace(selStart, selEnd,
                                     String.valueOf(current).toLowerCase());
                     removeTimeouts(content);
+<<<<<<< HEAD
                     new Timeout(content); // for its side effects
+=======
+                    Timeout t = new Timeout(content);
+>>>>>>> 54b6cfa... Initial Contribution
 
                     return true;
                 }
@@ -144,7 +168,11 @@ public class MultiTapKeyListener extends BaseKeyListener
 
                     content.replace(selStart, selEnd, val, ix, ix + 1);
                     removeTimeouts(content);
+<<<<<<< HEAD
                     new Timeout(content); // for its side effects
+=======
+                    Timeout t = new Timeout(content);
+>>>>>>> 54b6cfa... Initial Contribution
 
                     return true;
                 }
@@ -210,7 +238,11 @@ public class MultiTapKeyListener extends BaseKeyListener
             }
 
             removeTimeouts(content);
+<<<<<<< HEAD
             new Timeout(content); // for its side effects
+=======
+            Timeout t = new Timeout(content);
+>>>>>>> 54b6cfa... Initial Contribution
 
             // Set up the callback so we can remove the timeout if the
             // cursor moves.

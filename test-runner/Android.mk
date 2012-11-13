@@ -18,13 +18,22 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+<<<<<<< HEAD
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
 LOCAL_JAVA_LIBRARIES := core core-junit framework
+=======
+LOCAL_SRC_FILES := $(call all-subdir-java-files)
+
+LOCAL_JAVA_LIBRARIES := core framework
+>>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_MODULE:= android.test.runner
 
 include $(BUILD_JAVA_LIBRARY)
+<<<<<<< HEAD
 
 # additionally, build unit tests in a separate .apk
 include $(call all-makefiles-under,$(LOCAL_PATH))
+=======
+>>>>>>> 54b6cfa... Initial Contribution

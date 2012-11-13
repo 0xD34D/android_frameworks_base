@@ -16,6 +16,7 @@
 
 package android.content;
 
+<<<<<<< HEAD
 import dalvik.system.CloseGuard;
 
 import android.accounts.Account;
@@ -44,18 +45,37 @@ import android.util.EventLog;
 import android.util.Log;
 
 import java.io.File;
+=======
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.database.CursorWrapper;
+import android.database.IContentObserver;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.os.RemoteException;
+import android.text.TextUtils;
+
+>>>>>>> 54b6cfa... Initial Contribution
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+=======
+import java.util.List;
+>>>>>>> 54b6cfa... Initial Contribution
 
 
 /**
  * This class provides applications access to the content model.
+<<<<<<< HEAD
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
@@ -102,10 +122,18 @@ public abstract class ContentResolver {
      */
     public static final String SYNC_EXTRAS_MANUAL = "force";
 
+=======
+ */
+public abstract class ContentResolver {
+    public final static String SYNC_EXTRAS_ACCOUNT = "account";
+    public static final String SYNC_EXTRAS_EXPEDITED = "expedited";
+    public static final String SYNC_EXTRAS_FORCE = "force";
+>>>>>>> 54b6cfa... Initial Contribution
     public static final String SYNC_EXTRAS_UPLOAD = "upload";
     public static final String SYNC_EXTRAS_OVERRIDE_TOO_MANY_DELETIONS = "deletions_override";
     public static final String SYNC_EXTRAS_DISCARD_LOCAL_DELETIONS = "discard_deletions";
 
+<<<<<<< HEAD
     /**
      * Set by the SyncManager to request that the SyncAdapter initialize itself for
      * the given account/authority pair. One required initialization step is to
@@ -115,6 +143,8 @@ public abstract class ContentResolver {
      */
     public static final String SYNC_EXTRAS_INITIALIZE = "initialize";
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public static final String SCHEME_CONTENT = "content";
     public static final String SCHEME_ANDROID_RESOURCE = "android.resource";
     public static final String SCHEME_FILE = "file";
@@ -128,11 +158,19 @@ public abstract class ContentResolver {
      * <code>content://com.company.provider.imap/inbox/1</code> for a particular
      * message in the inbox, whose MIME type would be reported as
      * <code>CURSOR_ITEM_BASE_TYPE + "/vnd.company.imap-msg"</code>
+<<<<<<< HEAD
      *
      * <p>Compare with {@link #CURSOR_DIR_BASE_TYPE}.
      */
     public static final String CURSOR_ITEM_BASE_TYPE = "vnd.android.cursor.item";
 
+=======
+     * 
+     * <p>Compare with {@link #CURSOR_DIR_BASE_TYPE}.
+     */
+    public static final String CURSOR_ITEM_BASE_TYPE = "vnd.android.cursor.item";
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * This is the Android platform's base MIME type for a content: URI
      * containing a Cursor of zero or more items.  Applications should use this
@@ -142,7 +180,11 @@ public abstract class ContentResolver {
      * <code>content://com.company.provider.imap/inbox</code> for all of the
      * messages in its inbox, whose MIME type would be reported as
      * <code>CURSOR_DIR_BASE_TYPE + "/vnd.company.imap-msg"</code>
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * <p>Note how the base MIME type varies between this and
      * {@link #CURSOR_ITEM_BASE_TYPE} depending on whether there is
      * one single item or multiple items in the data set, while the sub-type
@@ -150,6 +192,7 @@ public abstract class ContentResolver {
      * in the cursor is the same.
      */
     public static final String CURSOR_DIR_BASE_TYPE = "vnd.android.cursor.dir";
+<<<<<<< HEAD
 
     /** @hide */
     public static final int SYNC_ERROR_SYNC_ALREADY_IN_PROGRESS = 1;
@@ -182,11 +225,17 @@ public abstract class ContentResolver {
     private final Random mRandom = new Random();  // guarded by itself
 
     public ContentResolver(Context context) {
+=======
+    
+    public ContentResolver(Context context)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         mContext = context;
     }
 
     /** @hide */
     protected abstract IContentProvider acquireProvider(Context c, String name);
+<<<<<<< HEAD
     /** Providing a default implementation of this, to avoid having to change
      * a lot of other things, but implementations of ContentResolver should
      * implement it. @hide */
@@ -201,6 +250,10 @@ public abstract class ContentResolver {
     public abstract boolean releaseUnstableProvider(IContentProvider icp);
     /** @hide */
     public abstract void unstableProviderDied(IContentProvider icp);
+=======
+    /** @hide */
+    public abstract boolean releaseProvider(IContentProvider icp);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the MIME type of the given content URL.
@@ -209,6 +262,7 @@ public abstract class ContentResolver {
      * using the content:// scheme.
      * @return A MIME type for the content, or null if the URL is invalid or the type is unknown
      */
+<<<<<<< HEAD
     public final String getType(Uri url) {
         // XXX would like to have an acquireExistingUnstableProvider for this.
         IContentProvider provider = acquireExistingProvider(url);
@@ -260,16 +314,28 @@ public abstract class ContentResolver {
      * null is returned.
      */
     public String[] getStreamTypes(Uri url, String mimeTypeFilter) {
+=======
+    public final String getType(Uri url)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         IContentProvider provider = acquireProvider(url);
         if (provider == null) {
             return null;
         }
+<<<<<<< HEAD
 
         try {
             return provider.getStreamTypes(url, mimeTypeFilter);
         } catch (RemoteException e) {
             // Arbitrary and not worth documenting, as Activity
             // Manager will kill this process shortly anyway.
+=======
+        try {
+            return provider.getType(url);
+        } catch (RemoteException e) {
+            return null;
+        } catch (java.lang.Exception e) {
+>>>>>>> 54b6cfa... Initial Contribution
             return null;
         } finally {
             releaseProvider(provider);
@@ -277,6 +343,7 @@ public abstract class ContentResolver {
     }
 
     /**
+<<<<<<< HEAD
      * <p>
      * Query the given URI, returning a {@link Cursor} over the result set.
      * </p>
@@ -291,11 +358,19 @@ public abstract class ContentResolver {
      * for caching purposes.</li>
      * </ul>
      * </p>
+=======
+     * Query the given URI, returning a {@link Cursor} over the result set.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param uri The URI, using the content:// scheme, for the content to
      *         retrieve.
      * @param projection A list of which columns to return. Passing null will
+<<<<<<< HEAD
      *         return all columns, which is inefficient.
+=======
+     *         return all columns, which is discouraged to prevent reading data
+     *         from storage that isn't going to be used.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param selection A filter declaring which rows to return, formatted as an
      *         SQL WHERE clause (excluding the WHERE itself). Passing null will
      *         return all rows for the given URI.
@@ -310,6 +385,7 @@ public abstract class ContentResolver {
      */
     public final Cursor query(Uri uri, String[] projection,
             String selection, String[] selectionArgs, String sortOrder) {
+<<<<<<< HEAD
         return query(uri, projection, selection, selectionArgs, sortOrder, null);
     }
 
@@ -404,6 +480,26 @@ public abstract class ContentResolver {
             if (stableProvider != null) {
                 releaseProvider(stableProvider);
             }
+=======
+        IContentProvider provider = acquireProvider(uri);
+        if (provider == null) {
+            return null;
+        }
+        try {
+            Cursor qCursor = provider.query(uri, projection, selection, selectionArgs, sortOrder);
+            if(qCursor == null) {
+                releaseProvider(provider);
+                return null;
+            }
+            //Wrap the cursor object into CursorWrapperInner object
+            return new CursorWrapperInner(qCursor, provider);
+        } catch (RemoteException e) {
+            releaseProvider(provider);
+            return null;
+        } catch(RuntimeException e) {
+            releaseProvider(provider);
+            throw e;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -417,6 +513,7 @@ public abstract class ContentResolver {
      * <li>android.resource ({@link #SCHEME_ANDROID_RESOURCE})</li>
      * <li>file ({@link #SCHEME_FILE})</li>
      * </ul>
+<<<<<<< HEAD
      *
      * <p>See {@link #openAssetFileDescriptor(Uri, String)} for more information
      * on these schemes.
@@ -425,10 +522,39 @@ public abstract class ContentResolver {
      * @return InputStream
      * @throws FileNotFoundException if the provided URI could not be opened.
      * @see #openAssetFileDescriptor(Uri, String)
+=======
+     * <h5>The android.resource ({@link #SCHEME_ANDROID_RESOURCE}) Scheme</h5>
+     * <p>
+     * A Uri object can be used to reference a resource in an APK file.  The
+     * Uri should be one of the following formats:
+     * <ul>
+     * <li><code>android.resource://package_name/id_number</code><br/>
+     * <code>package_name</code> is your package name as listed in your AndroidManifest.xml.
+     * For example <code>com.example.myapp</code><br/>
+     * <code>id_number</code> is the int form of the ID.<br/>
+     * The easiest way to construct this form is
+     * <pre>Uri uri = Uri.parse("android.resource://com.example.myapp/" + R.raw.my_resource");</pre>
+     * </li>
+     * <li><code>android.resource://package_name/type/name</code><br/>
+     * <code>package_name</code> is your package name as listed in your AndroidManifest.xml.
+     * For example <code>com.example.myapp</code><br/>
+     * <code>type</code> is the string form of the resource type.  For example, <code>raw</code>
+     * or <code>drawable</code>.
+     * <code>name</code> is the string form of the resource name.  That is, whatever the file
+     * name was in your res directory, without the type extension.
+     * The easiest way to construct this form is
+     * <pre>Uri uri = Uri.parse("android.resource://com.example.myapp/raw/my_resource");</pre>
+     * </li>
+     * </ul>
+     * @param uri The desired "content:" URI.
+     * @return InputStream
+     * @throws FileNotFoundException if the provided URI could not be opened.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final InputStream openInputStream(Uri uri)
             throws FileNotFoundException {
         String scheme = uri.getScheme();
+<<<<<<< HEAD
         if (SCHEME_ANDROID_RESOURCE.equals(scheme)) {
             // Note: left here to avoid breaking compatibility.  May be removed
             // with sufficient testing.
@@ -450,10 +576,58 @@ public abstract class ContentResolver {
             } catch (IOException e) {
                 throw new FileNotFoundException("Unable to create stream");
             }
+=======
+        if (SCHEME_CONTENT.equals(scheme)) {
+            ParcelFileDescriptor fd = openFileDescriptor(uri, "r");
+            return fd != null ? new ParcelFileDescriptor.AutoCloseInputStream(fd) : null;
+        } else if (SCHEME_ANDROID_RESOURCE.equals(scheme)) {
+            String authority = uri.getAuthority();
+            Resources r;
+            if (TextUtils.isEmpty(authority)) {
+                throw new FileNotFoundException("No authority: " + uri);
+            } else {
+                try {
+                    r = mContext.getPackageManager().getResourcesForApplication(authority);
+                } catch (NameNotFoundException ex) {
+                    throw new FileNotFoundException("No package found for authority: " + uri);
+                }
+            }
+            List<String> path = uri.getPathSegments();
+            if (path == null) {
+                throw new FileNotFoundException("No path: " + uri);
+            }
+            int len = path.size();
+            int id;
+            if (len == 1) {
+                try {
+                    id = Integer.parseInt(path.get(0));
+                } catch (NumberFormatException e) {
+                    throw new FileNotFoundException("Single path segment is not a resource ID: " + uri);
+                }
+            } else if (len == 2) {
+                id = r.getIdentifier(path.get(1), path.get(0), authority);
+            } else {
+                throw new FileNotFoundException("More than two path segments: " + uri);
+            }
+            if (id == 0) {
+                throw new FileNotFoundException("No resource found for: " + uri);
+            }
+            try {
+                InputStream stream = r.openRawResource(id);
+                return stream;
+            } catch (Resources.NotFoundException ex) {
+                throw new FileNotFoundException("Resource ID does not exist: " + uri);
+            }
+        } else if (SCHEME_FILE.equals(scheme)) {
+            return new FileInputStream(uri.getPath());
+        } else {
+            throw new FileNotFoundException("Unknown scheme: " + uri);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
+<<<<<<< HEAD
      * Synonym for {@link #openOutputStream(Uri, String)
      * openOutputStream(uri, "w")}.
      * @throws FileNotFoundException if the provided URI could not be opened.
@@ -464,12 +638,15 @@ public abstract class ContentResolver {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Open a stream on to the content associated with a content URI.  If there
      * is no data associated with the URI, FileNotFoundException is thrown.
      *
      * <h5>Accepts the following URI schemes:</h5>
      * <ul>
      * <li>content ({@link #SCHEME_CONTENT})</li>
+<<<<<<< HEAD
      * <li>file ({@link #SCHEME_FILE})</li>
      * </ul>
      *
@@ -489,10 +666,27 @@ public abstract class ContentResolver {
             return fd != null ? fd.createOutputStream() : null;
         } catch (IOException e) {
             throw new FileNotFoundException("Unable to create stream");
+=======
+     * </ul>
+     *
+     * @param uri The desired "content:" URI.
+     * @return OutputStream
+     */
+    public final OutputStream openOutputStream(Uri uri)
+            throws FileNotFoundException {
+        String scheme = uri.getScheme();
+        if (SCHEME_CONTENT.equals(scheme)) {
+            ParcelFileDescriptor fd = openFileDescriptor(uri, "rw");
+            return fd != null
+                    ? new ParcelFileDescriptor.AutoCloseOutputStream(fd) : null;
+        } else {
+            throw new FileNotFoundException("Unknown scheme: " + uri);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
+<<<<<<< HEAD
      * Open a raw file descriptor to access data under a URI.  This
      * is like {@link #openAssetFileDescriptor(Uri, String)}, but uses the
      * underlying {@link ContentProvider#openFile}
@@ -501,16 +695,27 @@ public abstract class ContentResolver {
      * you should use {@link #openAssetFileDescriptor(Uri, String)}.  You
      * will receive a FileNotFoundException exception if the provider returns a
      * sub-section of a file.
+=======
+     * Open a raw file descriptor to access data under a "content:" URI.  This
+     * interacts with the underlying {@link ContentProvider#openFile}
+     * ContentProvider.openFile()} method of the provider associated with the
+     * given URI, to retrieve any file stored there.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * <h5>Accepts the following URI schemes:</h5>
      * <ul>
      * <li>content ({@link #SCHEME_CONTENT})</li>
+<<<<<<< HEAD
      * <li>file ({@link #SCHEME_FILE})</li>
      * </ul>
      *
      * <p>See {@link #openAssetFileDescriptor(Uri, String)} for more information
      * on these schemes.
      *
+=======
+     * </ul>
+     *
+>>>>>>> 54b6cfa... Initial Contribution
      * @param uri The desired URI to open.
      * @param mode The file mode to use, as per {@link ContentProvider#openFile
      * ContentProvider.openFile}.
@@ -518,6 +723,7 @@ public abstract class ContentResolver {
      * own this descriptor and are responsible for closing it when done.
      * @throws FileNotFoundException Throws FileNotFoundException of no
      * file exists under the URI or the mode is invalid.
+<<<<<<< HEAD
      * @see #openAssetFileDescriptor(Uri, String)
      */
     public final ParcelFileDescriptor openFileDescriptor(Uri uri,
@@ -841,6 +1047,32 @@ public abstract class ContentResolver {
                     + mode);
         }
         return modeBits;
+=======
+     */
+    public final ParcelFileDescriptor openFileDescriptor(Uri uri,
+            String mode) throws FileNotFoundException {
+        IContentProvider provider = acquireProvider(uri);
+        if (provider == null) {
+            throw new FileNotFoundException("No content provider: " + uri);
+        }
+        try {
+            ParcelFileDescriptor fd = provider.openFile(uri, mode);
+            if(fd == null) {
+                releaseProvider(provider);
+                return null;
+            }
+            return new ParcelFileDescriptorInner(fd, provider);
+        } catch (RemoteException e) {
+            releaseProvider(provider);
+            throw new FileNotFoundException("Dead content provider: " + uri);
+        } catch (FileNotFoundException e) {
+            releaseProvider(provider);
+            throw e;
+        } catch (RuntimeException e) {
+            releaseProvider(provider);
+            throw e;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -860,6 +1092,7 @@ public abstract class ContentResolver {
             throw new IllegalArgumentException("Unknown URL " + url);
         }
         try {
+<<<<<<< HEAD
             long startTime = SystemClock.uptimeMillis();
             Uri createdRow = provider.insert(url, values);
             long durationMillis = SystemClock.uptimeMillis() - startTime;
@@ -868,6 +1101,10 @@ public abstract class ContentResolver {
         } catch (RemoteException e) {
             // Arbitrary and not worth documenting, as Activity
             // Manager will kill this process shortly anyway.
+=======
+            return provider.insert(url, values);
+        } catch (RemoteException e) {
+>>>>>>> 54b6cfa... Initial Contribution
             return null;
         } finally {
             releaseProvider(provider);
@@ -875,6 +1112,7 @@ public abstract class ContentResolver {
     }
 
     /**
+<<<<<<< HEAD
      * Applies each of the {@link ContentProviderOperation} objects and returns an array
      * of their results. Passes through OperationApplicationException, which may be thrown
      * by the call to {@link ContentProviderOperation#apply}.
@@ -905,6 +1143,8 @@ public abstract class ContentResolver {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Inserts multiple rows into a table at the given URL.
      *
      * This function make no guarantees about the atomicity of the insertions.
@@ -921,6 +1161,7 @@ public abstract class ContentResolver {
             throw new IllegalArgumentException("Unknown URL " + url);
         }
         try {
+<<<<<<< HEAD
             long startTime = SystemClock.uptimeMillis();
             int rowsCreated = provider.bulkInsert(url, values);
             long durationMillis = SystemClock.uptimeMillis() - startTime;
@@ -929,6 +1170,10 @@ public abstract class ContentResolver {
         } catch (RemoteException e) {
             // Arbitrary and not worth documenting, as Activity
             // Manager will kill this process shortly anyway.
+=======
+            return provider.bulkInsert(url, values);
+        } catch (RemoteException e) {
+>>>>>>> 54b6cfa... Initial Contribution
             return 0;
         } finally {
             releaseProvider(provider);
@@ -952,6 +1197,7 @@ public abstract class ContentResolver {
             throw new IllegalArgumentException("Unknown URL " + url);
         }
         try {
+<<<<<<< HEAD
             long startTime = SystemClock.uptimeMillis();
             int rowsDeleted = provider.delete(url, where, selectionArgs);
             long durationMillis = SystemClock.uptimeMillis() - startTime;
@@ -960,6 +1206,10 @@ public abstract class ContentResolver {
         } catch (RemoteException e) {
             // Arbitrary and not worth documenting, as Activity
             // Manager will kill this process shortly anyway.
+=======
+            return provider.delete(url, where, selectionArgs);
+        } catch (RemoteException e) {
+>>>>>>> 54b6cfa... Initial Contribution
             return -1;
         } finally {
             releaseProvider(provider);
@@ -974,6 +1224,7 @@ public abstract class ContentResolver {
      * @param uri The URI to modify.
      * @param values The new field values. The key is the column name for the field.
                      A null value will remove an existing field value.
+<<<<<<< HEAD
      * @param where A filter to apply to rows before updating, formatted as an SQL WHERE clause
                     (excluding the WHERE itself).
      * @return the number of rows updated.
@@ -1085,18 +1336,51 @@ public abstract class ContentResolver {
 
     /**
      * Returns the content provider for the given content URI.
+=======
+     * @param where A filter to apply to rows before deleting, formatted as an SQL WHERE clause
+                    (excluding the WHERE itself).
+     * @return the URL of the newly created row
+     * @throws NullPointerException if uri or values are null
+     */
+    public final int update(Uri uri, ContentValues values, String where,
+            String[] selectionArgs) {
+        IContentProvider provider = acquireProvider(uri);
+        if (provider == null) {
+            throw new IllegalArgumentException("Unknown URI " + uri);
+        }
+        try {
+            return provider.update(uri, values, where, selectionArgs);
+        } catch (RemoteException e) {
+            return -1;
+        } finally {
+            releaseProvider(provider);
+        }
+    }
+
+    /**
+     * Returns the content provider for the given content URI..
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param uri The URI to a content provider
      * @return The ContentProvider for the given URI, or null if no content provider is found.
      * @hide
      */
+<<<<<<< HEAD
     public final IContentProvider acquireUnstableProvider(Uri uri) {
+=======
+    public final IContentProvider acquireProvider(Uri uri)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         if (!SCHEME_CONTENT.equals(uri.getScheme())) {
             return null;
         }
         String auth = uri.getAuthority();
         if (auth != null) {
+<<<<<<< HEAD
             return acquireUnstableProvider(mContext, uri.getAuthority());
+=======
+            return acquireProvider(mContext, uri.getAuthority());
+>>>>>>> 54b6cfa... Initial Contribution
         }
         return null;
     }
@@ -1104,6 +1388,7 @@ public abstract class ContentResolver {
     /**
      * @hide
      */
+<<<<<<< HEAD
     public final IContentProvider acquireUnstableProvider(String name) {
         if (name == null) {
             return null;
@@ -1199,6 +1484,13 @@ public abstract class ContentResolver {
         }
 
         return null;
+=======
+    public final IContentProvider acquireProvider(String name) {
+        if(name == null) {
+            return null;
+        }
+        return acquireProvider(mContext, name);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1218,7 +1510,11 @@ public abstract class ContentResolver {
             ContentObserver observer)
     {
         try {
+<<<<<<< HEAD
             getContentService().registerContentObserver(uri, notifyForDescendents,
+=======
+            ContentServiceNative.getDefault().registerContentObserver(uri, notifyForDescendents,
+>>>>>>> 54b6cfa... Initial Contribution
                     observer.getContentObserver());
         } catch (RemoteException e) {
         }
@@ -1234,7 +1530,11 @@ public abstract class ContentResolver {
         try {
             IContentObserver contentObserver = observer.releaseContentObserver();
             if (contentObserver != null) {
+<<<<<<< HEAD
                 getContentService().unregisterContentObserver(
+=======
+                ContentServiceNative.getDefault().unregisterContentObserver(
+>>>>>>> 54b6cfa... Initial Contribution
                         contentObserver);
             }
         } catch (RemoteException e) {
@@ -1242,6 +1542,7 @@ public abstract class ContentResolver {
     }
 
     /**
+<<<<<<< HEAD
      * Notify registered observers that a row was updated and attempt to sync changes
      * to the network.
      * To register, call {@link #registerContentObserver(android.net.Uri , boolean, android.database.ContentObserver) registerContentObserver()}.
@@ -1252,6 +1553,14 @@ public abstract class ContentResolver {
      * The observer that originated the change will only receive the notification if it
      * has requested to receive self-change notifications by implementing
      * {@link ContentObserver#deliverSelfNotifications()} to return true.
+=======
+     * Notify registered observers that a row was updated.
+     * To register, call {@link #registerContentObserver(android.net.Uri , boolean, android.database.ContentObserver) registerContentObserver()}.
+     * By default, CursorAdapter objects will get this notification.
+     *
+     * @param uri
+     * @param observer The observer that originated the change, may be <code>null</null>
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void notifyChange(Uri uri, ContentObserver observer) {
         notifyChange(uri, observer, true /* sync to network */);
@@ -1261,6 +1570,7 @@ public abstract class ContentResolver {
      * Notify registered observers that a row was updated.
      * To register, call {@link #registerContentObserver(android.net.Uri , boolean, android.database.ContentObserver) registerContentObserver()}.
      * By default, CursorAdapter objects will get this notification.
+<<<<<<< HEAD
      * If syncToNetwork is true, this will attempt to schedule a local sync using the sync
      * adapter that's registered for the authority of the provided uri. No account will be
      * passed to the sync adapter, so all matching accounts will be synchronized.
@@ -1276,6 +1586,16 @@ public abstract class ContentResolver {
     public void notifyChange(Uri uri, ContentObserver observer, boolean syncToNetwork) {
         try {
             getContentService().notifyChange(
+=======
+     *
+     * @param uri
+     * @param observer The observer that originated the change, may be <code>null</null>
+     * @param syncToNetwork If true, attempt to sync the change to the network.
+     */
+    public void notifyChange(Uri uri, ContentObserver observer, boolean syncToNetwork) {
+        try {
+            ContentServiceNative.getDefault().notifyChange(
+>>>>>>> 54b6cfa... Initial Contribution
                     uri, observer == null ? null : observer.getContentObserver(),
                     observer != null && observer.deliverSelfNotifications(), syncToNetwork);
         } catch (RemoteException e) {
@@ -1297,6 +1617,7 @@ public abstract class ContentResolver {
      *
      * @param uri the uri of the provider to sync or null to sync all providers.
      * @param extras any extras to pass to the SyncAdapter.
+<<<<<<< HEAD
      * @deprecated instead use
      * {@link #requestSync(android.accounts.Account, String, android.os.Bundle)}
      */
@@ -1334,6 +1655,13 @@ public abstract class ContentResolver {
         validateSyncExtrasBundle(extras);
         try {
             getContentService().requestSync(account, authority, extras);
+=======
+     */
+    public void startSync(Uri uri, Bundle extras) {
+        validateSyncExtrasBundle(extras);
+        try {
+            ContentServiceNative.getDefault().startSync(uri, extras);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
         }
     }
@@ -1347,7 +1675,10 @@ public abstract class ContentResolver {
      * <li>Float</li>
      * <li>Double</li>
      * <li>String</li>
+<<<<<<< HEAD
      * <li>Account</li>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * <li>null</li>
      * </ul>
      * @param extras the Bundle to check
@@ -1363,7 +1694,10 @@ public abstract class ContentResolver {
                 if (value instanceof Float) continue;
                 if (value instanceof Double) continue;
                 if (value instanceof String) continue;
+<<<<<<< HEAD
                 if (value instanceof Account) continue;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 throw new IllegalArgumentException("unexpected value type: "
                         + value.getClass().getName());
             }
@@ -1374,6 +1708,7 @@ public abstract class ContentResolver {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Cancel any active or pending syncs that match the Uri. If the uri is null then
      * all syncs will be canceled.
@@ -1828,27 +2163,48 @@ public abstract class ContentResolver {
 
         private final CloseGuard mCloseGuard = CloseGuard.get();
         private boolean mProviderReleased;
+=======
+    public void cancelSync(Uri uri) {
+        try {
+            ContentServiceNative.getDefault().cancelSync(uri);
+        } catch (RemoteException e) {
+        }
+    }
+
+    private final class CursorWrapperInner extends CursorWrapper {
+        private IContentProvider mContentProvider;
+        public static final String TAG="CursorWrapperInner";
+        private boolean mCloseFlag = false;
+>>>>>>> 54b6cfa... Initial Contribution
 
         CursorWrapperInner(Cursor cursor, IContentProvider icp) {
             super(cursor);
             mContentProvider = icp;
+<<<<<<< HEAD
             mCloseGuard.open("close");
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         @Override
         public void close() {
             super.close();
             ContentResolver.this.releaseProvider(mContentProvider);
+<<<<<<< HEAD
             mProviderReleased = true;
 
             if (mCloseGuard != null) {
                 mCloseGuard.close();
             }
+=======
+            mCloseFlag = true;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         @Override
         protected void finalize() throws Throwable {
             try {
+<<<<<<< HEAD
                 if (mCloseGuard != null) {
                     mCloseGuard.warnIfOpen();
                 }
@@ -1857,6 +2213,9 @@ public abstract class ContentResolver {
                     // Even though we are using CloseGuard, log this anyway so that
                     // application developers always see the message in the log.
                     Log.w(TAG, "Cursor finalized without prior close()");
+=======
+                if(!mCloseFlag) {
+>>>>>>> 54b6cfa... Initial Contribution
                     ContentResolver.this.releaseProvider(mContentProvider);
                 }
             } finally {
@@ -1866,7 +2225,12 @@ public abstract class ContentResolver {
     }
 
     private final class ParcelFileDescriptorInner extends ParcelFileDescriptor {
+<<<<<<< HEAD
         private final IContentProvider mContentProvider;
+=======
+        private IContentProvider mContentProvider;
+        public static final String TAG="ParcelFileDescriptorInner";
+>>>>>>> 54b6cfa... Initial Contribution
         private boolean mReleaseProviderFlag = false;
 
         ParcelFileDescriptorInner(ParcelFileDescriptor pfd, IContentProvider icp) {
@@ -1891,6 +2255,7 @@ public abstract class ContentResolver {
         }
     }
 
+<<<<<<< HEAD
     /** @hide */
     public static final String CONTENT_SERVICE_NAME = "content";
 
@@ -1907,6 +2272,8 @@ public abstract class ContentResolver {
     }
 
     private static IContentService sContentService;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private final Context mContext;
     private static final String TAG = "ContentResolver";
 }

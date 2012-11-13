@@ -19,6 +19,10 @@ package com.android.internal.os;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.SystemClock;
+<<<<<<< HEAD
+=======
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.EventLog;
 import android.util.Log;
 
@@ -75,6 +79,7 @@ public class BinderInternal {
      */
     public static final native IBinder getContextObject();
     
+<<<<<<< HEAD
     /**
      * Special for system process to not allow incoming calls to run at
      * background scheduling priority.
@@ -82,6 +87,8 @@ public class BinderInternal {
      */
     public static final native void disableBackgroundScheduling(boolean disable);
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     static native final void handleGc();
     
     public static void forceGc(String reason) {

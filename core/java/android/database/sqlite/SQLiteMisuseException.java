@@ -16,6 +16,7 @@
 
 package android.database.sqlite;
 
+<<<<<<< HEAD
 /**
  * This error can occur if the application creates a SQLiteStatement object and allows multiple
  * threads in the application use it at the same time.
@@ -28,6 +29,8 @@ package android.database.sqlite;
  * Create a local instance of the SQLiteStatement whenever it is needed, use it and close it ASAP.
  * NEVER make it globally available.
  */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 public class SQLiteMisuseException extends SQLiteException {
     public SQLiteMisuseException() {}
 

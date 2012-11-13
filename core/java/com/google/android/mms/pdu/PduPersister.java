@@ -20,8 +20,11 @@ package com.google.android.mms.pdu;
 import com.google.android.mms.ContentType;
 import com.google.android.mms.InvalidHeaderValueException;
 import com.google.android.mms.MmsException;
+<<<<<<< HEAD
 import com.google.android.mms.util.DownloadDrmHelper;
 import com.google.android.mms.util.DrmConvertSession;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import com.google.android.mms.util.PduCache;
 import com.google.android.mms.util.PduCacheEntry;
 import com.google.android.mms.util.SqliteWrapper;
@@ -32,12 +35,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+<<<<<<< HEAD
 import android.database.sqlite.SQLiteException;
 import android.drm.DrmManagerClient;
 import android.net.Uri;
 import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.provider.Telephony;
+=======
+import android.net.Uri;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.provider.Telephony.Mms;
 import android.provider.Telephony.MmsSms;
 import android.provider.Telephony.Threads;
@@ -45,10 +52,17 @@ import android.provider.Telephony.Mms.Addr;
 import android.provider.Telephony.Mms.Part;
 import android.provider.Telephony.MmsSms.PendingMessages;
 import android.text.TextUtils;
+<<<<<<< HEAD
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+=======
+import android.util.Config;
+import android.util.Log;
+
+import java.io.ByteArrayOutputStream;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,15 +75,22 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+<<<<<<< HEAD
 import com.google.android.mms.pdu.EncodedStringValue;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * This class is the high-level manager of PDU storage.
  */
 public class PduPersister {
     private static final String TAG = "PduPersister";
     private static final boolean DEBUG = false;
+<<<<<<< HEAD
     private static final boolean LOCAL_LOGV = false;
+=======
+    private static final boolean LOCAL_LOGV = DEBUG ? Config.LOGD : Config.LOGV;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private static final long DUMMY_THREAD_ID = Long.MAX_VALUE;
 
@@ -168,7 +189,10 @@ public class PduPersister {
         Part.CONTENT_TYPE,
         Part.FILENAME,
         Part.NAME,
+<<<<<<< HEAD
         Part.TEXT
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     };
 
     private static final int PART_COLUMN_ID                  = 0;
@@ -179,7 +203,10 @@ public class PduPersister {
     private static final int PART_COLUMN_CONTENT_TYPE        = 5;
     private static final int PART_COLUMN_FILENAME            = 6;
     private static final int PART_COLUMN_NAME                = 7;
+<<<<<<< HEAD
     private static final int PART_COLUMN_TEXT                = 8;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     private static final HashMap<Uri, Integer> MESSAGE_BOX_MAP;
     // These map are used for convenience in persist() and load().
@@ -278,12 +305,18 @@ public class PduPersister {
 
     private final Context mContext;
     private final ContentResolver mContentResolver;
+<<<<<<< HEAD
     private final DrmManagerClient mDrmManagerClient;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     private PduPersister(Context context) {
         mContext = context;
         mContentResolver = context.getContentResolver();
+<<<<<<< HEAD
         mDrmManagerClient = new DrmManagerClient(context);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      }
 
     /** Get(or create if not exist) an instance of PduPersister */
@@ -427,6 +460,7 @@ public class PduPersister {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     InputStream is = null;
 
+<<<<<<< HEAD
                     // Store simple string values directly in the database instead of an
                     // external file.  This makes the text searchable and retrieval slightly
                     // faster.
@@ -459,6 +493,28 @@ public class PduPersister {
                                     Log.e(TAG, "Failed to close stream", e);
                                 } // Ignore
                             }
+=======
+                    try {
+                        is = mContentResolver.openInputStream(partURI);
+
+                        byte[] buffer = new byte[256];
+                        int len = is.read(buffer);
+                        while (len >= 0) {
+                            baos.write(buffer, 0, len);
+                            len = is.read(buffer);
+                        }
+                    } catch (IOException e) {
+                        Log.e(TAG, "Failed to load part data", e);
+                        c.close();
+                        throw new MmsException(e);
+                    } finally {
+                        if (is != null) {
+                            try {
+                                is.close();
+                            } catch (IOException e) {
+                                Log.e(TAG, "Failed to close stream", e);
+                            } // Ignore
+>>>>>>> 54b6cfa... Initial Contribution
                         }
                     }
                     part.setData(baos.toByteArray());
@@ -519,6 +575,7 @@ public class PduPersister {
      * @throws MmsException Failed to load some fields of a PDU.
      */
     public GenericPdu load(Uri uri) throws MmsException {
+<<<<<<< HEAD
         GenericPdu pdu = null;
         PduCacheEntry cacheEntry = null;
         int msgBox = 0;
@@ -612,6 +669,84 @@ public class PduPersister {
             }
 
             switch (msgType) {
+=======
+        PduCacheEntry cacheEntry = PDU_CACHE_INSTANCE.get(uri);
+        if (cacheEntry != null) {
+            return cacheEntry.getPdu();
+        }
+
+        Cursor c = SqliteWrapper.query(mContext, mContentResolver, uri,
+                        PDU_PROJECTION, null, null, null);
+        PduHeaders headers = new PduHeaders();
+        Set<Entry<Integer, Integer>> set;
+        long msgId = ContentUris.parseId(uri);
+        int msgBox;
+        long threadId;
+
+        try {
+            if ((c == null) || (c.getCount() != 1) || !c.moveToFirst()) {
+                throw new MmsException("Bad uri: " + uri);
+            }
+
+            msgBox = c.getInt(PDU_COLUMN_MESSAGE_BOX);
+            threadId = c.getLong(PDU_COLUMN_THREAD_ID);
+
+            set = ENCODED_STRING_COLUMN_INDEX_MAP.entrySet();
+            for (Entry<Integer, Integer> e : set) {
+                setEncodedStringValueToHeaders(
+                        c, e.getValue(), headers, e.getKey());
+            }
+
+            set = TEXT_STRING_COLUMN_INDEX_MAP.entrySet();
+            for (Entry<Integer, Integer> e : set) {
+                setTextStringToHeaders(
+                        c, e.getValue(), headers, e.getKey());
+            }
+
+            set = OCTET_COLUMN_INDEX_MAP.entrySet();
+            for (Entry<Integer, Integer> e : set) {
+                setOctetToHeaders(
+                        c, e.getValue(), headers, e.getKey());
+            }
+
+            set = LONG_COLUMN_INDEX_MAP.entrySet();
+            for (Entry<Integer, Integer> e : set) {
+                setLongToHeaders(
+                        c, e.getValue(), headers, e.getKey());
+            }
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+        }
+
+        // Check whether 'msgId' has been assigned a valid value.
+        if (msgId == -1L) {
+            throw new MmsException("Error! ID of the message: -1.");
+        }
+
+        // Load address information of the MM.
+        loadAddress(msgId, headers);
+
+        int msgType = headers.getOctet(PduHeaders.MESSAGE_TYPE);
+        PduBody body = new PduBody();
+
+        // For PDU which type is M_retrieve.conf or Send.req, we should
+        // load multiparts and put them into the body of the PDU.
+        if ((msgType == PduHeaders.MESSAGE_TYPE_RETRIEVE_CONF)
+                || (msgType == PduHeaders.MESSAGE_TYPE_SEND_REQ)) {
+            PduPart[] parts = loadParts(msgId);
+            if (parts != null) {
+                int partsNum = parts.length;
+                for (int i = 0; i < partsNum; i++) {
+                    body.addPart(parts[i]);
+                }
+            }
+        }
+
+        GenericPdu pdu = null;
+        switch (msgType) {
+>>>>>>> 54b6cfa... Initial Contribution
             case PduHeaders.MESSAGE_TYPE_NOTIFICATION_IND:
                 pdu = new NotificationInd(headers);
                 break;
@@ -658,6 +793,7 @@ public class PduPersister {
             default:
                 throw new MmsException(
                         "Unrecognized PDU type: " + Integer.toHexString(msgType));
+<<<<<<< HEAD
             }
         } finally {
             synchronized(PDU_CACHE_INSTANCE) {
@@ -671,6 +807,12 @@ public class PduPersister {
                 PDU_CACHE_INSTANCE.notifyAll(); // tell anybody waiting on this entry to go ahead
             }
         }
+=======
+        }
+
+        cacheEntry = new PduCacheEntry(pdu, msgBox, threadId);
+        PDU_CACHE_INSTANCE.put(uri, cacheEntry);
+>>>>>>> 54b6cfa... Initial Contribution
         return pdu;
     }
 
@@ -702,6 +844,7 @@ public class PduPersister {
         String contentType = null;
         if (part.getContentType() != null) {
             contentType = toIsoString(part.getContentType());
+<<<<<<< HEAD
 
             // There is no "image/jpg" in Android (and it's an invalid mimetype).
             // Change it to "image/jpeg"
@@ -709,6 +852,8 @@ public class PduPersister {
                 contentType = ContentType.IMAGE_JPEG;
             }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             values.put(Part.CONTENT_TYPE, contentType);
             // To ensure the SMIL part is always the first part.
             if (ContentType.APP_SMIL.equals(contentType)) {
@@ -775,6 +920,7 @@ public class PduPersister {
             throws MmsException {
         OutputStream os = null;
         InputStream is = null;
+<<<<<<< HEAD
         DrmConvertSession drmConvertSession = null;
         Uri dataUri = null;
         String path = null;
@@ -861,6 +1007,56 @@ public class PduPersister {
                         }
                     }
                 }
+=======
+
+        try {
+            os = mContentResolver.openOutputStream(uri);
+            byte[] data = part.getData();
+            if (data == null) {
+                Uri dataUri = part.getDataUri();
+                if ((dataUri == null) || (dataUri == uri)) {
+                    Log.w(TAG, "Can't find data for this part.");
+                    return;
+                }
+                is = mContentResolver.openInputStream(dataUri);
+                
+                boolean fakeRawAmr = contentType.equals("audio/amr");
+
+                if (LOCAL_LOGV) {
+                    Log.v(TAG, "Saving data to: " + uri);
+                }
+
+                byte[] buffer = new byte[256];
+                for (int len = 0; (len = is.read(buffer)) != -1; ) {
+                    if (fakeRawAmr && len > 32) {
+                        // This is a Gross Hack. We can only record audio to amr format in a 3gpp container.
+                        // Millions of handsets out there only support what is essentially raw AMR.
+                        // We work around this issue by extracting the AMR data out of the 3gpp container
+                        // (in a really stupid and non-portable way), prepending a little header, and then
+                        // using that as the attachment.
+                        // This also requires some cooperation from the SoundRecorder, which ends up saving
+                        // a "recording.amr" file with mime type audio/amr, even though it's a 3gpp file.
+                        if (buffer[4] ==  0x66 &&       // f
+                                buffer[5] == 0x74 &&    // t
+                                buffer[6] == 0x79 &&    // y
+                                buffer[7] == 0x70) {    // p
+                            byte [] amrHeader = new byte [] { 0x23, 0x21, 0x41, 0x4d, 0x52, 0x0a };
+                            os.write(amrHeader);
+                            os.write(buffer, 32, len - 32);
+                        } else {
+                            os.write(buffer, 0, len);
+                        }
+                        fakeRawAmr = false;
+                    } else {
+                        os.write(buffer, 0, len);
+                    }
+                }
+            } else {
+                if (LOCAL_LOGV) {
+                    Log.v(TAG, "Saving data to: " + uri);
+                }
+                os.write(data);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         } catch (FileNotFoundException e) {
             Log.e(TAG, "Failed to open Input/Output stream.", e);
@@ -883,6 +1079,7 @@ public class PduPersister {
                     Log.e(TAG, "IOException while closing: " + is, e);
                 } // Ignore
             }
+<<<<<<< HEAD
             if (drmConvertSession != null) {
                 drmConvertSession.close(path);
 
@@ -942,6 +1139,9 @@ public class PduPersister {
             }
         }
         return path;
+=======
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private void updateAddress(
@@ -962,6 +1162,7 @@ public class PduPersister {
      * @throws MmsException Bad URI or updating failed.
      */
     public void updateHeaders(Uri uri, SendReq sendReq) {
+<<<<<<< HEAD
         synchronized(PDU_CACHE_INSTANCE) {
             // If the cache item is getting updated, wait until it's done updating before
             // purging it.
@@ -979,6 +1180,11 @@ public class PduPersister {
         PDU_CACHE_INSTANCE.purge(uri);
 
         ContentValues values = new ContentValues(10);
+=======
+        PDU_CACHE_INSTANCE.purge(uri);
+
+        ContentValues values = new ContentValues(9);
+>>>>>>> 54b6cfa... Initial Contribution
         byte[] contentType = sendReq.getContentType();
         if (contentType != null) {
             values.put(Mms.CONTENT_TYPE, toIsoString(contentType));
@@ -1023,6 +1229,7 @@ public class PduPersister {
         if (subject != null) {
             values.put(Mms.SUBJECT, toIsoString(subject.getTextString()));
             values.put(Mms.SUBJECT_CHARSET, subject.getCharacterSet());
+<<<<<<< HEAD
         } else {
             values.put(Mms.SUBJECT, "");
         }
@@ -1030,6 +1237,8 @@ public class PduPersister {
         long messageSize = sendReq.getMessageSize();
         if (messageSize > 0) {
             values.put(Mms.MESSAGE_SIZE, messageSize);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         PduHeaders headers = sendReq.getPduHeaders();
@@ -1058,10 +1267,16 @@ public class PduPersister {
                 }
             }
         }
+<<<<<<< HEAD
         if (!recipients.isEmpty()) {
             long threadId = Threads.getOrCreateThreadId(mContext, recipients);
             values.put(Mms.THREAD_ID, threadId);
         }
+=======
+
+        long threadId = Threads.getOrCreateThreadId(mContext, recipients);
+        values.put(Mms.THREAD_ID, threadId);
+>>>>>>> 54b6cfa... Initial Contribution
 
         SqliteWrapper.update(mContext, mContentResolver, uri, values, null, null);
     }
@@ -1128,6 +1343,7 @@ public class PduPersister {
      */
     public void updateParts(Uri uri, PduBody body)
             throws MmsException {
+<<<<<<< HEAD
         try {
             PduCacheEntry cacheEntry;
             synchronized(PDU_CACHE_INSTANCE) {
@@ -1197,6 +1413,54 @@ public class PduPersister {
                 PDU_CACHE_INSTANCE.setUpdating(uri, false);
                 PDU_CACHE_INSTANCE.notifyAll();
             }
+=======
+        PduCacheEntry cacheEntry = PDU_CACHE_INSTANCE.get(uri);
+        if (cacheEntry != null) {
+            ((MultimediaMessagePdu) cacheEntry.getPdu()).setBody(body);
+        }
+
+        ArrayList<PduPart> toBeCreated = new ArrayList<PduPart>();
+        HashMap<Uri, PduPart> toBeUpdated = new HashMap<Uri, PduPart>();
+
+        int partsNum = body.getPartsNum();
+        StringBuilder filter = new StringBuilder().append('(');
+        for (int i = 0; i < partsNum; i++) {
+            PduPart part = body.getPart(i);
+            Uri partUri = part.getDataUri();
+            if ((partUri == null) || !partUri.getAuthority().startsWith("mms")) {
+                toBeCreated.add(part);
+            } else {
+                toBeUpdated.put(partUri, part);
+
+                // Don't use 'i > 0' to determine whether we should append
+                // 'AND' since 'i = 0' may be skipped in another branch.
+                if (filter.length() > 1) {
+                    filter.append(" AND ");
+                }
+
+                filter.append(Part._ID);
+                filter.append("!=");
+                DatabaseUtils.appendEscapedSQLString(filter, partUri.getLastPathSegment());
+            }
+        }
+        filter.append(')');
+
+        long msgId = ContentUris.parseId(uri);
+
+        // Remove the parts which doesn't exist anymore.
+        SqliteWrapper.delete(mContext, mContentResolver,
+                Uri.parse(Mms.CONTENT_URI + "/" + msgId + "/part"),
+                filter.length() > 2 ? filter.toString() : null, null);
+
+        // Create new parts which didn't exist before.
+        for (PduPart part : toBeCreated) {
+            persistPart(part, msgId);
+        }
+
+        // Update the modified parts.
+        for (Map.Entry<Uri, PduPart> e : toBeUpdated.entrySet()) {
+            updatePart(e.getKey(), e.getValue());
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -1211,6 +1475,7 @@ public class PduPersister {
         if (uri == null) {
             throw new MmsException("Uri may not be null.");
         }
+<<<<<<< HEAD
         long msgId = -1;
         try {
             msgId = ContentUris.parseId(uri);
@@ -1220,12 +1485,18 @@ public class PduPersister {
         boolean existingUri = msgId != -1;
 
         if (!existingUri && MESSAGE_BOX_MAP.get(uri) == null) {
+=======
+
+        Integer msgBox = MESSAGE_BOX_MAP.get(uri);
+        if (msgBox == null) {
+>>>>>>> 54b6cfa... Initial Contribution
             throw new MmsException(
                     "Bad destination, must be one of "
                     + "content://mms/inbox, content://mms/sent, "
                     + "content://mms/drafts, content://mms/outbox, "
                     + "content://mms/temp.");
         }
+<<<<<<< HEAD
         synchronized(PDU_CACHE_INSTANCE) {
             // If the cache item is getting updated, wait until it's done updating before
             // purging it.
@@ -1241,6 +1512,8 @@ public class PduPersister {
             }
         }
         PDU_CACHE_INSTANCE.purge(uri);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         PduHeaders header = pdu.getPduHeaders();
         PduBody body = null;
@@ -1300,6 +1573,10 @@ public class PduPersister {
         }
 
         HashSet<String> recipients = new HashSet<String>();
+<<<<<<< HEAD
+=======
+        long threadId = DUMMY_THREAD_ID;
+>>>>>>> 54b6cfa... Initial Contribution
         int msgType = pdu.getMessageType();
         // Here we only allocate thread ID for M-Notification.ind,
         // M-Retrieve.conf and M-Send.req.
@@ -1326,11 +1603,17 @@ public class PduPersister {
                     }
                 }
             }
+<<<<<<< HEAD
             if (!recipients.isEmpty()) {
                 long threadId = Threads.getOrCreateThreadId(mContext, recipients);
                 values.put(Mms.THREAD_ID, threadId);
             }
         }
+=======
+            threadId = Threads.getOrCreateThreadId(mContext, recipients);
+        }
+        values.put(Mms.THREAD_ID, threadId);
+>>>>>>> 54b6cfa... Initial Contribution
 
         // Save parts first to avoid inconsistent message is loaded
         // while saving the parts.
@@ -1348,6 +1631,7 @@ public class PduPersister {
             }
         }
 
+<<<<<<< HEAD
         Uri res = null;
         if (existingUri) {
             res = uri;
@@ -1362,6 +1646,16 @@ public class PduPersister {
             msgId = ContentUris.parseId(res);
         }
 
+=======
+        Uri res = SqliteWrapper.insert(mContext, mContentResolver, uri, values);
+        if (res == null) {
+            throw new MmsException("persist() failed: return null.");
+        }
+
+        // Get the real ID of the PDU and update all parts which were
+        // saved with the dummy ID.
+        long msgId = ContentUris.parseId(res);
+>>>>>>> 54b6cfa... Initial Contribution
         values = new ContentValues(1);
         values.put(Part.MSG_ID, msgId);
         SqliteWrapper.update(mContext, mContentResolver,
@@ -1372,9 +1666,13 @@ public class PduPersister {
         // persisted PDU is '8', we should return "content://mms/inbox/8"
         // instead of "content://mms/8".
         // FIXME: Should the MmsProvider be responsible for this???
+<<<<<<< HEAD
         if (!existingUri) {
             res = Uri.parse(uri + "/" + msgId);
         }
+=======
+        res = Uri.parse(uri + "/" + msgId);
+>>>>>>> 54b6cfa... Initial Contribution
 
         // Save address information.
         for (int addrType : ADDRESS_FIELDS) {

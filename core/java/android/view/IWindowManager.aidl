@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 /*
+=======
+/* //device/java/android/android/view/IWindowManager.aidl
+**
+>>>>>>> 54b6cfa... Initial Contribution
 ** Copyright 2006, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -16,6 +21,7 @@
 
 package android.view;
 
+<<<<<<< HEAD
 import com.android.internal.view.IInputContext;
 import com.android.internal.view.IInputMethodClient;
 
@@ -24,15 +30,22 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.IRemoteCallback;
+=======
+import android.content.res.Configuration;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.view.IApplicationToken;
 import android.view.IOnKeyguardExitResult;
 import android.view.IRotationWatcher;
 import android.view.IWindowSession;
 import android.view.KeyEvent;
+<<<<<<< HEAD
 import android.view.InputEvent;
 import android.view.MotionEvent;
 import android.view.InputChannel;
 import android.view.InputDevice;
+=======
+import android.view.MotionEvent;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * System private interface to the window manager.
@@ -51,6 +64,7 @@ interface IWindowManager
     boolean stopViewServer();            // Transaction #2
     boolean isViewServerRunning();       // Transaction #3
 
+<<<<<<< HEAD
     IWindowSession openSession(in IInputMethodClient client,
             in IInputContext inputContext);
     boolean inputMethodClientHasFocus(IInputMethodClient client);
@@ -66,10 +80,21 @@ interface IWindowManager
     // Is the device configured to have a full system bar for larger screens?
     boolean hasSystemNavBar();
 
+=======
+    IWindowSession openSession(IBinder token);
+
+    // These can only be called when injecting events to your own window,
+    // or by holding the INJECT_EVENTS permission.
+    boolean injectKeyEvent(in KeyEvent ev, boolean sync);
+    boolean injectPointerEvent(in MotionEvent ev, boolean sync);
+    boolean injectTrackballEvent(in MotionEvent ev, boolean sync);
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // These can only be called when holding the MANAGE_APP_TOKENS permission.
     void pauseKeyDispatching(IBinder token);
     void resumeKeyDispatching(IBinder token);
     void setEventDispatching(boolean enabled);
+<<<<<<< HEAD
     void addWindowToken(IBinder token, int type);
     void removeWindowToken(IBinder token);
     void addAppToken(int addPos, IApplicationToken token,
@@ -90,6 +115,20 @@ interface IWindowManager
     void setAppStartingWindow(IBinder token, String pkg, int theme,
             in CompatibilityInfo compatInfo, CharSequence nonLocalizedLabel, int labelRes,
             int icon, int windowFlags, IBinder transferFrom, boolean createIfNeeded);
+=======
+    void addAppToken(int addPos, IApplicationToken token,
+            int groupId, int requestedOrientation, boolean fullscreen);
+    void setAppGroupId(IBinder token, int groupId);
+    Configuration updateOrientationFromAppTokens(IBinder freezeThisOneIfNeeded);
+    void setAppOrientation(IApplicationToken token, int requestedOrientation);
+    int getAppOrientation(IApplicationToken token);
+    void setFocusedApp(IBinder token, boolean moveFocusNow);
+    void prepareAppTransition(int transit);
+    void executeAppTransition();
+    void setAppStartingWindow(IBinder token, String pkg, int theme,
+            CharSequence nonLocalizedLabel, int labelRes,
+            int icon, IBinder transferFrom, boolean createIfNeeded);
+>>>>>>> 54b6cfa... Initial Contribution
     void setAppWillBeHidden(IBinder token);
     void setAppVisibility(IBinder token, boolean visible);
     void startAppFreezingScreen(IBinder token, int configChanges);
@@ -99,6 +138,7 @@ interface IWindowManager
     void moveAppTokensToTop(in List<IBinder> tokens);
     void moveAppTokensToBottom(in List<IBinder> tokens);
 
+<<<<<<< HEAD
     // Re-evaluate the current orientation from the caller's state.
     // If there is a change, the new Configuration is returned and the
     // caller must call setNewConfiguration() sometime later.
@@ -106,16 +146,23 @@ interface IWindowManager
             IBinder freezeThisOneIfNeeded);
     void setNewConfiguration(in Configuration config);
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // these require DISABLE_KEYGUARD permission
     void disableKeyguard(IBinder token, String tag);
     void reenableKeyguard(IBinder token);
     void exitKeyguardSecurely(IOnKeyguardExitResult callback);
+<<<<<<< HEAD
     boolean isKeyguardLocked();
     boolean isKeyguardSecure();
     boolean inKeyguardRestrictedInputMode();
     void dismissKeyguard();
 
     void closeSystemDialogs(String reason);
+=======
+    boolean inKeyguardRestrictedInputMode();
+
+>>>>>>> 54b6cfa... Initial Contribution
     
     // These can only be called with the SET_ANIMATON_SCALE permission.
     float getAnimationScale(int which);
@@ -123,6 +170,7 @@ interface IWindowManager
     void setAnimationScale(int which, float scale);
     void setAnimationScales(in float[] scales);
     
+<<<<<<< HEAD
     // For testing
     void setInTouchMode(boolean showFocus);
 
@@ -150,6 +198,30 @@ interface IWindowManager
      * of its windows even if the rotation hasn't changed.
      */
     void updateRotation(boolean alwaysSendConfiguration, boolean forceRelayout);
+=======
+    // These require the READ_INPUT_STATE permission.
+    int getSwitchState(int sw);
+    int getSwitchStateForDevice(int devid, int sw);
+    int getScancodeState(int sw);
+    int getScancodeStateForDevice(int devid, int sw);
+    int getKeycodeState(int sw);
+    int getKeycodeStateForDevice(int devid, int sw);
+    
+    // For testing
+    void setInTouchMode(boolean showFocus);
+    
+    // These can only be called with the SET_ORIENTATION permission.
+    /**
+     * Change the current screen rotation, constants as per
+     * {@link android.view.Surface}.
+     * @param rotation the intended rotation.
+     * @param alwaysSendConfiguration Flag to force a new configuration to
+     * be evaluated.  This can be used when there are other parameters in
+     * configuration that are changing.
+     * {@link android.view.Surface}.
+     */
+    void setRotation(int rotation, boolean alwaysSendConfiguration);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Retrieve the current screen orientation, constants as per
@@ -162,6 +234,7 @@ interface IWindowManager
      * calls back when it changes.
      */
     int watchRotation(IRotationWatcher watcher);
+<<<<<<< HEAD
 
     /**
      * Determine the preferred edge of the screen to pin the compact options menu against.
@@ -208,4 +281,6 @@ interface IWindowManager
      * Lock the device immediately.
      */
     void lockNow();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

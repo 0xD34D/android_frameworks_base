@@ -16,6 +16,7 @@
 
 package android.widget;
 
+<<<<<<< HEAD
 import android.R;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -25,6 +26,12 @@ import android.content.res.CompatibilityInfo;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
+=======
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -32,6 +39,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+<<<<<<< HEAD
 import android.inputmethodservice.ExtractEditText;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,11 +48,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.provider.Settings;
+=======
+import android.os.Handler;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.SystemClock;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.text.BoringLayout;
 import android.text.DynamicLayout;
 import android.text.Editable;
 import android.text.GetChars;
 import android.text.GraphicsOperations;
+<<<<<<< HEAD
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Layout;
@@ -66,6 +81,21 @@ import android.text.method.AllCapsTransformationMethod;
 import android.text.method.ArrowKeyMovementMethod;
 import android.text.method.DateKeyListener;
 import android.text.method.DateTimeKeyListener;
+=======
+import android.text.ClipboardManager;
+import android.text.InputFilter;
+import android.text.Layout;
+import android.text.Selection;
+import android.text.SpanWatcher;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.SpannedString;
+import android.text.SpannableString;
+import android.text.StaticLayout;
+import android.text.TextPaint;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.text.method.DialerKeyListener;
 import android.text.method.DigitsKeyListener;
 import android.text.method.KeyListener;
@@ -75,6 +105,7 @@ import android.text.method.MovementMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 import android.text.method.TextKeyListener;
+<<<<<<< HEAD
 import android.text.method.TimeKeyListener;
 import android.text.method.TransformationMethod;
 import android.text.method.TransformationMethod2;
@@ -132,6 +163,34 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Locale;
+=======
+import android.text.method.TransformationMethod;
+import android.text.style.ParagraphStyle;
+import android.text.style.URLSpan;
+import android.text.style.UpdateLayout;
+import android.text.util.Linkify;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.util.FloatMath;
+import android.util.TypedValue;
+import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewDebug;
+import android.view.ViewTreeObserver;
+import android.view.ViewGroup.LayoutParams;
+import android.view.animation.AnimationUtils;
+import android.widget.RemoteViews.RemoteView;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
+import com.android.internal.util.FastMath;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Displays text to the user and optionally allows them to edit it.  A TextView
@@ -151,11 +210,16 @@ import java.util.Locale;
  * @attr ref android.R.styleable#TextView_textColor
  * @attr ref android.R.styleable#TextView_textColorHighlight
  * @attr ref android.R.styleable#TextView_textColorHint
+<<<<<<< HEAD
  * @attr ref android.R.styleable#TextView_textAppearance
  * @attr ref android.R.styleable#TextView_textColorLink
  * @attr ref android.R.styleable#TextView_textSize
  * @attr ref android.R.styleable#TextView_textScaleX
  * @attr ref android.R.styleable#TextView_fontFamily
+=======
+ * @attr ref android.R.styleable#TextView_textSize
+ * @attr ref android.R.styleable#TextView_textScaleX
+>>>>>>> 54b6cfa... Initial Contribution
  * @attr ref android.R.styleable#TextView_typeface
  * @attr ref android.R.styleable#TextView_textStyle
  * @attr ref android.R.styleable#TextView_cursorVisible
@@ -191,12 +255,16 @@ import java.util.Locale;
  * @attr ref android.R.styleable#TextView_capitalize
  * @attr ref android.R.styleable#TextView_autoText
  * @attr ref android.R.styleable#TextView_editable
+<<<<<<< HEAD
  * @attr ref android.R.styleable#TextView_freezesText
  * @attr ref android.R.styleable#TextView_ellipsize
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  * @attr ref android.R.styleable#TextView_drawableTop
  * @attr ref android.R.styleable#TextView_drawableBottom
  * @attr ref android.R.styleable#TextView_drawableRight
  * @attr ref android.R.styleable#TextView_drawableLeft
+<<<<<<< HEAD
  * @attr ref android.R.styleable#TextView_drawableStart
  * @attr ref android.R.styleable#TextView_drawableEnd
  * @attr ref android.R.styleable#TextView_drawablePadding
@@ -271,12 +339,29 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     private boolean mFreezesText;
     private boolean mTemporaryDetach;
     private boolean mDispatchTemporaryDetach;
+=======
+ * @attr ref android.R.styleable#TextView_lineSpacingExtra
+ * @attr ref android.R.styleable#TextView_lineSpacingMultiplier
+ */
+@RemoteView
+public class TextView extends View implements ViewTreeObserver.OnPreDrawListener {
+    private static int PRIORITY = 100;
+
+    private ColorStateList mTextColor;
+    private int mCurTextColor;
+    private ColorStateList mHintTextColor;
+    private ColorStateList mLinkTextColor;
+    private int mCurHintTextColor;
+    private boolean mFreezesText;
+    private boolean mFrozenWithFocus;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private Editable.Factory mEditableFactory = Editable.Factory.getInstance();
     private Spannable.Factory mSpannableFactory = Spannable.Factory.getInstance();
 
     private float mShadowRadius, mShadowDx, mShadowDy;
 
+<<<<<<< HEAD
     private boolean mPreDrawRegistered;
 
     private TextUtils.TruncateAt mEllipsize;
@@ -404,6 +489,42 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     private Editor mEditor;
 
     /*
+=======
+    private static final int PREDRAW_NOT_REGISTERED = 0;
+    private static final int PREDRAW_PENDING = 1;
+    private static final int PREDRAW_DONE = 2;
+    private int mPreDrawState = PREDRAW_NOT_REGISTERED;
+
+    private TextUtils.TruncateAt mEllipsize = null;
+
+    // Enum for the "typeface" XML parameter.
+    // TODO: How can we get this from the XML instead of hardcoding it here?
+    private static final int SANS = 1;
+    private static final int SERIF = 2;
+    private static final int MONOSPACE = 3;
+
+    // Bitfield for the "numeric" XML parameter.
+    // TODO: How can we get this from the XML instead of hardcoding it here?
+    private static final int SIGNED = 2;
+    private static final int DECIMAL = 4;
+
+    private Drawable mDrawableTop, mDrawableBottom, mDrawableLeft, mDrawableRight;
+    private int mDrawableSizeTop, mDrawableSizeBottom, mDrawableSizeLeft, mDrawableSizeRight;
+    private int mDrawableWidthTop, mDrawableWidthBottom, mDrawableHeightLeft, mDrawableHeightRight;
+    private boolean mDrawables;
+    private int mDrawablePadding;
+
+    private CharSequence mError;
+    private boolean mErrorWasChanged;
+    private PopupWindow mPopup;
+
+    private CharWrapper mCharWrapper = null;
+    private Rect mCompoundRect;
+
+    private boolean mSelectionMoved = false;
+
+    /* 
+>>>>>>> 54b6cfa... Initial Contribution
      * Kick-start the font cache for the zygote process (to pay the cost of
      * initializing freetype for our default font only once).
      */
@@ -414,6 +535,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         p.measureText("H");
     }
 
+<<<<<<< HEAD
     /**
      * Interface definition for a callback to be invoked when an action is
      * performed on the editor.
@@ -434,10 +556,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         boolean onEditorAction(TextView v, int actionId, KeyEvent event);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public TextView(Context context) {
         this(context, null);
     }
 
+<<<<<<< HEAD
     public TextView(Context context, AttributeSet attrs) {
         this(context, attrs, com.android.internal.R.attr.textViewStyle);
     }
@@ -461,22 +586,56 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         mTransformation = null;
 
+=======
+    public TextView(Context context,
+                    AttributeSet attrs) {
+        this(context, attrs, com.android.internal.R.attr.textViewStyle);
+    }
+
+    public TextView(Context context,
+                    AttributeSet attrs,
+                    int defStyle) {
+        super(context, attrs, defStyle);
+
+        mText = "";
+
+        mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+        // If we get the paint from the skin, we should set it to left, since
+        // the layout always wants it to be left.
+        // mTextPaint.setTextAlign(Paint.Align.LEFT);
+
+        mHighlightPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        mMovement = getDefaultMovementMethod();
+        mTransformation = null;
+
+        TypedArray a =
+            context.obtainStyledAttributes(
+                attrs, com.android.internal.R.styleable.TextView, defStyle, 0);
+
+>>>>>>> 54b6cfa... Initial Contribution
         int textColorHighlight = 0;
         ColorStateList textColor = null;
         ColorStateList textColorHint = null;
         ColorStateList textColorLink = null;
         int textSize = 15;
+<<<<<<< HEAD
         String fontFamily = null;
         int typefaceIndex = -1;
         int styleIndex = -1;
         boolean allCaps = false;
 
         final Resources.Theme theme = context.getTheme();
+=======
+        int typefaceIndex = -1;
+        int styleIndex = -1;
+>>>>>>> 54b6cfa... Initial Contribution
 
         /*
          * Look the appearance up without checking first if it exists because
          * almost every TextView has one and it greatly simplifies the logic
          * to be able to parse the appearance first and then let specific tags
+<<<<<<< HEAD
          * for this View override it.
          */
         TypedArray a = theme.obtainStyledAttributes(
@@ -488,6 +647,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         if (ap != -1) {
             appearance = theme.obtainStyledAttributes(
                     ap, com.android.internal.R.styleable.TextAppearance);
+=======
+         * for this View override it.   
+         */
+        TypedArray appearance = null;
+        int ap = a.getResourceId(com.android.internal.R.styleable.TextView_textAppearance, -1);
+        if (ap != -1) {
+            appearance = context.obtainStyledAttributes(ap,
+                                com.android.internal.R.styleable.
+                                TextAppearance);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         if (appearance != null) {
             int n = appearance.getIndexCount();
@@ -519,6 +688,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                     typefaceIndex = appearance.getInt(attr, -1);
                     break;
 
+<<<<<<< HEAD
                 case com.android.internal.R.styleable.TextAppearance_fontFamily:
                     fontFamily = appearance.getString(attr);
                     break;
@@ -530,6 +700,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 case com.android.internal.R.styleable.TextAppearance_textAllCaps:
                     allCaps = appearance.getBoolean(attr, false);
                     break;
+=======
+                case com.android.internal.R.styleable.TextAppearance_textStyle:
+                    styleIndex = appearance.getInt(attr, -1);
+                    break;
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
 
@@ -546,12 +721,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         int buffertype = 0;
         boolean selectallonfocus = false;
         Drawable drawableLeft = null, drawableTop = null, drawableRight = null,
+<<<<<<< HEAD
             drawableBottom = null, drawableStart = null, drawableEnd = null;
+=======
+            drawableBottom = null;
+>>>>>>> 54b6cfa... Initial Contribution
         int drawablePadding = 0;
         int ellipsize = -1;
         boolean singleLine = false;
         int maxlength = -1;
         CharSequence text = "";
+<<<<<<< HEAD
         CharSequence hint = null;
         int shadowcolor = 0;
         float dx = 0, dy = 0, r = 0;
@@ -560,6 +740,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         a = theme.obtainStyledAttributes(
                     attrs, com.android.internal.R.styleable.TextView, defStyle, 0);
+=======
+        int shadowcolor = 0;
+        float dx = 0, dy = 0, r = 0;
+        boolean password = false;
+>>>>>>> 54b6cfa... Initial Contribution
 
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
@@ -626,6 +811,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 drawableBottom = a.getDrawable(attr);
                 break;
 
+<<<<<<< HEAD
             case com.android.internal.R.styleable.TextView_drawableStart:
                 drawableStart = a.getDrawable(attr);
                 break;
@@ -634,6 +820,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 drawableEnd = a.getDrawable(attr);
                 break;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             case com.android.internal.R.styleable.TextView_drawablePadding:
                 drawablePadding = a.getDimensionPixelSize(attr, drawablePadding);
                 break;
@@ -691,7 +879,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 break;
 
             case com.android.internal.R.styleable.TextView_hint:
+<<<<<<< HEAD
                 hint = a.getText(attr);
+=======
+                setHint(a.getText(attr));
+>>>>>>> 54b6cfa... Initial Contribution
                 break;
 
             case com.android.internal.R.styleable.TextView_text:
@@ -712,10 +904,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 ellipsize = a.getInt(attr, ellipsize);
                 break;
 
+<<<<<<< HEAD
             case com.android.internal.R.styleable.TextView_marqueeRepeatLimit:
                 setMarqueeRepeatLimit(a.getInt(attr, mMarqueeRepeatLimit));
                 break;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             case com.android.internal.R.styleable.TextView_includeFontPadding:
                 if (!a.getBoolean(attr, true)) {
                     setIncludeFontPadding(false);
@@ -788,10 +983,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 styleIndex = a.getInt(attr, styleIndex);
                 break;
 
+<<<<<<< HEAD
             case com.android.internal.R.styleable.TextView_fontFamily:
                 fontFamily = a.getString(attr);
                 break;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             case com.android.internal.R.styleable.TextView_password:
                 password = a.getBoolean(attr, password);
                 break;
@@ -803,6 +1001,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             case com.android.internal.R.styleable.TextView_lineSpacingMultiplier:
                 mSpacingMult = a.getFloat(attr, mSpacingMult);
                 break;
+<<<<<<< HEAD
 
             case com.android.internal.R.styleable.TextView_inputType:
                 inputType = a.getInt(attr, EditorInfo.TYPE_NULL);
@@ -869,12 +1068,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             case com.android.internal.R.styleable.TextView_textAllCaps:
                 allCaps = a.getBoolean(attr, false);
                 break;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
         a.recycle();
 
         BufferType bufferType = BufferType.EDITABLE;
 
+<<<<<<< HEAD
         final int variation =
                 inputType & (EditorInfo.TYPE_MASK_CLASS | EditorInfo.TYPE_MASK_VARIATION);
         final boolean passwordInputType = variation
@@ -886,6 +1088,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         if (inputMethod != null) {
             Class<?> c;
+=======
+        if (inputMethod != null) {
+            Class c;
+>>>>>>> 54b6cfa... Initial Contribution
 
             try {
                 c = Class.forName(inputMethod.toString());
@@ -894,13 +1100,18 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             }
 
             try {
+<<<<<<< HEAD
                 createEditorIfNeeded();
                 mEditor.mKeyListener = (KeyListener) c.newInstance();
+=======
+                mInput = (KeyListener) c.newInstance();
+>>>>>>> 54b6cfa... Initial Contribution
             } catch (InstantiationException ex) {
                 throw new RuntimeException(ex);
             } catch (IllegalAccessException ex) {
                 throw new RuntimeException(ex);
             }
+<<<<<<< HEAD
             try {
                 mEditor.mInputType = inputType != EditorInfo.TYPE_NULL
                         ? inputType
@@ -945,16 +1156,37 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             case 1:
                 cap = TextKeyListener.Capitalize.SENTENCES;
                 inputType |= EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES;
+=======
+        } else if (digits != null) {
+            mInput = DigitsKeyListener.getInstance(digits.toString());
+        } else if (phone) {
+            mInput = DialerKeyListener.getInstance();
+        } else if (numeric != 0) {
+            mInput = DigitsKeyListener.getInstance((numeric & SIGNED) != 0,
+                                                   (numeric & DECIMAL) != 0);
+        } else if (autotext || autocap != -1) {
+            TextKeyListener.Capitalize cap;
+
+            switch (autocap) {
+            case 1:
+                cap = TextKeyListener.Capitalize.SENTENCES;
+>>>>>>> 54b6cfa... Initial Contribution
                 break;
 
             case 2:
                 cap = TextKeyListener.Capitalize.WORDS;
+<<<<<<< HEAD
                 inputType |= EditorInfo.TYPE_TEXT_FLAG_CAP_WORDS;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 break;
 
             case 3:
                 cap = TextKeyListener.Capitalize.CHARACTERS;
+<<<<<<< HEAD
                 inputType |= EditorInfo.TYPE_TEXT_FLAG_CAP_CHARACTERS;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 break;
 
             default:
@@ -962,6 +1194,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 break;
             }
 
+<<<<<<< HEAD
             createEditorIfNeeded();
             mEditor.mKeyListener = TextKeyListener.getInstance(autotext, cap);
             mEditor.mInputType = inputType;
@@ -980,6 +1213,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             mEditor.mInputType = EditorInfo.TYPE_CLASS_TEXT;
         } else {
             if (mEditor != null) mEditor.mKeyListener = null;
+=======
+            mInput = TextKeyListener.getInstance(autotext, cap);
+        } else if (editable) {
+            mInput = TextKeyListener.getInstance();
+        } else {
+            mInput = null;
+>>>>>>> 54b6cfa... Initial Contribution
 
             switch (buffertype) {
                 case 0:
@@ -994,12 +1234,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             }
         }
 
+<<<<<<< HEAD
         if (mEditor != null) mEditor.adjustInputType(password, passwordInputType,
                 webPasswordInputType, numberPasswordInputType);
 
         if (selectallonfocus) {
             createEditorIfNeeded();
             mEditor.mSelectAllOnFocus = true;
+=======
+        if (selectallonfocus) {
+            mSelectAllOnFocus = true;
+>>>>>>> 54b6cfa... Initial Contribution
 
             if (bufferType == BufferType.NORMAL)
                 bufferType = BufferType.SPANNABLE;
@@ -1007,6 +1252,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         setCompoundDrawablesWithIntrinsicBounds(
             drawableLeft, drawableTop, drawableRight, drawableBottom);
+<<<<<<< HEAD
         setRelativeDrawablesIfNeeded(drawableStart, drawableEnd);
         setCompoundDrawablePadding(drawablePadding);
 
@@ -1017,6 +1263,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         if (singleLine && getKeyListener() == null && ellipsize < 0) {
                 ellipsize = 3; // END
+=======
+        setCompoundDrawablePadding(drawablePadding);
+
+        if (singleLine) {
+            setSingleLine();
+
+            if (mInput == null && ellipsize < 0) {
+                ellipsize = 3; // END
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         switch (ellipsize) {
@@ -1029,6 +1285,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             case 3:
                 setEllipsize(TextUtils.TruncateAt.END);
                 break;
+<<<<<<< HEAD
             case 4:
                 if (ViewConfiguration.get(context).isFadingMarqueeEnabled()) {
                     setHorizontalFadingEdgeEnabled(true);
@@ -1039,6 +1296,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 }
                 setEllipsize(TextUtils.TruncateAt.MARQUEE);
                 break;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         setTextColor(textColor != null ? textColor : ColorStateList.valueOf(0xFF000000));
@@ -1049,6 +1308,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
         setRawTextSize(textSize);
 
+<<<<<<< HEAD
         if (allCaps) {
             setTransformationMethod(new AllCapsTransformationMethod(getContext()));
         }
@@ -1063,6 +1323,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
 
         setTypefaceFromAttrs(fontFamily, typefaceIndex, styleIndex);
+=======
+        if (password) {
+            setTransformationMethod(PasswordTransformationMethod.getInstance());
+            typefaceIndex = MONOSPACE;
+        }
+
+        setTypefaceByIndex(typefaceIndex, styleIndex);
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (shadowcolor != 0) {
             setShadowLayer(r, dx, dy, shadowcolor);
@@ -1075,7 +1343,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
 
         setText(text, bufferType);
+<<<<<<< HEAD
         if (hint != null) setHint(hint);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         /*
          * Views are not normally focusable unless specified to be.
@@ -1086,7 +1357,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                                            com.android.internal.R.styleable.View,
                                            defStyle, 0);
 
+<<<<<<< HEAD
         boolean focusable = mMovement != null || getKeyListener() != null;
+=======
+        boolean focusable = mMovement != null || mInput != null;
+>>>>>>> 54b6cfa... Initial Contribution
         boolean clickable = focusable;
         boolean longClickable = focusable;
 
@@ -1113,6 +1388,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         setFocusable(focusable);
         setClickable(clickable);
         setLongClickable(longClickable);
+<<<<<<< HEAD
 
         if (mEditor != null) mEditor.prepareCursorControllers();
 
@@ -1131,6 +1407,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 return;
             }
         }
+=======
+    }
+
+    private void setTypefaceByIndex(int typefaceIndex, int styleIndex) {
+        Typeface tf = null;
+>>>>>>> 54b6cfa... Initial Contribution
         switch (typefaceIndex) {
             case SANS:
                 tf = Typeface.SANS_SERIF;
@@ -1148,6 +1430,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         setTypeface(tf, styleIndex);
     }
 
+<<<<<<< HEAD
     private void setRelativeDrawablesIfNeeded(Drawable start, Drawable end) {
         boolean hasRelativeDrawables = (start != null) || (end != null);
         if (hasRelativeDrawables) {
@@ -1216,6 +1499,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Sets the typeface and style in which the text should be displayed,
      * and turns on the fake bold and italic bits in the Paint if the
@@ -1262,6 +1547,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * Return the text the TextView is displaying. If setText() was called with
      * an argument of BufferType.SPANNABLE or BufferType.EDITABLE, you can cast
      * the return value from this method to Spannable or Editable, respectively.
@@ -1272,6 +1558,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_text
      */
     @ViewDebug.CapturedViewProperty
+=======
+     * Return the text the TextView is displaying.  If setText() was called
+     * with an argument of BufferType.SPANNABLE or BufferType.EDITABLE,
+     * you can cast the return value from this method to Spannable
+     * or Editable, respectively.
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public CharSequence getText() {
         return mText;
     }
@@ -1284,6 +1577,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * Return the text the TextView is displaying as an Editable object.  If
      * the text is not editable, null is returned.
      *
@@ -1294,13 +1588,20 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @return the height of one standard line in pixels.  Note that markup
      * within the text can cause individual lines to be taller or shorter
      * than this height, and the layout may contain additional first-
      * or last-line padding.
      */
     public int getLineHeight() {
+<<<<<<< HEAD
         return FastMath.round(mTextPaint.getFontMetricsInt(null) * mSpacingMult + mSpacingAdd);
+=======
+        return FastMath.round(mTextPaint.getFontMetricsInt(null) * mSpacingMult
+                          + mSpacingAdd);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1312,6 +1613,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the Layout that is currently being used to display the hint text.
      * This can be null.
      */
@@ -1332,16 +1634,27 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      */
     public final KeyListener getKeyListener() {
         return mEditor == null ? null : mEditor.mKeyListener;
+=======
+     * @return the current key listener for this TextView.
+     * This will frequently be null for non-EditText TextViews.
+     */
+    public final KeyListener getKeyListener() {
+        return mInput;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Sets the key listener to be used with this TextView.  This can be null
+<<<<<<< HEAD
      * to disallow user input.  Note that this method has significant and
      * subtle interactions with soft keyboards and other input method:
      * see {@link KeyListener#getInputType() KeyListener.getContentType()}
      * for important details.  Calling this method will replace the current
      * content type of the text view with the content type returned by the
      * key listener.
+=======
+     * to disallow user input.
+>>>>>>> 54b6cfa... Initial Contribution
      * <p>
      * Be warned that if you want a TextView with a key listener or movement
      * method not to be focusable, or if you want a TextView without a
@@ -1357,6 +1670,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_autoText
      */
     public void setKeyListener(KeyListener input) {
+<<<<<<< HEAD
         setKeyListenerOnly(input);
         fixFocusableAndClickableSettings();
 
@@ -1390,6 +1704,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
             setFilters((Editable) mText, mFilters);
         }
+=======
+        mInput = input;
+
+        if (mInput != null && !(mText instanceof Editable))
+            setText(mText);
+
+        setFilters((Editable) mText, mFilters);
+        fixFocusableAndClickableSettings();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1412,6 +1735,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * back the way you want it.
      */
     public final void setMovementMethod(MovementMethod movement) {
+<<<<<<< HEAD
         if (mMovement != movement) {
             mMovement = movement;
 
@@ -1429,6 +1753,18 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
     private void fixFocusableAndClickableSettings() {
         if (mMovement != null || (mEditor != null && mEditor.mKeyListener != null)) {
+=======
+        mMovement = movement;
+
+        if (mMovement != null && !(mText instanceof Spannable))
+            setText(mText);
+
+        fixFocusableAndClickableSettings();
+    }
+
+    private void fixFocusableAndClickableSettings() {
+        if (mMovement != null || mInput != null) {
+>>>>>>> 54b6cfa... Initial Contribution
             setFocusable(true);
             setClickable(true);
             setLongClickable(true);
@@ -1443,9 +1779,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @return the current transformation method for this TextView.
      * This will frequently be null except for single-line and password
      * fields.
+<<<<<<< HEAD
      *
      * @attr ref android.R.styleable#TextView_password
      * @attr ref android.R.styleable#TextView_singleLine
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final TransformationMethod getTransformationMethod() {
         return mTransformation;
@@ -1459,11 +1798,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_singleLine
      */
     public final void setTransformationMethod(TransformationMethod method) {
+<<<<<<< HEAD
         if (method == mTransformation) {
             // Avoid the setText() below if the transformation is
             // the same.
             return;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (mTransformation != null) {
             if (mText instanceof Spannable) {
                 ((Spannable) mText).removeSpan(mTransformation);
@@ -1472,6 +1814,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         mTransformation = method;
 
+<<<<<<< HEAD
         if (method instanceof TransformationMethod2) {
             TransformationMethod2 method2 = (TransformationMethod2) method;
             mAllowTransformationLengthChange = !isTextSelectable() && !(mText instanceof Editable);
@@ -1485,6 +1828,9 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         if (hasPasswordTransformationMethod()) {
             notifyAccessibilityStateChanged();
         }
+=======
+        setText(mText);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1492,11 +1838,18 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Drawable if any.
      */
     public int getCompoundPaddingTop() {
+<<<<<<< HEAD
         final Drawables dr = mDrawables;
         if (dr == null || dr.mDrawableTop == null) {
             return mPaddingTop;
         } else {
             return mPaddingTop + dr.mDrawablePadding + dr.mDrawableSizeTop;
+=======
+        if (mDrawableTop == null) {
+            return mPaddingTop;
+        } else {
+            return mPaddingTop + mDrawablePadding + mDrawableSizeTop;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -1505,11 +1858,18 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Drawable if any.
      */
     public int getCompoundPaddingBottom() {
+<<<<<<< HEAD
         final Drawables dr = mDrawables;
         if (dr == null || dr.mDrawableBottom == null) {
             return mPaddingBottom;
         } else {
             return mPaddingBottom + dr.mDrawablePadding + dr.mDrawableSizeBottom;
+=======
+        if (mDrawableBottom == null) {
+            return mPaddingBottom;
+        } else {
+            return mPaddingBottom + mDrawablePadding + mDrawableSizeBottom;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -1518,11 +1878,18 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Drawable if any.
      */
     public int getCompoundPaddingLeft() {
+<<<<<<< HEAD
         final Drawables dr = mDrawables;
         if (dr == null || dr.mDrawableLeft == null) {
             return mPaddingLeft;
         } else {
             return mPaddingLeft + dr.mDrawablePadding + dr.mDrawableSizeLeft;
+=======
+        if (mDrawableLeft == null) {
+            return mPaddingLeft;
+        } else {
+            return mPaddingLeft + mDrawablePadding + mDrawableSizeLeft;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -1531,6 +1898,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Drawable if any.
      */
     public int getCompoundPaddingRight() {
+<<<<<<< HEAD
         final Drawables dr = mDrawables;
         if (dr == null || dr.mDrawableRight == null) {
             return mPaddingRight;
@@ -1568,6 +1936,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 return getCompoundPaddingRight();
             case LAYOUT_DIRECTION_RTL:
                 return getCompoundPaddingLeft();
+=======
+        if (mDrawableRight == null) {
+            return mPaddingRight;
+        } else {
+            return mPaddingRight + mDrawablePadding + mDrawableSizeRight;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -1654,6 +2028,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * Returns the total start padding of the view, including the start
      * Drawable if any.
      * @hide
@@ -1673,6 +2048,9 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
     /**
      * Returns the total top padding of the view, including the top
+=======
+     * Returns the total top padding of the view, including the top 
+>>>>>>> 54b6cfa... Initial Contribution
      * Drawable if any, the extra space to keep more than maxLines
      * from showing, and the vertical offset for gravity, if any.
      */
@@ -1702,6 +2080,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      */
     public void setCompoundDrawables(Drawable left, Drawable top,
                                      Drawable right, Drawable bottom) {
+<<<<<<< HEAD
         Drawables dr = mDrawables;
 
         final boolean drawables = left != null || top != null
@@ -1798,6 +2177,64 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             } else {
                 dr.mDrawableSizeBottom = dr.mDrawableWidthBottom = 0;
             }
+=======
+        mDrawableLeft = left;
+        mDrawableTop = top;
+        mDrawableRight = right;
+        mDrawableBottom = bottom;
+
+        mDrawables = mDrawableLeft != null
+                || mDrawableRight != null
+                || mDrawableTop != null
+                || mDrawableBottom != null;
+
+        if (mCompoundRect == null &&
+                (left != null || top != null || right != null || bottom != null)) {
+            mCompoundRect = new Rect();
+        }
+
+        final Rect compoundRect = mCompoundRect;
+        int[] state = null;
+        
+        if (mDrawables) {
+            state = getDrawableState();
+        }
+        
+        if (mDrawableLeft != null) {
+            mDrawableLeft.setState(state);
+            mDrawableLeft.copyBounds(compoundRect);
+            mDrawableSizeLeft = compoundRect.width();
+            mDrawableHeightLeft = compoundRect.height();
+        } else {
+            mDrawableSizeLeft = mDrawableHeightLeft = 0;
+        }
+
+        if (mDrawableRight != null) {
+            mDrawableRight.setState(state);
+            mDrawableRight.copyBounds(compoundRect);
+            mDrawableSizeRight = compoundRect.width();
+            mDrawableHeightRight = compoundRect.height();
+        } else {
+            mDrawableSizeRight = mDrawableHeightRight = 0;
+        }
+
+        if (mDrawableTop != null) {
+            mDrawableTop.setState(state);
+            mDrawableTop.copyBounds(compoundRect);
+            mDrawableSizeTop = compoundRect.height();
+            mDrawableWidthTop = compoundRect.width();
+        } else {
+            mDrawableSizeTop = mDrawableWidthTop = 0;
+        }
+
+        if (mDrawableBottom != null) {
+            mDrawableBottom.setState(state);
+            mDrawableBottom.copyBounds(compoundRect);
+            mDrawableSizeBottom = compoundRect.height();
+            mDrawableWidthBottom = compoundRect.width();
+        } else {
+            mDrawableSizeBottom = mDrawableWidthBottom = 0;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         invalidate();
@@ -1806,6 +2243,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
     /**
      * Sets the Drawables (if any) to appear to the left of, above,
+<<<<<<< HEAD
      * to the right of, and below the text.  Use 0 if you do not
      * want a Drawable there. The Drawables' bounds will be set to
      * their intrinsic bounds.
@@ -1833,6 +2271,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Sets the Drawables (if any) to appear to the left of, above,
      * to the right of, and below the text.  Use null if you do not
      * want a Drawable there. The Drawables' bounds will be set to
+=======
+     * to the right of, and below the text.  Use null if you do not
+     * want a Drawable there.  The Drawables' bounds will be set to
+>>>>>>> 54b6cfa... Initial Contribution
      * their intrinsic bounds.
      *
      * @attr ref android.R.styleable#TextView_drawableLeft
@@ -1840,6 +2282,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_drawableRight
      * @attr ref android.R.styleable#TextView_drawableBottom
      */
+<<<<<<< HEAD
     public void setCompoundDrawablesWithIntrinsicBounds(Drawable left, Drawable top,
             Drawable right, Drawable bottom) {
 
@@ -1854,11 +2297,32 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
         if (bottom != null) {
             bottom.setBounds(0, 0, bottom.getIntrinsicWidth(), bottom.getIntrinsicHeight());
+=======
+    public void setCompoundDrawablesWithIntrinsicBounds(Drawable left,
+                                     Drawable top,
+                                     Drawable right, Drawable bottom) {
+        if (left != null) {
+            left.setBounds(0, 0,
+                           left.getIntrinsicWidth(), left.getIntrinsicHeight());
+        }
+        if (right != null) {
+            right.setBounds(0, 0,
+                           right.getIntrinsicWidth(), right.getIntrinsicHeight());
+        }
+        if (top != null) {
+            top.setBounds(0, 0,
+                           top.getIntrinsicWidth(), top.getIntrinsicHeight());
+        }
+        if (bottom != null) {
+            bottom.setBounds(0, 0,
+                           bottom.getIntrinsicWidth(), bottom.getIntrinsicHeight());
+>>>>>>> 54b6cfa... Initial Contribution
         }
         setCompoundDrawables(left, top, right, bottom);
     }
 
     /**
+<<<<<<< HEAD
      * Sets the Drawables (if any) to appear to the start of, above,
      * to the end of, and below the text.  Use null if you do not
      * want a Drawable there.  The Drawables must already have had
@@ -2072,6 +2536,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         } else {
             return new Drawable[] { null, null, null, null };
         }
+=======
+     * Returns drawables for the left, top, right, and bottom borders.
+     */
+    public Drawable[] getCompoundDrawables() {
+        return new Drawable[] {
+            mDrawableLeft, mDrawableTop, mDrawableRight, mDrawableBottom
+        };
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -2080,6 +2552,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_drawablePadding
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
     public void setCompoundDrawablePadding(int pad) {
         Drawables dr = mDrawables;
@@ -2093,6 +2566,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             }
             dr.mDrawablePadding = pad;
         }
+=======
+    public void setCompoundDrawablePadding(int pad) {
+        mDrawablePadding = pad;
+>>>>>>> 54b6cfa... Initial Contribution
 
         invalidate();
         requestLayout();
@@ -2100,20 +2577,33 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
     /**
      * Returns the padding between the compound drawables and the text.
+<<<<<<< HEAD
      *
      * @attr ref android.R.styleable#TextView_drawablePadding
      */
     public int getCompoundDrawablePadding() {
         final Drawables dr = mDrawables;
         return dr != null ? dr.mDrawablePadding : 0;
+=======
+     */
+    public int getCompoundDrawablePadding() {
+        return mDrawablePadding;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public void setPadding(int left, int top, int right, int bottom) {
+<<<<<<< HEAD
         if (left != mPaddingLeft ||
             right != mPaddingRight ||
             top != mPaddingTop ||
             bottom != mPaddingBottom) {
+=======
+        if (left != getPaddingLeft() ||
+            right != getPaddingRight() ||
+            top != getPaddingTop() ||
+            bottom != getPaddingBottom()) {
+>>>>>>> 54b6cfa... Initial Contribution
             nullLayouts();
         }
 
@@ -2122,6 +2612,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         invalidate();
     }
 
+<<<<<<< HEAD
     @Override
     public void setPaddingRelative(int start, int top, int end, int bottom) {
         if (start != getPaddingStart() ||
@@ -2136,6 +2627,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         invalidate();
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Gets the autolink mask of the text.  See {@link
      * android.text.util.Linkify#ALL Linkify.ALL} and peers for
@@ -2160,8 +2653,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         ColorStateList colors;
         int ts;
 
+<<<<<<< HEAD
         color = appearance.getColor(
                 com.android.internal.R.styleable.TextAppearance_textColorHighlight, 0);
+=======
+        color = appearance.getColor(com.android.internal.R.styleable.TextAppearance_textColorHighlight, 0);
+>>>>>>> 54b6cfa... Initial Contribution
         if (color != 0) {
             setHighlightColor(color);
         }
@@ -2190,16 +2687,22 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             setLinkTextColor(colors);
         }
 
+<<<<<<< HEAD
         String familyName;
         int typefaceIndex, styleIndex;
 
         familyName = appearance.getString(com.android.internal.R.styleable.
                                           TextAppearance_fontFamily);
+=======
+        int typefaceIndex, styleIndex;
+
+>>>>>>> 54b6cfa... Initial Contribution
         typefaceIndex = appearance.getInt(com.android.internal.R.styleable.
                                           TextAppearance_typeface, -1);
         styleIndex = appearance.getInt(com.android.internal.R.styleable.
                                        TextAppearance_textStyle, -1);
 
+<<<<<<< HEAD
         setTypefaceFromAttrs(familyName, typefaceIndex, styleIndex);
 
         if (appearance.getBoolean(com.android.internal.R.styleable.TextAppearance_textAllCaps,
@@ -2207,13 +2710,19 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             setTransformationMethod(new AllCapsTransformationMethod(getContext()));
         }
 
+=======
+        setTypefaceByIndex(typefaceIndex, styleIndex);
+>>>>>>> 54b6cfa... Initial Contribution
         appearance.recycle();
     }
 
     /**
      * @return the size (in pixels) of the default text size in this TextView.
      */
+<<<<<<< HEAD
     @ViewDebug.ExportedProperty(category = "text")
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public float getTextSize() {
         return mTextPaint.getTextSize();
     }
@@ -2227,7 +2736,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_textSize
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setTextSize(float size) {
         setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
@@ -2279,10 +2791,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_textScaleX
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
     public void setTextScaleX(float size) {
         if (size != mTextPaint.getTextScaleX()) {
             mUserSetTextScaleX = true;
+=======
+    public void setTextScaleX(float size) {
+        if (size != mTextPaint.getTextScaleX()) {
+>>>>>>> 54b6cfa... Initial Contribution
             mTextPaint.setTextScaleX(size);
 
             if (mLayout != null) {
@@ -2300,9 +2817,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * {@link #setTypeface(Typeface, int)} to get the appearance
      * that you actually want.
      *
+<<<<<<< HEAD
      * @see #getTypeface()
      *
      * @attr ref android.R.styleable#TextView_fontFamily
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @attr ref android.R.styleable#TextView_typeface
      * @attr ref android.R.styleable#TextView_textStyle
      */
@@ -2321,12 +2841,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     /**
      * @return the current typeface and style in which the text is being
      * displayed.
+<<<<<<< HEAD
      *
      * @see #setTypeface(Typeface)
      *
      * @attr ref android.R.styleable#TextView_fontFamily
      * @attr ref android.R.styleable#TextView_typeface
      * @attr ref android.R.styleable#TextView_textStyle
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public Typeface getTypeface() {
         return mTextPaint.getTypeface();
@@ -2336,12 +2859,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Sets the text color for all the states (normal, selected,
      * focused) to be this color.
      *
+<<<<<<< HEAD
      * @see #setTextColor(ColorStateList)
      * @see #getTextColors()
      *
      * @attr ref android.R.styleable#TextView_textColor
      */
     @android.view.RemotableViewMethod
+=======
+     * @attr ref android.R.styleable#TextView_textColor
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setTextColor(int color) {
         mTextColor = ColorStateList.valueOf(color);
         updateTextColors();
@@ -2350,11 +2878,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     /**
      * Sets the text color.
      *
+<<<<<<< HEAD
      * @see #setTextColor(int)
      * @see #getTextColors()
      * @see #setHintTextColor(ColorStateList)
      * @see #setLinkTextColor(ColorStateList)
      *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @attr ref android.R.styleable#TextView_textColor
      */
     public void setTextColor(ColorStateList colors) {
@@ -2367,12 +2898,18 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * Gets the text colors for the different states (normal, selected, focused) of the TextView.
      *
      * @see #setTextColor(ColorStateList)
      * @see #setTextColor(int)
      *
      * @attr ref android.R.styleable#TextView_textColor
+=======
+     * Return the set of text colors.
+     *
+     * @return Returns the set of text colors.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final ColorStateList getTextColors() {
         return mTextColor;
@@ -2392,7 +2929,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_textColorHighlight
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setHighlightColor(int color) {
         if (mHighlightColor != color) {
             mHighlightColor = color;
@@ -2401,6 +2941,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the color used to display the selection highlight
      *
      * @see #setHighlightColor(int)
@@ -2433,6 +2974,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Gives the text a shadow of the specified radius and color, the specified
      * distance from its normal position.
      *
@@ -2448,12 +2991,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         mShadowDx = dx;
         mShadowDy = dy;
 
+<<<<<<< HEAD
         // Will change text clip region
         if (mEditor != null) mEditor.invalidateTextDisplayList();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         invalidate();
     }
 
     /**
+<<<<<<< HEAD
      * Gets the radius of the shadow layer.
      *
      * @return the radius of the shadow layer. If 0, the shadow layer is not visible
@@ -2500,6 +3047,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @return the base paint used for the text.  Please use this only to
      * consult the Paint's properties and not to change them.
      */
@@ -2514,7 +3063,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_autoLink
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setAutoLinkMask(int mask) {
         mAutoLinkMask = mask;
     }
@@ -2527,7 +3079,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_linksClickable
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setLinksClickable(boolean whether) {
         mLinksClickable = whether;
     }
@@ -2560,6 +3115,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * Sets the color of the hint text for all the states (disabled, focussed, selected...) of this
      * TextView.
      *
@@ -2570,6 +3126,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_textColorHint
      */
     @android.view.RemotableViewMethod
+=======
+     * Sets the color of the hint text.
+     *
+     * @attr ref android.R.styleable#TextView_textColorHint
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setHintTextColor(int color) {
         mHintTextColor = ColorStateList.valueOf(color);
         updateTextColors();
@@ -2578,11 +3140,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     /**
      * Sets the color of the hint text.
      *
+<<<<<<< HEAD
      * @see #getHintTextColors()
      * @see #setHintTextColor(int)
      * @see #setTextColor(ColorStateList)
      * @see #setLinkTextColor(ColorStateList)
      *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @attr ref android.R.styleable#TextView_textColorHint
      */
     public final void setHintTextColor(ColorStateList colors) {
@@ -2591,6 +3156,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the color of the hint text, for the different states of this TextView.
      *
      * @see #setHintTextColor(ColorStateList)
@@ -2599,6 +3165,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @see #setLinkTextColor(ColorStateList)
      *
      * @attr ref android.R.styleable#TextView_textColorHint
+=======
+     * <p>Return the color used to paint the hint text.</p>
+     *
+     * @return Returns the list of hint text colors.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final ColorStateList getHintTextColors() {
         return mHintTextColor;
@@ -2616,12 +3187,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     /**
      * Sets the color of links in the text.
      *
+<<<<<<< HEAD
      * @see #setLinkTextColor(ColorStateList)
      * @see #getLinkTextColors()
      *
      * @attr ref android.R.styleable#TextView_textColorLink
      */
     @android.view.RemotableViewMethod
+=======
+     * @attr ref android.R.styleable#TextView_textColorLink
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setLinkTextColor(int color) {
         mLinkTextColor = ColorStateList.valueOf(color);
         updateTextColors();
@@ -2630,11 +3206,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     /**
      * Sets the color of links in the text.
      *
+<<<<<<< HEAD
      * @see #setLinkTextColor(int)
      * @see #getLinkTextColors()
      * @see #setTextColor(ColorStateList)
      * @see #setHintTextColor(ColorStateList)
      *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @attr ref android.R.styleable#TextView_textColorLink
      */
     public final void setLinkTextColor(ColorStateList colors) {
@@ -2643,6 +3222,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the list of colors used to paint the links in the text, for the different states of
      * this TextView
      *
@@ -2650,6 +3230,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @see #setLinkTextColor(int)
      *
      * @attr ref android.R.styleable#TextView_textColorLink
+=======
+     * <p>Returns the color used to paint links in the text.</p>
+     *
+     * @return Returns the list of link text colors.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final ColorStateList getLinkTextColors() {
         return mLinkTextColor;
@@ -2664,8 +3249,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_gravity
      */
     public void setGravity(int gravity) {
+<<<<<<< HEAD
         if ((gravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) == 0) {
             gravity |= Gravity.START;
+=======
+        if ((gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == 0) {
+            gravity |= Gravity.LEFT;
+>>>>>>> 54b6cfa... Initial Contribution
         }
         if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == 0) {
             gravity |= Gravity.TOP;
@@ -2673,14 +3263,22 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         boolean newLayout = false;
 
+<<<<<<< HEAD
         if ((gravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) !=
             (mGravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK)) {
+=======
+        if ((gravity & Gravity.HORIZONTAL_GRAVITY_MASK) !=
+            (mGravity & Gravity.HORIZONTAL_GRAVITY_MASK)) {
+>>>>>>> 54b6cfa... Initial Contribution
             newLayout = true;
         }
 
         if (gravity != mGravity) {
             invalidate();
+<<<<<<< HEAD
             mLayoutAlignment = null;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         mGravity = gravity;
@@ -2719,7 +3317,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * reflows the text if they are different from the old flags.
      * @see Paint#setFlags
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setPaintFlags(int flags) {
         if (mTextPaint.getFlags() != flags) {
             mTextPaint.setFlags(flags);
@@ -2739,6 +3340,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_scrollHorizontally
      */
     public void setHorizontallyScrolling(boolean whether) {
+<<<<<<< HEAD
         if (mHorizontallyScrolling != whether) {
             mHorizontallyScrolling = whether;
 
@@ -2747,10 +3349,19 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 requestLayout();
                 invalidate();
             }
+=======
+        mHorizontallyScrolling = whether;
+
+        if (mLayout != null) {
+            nullLayouts();
+            requestLayout();
+            invalidate();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
+<<<<<<< HEAD
      * Returns whether the text is allowed to be wider than the View is.
      * If false, the text will be wrapped to the width of the View.
      *
@@ -2772,6 +3383,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_minLines
      */
     @android.view.RemotableViewMethod
+=======
+     * Makes the TextView at least this many lines tall
+     *
+     * @attr ref android.R.styleable#TextView_minLines
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setMinLines(int minlines) {
         mMinimum = minlines;
         mMinMode = LINES;
@@ -2781,6 +3398,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the minimum number of lines displayed in this TextView, or -1 if the minimum
      * height was set in pixels instead using {@link #setMinHeight(int) or #setHeight(int)}.
      *
@@ -2800,6 +3418,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_minHeight
      */
     @android.view.RemotableViewMethod
+=======
+     * Makes the TextView at least this many pixels tall
+     *
+     * @attr ref android.R.styleable#TextView_minHeight
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setMinHeight(int minHeight) {
         mMinimum = minHeight;
         mMinMode = PIXELS;
@@ -2809,6 +3433,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the minimum height of this TextView expressed in pixels, or -1 if the minimum
      * height was set in number of lines instead using {@link #setMinLines(int) or #setLines(int)}.
      *
@@ -2828,6 +3453,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_maxLines
      */
     @android.view.RemotableViewMethod
+=======
+     * Makes the TextView at most this many lines tall
+     *
+     * @attr ref android.R.styleable#TextView_maxLines
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setMaxLines(int maxlines) {
         mMaximum = maxlines;
         mMaxMode = LINES;
@@ -2837,6 +3468,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the maximum number of lines displayed in this TextView, or -1 if the maximum
      * height was set in pixels instead using {@link #setMaxHeight(int) or #setHeight(int)}.
      *
@@ -2857,6 +3489,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_maxHeight
      */
     @android.view.RemotableViewMethod
+=======
+     * Makes the TextView at most this many pixels tall
+     *
+     * @attr ref android.R.styleable#TextView_maxHeight
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setMaxHeight(int maxHeight) {
         mMaximum = maxHeight;
         mMaxMode = PIXELS;
@@ -2866,6 +3504,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the maximum height of this TextView expressed in pixels, or -1 if the maximum
      * height was set in number of lines instead using {@link #setMaxLines(int) or #setLines(int)}.
      *
@@ -2886,6 +3525,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_lines
      */
     @android.view.RemotableViewMethod
+=======
+     * Makes the TextView exactly this many lines tall
+     *
+     * @attr ref android.R.styleable#TextView_lines
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setLines(int lines) {
         mMaximum = mMinimum = lines;
         mMaxMode = mMinMode = LINES;
@@ -2899,12 +3544,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * You could do the same thing by specifying this number in the
      * LayoutParams.
      *
+<<<<<<< HEAD
      * Note that setting this value overrides any other (minimum / maximum) number of lines or
      * height setting.
      *
      * @attr ref android.R.styleable#TextView_height
      */
     @android.view.RemotableViewMethod
+=======
+     * @attr ref android.R.styleable#TextView_height
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setHeight(int pixels) {
         mMaximum = mMinimum = pixels;
         mMaxMode = mMinMode = PIXELS;
@@ -2918,7 +3568,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_minEms
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setMinEms(int minems) {
         mMinWidth = minems;
         mMinWidthMode = EMS;
@@ -2928,6 +3581,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the minimum width of the TextView, expressed in ems or -1 if the minimum width
      * was set in pixels instead (using {@link #setMinWidth(int)} or {@link #setWidth(int)}).
      *
@@ -2946,6 +3600,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_minWidth
      */
     @android.view.RemotableViewMethod
+=======
+     * Makes the TextView at least this many pixels wide
+     *
+     * @attr ref android.R.styleable#TextView_minWidth
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setMinWidth(int minpixels) {
         mMinWidth = minpixels;
         mMinWidthMode = PIXELS;
@@ -2955,6 +3615,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the minimum width of the TextView, in pixels or -1 if the minimum width
      * was set in ems instead (using {@link #setMinEms(int)} or {@link #setEms(int)}).
      *
@@ -2968,11 +3629,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Makes the TextView at most this many ems wide
      *
      * @attr ref android.R.styleable#TextView_maxEms
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setMaxEms(int maxems) {
         mMaxWidth = maxems;
         mMaxWidthMode = EMS;
@@ -2982,6 +3648,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the maximum width of the TextView, expressed in ems or -1 if the maximum width
      * was set in pixels instead (using {@link #setMaxWidth(int)} or {@link #setWidth(int)}).
      *
@@ -2995,11 +3662,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Makes the TextView at most this many pixels wide
      *
      * @attr ref android.R.styleable#TextView_maxWidth
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setMaxWidth(int maxpixels) {
         mMaxWidth = maxpixels;
         mMaxWidthMode = PIXELS;
@@ -3009,6 +3681,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * @return the maximum width of the TextView, in pixels or -1 if the maximum width
      * was set in ems instead (using {@link #setMaxEms(int)} or {@link #setEms(int)}).
      *
@@ -3032,6 +3705,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_ems
      */
     @android.view.RemotableViewMethod
+=======
+     * Makes the TextView exactly this many ems wide
+     *
+     * @attr ref android.R.styleable#TextView_ems
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setEms(int ems) {
         mMaxWidth = mMinWidth = ems;
         mMaxWidthMode = mMinWidthMode = EMS;
@@ -3045,6 +3724,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * You could do the same thing by specifying this number in the
      * LayoutParams.
      *
+<<<<<<< HEAD
      * @see #setMaxWidth(int)
      * @see #setMinWidth(int)
      * @see #getMinWidth()
@@ -3053,6 +3733,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_width
      */
     @android.view.RemotableViewMethod
+=======
+     * @attr ref android.R.styleable#TextView_width
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void setWidth(int pixels) {
         mMaxWidth = mMinWidth = pixels;
         mMaxWidthMode = mMinWidthMode = PIXELS;
@@ -3061,6 +3745,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         invalidate();
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Sets line spacing for this TextView.  Each line will have its height
      * multiplied by <code>mult</code> and have <code>add</code> added to it.
@@ -3069,6 +3757,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_lineSpacingMultiplier
      */
     public void setLineSpacing(float add, float mult) {
+<<<<<<< HEAD
         if (mSpacingAdd != add || mSpacingMult != mult) {
             mSpacingAdd = add;
             mSpacingMult = mult;
@@ -3078,10 +3767,20 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 requestLayout();
                 invalidate();
             }
+=======
+        mSpacingMult = mult;
+        mSpacingAdd = add;
+
+        if (mLayout != null) {
+            nullLayouts();
+            requestLayout();
+            invalidate();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
+<<<<<<< HEAD
      * Gets the line spacing multiplier
      *
      * @return the value by which each line's height is multiplied to get its actual height.
@@ -3110,6 +3809,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Convenience method: Append the specified text to the TextView's
      * display buffer, upgrading it to BufferType.EDITABLE if it was
      * not already editable.
@@ -3153,8 +3854,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             }
         }
         if (inval) {
+<<<<<<< HEAD
             // Text needs to be redrawn with the new color
             if (mEditor != null) mEditor.invalidateTextDisplayList();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             invalidate();
         }
     }
@@ -3168,6 +3872,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             updateTextColors();
         }
 
+<<<<<<< HEAD
         final Drawables dr = mDrawables;
         if (dr != null) {
             int[] state = getDrawableState();
@@ -3189,27 +3894,110 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             if (dr.mDrawableEnd != null && dr.mDrawableEnd.isStateful()) {
                 dr.mDrawableEnd.setState(state);
             }
+=======
+        int[] state = getDrawableState();
+        if (mDrawableTop != null && mDrawableTop.isStateful()) {
+            mDrawableTop.setState(state);
+        }
+        if (mDrawableBottom != null && mDrawableBottom.isStateful()) {
+            mDrawableBottom.setState(state);
+        }
+        if (mDrawableLeft != null && mDrawableLeft.isStateful()) {
+            mDrawableLeft.setState(state);
+        }
+        if (mDrawableRight != null && mDrawableRight.isStateful()) {
+            mDrawableRight.setState(state);
+        }
+    }
+
+    /**
+     * User interface state that is stored by TextView for implementing
+     * {@link View#onSaveInstanceState}.
+     */
+    public static class SavedState extends BaseSavedState {
+        int selStart;
+        int selEnd;
+        CharSequence text;
+        boolean frozenWithFocus;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(selStart);
+            out.writeInt(selEnd);
+            out.writeInt(frozenWithFocus ? 1 : 0);
+            TextUtils.writeToParcel(text, out, flags);
+        }
+
+        @Override
+        public String toString() {
+            String str = "TextView.SavedState{"
+                    + Integer.toHexString(System.identityHashCode(this))
+                    + " start=" + selStart + " end=" + selEnd;
+            if (text != null) {
+                str += " text=" + text;
+            }
+            return str + "}";
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR
+                = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+
+        private SavedState(Parcel in) {
+            super(in);
+            selStart = in.readInt();
+            selEnd = in.readInt();
+            frozenWithFocus = (in.readInt() != 0);
+            text = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     @Override
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // Save state if we are forced to
         boolean save = mFreezesText;
         int start = 0;
         int end = 0;
+<<<<<<< HEAD
 
         if (mText != null) {
             start = getSelectionStart();
             end = getSelectionEnd();
+=======
+        
+        if (mText != null) {
+            start = Selection.getSelectionStart(mText);
+            end = Selection.getSelectionEnd(mText);
+>>>>>>> 54b6cfa... Initial Contribution
             if (start >= 0 || end >= 0) {
                 // Or save state if there is a selection
                 save = true;
             }
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if (save) {
             SavedState ss = new SavedState(superState);
             // XXX Should also save the current scroll position!
@@ -3227,6 +4015,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
                 Spannable sp = new SpannableString(mText);
 
+<<<<<<< HEAD
                 for (ChangeWatcher cw : sp.getSpans(0, sp.length(), ChangeWatcher.class)) {
                     sp.removeSpan(cw);
                 }
@@ -3236,6 +4025,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                     sp.removeSpan(mEditor.mSuggestionRangeSpan);
                 }
 
+=======
+                for (ChangeWatcher cw :
+                     sp.getSpans(0, sp.length(), ChangeWatcher.class)) {
+                    sp.removeSpan(cw);
+                }
+
+>>>>>>> 54b6cfa... Initial Contribution
                 ss.text = sp;
             } else {
                 ss.text = mText.toString();
@@ -3245,6 +4041,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 ss.frozenWithFocus = true;
             }
 
+<<<<<<< HEAD
             ss.error = getError();
 
             return ss;
@@ -3263,10 +4060,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 spannable.removeSpan(suggestionSpans[i]);
             }
         }
+=======
+            return ss;
+        }
+        
+        return null;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
+<<<<<<< HEAD
         if (!(state instanceof SavedState)) {
             super.onRestoreInstanceState(state);
             return;
@@ -3275,6 +4079,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         SavedState ss = (SavedState)state;
         super.onRestoreInstanceState(ss.getSuperState());
 
+=======
+        SavedState ss = (SavedState)state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // XXX restore buffer type too, as well as lots of other stuff
         if (ss.text != null) {
             setText(ss.text);
@@ -3291,6 +4100,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                         restored = "(restored) ";
                     }
 
+<<<<<<< HEAD
                     Log.e(LOG_TAG, "Saved cursor position " + ss.selStart +
                           "/" + ss.selEnd + " out of range for " + restored +
                           "text " + mText);
@@ -3300,10 +4110,22 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                     if (ss.frozenWithFocus) {
                         createEditorIfNeeded();
                         mEditor.mFrozenWithFocus = true;
+=======
+                    Log.e("TextView", "Saved cursor position " + ss.selStart +
+                          "/" + ss.selEnd + " out of range for " + restored +
+                          "text " + mText);
+                } else {
+                    Selection.setSelection((Spannable) mText, ss.selStart,
+                                           ss.selEnd);
+
+                    if (ss.frozenWithFocus) {
+                        mFrozenWithFocus = true;
+>>>>>>> 54b6cfa... Initial Contribution
                     }
                 }
             }
         }
+<<<<<<< HEAD
 
         if (ss.error != null) {
             final CharSequence error = ss.error;
@@ -3314,6 +4136,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 }
             });
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -3329,7 +4153,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_freezesText
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setFreezesText(boolean freezesText) {
         mFreezesText = freezesText;
     }
@@ -3368,6 +4195,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Sets the string value of the TextView. TextView <em>does not</em> accept
      * HTML-like formatting, which you can do with text strings in XML resource files.
      * To style your strings, attach android.text.style.* objects to a
+<<<<<<< HEAD
      * {@link android.text.SpannableString SpannableString}, or see the
      * <a href="{@docRoot}guide/topics/resources/available-resources.html#stringresources">
      * Available Resource Types</a> documentation for an example of setting
@@ -3376,6 +4204,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * @attr ref android.R.styleable#TextView_text
      */
     @android.view.RemotableViewMethod
+=======
+     * {@link android.text.SpannableString SpannableString}, or see
+     * <a href="{@docRoot}reference/available-resources.html#stringresources">
+     * String Resources</a> for an example of setting formatted text in the XML resource file.
+     *
+     * @attr ref android.R.styleable#TextView_text
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setText(CharSequence text) {
         setText(text, mBufferType);
     }
@@ -3388,7 +4224,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @see #setText(CharSequence)
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setTextKeepState(CharSequence text) {
         setTextKeepState(text, mBufferType);
     }
@@ -3415,6 +4254,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             text = "";
         }
 
+<<<<<<< HEAD
         // If suggestions are not enabled, remove the suggestion spans from the text
         if (!isSuggestionsEnabled()) {
             text = removeSuggestionSpans(text);
@@ -3437,6 +4277,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         int n = mFilters.length;
         for (int i = 0; i < n; i++) {
             CharSequence out = mFilters[i].filter(text, 0, text.length(), EMPTY_SPANNED, 0, 0);
+=======
+        int n = mFilters.length;
+        for (int i = 0; i < n; i++) {
+            CharSequence out = mFilters[i].filter(text, 0, text.length(),
+                                                  EMPTY_SPANNED, 0, 0);
+>>>>>>> 54b6cfa... Initial Contribution
             if (out != null) {
                 text = out;
             }
@@ -3451,6 +4297,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             }
         }
 
+<<<<<<< HEAD
         boolean needEditableForNotification = false;
 
         if (mListeners != null && mListeners.size() != 0) {
@@ -3465,6 +4312,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             setFilters(t, mFilters);
             InputMethodManager imm = InputMethodManager.peekInstance();
             if (imm != null) imm.restartInput(this);
+=======
+        if (type == BufferType.EDITABLE || mInput != null) {
+            Editable t = mEditableFactory.newEditable(text);
+            text = t;
+
+            setFilters(t, mFilters);
+>>>>>>> 54b6cfa... Initial Contribution
         } else if (type == BufferType.SPANNABLE || mMovement != null) {
             text = mSpannableFactory.newSpannable(text);
         } else if (!(text instanceof CharWrapper)) {
@@ -3491,9 +4345,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                  */
                 mText = text;
 
+<<<<<<< HEAD
                 // Do not change the movement method for text that support text selection as it
                 // would prevent an arbitrary cursor displacement.
                 if (mLinksClickable && !textCanBeSelected()) {
+=======
+                if (mLinksClickable) {
+>>>>>>> 54b6cfa... Initial Contribution
                     setMovementMethod(LinkMovementMethod.getInstance());
                 }
             }
@@ -3502,6 +4360,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         mBufferType = type;
         mText = text;
 
+<<<<<<< HEAD
         if (mTransformation == null) {
             mTransformed = text;
         } else {
@@ -3533,13 +4392,53 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
             if (mMovement != null) {
                 mMovement.initialize(this, (Spannable) text);
+=======
+        if (mTransformation == null)
+            mTransformed = text;
+        else
+            mTransformed = mTransformation.getTransformation(text, this);
+
+        final int textLength = text.length();
+
+        if (text instanceof Spannable) {
+            Spannable sp = (Spannable) text;
+
+            // Remove any ChangeWatchers that might have come
+            // from other TextViews.
+            final ChangeWatcher[] watchers = sp.getSpans(0, sp.length(), ChangeWatcher.class);
+            final int count = watchers.length;
+            for (int i = 0; i < count; i++)
+                sp.removeSpan(watchers[i]);
+
+            if (mChangeWatcher == null)
+                mChangeWatcher = new ChangeWatcher();
+
+            sp.setSpan(mChangeWatcher, 0, textLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE |
+                       (PRIORITY << Spanned.SPAN_PRIORITY_SHIFT));
+
+            if (mInput != null) {
+                sp.setSpan(mInput, 0, textLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            }
+
+            if (mTransformation != null) {
+                sp.setSpan(mTransformation, 0, textLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+            }
+
+            if (mMovement != null) {
+                mMovement.initialize(this, (Spannable) text);            
+>>>>>>> 54b6cfa... Initial Contribution
 
                 /*
                  * Initializing the movement method will have set the
                  * selection, so reset mSelectionMoved to keep that from
                  * interfering with the normal on-focus selection-setting.
                  */
+<<<<<<< HEAD
                 if (mEditor != null) mEditor.mSelectionMoved = false;
+=======
+                mSelectionMoved = false;
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -3549,6 +4448,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         sendOnTextChanged(text, 0, oldlen, textLength);
         onTextChanged(text, 0, oldlen, textLength);
+<<<<<<< HEAD
 
         if (needEditableForNotification) {
             sendAfterTextChanged((Editable) text);
@@ -3556,6 +4456,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         // SelectionModifierCursorController depends on textCanBeSelected, which depends on text
         if (mEditor != null) mEditor.prepareCursorControllers();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -3593,6 +4495,68 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         setText(mCharWrapper, mBufferType, false, oldlen);
     }
 
+<<<<<<< HEAD
+=======
+    private static class CharWrapper
+            implements CharSequence, GetChars, GraphicsOperations {
+        private char[] mChars;
+        private int mStart, mLength;
+
+        public CharWrapper(char[] chars, int start, int len) {
+            mChars = chars;
+            mStart = start;
+            mLength = len;
+        }
+
+        /* package */ void set(char[] chars, int start, int len) {
+            mChars = chars;
+            mStart = start;
+            mLength = len;
+        }
+
+        public int length() {
+            return mLength;
+        }
+
+        public char charAt(int off) {
+            return mChars[off + mStart];
+        }
+
+        public String toString() {
+            return new String(mChars, mStart, mLength);
+        }
+
+        public CharSequence subSequence(int start, int end) {
+            if (start < 0 || end < 0 || start > mLength || end > mLength) {
+                throw new IndexOutOfBoundsException(start + ", " + end);
+            }
+
+            return new String(mChars, start + mStart, end - start);
+        }
+
+        public void getChars(int start, int end, char[] buf, int off) {
+            if (start < 0 || end < 0 || start > mLength || end > mLength) {
+                throw new IndexOutOfBoundsException(start + ", " + end);
+            }
+
+            System.arraycopy(mChars, start + mStart, buf, off, end - start);
+        }
+
+        public void drawText(Canvas c, int start, int end,
+                             float x, float y, Paint p) {
+            c.drawText(mChars, start + mStart, end - start, x, y, p);
+        }
+
+        public float measureText(int start, int end, Paint p) {
+            return p.measureText(mChars, start + mStart, end - start);
+        }
+
+        public int getTextWidths(int start, int end, float[] widths, Paint p) {
+            return p.getTextWidths(mChars, start + mStart, end - start, widths);
+        }
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Like {@link #setText(CharSequence, android.widget.TextView.BufferType)},
      * except that the cursor position (if any) is retained in the new text.
@@ -3615,7 +4579,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
     }
 
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setText(int resid) {
         setText(getContext().getResources().getText(resid));
     }
@@ -3626,12 +4593,20 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
     /**
      * Sets the text to be displayed when the text of the TextView is empty.
+<<<<<<< HEAD
      * Null means to use the normal empty text. The hint does not currently
      * participate in determining the size of the view.
      *
      * @attr ref android.R.styleable#TextView_hint
      */
     @android.view.RemotableViewMethod
+=======
+     * Null means to use the normal empty text.  The hint does not
+     * currently participate in determining the size of the view.
+     *
+     * @attr ref android.R.styleable#TextView_hint
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setHint(CharSequence hint) {
         mHint = TextUtils.stringOrSpannedString(hint);
 
@@ -3639,6 +4614,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             checkForRelayout();
         }
 
+<<<<<<< HEAD
         if (mText.length() == 0) {
             invalidate();
         }
@@ -3647,6 +4623,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         if (mEditor != null && mText.length() == 0 && mHint != null) {
             mEditor.invalidateTextDisplayList();
         }
+=======
+        if (mText.length() == 0)
+            invalidate();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -3655,7 +4635,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_hint
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final void setHint(int resid) {
         setHint(getContext().getResources().getText(resid));
     }
@@ -3666,11 +4649,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_hint
      */
+<<<<<<< HEAD
     @ViewDebug.CapturedViewProperty
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public CharSequence getHint() {
         return mHint;
     }
 
+<<<<<<< HEAD
     boolean isSingleLine() {
         return mSingleLine;
     }
@@ -4136,17 +5123,180 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         mEditor.setError(error, icon);
     }
 
+=======
+    /**
+     * Returns the error message that was set to be displayed with
+     * {@link #setError}, or <code>null</code> if no error was set
+     * or if it the error was cleared by the widget after user input.
+     */
+    public CharSequence getError() {
+        return mError;
+    }
+
+    /**
+     * Sets the right-hand compound drawable of the TextView to the "error"
+     * icon and sets an error message that will be displayed in a popup when
+     * the TextView has focus.  The icon and error message will be reset to
+     * null when any key events cause changes to the TextView's text.  If the
+     * <code>error</code> is <code>null</code>, the error message and icon
+     * will be cleared.
+     */
+    public void setError(CharSequence error) {
+        if (error == null) {
+            setError(null, null);
+        } else {
+            Drawable dr = getContext().getResources().
+                getDrawable(com.android.internal.R.drawable.
+                            indicator_input_error);
+
+            dr.setBounds(0, 0, dr.getIntrinsicWidth(), dr.getIntrinsicHeight());
+            setError(error, dr);
+        }
+    }
+
+    /**
+     * Sets the right-hand compound drawable of the TextView to the specified
+     * icon and sets an error message that will be displayed in a popup when
+     * the TextView has focus.  The icon and error message will be reset to
+     * null when any key events cause changes to the TextView's text.  The
+     * drawable must already have had {@link Drawable#setBounds} set on it.
+     * If the <code>error</code> is <code>null</code>, the error message will
+     * be cleared (and you should provide a <code>null</code> icon as well).
+     */
+    public void setError(CharSequence error, Drawable icon) {
+        error = TextUtils.stringOrSpannedString(error);
+
+        mError = error;
+        mErrorWasChanged = true;
+        setCompoundDrawables(mDrawableLeft, mDrawableTop,
+                             icon, mDrawableBottom);
+
+        if (error == null) {
+            if (mPopup != null) {
+                if (mPopup.isShowing()) {
+                    mPopup.dismiss();
+                }
+
+                mPopup = null;
+            }
+        } else {
+            if (isFocused()) {
+                showError();
+            }
+        }
+    }
+
+    private void showError() {
+        if (mPopup == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            TextView err = (TextView) inflater.inflate(com.android.internal.R.layout.textview_hint,
+                    null);
+
+            mPopup = new PopupWindow(err, 200, 50);
+            mPopup.setFocusable(false);
+        }
+
+        TextView tv = (TextView) mPopup.getContentView();
+        chooseSize(mPopup, mError, tv);
+        tv.setText(mError);
+
+        mPopup.showAsDropDown(this, getErrorX(), getErrorY());
+    }
+
+    /**
+     * Returns the Y offset to make the pointy top of the error point
+     * at the middle of the error icon.
+     */
+    private int getErrorX() {
+        /*
+         * The "25" is the distance between the point and the right edge
+         * of the background
+         */
+        
+        return getWidth() - mPopup.getWidth()
+                - getPaddingRight() - mDrawableSizeRight / 2 + 25;
+    }
+
+    /**
+     * Returns the Y offset to make the pointy top of the error point
+     * at the bottom of the error icon.
+     */
+    private int getErrorY() {
+        /*
+         * Compound, not extended, because the icon is not clipped
+         * if the text height is smaller.
+         */
+        int vspace = mBottom - mTop -
+                     getCompoundPaddingBottom() - getCompoundPaddingTop();
+
+        int icontop = getCompoundPaddingTop() +
+                                 (vspace - mDrawableHeightRight) / 2;
+
+        /*
+         * The "2" is the distance between the point and the top edge
+         * of the background.
+         */
+
+        return icontop + mDrawableHeightRight - getHeight() - 2;
+    }
+    
+    private void hideError() {
+        if (mPopup != null) {
+            if (mPopup.isShowing()) {
+                mPopup.dismiss();
+            }
+        }
+    }
+
+    private void chooseSize(PopupWindow pop, CharSequence text, TextView tv) {
+        int wid = tv.getPaddingLeft() + tv.getPaddingRight();
+        int ht = tv.getPaddingTop() + tv.getPaddingBottom();
+
+        /*
+         * Figure out how big the text would be if we laid it out to the
+         * full width of this view minus the border.
+         */
+        int cap = getWidth() - wid;
+        if (cap < 0) {
+            cap = 200; // We must not be measured yet -- setFrame() will fix it.
+        }
+
+        Layout l = new StaticLayout(text, tv.getPaint(), cap,
+                                    Layout.Alignment.ALIGN_NORMAL, 1, 0, true);
+        float max = 0;
+        for (int i = 0; i < l.getLineCount(); i++) {
+            max = Math.max(max, l.getLineWidth(i));
+        }
+
+        /*
+         * Now set the popup size to be big enough for the text plus the border.
+         */
+        pop.setWidth(wid + (int) Math.ceil(max));
+        pop.setHeight(ht + l.getHeight());
+    }
+
+
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected boolean setFrame(int l, int t, int r, int b) {
         boolean result = super.setFrame(l, t, r, b);
 
+<<<<<<< HEAD
         if (mEditor != null) mEditor.setFrame();
 
         restartMarqueeIfNeeded();
+=======
+        if (mPopup != null) {
+            TextView tv = (TextView) mPopup.getContentView();
+            chooseSize(mPopup, mError, tv);
+            mPopup.update(this, getErrorX(), getErrorY(), -1, -1);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
 
         return result;
     }
 
+<<<<<<< HEAD
     private void restartMarqueeIfNeeded() {
         if (mRestartMarquee && mEllipsize == TextUtils.TruncateAt.MARQUEE) {
             mRestartMarquee = false;
@@ -4157,6 +5307,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     /**
      * Sets the list of input filters that will be used if the buffer is
      * Editable. Has no effect otherwise.
+=======
+    /**
+     * Sets the list of input filters that will be used if the buffer is
+     * Editable.  Has no effect otherwise.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @attr ref android.R.styleable#TextView_maxLength
      */
@@ -4177,11 +5332,19 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * and includes mInput in the list if it is an InputFilter.
      */
     private void setFilters(Editable e, InputFilter[] filters) {
+<<<<<<< HEAD
         if (mEditor != null && mEditor.mKeyListener instanceof InputFilter) {
             InputFilter[] nf = new InputFilter[filters.length + 1];
 
             System.arraycopy(filters, 0, nf, 0, filters.length);
             nf[filters.length] = (InputFilter) mEditor.mKeyListener;
+=======
+        if (mInput instanceof InputFilter) {
+            InputFilter[] nf = new InputFilter[filters.length + 1];
+
+            System.arraycopy(filters, 0, nf, 0, filters.length);
+            nf[filters.length] = (InputFilter) mInput;
+>>>>>>> 54b6cfa... Initial Contribution
 
             e.setFilters(nf);
         } else {
@@ -4191,8 +5354,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
     /**
      * Returns the current list of input filters.
+<<<<<<< HEAD
      *
      * @attr ref android.R.styleable#TextView_maxLength
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public InputFilter[] getFilters() {
         return mFilters;
@@ -4200,7 +5366,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
     /////////////////////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
     int getVerticalOffset(boolean forceNormal) {
+=======
+    private int getVerticalOffset(boolean forceNormal) {
+>>>>>>> 54b6cfa... Initial Contribution
         int voffset = 0;
         final int gravity = mGravity & Gravity.VERTICAL_GRAVITY_MASK;
 
@@ -4213,10 +5383,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             int boxht;
 
             if (l == mHintLayout) {
+<<<<<<< HEAD
                 boxht = getMeasuredHeight() - getCompoundPaddingTop() -
                         getCompoundPaddingBottom();
             } else {
                 boxht = getMeasuredHeight() - getExtendedPaddingTop() -
+=======
+                boxht = getMeasuredHeight() - getCompoundPaddingTop() - 
+                        getCompoundPaddingBottom();
+            } else {
+                boxht = getMeasuredHeight() - getExtendedPaddingTop() - 
+>>>>>>> 54b6cfa... Initial Contribution
                         getExtendedPaddingBottom();
             }
             int textht = l.getHeight();
@@ -4244,10 +5421,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             int boxht;
 
             if (l == mHintLayout) {
+<<<<<<< HEAD
                 boxht = getMeasuredHeight() - getCompoundPaddingTop() -
                         getCompoundPaddingBottom();
             } else {
                 boxht = getMeasuredHeight() - getExtendedPaddingTop() -
+=======
+                boxht = getMeasuredHeight() - getCompoundPaddingTop() - 
+                        getCompoundPaddingBottom();
+            } else {
+                boxht = getMeasuredHeight() - getExtendedPaddingTop() - 
+>>>>>>> 54b6cfa... Initial Contribution
                         getExtendedPaddingBottom();
             }
             int textht = l.getHeight();
@@ -4262,6 +5446,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return voffset;
     }
 
+<<<<<<< HEAD
     void invalidateCursorPath() {
         if (mHighlightPathBogus) {
             invalidateCursor();
@@ -4301,17 +5486,39 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                     invalidate(bounds.left + horizontalPadding, bounds.top + verticalPadding,
                             bounds.right + horizontalPadding, bounds.bottom + verticalPadding);
                 }
+=======
+    private void invalidateCursorPath() {
+        if (mHighlightPathBogus) {
+            invalidateCursor();
+        } else {
+            synchronized (sTempRect) {
+                mHighlightPath.computeBounds(sTempRect, false);
+
+                int left = getCompoundPaddingLeft();
+                int top = getExtendedPaddingTop() + getVerticalOffset(true);
+
+                invalidate((int) sTempRect.left + left,
+                           (int) sTempRect.top + top,
+                           (int) sTempRect.right + left + 1,
+                           (int) sTempRect.bottom + top + 1);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
+<<<<<<< HEAD
     void invalidateCursor() {
         int where = getSelectionEnd();
+=======
+    private void invalidateCursor() {
+        int where = Selection.getSelectionEnd(mText);
+>>>>>>> 54b6cfa... Initial Contribution
 
         invalidateCursor(where, where, where);
     }
 
     private void invalidateCursor(int a, int b, int c) {
+<<<<<<< HEAD
         if (a >= 0 || b >= 0 || c >= 0) {
             int start = Math.min(Math.min(a, b), c);
             int end = Math.max(Math.max(a, b), c);
@@ -4328,6 +5535,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         } else {
                 int lineStart = mLayout.getLineForOffset(start);
                 int top = mLayout.getLineTop(lineStart);
+=======
+        if (mLayout == null) {
+            invalidate();
+        } else {
+            if (a >= 0 || b >= 0 || c >= 0) {
+                int first = Math.min(Math.min(a, b), c);
+                int last = Math.max(Math.max(a, b), c);
+
+                int line = mLayout.getLineForOffset(first);
+                int top = mLayout.getLineTop(line);
+>>>>>>> 54b6cfa... Initial Contribution
 
                 // This is ridiculous, but the descent from the line above
                 // can hang down into the line we really want to redraw,
@@ -4335,6 +5553,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 // sure everything that needs to be redrawn really is.
                 // (But not the whole line above, because that would cause
                 // the same problem with the descenders on the line above it!)
+<<<<<<< HEAD
                 if (lineStart > 0) {
                     top -= mLayout.getLineDescent(lineStart - 1);
                 }
@@ -4374,20 +5593,65 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
                 invalidate(mScrollX + left, verticalPadding + top,
                         mScrollX + right, verticalPadding + bottom);
+=======
+                if (line > 0) {
+                    top -= mLayout.getLineDescent(line - 1);
+                }
+
+                int line2;
+
+                if (first == last)
+                    line2 = line;
+                else
+                    line2 = mLayout.getLineForOffset(last);
+
+                int bottom = mLayout.getLineTop(line2 + 1);
+                int voffset = getVerticalOffset(true);
+
+                int left = getCompoundPaddingLeft() + mScrollX;
+                invalidate(left, top + voffset + getExtendedPaddingTop(),
+                           left + getWidth() - getCompoundPaddingLeft() -
+                           getCompoundPaddingRight(),
+                           bottom + voffset + getExtendedPaddingTop());
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     private void registerForPreDraw() {
+<<<<<<< HEAD
         if (!mPreDrawRegistered) {
             getViewTreeObserver().addOnPreDrawListener(this);
             mPreDrawRegistered = true;
         }
+=======
+        final ViewTreeObserver observer = getViewTreeObserver();
+        if (observer == null) {
+            return;
+        }
+
+        if (mPreDrawState == PREDRAW_NOT_REGISTERED) {
+            observer.addOnPreDrawListener(this);
+            mPreDrawState = PREDRAW_PENDING;
+        } else if (mPreDrawState == PREDRAW_DONE) {
+            mPreDrawState = PREDRAW_PENDING;
+        }
+
+        // else state is PREDRAW_PENDING, so keep waiting.
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * {@inheritDoc}
      */
     public boolean onPreDraw() {
+<<<<<<< HEAD
+=======
+        if (mPreDrawState != PREDRAW_PENDING) {
+            return true;
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         if (mLayout == null) {
             assumeLayout();
         }
@@ -4395,6 +5659,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         boolean changed = false;
 
         if (mMovement != null) {
+<<<<<<< HEAD
             /* This code also provides auto-scrolling when a cursor is moved using a
              * CursorController (insertion point or selection limits).
              * For selection, ensure start or end is visible depending on controller's state.
@@ -4405,13 +5670,21 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                     mEditor.mSelectionModifierCursorController.isSelectionStartDragged()) {
                 curs = getSelectionStart();
             }
+=======
+            int curs = Selection.getSelectionEnd(mText);
+>>>>>>> 54b6cfa... Initial Contribution
 
             /*
              * TODO: This should really only keep the end in view if
              * it already was before the text changed.  I'm not sure
              * of a good way to tell from here if it was.
              */
+<<<<<<< HEAD
             if (curs < 0 && (mGravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.BOTTOM) {
+=======
+            if (curs < 0 &&
+                  (mGravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.BOTTOM) {
+>>>>>>> 54b6cfa... Initial Contribution
                 curs = mText.length();
             }
 
@@ -4422,6 +5695,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             changed = bringTextIntoView();
         }
 
+<<<<<<< HEAD
         // This has to be checked here since:
         // - onFocusChanged cannot start it when focus is given to a view with selected text (after
         //   a screen rotation) since layout is not yet initialized at that point.
@@ -4440,10 +5714,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         getViewTreeObserver().removeOnPreDrawListener(this);
         mPreDrawRegistered = false;
 
+=======
+        mPreDrawState = PREDRAW_DONE;
+>>>>>>> 54b6cfa... Initial Contribution
         return !changed;
     }
 
     @Override
+<<<<<<< HEAD
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
@@ -4806,12 +6084,99 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
 
         int color = mCurTextColor;
+=======
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        if (mPreDrawState != PREDRAW_NOT_REGISTERED) {
+            final ViewTreeObserver observer = getViewTreeObserver();
+            if (observer != null) {
+                observer.removeOnPreDrawListener(this);
+                mPreDrawState = PREDRAW_NOT_REGISTERED;
+            }
+        }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        // Draw the background for this view
+        super.onDraw(canvas);
+
+        final int compoundPaddingLeft = getCompoundPaddingLeft();
+        final int compoundPaddingTop = getCompoundPaddingTop();
+        final int compoundPaddingRight = getCompoundPaddingRight();
+        final int compoundPaddingBottom = getCompoundPaddingBottom();
+        final int scrollX = mScrollX;
+        final int scrollY = mScrollY;
+        final int right = mRight;
+        final int left = mLeft;
+        final int bottom = mBottom;
+        final int top = mTop;
+
+        if (mDrawables) {
+            /*
+             * Compound, not extended, because the icon is not clipped
+             * if the text height is smaller.
+             */
+
+            int vspace = bottom - top - compoundPaddingBottom - compoundPaddingTop;
+            int hspace = right - left - compoundPaddingRight - compoundPaddingLeft;
+
+            if (mDrawableLeft != null) {
+                canvas.save();
+                canvas.translate(scrollX + mPaddingLeft,
+                                 scrollY + compoundPaddingTop +
+                                 (vspace - mDrawableHeightLeft) / 2);
+                mDrawableLeft.draw(canvas);
+                canvas.restore();
+            }
+
+            if (mDrawableRight != null) {
+                canvas.save();
+                canvas.translate(scrollX + right - left - mPaddingRight - mDrawableSizeRight,
+                         scrollY + compoundPaddingTop + (vspace - mDrawableHeightRight) / 2);
+                mDrawableRight.draw(canvas);
+                canvas.restore();
+            }
+
+            if (mDrawableTop != null) {
+                canvas.save();
+                canvas.translate(scrollX + compoundPaddingLeft + (hspace - mDrawableWidthTop) / 2,
+                        scrollY + mPaddingTop);
+                mDrawableTop.draw(canvas);
+                canvas.restore();
+            }
+
+            if (mDrawableBottom != null) {
+                canvas.save();
+                canvas.translate(scrollX + compoundPaddingLeft +
+                        (hspace - mDrawableWidthBottom) / 2,
+                         scrollY + bottom - top - mPaddingBottom - mDrawableSizeBottom);
+                mDrawableBottom.draw(canvas);
+                canvas.restore();
+            }
+        }
+
+        if (mPreDrawState == PREDRAW_DONE) {
+            final ViewTreeObserver observer = getViewTreeObserver();
+            if (observer != null) {
+                observer.removeOnPreDrawListener(this);
+                mPreDrawState = PREDRAW_NOT_REGISTERED;
+            }
+        }
+
+        int color = mCurTextColor;
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (mLayout == null) {
             assumeLayout();
         }
 
         Layout layout = mLayout;
+<<<<<<< HEAD
+=======
+        int cursorcolor = color;
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (mHint != null && mText.length() == 0) {
             if (mHintTextColor != null) {
@@ -4826,12 +6191,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         canvas.save();
         /*  Would be faster if we didn't have to do this. Can we chop the
+<<<<<<< HEAD
             (displayable) text so that we don't need to do this ever?
+=======
+            (displayable) text so that we don't need to do this ever? 
+>>>>>>> 54b6cfa... Initial Contribution
         */
 
         int extendedPaddingTop = getExtendedPaddingTop();
         int extendedPaddingBottom = getExtendedPaddingBottom();
 
+<<<<<<< HEAD
         final int vspace = mBottom - mTop - compoundPaddingBottom - compoundPaddingTop;
         final int maxScrollY = mLayout.getHeight() - vspace;
 
@@ -4840,6 +6210,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         float clipRight = right - left - compoundPaddingRight + scrollX;
         float clipBottom = bottom - top + scrollY -
                 ((scrollY == maxScrollY) ? 0 : extendedPaddingBottom);
+=======
+        float clipLeft = compoundPaddingLeft + scrollX;
+        float clipTop = extendedPaddingTop + scrollY;
+        float clipRight = right - left - compoundPaddingRight + scrollX;
+        float clipBottom = bottom - top - extendedPaddingBottom + scrollY;
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (mShadowRadius != 0) {
             clipLeft += Math.min(0, mShadowDx - mShadowRadius);
@@ -4855,6 +6231,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         int voffsetCursor = 0;
 
         // translate in by our padding
+<<<<<<< HEAD
         /* shortcircuit calling getVerticaOffset() */
         if ((mGravity & Gravity.VERTICAL_GRAVITY_MASK) != Gravity.TOP) {
             voffsetText = getVerticalOffset(false);
@@ -4890,6 +6267,81 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             canvas.translate((int) mMarquee.getGhostOffset(), 0.0f);
             layout.draw(canvas, highlight, mHighlightPaint, cursorOffsetVertical);
         }
+=======
+        {
+            /* shortcircuit calling getVerticaOffset() */
+            if ((mGravity & Gravity.VERTICAL_GRAVITY_MASK) != Gravity.TOP) {
+                voffsetText = getVerticalOffset(false);
+                voffsetCursor = getVerticalOffset(true);
+            }
+            canvas.translate(compoundPaddingLeft, extendedPaddingTop + voffsetText);
+        }
+
+        Path highlight = null;
+
+        //  If there is no movement method, then there can be no selection.
+        //  Check that first and attempt to skip everything having to do with
+        //  the cursor.
+        //  XXX This is not strictly true -- a program could set the
+        //  selection manually if it really wanted to.
+        if (mMovement != null && (isFocused() || isPressed())) {
+            int start = Selection.getSelectionStart(mText);
+            int end = Selection.getSelectionEnd(mText);
+
+            if (mCursorVisible && start >= 0 && isEnabled()) {
+                if (mHighlightPath == null)
+                    mHighlightPath = new Path();
+
+                if (start == end) {
+                    if ((SystemClock.uptimeMillis() - mShowCursor) % (2 * BLINK)
+                        < BLINK) {
+                        if (mHighlightPathBogus) {
+                            mHighlightPath.reset();
+                            mLayout.getCursorPath(start, mHighlightPath, mText);
+                            mHighlightPathBogus = false;
+                        }
+
+                        // XXX should pass to skin instead of drawing directly
+                        mHighlightPaint.setColor(cursorcolor);
+                        mHighlightPaint.setStyle(Paint.Style.STROKE);
+
+                        highlight = mHighlightPath;
+                    }
+                } else {
+                    if (mHighlightPathBogus) {
+                        mHighlightPath.reset();
+                        mLayout.getSelectionPath(start, end, mHighlightPath);
+                        mHighlightPathBogus = false;
+                    }
+
+                    // XXX should pass to skin instead of drawing directly
+                    mHighlightPaint.setColor(mHighlightColor);
+                    mHighlightPaint.setStyle(Paint.Style.FILL);
+
+                    highlight = mHighlightPath;
+                }
+            }
+        }
+
+        /*  Comment out until we decide what to do about animations
+        boolean isLinearTextOn = false;
+        if (currentTransformation != null) {
+            isLinearTextOn = mTextPaint.isLinearTextOn();
+            Matrix m = currentTransformation.getMatrix();
+            if (!m.isIdentity()) {
+                // mTextPaint.setLinearTextOn(true);
+            }
+        }
+        */
+
+        layout.draw(canvas, highlight, mHighlightPaint, voffsetCursor - voffsetText);
+
+        /*  Comment out until we decide what to do about animations
+        if (currentTransformation != null) {
+            mTextPaint.setLinearTextOn(isLinearTextOn);
+        }
+        */
+>>>>>>> 54b6cfa... Initial Contribution
 
         canvas.restore();
     }
@@ -4901,12 +6353,18 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             return;
         }
 
+<<<<<<< HEAD
         int selEnd = getSelectionEnd();
         if (selEnd < 0) {
+=======
+        int sel = getSelectionEnd();
+        if (sel < 0) {
+>>>>>>> 54b6cfa... Initial Contribution
             super.getFocusedRect(r);
             return;
         }
 
+<<<<<<< HEAD
         int selStart = getSelectionStart();
         if (selStart < 0 || selStart >= selEnd) {
             int line = mLayout.getLineForOffset(selEnd);
@@ -4948,6 +6406,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         r.offset(paddingLeft, paddingTop);
         int paddingBottom = getExtendedPaddingBottom();
         r.bottom += paddingBottom;
+=======
+        int line = mLayout.getLineForOffset(sel);
+        r.top = mLayout.getLineTop(line);
+        r.bottom = mLayout.getLineBottom(line);
+
+        r.left = (int) mLayout.getPrimaryHorizontal(sel);
+        r.right = r.left + 1;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -5002,6 +6468,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return getExtendedPaddingTop() + voffset + mLayout.getLineBaseline(0);
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      */
@@ -5242,12 +6709,43 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 endBatchEdit();
                 hideErrorIfUnchanged();
                 if (handled) return 1;
+=======
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (!isEnabled()) {
+            return super.onKeyDown(keyCode, event);
+        }
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+                if (mSingleLine && mInput != null) {
+                    return super.onKeyDown(keyCode, event);
+                }
+        }
+
+        if (mInput != null) {
+            /*  
+             * Keep track of what the error was before doing the input
+             * so that if an input filter changed the error, we leave
+             * that error showing.  Otherwise, we take down whatever
+             * error was showing when the user types something.
+             */
+            mErrorWasChanged = false;
+
+            if (mInput.onKeyDown(this, (Editable) mText, keyCode, event)) {
+                if (mError != null && !mErrorWasChanged) {
+                    setError(null, null);
+                }
+                return true;
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
         // bug 650865: sometimes we get a key event before a layout.
         // don't try to move around if we don't know the layout.
 
+<<<<<<< HEAD
         if (mMovement != null && mLayout != null) {
             boolean doDown = true;
             if (otherEvent != null) {
@@ -5294,6 +6792,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         if (mEditor != null && mEditor.mError != null && !mEditor.mErrorWasChanged) {
             setError(null, null);
         }
+=======
+        if (mMovement != null && mLayout != null)
+            if (mMovement.onKeyDown(this, (Spannable)mText, keyCode, event))
+                return true;
+
+        return super.onKeyDown(keyCode, event);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -5304,11 +6809,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_CENTER:
+<<<<<<< HEAD
                 if (event.hasNoModifiers()) {
+=======
+            case KeyEvent.KEYCODE_ENTER:
+                if (mSingleLine && mInput != null) {
+>>>>>>> 54b6cfa... Initial Contribution
                     /*
                      * If there is a click listener, just call through to
                      * super, which will invoke it.
                      *
+<<<<<<< HEAD
                      * If there isn't a click listener, try to show the soft
                      * input method.  (It will also
                      * call performClick(), but that won't do anything in
@@ -5335,10 +6846,34 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                         mEditor.mInputContentType.enterDown = false;
                         if (mEditor.mInputContentType.onEditorActionListener.onEditorAction(
                                 this, EditorInfo.IME_NULL, event)) {
+=======
+                     * If there isn't a click listener, try to advance focus,
+                     * but still call through to super, which will reset the
+                     * pressed state and longpress state.  (It will also
+                     * call performClick(), but that won't do anything in
+                     * this case.)
+                     */
+                    if (mOnClickListener == null) {
+                        View v = focusSearch(FOCUS_DOWN);
+
+                        if (v != null) {
+                            if (!v.requestFocus(FOCUS_DOWN)) {
+                                throw new IllegalStateException("focus search returned a view " +
+                                        "that wasn't able to take focus!");
+                            }
+
+                            /*
+                             * Return true because we handled the key; super
+                             * will return false because there was no click
+                             * listener.
+                             */
+                            super.onKeyUp(keyCode, event);
+>>>>>>> 54b6cfa... Initial Contribution
                             return true;
                         }
                     }
 
+<<<<<<< HEAD
                     if ((event.getFlags() & KeyEvent.FLAG_EDITOR_ACTION) != 0
                             || shouldAdvanceFocusOnEnter()) {
                         /*
@@ -5386,6 +6921,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         if (mEditor != null && mEditor.mKeyListener != null)
             if (mEditor.mKeyListener.onKeyUp(this, (Editable) mText, keyCode, event))
+=======
+                    return super.onKeyUp(keyCode, event);
+                }
+        }
+
+        if (mInput != null)
+            if (mInput.onKeyUp(this, (Editable) mText, keyCode, event))
+>>>>>>> 54b6cfa... Initial Contribution
                 return true;
 
         if (mMovement != null && mLayout != null)
@@ -5395,6 +6938,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return super.onKeyUp(keyCode, event);
     }
 
+<<<<<<< HEAD
     @Override
     public boolean onCheckIsTextEditor() {
         return mEditor != null && mEditor.mInputType != EditorInfo.TYPE_NULL;
@@ -5597,6 +7141,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return false;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private void nullLayouts() {
         if (mLayout instanceof BoringLayout && mSavedLayout == null) {
             mSavedLayout = (BoringLayout) mLayout;
@@ -5605,12 +7151,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             mSavedHintLayout = (BoringLayout) mHintLayout;
         }
 
+<<<<<<< HEAD
         mSavedMarqueeModeLayout = mLayout = mHintLayout = null;
 
         mBoring = mHintBoring = null;
 
         // Since it depends on the value of mLayout
         if (mEditor != null) mEditor.prepareCursorControllers();
+=======
+        mLayout = mHintLayout = null;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -5634,6 +7184,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                       physicalWidth, false);
     }
 
+<<<<<<< HEAD
     /** @hide */
     @Override
     public void onResolvedLayoutDirectionReset() {
@@ -5700,11 +7251,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return mLayoutAlignment;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * The width passed in is now the desired layout width,
      * not the full view width with padding.
      * {@hide}
      */
+<<<<<<< HEAD
     protected void makeNewLayout(int wantWidth, int hintWidth,
                                  BoringLayout.Metrics boring,
                                  BoringLayout.Metrics hintBoring,
@@ -5719,11 +7273,22 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         if (wantWidth < 0) {
             wantWidth = 0;
+=======
+    protected void makeNewLayout(int w, int hintWidth,
+                                 BoringLayout.Metrics boring,
+                                 BoringLayout.Metrics hintBoring,
+                                 int ellipsisWidth, boolean bringIntoView) {
+        mHighlightPathBogus = true;
+
+        if (w < 0) {
+            w = 0;
+>>>>>>> 54b6cfa... Initial Contribution
         }
         if (hintWidth < 0) {
             hintWidth = 0;
         }
 
+<<<<<<< HEAD
         Layout.Alignment alignment = getLayoutAlignment();
         boolean shouldEllipsize = mEllipsize != null && getKeyListener() == null;
         final boolean switchEllipsize = mEllipsize == TruncateAt.MARQUEE &&
@@ -5809,10 +7374,91 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             } else {
                 mHintLayout = new StaticLayout(mHint, mTextPaint,
                         hintWidth, alignment, mTextDir, mSpacingMult, mSpacingAdd,
+=======
+        Layout.Alignment alignment;
+        switch (mGravity & Gravity.HORIZONTAL_GRAVITY_MASK) {
+            case Gravity.CENTER_HORIZONTAL:
+                alignment = Layout.Alignment.ALIGN_CENTER;
+                break;
+
+            case Gravity.RIGHT:
+                alignment = Layout.Alignment.ALIGN_OPPOSITE;
+                break;
+
+            default:
+                alignment = Layout.Alignment.ALIGN_NORMAL;
+        }
+
+        if (mText instanceof Spannable) {
+            mLayout = new DynamicLayout(mText, mTransformed, mTextPaint, w,
+                    alignment, mSpacingMult,
+                    mSpacingAdd, mIncludePad, mEllipsize,
+                    ellipsisWidth);
+        } else {
+            if (boring == UNKNOWN_BORING) {
+                boring = BoringLayout.isBoring(mTransformed, mTextPaint,
+                                               mBoring);
+                if (boring != null) {
+                    mBoring = boring;
+                }
+            }
+
+            if (boring != null) {
+                if (boring.width <= w &&
+                    (mEllipsize == null || boring.width <= ellipsisWidth)) {
+                    if (mSavedLayout != null) {
+                        mLayout = mSavedLayout.
+                                replaceOrMake(mTransformed, mTextPaint,
+                                w, alignment, mSpacingMult, mSpacingAdd,
+                                boring, mIncludePad);
+                    } else {
+                        mLayout = BoringLayout.make(mTransformed, mTextPaint,
+                                w, alignment, mSpacingMult, mSpacingAdd,
+                                boring, mIncludePad);
+                    }
+                    // Log.e("aaa", "Boring: " + mTransformed);
+
+                    mSavedLayout = (BoringLayout) mLayout;
+                } else if (mEllipsize != null && boring.width <= w) {
+                    if (mSavedLayout != null) {
+                        mLayout = mSavedLayout.
+                                replaceOrMake(mTransformed, mTextPaint,
+                                w, alignment, mSpacingMult, mSpacingAdd,
+                                boring, mIncludePad, mEllipsize,
+                                ellipsisWidth);
+                    } else {
+                        mLayout = BoringLayout.make(mTransformed, mTextPaint,
+                                w, alignment, mSpacingMult, mSpacingAdd,
+                                boring, mIncludePad, mEllipsize,
+                                ellipsisWidth);
+                    }
+                } else if (mEllipsize != null) {
+                    mLayout = new StaticLayout(mTransformed,
+                                0, mTransformed.length(),
+                                mTextPaint, w, alignment, mSpacingMult,
+                                mSpacingAdd, mIncludePad, mEllipsize,
+                                ellipsisWidth);
+                } else {
+                    mLayout = new StaticLayout(mTransformed, mTextPaint,
+                            w, alignment, mSpacingMult, mSpacingAdd,
+                            mIncludePad);
+                    // Log.e("aaa", "Boring but wide: " + mTransformed);
+                }
+            } else if (mEllipsize != null) {
+                mLayout = new StaticLayout(mTransformed,
+                            0, mTransformed.length(),
+                            mTextPaint, w, alignment, mSpacingMult,
+                            mSpacingAdd, mIncludePad, mEllipsize,
+                            ellipsisWidth);
+            } else {
+                mLayout = new StaticLayout(mTransformed, mTextPaint,
+                        w, alignment, mSpacingMult, mSpacingAdd,
+>>>>>>> 54b6cfa... Initial Contribution
                         mIncludePad);
             }
         }
 
+<<<<<<< HEAD
         if (bringIntoView) {
             registerForPreDraw();
         }
@@ -5926,6 +7572,48 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
 
         return false;
+=======
+        mHintLayout = null;
+
+        if (mHint != null) {
+            if (hintBoring == UNKNOWN_BORING) {
+                hintBoring = BoringLayout.isBoring(mHint, mTextPaint,
+                                                   mHintBoring);
+                if (hintBoring != null) {
+                    mHintBoring = hintBoring;
+                }
+            }
+
+            if (hintBoring != null) {
+                if (hintBoring.width <= hintWidth) {
+                    if (mSavedHintLayout != null) {
+                        mHintLayout = mSavedHintLayout.
+                                replaceOrMake(mHint, mTextPaint,
+                                hintWidth, alignment, mSpacingMult,
+                                mSpacingAdd, hintBoring, mIncludePad);
+                    } else {
+                        mHintLayout = BoringLayout.make(mHint, mTextPaint,
+                                hintWidth, alignment, mSpacingMult,
+                                mSpacingAdd, hintBoring, mIncludePad);
+                    }
+
+                    mSavedHintLayout = (BoringLayout) mHintLayout;
+                } else {
+                    mHintLayout = new StaticLayout(mHint, mTextPaint,
+                            hintWidth, alignment, mSpacingMult, mSpacingAdd,
+                            mIncludePad);
+                }
+            } else {
+                mHintLayout = new StaticLayout(mHint, mTextPaint,
+                        hintWidth, alignment, mSpacingMult, mSpacingAdd,
+                        mIncludePad);
+            }
+        }
+
+        if (bringIntoView) {
+            registerForPreDraw();
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private static int desired(Layout layout) {
@@ -5953,6 +7641,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * room for accents that go above the normal ascent and descent.
      * The default is true.
      *
+<<<<<<< HEAD
      * @see #getIncludeFontPadding()
      *
      * @attr ref android.R.styleable#TextView_includeFontPadding
@@ -5982,6 +7671,22 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     private static final BoringLayout.Metrics UNKNOWN_BORING = new BoringLayout.Metrics();
+=======
+     * @attr ref android.R.styleable#TextView_includeFontPadding
+     */
+    public void setIncludeFontPadding(boolean includepad) {
+        mIncludePad = includepad;
+
+        if (mLayout != null) {
+            nullLayouts();
+            requestLayout();
+            invalidate();
+        }
+    }
+
+    private static final BoringLayout.Metrics UNKNOWN_BORING =
+                                                new BoringLayout.Metrics();
+>>>>>>> 54b6cfa... Initial Contribution
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -5996,10 +7701,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         BoringLayout.Metrics boring = UNKNOWN_BORING;
         BoringLayout.Metrics hintBoring = UNKNOWN_BORING;
 
+<<<<<<< HEAD
         if (mTextDir == null) {
             resolveTextDirection();
         }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         int des = -1;
         boolean fromexisting = false;
 
@@ -6012,7 +7720,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             }
 
             if (des < 0) {
+<<<<<<< HEAD
                 boring = BoringLayout.isBoring(mTransformed, mTextPaint, mTextDir, mBoring);
+=======
+                boring = BoringLayout.isBoring(mTransformed, mTextPaint,
+                                               mBoring);
+>>>>>>> 54b6cfa... Initial Contribution
                 if (boring != null) {
                     mBoring = boring;
                 }
@@ -6022,29 +7735,50 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
             if (boring == null || boring == UNKNOWN_BORING) {
                 if (des < 0) {
+<<<<<<< HEAD
                     des = (int) FloatMath.ceil(Layout.getDesiredWidth(mTransformed, mTextPaint));
                 }
+=======
+                    des = (int) FloatMath.ceil(Layout.
+                                    getDesiredWidth(mTransformed, mTextPaint));
+                }
+
+>>>>>>> 54b6cfa... Initial Contribution
                 width = des;
             } else {
                 width = boring.width;
             }
 
+<<<<<<< HEAD
             final Drawables dr = mDrawables;
             if (dr != null) {
                 width = Math.max(width, dr.mDrawableWidthTop);
                 width = Math.max(width, dr.mDrawableWidthBottom);
             }
+=======
+            width = Math.max(width, mDrawableWidthTop);
+            width = Math.max(width, mDrawableWidthBottom);
+>>>>>>> 54b6cfa... Initial Contribution
 
             if (mHint != null) {
                 int hintDes = -1;
                 int hintWidth;
 
+<<<<<<< HEAD
                 if (mHintLayout != null && mEllipsize == null) {
+=======
+                if (mHintLayout != null) {
+>>>>>>> 54b6cfa... Initial Contribution
                     hintDes = desired(mHintLayout);
                 }
 
                 if (hintDes < 0) {
+<<<<<<< HEAD
                     hintBoring = BoringLayout.isBoring(mHint, mTextPaint, mTextDir, mHintBoring);
+=======
+                    hintBoring = BoringLayout.isBoring(mHint, mTextPaint,
+                                                       mHintBoring);
+>>>>>>> 54b6cfa... Initial Contribution
                     if (hintBoring != null) {
                         mHintBoring = hintBoring;
                     }
@@ -6052,8 +7786,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
                 if (hintBoring == null || hintBoring == UNKNOWN_BORING) {
                     if (hintDes < 0) {
+<<<<<<< HEAD
                         hintDes = (int) FloatMath.ceil(Layout.getDesiredWidth(mHint, mTextPaint));
                     }
+=======
+                        hintDes = (int) FloatMath.ceil(Layout.
+                                        getDesiredWidth(mHint, mTextPaint));
+                    }
+
+>>>>>>> 54b6cfa... Initial Contribution
                     hintWidth = hintDes;
                 } else {
                     hintWidth = hintBoring.width;
@@ -6080,7 +7821,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
             // Check against our minimum width
             width = Math.max(width, getSuggestedMinimumWidth());
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (widthMode == MeasureSpec.AT_MOST) {
                 width = Math.min(widthSize, width);
             }
@@ -6088,6 +7833,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         int want = width - getCompoundPaddingLeft() - getCompoundPaddingRight();
         int unpaddedWidth = want;
+<<<<<<< HEAD
 
         if (mHorizontallyScrolling) want = VERY_WIDE;
 
@@ -6120,6 +7866,34 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             } else {
                 // Nothing has changed
             }
+=======
+        int hintWant = want;
+
+        if (mHorizontallyScrolling)
+            want = VERY_WIDE;
+
+        int hintWidth = mHintLayout == null ? hintWant : mHintLayout.getWidth();
+
+        if (mLayout == null) {
+            makeNewLayout(want, hintWant, boring, hintBoring,
+                          width - getCompoundPaddingLeft() - getCompoundPaddingRight(),
+                          false);
+        } else if ((mLayout.getWidth() != want) || (hintWidth != hintWant) ||
+                   (mLayout.getEllipsizedWidth() !=
+                        width - getCompoundPaddingLeft() - getCompoundPaddingRight())) {
+            if (mHint == null && mEllipsize == null &&
+                    want > mLayout.getWidth() &&
+                    (mLayout instanceof BoringLayout ||
+                        (fromexisting && des >= 0 && des <= want))) {
+                mLayout.increaseWidthTo(want);
+            } else {
+                makeNewLayout(want, hintWant, boring, hintBoring,
+                              width - getCompoundPaddingLeft() - getCompoundPaddingRight(),
+                              false);
+            }
+        } else {
+            // Width has not changed.
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (heightMode == MeasureSpec.EXACTLY) {
@@ -6133,6 +7907,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             mDesiredHeightAtMeasure = desired;
 
             if (heightMode == MeasureSpec.AT_MOST) {
+<<<<<<< HEAD
                 height = Math.min(desired, heightSize);
             }
         }
@@ -6140,6 +7915,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         int unpaddedHeight = height - getCompoundPaddingTop() - getCompoundPaddingBottom();
         if (mMaxMode == LINES && mLayout.getLineCount() > mMaximum) {
             unpaddedHeight = Math.min(unpaddedHeight, mLayout.getLineTop(mMaximum));
+=======
+                height = Math.min(desired, height);
+            }
+        }
+
+        int unpaddedHeight = height - getCompoundPaddingTop() -
+                                getCompoundPaddingBottom();
+        if (mMaxMode == LINES && mLayout.getLineCount() > mMaximum) {
+            unpaddedHeight = Math.min(unpaddedHeight,
+                                      mLayout.getLineTop(mMaximum));
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         /*
@@ -6158,9 +7944,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     private int getDesiredHeight() {
+<<<<<<< HEAD
         return Math.max(
                 getDesiredHeight(mLayout, true),
                 getDesiredHeight(mHintLayout, mEllipsize != null));
+=======
+        return Math.max(getDesiredHeight(mLayout, true),
+                        getDesiredHeight(mHintLayout, false));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private int getDesiredHeight(Layout layout, boolean cap) {
@@ -6172,11 +7963,16 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         int pad = getCompoundPaddingTop() + getCompoundPaddingBottom();
         int desired = layout.getLineTop(linecount);
 
+<<<<<<< HEAD
         final Drawables dr = mDrawables;
         if (dr != null) {
             desired = Math.max(desired, dr.mDrawableHeightLeft);
             desired = Math.max(desired, dr.mDrawableHeightRight);
         }
+=======
+        desired = Math.max(desired, mDrawableHeightLeft);
+        desired = Math.max(desired, mDrawableHeightRight);
+>>>>>>> 54b6cfa... Initial Contribution
 
         desired += pad;
 
@@ -6187,12 +7983,20 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
              */
             if (cap) {
                 if (linecount > mMaximum) {
+<<<<<<< HEAD
                     desired = layout.getLineTop(mMaximum);
 
                     if (dr != null) {
                         desired = Math.max(desired, dr.mDrawableHeightLeft);
                         desired = Math.max(desired, dr.mDrawableHeightRight);
                     }
+=======
+                    desired = layout.getLineTop(mMaximum) +
+                              layout.getBottomPadding();
+
+                    desired = Math.max(desired, mDrawableHeightLeft);
+                    desired = Math.max(desired, mDrawableHeightRight);
+>>>>>>> 54b6cfa... Initial Contribution
 
                     desired += pad;
                     linecount = mMaximum;
@@ -6212,7 +8016,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
         // Check against our minimum height
         desired = Math.max(desired, getSuggestedMinimumHeight());
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         return desired;
     }
 
@@ -6237,7 +8045,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 if (desiredHeight != this.getHeight()) {
                     sizeChanged = true;
                 }
+<<<<<<< HEAD
             } else if (mLayoutParams.height == LayoutParams.MATCH_PARENT) {
+=======
+            } else if (mLayoutParams.height == LayoutParams.FILL_PARENT) {
+>>>>>>> 54b6cfa... Initial Contribution
                 if (mDesiredHeightAtMeasure >= 0) {
                     int desiredHeight = getDesiredHeight();
 
@@ -6278,6 +8090,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
              * will happen at measure).
              */
             makeNewLayout(want, hintWant, UNKNOWN_BORING, UNKNOWN_BORING,
+<<<<<<< HEAD
                           mRight - mLeft - getCompoundPaddingLeft() - getCompoundPaddingRight(),
                           false);
 
@@ -6296,6 +8109,23 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                     invalidate();
                     return;
                 }
+=======
+                          mRight - mLeft - getCompoundPaddingLeft() - getCompoundPaddingRight(), false);
+
+            // In a fixed-height view, so use our new text layout.
+            if (mLayoutParams.height != LayoutParams.WRAP_CONTENT &&
+                mLayoutParams.height != LayoutParams.FILL_PARENT) {
+                invalidate();
+                return;
+            }
+
+            // Dynamic height, but height has stayed the same,
+            // so use our new text layout.
+            if (mLayout.getHeight() == oldht &&
+                (mHintLayout == null || mHintLayout.getHeight() == oldht)) {
+                invalidate();
+                return;
+>>>>>>> 54b6cfa... Initial Contribution
             }
 
             // We lose: the height has changed and we have a dynamic height.
@@ -6305,12 +8135,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         } else {
             // Dynamic width, so we have no choice but to request a new
             // view layout with a new text layout.
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
             nullLayouts();
             requestLayout();
             invalidate();
         }
     }
 
+<<<<<<< HEAD
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -6321,10 +8156,13 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return TextUtils.isEmpty(mText) && !TextUtils.isEmpty(mHint);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns true if anything changed.
      */
     private boolean bringTextIntoView() {
+<<<<<<< HEAD
         Layout layout = isShowingHint() ? mHintLayout : mLayout;
         int line = 0;
         if ((mGravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.BOTTOM) {
@@ -6348,14 +8186,34 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 Layout.Alignment.ALIGN_LEFT;
         }
 
+=======
+        int line = 0;
+        if ((mGravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.BOTTOM) {
+            line = mLayout.getLineCount() - 1;
+        }
+
+        Layout.Alignment a = mLayout.getParagraphAlignment(line);
+        int dir = mLayout.getParagraphDirection(line);
+        int hspace = mRight - mLeft - getCompoundPaddingLeft() - getCompoundPaddingRight();
+        int vspace = mBottom - mTop - getExtendedPaddingTop() - getExtendedPaddingBottom();
+        int ht = mLayout.getHeight();
+
+        int scrollx, scrolly;
+
+>>>>>>> 54b6cfa... Initial Contribution
         if (a == Layout.Alignment.ALIGN_CENTER) {
             /*
              * Keep centered if possible, or, if it is too wide to fit,
              * keep leading edge in view.
              */
 
+<<<<<<< HEAD
             int left = (int) FloatMath.floor(layout.getLineLeft(line));
             int right = (int) FloatMath.ceil(layout.getLineRight(line));
+=======
+            int left = (int) FloatMath.floor(mLayout.getLineLeft(line));
+            int right = (int) FloatMath.ceil(mLayout.getLineRight(line));
+>>>>>>> 54b6cfa... Initial Contribution
 
             if (right - left < hspace) {
                 scrollx = (right + left) / 2 - hspace / 2;
@@ -6366,11 +8224,36 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                     scrollx = left;
                 }
             }
+<<<<<<< HEAD
         } else if (a == Layout.Alignment.ALIGN_RIGHT) {
             int right = (int) FloatMath.ceil(layout.getLineRight(line));
             scrollx = right - hspace;
         } else { // a == Layout.Alignment.ALIGN_LEFT (will also be the default)
             scrollx = (int) FloatMath.floor(layout.getLineLeft(line));
+=======
+        } else if (a == Layout.Alignment.ALIGN_NORMAL) {
+            /*
+             * Keep leading edge in view.
+             */
+
+            if (dir < 0) {
+                int right = (int) FloatMath.ceil(mLayout.getLineRight(line));
+                scrollx = right - hspace;
+            } else {
+                scrollx = (int) FloatMath.floor(mLayout.getLineLeft(line));
+            }
+        } else /* a == Layout.Alignment.ALIGN_OPPOSITE */ {
+            /*
+             * Keep trailing edge in view.
+             */
+
+            if (dir < 0) {
+                scrollx = (int) FloatMath.floor(mLayout.getLineLeft(line));
+            } else {
+                int right = (int) FloatMath.ceil(mLayout.getLineRight(line));
+                scrollx = right - hspace;
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (ht < vspace) {
@@ -6392,6 +8275,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * Move the point, specified by the offset, into the view if it is needed.
      * This has to be called after layout. Returns true if anything changed.
      */
@@ -6434,6 +8318,41 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 break;
         }
 
+=======
+     * Returns true if anything changed.
+     */
+    private boolean bringPointIntoView(int offset) {
+        boolean changed = false;
+
+        int line = mLayout.getLineForOffset(offset);
+
+        // FIXME: Is it okay to truncate this, or should we round?
+        final int x = (int)mLayout.getPrimaryHorizontal(offset);
+        final int top = mLayout.getLineTop(line);
+        final int bottom = mLayout.getLineTop(line+1);
+
+        int left = (int) FloatMath.floor(mLayout.getLineLeft(line));
+        int right = (int) FloatMath.ceil(mLayout.getLineRight(line));
+        int ht = mLayout.getHeight();
+
+        int grav;
+
+        switch (mLayout.getParagraphAlignment(line)) {
+            case ALIGN_NORMAL:
+                grav = 1;
+                break;
+
+            case ALIGN_OPPOSITE:
+                grav = -1;
+                break;
+
+            default:
+                grav = 0;
+        }
+
+        grav *= mLayout.getParagraphDirection(line);
+
+>>>>>>> 54b6cfa... Initial Contribution
         int hspace = mRight - mLeft - getCompoundPaddingLeft() - getCompoundPaddingRight();
         int vspace = mBottom - mTop - getExtendedPaddingTop() - getExtendedPaddingBottom();
 
@@ -6527,7 +8446,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
                 if (duration > ANIMATED_SCROLL_GAP) {
                     mScroller.startScroll(mScrollX, mScrollY, dx, dy);
+<<<<<<< HEAD
                     awakenScrollBars(mScroller.getDuration());
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                     invalidate();
                 } else {
                     if (!mScroller.isFinished()) {
@@ -6544,6 +8466,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
 
         if (isFocused()) {
+<<<<<<< HEAD
             // This offsets because getInterestingRect() is in terms of viewport coordinates, but
             // requestRectangleOnScreen() is in terms of content coordinates.
 
@@ -6557,6 +8480,17 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             mTempRect.offset(mScrollX, mScrollY);
 
             if (requestRectangleOnScreen(mTempRect)) {
+=======
+            // This offsets because getInterestingRect() is in terms of
+            // viewport coordinates, but requestRectangleOnScreen()
+            // is in terms of content coordinates.
+
+            Rect r = new Rect();
+            getInterestingRect(r, x, top, bottom, line);
+            r.offset(mScrollX, mScrollY);
+
+            if (requestRectangleOnScreen(r)) {
+>>>>>>> 54b6cfa... Initial Contribution
                 changed = true;
             }
         }
@@ -6564,6 +8498,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return changed;
     }
 
+<<<<<<< HEAD
     /**
      * Move the cursor, if needed, so that it is at an offset that is visible
      * to the user.  This will not move the cursor if it represents more than
@@ -6626,18 +8561,24 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return false;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public void computeScroll() {
         if (mScroller != null) {
             if (mScroller.computeScrollOffset()) {
                 mScrollX = mScroller.getCurrX();
                 mScrollY = mScroller.getCurrY();
+<<<<<<< HEAD
                 invalidateParentCaches();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 postInvalidate();  // So we draw again
             }
         }
     }
 
+<<<<<<< HEAD
     private void getInterestingRect(Rect r, int line) {
         convertFromViewportToContentCoordinates(r);
 
@@ -6668,6 +8609,21 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             offset += getVerticalOffset(false);
         }
         return offset;
+=======
+    private void getInterestingRect(Rect r, int h, int top, int bottom,
+                                    int line) {
+        top += getExtendedPaddingTop();
+        bottom += getExtendedPaddingTop();
+        h += getCompoundPaddingLeft();
+
+        if (line == 0)
+            top -= getExtendedPaddingTop();
+        if (line == mLayout.getLineCount() - 1)
+            bottom += getExtendedPaddingBottom();
+
+        r.set(h, top, h, bottom);
+        r.offset(-mScrollX, -mScrollY);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -6695,7 +8651,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     /**
      * Convenience for {@link Selection#getSelectionStart}.
      */
+<<<<<<< HEAD
     @ViewDebug.ExportedProperty(category = "text")
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getSelectionStart() {
         return Selection.getSelectionStart(getText());
     }
@@ -6703,7 +8662,10 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     /**
      * Convenience for {@link Selection#getSelectionEnd}.
      */
+<<<<<<< HEAD
     @ViewDebug.ExportedProperty(category = "text")
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getSelectionEnd() {
         return Selection.getSelectionEnd(getText());
     }
@@ -6712,10 +8674,14 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Return true iff there is a selection inside this text view.
      */
     public boolean hasSelection() {
+<<<<<<< HEAD
         final int selectionStart = getSelectionStart();
         final int selectionEnd = getSelectionEnd();
 
         return selectionStart >= 0 && selectionStart != selectionEnd;
+=======
+        return getSelectionStart() != getSelectionEnd();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -6729,6 +8695,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * Sets the properties of this field to transform input to ALL CAPS
      * display. This may use a "small caps" formatting if available.
      * This setting will be ignored if this field is editable or selectable.
@@ -6798,6 +8765,29 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             if (applyTransformation) {
                 setTransformationMethod(null);
             }
+=======
+     * If true, sets the properties of this field (lines, horizontally
+     * scrolling, transformation method) to be for a single-line input;
+     * if false, restores these to the default conditions.
+     * Note that calling this with false restores default conditions,
+     * not necessarily those that were in effect prior to calling
+     * it with true.
+     *
+     * @attr ref android.R.styleable#TextView_singleLine
+     */
+    public void setSingleLine(boolean singleLine) {
+        mSingleLine = singleLine;
+
+        if (singleLine) {
+            setLines(1);
+            setHorizontallyScrolling(true);
+            setTransformationMethod(SingleLineTransformationMethod.
+                                    getInstance());
+        } else {
+            setMaxLines(Integer.MAX_VALUE);
+            setHorizontallyScrolling(false);
+            setTransformationMethod(null);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -6805,6 +8795,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * Causes words in the text that are longer than the view is wide
      * to be ellipsized instead of broken in the middle.  You may also
      * want to {@link #setSingleLine} or {@link #setHorizontallyScrolling}
+<<<<<<< HEAD
      * to constrain the text to a single line.  Use <code>null</code>
      * to turn off ellipsizing.
      *
@@ -6825,10 +8816,25 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 requestLayout();
                 invalidate();
             }
+=======
+     * to constrain the text toa single line.  Use <code>null</code>
+     * to turn off ellipsizing.
+     *
+     * @attr ref android.R.styleable#TextView_ellipsize
+     */
+    public void setEllipsize(TextUtils.TruncateAt where) {
+        mEllipsize = where;
+
+        if (mLayout != null) {
+            nullLayouts();
+            requestLayout();
+            invalidate();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
+<<<<<<< HEAD
      * Sets how many times to repeat the marquee animation. Only applied if the
      * TextView has marquee enabled. Set to -1 to repeat indefinitely.
      *
@@ -6860,6 +8866,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * is wide should be ellipsized.
      */
     @ViewDebug.ExportedProperty
+=======
+     * Returns where, if anywhere, words that are longer than the view
+     * is wide should be ellipsized.
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public TextUtils.TruncateAt getEllipsize() {
         return mEllipsize;
     }
@@ -6870,10 +8881,15 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      *
      * @attr ref android.R.styleable#TextView_selectAllOnFocus
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
     public void setSelectAllOnFocus(boolean selectAllOnFocus) {
         createEditorIfNeeded();
         mEditor.mSelectAllOnFocus = selectAllOnFocus;
+=======
+    public void setSelectAllOnFocus(boolean selectAllOnFocus) {
+        mSelectAllOnFocus = selectAllOnFocus;
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (selectAllOnFocus && !(mText instanceof Spannable)) {
             setText(mText, BufferType.SPANNABLE);
@@ -6881,6 +8897,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     }
 
     /**
+<<<<<<< HEAD
      * Set whether the cursor is visible. The default is true. Note that this property only
      * makes sense for editable TextView.
      *
@@ -6971,10 +8988,25 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             } else {
                 stopMarquee();
             }
+=======
+     * Set whether the cursor is visible.  The default is true.
+     *
+     * @attr ref android.R.styleable#TextView_cursorVisible
+     */
+    public void setCursorVisible(boolean visible) {
+        mCursorVisible = visible;
+        invalidate();
+
+        if (visible) {
+            makeBlink();
+        } else if (mBlink != null) {
+            mBlink.removeCallbacks(mBlink);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
+<<<<<<< HEAD
      * This method is called when the text is changed, in case any subclasses
      * would like to know.
      *
@@ -7002,16 +9034,40 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      */
     protected void onSelectionChanged(int selStart, int selEnd) {
         sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_TEXT_SELECTION_CHANGED);
+=======
+     * This method is called when the text is changed, in case any
+     * subclasses would like to know.
+     *
+     * @param text The text the TextView is displaying.
+     * @param start The offset of the start of the range of the text
+     *              that was modified.
+     * @param before The offset of the former end of the range of the
+     *               text that was modified.  If text was simply inserted,
+     *               this will be the same as <code>start</code>.
+     *               If text was replaced with new text or deleted, the
+     *               length of the old text was <code>before-start</code>.
+     * @param after The offset of the end of the range of the text
+     *              that was modified.  If text was simply deleted,
+     *              this will be the same as <code>start</code>.
+     *              If text was replaced with new text or inserted,
+     *              the length of the new text is <code>after-start</code>.
+     */
+    protected void onTextChanged(CharSequence text,
+                                 int start, int before, int after) {
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Adds a TextWatcher to the list of those whose methods are called
      * whenever this TextView's text changes.
+<<<<<<< HEAD
      * <p>
      * In 1.0, the {@link TextWatcher#afterTextChanged} method was erroneously
      * not called after {@link #setText} calls.  Now, doing {@link #setText}
      * if there are any text changed listeners forces the buffer type to
      * Editable if it would not otherwise be and does call this method.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void addTextChangedListener(TextWatcher watcher) {
         if (mListeners == null) {
@@ -7036,7 +9092,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
     }
 
+<<<<<<< HEAD
     private void sendBeforeTextChanged(CharSequence text, int start, int before, int after) {
+=======
+    private void sendBeforeTextChanged(CharSequence text, int start, int before,
+                                   int after) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mListeners != null) {
             final ArrayList<TextWatcher> list = mListeners;
             final int count = list.size();
@@ -7044,6 +9105,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 list.get(i).beforeTextChanged(text, start, before, after);
             }
         }
+<<<<<<< HEAD
 
         // The spans that are inside or intersect the modified region no longer make sense
         removeIntersectingSpans(start, start + before, SpellCheckSpan.class);
@@ -7072,6 +9134,12 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * through a thunk.
      */
     void sendOnTextChanged(CharSequence text, int start, int before, int after) {
+=======
+    }
+
+    private void sendOnTextChanged(CharSequence text, int start, int before,
+                                   int after) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mListeners != null) {
             final ArrayList<TextWatcher> list = mListeners;
             final int count = list.size();
@@ -7079,6 +9147,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 list.get(i).onTextChanged(text, start, before, after);
             }
         }
+<<<<<<< HEAD
 
         if (mEditor != null) mEditor.sendOnTextChanged(start, after);
     }
@@ -7088,6 +9157,11 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
      * through a thunk.
      */
     void sendAfterTextChanged(Editable text) {
+=======
+    }
+
+    private void sendAfterTextChanged(Editable text) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mListeners != null) {
             final ArrayList<TextWatcher> list = mListeners;
             final int count = list.size();
@@ -7097,6 +9171,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
     }
 
+<<<<<<< HEAD
     void updateAfterEdit() {
         invalidate();
         int curs = getSelectionStart();
@@ -7214,10 +9289,97 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                     invalidateCursor();
                 } else {
                     ims.mCursorChanged = true;
+=======
+    private class ChangeWatcher
+    extends Handler
+    implements TextWatcher, SpanWatcher {
+        public void beforeTextChanged(CharSequence buffer, int start,
+                                      int before, int after) {
+            TextView.this.sendBeforeTextChanged(buffer, start, before, after);
+        }
+
+        public void onTextChanged(CharSequence buffer, int start,
+                                  int before, int after) {
+            invalidate();
+
+            int curs = Selection.getSelectionStart(buffer);
+
+            if (curs >= 0 || (mGravity & Gravity.VERTICAL_GRAVITY_MASK) ==
+                                 Gravity.BOTTOM) {
+                registerForPreDraw();
+            }
+
+            if (curs >= 0) {
+                mHighlightPathBogus = true;
+
+                if (isFocused()) {
+                    mShowCursor = SystemClock.uptimeMillis();
+                    makeBlink();
+                }
+            }
+
+            checkForResize();
+
+            TextView.this.sendOnTextChanged(buffer, start, before, after);
+            TextView.this.onTextChanged(buffer, start, before, after);
+        }
+
+        public void afterTextChanged(Editable buffer) {
+            TextView.this.sendAfterTextChanged(buffer);
+        }
+
+        private void spanChange(Spanned buf, Object what, int o, int n) {
+            // XXX Make the start and end move together if this ends up
+            // spending too much time invalidating.
+
+            if (what == Selection.SELECTION_END) {
+                mHighlightPathBogus = true;
+
+                if (!isFocused()) {
+                    mSelectionMoved = true;
+                }
+
+                if (o >= 0 || n >= 0) {
+                    invalidateCursor(Selection.getSelectionStart(buf), o, n);
+                    registerForPreDraw();
+
+                    if (isFocused()) {
+                        mShowCursor = SystemClock.uptimeMillis();
+                        makeBlink();
+                    }
+                }
+            }
+
+            if (what == Selection.SELECTION_START) {
+                mHighlightPathBogus = true;
+
+                if (!isFocused()) {
+                    mSelectionMoved = true;
+                }
+
+                if (o >= 0 || n >= 0) {
+                    invalidateCursor(Selection.getSelectionEnd(buf), o, n);
+                }
+            }
+
+            if (what instanceof UpdateLayout ||
+                what instanceof ParagraphStyle) {
+                invalidate();
+                mHighlightPathBogus = true;
+                checkForResize();
+            }
+
+            if (MetaKeyKeyListener.isMetaTracker(buf, what)) {
+                mHighlightPathBogus = true;
+
+                if (Selection.getSelectionStart(buf) >= 0) {
+                    invalidateCursor();
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
 
+<<<<<<< HEAD
         if (what instanceof ParcelableSpan) {
             // If this is a span that can be sent to a remote process,
             // the current extract editor would be interested in it.
@@ -7283,10 +9445,41 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         // usually because this instance is an editable field in a list
         if (!mDispatchTemporaryDetach) mTemporaryDetach = false;
         if (mEditor != null) mEditor.mTemporaryDetach = false;
+=======
+        public void onSpanChanged(Spannable buf,
+                                  Object what, int s, int e, int st, int en) {
+            spanChange(buf, what, s, st);
+        }
+
+        public void onSpanAdded(Spannable buf, Object what, int s, int e) {
+            spanChange(buf, what, -1, s);
+        }
+
+        public void onSpanRemoved(Spannable buf, Object what, int s, int e) {
+            spanChange(buf, what, s, -1);
+        }
+    }
+
+    private void makeBlink() {
+        if (!mCursorVisible) {
+            if (mBlink != null) {
+                mBlink.removeCallbacks(mBlink);
+            }
+
+            return;
+        }
+
+        if (mBlink == null)
+            mBlink = new Blink(this);
+
+        mBlink.removeCallbacks(mBlink);
+        mBlink.postAtTime(mBlink, mShowCursor + BLINK);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+<<<<<<< HEAD
         if (mTemporaryDetach) {
             // If we are temporarily in the detach state, then do nothing.
             super.onFocusChanged(focused, direction, previouslyFocusedRect);
@@ -7296,21 +9489,77 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         if (mEditor != null) mEditor.onFocusChanged(focused, direction);
 
         if (focused) {
+=======
+        mShowCursor = SystemClock.uptimeMillis();
+
+        if (focused) {
+            int selStart = getSelectionStart();
+            int selEnd = getSelectionEnd();
+
+            if (!mFrozenWithFocus || (selStart < 0 || selEnd < 0)) {
+                boolean selMoved = mSelectionMoved;
+
+                if (mMovement != null) {
+                    mMovement.onTakeFocus(this, (Spannable) mText, direction);
+                }
+
+                if (mSelectAllOnFocus) {
+                    Selection.setSelection((Spannable) mText, 0, mText.length());
+                }
+
+                if (selMoved && selStart >= 0 && selEnd >= 0) {
+                    /*
+                     * Someone intentionally set the selection, so let them
+                     * do whatever it is that they wanted to do instead of
+                     * the default on-focus behavior.  We reset the selection
+                     * here instead of just skipping the onTakeFocus() call
+                     * because some movement methods do something other than
+                     * just setting the selection in theirs and we still
+                     * need to go through that path.
+                     */
+
+                    Selection.setSelection((Spannable) mText, selStart, selEnd);
+                }
+            }
+
+            mFrozenWithFocus = false;
+            mSelectionMoved = false;
+
+>>>>>>> 54b6cfa... Initial Contribution
             if (mText instanceof Spannable) {
                 Spannable sp = (Spannable) mText;
                 MetaKeyKeyListener.resetMetaState(sp);
             }
+<<<<<<< HEAD
         }
 
         startStopMarquee(focused);
 
         if (mTransformation != null) {
             mTransformation.onFocusChanged(this, mText, focused, direction, previouslyFocusedRect);
+=======
+
+            makeBlink();
+
+            if (mError != null) {
+                showError();
+            }
+        } else {
+            if (mError != null) {
+                hideError();
+            }
+        }
+
+        if (mTransformation != null) {
+            mTransformation.onFocusChanged(this, mText, focused, direction,
+                                           previouslyFocusedRect);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
     }
 
+<<<<<<< HEAD
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
@@ -7350,16 +9599,36 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
                 startMarquee();
             } else {
                 stopMarquee();
+=======
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+
+        if (hasWindowFocus) {
+            if (mBlink != null) {
+                mBlink.uncancel();
+
+                if (isFocused()) {
+                    mShowCursor = SystemClock.uptimeMillis();
+                    makeBlink();
+                }
+            }
+        } else {
+            if (mBlink != null) {
+                mBlink.cancel();
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+<<<<<<< HEAD
         final int action = event.getActionMasked();
 
         if (mEditor != null) mEditor.onTouchEvent(event);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         final boolean superResult = super.onTouchEvent(event);
 
         /*
@@ -7367,6 +9636,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
          * move the selection away from whatever the menu action was
          * trying to affect.
          */
+<<<<<<< HEAD
         if (mEditor != null && mEditor.mDiscardNextActionUp && action == MotionEvent.ACTION_UP) {
             mEditor.mDiscardNextActionUp = false;
             return superResult;
@@ -7462,6 +9732,27 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
     @Override
     public boolean onTrackballEvent(MotionEvent event) {
         if (mMovement != null && mText instanceof Spannable && mLayout != null) {
+=======
+        if (mEatTouchRelease && event.getAction() == MotionEvent.ACTION_UP) {
+            mEatTouchRelease = false;
+            return superResult;
+        }
+
+        if (mMovement != null && mText instanceof Spannable &&
+            mLayout != null) {
+            if (mMovement.onTouchEvent(this, (Spannable) mText, event)) {
+                return true;
+            }
+        }
+
+        return superResult;
+    }
+
+    @Override
+    public boolean onTrackballEvent(MotionEvent event) {
+        if (mMovement != null && mText instanceof Spannable &&
+            mLayout != null) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (mMovement.onTrackballEvent(this, (Spannable) mText, event)) {
                 return true;
             }
@@ -7474,6 +9765,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         mScroller = s;
     }
 
+<<<<<<< HEAD
     @Override
     protected float getLeftFadingEdgeStrength() {
         if (mEllipsize == TextUtils.TruncateAt.MARQUEE &&
@@ -7530,14 +9822,63 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             }
         }
         return super.getRightFadingEdgeStrength();
+=======
+    private static class Blink extends Handler
+            implements Runnable {
+        private WeakReference<TextView> mView;
+        private boolean mCancelled;
+
+        public Blink(TextView v) {
+            mView = new WeakReference<TextView>(v);
+        }
+
+        public void run() {
+            if (mCancelled) {
+                return;
+            }
+
+            removeCallbacks(Blink.this);
+
+            TextView tv = mView.get();
+
+            if (tv != null && tv.isFocused()) {
+                int st = Selection.getSelectionStart(tv.mText);
+                int en = Selection.getSelectionEnd(tv.mText);
+
+                if (st == en && st >= 0 && en >= 0) {
+                    if (tv.mLayout != null) {
+                        tv.invalidateCursorPath();
+                    }
+
+                    postAtTime(this, SystemClock.uptimeMillis() + BLINK);
+                }
+            }
+        }
+
+        void cancel() {
+            if (!mCancelled) {
+                removeCallbacks(Blink.this);
+                mCancelled = true;
+            }
+        }
+
+        void uncancel() {
+            mCancelled = false;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     protected int computeHorizontalScrollRange() {
+<<<<<<< HEAD
         if (mLayout != null) {
             return mSingleLine && (mGravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.LEFT ?
                     (int) mLayout.getLineWidth(0) : mLayout.getWidth();
         }
+=======
+        if (mLayout != null)
+            return mLayout.getWidth();
+>>>>>>> 54b6cfa... Initial Contribution
 
         return super.computeHorizontalScrollRange();
     }
@@ -7550,6 +9891,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         return super.computeVerticalScrollRange();
     }
 
+<<<<<<< HEAD
     @Override
     protected int computeVerticalScrollExtent() {
         return getHeight() - getCompoundPaddingTop() - getCompoundPaddingBottom();
@@ -7568,6 +9910,8 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public enum BufferType {
         NORMAL, SPANNABLE, EDITABLE,
     }
@@ -7619,6 +9963,7 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
 
     @Override
     public boolean onKeyShortcut(int keyCode, KeyEvent event) {
+<<<<<<< HEAD
         final int filteredMetaState = event.getMetaState() & ~KeyEvent.META_CTRL_MASK;
         if (KeyEvent.metaStateHasNoModifiers(filteredMetaState)) {
             switch (keyCode) {
@@ -8765,4 +11110,313 @@ public class TextView extends View implements ViewTreeObserver.OnPreDrawListener
             TextView.this.spanChange(buf, what, s, -1, e, -1);
         }
     }
+=======
+        switch (keyCode) {
+        case KeyEvent.KEYCODE_A:
+            if (canSelectAll()) {
+                return onMenu(ID_SELECT_ALL);
+            }
+
+            break;
+
+        case KeyEvent.KEYCODE_X:
+            if (canCut()) {
+                return onMenu(ID_CUT);
+            }
+
+            break;
+
+        case KeyEvent.KEYCODE_C:
+            if (canCopy()) {
+                return onMenu(ID_COPY);
+            }
+
+            break;
+
+        case KeyEvent.KEYCODE_V:
+            if (canPaste()) {
+                return onMenu(ID_PASTE);
+            }
+
+            break;
+        }
+
+        return super.onKeyShortcut(keyCode, event);
+    }
+
+    private boolean canSelectAll() {
+        if (mText instanceof Spannable && mText.length() != 0 &&
+            mMovement != null && mMovement.canSelectArbitrarily()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean canCut() {
+        if (mText.length() > 0 && getSelectionStart() >= 0) {
+            if (mText instanceof Editable && mInput != null) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean canCopy() {
+        if (mText.length() > 0 && getSelectionStart() >= 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean canPaste() {
+        if (mText instanceof Editable && mInput != null &&
+            getSelectionStart() >= 0 && getSelectionEnd() >= 0) {
+            ClipboardManager clip = (ClipboardManager)getContext()
+                    .getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clip.hasText()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    protected void onCreateContextMenu(ContextMenu menu) {
+        super.onCreateContextMenu(menu);
+
+        if (!isFocused()) {
+            return;
+        }
+
+        MenuHandler handler = new MenuHandler();
+
+        if (canSelectAll()) {
+            menu.add(0, ID_SELECT_ALL, 0,
+                    com.android.internal.R.string.selectAll).
+                setOnMenuItemClickListener(handler).
+                setAlphabeticShortcut('a');
+        }
+
+        boolean selection = getSelectionStart() != getSelectionEnd();
+
+        if (canCut()) {
+            int name;
+            if (selection) {
+                name = com.android.internal.R.string.cut;
+            } else {
+                name = com.android.internal.R.string.cutAll;
+            }
+
+            menu.add(0, ID_CUT, 0, name).
+                setOnMenuItemClickListener(handler).
+                setAlphabeticShortcut('x');
+        }
+
+        if (canCopy()) {
+            int name;
+            if (selection) {
+                name = com.android.internal.R.string.copy;
+            } else {
+                name = com.android.internal.R.string.copyAll;
+            }
+
+            menu.add(0, ID_COPY, 0, name).
+                setOnMenuItemClickListener(handler).
+                setAlphabeticShortcut('c');
+        }
+
+        if (canPaste()) {
+            menu.add(0, ID_PASTE, 0, com.android.internal.R.string.paste).
+                    setOnMenuItemClickListener(handler).
+                    setAlphabeticShortcut('v');
+        }
+
+        if (mText instanceof Spanned) {
+            int selStart = getSelectionStart();
+            int selEnd = getSelectionEnd();
+
+            int min = Math.min(selStart, selEnd);
+            int max = Math.max(selStart, selEnd);
+
+            URLSpan[] urls = ((Spanned) mText).getSpans(min, max,
+                                                        URLSpan.class);
+            if (urls.length == 1) {
+                menu.add(0, ID_COPY_URL, 0,
+                         com.android.internal.R.string.copyUrl).
+                            setOnMenuItemClickListener(handler);
+            }
+        }
+    }
+
+    private static final int ID_SELECT_ALL = 101;
+    private static final int ID_CUT = 102;
+    private static final int ID_COPY = 103;
+    private static final int ID_PASTE = 104;
+    private static final int ID_COPY_URL = 105;
+
+    private class MenuHandler implements MenuItem.OnMenuItemClickListener {
+        public boolean onMenuItemClick(MenuItem item) {
+            return onMenu(item.getItemId());
+        }
+    }
+
+    private boolean onMenu(int id) {
+        int selStart = getSelectionStart();
+        int selEnd = getSelectionEnd();
+
+        int min = Math.min(selStart, selEnd);
+        int max = Math.max(selStart, selEnd);
+
+        if (min < 0) {
+            min = 0;
+        }
+        if (max < 0) {
+            max = 0;
+        }
+
+        ClipboardManager clip = (ClipboardManager)getContext()
+                .getSystemService(Context.CLIPBOARD_SERVICE);
+
+        switch (id) {
+            case ID_SELECT_ALL:
+                Selection.setSelection((Spannable) mText, 0,
+                                        mText.length());
+                return true;
+
+            case ID_CUT:
+                if (min == max) {
+                    min = 0;
+                    max = mText.length();
+                }
+
+                clip.setText(mTransformed.subSequence(min, max));
+                ((Editable) mText).delete(min, max);
+                return true;
+
+            case ID_COPY:
+                if (min == max) {
+                    min = 0;
+                    max = mText.length();
+                }
+
+                clip.setText(mTransformed.subSequence(min, max));
+                return true;
+
+            case ID_PASTE:
+                CharSequence paste = clip.getText();
+
+                if (paste != null) {
+                    Selection.setSelection((Spannable) mText, max);
+                    ((Editable) mText).replace(min, max, paste);
+                }
+
+                return true;
+
+            case ID_COPY_URL:
+                URLSpan[] urls = ((Spanned) mText).getSpans(min, max,
+                                                       URLSpan.class);
+                if (urls.length == 1) {
+                    clip.setText(urls[0].getURL());
+                }
+
+                return true;
+        }
+
+        return false;
+    }
+
+    public boolean performLongClick() {
+        if (super.performLongClick()) {
+            mEatTouchRelease = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean mEatTouchRelease = false;
+
+    @ViewDebug.ExportedProperty
+    private CharSequence            mText;
+    private CharSequence            mTransformed;
+    private BufferType              mBufferType = BufferType.NORMAL;
+
+    private CharSequence            mHint;
+    private Layout                  mHintLayout;
+
+    private KeyListener             mInput;
+    private MovementMethod          mMovement;
+    private TransformationMethod    mTransformation;
+    private ChangeWatcher           mChangeWatcher;
+
+    private ArrayList<TextWatcher>  mListeners = null;
+
+    // display attributes
+    private TextPaint mTextPaint;
+    private Paint                   mHighlightPaint;
+    private int                     mHighlightColor = 0xFFBBDDFF;
+    private Layout                  mLayout;
+
+    private long                    mShowCursor;
+    private Blink                   mBlink;
+    private boolean                 mCursorVisible = true;
+
+    private boolean                 mSelectAllOnFocus = false;
+
+    private int                     mGravity = Gravity.TOP | Gravity.LEFT;
+    private boolean                 mHorizontallyScrolling;
+
+    private int                     mAutoLinkMask;
+    private boolean                 mLinksClickable = true;
+
+    private float                   mSpacingMult = 1;
+    private float                   mSpacingAdd = 0;
+
+    private static final int        LINES = 1;
+    private static final int        EMS = LINES;
+    private static final int        PIXELS = 2;
+
+    private int                     mMaximum = Integer.MAX_VALUE;
+    private int                     mMaxMode = LINES;
+    private int                     mMinimum = 0;
+    private int                     mMinMode = LINES;
+
+    private int                     mMaxWidth = Integer.MAX_VALUE;
+    private int                     mMaxWidthMode = PIXELS;
+    private int                     mMinWidth = 0;
+    private int                     mMinWidthMode = PIXELS;
+
+    private boolean                 mSingleLine;
+    private int                     mDesiredHeightAtMeasure = -1;
+    private boolean                 mIncludePad = true;
+
+    // tmp primitives, so we don't alloc them on each draw
+    private Path                    mHighlightPath;
+    private boolean                 mHighlightPathBogus = true;
+    private static RectF            sTempRect = new RectF();
+
+    // XXX should be much larger
+    private static final int        VERY_WIDE = 16384;
+
+    private static final int        BLINK = 500;
+
+    private static final int ANIMATED_SCROLL_GAP = 250;
+    private long mLastScroll;
+    private Scroller mScroller = null;
+
+    private BoringLayout.Metrics mBoring;
+    private BoringLayout.Metrics mHintBoring;
+
+    private BoringLayout mSavedLayout, mSavedHintLayout;
+
+
+
+    private static final InputFilter[] NO_FILTERS = new InputFilter[0];
+    private InputFilter[] mFilters = NO_FILTERS;
+    private static final Spanned EMPTY_SPANNED = new SpannedString("");
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -89,6 +89,7 @@ public class GenericPdu {
     public void setMmsVersion(int value) throws InvalidHeaderValueException {
         mPduHeaders.setOctet(value, PduHeaders.MMS_VERSION);
     }
+<<<<<<< HEAD
 
     /**
      * Get From value.
@@ -110,4 +111,6 @@ public class GenericPdu {
     public void setFrom(EncodedStringValue value) {
         mPduHeaders.setEncodedStringValue(value, PduHeaders.FROM);
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

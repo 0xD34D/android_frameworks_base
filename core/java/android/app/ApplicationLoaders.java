@@ -19,7 +19,10 @@ package android.app;
 import dalvik.system.PathClassLoader;
 
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.Map;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 class ApplicationLoaders
 {
@@ -28,7 +31,12 @@ class ApplicationLoaders
         return gApplicationLoaders;
     }
 
+<<<<<<< HEAD
     public ClassLoader getClassLoader(String zip, String libPath, ClassLoader parent)
+=======
+    public ClassLoader getClassLoader(String zip, String appDataDir,
+            ClassLoader parent)
+>>>>>>> 54b6cfa... Initial Contribution
     {
         /*
          * This is the parent we use if they pass "null" in.  In theory
@@ -49,13 +57,21 @@ class ApplicationLoaders
              * new ClassLoader for the zip archive.
              */
             if (parent == baseParent) {
+<<<<<<< HEAD
                 ClassLoader loader = mLoaders.get(zip);
+=======
+                ClassLoader loader = (ClassLoader)mLoaders.get(zip);
+>>>>>>> 54b6cfa... Initial Contribution
                 if (loader != null) {
                     return loader;
                 }
     
                 PathClassLoader pathClassloader =
+<<<<<<< HEAD
                     new PathClassLoader(zip, libPath, parent);
+=======
+                    new PathClassLoader(zip, appDataDir + "/lib", parent);
+>>>>>>> 54b6cfa... Initial Contribution
                 
                 mLoaders.put(zip, pathClassloader);
                 return pathClassloader;
@@ -65,7 +81,11 @@ class ApplicationLoaders
         }
     }
 
+<<<<<<< HEAD
     private final Map<String, ClassLoader> mLoaders = new HashMap<String, ClassLoader>();
+=======
+    private final HashMap mLoaders = new HashMap();
+>>>>>>> 54b6cfa... Initial Contribution
 
     private static final ApplicationLoaders gApplicationLoaders
         = new ApplicationLoaders();

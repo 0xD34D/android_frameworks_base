@@ -18,9 +18,13 @@ package android.text;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+<<<<<<< HEAD
 
 import com.android.internal.util.XmlUtils;
 
+=======
+import com.android.internal.util.XmlUtils;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.view.View;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -71,7 +75,10 @@ public class AutoText {
     private char mTrieUsed;
     private String mText;
     private Locale mLocale;
+<<<<<<< HEAD
     private int mSize;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     private AutoText(Resources resources) {
         mLocale = resources.getConfiguration().locale;
@@ -79,12 +86,21 @@ public class AutoText {
     }
 
     /**
+<<<<<<< HEAD
      * Returns the instance of AutoText. If the locale has changed, it will create a new
      * instance of AutoText for the locale.
      * @param view to get the resources from
      * @return the single instance of AutoText
      */
     private static AutoText getInstance(View view) {
+=======
+     * Retrieves a possible spelling correction for the specified range
+     * of text.  Returns null if no correction can be found.
+     * The View is used to get the current Locale and Resources.
+     */
+    public static String get(CharSequence src, final int start, final int end,
+                             View view) {
+>>>>>>> 54b6cfa... Initial Contribution
         Resources res = view.getContext().getResources();
         Locale locale = res.getConfiguration().locale;
         AutoText instance;
@@ -97,6 +113,7 @@ public class AutoText {
                 sInstance = instance;
             }
         }
+<<<<<<< HEAD
         
         return instance;
     }
@@ -127,6 +144,10 @@ public class AutoText {
      */
     private int getSize() {
         return mSize;
+=======
+
+        return instance.lookup(src, start, end);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private String lookup(CharSequence src, final int start, final int end) {
@@ -212,9 +233,13 @@ public class AutoText {
     private void add(String src, char off) {
         int slen = src.length();
         int herep = TRIE_ROOT;
+<<<<<<< HEAD
         // Keep track of the size of the dictionary
         mSize++;
         
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
         for (int i = 0; i < slen; i++) {
             char c = src.charAt(i);
             boolean found = false;

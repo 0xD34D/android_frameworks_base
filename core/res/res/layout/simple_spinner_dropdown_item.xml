@@ -21,6 +21,11 @@
     android:id="@android:id/text1"
     style="?android:attr/spinnerDropDownItemStyle"
     android:singleLine="true"
+<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="?android:attr/dropdownListPreferredItemHeight"
     android:ellipsize="marquee" />
+=======
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight" />
+>>>>>>> 54b6cfa... Initial Contribution

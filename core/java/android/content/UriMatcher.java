@@ -19,14 +19,22 @@ package android.content;
 import android.net.Uri;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.regex.Pattern;
 
 /**
 Utility class to aid in matching URIs in content providers.
 
+<<<<<<< HEAD
 <p>To use this class, build up a tree of <code>UriMatcher</code> objects.
 For example:
+=======
+<p>To use this class, build up a tree of UriMatcher objects.
+Typically, it looks something like this:
+>>>>>>> 54b6cfa... Initial Contribution
 <pre>
     private static final int PEOPLE = 1;
     private static final int PEOPLE_ID = 2;
@@ -48,6 +56,7 @@ For example:
     private static final int CALLS_ID = 12;
     private static final int CALLS_FILTER = 15;
 
+<<<<<<< HEAD
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static
@@ -77,6 +86,38 @@ all of the if-else logic that you would otherwise need.  For example:
     public String getType(Uri url)
     {
         int match = sURIMatcher.match(url);
+=======
+    private static final UriMatcher sURIMatcher = new UriMatcher();
+
+    static
+    {
+        sURIMatcher.addURI("contacts", "/people", PEOPLE);
+        sURIMatcher.addURI("contacts", "/people/#", PEOPLE_ID);
+        sURIMatcher.addURI("contacts", "/people/#/phones", PEOPLE_PHONES);
+        sURIMatcher.addURI("contacts", "/people/#/phones/#", PEOPLE_PHONES_ID);
+        sURIMatcher.addURI("contacts", "/people/#/contact_methods", PEOPLE_CONTACTMETHODS);
+        sURIMatcher.addURI("contacts", "/people/#/contact_methods/#", PEOPLE_CONTACTMETHODS_ID);
+        sURIMatcher.addURI("contacts", "/deleted_people", DELETED_PEOPLE);
+        sURIMatcher.addURI("contacts", "/phones", PHONES);
+        sURIMatcher.addURI("contacts", "/phones/filter/*", PHONES_FILTER);
+        sURIMatcher.addURI("contacts", "/phones/#", PHONES_ID);
+        sURIMatcher.addURI("contacts", "/contact_methods", CONTACTMETHODS);
+        sURIMatcher.addURI("contacts", "/contact_methods/#", CONTACTMETHODS_ID);
+        sURIMatcher.addURI("call_log", "/calls", CALLS);
+        sURIMatcher.addURI("call_log", "/calls/filter/*", CALLS_FILTER);
+        sURIMatcher.addURI("call_log", "/calls/#", CALLS_ID);
+    }
+</pre>
+<p>Then when you need to match match against a URI, call {@link #match}, providing
+the tokenized url you've been given, and the value you want if there isn't
+a match.  You can use the result to build a query, return a type, insert or
+delete a row, or whatever you need, without duplicating all of the if-else
+logic you'd otherwise need.  Like this:
+<pre>
+    public String getType(String[] url)
+    {
+        int match = sURIMatcher.match(url, NO_MATCH);
+>>>>>>> 54b6cfa... Initial Contribution
         switch (match)
         {
             case PEOPLE:
@@ -92,6 +133,7 @@ all of the if-else logic that you would otherwise need.  For example:
         }
     }
 </pre>
+<<<<<<< HEAD
 instead of:
 <pre>
     public String getType(Uri url)
@@ -106,6 +148,21 @@ instead of:
 ... snip ...
                     return "vnd.android.cursor.dir/snail-mail";
                 } else if (pathSegments.size() == 3) {
+=======
+instead of
+<pre>
+    public String getType(String[] url)
+    {
+        if (url.length >= 2) {
+            if (url[1].equals("people")) {
+                if (url.length == 2) {
+                    return "vnd.android.cursor.dir/person";
+                } else if (url.length == 3) {
+                    return "vnd.android.cursor.item/person";
+... snip ...
+                    return "vnd.android.cursor.dir/snail-mail";
+                } else if (url.length == 3) {
+>>>>>>> 54b6cfa... Initial Contribution
                     return "vnd.android.cursor.item/snail-mail";
                 }
             }
@@ -201,8 +258,12 @@ public class UriMatcher
      */
     public int match(Uri uri)
     {
+<<<<<<< HEAD
         final List<String> pathSegments = uri.getPathSegments();
         final int li = pathSegments.size();
+=======
+        final int li = uri.getPathSegments().size();
+>>>>>>> 54b6cfa... Initial Contribution
 
         UriMatcher node = this;
 
@@ -211,7 +272,11 @@ public class UriMatcher
         }
 
         for (int i=-1; i<li; i++) {
+<<<<<<< HEAD
             String u = i < 0 ? uri.getAuthority() : pathSegments.get(i);
+=======
+            String u = i < 0 ? uri.getAuthority() : uri.getPathSegments().get(i);
+>>>>>>> 54b6cfa... Initial Contribution
             ArrayList<UriMatcher> list = node.mChildren;
             if (list == null) {
                 break;

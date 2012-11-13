@@ -41,10 +41,14 @@ public class Address implements Parcelable {
     private String mAdminArea;
     private String mSubAdminArea;
     private String mLocality;
+<<<<<<< HEAD
     private String mSubLocality;
     private String mThoroughfare;
     private String mSubThoroughfare;
     private String mPremises;
+=======
+    private String mThoroughfare;
+>>>>>>> 54b6cfa... Initial Contribution
     private String mPostalCode;
     private String mCountryCode;
     private String mCountryName;
@@ -178,6 +182,7 @@ public class Address implements Parcelable {
     }
 
     /**
+<<<<<<< HEAD
      * Returns the sub-locality of the address, or null if it is unknown.
      * For example, this may correspond to the neighborhood of the locality.
      */
@@ -193,6 +198,8 @@ public class Address implements Parcelable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns the thoroughfare name of the address, for example, "1600 Ampitheater Parkway",
      * which may be null
      */
@@ -208,6 +215,7 @@ public class Address implements Parcelable {
     }
 
     /**
+<<<<<<< HEAD
      * Returns the sub-thoroughfare name of the address, which may be null.
      * This may correspond to the street number of the address.
      */
@@ -237,6 +245,8 @@ public class Address implements Parcelable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns the postal code of the address, for example "94110",
      * or null if it is unknown.
      */
@@ -500,10 +510,14 @@ public class Address implements Parcelable {
             a.mAdminArea = in.readString();
             a.mSubAdminArea = in.readString();
             a.mLocality = in.readString();
+<<<<<<< HEAD
             a.mSubLocality = in.readString();
             a.mThoroughfare = in.readString();
             a.mSubThoroughfare = in.readString();
             a.mPremises = in.readString();
+=======
+            a.mThoroughfare = in.readString();
+>>>>>>> 54b6cfa... Initial Contribution
             a.mPostalCode = in.readString();
             a.mCountryCode = in.readString();
             a.mCountryName = in.readString();
@@ -547,10 +561,14 @@ public class Address implements Parcelable {
         parcel.writeString(mAdminArea);
         parcel.writeString(mSubAdminArea);
         parcel.writeString(mLocality);
+<<<<<<< HEAD
         parcel.writeString(mSubLocality);
         parcel.writeString(mThoroughfare);
         parcel.writeString(mSubThoroughfare);
         parcel.writeString(mPremises);
+=======
+        parcel.writeString(mThoroughfare);
+>>>>>>> 54b6cfa... Initial Contribution
         parcel.writeString(mPostalCode);
         parcel.writeString(mCountryCode);
         parcel.writeString(mCountryName);

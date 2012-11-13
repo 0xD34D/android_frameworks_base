@@ -22,11 +22,17 @@ import android.text.style.URLSpan;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+<<<<<<< HEAD
 import android.util.Patterns;
 import android.webkit.WebView;
 import android.widget.TextView;
 
 
+=======
+import android.webkit.WebView;
+import android.widget.TextView;
+
+>>>>>>> 54b6cfa... Initial Contribution
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -71,7 +77,11 @@ public class Linkify {
     public static final int PHONE_NUMBERS = 0x04;
 
     /**
+<<<<<<< HEAD
      *  Bit field indicating that street addresses should be matched in methods that
+=======
+     *  Bit field indicating that phone numbers should be matched in methods that
+>>>>>>> 54b6cfa... Initial Contribution
      *  take an options mask
      */
     public static final int MAP_ADDRESSES = 0x08;
@@ -80,7 +90,12 @@ public class Linkify {
      *  Bit mask indicating that all available patterns should be matched in
      *  methods that take an options mask
      */
+<<<<<<< HEAD
     public static final int ALL = WEB_URLS | EMAIL_ADDRESSES | PHONE_NUMBERS | MAP_ADDRESSES;
+=======
+    public static final int ALL = WEB_URLS | EMAIL_ADDRESSES | PHONE_NUMBERS
+        | MAP_ADDRESSES;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Don't treat anything with fewer than this many digits as a
@@ -110,7 +125,12 @@ public class Linkify {
      *  Filters out URL matches that don't have enough digits to be a
      *  phone number.
      */
+<<<<<<< HEAD
     public static final MatchFilter sPhoneNumberMatchFilter = new MatchFilter() {
+=======
+    public static final MatchFilter sPhoneNumberMatchFilter =
+            new MatchFilter() {
+>>>>>>> 54b6cfa... Initial Contribution
         public final boolean acceptMatch(CharSequence s, int start, int end) {
             int digitCount = 0;
 
@@ -133,9 +153,16 @@ public class Linkify {
      *  &apos;+1 (919) 555-1212&apos;
      *  becomes &apos;+19195551212&apos;
      */
+<<<<<<< HEAD
     public static final TransformFilter sPhoneNumberTransformFilter = new TransformFilter() {
         public final String transformUrl(final Matcher match, String url) {
             return Patterns.digitsAndPlusOnly(match);
+=======
+    public static final TransformFilter sPhoneNumberTransformFilter =
+            new TransformFilter() {
+        public final String transformUrl(final Matcher match, String url) {
+            return Regex.digitsAndPlusOnly(match);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     };
 
@@ -209,19 +236,32 @@ public class Linkify {
         ArrayList<LinkSpec> links = new ArrayList<LinkSpec>();
 
         if ((mask & WEB_URLS) != 0) {
+<<<<<<< HEAD
             gatherLinks(links, text, Patterns.WEB_URL,
                 new String[] { "http://", "https://", "rtsp://" },
+=======
+            gatherLinks(links, text, Regex.WEB_URL_PATTERN,
+                new String[] { "http://", "https://" },
+>>>>>>> 54b6cfa... Initial Contribution
                 sUrlMatchFilter, null);
         }
 
         if ((mask & EMAIL_ADDRESSES) != 0) {
+<<<<<<< HEAD
             gatherLinks(links, text, Patterns.EMAIL_ADDRESS,
+=======
+            gatherLinks(links, text, Regex.EMAIL_ADDRESS_PATTERN,
+>>>>>>> 54b6cfa... Initial Contribution
                 new String[] { "mailto:" },
                 null, null);
         }
 
         if ((mask & PHONE_NUMBERS) != 0) {
+<<<<<<< HEAD
             gatherLinks(links, text, Patterns.PHONE,
+=======
+            gatherLinks(links, text, Regex.PHONE_PATTERN,
+>>>>>>> 54b6cfa... Initial Contribution
                 new String[] { "tel:" },
                 sPhoneNumberMatchFilter, sPhoneNumberTransformFilter);
         }
@@ -299,7 +339,12 @@ public class Linkify {
      *                      prepended to the url of links that do not have
      *                      a scheme specified in the link text
      */
+<<<<<<< HEAD
     public static final void addLinks(TextView text, Pattern pattern, String scheme) {
+=======
+    public static final void addLinks(TextView text, Pattern pattern,
+            String scheme) {
+>>>>>>> 54b6cfa... Initial Contribution
         addLinks(text, pattern, scheme, null, null);
     }
 
@@ -339,7 +384,12 @@ public class Linkify {
      *                      prepended to the url of links that do not have
      *                      a scheme specified in the link text
      */
+<<<<<<< HEAD
     public static final boolean addLinks(Spannable text, Pattern pattern, String scheme) {
+=======
+    public static final boolean addLinks(Spannable text, Pattern pattern,
+            String scheme) {
+>>>>>>> 54b6cfa... Initial Contribution
         return addLinks(text, pattern, scheme, null, null);
     }
 
@@ -385,7 +435,12 @@ public class Linkify {
         return hasMatches;
     }
 
+<<<<<<< HEAD
     private static final void applyLink(String url, int start, int end, Spannable text) {
+=======
+    private static final void applyLink(String url, int start, int end,
+            Spannable text) {
+>>>>>>> 54b6cfa... Initial Contribution
         URLSpan span = new URLSpan(url);
 
         text.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -398,11 +453,15 @@ public class Linkify {
         }
 
         boolean hasPrefix = false;
+<<<<<<< HEAD
         
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         for (int i = 0; i < prefixes.length; i++) {
             if (url.regionMatches(true, 0, prefixes[i], 0,
                                   prefixes[i].length())) {
                 hasPrefix = true;
+<<<<<<< HEAD
 
                 // Fix capitalization if necessary
                 if (!url.regionMatches(false, 0, prefixes[i], 0,
@@ -414,6 +473,11 @@ public class Linkify {
             }
         }
 
+=======
+                break;
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         if (!hasPrefix) {
             url = prefixes[0] + url;
         }
@@ -443,6 +507,7 @@ public class Linkify {
         }
     }
 
+<<<<<<< HEAD
     private static final void gatherMapLinks(ArrayList<LinkSpec> links, Spannable s) {
         String string = s.toString();
         String address;
@@ -459,19 +524,40 @@ public class Linkify {
             int length = address.length();
             int end = start + length;
             
+=======
+    private static final void gatherMapLinks(ArrayList<LinkSpec> links,
+            Spannable s) {
+        String string = s.toString();
+        String address;
+        int base = 0;
+        while ((address = WebView.findAddress(string)) != null) {
+            int start = string.indexOf(address);
+            if (start < 0) {
+                break;
+            }
+            LinkSpec spec = new LinkSpec();
+            int length = address.length();
+            int end = start + length;
+>>>>>>> 54b6cfa... Initial Contribution
             spec.start = base + start;
             spec.end = base + end;
             string = string.substring(end);
             base += end;
 
             String encodedAddress = null;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             try {
                 encodedAddress = URLEncoder.encode(address,"UTF-8");
             } catch (UnsupportedEncodingException e) {
                 continue;
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             spec.url = "geo:0,0?q=" + encodedAddress;
             links.add(spec);
         }

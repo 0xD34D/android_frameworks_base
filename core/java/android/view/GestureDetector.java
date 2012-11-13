@@ -16,8 +16,11 @@
 
 package android.view;
 
+<<<<<<< HEAD
 import android.content.Context;
 import android.os.Build;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.Handler;
 import android.os.Message;
 
@@ -36,6 +39,10 @@ import android.os.Message;
  * </ul>
  */
 public class GestureDetector {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * The listener that is used to notify when gestures occur.
      * If you want to listen for all the different gestures then implement
@@ -114,6 +121,7 @@ public class GestureDetector {
     }
 
     /**
+<<<<<<< HEAD
      * The listener that is used to notify when a double-tap or a confirmed
      * single-tap occur.
      */
@@ -156,6 +164,14 @@ public class GestureDetector {
      * nothing and return {@code false} for all applicable methods.
      */
     public static class SimpleOnGestureListener implements OnGestureListener, OnDoubleTapListener {
+=======
+     * A convenience class to extend when you only want to listen for a
+     * subset of all the gestures. This implements all methods in the
+     * {@link OnGestureListener} but does nothing and return {@code false}
+     * for all applicable methods.
+     */
+    public static class SimpleOnGestureListener implements OnGestureListener {
+>>>>>>> 54b6cfa... Initial Contribution
         public boolean onSingleTapUp(MotionEvent e) {
             return false;
         }
@@ -179,6 +195,7 @@ public class GestureDetector {
         public boolean onDown(MotionEvent e) {
             return false;
         }
+<<<<<<< HEAD
 
         public boolean onDoubleTap(MotionEvent e) {
             return false;
@@ -202,10 +219,17 @@ public class GestureDetector {
     private static final int LONGPRESS_TIMEOUT = ViewConfiguration.getLongPressTimeout();
     private static final int TAP_TIMEOUT = ViewConfiguration.getTapTimeout();
     private static final int DOUBLE_TAP_TIMEOUT = ViewConfiguration.getDoubleTapTimeout();
+=======
+    }
+
+    private static final int TOUCH_SLOP_SQUARE = ViewConfiguration.getTouchSlop()
+            * ViewConfiguration.getTouchSlop();
+>>>>>>> 54b6cfa... Initial Contribution
 
     // constants for Message.what used by GestureHandler below
     private static final int SHOW_PRESS = 1;
     private static final int LONG_PRESS = 2;
+<<<<<<< HEAD
     private static final int TAP = 3;
 
     private final Handler mHandler;
@@ -230,6 +254,20 @@ public class GestureDetector {
     private float mLastFocusY;
     private float mDownFocusX;
     private float mDownFocusY;
+=======
+
+    private final Handler mHandler;
+    private final OnGestureListener mListener;
+
+    private boolean mInLongPress;
+    private boolean mAlwaysInTapRegion;
+
+    private MotionEvent mCurrentDownEvent;
+    private MotionEvent mCurrentUpEvent;
+
+    private float mLastMotionY;
+    private float mLastMotionX;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private boolean mIsLongpressEnabled;
 
@@ -238,6 +276,7 @@ public class GestureDetector {
      */
     private VelocityTracker mVelocityTracker;
 
+<<<<<<< HEAD
     /**
      * Consistency verifier for debugging purposes.
      */
@@ -245,6 +284,8 @@ public class GestureDetector {
             InputEventConsistencyVerifier.isInstrumentationEnabled() ?
                     new InputEventConsistencyVerifier(this, 0) : null;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private class GestureHandler extends Handler {
         GestureHandler() {
             super();
@@ -264,6 +305,7 @@ public class GestureDetector {
             case LONG_PRESS:
                 dispatchLongPress();
                 break;
+<<<<<<< HEAD
                 
             case TAP:
                 // If the user's finger is still down, do not count it as a tap
@@ -274,6 +316,11 @@ public class GestureDetector {
 
             default:
                 throw new RuntimeException("Unknown message " + msg); //never
+=======
+
+            default:
+                throw new RuntimeException("Unknown message " + msg); //never                
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -285,6 +332,7 @@ public class GestureDetector {
      * 
      * @param listener the listener invoked for all the callbacks, this must
      * not be null.
+<<<<<<< HEAD
      * @param handler the handler to use
      *
      * @throws NullPointerException if either {@code listener} or
@@ -296,6 +344,18 @@ public class GestureDetector {
     @Deprecated
     public GestureDetector(OnGestureListener listener, Handler handler) {
         this(null, listener, handler);
+=======
+     * @param handler the handler to use, this must
+     * not be null.
+     *
+     * @throws NullPointerException if either {@code listener} or
+     * {@code handler} is null.
+     */
+    public GestureDetector(OnGestureListener listener, Handler handler) {
+        mHandler = new GestureHandler(handler);
+        mListener = listener;
+        init();        
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -305,6 +365,7 @@ public class GestureDetector {
      * 
      * @param listener the listener invoked for all the callbacks, this must
      * not be null.
+<<<<<<< HEAD
      * 
      * @throws NullPointerException if {@code listener} is null.
      *
@@ -374,10 +435,22 @@ public class GestureDetector {
     }
 
     private void init(Context context) {
+=======
+     * @throws NullPointerException if {@code listener} is null.
+     */
+    public GestureDetector(OnGestureListener listener) {
+        mHandler = new GestureHandler();
+        mListener = listener;
+        init();
+    }
+
+    private void init() {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mListener == null) {
             throw new NullPointerException("OnGestureListener must not be null");
         }
         mIsLongpressEnabled = true;
+<<<<<<< HEAD
 
         // Fallback to support pre-donuts releases
         int touchSlop, doubleTapSlop, doubleTapTouchSlop;
@@ -411,6 +484,8 @@ public class GestureDetector {
      */
     public void setOnDoubleTapListener(OnDoubleTapListener onDoubleTapListener) {
         mDoubleTapListener = onDoubleTapListener;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -442,17 +517,27 @@ public class GestureDetector {
      *              else false.
      */
     public boolean onTouchEvent(MotionEvent ev) {
+<<<<<<< HEAD
         if (mInputEventConsistencyVerifier != null) {
             mInputEventConsistencyVerifier.onTouchEvent(ev, 0);
         }
 
         final int action = ev.getAction();
+=======
+        final long tapTime = ViewConfiguration.getTapTimeout();
+        final long longpressTime = ViewConfiguration.getLongPressTimeout();
+        final int touchSlop = ViewConfiguration.getTouchSlop();
+        final int action = ev.getAction();
+        final float y = ev.getY();
+        final float x = ev.getX();
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
         }
         mVelocityTracker.addMovement(ev);
 
+<<<<<<< HEAD
         final boolean pointerUp =
                 (action & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_POINTER_UP;
         final int skipIndex = pointerUp ? ev.getActionIndex() : -1;
@@ -520,12 +605,32 @@ public class GestureDetector {
             }
             mHandler.sendEmptyMessageAtTime(SHOW_PRESS, mCurrentDownEvent.getDownTime() + TAP_TIMEOUT);
             handled |= mListener.onDown(ev);
+=======
+        boolean handled = false;
+
+        switch (action) {
+        case MotionEvent.ACTION_DOWN:
+            mLastMotionX = x;
+            mLastMotionY = y;
+            mCurrentDownEvent = MotionEvent.obtain(ev);
+            mAlwaysInTapRegion = true;
+            mInLongPress = false;
+
+            if (mIsLongpressEnabled) {
+                mHandler.removeMessages(LONG_PRESS);
+                mHandler.sendEmptyMessageAtTime(LONG_PRESS, mCurrentDownEvent.getDownTime()
+                        + tapTime + longpressTime);
+            }
+            mHandler.sendEmptyMessageAtTime(SHOW_PRESS, mCurrentDownEvent.getDownTime() + tapTime);
+            handled = mListener.onDown(ev);
+>>>>>>> 54b6cfa... Initial Contribution
             break;
 
         case MotionEvent.ACTION_MOVE:
             if (mInLongPress) {
                 break;
             }
+<<<<<<< HEAD
             final float scrollX = mLastFocusX - focusX;
             final float scrollY = mLastFocusY - focusY;
             if (mIsDoubleTapping) {
@@ -551,10 +656,31 @@ public class GestureDetector {
                 handled = mListener.onScroll(mCurrentDownEvent, ev, scrollX, scrollY);
                 mLastFocusX = focusX;
                 mLastFocusY = focusY;
+=======
+            final float scrollX = mLastMotionX - x;
+            final float scrollY = mLastMotionY - y;
+            if (mAlwaysInTapRegion) {
+                final int deltaX = (int) (x - mCurrentDownEvent.getX());
+                final int deltaY = (int) (y - mCurrentDownEvent.getY());
+                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+                if (distance > TOUCH_SLOP_SQUARE) {
+                    handled = mListener.onScroll(mCurrentDownEvent, ev, scrollX, scrollY);
+                    mLastMotionX = x;
+                    mLastMotionY = y;
+                    mAlwaysInTapRegion = false;
+                    mHandler.removeMessages(SHOW_PRESS);
+                    mHandler.removeMessages(LONG_PRESS);
+                }
+            } else if ((Math.abs(scrollX) >= 1) || (Math.abs(scrollY) >= 1)) {
+                handled = mListener.onScroll(mCurrentDownEvent, ev, scrollX, scrollY);
+                mLastMotionX = x;
+                mLastMotionY = y;
+>>>>>>> 54b6cfa... Initial Contribution
             }
             break;
 
         case MotionEvent.ACTION_UP:
+<<<<<<< HEAD
             mStillDown = false;
             MotionEvent currentUpEvent = MotionEvent.obtain(ev);
             if (mIsDoubleTapping) {
@@ -564,11 +690,20 @@ public class GestureDetector {
                 mHandler.removeMessages(TAP);
                 mInLongPress = false;
             } else if (mAlwaysInTapRegion) {
+=======
+            mCurrentUpEvent = MotionEvent.obtain(ev);
+            if (mInLongPress) {
+                mInLongPress = false;
+                break;
+            }
+            if (mAlwaysInTapRegion) {
+>>>>>>> 54b6cfa... Initial Contribution
                 handled = mListener.onSingleTapUp(ev);
             } else {
 
                 // A fling must travel the minimum tap distance
                 final VelocityTracker velocityTracker = mVelocityTracker;
+<<<<<<< HEAD
                 final int pointerId = ev.getPointerId(0);
                 velocityTracker.computeCurrentVelocity(1000, mMaximumFlingVelocity);
                 final float velocityY = velocityTracker.getYVelocity(pointerId);
@@ -602,10 +737,36 @@ public class GestureDetector {
 
         if (!handled && mInputEventConsistencyVerifier != null) {
             mInputEventConsistencyVerifier.onUnhandledEvent(ev, 0);
+=======
+                velocityTracker.computeCurrentVelocity(1000);
+                final float velocityY = velocityTracker.getYVelocity();
+                final float velocityX = velocityTracker.getXVelocity();
+
+                if ((Math.abs(velocityY) > ViewConfiguration.getMinimumFlingVelocity())
+                        || (Math.abs(velocityX) > ViewConfiguration.getMinimumFlingVelocity())){
+                    handled = mListener.onFling(mCurrentDownEvent, mCurrentUpEvent, velocityX, velocityY);
+                }
+            }
+            mVelocityTracker.recycle();
+            mVelocityTracker = null;
+            mHandler.removeMessages(SHOW_PRESS);
+            mHandler.removeMessages(LONG_PRESS);
+            break;
+        case MotionEvent.ACTION_CANCEL:
+            mHandler.removeMessages(SHOW_PRESS);
+            mHandler.removeMessages(LONG_PRESS);
+            mVelocityTracker.recycle();
+            mVelocityTracker = null;
+            if (mInLongPress) {
+                mInLongPress = false;
+                break;
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
         return handled;
     }
 
+<<<<<<< HEAD
     private void cancel() {
         mHandler.removeMessages(SHOW_PRESS);
         mHandler.removeMessages(LONG_PRESS);
@@ -650,6 +811,9 @@ public class GestureDetector {
 
     private void dispatchLongPress() {
         mHandler.removeMessages(TAP);
+=======
+    private void dispatchLongPress() {
+>>>>>>> 54b6cfa... Initial Contribution
         mInLongPress = true;
         mListener.onLongPress(mCurrentDownEvent);
     }

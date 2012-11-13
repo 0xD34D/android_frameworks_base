@@ -16,6 +16,7 @@
 
 package com.android.server.am;
 
+<<<<<<< HEAD
 import com.android.internal.os.BatteryStatsImpl;
 import com.android.server.NotificationManagerService;
 
@@ -34,11 +35,23 @@ import android.os.SystemClock;
 import android.os.UserId;
 import android.util.Slog;
 import android.util.TimeUtils;
+=======
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.ServiceInfo;
+import android.os.Binder;
+import android.os.IBinder;
+import android.os.SystemClock;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.HashSet;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,6 +59,7 @@ import java.util.List;
  * A running application service.
  */
 class ServiceRecord extends Binder {
+<<<<<<< HEAD
     // Maximum number of delivery attempts before giving up.
     static final int MAX_DELIVERY_COUNT = 3;
 
@@ -54,6 +68,9 @@ class ServiceRecord extends Binder {
 
     final ActivityManagerService ams;
     final BatteryStatsImpl.Uid.Pkg.Serv stats;
+=======
+    final BatteryStats.Uid.Pkg.Serv stats;
+>>>>>>> 54b6cfa... Initial Contribution
     final ComponentName name; // service component.
     final String shortName; // name.flattenToShortString().
     final Intent.FilterComparison intent;
@@ -62,7 +79,10 @@ class ServiceRecord extends Binder {
                             // all information about the service.
     final ApplicationInfo appInfo;
                             // information about service's app.
+<<<<<<< HEAD
     final int userId;       // user that this service is running as
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     final String packageName; // the package implementing intent's component
     final String processName; // process where this component wants to run
     final String permission;// permission needed to access service
@@ -75,6 +95,7 @@ class ServiceRecord extends Binder {
     final HashMap<Intent.FilterComparison, IntentBindRecord> bindings
             = new HashMap<Intent.FilterComparison, IntentBindRecord>();
                             // All active bindings to the service.
+<<<<<<< HEAD
     final HashMap<IBinder, ArrayList<ConnectionRecord>> connections
             = new HashMap<IBinder, ArrayList<ConnectionRecord>>();
                             // IBinder -> ConnectionRecord of all bound clients
@@ -88,6 +109,19 @@ class ServiceRecord extends Binder {
     boolean startRequested; // someone explicitly called start?
     boolean stopIfKilled;   // last onStart() said to stop if service killed?
     boolean callStart;      // last onStart() has asked to alway be called on restart.
+=======
+    final HashMap<IBinder, ConnectionRecord> connections
+            = new HashMap<IBinder, ConnectionRecord>();
+                            // IBinder -> ConnectionRecord of all bound clients
+    final List<Intent> startArgs = new ArrayList<Intent>();
+                            // start() arguments that haven't yet been delivered.
+
+    ProcessRecord app;  // where this service is running or null.
+    boolean isForeground;   // asked to run as a foreground service?
+    long lastActivity;      // last time there was some activity on the service.
+    boolean startRequested; // someone explicitly called start?
+    int lastStartId;        // identifier of most recent start request.
+>>>>>>> 54b6cfa... Initial Contribution
     int executeNesting;     // number of outstanding operations keeping foreground.
     long executingStart;    // start time of last execute request.
     int crashCount;         // number of times proc has crashed with service running
@@ -97,6 +131,7 @@ class ServiceRecord extends Binder {
     long restartTime;       // time of last restart.
     long nextRestartTime;   // time when restartDelay will expire.
 
+<<<<<<< HEAD
     String stringName;      // caching of toString
     
     private int lastStartId;    // identifier of most recent start request.
@@ -272,14 +307,56 @@ class ServiceRecord extends Binder {
                 for (int i=0; i<c.size(); i++) {
                     pw.print(prefix); pw.print("  "); pw.println(c.get(i));
                 }
+=======
+    void dump(PrintWriter pw, String prefix) {
+        pw.println(prefix + this);
+        pw.println(prefix + "intent=" + intent.getIntent());
+        pw.println(prefix + "packageName=" + packageName);
+        pw.println(prefix + "processName=" + processName);
+        pw.println(prefix + "permission=" + permission);
+        pw.println(prefix + "baseDir=" + baseDir+ " resDir=" + resDir + " dataDir=" + dataDir);
+        pw.println(prefix + "app=" + app);
+        pw.println(prefix + "isForeground=" + isForeground
+                + " lastActivity=" + lastActivity);
+        pw.println(prefix + "startRequested=" + startRequested
+              + " startId=" + lastStartId
+              + " executeNesting=" + executeNesting
+              + " executingStart=" + executingStart
+              + " crashCount=" + crashCount);
+        pw.println(prefix + "totalRestartCount=" + totalRestartCount
+                + " restartCount=" + restartCount
+                + " restartDelay=" + restartDelay
+                + " restartTime=" + restartTime
+                + " nextRestartTime=" + nextRestartTime);
+        if (bindings.size() > 0) {
+            pw.println(prefix + "Bindings:");
+            Iterator<IntentBindRecord> it = bindings.values().iterator();
+            while (it.hasNext()) {
+                IntentBindRecord b = it.next();
+                pw.println(prefix + "Binding " + b);
+                b.dump(pw, prefix + "  ");
+            }
+        }
+        if (connections.size() > 0) {
+            pw.println(prefix + "All Connections:");
+            Iterator<ConnectionRecord> it = connections.values().iterator();
+            while (it.hasNext()) {
+                ConnectionRecord c = it.next();
+                pw.println(prefix + "  " + c);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
+<<<<<<< HEAD
     ServiceRecord(ActivityManagerService ams,
             BatteryStatsImpl.Uid.Pkg.Serv servStats, ComponentName name,
             Intent.FilterComparison intent, ServiceInfo sInfo, Runnable restarter) {
         this.ams = ams;
+=======
+    ServiceRecord(BatteryStats.Uid.Pkg.Serv servStats, ComponentName name,
+            Intent.FilterComparison intent, ServiceInfo sInfo, Runnable restarter) {
+>>>>>>> 54b6cfa... Initial Contribution
         this.stats = servStats;
         this.name = name;
         shortName = name.flattenToShortString();
@@ -294,9 +371,13 @@ class ServiceRecord extends Binder {
         dataDir = sInfo.applicationInfo.dataDir;
         exported = sInfo.exported;
         this.restarter = restarter;
+<<<<<<< HEAD
         createTime = SystemClock.elapsedRealtime();
         lastActivity = SystemClock.uptimeMillis();
         userId = UserId.getUserId(appInfo.uid);
+=======
+        createTime = lastActivity = SystemClock.uptimeMillis();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public AppBindRecord retrieveAppBindingLocked(Intent intent,
@@ -322,6 +403,7 @@ class ServiceRecord extends Binder {
         restartTime = 0;
     }
     
+<<<<<<< HEAD
     public StartItem findDeliveredStart(int id, boolean remove) {
         final int N = deliveredStarts.size();
         for (int i=0; i<N; i++) {
@@ -422,5 +504,11 @@ class ServiceRecord extends Binder {
             .append(Integer.toHexString(System.identityHashCode(this)))
             .append(' ').append(shortName).append('}');
         return stringName = sb.toString();
+=======
+    public String toString() {
+        return "ServiceRecord{"
+            + Integer.toHexString(System.identityHashCode(this))
+            + " " + shortName + "}";
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

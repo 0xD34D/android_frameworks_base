@@ -17,6 +17,7 @@
 package com.android.internal.app;
 
 import com.android.internal.R;
+<<<<<<< HEAD
 import com.android.internal.content.PackageMonitor;
 
 import android.app.ActivityManager;
@@ -46,13 +47,43 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+=======
+
+import android.app.Activity;
+import android.app.ListActivity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.PatternMatcher;
+import android.util.Config;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.LayoutInflater;
+import android.view.Window;
+import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+=======
+import java.util.Collections;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +93,7 @@ import java.util.Set;
  * which there is more than one matching activity, allowing the user to decide
  * which to go to.  It is not normally used directly by application developers.
  */
+<<<<<<< HEAD
 public class ResolverActivity extends AlertActivity implements AdapterView.OnItemClickListener {
     private static final String TAG = "ResolverActivity";
 
@@ -288,6 +320,64 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
             // Build a reasonable intent filter, based on what matched.
             IntentFilter filter = new IntentFilter();
 
+=======
+public class ResolverActivity extends AlertActivity implements 
+        DialogInterface.OnClickListener, CheckBox.OnCheckedChangeListener {
+    private ResolveListAdapter mAdapter;
+    private CheckBox mAlwaysCheck;
+    private TextView mClearDefaultHint;
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        onCreate(savedInstanceState, new Intent(getIntent()),
+                getResources().getText(com.android.internal.R.string.whichApplication),
+                true);
+    }
+    
+    protected void onCreate(Bundle savedInstanceState, Intent intent,
+            CharSequence title, boolean alwaysUseOption) {
+        super.onCreate(savedInstanceState);
+
+        intent.setComponent(null);
+
+        AlertController.AlertParams ap = mAlertParams;
+        
+        ap.mTitle = title;
+        ap.mOnClickListener = this;
+        
+        if (alwaysUseOption) {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
+            ap.mView = inflater.inflate(R.layout.always_use_checkbox, null);
+            mAlwaysCheck = (CheckBox)ap.mView.findViewById(com.android.internal.R.id.alwaysUse);
+            mAlwaysCheck.setOnCheckedChangeListener(this);
+            mClearDefaultHint = (TextView)ap.mView.findViewById(
+                                                        com.android.internal.R.id.clearDefaultHint);
+            mClearDefaultHint.setVisibility(View.GONE);
+        }
+        mAdapter = new ResolveListAdapter(this, intent);
+        if (mAdapter.getCount() > 1) {
+            ap.mAdapter = mAdapter;
+        } else if (mAdapter.getCount() == 1) {
+            startActivity(mAdapter.intentForPosition(0));
+            finish();
+            return;
+        } else {
+            ap.mMessage = getResources().getText(com.android.internal.R.string.noApplications);
+        }
+        
+        setupAlert();
+    }
+    
+    public void onClick(DialogInterface dialog, int which) {
+        ResolveInfo ri = mAdapter.resolveInfoForPosition(which);
+        Intent intent = mAdapter.intentForPosition(which);
+
+        if ((mAlwaysCheck != null) && mAlwaysCheck.isChecked()) {
+            // Build a reasonable intent filter, based on what matched.
+            IntentFilter filter = new IntentFilter();
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (intent.getAction() != null) {
                 filter.addAction(intent.getAction());
             }
@@ -298,7 +388,11 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
                 }
             }
             filter.addCategory(Intent.CATEGORY_DEFAULT);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             int cat = ri.match&IntentFilter.MATCH_CATEGORY_MASK;
             Uri data = intent.getData();
             if (cat == IntentFilter.MATCH_CATEGORY_TYPE) {
@@ -311,6 +405,7 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
                         filter = null;
                     }
                 }
+<<<<<<< HEAD
             }
             if (data != null && data.getScheme() != null) {
                 // We need the data specification if there was no type,
@@ -344,17 +439,52 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
                                 filter.addDataPath(p.getPath(), p.getType());
                                 break;
                             }
+=======
+            } else if (data != null && data.getScheme() != null) {
+                filter.addDataScheme(data.getScheme());
+                
+                // Look through the resolved filter to determine which part
+                // of it matched the original Intent.
+                Iterator<IntentFilter.AuthorityEntry> aIt = ri.filter.authoritiesIterator();
+                if (aIt != null) {
+                    while (aIt.hasNext()) {
+                        IntentFilter.AuthorityEntry a = aIt.next();
+                        if (a.match(data) >= 0) {
+                            int port = a.getPort();
+                            filter.addDataAuthority(a.getHost(),
+                                    port >= 0 ? Integer.toString(port) : null);
+                            break;
+                        }
+                    }
+                }
+                Iterator<PatternMatcher> pIt = ri.filter.pathsIterator();
+                if (pIt != null) {
+                    String path = data.getPath();
+                    while (path != null && pIt.hasNext()) {
+                        PatternMatcher p = pIt.next();
+                        if (p.match(path)) {
+                            filter.addDataPath(p.getPath(), p.getType());
+                            break;
+>>>>>>> 54b6cfa... Initial Contribution
                         }
                     }
                 }
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (filter != null) {
                 final int N = mAdapter.mList.size();
                 ComponentName[] set = new ComponentName[N];
                 int bestMatch = 0;
                 for (int i=0; i<N; i++) {
+<<<<<<< HEAD
                     ResolveInfo r = mAdapter.mList.get(i).ri;
+=======
+                    ResolveInfo r = mAdapter.mList.get(i);
+>>>>>>> 54b6cfa... Initial Contribution
                     set[i] = new ComponentName(r.activityInfo.packageName,
                             r.activityInfo.name);
                     if (r.match > bestMatch) bestMatch = r.match;
@@ -363,6 +493,7 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
                         intent.getComponent());
             }
         }
+<<<<<<< HEAD
 
         if (intent != null) {
             startActivity(intent);
@@ -580,6 +711,53 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
                         mList.add(new DisplayResolveInfo(add, roLabel,
                                 add.activityInfo.applicationInfo.loadLabel(mPm), null));
                     }
+=======
+        
+        if (intent != null) {
+            startActivity(intent);
+        }
+        finish();
+    }
+    
+    private final class ResolveListAdapter extends BaseAdapter {
+        private final Intent mIntent;
+        private final LayoutInflater mInflater;
+
+        private List<ResolveInfo> mList;
+        
+        public ResolveListAdapter(Context context, Intent intent) {
+            mIntent = new Intent(intent);
+            mIntent.setComponent(null);
+            mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            PackageManager pm = context.getPackageManager();
+            mList = pm.queryIntentActivities(
+                    intent, PackageManager.MATCH_DEFAULT_ONLY
+                    | (mAlwaysCheck != null ? PackageManager.GET_RESOLVED_FILTER : 0));
+            if (mList != null) {
+                int N = mList.size();
+                if (N > 1) {
+                    // Only display the first matches that are either of equal
+                    // priority or have asked to be default options.
+                    ResolveInfo r0 = mList.get(0);
+                    for (int i=1; i<N; i++) {
+                        ResolveInfo ri = mList.get(i);
+                        if (Config.LOGV) Log.v(
+                            "ResolveListActivity",
+                            r0.activityInfo.name + "=" +
+                            r0.priority + "/" + r0.isDefault + " vs " +
+                            ri.activityInfo.name + "=" +
+                            ri.priority + "/" + ri.isDefault);
+                        if (r0.priority != ri.priority ||
+                            r0.isDefault != ri.isDefault) {
+                            while (i < N) {
+                                mList.remove(i);
+                                N--;
+                            }
+                        }
+                    }
+                    Collections.sort(mList, new ResolveInfo.DisplayNameComparator(pm));
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -589,7 +767,11 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
                 return null;
             }
 
+<<<<<<< HEAD
             return mList.get(position).ri;
+=======
+            return mList.get(position);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public Intent intentForPosition(int position) {
@@ -597,6 +779,7 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
                 return null;
             }
 
+<<<<<<< HEAD
             DisplayResolveInfo dri = mList.get(position);
             
             Intent intent = new Intent(dri.origIntent != null
@@ -604,6 +787,12 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
             intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT
                     |Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
             ActivityInfo ai = dri.ri.activityInfo;
+=======
+            Intent intent = new Intent(mIntent);
+            intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT
+                    |Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+            ActivityInfo ai = mList.get(position).activityInfo;
+>>>>>>> 54b6cfa... Initial Contribution
             intent.setComponent(new ComponentName(
                     ai.applicationInfo.packageName, ai.name));
             return intent;
@@ -626,11 +815,14 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
             if (convertView == null) {
                 view = mInflater.inflate(
                         com.android.internal.R.layout.resolve_list_item, parent, false);
+<<<<<<< HEAD
 
                 // Fix the icon size even if we have different sized resources
                 ImageView icon = (ImageView)view.findViewById(R.id.icon);
                 ViewGroup.LayoutParams lp = (ViewGroup.LayoutParams) icon.getLayoutParams();
                 lp.width = lp.height = mIconSize;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             } else {
                 view = convertView;
             }
@@ -638,6 +830,7 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
             return view;
         }
 
+<<<<<<< HEAD
         private final void bindView(View view, DisplayResolveInfo info) {
             TextView text = (TextView)view.findViewById(com.android.internal.R.id.text1);
             TextView text2 = (TextView)view.findViewById(com.android.internal.R.id.text2);
@@ -665,6 +858,29 @@ public class ResolverActivity extends AlertActivity implements AdapterView.OnIte
             return true;
         }
 
+=======
+        private final void bindView(View view, ResolveInfo info) {
+            TextView text = (TextView)view.findViewById(com.android.internal.R.id.text1);
+            ImageView icon = (ImageView)view.findViewById(R.id.icon);
+
+            PackageManager pm = getPackageManager();
+
+            CharSequence label = info.loadLabel(pm);
+            if (label == null) label = info.activityInfo.name;
+            text.setText(label);
+            icon.setImageDrawable(info.loadIcon(pm));
+        }
+    }
+
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (mClearDefaultHint == null) return;
+        
+        if(isChecked) {
+            mClearDefaultHint.setVisibility(View.VISIBLE);
+        } else {
+            mClearDefaultHint.setVisibility(View.GONE);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }
 

@@ -28,9 +28,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+<<<<<<< HEAD
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
+=======
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.Map.Entry;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 
@@ -60,6 +66,7 @@ public class AsmGenerator {
      *  old-FQCN to rename and they get erased as they get renamed. At the end, classes still
      *  left here are not in the code base anymore and thus were not renamed. */
     private HashSet<String> mClassesNotRenamed;
+<<<<<<< HEAD
     /** A map { FQCN => set { list of return types to delete from the FQCN } }. */
     private HashMap<String, Set<String>> mDeleteReturns;
     /** A map { FQCN => set { method names } } of methods to rewrite as delegates.
@@ -104,12 +111,43 @@ public class AsmGenerator {
             }
             methods.add(DelegateClassAdapter.ALL_NATIVES);
         }
+=======
+    /** A map { FQCN => map { list of return types to delete from the FQCN } }. */
+    private HashMap<String, Set<String>> mDeleteReturns;
+
+    /**
+     * Creates a new generator that can generate the output JAR with the stubbed classes.
+     * 
+     * @param log Output logger.
+     * @param osDestJar The path of the destination JAR to create.
+     * @param stubMethods The list of methods to stub out
+     * @param renameClasses The list of classes to rename, must be an even list: the binary FQCN
+     *          of class to replace followed by the new FQCN.
+     * @param deleteReturns List of classes for which the methods returning them should be deleted.
+     * The array contains a list of null terminated section starting with the name of the class
+     * to rename in which the methods are deleted, followed by a list of return types identifying
+     * the methods to delete.
+     */
+    public AsmGenerator(Log log, String osDestJar,
+            Class<?>[] injectClasses,
+            String[] stubMethods,
+            String[] renameClasses, String[] deleteReturns) {
+        mLog = log;
+        mOsDestJar = osDestJar;
+        mInjectClasses = injectClasses != null ? injectClasses : new Class<?>[0];
+        mStubMethods = stubMethods != null ? new HashSet<String>(Arrays.asList(stubMethods)) :
+                                             new HashSet<String>();
+>>>>>>> 54b6cfa... Initial Contribution
 
         // Create the map of classes to rename.
         mRenameClasses = new HashMap<String, String>();
         mClassesNotRenamed = new HashSet<String>();
+<<<<<<< HEAD
         String[] renameClasses = createInfo.getRenamedClasses();
         int n = renameClasses.length;
+=======
+        int n = renameClasses == null ? 0 : renameClasses.length;
+>>>>>>> 54b6cfa... Initial Contribution
         for (int i = 0; i < n; i += 2) {
             assert i + 1 < n;
             // The ASM class names uses "/" separators, whereas regular FQCN use "."
@@ -118,6 +156,7 @@ public class AsmGenerator {
             mRenameClasses.put(oldFqcn, newFqcn);
             mClassesNotRenamed.add(oldFqcn);
         }
+<<<<<<< HEAD
 
         // create the map of renamed class -> return type of method to delete.
         mDeleteReturns = new HashMap<String, Set<String>>();
@@ -149,6 +188,40 @@ public class AsmGenerator {
         }
     }
 
+=======
+        
+        // create the map of renamed class -> return type of method to delete.
+        mDeleteReturns = new HashMap<String, Set<String>>();
+        if (deleteReturns != null) {
+            Set<String> returnTypes = null;
+            String renamedClass = null;
+            for (String className : deleteReturns) {
+                // if we reach the end of a section, add it to the main map
+                if (className == null) {
+                    if (returnTypes != null) {
+                        mDeleteReturns.put(renamedClass, returnTypes);
+                    }
+                    
+                    renamedClass = null;
+                    continue;
+                }
+    
+                // if the renamed class is null, this is the beginning of a section
+                if (renamedClass == null) {
+                    renamedClass = binaryToInternalClassName(className);
+                    continue;
+                }
+    
+                // just a standard return type, we add it to the list.
+                if (returnTypes == null) {
+                    returnTypes = new HashSet<String>();
+                }
+                returnTypes.add(binaryToInternalClassName(className));
+            }
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the list of classes that have not been renamed yet.
      * <p/>
@@ -180,12 +253,20 @@ public class AsmGenerator {
     public void setDeps(Map<String, ClassReader> deps) {
         mDeps = deps;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /** Gets the map of classes to output as-is, except if they have native methods */
     public Map<String, ClassReader> getKeep() {
         return mKeep;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /** Gets the map of dependencies that must be completely stubbed */
     public Map<String, ClassReader> getDeps() {
         return mDeps;
@@ -194,7 +275,11 @@ public class AsmGenerator {
     /** Generates the final JAR */
     public void generate() throws FileNotFoundException, IOException {
         TreeMap<String, byte[]> all = new TreeMap<String, byte[]>();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         for (Class<?> clazz : mInjectClasses) {
             String name = classToEntryPath(clazz);
             InputStream is = ClassLoader.getSystemResourceAsStream(name);
@@ -203,10 +288,17 @@ public class AsmGenerator {
             name = classNameToEntryPath(transformName(cr.getClassName()));
             all.put(name, b);
         }
+<<<<<<< HEAD
 
         for (Entry<String, ClassReader> entry : mDeps.entrySet()) {
             ClassReader cr = entry.getValue();
             byte[] b = transform(cr, true /* stubNativesOnly */);
+=======
+        
+        for (Entry<String, ClassReader> entry : mDeps.entrySet()) {
+            ClassReader cr = entry.getValue();
+            byte[] b = transform(cr, false /* stubNativesOnly */);
+>>>>>>> 54b6cfa... Initial Contribution
             String name = classNameToEntryPath(transformName(cr.getClassName()));
             all.put(name, b);
         }
@@ -228,8 +320,13 @@ public class AsmGenerator {
 
     /**
      * Writes the JAR file.
+<<<<<<< HEAD
      *
      * @param outStream The file output stream were to write the JAR.
+=======
+     * 
+     * @param outStream The file output stream were to write the JAR. 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param all The map of all classes to output.
      * @throws IOException if an I/O error has occurred
      */
@@ -253,7 +350,11 @@ public class AsmGenerator {
     String classNameToEntryPath(String className) {
         return className.replaceAll("\\.", "/").concat(".class");
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Utility method to get the JAR entry path from a Class name.
      * e.g. it returns someting like "com/foo/OuterClass$InnerClass1$InnerClass2.class"
@@ -265,32 +366,52 @@ public class AsmGenerator {
             name = "$" + clazz.getSimpleName() + name;
             clazz = parent;
         }
+<<<<<<< HEAD
         return classNameToEntryPath(clazz.getCanonicalName() + name);
+=======
+        return classNameToEntryPath(clazz.getCanonicalName() + name);        
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Transforms a class.
      * <p/>
      * There are 3 kind of transformations:
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * 1- For "mock" dependencies classes, we want to remove all code from methods and replace
      * by a stub. Native methods must be implemented with this stub too. Abstract methods are
      * left intact. Modified classes must be overridable (non-private, non-final).
      * Native methods must be made non-final, non-private.
+<<<<<<< HEAD
      *
      * 2- For "keep" classes, we want to rewrite all native methods as indicated above.
      * If a class has native methods, it must also be made non-private, non-final.
      *
+=======
+     * 
+     * 2- For "keep" classes, we want to rewrite all native methods as indicated above.
+     * If a class has native methods, it must also be made non-private, non-final.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * Note that unfortunately static methods cannot be changed to non-static (since static and
      * non-static are invoked differently.)
      */
     byte[] transform(ClassReader cr, boolean stubNativesOnly) {
 
         boolean hasNativeMethods = hasNativeMethods(cr);
+<<<<<<< HEAD
 
         // Get the class name, as an internal name (e.g. com/android/SomeClass$InnerClass)
         String className = cr.getClassName();
 
+=======
+        String className = cr.getClassName();
+        
+>>>>>>> 54b6cfa... Initial Contribution
         String newName = transformName(className);
         // transformName returns its input argument if there's no need to rename the class
         if (newName != className) {
@@ -307,11 +428,16 @@ public class AsmGenerator {
         // Rewrite the new class from scratch, without reusing the constant pool from the
         // original class reader.
         ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         ClassVisitor rv = cw;
         if (newName != className) {
             rv = new RenameClassAdapter(cw, className, newName);
         }
+<<<<<<< HEAD
 
         ClassVisitor cv = new TransformClassAdapter(mLog, mStubMethods,
                 mDeleteReturns.get(className),
@@ -329,6 +455,13 @@ public class AsmGenerator {
             }
         }
 
+=======
+        
+        TransformClassAdapter cv = new TransformClassAdapter(mLog, mStubMethods, 
+                mDeleteReturns.get(className),
+                newName, rv,
+                stubNativesOnly, stubNativesOnly || hasNativeMethods);
+>>>>>>> 54b6cfa... Initial Contribution
         cr.accept(cv, 0 /* flags */);
         return cw.toByteArray();
     }
@@ -354,7 +487,11 @@ public class AsmGenerator {
                 return newName + className.substring(pos);
             }
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         return className;
     }
 

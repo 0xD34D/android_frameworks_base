@@ -25,9 +25,12 @@ package com.android.internal.telephony.gsm;
  *
  */
 public interface CallFailCause {
+<<<<<<< HEAD
     // Unassigned/Unobtainable number
     static final int UNOBTAINABLE_NUMBER = 1;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     static final int NORMAL_CLEARING     = 16;
     // Busy Tone
     static final int USER_BUSY           = 17;

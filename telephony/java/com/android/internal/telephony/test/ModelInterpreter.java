@@ -16,6 +16,7 @@
 
 package com.android.internal.telephony.test;
 
+<<<<<<< HEAD
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
@@ -28,6 +29,19 @@ import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+=======
+import com.android.internal.os.HandlerThread;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import android.os.*;
+import android.util.Log;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.InetSocketAddress;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.List;
 
 // Also in ATChannel.java
@@ -75,7 +89,11 @@ class LineReader
      * Returns NULL on EOF
      */
 
+<<<<<<< HEAD
     String
+=======
+    String 
+>>>>>>> 54b6cfa... Initial Contribution
     getNextLine(boolean ctrlZ)
     {
         int i = 0;
@@ -131,8 +149,13 @@ class InterpreterEx extends Exception
     String result;
 }
 
+<<<<<<< HEAD
 public class ModelInterpreter
             implements Runnable, SimulatedRadioControl
+=======
+public class ModelInterpreter 
+            implements Runnable, HandlerInterface, SimulatedRadioControl
+>>>>>>> 54b6cfa... Initial Contribution
 {
     static final int MAX_CALLS = 6;
 
@@ -152,15 +175,24 @@ public class ModelInterpreter
 
     SimulatedGsmCallState simulatedCallState;
 
+<<<<<<< HEAD
     HandlerThread mHandlerThread;
 
+=======
+    HandlerThread handlerThread;
+   
+>>>>>>> 54b6cfa... Initial Contribution
     int pausedResponseCount;
     Object pausedResponseMonitor = new Object();
 
     //***** Events
 
     static final int PROGRESS_CALL_STATE        = 1;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     //***** Constructor
 
     public
@@ -181,16 +213,32 @@ public class ModelInterpreter
         ss.bind(sa);
 
         init();
+<<<<<<< HEAD
     }
+=======
+    }    
+>>>>>>> 54b6cfa... Initial Contribution
 
     private void
     init()
     {
         new Thread(this, "ModelInterpreter").start();
+<<<<<<< HEAD
         mHandlerThread = new HandlerThread("ModelInterpreter");
         mHandlerThread.start();
         Looper looper = mHandlerThread.getLooper();
         simulatedCallState = new SimulatedGsmCallState(looper);
+=======
+
+        handlerThread 
+            = new HandlerThread(this, 
+                new Runnable() {
+                    public void run() {
+                        simulatedCallState = new SimulatedGsmCallState();
+                    }
+                },
+                "ModelInterpreter");
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     //***** Runnable Implementation
@@ -204,7 +252,11 @@ public class ModelInterpreter
                 try {
                     s = ss.accept();
                 } catch (java.io.IOException ex) {
+<<<<<<< HEAD
                     Log.w(LOG_TAG,
+=======
+                    Log.w(LOG_TAG, 
+>>>>>>> 54b6cfa... Initial Contribution
                         "IOException on socket.accept(); stopping", ex);
                     return;
                 }
@@ -213,15 +265,24 @@ public class ModelInterpreter
                     in = s.getInputStream();
                     out = s.getOutputStream();
                 } catch (java.io.IOException ex) {
+<<<<<<< HEAD
                     Log.w(LOG_TAG,
+=======
+                    Log.w(LOG_TAG, 
+>>>>>>> 54b6cfa... Initial Contribution
                         "IOException on accepted socket(); re-listening", ex);
                     continue;
                 }
 
                 Log.i(LOG_TAG, "New connection accepted");
             }
+<<<<<<< HEAD
 
 
+=======
+        
+    
+>>>>>>> 54b6cfa... Initial Contribution
             lineReader = new LineReader (in);
 
             println ("Welcome");
@@ -269,16 +330,34 @@ public class ModelInterpreter
         }
     }
 
+<<<<<<< HEAD
 
     //***** Instance Methods
 
+=======
+    //***** HandlerInterface Implementation
+
+    public void
+    handleMessage(Message msg)
+    {
+
+    }
+
+
+    //***** Instance Methods
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /** Start the simulated phone ringing */
     public void
     triggerRing(String number)
     {
         synchronized (this) {
             boolean success;
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             success = simulatedCallState.triggerRing(number);
 
             if (success) {
@@ -307,10 +386,17 @@ public class ModelInterpreter
      */
     public void
     setAutoProgressConnectingCall(boolean b)
+<<<<<<< HEAD
     {
         simulatedCallState.setAutoProgressConnectingCall(b);
     }
 
+=======
+    {        
+        simulatedCallState.setAutoProgressConnectingCall(b);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public void
     setNextDialFailImmediately(boolean b)
     {
@@ -321,7 +407,11 @@ public class ModelInterpreter
     {
         //FIXME implement
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
 
     /** hangup ringing, dialing, or actuve calls */
     public void
@@ -373,7 +463,11 @@ public class ModelInterpreter
 
     public void triggerSsn(int a, int b) {}
     public void triggerIncomingUssd(String statusCode, String message) {}
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public void
     triggerIncomingSMS(String message)
     {
@@ -386,7 +480,11 @@ public class ModelInterpreter
 
         // source address: +18005551212
         pdu.append("918100551521F0");
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // protocol ID and data coding scheme
         pdu.append("0000");
 
@@ -421,7 +519,11 @@ public class ModelInterpreter
                 pausedResponseMonitor.notifyAll();
             }
         }
+<<<<<<< HEAD
     }
+=======
+    }    
+>>>>>>> 54b6cfa... Initial Contribution
 
     //***** Private Instance Methods
 
@@ -429,11 +531,19 @@ public class ModelInterpreter
     onAnswer() throws InterpreterEx
     {
         boolean success;
+<<<<<<< HEAD
 
         success = simulatedCallState.onAnswer();
 
         if (!success) {
             throw new InterpreterEx("ERROR");
+=======
+        
+        success = simulatedCallState.onAnswer();
+
+        if (!success) {
+            throw new InterpreterEx("ERROR");            
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -445,7 +555,11 @@ public class ModelInterpreter
         success = simulatedCallState.onAnswer();
 
         if (!success) {
+<<<<<<< HEAD
             throw new InterpreterEx("ERROR");
+=======
+            throw new InterpreterEx("ERROR");            
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         finalResponse = "NO CARRIER";
@@ -471,12 +585,20 @@ public class ModelInterpreter
             throw new InterpreterEx("ERROR");
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private void
     releaseHeldOrUDUB() throws InterpreterEx
     {
         boolean success;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         success = simulatedCallState.releaseHeldOrUDUB();
 
         if (!success) {
@@ -488,19 +610,31 @@ public class ModelInterpreter
     releaseActiveAcceptHeldOrWaiting() throws InterpreterEx
     {
         boolean success;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         success = simulatedCallState.releaseActiveAcceptHeldOrWaiting();
 
         if (!success) {
             throw new InterpreterEx("ERROR");
         }
+<<<<<<< HEAD
     }
+=======
+    }    
+>>>>>>> 54b6cfa... Initial Contribution
 
     private void
     switchActiveAndHeldOrWaiting() throws InterpreterEx
     {
         boolean success;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         success = simulatedCallState.switchActiveAndHeldOrWaiting();
 
         if (!success) {
@@ -512,7 +646,11 @@ public class ModelInterpreter
     separateCall(int index) throws InterpreterEx
     {
         boolean success;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         success = simulatedCallState.separateCall(index);
 
         if (!success) {
@@ -524,7 +662,11 @@ public class ModelInterpreter
     conference() throws InterpreterEx
     {
         boolean success;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         success = simulatedCallState.conference();
 
         if (!success) {
@@ -536,7 +678,11 @@ public class ModelInterpreter
     onDial(String command) throws InterpreterEx
     {
         boolean success;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         success = simulatedCallState.onDial(command.substring(1));
 
         if (!success) {
@@ -566,7 +712,11 @@ public class ModelInterpreter
 
         println("+CMGS: 1");
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     void
     processLine (String line) throws InterpreterEx
     {
@@ -645,8 +795,13 @@ public class ModelInterpreter
         }
 ***/
     }
+<<<<<<< HEAD
 
     void
+=======
+    
+    void 
+>>>>>>> 54b6cfa... Initial Contribution
     println (String s)
     {
         synchronized(this) {
@@ -663,7 +818,11 @@ public class ModelInterpreter
         }
     }
 
+<<<<<<< HEAD
     void
+=======
+    void 
+>>>>>>> 54b6cfa... Initial Contribution
     print (String s)
     {
         synchronized(this) {
@@ -683,10 +842,14 @@ public class ModelInterpreter
     public void
     shutdown()
     {
+<<<<<<< HEAD
         Looper looper = mHandlerThread.getLooper();
         if (looper != null) {
             looper.quit();
         }
+=======
+        handlerThread.getHandler().getLooper().quit();
+>>>>>>> 54b6cfa... Initial Contribution
 
         try {
             in.close();
@@ -714,8 +877,13 @@ public class ModelInterpreter
         {"+CIMI",    "320720000000000\r"},
         {"+CSCS=?",  "+CSCS: (\"HEX\",\"UCS2\")\r"},
         {"+CFUN?",   "+CFUN: 1\r"},
+<<<<<<< HEAD
         {"+COPS=3,0;+COPS?;+COPS=3,1;+COPS?;+COPS=3,2;+COPS?",
                 "+COPS: 0,0,\"Android\"\r"
+=======
+        {"+COPS=3,0;+COPS?;+COPS=3,1;+COPS?;+COPS=3,2;+COPS?",  
+                "+COPS: 0,0,\"Android\"\r" 
+>>>>>>> 54b6cfa... Initial Contribution
                 + "+COPS: 0,1,\"Android\"\r"
                 + "+COPS: 0,2,\"310995\"\r"},
         {"+CREG?",   "+CREG: 2,5, \"0113\", \"6614\"\r"},

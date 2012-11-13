@@ -16,6 +16,7 @@
 
 package android.text.method;
 
+<<<<<<< HEAD
 import android.text.Editable;
 import android.text.NoCopySpan;
 import android.text.Spannable;
@@ -134,6 +135,30 @@ public abstract class MetaKeyKeyListener {
     private static final Object ALT = new NoCopySpan.Concrete();
     private static final Object SYM = new NoCopySpan.Concrete();
     private static final Object SELECTING = new NoCopySpan.Concrete();
+=======
+import android.view.KeyEvent;
+import android.view.View;
+import android.text.*;
+
+/**
+ * This base class encapsulates the behavior for handling the meta keys
+ * (caps, fn, sym).  Key listener that care about meta state should
+ * inherit from it; you should not instantiate this class directly in a client.
+ */
+
+public abstract class MetaKeyKeyListener {
+    public static final int META_SHIFT_ON = KeyEvent.META_SHIFT_ON;
+    public static final int META_ALT_ON = KeyEvent.META_ALT_ON;
+    public static final int META_SYM_ON = KeyEvent.META_SYM_ON;
+
+    public static final int META_CAP_LOCKED = KeyEvent.META_SHIFT_ON << 8;
+    public static final int META_ALT_LOCKED = KeyEvent.META_ALT_ON << 8;
+    public static final int META_SYM_LOCKED = KeyEvent.META_SYM_ON << 8;
+
+    private static final Object CAP = new Object();
+    private static final Object ALT = new Object();
+    private static final Object SYM = new Object();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Resets all meta state to inactive.
@@ -142,7 +167,10 @@ public abstract class MetaKeyKeyListener {
         text.removeSpan(CAP);
         text.removeSpan(ALT);
         text.removeSpan(SYM);
+<<<<<<< HEAD
         text.removeSpan(SELECTING);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -156,14 +184,22 @@ public abstract class MetaKeyKeyListener {
     public static final int getMetaState(CharSequence text) {
         return getActive(text, CAP, META_SHIFT_ON, META_CAP_LOCKED) |
                getActive(text, ALT, META_ALT_ON, META_ALT_LOCKED) |
+<<<<<<< HEAD
                getActive(text, SYM, META_SYM_ON, META_SYM_LOCKED) |
                getActive(text, SELECTING, META_SELECTING, META_SELECTING);
+=======
+               getActive(text, SYM, META_SYM_ON, META_SYM_LOCKED);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Gets the state of a particular meta key.
      *
+<<<<<<< HEAD
      * @param meta META_SHIFT_ON, META_ALT_ON, META_SYM_ON, or META_SELECTING
+=======
+     * @param meta META_SHIFT_ON, META_ALT_ON, or META_SYM_ON
+>>>>>>> 54b6cfa... Initial Contribution
      * @param text the buffer in which the meta key would have been pressed.
      *
      * @return 0 if inactive, 1 if active, 2 if locked.
@@ -179,9 +215,12 @@ public abstract class MetaKeyKeyListener {
             case META_SYM_ON:
                 return getActive(text, SYM, 1, 2);
 
+<<<<<<< HEAD
             case META_SELECTING:
                 return getActive(text, SELECTING, 1, 2);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             default:
                 return 0;
         }
@@ -218,6 +257,7 @@ public abstract class MetaKeyKeyListener {
 
     /**
      * Returns true if this object is one that this class would use to
+<<<<<<< HEAD
      * keep track of any meta state in the specified text.
      */
     public static boolean isMetaTracker(CharSequence text, Object what) {
@@ -231,6 +271,12 @@ public abstract class MetaKeyKeyListener {
      */
     public static boolean isSelectingMetaTracker(CharSequence text, Object what) {
         return what == SELECTING;
+=======
+     * keep track of meta state in the specified text.
+     */
+    public static boolean isMetaTracker(CharSequence text, Object what) {
+        return what == CAP || what == ALT || what == SYM;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private static void adjust(Spannable content, Object what) {
@@ -250,7 +296,10 @@ public abstract class MetaKeyKeyListener {
         resetLock(content, CAP);
         resetLock(content, ALT);
         resetLock(content, SYM);
+<<<<<<< HEAD
         resetLock(content, SELECTING);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private static void resetLock(Spannable content, Object what) {
@@ -263,7 +312,12 @@ public abstract class MetaKeyKeyListener {
     /**
      * Handles presses of the meta keys.
      */
+<<<<<<< HEAD
     public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
+=======
+    public boolean onKeyDown(View view, Editable content,
+                             int keyCode, KeyEvent event) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (keyCode == KeyEvent.KEYCODE_SHIFT_LEFT || keyCode == KeyEvent.KEYCODE_SHIFT_RIGHT) {
             press(content, CAP);
             return true;
@@ -299,6 +353,7 @@ public abstract class MetaKeyKeyListener {
     }
 
     /**
+<<<<<<< HEAD
      * Start selecting text.
      * @hide pending API review
      */
@@ -321,23 +376,40 @@ public abstract class MetaKeyKeyListener {
     public boolean onKeyUp(View view, Editable content, int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_SHIFT_LEFT || keyCode == KeyEvent.KEYCODE_SHIFT_RIGHT) {
             release(content, CAP, event);
+=======
+     * Handles release of the meta keys.
+     */
+    public boolean onKeyUp(View view, Editable content, int keyCode,
+                                    KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_SHIFT_LEFT || keyCode == KeyEvent.KEYCODE_SHIFT_RIGHT) {
+            release(content, CAP);
+>>>>>>> 54b6cfa... Initial Contribution
             return true;
         }
 
         if (keyCode == KeyEvent.KEYCODE_ALT_LEFT || keyCode == KeyEvent.KEYCODE_ALT_RIGHT
                 || keyCode == KeyEvent.KEYCODE_NUM) {
+<<<<<<< HEAD
             release(content, ALT, event);
+=======
+            release(content, ALT);
+>>>>>>> 54b6cfa... Initial Contribution
             return true;
         }
 
         if (keyCode == KeyEvent.KEYCODE_SYM) {
+<<<<<<< HEAD
             release(content, SYM, event);
+=======
+            release(content, SYM);
+>>>>>>> 54b6cfa... Initial Contribution
             return true;
         }
 
         return false; // no super to call through to
     }
 
+<<<<<<< HEAD
     private void release(Editable content, Object what, KeyEvent event) {
         int current = content.getSpanFlags(what);
 
@@ -571,6 +643,15 @@ public abstract class MetaKeyKeyListener {
             state &= ~META_SYM_MASK;
         }
         return state;
+=======
+    private void release(Editable content, Object what) {
+        int current = content.getSpanFlags(what);
+
+        if (current == USED)
+            content.removeSpan(what);
+        else if (current == PRESSED)
+            content.setSpan(what, 0, 0, RELEASED);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**

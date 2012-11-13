@@ -18,10 +18,13 @@ package android.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.android.internal.R;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 
 /**
@@ -38,9 +41,12 @@ import com.android.internal.R;
  * a radio group, checking one radio button unchecks all the others.</p>
  * </p>
  *
+<<<<<<< HEAD
  * <p>See the <a href="{@docRoot}guide/topics/ui/controls/radiobutton.html">Radio Buttons</a>
  * guide.</p>
  *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  * <p><strong>XML attributes</strong></p>
  * <p> 
  * See {@link android.R.styleable#CompoundButton CompoundButton Attributes}, 
@@ -76,6 +82,7 @@ public class RadioButton extends CompoundButton {
             super.toggle();
         }
     }
+<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -88,4 +95,6 @@ public class RadioButton extends CompoundButton {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(RadioButton.class.getName());
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

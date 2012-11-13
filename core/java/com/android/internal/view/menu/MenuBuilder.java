@@ -22,36 +22,94 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+<<<<<<< HEAD
 import android.content.res.Configuration;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.SparseArray;
+<<<<<<< HEAD
 import android.view.ActionProvider;
 import android.view.ContextMenu.ContextMenuInfo;
+=======
+import android.view.ContextThemeWrapper;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+<<<<<<< HEAD
+=======
+import android.view.ViewGroup;
+import android.view.LayoutInflater;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.concurrent.CopyOnWriteArrayList;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Implementation of the {@link android.view.Menu} interface for creating a
  * standard menu UI.
  */
 public class MenuBuilder implements Menu {
+<<<<<<< HEAD
     private static final String TAG = "MenuBuilder";
 
     private static final String PRESENTER_KEY = "android:menu:presenters";
     private static final String ACTION_VIEW_STATES_KEY = "android:menu:actionviewstates";
     private static final String EXPANDED_ACTION_VIEW_ID = "android:menu:expandedactionview";
+=======
+    private static final String LOGTAG = "MenuBuilder";
+    
+    /** The number of different menu types */
+    public static final int NUM_TYPES = 3;
+    /** The menu type that represents the icon menu view */
+    public static final int TYPE_ICON = 0;
+    /** The menu type that represents the expanded menu view */
+    public static final int TYPE_EXPANDED = 1;
+    /**
+     * The menu type that represents a menu dialog. Examples are context and sub
+     * menus. This menu type will not have a corresponding MenuView, but it will
+     * have an ItemView.
+     */
+    public static final int TYPE_DIALOG = 2;
+
+    private static final String VIEWS_TAG = "android:views";
+    
+    // Order must be the same order as the TYPE_*
+    static final int THEME_RES_FOR_TYPE[] = new int[] {
+        com.android.internal.R.style.Theme_IconMenu,
+        com.android.internal.R.style.Theme_ExpandedMenu,
+        0,
+    };
+    
+    // Order must be the same order as the TYPE_*
+    static final int LAYOUT_RES_FOR_TYPE[] = new int[] {
+        com.android.internal.R.layout.icon_menu_layout,
+        com.android.internal.R.layout.expanded_menu_layout,
+        0,
+    };
+
+    // Order must be the same order as the TYPE_*
+    static final int ITEM_LAYOUT_RES_FOR_TYPE[] = new int[] {
+        com.android.internal.R.layout.icon_menu_item_layout,
+        com.android.internal.R.layout.list_menu_item_layout,
+        com.android.internal.R.layout.list_menu_item_layout,
+    };
+>>>>>>> 54b6cfa... Initial Contribution
 
     private static final int[]  sCategoryToOrder = new int[] {
         1, /* No category */
@@ -94,6 +152,7 @@ public class MenuBuilder implements Menu {
      * fetched from {@link #getVisibleItems()}
      */ 
     private boolean mIsVisibleItemsStale;
+<<<<<<< HEAD
     
     /**
      * Contains only the items that should appear in the Action Bar, if present.
@@ -114,6 +173,8 @@ public class MenuBuilder implements Menu {
      * Default value for how added items should show in the action list.
      */
     private int mDefaultShowAsAction = MenuItem.SHOW_AS_ACTION_NEVER;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Current use case is Context Menus: As Views populate the context menu, each one has
@@ -140,6 +201,7 @@ public class MenuBuilder implements Menu {
      * that may individually call onItemsChanged.
      */
     private boolean mPreventDispatchingItemsChanged = false;
+<<<<<<< HEAD
     private boolean mItemsChangedWhileDispatchPrevented = false;
     
     private boolean mOptionalIconsVisible = false;
@@ -158,6 +220,73 @@ public class MenuBuilder implements Menu {
     
     /**
      * Called by menu to notify of close and selection changes.
+=======
+    
+    private boolean mOptionalIconsVisible = false;
+    
+    private MenuType[] mMenuTypes;
+    class MenuType {
+        private int mMenuType;
+        
+        /** The layout inflater that uses the menu type's theme */
+        private LayoutInflater mInflater;
+
+        /** The lazily loaded {@link MenuView} */
+        private WeakReference<MenuView> mMenuView;
+
+        MenuType(int menuType) {
+            mMenuType = menuType;
+        }
+        
+        LayoutInflater getInflater() {
+            // Create an inflater that uses the given theme for the Views it inflates
+            if (mInflater == null) {
+                Context wrappedContext = new ContextThemeWrapper(mContext,
+                        THEME_RES_FOR_TYPE[mMenuType]); 
+                mInflater = (LayoutInflater) wrappedContext
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            }
+            
+            return mInflater;
+        }
+        
+        MenuView getMenuView(ViewGroup parent) {
+            if (LAYOUT_RES_FOR_TYPE[mMenuType] == 0) {
+                return null;
+            }
+
+            synchronized (this) {
+                MenuView menuView = mMenuView != null ? mMenuView.get() : null;
+                
+                if (menuView == null) {
+                    menuView = (MenuView) getInflater().inflate(
+                            LAYOUT_RES_FOR_TYPE[mMenuType], parent, false);
+                    menuView.initialize(MenuBuilder.this, mMenuType);
+
+                    // Cache the view
+                    mMenuView = new WeakReference<MenuView>(menuView);
+                    
+                    if (mFrozenViewStates != null) {
+                        View view = (View) menuView;
+                        view.restoreHierarchyState(mFrozenViewStates);
+
+                        // Clear this menu type's frozen state, since we just restored it
+                        mFrozenViewStates.remove(view.getId());
+                    }
+                }
+            
+                return menuView;
+            }
+        }
+        
+        boolean hasMenuView() {
+            return mMenuView != null && mMenuView.get() != null;
+        }
+    }
+    
+    /**
+     * Called by menu to notify of close and selection changes
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public interface Callback {
         /**
@@ -169,6 +298,33 @@ public class MenuBuilder implements Menu {
         public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item);
         
         /**
+<<<<<<< HEAD
+=======
+         * Called when a menu is closed.
+         * @param menu The menu that was closed.
+         * @param allMenusAreClosing Whether the menus are completely closing (true),
+         *            or whether there is another menu opening shortly
+         *            (false). For example, if the menu is closing because a
+         *            sub menu is about to be shown, <var>allMenusAreClosing</var>
+         *            is false.
+         */
+        public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing);
+        
+        /**
+         * Called when a sub menu is selected.  This is a cue to open the given sub menu's decor.
+         * @param subMenu the sub menu that is being opened
+         * @return whether the sub menu selection was handled by the callback
+         */
+        public boolean onSubMenuSelected(SubMenuBuilder subMenu);
+
+        /**
+         * Called when a sub menu is closed
+         * @param menu the sub menu that was closed
+         */
+        public void onCloseSubMenu(SubMenuBuilder menu);
+        
+        /**
+>>>>>>> 54b6cfa... Initial Contribution
          * Called when the mode of the menu changes (for example, from icon to expanded).
          * 
          * @param menu the menu that has changed modes
@@ -184,6 +340,11 @@ public class MenuBuilder implements Menu {
     }
 
     public MenuBuilder(Context context) {
+<<<<<<< HEAD
+=======
+        mMenuTypes = new MenuType[NUM_TYPES];
+        
+>>>>>>> 54b6cfa... Initial Contribution
         mContext = context;
         mResources = context.getResources();
         
@@ -192,6 +353,7 @@ public class MenuBuilder implements Menu {
         mVisibleItems = new ArrayList<MenuItemImpl>();
         mIsVisibleItemsStale = true;
         
+<<<<<<< HEAD
         mActionItems = new ArrayList<MenuItemImpl>();
         mNonActionItems = new ArrayList<MenuItemImpl>();
         mIsActionItemsStale = true;
@@ -378,6 +540,86 @@ public class MenuBuilder implements Menu {
 
     public void setCallback(Callback cb) {
         mCallback = cb;
+=======
+        mShortcutsVisible = true;
+    }
+    
+    public void setCallback(Callback callback) {
+        mCallback = callback;
+    }
+
+    MenuType getMenuType(int menuType) {
+        if (mMenuTypes[menuType] == null) {
+            mMenuTypes[menuType] = new MenuType(menuType);
+        }
+        
+        return mMenuTypes[menuType];
+    }
+    
+    /**
+     * Gets a menu View that contains this menu's items.
+     * 
+     * @param menuType The type of menu to get a View for (must be one of
+     *            {@link #TYPE_ICON}, {@link #TYPE_EXPANDED},
+     *            {@link #TYPE_DIALOG}).
+     * @param parent The ViewGroup that provides a set of LayoutParams values
+     *            for this menu view
+     * @return A View for the menu of type <var>menuType</var>
+     */
+    public View getMenuView(int menuType, ViewGroup parent) {
+        // The expanded menu depends on the number if items shown in the icon menu (which
+        // is adjustable as setters/XML attributes on IconMenuView [imagine a larger LCD
+        // wanting to show more icons]). If, for example, the activity goes through
+        // an orientation change while the expanded menu is open, the icon menu's view
+        // won't have an instance anymore; so here we make sure we have an icon menu view (matching
+        // the same parent so the layout parameters from the XML are used). This
+        // will create the icon menu view and cache it (if it doesn't already exist). 
+        if (menuType == TYPE_EXPANDED
+                && (mMenuTypes[TYPE_ICON] == null || !mMenuTypes[TYPE_ICON].hasMenuView())) {
+            getMenuType(TYPE_ICON).getMenuView(parent);
+        }
+        
+        return (View) getMenuType(menuType).getMenuView(parent);
+    }
+    
+    private int getNumIconMenuItemsShown() {
+        ViewGroup parent = null;
+        
+        if (!mMenuTypes[TYPE_ICON].hasMenuView()) {
+            /*
+             * There isn't an icon menu view instantiated, so when we get it
+             * below, it will lazily instantiate it. We should pass a proper
+             * parent so it uses the layout_ attributes present in the XML
+             * layout file.
+             */
+            if (mMenuTypes[TYPE_EXPANDED].hasMenuView()) {
+                View expandedMenuView = (View) mMenuTypes[TYPE_EXPANDED].getMenuView(null);
+                parent = (ViewGroup) expandedMenuView.getParent();
+            }
+        }
+        
+        return ((IconMenuView) getMenuView(TYPE_ICON, parent)).getNumActualItemsShown(); 
+    }
+    
+    /**
+     * Clears the cached menu views. Call this if the menu views need to another
+     * layout (for example, if the screen size has changed).
+     */
+    public void clearMenuViews() {
+        for (int i = NUM_TYPES - 1; i >= 0; i--) {
+            if (mMenuTypes[i] != null) {
+                mMenuTypes[i].mMenuView = null;
+            }
+        }
+        
+        for (int i = mItems.size() - 1; i >= 0; i--) {
+            MenuItemImpl item = mItems.get(i);
+            if (item.hasSubMenu()) {
+                ((SubMenuBuilder) item.getSubMenu()).clearMenuViews();
+            }
+            item.clearItemViews();
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -386,8 +628,12 @@ public class MenuBuilder implements Menu {
     private MenuItem addInternal(int group, int id, int categoryOrder, CharSequence title) {
         final int ordering = getOrdering(categoryOrder);
         
+<<<<<<< HEAD
         final MenuItemImpl item = new MenuItemImpl(this, group, id, categoryOrder,
                 ordering, title, mDefaultShowAsAction);
+=======
+        final MenuItemImpl item = new MenuItemImpl(this, group, id, categoryOrder, ordering, title);
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (mCurrentMenuInfo != null) {
             // Pass along the current menu info
@@ -395,7 +641,11 @@ public class MenuBuilder implements Menu {
         }
         
         mItems.add(findInsertIndex(mItems, ordering), item);
+<<<<<<< HEAD
         onItemsChanged(true);
+=======
+        onItemsChanged(false);
+>>>>>>> 54b6cfa... Initial Contribution
         
         return item;
     }
@@ -454,9 +704,14 @@ public class MenuBuilder implements Menu {
             rintent.setComponent(new ComponentName(
                     ri.activityInfo.applicationInfo.packageName,
                     ri.activityInfo.name));
+<<<<<<< HEAD
             final MenuItem item = add(group, id, categoryOrder, ri.loadLabel(pm))
                     .setIcon(ri.loadIcon(pm))
                     .setIntent(rintent);
+=======
+            final MenuItem item = add(group, id, categoryOrder, ri.loadLabel(pm));
+            item.setIntent(rintent);
+>>>>>>> 54b6cfa... Initial Contribution
             if (outSpecificItems != null && ri.specificIndex >= 0) {
                 outSpecificItems[ri.specificIndex] = item;
             }
@@ -481,7 +736,11 @@ public class MenuBuilder implements Menu {
             }
             
             // Notify menu views
+<<<<<<< HEAD
             onItemsChanged(true);
+=======
+            onItemsChanged(false);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -500,7 +759,11 @@ public class MenuBuilder implements Menu {
 
         mItems.remove(index);
         
+<<<<<<< HEAD
         if (updateChildrenOnMenuViews) onItemsChanged(true);
+=======
+        if (updateChildrenOnMenuViews) onItemsChanged(false);
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     public void removeItemAt(int index) {
@@ -512,14 +775,20 @@ public class MenuBuilder implements Menu {
         clear();
         clearHeader();
         mPreventDispatchingItemsChanged = false;
+<<<<<<< HEAD
         mItemsChangedWhileDispatchPrevented = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         onItemsChanged(true);
     }
     
     public void clear() {
+<<<<<<< HEAD
         if (mExpandedItem != null) {
             collapseItemActionView(mExpandedItem);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mItems.clear();
         
         onItemsChanged(true);
@@ -567,7 +836,11 @@ public class MenuBuilder implements Menu {
             }
         }
 
+<<<<<<< HEAD
         if (changedAtLeastOneItem) onItemsChanged(true);
+=======
+        if (changedAtLeastOneItem) onItemsChanged(false);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void setGroupEnabled(int group, boolean enabled) {
@@ -651,8 +924,12 @@ public class MenuBuilder implements Menu {
         return mItems.size();
     }
 
+<<<<<<< HEAD
     /** {@inheritDoc} */
     public MenuItem getItem(int index) {
+=======
+    public MenuItem get(int index) {
+>>>>>>> 54b6cfa... Initial Contribution
         return mItems.get(index);
     }
 
@@ -662,8 +939,13 @@ public class MenuBuilder implements Menu {
 
     public void setQwertyMode(boolean isQwerty) {
         mQwertyMode = isQwerty;
+<<<<<<< HEAD
 
         onItemsChanged(false);
+=======
+        
+        refreshShortcuts(isShortcutsVisible(), isQwerty);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -677,7 +959,12 @@ public class MenuBuilder implements Menu {
      * @return An ordering integer that can be used to order this item across
      *         all the items (even from other categories).
      */
+<<<<<<< HEAD
     private static int getOrdering(int categoryOrder) {
+=======
+    private static int getOrdering(int categoryOrder)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         final int index = (categoryOrder & CATEGORY_MASK) >> CATEGORY_SHIFT;
         
         if (index < 0 || index >= sCategoryToOrder.length) {
@@ -695,8 +982,29 @@ public class MenuBuilder implements Menu {
     }
 
     /**
+<<<<<<< HEAD
      * Sets whether the shortcuts should be visible on menus.  Devices without hardware
      * key input will never make shortcuts visible even if this method is passed 'true'.
+=======
+     * Refreshes the shortcut labels on each of the displayed items.  Passes the arguments
+     * so submenus don't need to call their parent menu for the same values.
+     */
+    private void refreshShortcuts(boolean shortcutsVisible, boolean qwertyMode) {
+        MenuItemImpl item;
+        for (int i = mItems.size() - 1; i >= 0; i--) {
+            item = mItems.get(i);
+            
+            if (item.hasSubMenu()) {
+                ((MenuBuilder) item.getSubMenu()).refreshShortcuts(shortcutsVisible, qwertyMode);
+            }
+            
+            item.refreshShortcutOnItemViews(shortcutsVisible, qwertyMode);
+        }
+    }
+
+    /**
+     * Sets whether the shortcuts should be visible on menus.
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param shortcutsVisible Whether shortcuts should be visible (if true and a
      *            menu item does not have a shortcut defined, that item will
@@ -704,6 +1012,7 @@ public class MenuBuilder implements Menu {
      */
     public void setShortcutsVisible(boolean shortcutsVisible) {
         if (mShortcutsVisible == shortcutsVisible) return;
+<<<<<<< HEAD
 
         setShortcutsVisibleInner(shortcutsVisible);
         onItemsChanged(false);
@@ -714,6 +1023,12 @@ public class MenuBuilder implements Menu {
                 && mResources.getConfiguration().keyboard != Configuration.KEYBOARD_NOKEYS
                 && mResources.getBoolean(
                         com.android.internal.R.bool.config_showMenuShortcutsWhenKeyboardPresent);
+=======
+        
+        mShortcutsVisible = shortcutsVisible;
+        
+        refreshShortcuts(shortcutsVisible, isQwertyMode());
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -726,11 +1041,19 @@ public class MenuBuilder implements Menu {
     Resources getResources() {
         return mResources;
     }
+<<<<<<< HEAD
+=======
+
+    public Callback getCallback() {
+        return mCallback;
+    }
+>>>>>>> 54b6cfa... Initial Contribution
     
     public Context getContext() {
         return mContext;
     }
     
+<<<<<<< HEAD
     boolean dispatchMenuItemSelected(MenuBuilder menu, MenuItem item) {
         return mCallback != null && mCallback.onMenuItemSelected(menu, item);
     }
@@ -744,6 +1067,8 @@ public class MenuBuilder implements Menu {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private static int findInsertIndex(ArrayList<MenuItemImpl> items, int ordering) {
         for (int i = items.size() - 1; i >= 0; i--) {
             MenuItemImpl item = items.get(i);
@@ -771,6 +1096,7 @@ public class MenuBuilder implements Menu {
         return handled;
     }
 
+<<<<<<< HEAD
     /*
      * This function will return all the menu and sub-menu items that can
      * be directly (the shortcut directly corresponds) and indirectly
@@ -778,6 +1104,9 @@ public class MenuBuilder implements Menu {
      * with the keyCode.
      */
     void findItemsWithShortcutForKey(List<MenuItemImpl> items, int keyCode, KeyEvent event) {
+=======
+    MenuItemImpl findItemWithShortcutForKey(int keyCode, KeyEvent event) {
+>>>>>>> 54b6cfa... Initial Contribution
         final boolean qwerty = isQwertyMode();
         final int metaState = event.getMetaState();
         final KeyCharacterMap.KeyData possibleChars = new KeyCharacterMap.KeyData();
@@ -785,7 +1114,11 @@ public class MenuBuilder implements Menu {
         final boolean isKeyCodeMapped = event.getKeyData(possibleChars);
         // The delete key is not mapped to '\b' so we treat it specially
         if (!isKeyCodeMapped && (keyCode != KeyEvent.KEYCODE_DEL)) {
+<<<<<<< HEAD
             return;
+=======
+            return null;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         // Look for an item whose shortcut is this key.
@@ -793,6 +1126,7 @@ public class MenuBuilder implements Menu {
         for (int i = 0; i < N; i++) {
             MenuItemImpl item = mItems.get(i);
             if (item.hasSubMenu()) {
+<<<<<<< HEAD
                 ((MenuBuilder)item.getSubMenu()).findItemsWithShortcutForKey(items, keyCode, event);
             }
             final char shortcutChar = qwerty ? item.getAlphabeticShortcut() : item.getNumericShortcut();
@@ -854,11 +1188,40 @@ public class MenuBuilder implements Menu {
                 || (qwerty && shortcutChar == '\b' &&
                     keyCode == KeyEvent.KEYCODE_DEL)) {
                 return item;
+=======
+                MenuItemImpl subMenuItem = ((MenuBuilder)item.getSubMenu())
+                                .findItemWithShortcutForKey(keyCode, event);
+                if (subMenuItem != null) {
+                    return subMenuItem;
+                }
+            }
+            if (qwerty) {
+                final char shortcutAlphaChar = item.getAlphabeticShortcut();
+                if (((metaState & (KeyEvent.META_SHIFT_ON | KeyEvent.META_SYM_ON)) == 0) &&
+                        (shortcutAlphaChar != 0) &&
+                        (shortcutAlphaChar == possibleChars.meta[0]
+                         || shortcutAlphaChar == possibleChars.meta[2]
+                         || (shortcutAlphaChar == '\b' && keyCode == KeyEvent.KEYCODE_DEL))) {
+                    return item;
+                }
+            } else {
+                final char shortcutNumericChar = item.getNumericShortcut();
+                if (((metaState & (KeyEvent.META_SHIFT_ON | KeyEvent.META_SYM_ON)) == 0) &&
+                        (shortcutNumericChar != 0) &&
+                        (shortcutNumericChar == possibleChars.meta[0]
+                            || shortcutNumericChar == possibleChars.meta[2])) {
+                    return item;
+                }
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
         return null;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean performIdentifierAction(int id, int flags) {
         // Look for an item whose identifier is the id.
         return performItemAction(findItem(id), flags);           
@@ -869,6 +1232,7 @@ public class MenuBuilder implements Menu {
         
         if (itemImpl == null || !itemImpl.isEnabled()) {
             return false;
+<<<<<<< HEAD
         }
 
         boolean invoked = itemImpl.invoke();
@@ -891,6 +1255,20 @@ public class MenuBuilder implements Menu {
             }
             invoked |= dispatchSubMenuSelected(subMenu);
             if (!invoked) close(true);
+=======
+        }        
+        
+        boolean invoked = itemImpl.invoke();
+
+        if (item.hasSubMenu()) {
+            close(false);
+
+            if (mCallback != null) {
+                // Return true if the sub menu was invoked or the item was invoked previously
+                invoked = mCallback.onSubMenuSelected((SubMenuBuilder) item.getSubMenu())
+                        || invoked;
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         } else {
             if ((flags & FLAG_PERFORM_NO_CLOSE) == 0) {
                 close(true);
@@ -909,6 +1287,7 @@ public class MenuBuilder implements Menu {
      *            sub menu is about to be shown, <var>allMenusAreClosing</var>
      *            is false.
      */
+<<<<<<< HEAD
     final void close(boolean allMenusAreClosing) {
         if (mIsClosing) return;
 
@@ -927,11 +1306,19 @@ public class MenuBuilder implements Menu {
     /** {@inheritDoc} */
     public void close() {
         close(true);
+=======
+    public final void close(boolean allMenusAreClosing) {
+        Callback callback = getCallback();
+        if (callback != null) {
+            callback.onCloseMenu(this, allMenusAreClosing);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Called when an item is added or removed.
      * 
+<<<<<<< HEAD
      * @param structureChanged true if the menu structure changed,
      *                         false if only item properties changed.
      *                         (Visibility is a structural property since it affects layout.)
@@ -967,6 +1354,21 @@ public class MenuBuilder implements Menu {
         if (mItemsChangedWhileDispatchPrevented) {
             mItemsChangedWhileDispatchPrevented = false;
             onItemsChanged(true);
+=======
+     * @param cleared Whether the items were cleared or just changed.
+     */
+    private void onItemsChanged(boolean cleared) {
+        if (!mPreventDispatchingItemsChanged) {
+            if (mIsVisibleItemsStale == false) mIsVisibleItemsStale = true;
+            
+            MenuType[] menuTypes = mMenuTypes;
+            for (int i = 0; i < NUM_TYPES; i++) {
+                if ((menuTypes[i] != null) && (menuTypes[i].hasMenuView())) {
+                    MenuView menuView = menuTypes[i].mMenuView.get();
+                    menuView.updateChildren(cleared);
+                }
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -976,6 +1378,7 @@ public class MenuBuilder implements Menu {
      */
     void onItemVisibleChanged(MenuItemImpl item) {
         // Notify of items being changed
+<<<<<<< HEAD
         mIsVisibleItemsStale = true;
         onItemsChanged(true);
     }
@@ -988,6 +1391,9 @@ public class MenuBuilder implements Menu {
         // Notify of items being changed
         mIsActionItemsStale = true;
         onItemsChanged(true);
+=======
+        onItemsChanged(false);
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     ArrayList<MenuItemImpl> getVisibleItems() {
@@ -1004,11 +1410,15 @@ public class MenuBuilder implements Menu {
         }
         
         mIsVisibleItemsStale = false;
+<<<<<<< HEAD
         mIsActionItemsStale = true;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         
         return mVisibleItems;
     }
 
+<<<<<<< HEAD
     /**
      * This method determines which menu items get to be 'action items' that will appear
      * in an action bar and which items should be 'overflow items' in a secondary menu.
@@ -1082,6 +1492,8 @@ public class MenuBuilder implements Menu {
         return mNonActionItems;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void clearHeader() {
         mHeaderIcon = null;
         mHeaderTitle = null;
@@ -1212,6 +1624,19 @@ public class MenuBuilder implements Menu {
         mCurrentMenuInfo = menuInfo;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Gets an adapter for providing items and their views.
+     * 
+     * @param menuType The type of menu to get an adapter for.
+     * @return A {@link MenuAdapter} for this menu with the given menu type.
+     */
+    public MenuAdapter getMenuAdapter(int menuType) {
+        return new MenuAdapter(menuType);
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     void setOptionalIconsVisible(boolean visible) {
         mOptionalIconsVisible = visible;
     }
@@ -1220,6 +1645,7 @@ public class MenuBuilder implements Menu {
         return mOptionalIconsVisible;
     }
 
+<<<<<<< HEAD
     public boolean expandItemActionView(MenuItemImpl item) {
         if (mPresenters.isEmpty()) return false;
 
@@ -1266,5 +1692,79 @@ public class MenuBuilder implements Menu {
 
     public MenuItemImpl getExpandedItem() {
         return mExpandedItem;
+=======
+    public void saveHierarchyState(Bundle outState) {
+        SparseArray<Parcelable> viewStates = new SparseArray<Parcelable>();
+        
+        MenuType[] menuTypes = mMenuTypes;
+        for (int i = NUM_TYPES - 1; i >= 0; i--) {
+            if (menuTypes[i] == null) {
+                continue;
+            }
+
+            if (menuTypes[i].hasMenuView()) {
+                ((View) menuTypes[i].getMenuView(null)).saveHierarchyState(viewStates);
+            }
+        }
+        
+        outState.putSparseParcelableArray(VIEWS_TAG, viewStates);
+    }
+
+    public void restoreHierarchyState(Bundle inState) {
+        // Save this for menu views opened later
+        SparseArray<Parcelable> viewStates = mFrozenViewStates = inState
+                .getSparseParcelableArray(VIEWS_TAG);
+        
+        // Thaw those menu views already open
+        MenuType[] menuTypes = mMenuTypes;
+        for (int i = NUM_TYPES - 1; i >= 0; i--) {
+            if (menuTypes[i] == null) {
+                continue;
+            }
+            
+            if (menuTypes[i].hasMenuView()) {
+                ((View) menuTypes[i].getMenuView(null)).restoreHierarchyState(viewStates);
+            }
+        }
+    }
+    
+    /**
+     * An adapter that allows an {@link AdapterView} to use this {@link MenuBuilder} as a data
+     * source.  This adapter will use only the visible/shown items from the menu.
+     */
+    public class MenuAdapter extends BaseAdapter {
+        private int mMenuType;
+        
+        public MenuAdapter(int menuType) {
+            mMenuType = menuType;
+        }
+
+        public int getOffset() {
+            if (mMenuType == TYPE_EXPANDED) {
+                return getNumIconMenuItemsShown(); 
+            } else {
+                return 0;
+            }
+        }
+        
+        public int getCount() {
+            return getVisibleItems().size() - getOffset();
+        }
+
+        public MenuItemImpl getItem(int position) {
+            return getVisibleItems().get(position + getOffset());
+        }
+
+        public long getItemId(int position) {
+            // Since a menu item's ID is optional, we'll use the position as an
+            // ID for the item in the AdapterView
+            return position;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return ((MenuItemImpl) getItem(position)).getItemView(mMenuType, parent);
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

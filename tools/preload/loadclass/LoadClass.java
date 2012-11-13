@@ -35,11 +35,15 @@ class LoadClass {
 
         if (args.length > 0) {
             try {
+<<<<<<< HEAD
                 long start = System.currentTimeMillis();
                 Class.forName(args[0]);
                 long elapsed = System.currentTimeMillis() - start;
                 Log.i("LoadClass", "Loaded " + args[0] + " in " + elapsed
                         + "ms.");
+=======
+                Class.forName(args[0]);
+>>>>>>> 54b6cfa... Initial Contribution
             } catch (ClassNotFoundException e) {
                 Log.w("LoadClass", e);
                 return;

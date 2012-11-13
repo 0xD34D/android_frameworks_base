@@ -21,6 +21,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+<<<<<<< HEAD
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -30,6 +31,13 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 public abstract class AbsSeekBar extends ProgressBar {
+=======
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+
+public abstract class AbsSeekBar extends ProgressBar {
+
+>>>>>>> 54b6cfa... Initial Contribution
     private Drawable mThumb;
     private int mThumbOffset;
     
@@ -43,6 +51,7 @@ public abstract class AbsSeekBar extends ProgressBar {
      * Whether this is user seekable.
      */
     boolean mIsUserSeekable = true;
+<<<<<<< HEAD
 
     /**
      * On key presses (right or left), the amount to increment/decrement the
@@ -57,6 +66,12 @@ public abstract class AbsSeekBar extends ProgressBar {
     private float mTouchDownX;
     private boolean mIsDragging;
 
+=======
+    
+    private static final int NO_ALPHA = 0xFF;
+    float mDisabledAlpha;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public AbsSeekBar(Context context) {
         super(context);
     }
@@ -68,6 +83,7 @@ public abstract class AbsSeekBar extends ProgressBar {
     public AbsSeekBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+<<<<<<< HEAD
         TypedArray a = context.obtainStyledAttributes(attrs,
                 com.android.internal.R.styleable.SeekBar, defStyle, 0);
         Drawable thumb = a.getDrawable(com.android.internal.R.styleable.SeekBar_thumb);
@@ -75,6 +91,15 @@ public abstract class AbsSeekBar extends ProgressBar {
         // ...but allow layout to override this
         int thumbOffset = a.getDimensionPixelOffset(
                 com.android.internal.R.styleable.SeekBar_thumbOffset, getThumbOffset());
+=======
+
+        TypedArray a = context.obtainStyledAttributes(attrs,
+                com.android.internal.R.styleable.SeekBar, defStyle, 0);
+        Drawable thumb = a.getDrawable(com.android.internal.R.styleable.SeekBar_thumb);
+        setThumb(thumb);
+        int thumbOffset =
+                a.getDimensionPixelOffset(com.android.internal.R.styleable.SeekBar_thumbOffset, 0);
+>>>>>>> 54b6cfa... Initial Contribution
         setThumbOffset(thumbOffset);
         a.recycle();
 
@@ -82,6 +107,7 @@ public abstract class AbsSeekBar extends ProgressBar {
                 com.android.internal.R.styleable.Theme, 0, 0);
         mDisabledAlpha = a.getFloat(com.android.internal.R.styleable.Theme_disabledAlpha, 0.5f);
         a.recycle();
+<<<<<<< HEAD
 
         mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
@@ -91,10 +117,17 @@ public abstract class AbsSeekBar extends ProgressBar {
      * <p>
      * If the thumb is a valid drawable (i.e. not null), half its width will be
      * used as the new thumb offset (@see #setThumbOffset(int)).
+=======
+    }
+
+    /**
+     * Sets the thumb that will be drawn at the end of the progress meter within the SeekBar
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param thumb Drawable representing the thumb
      */
     public void setThumb(Drawable thumb) {
+<<<<<<< HEAD
         boolean needUpdate;
         // This way, calling setThumb again with the same bitmap will result in
         // it recalcuating mThumbOffset (if for example it the bounds of the
@@ -141,6 +174,13 @@ public abstract class AbsSeekBar extends ProgressBar {
      */
     public Drawable getThumb() {
         return mThumb;
+=======
+        if (thumb != null) {
+            thumb.setCallback(this);
+        }
+        mThumb = thumb;
+        invalidate();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -161,6 +201,7 @@ public abstract class AbsSeekBar extends ProgressBar {
         invalidate();
     }
 
+<<<<<<< HEAD
     /**
      * Sets the amount of progress changed via the arrow keys.
      * 
@@ -194,18 +235,23 @@ public abstract class AbsSeekBar extends ProgressBar {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected boolean verifyDrawable(Drawable who) {
         return who == mThumb || super.verifyDrawable(who);
     }
 
     @Override
+<<<<<<< HEAD
     public void jumpDrawablesToCurrentState() {
         super.jumpDrawablesToCurrentState();
         if (mThumb != null) mThumb.jumpToCurrentState();
     }
 
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     protected void drawableStateChanged() {
         super.drawableStateChanged();
         
@@ -213,6 +259,7 @@ public abstract class AbsSeekBar extends ProgressBar {
         if (progressDrawable != null) {
             progressDrawable.setAlpha(isEnabled() ? NO_ALPHA : (int) (NO_ALPHA * mDisabledAlpha));
         }
+<<<<<<< HEAD
         
         if (mThumb != null && mThumb.isStateful()) {
             int[] state = getDrawableState();
@@ -226,6 +273,15 @@ public abstract class AbsSeekBar extends ProgressBar {
         Drawable thumb = mThumb;
         if (thumb != null) {
             setThumbPos(getWidth(), thumb, scale, Integer.MIN_VALUE);
+=======
+    }
+    
+    @Override
+    void onProgressRefresh(float scale, boolean fromTouch) { 
+        Drawable thumb = mThumb;
+        if (thumb != null) {
+            setThumbPos(getWidth(), getHeight(), thumb, scale, Integer.MIN_VALUE);
+>>>>>>> 54b6cfa... Initial Contribution
             /*
              * Since we draw translated, the drawable's bounds that it signals
              * for invalidation won't be the actual bounds we want invalidated,
@@ -238,10 +294,13 @@ public abstract class AbsSeekBar extends ProgressBar {
     
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+<<<<<<< HEAD
         updateThumbPos(w, h);
     }
 
     private void updateThumbPos(int w, int h) {
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         Drawable d = getCurrentDrawable();
         Drawable thumb = mThumb;
         int thumbHeight = thumb == null ? 0 : thumb.getIntrinsicHeight();
@@ -254,7 +313,11 @@ public abstract class AbsSeekBar extends ProgressBar {
         
         if (thumbHeight > trackHeight) {
             if (thumb != null) {
+<<<<<<< HEAD
                 setThumbPos(w, thumb, scale, 0);
+=======
+                setThumbPos(w, h, thumb, scale, 0);
+>>>>>>> 54b6cfa... Initial Contribution
             }
             int gapForCenteringTrack = (thumbHeight - trackHeight) / 2;
             if (d != null) {
@@ -271,15 +334,25 @@ public abstract class AbsSeekBar extends ProgressBar {
             }
             int gap = (trackHeight - thumbHeight) / 2;
             if (thumb != null) {
+<<<<<<< HEAD
                 setThumbPos(w, thumb, scale, gap);
+=======
+                setThumbPos(w, h, thumb, scale, gap);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
     /**
      * @param gap If set to {@link Integer#MIN_VALUE}, this will be ignored and
+<<<<<<< HEAD
      */
     private void setThumbPos(int w, Drawable thumb, float scale, int gap) {
+=======
+     *            the old vertical bounds will be used.
+     */
+    private void setThumbPos(int w, int h, Drawable thumb, float scale, int gap) {
+>>>>>>> 54b6cfa... Initial Contribution
         int available = w - mPaddingLeft - mPaddingRight;
         int thumbWidth = thumb.getIntrinsicWidth();
         int thumbHeight = thumb.getIntrinsicHeight();
@@ -332,8 +405,13 @@ public abstract class AbsSeekBar extends ProgressBar {
         dw += mPaddingLeft + mPaddingRight;
         dh += mPaddingTop + mPaddingBottom;
         
+<<<<<<< HEAD
         setMeasuredDimension(resolveSizeAndState(dw, widthMeasureSpec, 0),
                 resolveSizeAndState(dh, heightMeasureSpec, 0));
+=======
+        setMeasuredDimension(resolveSize(dw, widthMeasureSpec),
+                resolveSize(dh, heightMeasureSpec));
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
@@ -344,6 +422,7 @@ public abstract class AbsSeekBar extends ProgressBar {
         
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+<<<<<<< HEAD
                 if (isInScrollingContainer()) {
                     mTouchDownX = event.getX();
                 } else {
@@ -398,6 +477,23 @@ public abstract class AbsSeekBar extends ProgressBar {
                     setPressed(false);
                 }
                 invalidate(); // see above explanation
+=======
+                onStartTrackingTouch();
+                trackTouchEvent(event);
+                break;
+                
+            case MotionEvent.ACTION_MOVE:
+                trackTouchEvent(event);
+                break;
+                
+            case MotionEvent.ACTION_UP:
+                trackTouchEvent(event);
+                onStopTrackingTouch();
+                break;
+                
+            case MotionEvent.ACTION_CANCEL:
+                onStopTrackingTouch();
+>>>>>>> 54b6cfa... Initial Contribution
                 break;
         }
         return true;
@@ -420,6 +516,7 @@ public abstract class AbsSeekBar extends ProgressBar {
         
         final int max = getMax();
         progress += scale * max;
+<<<<<<< HEAD
         
         setProgress((int) progress, true);
     }
@@ -433,12 +530,25 @@ public abstract class AbsSeekBar extends ProgressBar {
             mParent.requestDisallowInterceptTouchEvent(true);
         }
     }
+=======
+        if (progress < 0) {
+            progress = 0;
+        } else if (progress > max) {
+            progress = max;
+        }
+        
+        setProgress((int) progress, true);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
     
     /**
      * This is called when the user has started touching this widget.
      */
     void onStartTrackingTouch() {
+<<<<<<< HEAD
         mIsDragging = true;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -446,6 +556,7 @@ public abstract class AbsSeekBar extends ProgressBar {
      * canceled.
      */
     void onStopTrackingTouch() {
+<<<<<<< HEAD
         mIsDragging = false;
     }
 
@@ -529,4 +640,8 @@ public abstract class AbsSeekBar extends ProgressBar {
         }
         return false;
     }
+=======
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
 }

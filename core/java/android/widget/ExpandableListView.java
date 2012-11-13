@@ -18,6 +18,11 @@ package android.widget;
 
 import com.android.internal.R;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -30,12 +35,17 @@ import android.view.ContextMenu;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.ExpandableListConnector.PositionMetadata;
 
 import java.util.ArrayList;
 
+=======
+import android.widget.ExpandableListConnector.PositionMetadata;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * A view that shows items in a vertically scrolling two-level list. This
  * differs from the {@link ListView} by allowing two levels: groups which can
@@ -186,10 +196,14 @@ public class ExpandableListView extends ListView {
     
     /** Drawable to be used as a divider when it is adjacent to any children */
     private Drawable mChildDivider;
+<<<<<<< HEAD
 
     // Bounds of the indicator to be drawn
     private final Rect mIndicatorRect = new Rect();
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public ExpandableListView(Context context) {
         this(context, null);
     }
@@ -213,9 +227,12 @@ public class ExpandableListView extends ListView {
                 .getDimensionPixelSize(com.android.internal.R.styleable.ExpandableListView_indicatorLeft, 0);
         mIndicatorRight = a
                 .getDimensionPixelSize(com.android.internal.R.styleable.ExpandableListView_indicatorRight, 0);
+<<<<<<< HEAD
         if (mIndicatorRight == 0 && mGroupIndicator != null) {
             mIndicatorRight = mIndicatorLeft + mGroupIndicator.getIntrinsicWidth();
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mChildIndicatorLeft = a.getDimensionPixelSize(
                 com.android.internal.R.styleable.ExpandableListView_childIndicatorLeft, CHILD_INDICATOR_INHERIT);
         mChildIndicatorRight = a.getDimensionPixelSize(
@@ -260,9 +277,16 @@ public class ExpandableListView extends ListView {
         
         // Start at a value that is neither child nor group
         int lastItemType = ~(ExpandableListPosition.CHILD | ExpandableListPosition.GROUP);
+<<<<<<< HEAD
 
         final Rect indicatorRect = mIndicatorRect;
 
+=======
+        
+        // Bounds of the indicator to be drawn
+        Rect indicatorRect = new Rect();
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // The "child" mentioned in the following two lines is this
         // View's child, not referring to an expandable list's
         // notion of a child (as opposed to a group)
@@ -301,6 +325,7 @@ public class ExpandableListView extends ListView {
                     indicatorRect.right = mIndicatorRight;
                 }
                 
+<<<<<<< HEAD
                 indicatorRect.left += mPaddingLeft;
                 indicatorRect.right += mPaddingLeft;
 
@@ -327,6 +352,33 @@ public class ExpandableListView extends ListView {
                 }
             }
             pos.recycle();
+=======
+                lastItemType = pos.position.type; 
+            }
+
+            if (indicatorRect.left == indicatorRect.right) {
+                // The left and right bounds are the same, so nothing will be drawn
+                continue;
+            }
+
+            // Use item's full height + the divider height
+            if (mStackFromBottom) {
+                // See ListView#dispatchDraw
+                indicatorRect.top = t - mDividerHeight;
+                indicatorRect.bottom = b;
+            } else {
+                indicatorRect.top = t;
+                indicatorRect.bottom = b + mDividerHeight;
+            }
+            
+            // Get the indicator (with its state set to the item's state)
+            indicator = getIndicator(pos);
+            if (indicator == null) continue;
+            
+            // Draw the indicator
+            indicator.setBounds(indicatorRect);
+            indicator.draw(canvas);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (clipToPadding) {
@@ -393,6 +445,7 @@ public class ExpandableListView extends ListView {
         // Only proceed as possible child if the divider isn't above all items (if it is above
         // all items, then the item below it has to be a group)
         if (flatListPosition >= 0) {
+<<<<<<< HEAD
             final int adjustedPosition = getFlatPositionForConnector(flatListPosition);
             PositionMetadata pos = mConnector.getUnflattenedPos(adjustedPosition);
             // If this item is a child, or it is a non-empty group that is expanded
@@ -406,6 +459,18 @@ public class ExpandableListView extends ListView {
                 return;
             }
             pos.recycle();
+=======
+            PositionMetadata pos = mConnector.getUnflattenedPos(flatListPosition);
+            // If this item is a child, or it is a non-empty group that is expanded
+            if ((pos.position.type == ExpandableListPosition.CHILD)
+                    || (pos.isExpanded() &&
+                            pos.groupMetadata.lastChildFlPos != pos.groupMetadata.flPos)) {
+                // These are the cases where we draw the child divider
+                mChildDivider.setBounds(bounds);
+                mChildDivider.draw(canvas);
+                return;
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
         
         // Otherwise draw the default divider
@@ -478,6 +543,7 @@ public class ExpandableListView extends ListView {
         return mAdapter;
     }
     
+<<<<<<< HEAD
     /**
      * @param position An absolute (including header and footer) flat list position.
      * @return true if the position corresponds to a header or a footer item.
@@ -513,13 +579,26 @@ public class ExpandableListView extends ListView {
     public boolean performItemClick(View v, int position, long id) {
         // Ignore clicks in header/footers
         if (isHeaderOrFooterPosition(position)) {
+=======
+    @Override
+    public boolean performItemClick(View v, int position, long id) {
+        // Ignore clicks in header/footers
+        final int headerViewsCount = getHeaderViewsCount();
+        final int footerViewsStart = mItemCount - getFooterViewsCount();
+
+        if (position < headerViewsCount || position >= footerViewsStart) {
+>>>>>>> 54b6cfa... Initial Contribution
             // Clicked on a header/footer, so ignore pass it on to super
             return super.performItemClick(v, position, id);
         }
         
         // Internally handle the item click
+<<<<<<< HEAD
         final int adjustedPosition = getFlatPositionForConnector(position);
         return handleItemClick(v, adjustedPosition, id);
+=======
+        return handleItemClick(v, position - headerViewsCount, id);
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -535,6 +614,7 @@ public class ExpandableListView extends ListView {
         
         id = getChildOrGroupId(posMetadata.position);
         
+<<<<<<< HEAD
         boolean returnValue;
         if (posMetadata.position.type == ExpandableListPosition.GROUP) {
             /* It's a group, so handle collapsing/expanding */
@@ -548,20 +628,43 @@ public class ExpandableListView extends ListView {
                 }
             }
 
+=======
+        if (posMetadata.position.type == ExpandableListPosition.GROUP) {
+            /* It's a group, so handle collapsing/expanding */
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (posMetadata.isExpanded()) {
                 /* Collapse it */
                 mConnector.collapseGroup(posMetadata);
 
                 playSoundEffect(SoundEffectConstants.CLICK);
+<<<<<<< HEAD
 
                 if (mOnGroupCollapseListener != null) {
                     mOnGroupCollapseListener.onGroupCollapse(posMetadata.position.groupPos);
                 }
             } else {
+=======
+                
+                if (mOnGroupCollapseListener != null) {
+                    mOnGroupCollapseListener.onGroupCollapse(posMetadata.position.groupPos);
+                }
+                
+            } else {
+                /* It's a group click, so pass on event */
+                if (mOnGroupClickListener != null) {
+                    if (mOnGroupClickListener.onGroupClick(this, v,
+                            posMetadata.position.groupPos, id)) {
+                        return true;
+                    }
+                }
+
+>>>>>>> 54b6cfa... Initial Contribution
                 /* Expand it */
                 mConnector.expandGroup(posMetadata);
 
                 playSoundEffect(SoundEffectConstants.CLICK);
+<<<<<<< HEAD
 
                 if (mOnGroupExpandListener != null) {
                     mOnGroupExpandListener.onGroupExpand(posMetadata.position.groupPos);
@@ -576,6 +679,15 @@ public class ExpandableListView extends ListView {
             }
 
             returnValue = true;
+=======
+                
+                if (mOnGroupExpandListener != null) {
+                    mOnGroupExpandListener.onGroupExpand(posMetadata.position.groupPos);
+                }
+            }
+            
+            return true;
+>>>>>>> 54b6cfa... Initial Contribution
         } else {
             /* It's a child, so pass on event */
             if (mOnChildClickListener != null) {
@@ -583,6 +695,7 @@ public class ExpandableListView extends ListView {
                 return mOnChildClickListener.onChildClick(this, v, posMetadata.position.groupPos,
                         posMetadata.position.childPos, id);
             }
+<<<<<<< HEAD
 
             returnValue = false;
         }
@@ -590,6 +703,11 @@ public class ExpandableListView extends ListView {
         posMetadata.recycle();
 
         return returnValue;
+=======
+            
+            return false;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -600,6 +718,7 @@ public class ExpandableListView extends ListView {
      *         was already expanded, this will return false)
      */
     public boolean expandGroup(int groupPos) {
+<<<<<<< HEAD
        return expandGroup(groupPos, false);
     }
 
@@ -617,10 +736,14 @@ public class ExpandableListView extends ListView {
         PositionMetadata pm = mConnector.getFlattenedPos(elGroupPos);
         elGroupPos.recycle();
         boolean retValue = mConnector.expandGroup(pm);
+=======
+        boolean retValue = mConnector.expandGroup(groupPos);
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (mOnGroupExpandListener != null) {
             mOnGroupExpandListener.onGroupExpand(groupPos);
         }
+<<<<<<< HEAD
 
         if (animate) {
             final int groupFlatPos = pm.position.flatListPos;
@@ -631,6 +754,9 @@ public class ExpandableListView extends ListView {
         }
         pm.recycle();
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         return retValue;
     }
     
@@ -740,8 +866,13 @@ public class ExpandableListView extends ListView {
     }
     
     /**
+<<<<<<< HEAD
      * Converts a flat list position (the raw position of an item (child or group)
      * in the list) to a group and/or child position (represented in a
+=======
+     * Converts a flat list position (the raw position of an item (child or
+     * group) in the list) to an group and/or child position (represented in a
+>>>>>>> 54b6cfa... Initial Contribution
      * packed position). This is useful in situations where the caller needs to
      * use the underlying {@link ListView}'s methods. Use
      * {@link ExpandableListView#getPackedPositionType} ,
@@ -750,6 +881,7 @@ public class ExpandableListView extends ListView {
      * 
      * @param flatListPosition The flat list position to be converted.
      * @return The group and/or child position for the given flat list position
+<<<<<<< HEAD
      *         in packed position representation. #PACKED_POSITION_VALUE_NULL if
      *         the position corresponds to a header or a footer item.
      */
@@ -763,6 +895,12 @@ public class ExpandableListView extends ListView {
         long packedPos = pm.position.getPackedPosition();
         pm.recycle();
         return packedPos;
+=======
+     *         in packed position representation.
+     */
+    public long getExpandableListPosition(int flatListPosition) {
+        return mConnector.getUnflattenedPos(flatListPosition).position.getPackedPosition();
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -777,6 +915,7 @@ public class ExpandableListView extends ListView {
      * @return The flat list position for the given child or group.
      */
     public int getFlatListPosition(long packedPosition) {
+<<<<<<< HEAD
         ExpandableListPosition elPackedPos = ExpandableListPosition
                 .obtainPosition(packedPosition);
         PositionMetadata pm = mConnector.getFlattenedPos(elPackedPos);
@@ -784,6 +923,10 @@ public class ExpandableListView extends ListView {
         final int flatListPosition = pm.position.flatListPos;
         pm.recycle();
         return getAbsoluteFlatPosition(flatListPosition);
+=======
+        return mConnector.getFlattenedPos(ExpandableListPosition.obtainPosition(packedPosition)).
+            position.flatListPos;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -791,6 +934,7 @@ public class ExpandableListView extends ListView {
      * its type). Can return {@link #PACKED_POSITION_VALUE_NULL} if no selection.
      * 
      * @return A packed position containing the currently selected group or
+<<<<<<< HEAD
      *         child's position and type. #PACKED_POSITION_VALUE_NULL if no selection
      *         or if selection is on a header or a footer item.
      */
@@ -798,6 +942,14 @@ public class ExpandableListView extends ListView {
         final int selectedPos = getSelectedItemPosition();
 
         // The case where there is no selection (selectedPos == -1) is also handled here.
+=======
+     *         child's position and type. #PACKED_POSITION_VALUE_NULL if no selection.
+     */
+    public long getSelectedPosition() {
+        final int selectedPos = getSelectedItemPosition();
+        if (selectedPos == -1) return PACKED_POSITION_VALUE_NULL;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         return getExpandableListPosition(selectedPos);
     }
     
@@ -829,12 +981,17 @@ public class ExpandableListView extends ListView {
      */
     public void setSelectedGroup(int groupPosition) {
         ExpandableListPosition elGroupPos = ExpandableListPosition
+<<<<<<< HEAD
                 .obtainGroupPosition(groupPosition);
         PositionMetadata pm = mConnector.getFlattenedPos(elGroupPos);
         elGroupPos.recycle();
         final int absoluteFlatPosition = getAbsoluteFlatPosition(pm.position.flatListPos);
         super.setSelection(absoluteFlatPosition);
         pm.recycle();
+=======
+                .obtainGroupPosition(groupPosition); 
+        super.setSelection(mConnector.getFlattenedPos(elGroupPos).position.flatListPos);
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -869,11 +1026,15 @@ public class ExpandableListView extends ListView {
             }
         }
         
+<<<<<<< HEAD
         int absoluteFlatPosition = getAbsoluteFlatPosition(flatChildPos.position.flatListPos);
         super.setSelection(absoluteFlatPosition);
         
         elChildPos.recycle();
         flatChildPos.recycle();
+=======
+        super.setSelection(flatChildPos.position.flatListPos);
+>>>>>>> 54b6cfa... Initial Contribution
         
         return true;
     }
@@ -983,6 +1144,7 @@ public class ExpandableListView extends ListView {
 
     @Override
     ContextMenuInfo createContextMenuInfo(View view, int flatListPosition, long id) {
+<<<<<<< HEAD
         if (isHeaderOrFooterPosition(flatListPosition)) {
             // Return normal info for header/footer view context menus
             return new AdapterContextMenuInfo(view, flatListPosition, id);
@@ -998,6 +1160,13 @@ public class ExpandableListView extends ListView {
         pm.recycle();
         
         return new ExpandableListContextMenuInfo(view, packedPosition, id);
+=======
+        ExpandableListPosition pos = mConnector.getUnflattenedPos(flatListPosition).position;
+        
+        id = getChildOrGroupId(pos);
+        
+        return new ExpandableListContextMenuInfo(view, pos.getPackedPosition(), id);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1053,11 +1222,16 @@ public class ExpandableListView extends ListView {
      */
     public void setGroupIndicator(Drawable groupIndicator) {
         mGroupIndicator = groupIndicator;
+<<<<<<< HEAD
         if (mIndicatorRight == 0 && mGroupIndicator != null) {
             mIndicatorRight = mIndicatorLeft + mGroupIndicator.getIntrinsicWidth();
         }
     }
 
+=======
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Sets the drawing bounds for the indicators (at minimum, the group indicator
      * is affected by this; the child indicator is affected by this if the
@@ -1159,11 +1333,14 @@ public class ExpandableListView extends ListView {
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
+<<<<<<< HEAD
         if (!(state instanceof SavedState)) {
             super.onRestoreInstanceState(state);
             return;
         }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         SavedState ss = (SavedState) state;
         super.onRestoreInstanceState(ss.getSuperState());
         
@@ -1172,6 +1349,7 @@ public class ExpandableListView extends ListView {
         }
     }
 
+<<<<<<< HEAD
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
@@ -1183,4 +1361,6 @@ public class ExpandableListView extends ListView {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(ExpandableListView.class.getName());
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

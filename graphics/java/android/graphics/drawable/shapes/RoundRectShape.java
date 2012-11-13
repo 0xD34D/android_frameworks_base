@@ -57,11 +57,21 @@ public class RoundRectShape extends RectShape {
      */
     public RoundRectShape(float[] outerRadii, RectF inset,
                           float[] innerRadii) {
+<<<<<<< HEAD
         if (outerRadii != null && outerRadii.length < 8) {
             throw new ArrayIndexOutOfBoundsException("outer radii must have >= 8 values");
         }
         if (innerRadii != null && innerRadii.length < 8) {
             throw new ArrayIndexOutOfBoundsException("inner radii must have >= 8 values");
+=======
+        if (outerRadii.length < 8) {
+            throw new ArrayIndexOutOfBoundsException(
+                                        "outer radii must have >= 8 values");
+        }
+        if (innerRadii != null && innerRadii.length < 8) {
+            throw new ArrayIndexOutOfBoundsException(
+                                        "inner radii must have >= 8 values");
+>>>>>>> 54b6cfa... Initial Contribution
         }
         mOuterRadii = outerRadii;
         mInset = inset;
@@ -95,13 +105,19 @@ public class RoundRectShape extends RectShape {
                            r.right - mInset.right, r.bottom - mInset.bottom);
             if (mInnerRect.width() < w && mInnerRect.height() < h) {
                 if (mInnerRadii != null) {
+<<<<<<< HEAD
                     mPath.addRoundRect(mInnerRect, mInnerRadii, Path.Direction.CCW);
+=======
+                    mPath.addRoundRect(mInnerRect, mInnerRadii,
+                                       Path.Direction.CCW);
+>>>>>>> 54b6cfa... Initial Contribution
                 } else {
                     mPath.addRect(mInnerRect, Path.Direction.CCW);
                 }
             }
         }
     }
+<<<<<<< HEAD
 
     @Override
     public RoundRectShape clone() throws CloneNotSupportedException {
@@ -113,4 +129,6 @@ public class RoundRectShape extends RectShape {
         shape.mPath = new Path(mPath);
         return shape;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

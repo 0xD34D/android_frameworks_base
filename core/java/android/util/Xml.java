@@ -16,6 +16,7 @@
 
 package android.util;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -23,20 +24,40 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import org.apache.harmony.xml.ExpatReader;
 import org.kxml2.io.KXmlParser;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xmlpull.v1.XmlPullParser;
+<<<<<<< HEAD
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import org.xmlpull.v1.XmlSerializer;
+=======
+import org.xmlpull.v1.XmlSerializer;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+
+import org.apache.harmony.xml.ExpatPullParser;
+import org.apache.harmony.xml.ExpatReader;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * XML utility methods.
  */
 public class Xml {
+<<<<<<< HEAD
     /** @hide */ public Xml() {}
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * {@link org.xmlpull.v1.XmlPullParser} "relaxed" feature name.
@@ -44,7 +65,11 @@ public class Xml {
      * @see <a href="http://xmlpull.org/v1/doc/features.html#relaxed">
      *  specification</a>
      */
+<<<<<<< HEAD
     public static String FEATURE_RELAXED = "http://xmlpull.org/v1/doc/features.html#relaxed";
+=======
+    public static String FEATURE_RELAXED = ExpatPullParser.FEATURE_RELAXED;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Parses the given xml string and fires events on the given SAX handler.
@@ -55,7 +80,12 @@ public class Xml {
             XMLReader reader = new ExpatReader();
             reader.setContentHandler(contentHandler);
             reader.parse(new InputSource(new StringReader(xml)));
+<<<<<<< HEAD
         } catch (IOException e) {
+=======
+        }
+        catch (IOException e) {
+>>>>>>> 54b6cfa... Initial Contribution
             throw new AssertionError(e);
         }
     }
@@ -77,6 +107,7 @@ public class Xml {
      */
     public static void parse(InputStream in, Encoding encoding,
             ContentHandler contentHandler) throws IOException, SAXException {
+<<<<<<< HEAD
         XMLReader reader = new ExpatReader();
         reader.setContentHandler(contentHandler);
         InputSource source = new InputSource(in);
@@ -96,6 +127,30 @@ public class Xml {
         } catch (XmlPullParserException e) {
             throw new AssertionError();
         }
+=======
+        try {
+            XMLReader reader = new ExpatReader();
+            reader.setContentHandler(contentHandler);
+            InputSource source = new InputSource(in);
+            source.setEncoding(encoding.expatName);
+            reader.parse(source);
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    /**
+     * Creates a new pull parser with namespace support.
+     *
+     * <p><b>Note:</b> This is actually slower than the SAX parser, and it's not
+     *   fully implemented. If you need a fast, mostly implemented pull parser,
+     *   use this. If you need a complete implementation, use KXML.
+     */
+    public static XmlPullParser newPullParser() {
+        ExpatPullParser parser = new ExpatPullParser();
+        parser.setNamespaceProcessingEnabled(true);
+        return parser;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -155,13 +210,18 @@ public class Xml {
         }
         throw new UnsupportedEncodingException(encodingName);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return an AttributeSet interface for use with the given XmlPullParser.
      * If the given parser itself implements AttributeSet, that implementation
      * is simply returned.  Otherwise a wrapper class is
      * instantiated on top of the XmlPullParser, as a proxy for retrieving its
      * attributes, and returned to you.
+<<<<<<< HEAD
      *
      * @param parser The existing parser for which you would like an
      *               AttributeSet.
@@ -170,6 +230,16 @@ public class Xml {
      *         attribute values at each of the tags as the parser moves
      *         through its XML document.
      *
+=======
+     * 
+     * @param parser The existing parser for which you would like an
+     *               AttributeSet.
+     * 
+     * @return An AttributeSet you can use to retrieve the
+     *         attribute values at each of the tags as the parser moves
+     *         through its XML document.
+     *         
+>>>>>>> 54b6cfa... Initial Contribution
      * @see AttributeSet
      */
     public static AttributeSet asAttributeSet(XmlPullParser parser) {

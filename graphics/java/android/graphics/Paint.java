@@ -16,12 +16,19 @@
 
 package android.graphics;
 
+<<<<<<< HEAD
 import android.text.GraphicsOperations;
 import android.text.SpannableString;
 import android.text.SpannedString;
 import android.text.TextUtils;
 
 import java.util.Locale;
+=======
+import android.text.TextUtils;
+import android.text.SpannableString;
+import android.text.SpannedString;
+import android.text.GraphicsOperations;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * The Paint class holds the style and color information about how to draw
@@ -29,11 +36,15 @@ import java.util.Locale;
  */
 public class Paint {
 
+<<<<<<< HEAD
     /**
      * @hide
      */
     public int mNativePaint;
 
+=======
+    /*package*/ int     mNativePaint;
+>>>>>>> 54b6cfa... Initial Contribution
     private ColorFilter mColorFilter;
     private MaskFilter  mMaskFilter;
     private PathEffect  mPathEffect;
@@ -42,6 +53,7 @@ public class Paint {
     private Typeface    mTypeface;
     private Xfermode    mXfermode;
 
+<<<<<<< HEAD
     private boolean     mHasCompatScaling;
     private float       mCompatScaling;
     private float       mInvCompatScaling;
@@ -84,6 +96,18 @@ public class Paint {
         Join.MITER, Join.ROUND, Join.BEVEL
     };
     static final Align[] sAlignArray = {
+=======
+    private static final Style[] sStyleArray = {
+        Style.FILL, Style.STROKE, Style.FILL_AND_STROKE
+    };
+    private static final Cap[] sCapArray = {
+        Cap.BUTT, Cap.ROUND, Cap.SQUARE
+    };
+    private static final Join[] sJoinArray = {
+        Join.MITER, Join.ROUND, Join.BEVEL
+    };
+    private static final Align[] sAlignArray = {
+>>>>>>> 54b6cfa... Initial Contribution
         Align.LEFT, Align.CENTER, Align.RIGHT
     };
 
@@ -107,6 +131,7 @@ public class Paint {
     public static final int DEV_KERN_TEXT_FLAG  = 0x100;
 
     // we use this when we first create a paint
+<<<<<<< HEAD
     static final int DEFAULT_PAINT_FLAGS = DEV_KERN_TEXT_FLAG;
 
     /**
@@ -230,6 +255,13 @@ public class Paint {
     /**
      * The Style specifies if the primitive being drawn is filled, stroked, or
      * both (in the same color). The default is FILL.
+=======
+    private static final int DEFAULT_PAINT_FLAGS = DEV_KERN_TEXT_FLAG;
+
+    /**
+     * The Style specifies if the primitive being drawn is filled,
+     * stroked, or both (in the same color). The default is FILL.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public enum Style {
         /**
@@ -245,9 +277,13 @@ public class Paint {
         /**
          * Geometry and text drawn with this style will be both filled and
          * stroked at the same time, respecting the stroke-related fields on
+<<<<<<< HEAD
          * the paint. This mode can give unexpected results if the geometry
          * is oriented counter-clockwise. This restriction does not apply to
          * either FILL or STROKE.
+=======
+         * the paint.
+>>>>>>> 54b6cfa... Initial Contribution
          */
         FILL_AND_STROKE (2);
         
@@ -267,6 +303,7 @@ public class Paint {
          */
         BUTT    (0),
         /**
+<<<<<<< HEAD
          * The stroke projects out as a semicircle, with the center at the
          * end of the path.
          */
@@ -274,6 +311,15 @@ public class Paint {
         /**
          * The stroke projects out as a square, with the center at the end
          * of the path.
+=======
+         * The stroke projects out as a square, with the center at the end
+         * of the path.
+         */
+        ROUND   (1),
+        /**
+         * The stroke projects out as a semicircle, with the center at the
+         * end of the path.
+>>>>>>> 54b6cfa... Initial Contribution
          */
         SQUARE  (2);
         
@@ -347,12 +393,15 @@ public class Paint {
     public Paint(int flags) {
         mNativePaint = native_init();
         setFlags(flags | DEFAULT_PAINT_FLAGS);
+<<<<<<< HEAD
         // TODO: Turning off hinting has undesirable side effects, we need to
         //       revisit hinting once we add support for subpixel positioning
         // setHinting(DisplayMetrics.DENSITY_DEVICE >= DisplayMetrics.DENSITY_TV
         //        ? HINTING_OFF : HINTING_ON);
         mCompatScaling = mInvCompatScaling = 1;
         setTextLocale(Locale.getDefault());
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -364,13 +413,17 @@ public class Paint {
      */
     public Paint(Paint paint) {
         mNativePaint = native_initWithPaint(paint.mNativePaint);
+<<<<<<< HEAD
         setClassVariablesFrom(paint);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /** Restores the paint to its default settings. */
     public void reset() {
         native_reset(mNativePaint);
         setFlags(DEFAULT_PAINT_FLAGS);
+<<<<<<< HEAD
         // TODO: Turning off hinting has undesirable side effects, we need to
         //       revisit hinting once we add support for subpixel positioning
         // setHinting(DisplayMetrics.DENSITY_DEVICE >= DisplayMetrics.DENSITY_TV
@@ -379,6 +432,8 @@ public class Paint {
         mCompatScaling = mInvCompatScaling = 1;
         mBidiFlags = BIDI_DEFAULT_LTR;
         setTextLocale(Locale.getDefault());
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -390,6 +445,7 @@ public class Paint {
         if (this != src) {
             // copy over the native settings
             native_set(mNativePaint, src.mNativePaint);
+<<<<<<< HEAD
             setClassVariablesFrom(src);
         }
     }
@@ -454,11 +510,26 @@ public class Paint {
             throw new IllegalArgumentException("unknown bidi flag: " + flags);
         }
         mBidiFlags = flags;
+=======
+            // copy over our java settings
+            mColorFilter    = src.mColorFilter;
+            mMaskFilter     = src.mMaskFilter;
+            mPathEffect     = src.mPathEffect;
+            mRasterizer     = src.mRasterizer;
+            mShader         = src.mShader;
+            mTypeface       = src.mTypeface;
+            mXfermode       = src.mXfermode;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Return the paint's flags. Use the Flag enum to test flag values.
+<<<<<<< HEAD
      * 
+=======
+     *
+>>>>>>> 54b6cfa... Initial Contribution
      * @return the paint's flags (see enums ending in _Flag for bit masks)
      */
     public native int getFlags();
@@ -471,6 +542,7 @@ public class Paint {
     public native void setFlags(int flags);
 
     /**
+<<<<<<< HEAD
      * Return the paint's hinting mode.  Returns either
      * {@link #HINTING_OFF} or {@link #HINTING_ON}.
      */
@@ -483,6 +555,8 @@ public class Paint {
     public native void setHinting(int mode);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Helper for getFlags(), returning true if ANTI_ALIAS_FLAG bit is set
      * AntiAliasing smooths out the edges of what is being drawn, but is has
      * no impact on the interior of the shape. See setDither() and
@@ -535,7 +609,10 @@ public class Paint {
      *
      * @return true if the lineartext bit is set in the paint's flags
      */
+<<<<<<< HEAD
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final boolean isLinearText() {
         return (getFlags() & LINEAR_TEXT_FLAG) != 0;
     }
@@ -546,7 +623,10 @@ public class Paint {
      * @param linearText true to set the linearText bit in the paint's flags,
      *                   false to clear it.
      */
+<<<<<<< HEAD
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public native void setLinearText(boolean linearText);
 
     /**
@@ -610,7 +690,11 @@ public class Paint {
     }
 
     /**
+<<<<<<< HEAD
      * Helper for setFlags(), setting or clearing the FAKE_BOLD_TEXT_FLAG bit
+=======
+     * Helper for setFlags(), setting or clearing the STRIKE_THRU_TEXT_FLAG bit
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param fakeBoldText true to set the fakeBoldText bit in the paint's
      *                     flags, false to clear it.
@@ -1004,6 +1088,7 @@ public class Paint {
     }
     
     /**
+<<<<<<< HEAD
      * This draws a shadow layer below the main layer, with the specified
      * offset and color, and blur radius. If radius is 0, then the shadow
      * layer is removed.
@@ -1025,6 +1110,20 @@ public class Paint {
     public void clearShadowLayer() {
         hasShadow = false;
         nSetShadowLayer(0, 0, 0, 0);
+=======
+     * Temporary API to expose layer drawing. This draws a shadow layer below
+     * the main layer, with the specified offset and color, and blur radius.
+     * If radius is 0, then the shadow layer is removed.
+     */
+    public native void setShadowLayer(float radius, float dx, float dy,
+                                      int color);
+
+    /**
+     * Temporary API to clear the shadow layer.
+     */
+    public void clearShadowLayer() {
+        setShadowLayer(0, 0, 0, 0);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1052,6 +1151,7 @@ public class Paint {
     }
 
     /**
+<<<<<<< HEAD
      * Get the text Locale.
      *
      * @return the paint's Locale used for drawing text, never null.
@@ -1098,6 +1198,8 @@ public class Paint {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Return the paint's text size.
      *
      * @return the paint's text size.
@@ -1264,11 +1366,16 @@ public class Paint {
     /**
      * Return the width of the text.
      *
+<<<<<<< HEAD
      * @param text  The text to measure. Cannot be null.
+=======
+     * @param text  The text to measure
+>>>>>>> 54b6cfa... Initial Contribution
      * @param index The index of the first character to start measuring
      * @param count THe number of characters to measure, beginning with start
      * @return      The width of the text
      */
+<<<<<<< HEAD
     public float measureText(char[] text, int index, int count) {
         if (text == null) {
             throw new IllegalArgumentException("text cannot be null");
@@ -1297,10 +1404,19 @@ public class Paint {
      * Return the width of the text.
      *
      * @param text  The text to measure. Cannot be null.
+=======
+    public native float measureText(char[] text, int index, int count);
+
+    /**
+     * Return the width of the text.
+     *
+     * @param text  The text to measure
+>>>>>>> 54b6cfa... Initial Contribution
      * @param start The index of the first character to start measuring
      * @param end   1 beyond the index of the last character to measure
      * @return      The width of the text
      */
+<<<<<<< HEAD
     public float measureText(String text, int start, int end) {
         if (text == null) {
             throw new IllegalArgumentException("text cannot be null");
@@ -1350,6 +1466,18 @@ public class Paint {
 
     private native float native_measureText(String text);
     
+=======
+    public native float measureText(String text, int start, int end);
+
+    /**
+     * Return the width of the text.
+     *
+     * @param text  The text to measure
+     * @return      The width of the text
+     */
+    public native float measureText(String text);
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return the width of the text.
      *
@@ -1359,6 +1487,7 @@ public class Paint {
      * @return      The width of the text
      */
     public float measureText(CharSequence text, int start, int end) {
+<<<<<<< HEAD
         if (text == null) {
             throw new IllegalArgumentException("text cannot be null");
         }
@@ -1369,6 +1498,8 @@ public class Paint {
         if (text.length() == 0 || start == end) {
             return 0f;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (text instanceof String) {
             return measureText((String)text, start, end);
         }
@@ -1381,10 +1512,17 @@ public class Paint {
         }
 
         char[] buf = TemporaryBuffer.obtain(end - start);
+<<<<<<< HEAD
         TextUtils.getChars(text, start, end, buf, 0);
         float result = measureText(buf, 0, end - start);
         TemporaryBuffer.recycle(buf);
         return result;
+=======
+    	TextUtils.getChars(text, start, end, buf, 0);
+    	float result = measureText(buf, 0, end - start);
+        TemporaryBuffer.recycle(buf);
+    	return result;
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -1392,16 +1530,26 @@ public class Paint {
      * Return the number of chars that were measured, and if measuredWidth is
      * not null, return in it the actual width measured.
      *
+<<<<<<< HEAD
      * @param text  The text to measure. Cannot be null.
      * @param index The offset into text to begin measuring at
      * @param count The number of maximum number of entries to measure. If count
      *              is negative, then the characters are measured in reverse order.
+=======
+     * @param text  The text to measure
+     * @param index The offset into text to begin measuring at
+     * @param count The number of maximum number of entries to measure. If count
+     *              is negative, then the characters before index are measured
+     *              in reverse order. This allows for measuring the end of
+     *              string.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param maxWidth The maximum width to accumulate.
      * @param measuredWidth Optional. If not null, returns the actual width
      *                     measured.
      * @return The number of chars that were measured. Will always be <=
      *         abs(count).
      */
+<<<<<<< HEAD
     public int breakText(char[] text, int index, int count,
                                 float maxWidth, float[] measuredWidth) {
         if (text == null) {
@@ -1429,13 +1577,21 @@ public class Paint {
 
     private native int native_breakText(char[] text, int index, int count,
                                         float maxWidth, float[] measuredWidth);
+=======
+    public native int breakText(char[] text, int index, int count,
+                                float maxWidth, float[] measuredWidth);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Measure the text, stopping early if the measured width exceeds maxWidth.
      * Return the number of chars that were measured, and if measuredWidth is
      * not null, return in it the actual width measured.
      *
+<<<<<<< HEAD
      * @param text  The text to measure. Cannot be null.
+=======
+     * @param text  The text to measure
+>>>>>>> 54b6cfa... Initial Contribution
      * @param start The offset into text to begin measuring at
      * @param end   The end of the text slice to measure.
      * @param measureForwards If true, measure forwards, starting at start.
@@ -1449,6 +1605,7 @@ public class Paint {
     public int breakText(CharSequence text, int start, int end,
                          boolean measureForwards,
                          float maxWidth, float[] measuredWidth) {
+<<<<<<< HEAD
         if (text == null) {
             throw new IllegalArgumentException("text cannot be null");
         }
@@ -1459,6 +1616,8 @@ public class Paint {
         if (text.length() == 0 || start == end) {
             return 0;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (start == 0 && text instanceof String && end == text.length()) {
             return breakText((String) text, measureForwards, maxWidth,
                              measuredWidth);
@@ -1484,10 +1643,16 @@ public class Paint {
      * Return the number of chars that were measured, and if measuredWidth is
      * not null, return in it the actual width measured.
      *
+<<<<<<< HEAD
      * @param text  The text to measure. Cannot be null.
      * @param measureForwards If true, measure forwards, starting with the
      *                        first character in the string. Otherwise,
      *                        measure backwards, starting with the
+=======
+     * @param text  The text to measure
+     * @param measureForwards If true, measure forwards, starting at index.
+     *                        Otherwise, measure backwards, starting with the
+>>>>>>> 54b6cfa... Initial Contribution
      *                        last character in the string.
      * @param maxWidth The maximum width to accumulate.
      * @param measuredWidth Optional. If not null, returns the actual width
@@ -1495,6 +1660,7 @@ public class Paint {
      * @return The number of chars that were measured. Will always be <=
      *         abs(count).
      */
+<<<<<<< HEAD
     public int breakText(String text, boolean measureForwards,
                                 float maxWidth, float[] measuredWidth) {
         if (text == null) {
@@ -1519,11 +1685,19 @@ public class Paint {
 
     private native int native_breakText(String text, boolean measureForwards,
                                         float maxWidth, float[] measuredWidth);
+=======
+    public native int breakText(String text, boolean measureForwards,
+                                float maxWidth, float[] measuredWidth);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the advance widths for the characters in the string.
      *
+<<<<<<< HEAD
      * @param text     The text to measure. Cannot be null.
+=======
+     * @param text     The text to measure
+>>>>>>> 54b6cfa... Initial Contribution
      * @param index    The index of the first char to to measure
      * @param count    The number of chars starting with index to measure
      * @param widths   array to receive the advance widths of the characters.
@@ -1532,13 +1706,17 @@ public class Paint {
      */
     public int getTextWidths(char[] text, int index, int count,
                              float[] widths) {
+<<<<<<< HEAD
         if (text == null) {
             throw new IllegalArgumentException("text cannot be null");
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if ((index | count) < 0 || index + count > text.length
                 || count > widths.length) {
             throw new ArrayIndexOutOfBoundsException();
         }
+<<<<<<< HEAD
 
         if (text.length == 0 || count == 0) {
             return 0;
@@ -1555,12 +1733,19 @@ public class Paint {
             widths[i] *= mInvCompatScaling;
         }
         return res;
+=======
+        return native_getTextWidths(mNativePaint, text, index, count, widths);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Return the advance widths for the characters in the string.
      *
+<<<<<<< HEAD
      * @param text     The text to measure. Cannot be null.
+=======
+     * @param text     The text to measure
+>>>>>>> 54b6cfa... Initial Contribution
      * @param start    The index of the first char to to measure
      * @param end      The end of the text slice to measure
      * @param widths   array to receive the advance widths of the characters.
@@ -1569,6 +1754,7 @@ public class Paint {
      */
     public int getTextWidths(CharSequence text, int start, int end,
                              float[] widths) {
+<<<<<<< HEAD
         if (text == null) {
             throw new IllegalArgumentException("text cannot be null");
         }
@@ -1582,6 +1768,8 @@ public class Paint {
         if (text.length() == 0 || start == end) {
             return 0;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (text instanceof String) {
             return getTextWidths((String) text, start, end, widths);
         }
@@ -1595,16 +1783,27 @@ public class Paint {
         }
 
         char[] buf = TemporaryBuffer.obtain(end - start);
+<<<<<<< HEAD
         TextUtils.getChars(text, start, end, buf, 0);
         int result = getTextWidths(buf, 0, end - start, widths);
         TemporaryBuffer.recycle(buf);
         return result;
+=======
+    	TextUtils.getChars(text, start, end, buf, 0);
+    	int result = getTextWidths(buf, 0, end - start, widths);
+        TemporaryBuffer.recycle(buf);
+    	return result;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Return the advance widths for the characters in the string.
      *
+<<<<<<< HEAD
      * @param text   The text to measure. Cannot be null.
+=======
+     * @param text   The text to measure
+>>>>>>> 54b6cfa... Initial Contribution
      * @param start  The index of the first char to to measure
      * @param end    The end of the text slice to measure
      * @param widths array to receive the advance widths of the characters.
@@ -1612,15 +1811,19 @@ public class Paint {
      * @return       the number of unichars in the specified text.
      */
     public int getTextWidths(String text, int start, int end, float[] widths) {
+<<<<<<< HEAD
         if (text == null) {
             throw new IllegalArgumentException("text cannot be null");
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if ((start | end | (end - start) | (text.length() - end)) < 0) {
             throw new IndexOutOfBoundsException();
         }
         if (end - start > widths.length) {
             throw new ArrayIndexOutOfBoundsException();
         }
+<<<<<<< HEAD
         
         if (text.length() == 0 || start == end) {
             return 0;
@@ -1637,6 +1840,9 @@ public class Paint {
             widths[i] *= mInvCompatScaling;
         }
         return res;
+=======
+        return native_getTextWidths(mNativePaint, text, start, end, widths);
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -1652,6 +1858,7 @@ public class Paint {
     }
 
     /**
+<<<<<<< HEAD
      * Return the glyph Ids for the characters in the string.
      *
      * @param text   The text to measure
@@ -2074,6 +2281,8 @@ public class Paint {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Return the path (outline) for the specified text.
      * Note: just like Canvas.drawText, this will respect the Align setting in
      * the paint.
@@ -2091,8 +2300,12 @@ public class Paint {
         if ((index | count) < 0 || index + count > text.length) {
             throw new ArrayIndexOutOfBoundsException();
         }
+<<<<<<< HEAD
         native_getTextPath(mNativePaint, mBidiFlags, text, index, count, x, y, 
                 path.ni());
+=======
+        native_getTextPath(mNativePaint, text, index, count, x, y, path.ni());
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -2113,8 +2326,12 @@ public class Paint {
         if ((start | end | (end - start) | (text.length() - end)) < 0) {
             throw new IndexOutOfBoundsException();
         }
+<<<<<<< HEAD
         native_getTextPath(mNativePaint, mBidiFlags, text, start, end, x, y, 
                 path.ni());
+=======
+        native_getTextPath(mNativePaint, text, start, end, x, y, path.ni());
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -2157,6 +2374,7 @@ public class Paint {
         nativeGetCharArrayBounds(mNativePaint, text, index, count, bounds);
     }
     
+<<<<<<< HEAD
     @Override
     protected void finalize() throws Throwable {
         try {
@@ -2164,6 +2382,10 @@ public class Paint {
         } finally {
             super.finalize();
         }
+=======
+    protected void finalize() throws Throwable {
+        finalizer(mNativePaint);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private static native int native_init();
@@ -2197,13 +2419,19 @@ public class Paint {
     private static native void native_setTextAlign(int native_object,
                                                    int align);
 
+<<<<<<< HEAD
     private static native void native_setTextLocale(int native_object,
                                                     String locale);
 
+=======
+    private static native float native_getFontMetrics(int native_paint,
+                                                      FontMetrics metrics);
+>>>>>>> 54b6cfa... Initial Contribution
     private static native int native_getTextWidths(int native_object,
                             char[] text, int index, int count, float[] widths);
     private static native int native_getTextWidths(int native_object,
                             String text, int start, int end, float[] widths);
+<<<<<<< HEAD
 
     private static native int native_getTextGlyphs(int native_object,
             String text, int start, int end, int contextStart, int contextEnd,
@@ -2224,6 +2452,11 @@ public class Paint {
     private static native void native_getTextPath(int native_object, int bidiFlags,
                 char[] text, int index, int count, float x, float y, int path);
     private static native void native_getTextPath(int native_object, int bidiFlags,
+=======
+    private static native void native_getTextPath(int native_object,
+                char[] text, int index, int count, float x, float y, int path);
+    private static native void native_getTextPath(int native_object,
+>>>>>>> 54b6cfa... Initial Contribution
                 String text, int start, int end, float x, float y, int path);
     private static native void nativeGetStringBounds(int nativePaint,
                                 String text, int start, int end, Rect bounds);
@@ -2231,3 +2464,7 @@ public class Paint {
                                 char[] text, int index, int count, Rect bounds);
     private static native void finalizer(int nativePaint);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution

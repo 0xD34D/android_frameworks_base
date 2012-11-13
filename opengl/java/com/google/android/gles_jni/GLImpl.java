@@ -19,6 +19,7 @@
 
 package com.google.android.gles_jni;
 
+<<<<<<< HEAD
 import android.app.AppGlobals;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageManager;
@@ -26,6 +27,8 @@ import android.os.Build;
 import android.os.UserId;
 import android.util.Log;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import java.nio.Buffer;
 import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL10Ext;
@@ -46,6 +49,7 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
     Buffer _normalPointer = null;
     Buffer _texCoordPointer = null;
     Buffer _vertexPointer = null;
+<<<<<<< HEAD
     Buffer _pointSizePointerOES = null;
     Buffer _matrixIndexPointerOES = null;
     Buffer _weightPointerOES = null;
@@ -55,10 +59,13 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
     private boolean have_OES_blend_subtract;
     private boolean have_OES_framebuffer_object;
     private boolean have_OES_texture_cube_map;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     public GLImpl() {
     }
 
+<<<<<<< HEAD
     public void glGetPointerv(int pname, java.nio.Buffer[] params) {
         throw new UnsupportedOperationException("glGetPointerv");
     }
@@ -83,6 +90,11 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         }
         return result;
     }
+=======
+     public void glGetPointerv(int pname, java.nio.Buffer[] params) {
+         throw new UnsupportedOperationException("glGetPointerv");
+     }
+>>>>>>> 54b6cfa... Initial Contribution
 
     // C function void glActiveTexture ( GLenum texture )
 
@@ -209,6 +221,7 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int stride,
         java.nio.Buffer pointer
     ) {
+<<<<<<< HEAD
         glColorPointerBounds(
             size,
             type,
@@ -216,6 +229,8 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             pointer,
             pointer.remaining()
         );
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if ((size == 4) &&
             ((type == GL_FLOAT) ||
              (type == GL_UNSIGNED_BYTE) ||
@@ -223,6 +238,16 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             (stride >= 0)) {
             _colorPointer = pointer;
         }
+<<<<<<< HEAD
+=======
+        glColorPointerBounds(
+            size,
+            type,
+            stride,
+            pointer,
+            pointer.remaining()
+        );
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // C function void glCompressedTexImage2D ( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *data )
@@ -781,12 +806,15 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int stride,
         java.nio.Buffer pointer
     ) {
+<<<<<<< HEAD
         glNormalPointerBounds(
             type,
             stride,
             pointer,
             pointer.remaining()
         );
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (((type == GL_FLOAT) ||
              (type == GL_BYTE) ||
              (type == GL_SHORT) ||
@@ -794,6 +822,15 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             (stride >= 0)) {
             _normalPointer = pointer;
         }
+<<<<<<< HEAD
+=======
+        glNormalPointerBounds(
+            type,
+            stride,
+            pointer,
+            pointer.remaining()
+        );
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // C function void glOrthof ( GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar )
@@ -974,6 +1011,7 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int stride,
         java.nio.Buffer pointer
     ) {
+<<<<<<< HEAD
         glTexCoordPointerBounds(
             size,
             type,
@@ -981,6 +1019,8 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             pointer,
             pointer.remaining()
         );
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (((size == 2) ||
              (size == 3) ||
              (size == 4)) &&
@@ -991,6 +1031,16 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             (stride >= 0)) {
             _texCoordPointer = pointer;
         }
+<<<<<<< HEAD
+=======
+        glTexCoordPointerBounds(
+            size,
+            type,
+            stride,
+            pointer,
+            pointer.remaining()
+        );
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // C function void glTexEnvf ( GLenum target, GLenum pname, GLfloat param )
@@ -1119,6 +1169,7 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int stride,
         java.nio.Buffer pointer
     ) {
+<<<<<<< HEAD
         glVertexPointerBounds(
             size,
             type,
@@ -1126,6 +1177,8 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             pointer,
             pointer.remaining()
         );
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (((size == 2) ||
              (size == 3) ||
              (size == 4)) &&
@@ -1136,6 +1189,16 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             (stride >= 0)) {
             _vertexPointer = pointer;
         }
+<<<<<<< HEAD
+=======
+        glVertexPointerBounds(
+            size,
+            type,
+            stride,
+            pointer,
+            pointer.remaining()
+        );
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // C function void glViewport ( GLint x, GLint y, GLsizei width, GLsizei height )
@@ -1592,6 +1655,7 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
 
     // C function void glPointSizePointerOES ( GLenum type, GLsizei stride, const GLvoid *pointer )
 
+<<<<<<< HEAD
     private native void glPointSizePointerOESBounds(
         int type,
         int stride,
@@ -1616,6 +1680,13 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             _pointSizePointerOES = pointer;
         }
     }
+=======
+    public native void glPointSizePointerOES(
+        int type,
+        int stride,
+        java.nio.Buffer pointer
+    );
+>>>>>>> 54b6cfa... Initial Contribution
 
     // C function void glTexCoordPointer ( GLint size, GLenum type, GLsizei stride, GLint offset )
 
@@ -1824,6 +1895,7 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
 
     // C function void glMatrixIndexPointerOES ( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
 
+<<<<<<< HEAD
     private native void glMatrixIndexPointerOESBounds(
         int size,
         int type,
@@ -1833,10 +1905,14 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
     );
 
     public void glMatrixIndexPointerOES(
+=======
+    public native void glMatrixIndexPointerOES(
+>>>>>>> 54b6cfa... Initial Contribution
         int size,
         int type,
         int stride,
         java.nio.Buffer pointer
+<<<<<<< HEAD
     ) {
         glMatrixIndexPointerOESBounds(
             size,
@@ -1856,6 +1932,9 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             _matrixIndexPointerOES = pointer;
         }
     }
+=======
+    );
+>>>>>>> 54b6cfa... Initial Contribution
 
     // C function void glMatrixIndexPointerOES ( GLint size, GLenum type, GLsizei stride, GLint offset )
 
@@ -1868,6 +1947,7 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
 
     // C function void glWeightPointerOES ( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
 
+<<<<<<< HEAD
     private native void glWeightPointerOESBounds(
         int size,
         int type,
@@ -1877,10 +1957,14 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
     );
 
     public void glWeightPointerOES(
+=======
+    public native void glWeightPointerOES(
+>>>>>>> 54b6cfa... Initial Contribution
         int size,
         int type,
         int stride,
         java.nio.Buffer pointer
+<<<<<<< HEAD
     ) {
         glWeightPointerOESBounds(
             size,
@@ -1890,6 +1974,9 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
             pointer.remaining()
         );
     }
+=======
+    );
+>>>>>>> 54b6cfa... Initial Contribution
 
     // C function void glWeightPointerOES ( GLint size, GLenum type, GLsizei stride, GLint offset )
 
@@ -1942,7 +2029,11 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int target
     );
 
+<<<<<<< HEAD
     // C function void glDeleteFramebuffersOES ( GLint n, GLuint *framebuffers )
+=======
+    // C function void glDeleteFramebuffersOES ( GLint n, GLint *framebuffers )
+>>>>>>> 54b6cfa... Initial Contribution
 
     public native void glDeleteFramebuffersOES(
         int n,
@@ -1950,14 +2041,22 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int offset
     );
 
+<<<<<<< HEAD
     // C function void glDeleteFramebuffersOES ( GLint n, GLuint *framebuffers )
+=======
+    // C function void glDeleteFramebuffersOES ( GLint n, GLint *framebuffers )
+>>>>>>> 54b6cfa... Initial Contribution
 
     public native void glDeleteFramebuffersOES(
         int n,
         java.nio.IntBuffer framebuffers
     );
 
+<<<<<<< HEAD
     // C function void glDeleteRenderbuffersOES ( GLint n, GLuint *renderbuffers )
+=======
+    // C function void glDeleteRenderbuffersOES ( GLint n, GLint *renderbuffers )
+>>>>>>> 54b6cfa... Initial Contribution
 
     public native void glDeleteRenderbuffersOES(
         int n,
@@ -1965,7 +2064,11 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int offset
     );
 
+<<<<<<< HEAD
     // C function void glDeleteRenderbuffersOES ( GLint n, GLuint *renderbuffers )
+=======
+    // C function void glDeleteRenderbuffersOES ( GLint n, GLint *renderbuffers )
+>>>>>>> 54b6cfa... Initial Contribution
 
     public native void glDeleteRenderbuffersOES(
         int n,
@@ -1997,7 +2100,11 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int target
     );
 
+<<<<<<< HEAD
     // C function void glGenFramebuffersOES ( GLint n, GLuint *framebuffers )
+=======
+    // C function void glGenFramebuffersOES ( GLint n, GLint *framebuffers )
+>>>>>>> 54b6cfa... Initial Contribution
 
     public native void glGenFramebuffersOES(
         int n,
@@ -2005,14 +2112,22 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int offset
     );
 
+<<<<<<< HEAD
     // C function void glGenFramebuffersOES ( GLint n, GLuint *framebuffers )
+=======
+    // C function void glGenFramebuffersOES ( GLint n, GLint *framebuffers )
+>>>>>>> 54b6cfa... Initial Contribution
 
     public native void glGenFramebuffersOES(
         int n,
         java.nio.IntBuffer framebuffers
     );
 
+<<<<<<< HEAD
     // C function void glGenRenderbuffersOES ( GLint n, GLuint *renderbuffers )
+=======
+    // C function void glGenRenderbuffersOES ( GLint n, GLint *renderbuffers )
+>>>>>>> 54b6cfa... Initial Contribution
 
     public native void glGenRenderbuffersOES(
         int n,
@@ -2020,7 +2135,11 @@ public class GLImpl implements GL10, GL10Ext, GL11, GL11Ext, GL11ExtensionPack {
         int offset
     );
 
+<<<<<<< HEAD
     // C function void glGenRenderbuffersOES ( GLint n, GLuint *renderbuffers )
+=======
+    // C function void glGenRenderbuffersOES ( GLint n, GLint *renderbuffers )
+>>>>>>> 54b6cfa... Initial Contribution
 
     public native void glGenRenderbuffersOES(
         int n,

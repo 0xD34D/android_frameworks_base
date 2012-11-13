@@ -82,11 +82,18 @@ public class LoggingEventHandler implements EventHandler {
         }
     }
 
+<<<<<<< HEAD
     public boolean handleSslErrorRequest(SslError error) {
         if (HttpLog.LOGV) {
             HttpLog.v("LoggingEventHandler: handleSslErrorRequest():" + error);
         }
         // return false so that the caller thread won't wait forever
         return false;
+=======
+    public void handleSslErrorRequest(SslError error) {
+        if (HttpLog.LOGV) {
+            HttpLog.v("LoggingEventHandler: handleSslErrorRequest():" + error);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

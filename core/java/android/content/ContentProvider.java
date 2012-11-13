@@ -16,6 +16,7 @@
 
 package android.content;
 
+<<<<<<< HEAD
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 import android.content.pm.PackageManager;
@@ -44,6 +45,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+=======
+import android.content.pm.PackageManager;
+import android.content.pm.ProviderInfo;
+import android.content.res.Configuration;
+import android.database.Cursor;
+import android.database.CursorToBulkCursorAdaptor;
+import android.database.CursorWindow;
+import android.database.IBulkCursor;
+import android.database.IContentObserver;
+import android.database.SQLException;
+import android.net.Uri;
+import android.os.Binder;
+import android.os.ParcelFileDescriptor;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Content providers are one of the primary building blocks of Android applications, providing
@@ -54,6 +72,12 @@ import java.util.ArrayList;
  * multiple applications you can use a database directly via
  * {@link android.database.sqlite.SQLiteDatabase}.
  *
+<<<<<<< HEAD
+=======
+ * <p>See <a href="{@docRoot}devel/data/contentproviders.html">this page</a> for more information on
+ * content providers.</p>
+ *
+>>>>>>> 54b6cfa... Initial Contribution
  * <p>When a request is made via
  * a {@link ContentResolver} the system inspects the authority of the given URI and passes the
  * request to the content provider registered with the authority. The content provider can interpret
@@ -62,7 +86,10 @@ import java.util.ArrayList;
  *
  * <p>The primary methods that need to be implemented are:
  * <ul>
+<<<<<<< HEAD
  *   <li>{@link #onCreate} which is called to initialize the provider</li>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  *   <li>{@link #query} which returns data to the caller</li>
  *   <li>{@link #insert} which inserts new data into the content provider</li>
  *   <li>{@link #update} which updates existing data in the content provider</li>
@@ -70,6 +97,7 @@ import java.util.ArrayList;
  *   <li>{@link #getType} which returns the MIME type of data in the content provider</li>
  * </ul></p>
  *
+<<<<<<< HEAD
  * <p class="caution">Data access methods (such as {@link #insert} and
  * {@link #update}) may be called from many threads at once, and must be thread-safe.
  * Other methods (such as {@link #onCreate}) are only called from the application
@@ -100,10 +128,20 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     private String mWritePermission;
     private PathPermission[] mPathPermissions;
     private boolean mExported;
+=======
+ * <p>This class takes care of cross process calls so subclasses don't have to worry about which
+ * process a request is coming from.</p>
+ */
+public abstract class ContentProvider implements ComponentCallbacks {
+    private Context mContext = null;
+    private String mReadPermission;
+    private String mWritePermission;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private Transport mTransport = new Transport();
 
     /**
+<<<<<<< HEAD
      * Construct a ContentProvider instance.  Content providers must be
      * <a href="{@docRoot}guide/topics/manifest/provider-element.html">declared
      * in the manifest</a>, accessed with {@link ContentResolver}, and created
@@ -146,6 +184,8 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Given an IContentProvider, try to coerce it back to the real
      * ContentProvider object if it is running in the local process.  This can
      * be used if you know you are running in the same process as a provider,
@@ -176,6 +216,7 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
             return ContentProvider.this;
         }
 
+<<<<<<< HEAD
         @Override
         public String getProviderName() {
             return getContentProvider().getClass().getName();
@@ -191,10 +232,42 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
         }
 
         @Override
+=======
+        /**
+         * Remote version of a query, which returns an IBulkCursor. The bulk
+         * cursor should be wrapped with BulkCursorToCursorAdaptor before use.
+         */
+        public IBulkCursor bulkQuery(Uri uri, String[] projection,
+                String selection, String[] selectionArgs, String sortOrder,
+                IContentObserver observer, CursorWindow window) {
+            checkReadPermission(uri);
+            Cursor cursor = ContentProvider.this.query(uri, projection,
+                    selection, selectionArgs, sortOrder);
+            if (cursor == null) {
+                return null;
+            }
+            String wperm = getWritePermission();
+            return new CursorToBulkCursorAdaptor(cursor, observer,
+                    ContentProvider.this.getClass().getName(),
+                    wperm == null ||
+                    getContext().checkCallingOrSelfPermission(getWritePermission())
+                            == PackageManager.PERMISSION_GRANTED,
+                    window);
+        }
+
+        public Cursor query(Uri uri, String[] projection,
+                String selection, String[] selectionArgs, String sortOrder) {
+            checkReadPermission(uri);
+            return ContentProvider.this.query(uri, projection, selection,
+                    selectionArgs, sortOrder);
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         public String getType(Uri uri) {
             return ContentProvider.this.getType(uri);
         }
 
+<<<<<<< HEAD
         @Override
         public Uri insert(Uri uri, ContentValues initialValues) {
             enforceWritePermission(uri);
@@ -399,6 +472,81 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     /**
      * Retrieves the Context this provider is running in.  Only available once
      * {@link #onCreate} has been called -- this will return null in the
+=======
+
+        public Uri insert(Uri uri, ContentValues initialValues) {
+            checkWritePermission(uri);
+            return ContentProvider.this.insert(uri, initialValues);
+        }
+
+        public int bulkInsert(Uri uri, ContentValues[] initialValues) {
+            checkWritePermission(uri);
+            return ContentProvider.this.bulkInsert(uri, initialValues);
+        }
+
+        public int delete(Uri uri, String selection, String[] selectionArgs) {
+            checkWritePermission(uri);
+            return ContentProvider.this.delete(uri, selection, selectionArgs);
+        }
+
+        public int update(Uri uri, ContentValues values, String selection,
+                String[] selectionArgs) {
+            checkWritePermission(uri);
+            return ContentProvider.this.update(uri, values, selection, selectionArgs);
+        }
+
+        public ParcelFileDescriptor openFile(Uri uri, String mode)
+                throws FileNotFoundException {
+            if (mode != null && mode.startsWith("rw")) checkWritePermission(uri);
+            else checkReadPermission(uri);
+            return ContentProvider.this.openFile(uri, mode);
+        }
+
+        public ISyncAdapter getSyncAdapter() {
+            checkWritePermission(null);
+            return ContentProvider.this.getSyncAdapter().getISyncAdapter();
+        }
+
+        private void checkReadPermission(Uri uri) {
+            final String rperm = getReadPermission();
+            final int pid = Binder.getCallingPid();
+            final int uid = Binder.getCallingUid();
+            if (getContext().checkUriPermission(uri, rperm, null, pid, uid,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            String msg = "Permission Denial: reading "
+                    + ContentProvider.this.getClass().getName()
+                    + " uri " + uri + " from pid=" + Binder.getCallingPid()
+                    + ", uid=" + Binder.getCallingUid()
+                    + " requires " + rperm;
+            throw new SecurityException(msg);
+        }
+
+        private void checkWritePermission(Uri uri) {
+            final String wperm = getWritePermission();
+            final int pid = Binder.getCallingPid();
+            final int uid = Binder.getCallingUid();
+            if (getContext().checkUriPermission(uri, null, wperm, pid, uid,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            String msg = "Permission Denial: writing "
+                    + ContentProvider.this.getClass().getName()
+                    + " uri " + uri + " from pid=" + Binder.getCallingPid()
+                    + ", uid=" + Binder.getCallingUid()
+                    + " requires " + wperm;
+            throw new SecurityException(msg);
+        }
+    }
+
+
+    /**
+     * Retrieve the Context this provider is running in.  Only available once
+     * onCreate(Map icicle) has been called -- this will be null in the
+>>>>>>> 54b6cfa... Initial Contribution
      * constructor.
      */
     public final Context getContext() {
@@ -419,9 +567,15 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     /**
      * Return the name of the permission required for read-only access to
      * this content provider.  This method can be called from multiple
+<<<<<<< HEAD
      * threads, as described in
      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
      * and Threads</a>.
+=======
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of
+     * the Application Model overview</a>.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final String getReadPermission() {
         return mReadPermission;
@@ -441,15 +595,22 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     /**
      * Return the name of the permission required for read/write access to
      * this content provider.  This method can be called from multiple
+<<<<<<< HEAD
      * threads, as described in
      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
      * and Threads</a>.
+=======
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of
+     * the Application Model overview</a>.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final String getWritePermission() {
         return mWritePermission;
     }
 
     /**
+<<<<<<< HEAD
      * Change the path-based permission required to read and/or write data in
      * the content provider.  This is normally set for you from its manifest
      * information when the provider is first created.
@@ -493,11 +654,15 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * from this method.  (Instead, override
      * {@link android.database.sqlite.SQLiteOpenHelper#onOpen} to initialize the
      * database when it is first opened.)
+=======
+     * Called when the provider is being started.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return true if the provider was successfully loaded, false otherwise
      */
     public abstract boolean onCreate();
 
+<<<<<<< HEAD
     /**
      * {@inheritDoc}
      * This method is always called on the application main thread, and must
@@ -530,14 +695,35 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * This method can be called from multiple threads, as described in
      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
      * and Threads</a>.
+=======
+    public void onConfigurationChanged(Configuration newConfig) {
+    }
+    
+    public void onLowMemory() {
+    }
+
+    /**
+     * Receives a query request from a client in a local process, and
+     * returns a Cursor. This is called internally by the {@link ContentResolver}.
+     * This method can be called from multiple
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of
+     * the Application Model overview</a>.
+>>>>>>> 54b6cfa... Initial Contribution
      * <p>
      * Example client call:<p>
      * <pre>// Request a specific record.
      * Cursor managedCursor = managedQuery(
+<<<<<<< HEAD
                 ContentUris.withAppendedId(Contacts.People.CONTENT_URI, 2),
                 projection,    // Which columns to return.
                 null,          // WHERE clause.
                 null,          // WHERE clause value substitution
+=======
+                Contacts.People.CONTENT_URI.addId(2),
+                projection,    // Which columns to return.
+                null,          // WHERE clause.
+>>>>>>> 54b6cfa... Initial Contribution
                 People.NAME + " ASC");   // Sort order.</pre>
      * Example implementation:<p>
      * <pre>// SQLiteQueryBuilder is a helper class that creates the
@@ -566,24 +752,36 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
         return c;</pre>
      *
      * @param uri The URI to query. This will be the full URI sent by the client;
+<<<<<<< HEAD
      *      if the client is requesting a specific record, the URI will end in a record number
      *      that the implementation should parse and add to a WHERE or HAVING clause, specifying
      *      that _id value.
+=======
+     * if the client is requesting a specific record, the URI will end in a record number
+     * that the implementation should parse and add to a WHERE or HAVING clause, specifying
+     * that _id value.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param projection The list of columns to put into the cursor. If
      *      null all columns are included.
      * @param selection A selection criteria to apply when filtering rows.
      *      If null then all rows are included.
+<<<<<<< HEAD
      * @param selectionArgs You may include ?s in selection, which will be replaced by
      *      the values from selectionArgs, in order that they appear in the selection.
      *      The values will be bound as Strings.
      * @param sortOrder How the rows in the cursor should be sorted.
      *      If null then the provider is free to define the sort order.
+=======
+     * @param sortOrder How the rows in the cursor should be sorted.
+     *        If null then the provider is free to define the sort order.
+>>>>>>> 54b6cfa... Initial Contribution
      * @return a Cursor or null.
      */
     public abstract Cursor query(Uri uri, String[] projection,
             String selection, String[] selectionArgs, String sortOrder);
 
     /**
+<<<<<<< HEAD
      * Implement this to handle query requests from clients with support for cancellation.
      * This method can be called from multiple threads, as described in
      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
@@ -666,6 +864,15 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * write permissions, or is not exported, all applications can still call
      * this method regardless of their access permissions.  This allows them
      * to retrieve the MIME type for a URI when dispatching intents.
+=======
+     * Return the MIME type of the data at the given URI. This should start with
+     * <code>vnd.android.cursor.item</code> for a single record,
+     * or <code>vnd.android.cursor.dir/</code> for multiple items.
+     * This method can be called from multiple
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of
+     * the Application Model overview</a>.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param uri the URI to query.
      * @return a MIME type string, or null if there is no type.
@@ -673,12 +880,22 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     public abstract String getType(Uri uri);
 
     /**
+<<<<<<< HEAD
      * Implement this to handle requests to insert a new row.
      * As a courtesy, call {@link ContentResolver#notifyChange(android.net.Uri ,android.database.ContentObserver) notifyChange()}
      * after inserting.
      * This method can be called from multiple threads, as described in
      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
      * and Threads</a>.
+=======
+     * Implement this to insert a new row.
+     * As a courtesy, call {@link ContentResolver#notifyChange(android.net.Uri ,android.database.ContentObserver) notifyChange()}
+     * after inserting.
+     * This method can be called from multiple
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of the
+     * Application Model overview</a>.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param uri The content:// URI of the insertion request.
      * @param values A set of column_name/value pairs to add to the database.
      * @return The URI for the newly inserted item.
@@ -686,6 +903,7 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     public abstract Uri insert(Uri uri, ContentValues values);
 
     /**
+<<<<<<< HEAD
      * Override this to handle requests to insert a set of new rows, or the
      * default implementation will iterate over the values and call
      * {@link #insert} on each of them.
@@ -694,6 +912,16 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * This method can be called from multiple threads, as described in
      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
      * and Threads</a>.
+=======
+     * Implement this to insert a set of new rows, or the default implementation will
+     * iterate over the values and call {@link #insert} on each of them.
+     * As a courtesy, call {@link ContentResolver#notifyChange(android.net.Uri ,android.database.ContentObserver) notifyChange()}
+     * after inserting.
+     * This method can be called from multiple
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of
+     * the Application Model overview</a>.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param uri The content:// URI of the insertion request.
      * @param values An array of sets of column_name/value pairs to add to the database.
@@ -708,6 +936,7 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     }
 
     /**
+<<<<<<< HEAD
      * Implement this to handle requests to delete one or more rows.
      * The implementation should apply the selection clause when performing
      * deletion, allowing the operation to affect multiple rows in a directory.
@@ -716,6 +945,17 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * This method can be called from multiple threads, as described in
      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
      * and Threads</a>.
+=======
+     * A request to delete one or more rows. The selection clause is applied when performing
+     * the deletion, allowing the operation to affect multiple rows in a
+     * directory.
+     * As a courtesy, call {@link ContentResolver#notifyChange(android.net.Uri ,android.database.ContentObserver) notifyDelete()}
+     * after deleting.
+     * This method can be called from multiple
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of the
+     * Application Model overview</a>.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>The implementation is responsible for parsing out a row ID at the end
      * of the URI, if a specific row is being deleted. That is, the client would
@@ -730,6 +970,7 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     public abstract int delete(Uri uri, String selection, String[] selectionArgs);
 
     /**
+<<<<<<< HEAD
      * Implement this to handle requests to update one or more rows.
      * The implementation should update all rows matching the selection
      * to set the columns according to the provided values map.
@@ -738,6 +979,17 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * This method can be called from multiple threads, as described in
      * <a href="{@docRoot}guide/topics/fundamentals/processes-and-threads.html#Threads">Processes
      * and Threads</a>.
+=======
+     * Update a content URI. All rows matching the optionally provided selection
+     * will have their columns listed as the keys in the values map with the
+     * values of those keys.
+     * As a courtesy, call {@link ContentResolver#notifyChange(android.net.Uri ,android.database.ContentObserver) notifyChange()}
+     * after updating.
+     * This method can be called from multiple
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of the
+     * Application Model overview</a>.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param uri The URI to query. This can potentially have a record ID if this
      * is an update request for a specific record.
@@ -750,6 +1002,7 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
             String[] selectionArgs);
 
     /**
+<<<<<<< HEAD
      * Override this to handle requests to open a file blob.
      * The default implementation always throws {@link FileNotFoundException}.
      * This method can be called from multiple threads, as described in
@@ -759,15 +1012,34 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * <p>This method returns a ParcelFileDescriptor, which is returned directly
      * to the caller.  This way large data (such as images and documents) can be
      * returned without copying the content.
+=======
+     * Open a file blob associated with a content URI.
+     * This method can be called from multiple
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of the
+     * Application Model overview</a>.
+     * 
+     * <p>Returns a
+     * ParcelFileDescriptor, from which you can obtain a
+     * {@link java.io.FileDescriptor} for use with
+     * {@link java.io.FileInputStream}, {@link java.io.FileOutputStream}, etc.
+     * This can be used to store large data (such as an image) associated with
+     * a particular piece of content.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * <p>The returned ParcelFileDescriptor is owned by the caller, so it is
      * their responsibility to close it when done.  That is, the implementation
      * of this method should create a new ParcelFileDescriptor for each call.
      *
      * @param uri The URI whose file is to be opened.
+<<<<<<< HEAD
      * @param mode Access mode for the file.  May be "r" for read-only access,
      * "rw" for read and write access, or "rwt" for read and write access
      * that truncates any existing file.
+=======
+     * @param mode Access mode for the file.  May be "r" for read-only access
+     * or "rw" for read and write access.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return Returns a new ParcelFileDescriptor which you can use to access
      * the file.
@@ -776,9 +1048,12 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * no file associated with the given URI or the mode is invalid.
      * @throws SecurityException Throws SecurityException if the caller does
      * not have permission to access the file.
+<<<<<<< HEAD
      *
      * @see #openAssetFile(Uri, String)
      * @see #openFileHelper(Uri, String)
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public ParcelFileDescriptor openFile(Uri uri, String mode)
             throws FileNotFoundException {
@@ -787,6 +1062,7 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     }
 
     /**
+<<<<<<< HEAD
      * This is like {@link #openFile}, but can be implemented by providers
      * that need to be able to return sub-sections of files, often assets
      * inside of their .apk.
@@ -831,15 +1107,21 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Convenience for subclasses that wish to implement {@link #openFile}
      * by looking up a column named "_data" at the given URI.
      *
      * @param uri The URI to be opened.
+<<<<<<< HEAD
      * @param mode The file mode.  May be "r" for read-only access,
      * "w" for write-only access (erasing whatever data is currently in
      * the file), "wa" for write-only access to append to any existing data,
      * "rw" for read and write access on any existing data, and "rwt" for read
      * and write access that truncates any existing file.
+=======
+     * @param mode The file mode.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return Returns a new ParcelFileDescriptor that can be used by the
      * client to access the file.
@@ -868,11 +1150,25 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
             throw new FileNotFoundException("Column _data not found.");
         }
 
+<<<<<<< HEAD
         int modeBits = ContentResolver.modeToMode(uri, mode);
+=======
+        int modeBits;
+        if ("r".equals(mode)) {
+            modeBits = ParcelFileDescriptor.MODE_READ_ONLY;
+        } else if ("rw".equals(mode)) {
+            modeBits = ParcelFileDescriptor.MODE_READ_WRITE
+                    | ParcelFileDescriptor.MODE_CREATE;
+        } else {
+            throw new FileNotFoundException("Bad mode for " + uri + ": "
+                    + mode);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         return ParcelFileDescriptor.open(new File(path), modeBits);
     }
 
     /**
+<<<<<<< HEAD
      * Called by a client to determine the types of data streams that this
      * content provider supports for the given URI.  The default implementation
      * returns null, meaning no types.  If your content provider stores data
@@ -892,10 +1188,26 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * @see ClipDescription#compareMimeTypes(String, String)
      */
     public String[] getStreamTypes(Uri uri, String mimeTypeFilter) {
+=======
+     * Get the sync adapter that is to be used by this content provider.
+     * This is intended for use by the sync system. If null then this
+     * content provider is considered not syncable.
+     * This method can be called from multiple
+     * threads, as described in the
+     * <a href="{@docRoot}intro/appmodel.html#Threads">Threading section of
+     * the Application Model overview</a>.
+     * 
+     * @return the SyncAdapter that is to be used by this ContentProvider, or null
+     *   if this ContentProvider is not syncable
+     * @hide
+     */
+    public SyncAdapter getSyncAdapter() {
+>>>>>>> 54b6cfa... Initial Contribution
         return null;
     }
 
     /**
+<<<<<<< HEAD
      * Called by a client to open a read-only stream containing data of a
      * particular MIME type.  This is like {@link #openAssetFile(Uri, String)},
      * except the file can only be read-only and the content provider may
@@ -1011,6 +1323,8 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns true if this instance is a temporary content provider.
      * @return true if this instance is a temporary content provider
      */
@@ -1036,11 +1350,14 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
      * @param info Registered information about this content provider
      */
     public void attachInfo(Context context, ProviderInfo info) {
+<<<<<<< HEAD
         /*
          * We may be using AsyncTask from binder threads.  Make it init here
          * so its static handler is on the main thread.
          */
         AsyncTask.init();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         /*
          * Only allow it to be set once, so after the content service gives
@@ -1048,16 +1365,23 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
          */
         if (mContext == null) {
             mContext = context;
+<<<<<<< HEAD
             mMyUid = Process.myUid();
             if (info != null) {
                 setReadPermission(info.readPermission);
                 setWritePermission(info.writePermission);
                 setPathPermissions(info.pathPermissions);
                 mExported = info.exported;
+=======
+            if (info != null) {
+                setReadPermission(info.readPermission);
+                setWritePermission(info.writePermission);
+>>>>>>> 54b6cfa... Initial Contribution
             }
             ContentProvider.this.onCreate();
         }
     }
+<<<<<<< HEAD
 
     /**
      * Override this to handle requests to perform a batch of operations, or the
@@ -1142,4 +1466,6 @@ public abstract class ContentProvider implements ComponentCallbacks2 {
     public void dump(FileDescriptor fd, PrintWriter writer, String[] args) {
         writer.println("nothing to dump");
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -32,11 +32,15 @@ import android.widget.RemoteViews.RemoteView;
  * <p><strong>XML attributes</strong></p> <p> See {@link
  * android.R.styleable#ViewGroup ViewGroup Attributes}, {@link
  * android.R.styleable#View View Attributes}</p>
+<<<<<<< HEAD
  * 
  * @deprecated Use {@link android.widget.FrameLayout}, {@link android.widget.RelativeLayout}
  *             or a custom layout instead.
  */
 @Deprecated
+=======
+ */
+>>>>>>> 54b6cfa... Initial Contribution
 @RemoteView
 public class AbsoluteLayout extends ViewGroup {
     public AbsoluteLayout(Context context) {
@@ -88,8 +92,13 @@ public class AbsoluteLayout extends ViewGroup {
         maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());
         maxWidth = Math.max(maxWidth, getSuggestedMinimumWidth());
         
+<<<<<<< HEAD
         setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0),
                 resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
+=======
+        setMeasuredDimension(resolveSize(maxWidth, widthMeasureSpec),
+                resolveSize(maxHeight, heightMeasureSpec));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -141,11 +150,14 @@ public class AbsoluteLayout extends ViewGroup {
         return new LayoutParams(p);
     }
 
+<<<<<<< HEAD
     @Override
     public boolean shouldDelayChildPressedState() {
         return false;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Per-child layout information associated with AbsoluteLayout.
      * See
@@ -166,9 +178,15 @@ public class AbsoluteLayout extends ViewGroup {
          * Creates a new set of layout parameters with the specified width,
          * height and location.
          *
+<<<<<<< HEAD
          * @param width the width, either {@link #MATCH_PARENT},
                   {@link #WRAP_CONTENT} or a fixed size in pixels
          * @param height the height, either {@link #MATCH_PARENT},
+=======
+         * @param width the width, either {@link #FILL_PARENT},
+                  {@link #WRAP_CONTENT} or a fixed size in pixels
+         * @param height the height, either {@link #FILL_PARENT},
+>>>>>>> 54b6cfa... Initial Contribution
                   {@link #WRAP_CONTENT} or a fixed size in pixels
          * @param x the X location of the child
          * @param y the Y location of the child
@@ -192,7 +210,11 @@ public class AbsoluteLayout extends ViewGroup {
          * </ul>
          *
          * @param c the application environment
+<<<<<<< HEAD
          * @param attrs the set of attributes from which to extract the layout
+=======
+         * @param attrs the set of attributes fom which to extract the layout
+>>>>>>> 54b6cfa... Initial Contribution
          *              parameters values
          */
         public LayoutParams(Context c, AttributeSet attrs) {

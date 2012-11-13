@@ -24,17 +24,24 @@ import android.widget.AdapterView;
  * Extension of {@link Menu} for context menus providing functionality to modify
  * the header of the context menu.
  * <p>
+<<<<<<< HEAD
  * Context menus do not support item shortcuts and item icons.
+=======
+ * Context menus do not support item shortcuts, item icons, and sub menus.
+>>>>>>> 54b6cfa... Initial Contribution
  * <p>
  * To show a context menu on long click, most clients will want to call
  * {@link Activity#registerForContextMenu} and override
  * {@link Activity#onCreateContextMenu}.
+<<<<<<< HEAD
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For information about creating menus, read the
  * <a href="{@docRoot}guide/topics/ui/menus.html">Menus</a> developer guide.</p>
  * </div>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public interface ContextMenu extends Menu {
     /**

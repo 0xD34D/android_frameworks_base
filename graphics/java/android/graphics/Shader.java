@@ -23,6 +23,7 @@ package android.graphics;
  * drawn with that paint will get its color(s) from the shader.
  */
 public class Shader {
+<<<<<<< HEAD
     /**
      * This is set by subclasses, but don't make it public.
      * 
@@ -35,6 +36,11 @@ public class Shader {
     public int native_shader;
 
     private Matrix mLocalMatrix;
+=======
+
+    // this is set by subclasses, but don't make it public
+    /* package */ int native_instance;
+>>>>>>> 54b6cfa... Initial Contribution
 
     public enum TileMode {
         /**
@@ -64,11 +70,15 @@ public class Shader {
      * @return true if the shader has a non-identity local matrix
      */
     public boolean getLocalMatrix(Matrix localM) {
+<<<<<<< HEAD
         if (mLocalMatrix != null) {
             localM.set(mLocalMatrix);
             return !mLocalMatrix.isIdentity();
         }
         return false;
+=======
+        return nativeGetLocalMatrix(native_instance, localM.native_instance);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -77,6 +87,7 @@ public class Shader {
      * @param localM The shader's new local matrix, or null to specify identity
      */
     public void setLocalMatrix(Matrix localM) {
+<<<<<<< HEAD
         mLocalMatrix = localM;
         nativeSetLocalMatrix(native_instance, native_shader,
                 localM == null ? 0 : localM.native_instance);
@@ -93,4 +104,19 @@ public class Shader {
     private static native void nativeDestructor(int native_shader, int native_skiaShader);
     private static native void nativeSetLocalMatrix(int native_shader,
             int native_skiaShader, int matrix_instance);
+=======
+        nativeSetLocalMatrix(native_instance,
+                             localM != null ? localM.native_instance : 0);
+    }
+
+    protected void finalize() throws Throwable {
+        nativeDestructor(native_instance);
+    }
+
+    private static native void nativeDestructor(int native_shader);
+    private static native boolean nativeGetLocalMatrix(int native_shader,
+                                                       int matrix_instance);
+    private static native void nativeSetLocalMatrix(int native_shader,
+                                                    int matrix_instance);
+>>>>>>> 54b6cfa... Initial Contribution
 }

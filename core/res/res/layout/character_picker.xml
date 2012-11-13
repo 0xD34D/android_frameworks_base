@@ -15,6 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:orientation="horizontal"
     android:layout_width="304dp"
     android:layout_height="match_parent"
@@ -35,15 +36,46 @@
         android:fadingEdge="none"
         android:layout_gravity="center_vertical"
         android:listSelector="#0000"
+=======
+    android:orientation="vertical"
+    android:layout_width="304dp"
+    android:layout_height="fill_parent">
+
+    <GridView
+        android:id="@+id/characterPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:verticalSpacing="8dp"
+        android:horizontalSpacing="8dp"
+        android:stretchMode="spacingWidth"
+        android:gravity="left"
+        android:drawSelectorOnTop="false"
+        android:listSelector="@drawable/grid_selector_background"
+        android:numColumns="4"
+        android:columnWidth="64dp"
+        android:fadingEdge="none"
+        android:layout_gravity="center_horizontal"
+>>>>>>> 54b6cfa... Initial Contribution
     />
 
     <Button
         android:id="@+id/cancel"
+<<<<<<< HEAD
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:background="@drawable/btn_close"
         android:layout_gravity="center_vertical"
+=======
+        android:text="@string/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+>>>>>>> 54b6cfa... Initial Contribution
     />
 </LinearLayout>

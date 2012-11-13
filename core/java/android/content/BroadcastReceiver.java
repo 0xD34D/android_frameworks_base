@@ -16,6 +16,7 @@
 
 package android.content;
 
+<<<<<<< HEAD
 import android.app.ActivityManagerNative;
 import android.app.ActivityThread;
 import android.app.IActivityManager;
@@ -43,6 +44,18 @@ import android.util.Slog;
  * tag in your <code>AndroidManifest.xml</code>.
  * 
  * <p><em><strong>Note:</strong></em>
+=======
+import android.os.Bundle;
+import android.util.Log;
+
+/**
+ * Base class for code that will receive intents sent by sendBroadcast().
+ * You can either dynamically register an instance of this class with
+ * {@link Context#registerReceiver Context.registerReceiver()}
+ * or statically publish an implementation through the
+ * {@link android.R.styleable#AndroidManifestReceiver &lt;receiver&gt;}
+ * tag in your <code>AndroidManifest.xml</code>. <em><strong>Note:</strong></em>
+>>>>>>> 54b6cfa... Initial Contribution
  * &nbsp;&nbsp;&nbsp;If registering a receiver in your
  * {@link android.app.Activity#onResume() Activity.onResume()}
  * implementation, you should unregister it in 
@@ -57,14 +70,23 @@ import android.util.Slog;
  * <ul>
  * <li> <b>Normal broadcasts</b> (sent with {@link Context#sendBroadcast(Intent)
  * Context.sendBroadcast}) are completely asynchronous.  All receivers of the
+<<<<<<< HEAD
  * broadcast are run in an undefined order, often at the same time.  This is
  * more efficient, but means that receivers cannot use the result or abort
+=======
+ * broadcast are run, in an undefined order, often at the same time.  This is
+ * more efficient, but means that receivers can not use the result or abort
+>>>>>>> 54b6cfa... Initial Contribution
  * APIs included here.
  * <li> <b>Ordered broadcasts</b> (sent with {@link Context#sendOrderedBroadcast(Intent, String)
  * Context.sendOrderedBroadcast}) are delivered to one receiver at a time.
  * As each receiver executes in turn, it can propagate a result to the next
  * receiver, or it can completely abort the broadcast so that it won't be passed
+<<<<<<< HEAD
  * to other receivers.  The order receivers run in can be controlled with the
+=======
+ * to other receivers.  The order receivers runs in can be controlled with the
+>>>>>>> 54b6cfa... Initial Contribution
  * {@link android.R.styleable#AndroidManifestIntentFilter_priority
  * android:priority} attribute of the matching intent-filter; receivers with
  * the same priority will be run in an arbitrary order.
@@ -74,14 +96,23 @@ import android.util.Slog;
  * situations revert to delivering the broadcast one receiver at a time.  In
  * particular, for receivers that may require the creation of a process, only
  * one will be run at a time to avoid overloading the system with new processes.
+<<<<<<< HEAD
  * In this situation, however, the non-ordered semantics hold: these receivers still
  * cannot return results or abort their broadcast.</p>
+=======
+ * In this situation, however, the non-ordered semantics hold: these receivers
+ * can not return results or abort their broadcast.</p>
+>>>>>>> 54b6cfa... Initial Contribution
  * 
  * <p>Note that, although the Intent class is used for sending and receiving
  * these broadcasts, the Intent broadcast mechanism here is completely separate
  * from Intents that are used to start Activities with
  * {@link Context#startActivity Context.startActivity()}.
+<<<<<<< HEAD
  * There is no way for a BroadcastReceiver
+=======
+ * There is no way for an BroadcastReceiver
+>>>>>>> 54b6cfa... Initial Contribution
  * to see or capture Intents used with startActivity(); likewise, when
  * you broadcast an Intent, you will never find or start an Activity.
  * These two operations are semantically very different: starting an
@@ -92,6 +123,7 @@ import android.util.Slog;
  * <p>The BroadcastReceiver class (when launched as a component through
  * a manifest's {@link android.R.styleable#AndroidManifestReceiver &lt;receiver&gt;}
  * tag) is an important part of an
+<<<<<<< HEAD
  * <a href="{@docRoot}guide/topics/fundamentals.html#lcycles">application's overall lifecycle</a>.</p>
  * 
  * <p>Topics covered here:
@@ -141,6 +173,43 @@ import android.util.Slog;
  * <p>Access permissions can be enforced by either the sender or receiver
  * of a broadcast.
  *
+=======
+ * <a href="{@docRoot}intro/lifecycle.html">application's overall lifecycle</a>.</p>
+ * 
+ * <p>Topics covered here:
+ * <ol>
+ * <li><a href="#ReceiverLifecycle">Receiver Lifecycle</a>
+ * <li><a href="#Permissions">Permissions</a>
+ * <li><a href="#ProcessLifecycle">Process Lifecycle</a>
+ * </ol>
+ * 
+ * <a name="ReceiverLifecycle"></a>
+ * <h3>Receiver Lifecycle</h3>
+ * 
+ * <p>A BroadcastReceiver object is only valid for the duration of the call
+ * to {@link #onReceive}.  Once your code returns from this function,
+ * the system considers the object to be finished and no longer active.
+ * 
+ * <p>This has important repercussions to what you can do in an
+ * {@link #onReceive} implementation: anything that requires asynchronous
+ * operation is not available, because you will need to return from the
+ * function to handle the asynchronous operation, but at that point the
+ * BroadcastReceiver is no longer active and thus the system is free to kill
+ * its process before the asynchronous operation completes.
+ * 
+ * <p>In particular, you may <i>not</i> show a dialog or bind to a service from
+ * within an BroadcastReceiver.  For the former, you should instead use the
+ * {@link android.app.NotificationManager} API.  For the latter, you can
+ * use {@link android.content.Context#startService Context.startService()} to
+ * send a command to the service.
+ * 
+ * <a name="Permissions"></a>
+ * <h3>Permissions</h3>
+ * 
+ * <p>Access permissions can be enforced by either the sender or receiver
+ * of an Intent.
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * <p>To enforce a permission when sending, you supply a non-null
  * <var>permission</var> argument to
  * {@link Context#sendBroadcast(Intent, String)} or
@@ -150,7 +219,11 @@ import android.util.Slog;
  * {@link android.R.styleable#AndroidManifestUsesPermission &lt;uses-permission&gt;}
  * tag in their <code>AndroidManifest.xml</code>) will be able to receive
  * the broadcast.
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * <p>To enforce a permission when receiving, you supply a non-null
  * <var>permission</var> when registering your receiver -- either when calling
  * {@link Context#registerReceiver(BroadcastReceiver, IntentFilter, String, android.os.Handler)}
@@ -161,6 +234,7 @@ import android.util.Slog;
  * {@link android.R.styleable#AndroidManifestUsesPermission &lt;uses-permission&gt;}
  * tag in their <code>AndroidManifest.xml</code>) will be able to send an
  * Intent to the receiver.
+<<<<<<< HEAD
  *
  * <p>See the <a href="{@docRoot}guide/topics/security/security.html">Security and Permissions</a>
  * document for more information on permissions and security in general.
@@ -189,6 +263,16 @@ import android.util.Slog;
  * <h3>Process Lifecycle</h3>
  * 
  * <p>A process that is currently executing a BroadcastReceiver (that is,
+=======
+ * 
+ * <p>See the <a href="{@docRoot}devel/security.html">Security Model</a>
+ * document for more information on permissions and security in general.
+ * 
+ * <a name="ProcessLifecycle"></a>
+ * <h3>Process Lifecycle</h3>
+ * 
+ * <p>A process that is currently executing an BroadcastReceiver (that is,
+>>>>>>> 54b6cfa... Initial Contribution
  * currently running the code in its {@link #onReceive} method) is
  * considered to be a foreground process and will be kept running by the
  * system except under cases of extreme memory pressure.
@@ -203,6 +287,7 @@ import android.util.Slog;
  * more important processes.
  * 
  * <p>This means that for longer-running operations you will often use
+<<<<<<< HEAD
  * a {@link android.app.Service} in conjunction with a BroadcastReceiver to keep
  * the containing process active for the entire time of your operation.
  */
@@ -440,29 +525,45 @@ public abstract class BroadcastReceiver {
         }
     }
     
+=======
+ * a {@link android.app.Service} in conjunction with an BroadcastReceiver to keep
+ * the containing process active for the entire time of your operation.
+ */
+public abstract class BroadcastReceiver {
+>>>>>>> 54b6cfa... Initial Contribution
     public BroadcastReceiver() {
     }
 
     /**
      * This method is called when the BroadcastReceiver is receiving an Intent
      * broadcast.  During this time you can use the other methods on
+<<<<<<< HEAD
      * BroadcastReceiver to view/modify the current result values.  This method
      * is always called within the main thread of its process, unless you
      * explicitly asked for it to be scheduled on a different thread using
      * {@link android.content.Context#registerReceiver(BroadcastReceiver,
      * IntentFilter, String, android.os.Handler)}. When it runs on the main
      * thread you should
+=======
+     * BroadcastReceiver to view/modify the current result values.  The function
+     * is normally called from the main thread of its process, so you should
+>>>>>>> 54b6cfa... Initial Contribution
      * never perform long-running operations in it (there is a timeout of
      * 10 seconds that the system allows before considering the receiver to
      * be blocked and a candidate to be killed). You cannot launch a popup dialog
      * in your implementation of onReceive().
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * <p><b>If this BroadcastReceiver was launched through a &lt;receiver&gt; tag,
      * then the object is no longer alive after returning from this
      * function.</b>  This means you should not perform any operations that
      * return a result to you asynchronously -- in particular, for interacting
      * with services, you should use
      * {@link Context#startService(Intent)} instead of
+<<<<<<< HEAD
      * {@link Context#bindService(Intent, ServiceConnection, int)}.  If you wish
      * to interact with a service that is already running, you can use
      * {@link #peekService}.
@@ -474,6 +575,9 @@ public abstract class BroadcastReceiver {
      * resolution.  For this reason, {@link #onReceive(Context, Intent) onReceive()}
      * implementations should respond only to known actions, ignoring any unexpected
      * Intents that they may receive.
+=======
+     * {@link Context#bindService(Intent, ServiceConnection, int)}.
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param context The Context in which the receiver is running.
      * @param intent The Intent being received.
@@ -481,6 +585,7 @@ public abstract class BroadcastReceiver {
     public abstract void onReceive(Context context, Intent intent);
 
     /**
+<<<<<<< HEAD
      * This can be called by an application in {@link #onReceive} to allow
      * it to keep the broadcast active after returning from that function.
      * This does <em>not</em> change the expectation of being relatively
@@ -522,6 +627,8 @@ public abstract class BroadcastReceiver {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Change the current result code of this broadcast; only works with
      * broadcasts sent through
      * {@link Context#sendOrderedBroadcast(Intent, String)
@@ -530,9 +637,15 @@ public abstract class BroadcastReceiver {
      * {@link android.app.Activity#RESULT_OK} constants, though the
      * actual meaning of this value is ultimately up to the broadcaster.
      * 
+<<<<<<< HEAD
      * <p class="note">This method does not work with non-ordered broadcasts such
      * as those sent with {@link Context#sendBroadcast(Intent)
      * Context.sendBroadcast}</p>
+=======
+     * <p><strong>This method does not work with non-ordered broadcasts such
+     * as those sent with {@link Context#sendBroadcast(Intent)
+     * Context.sendBroadcast}</strong></p>
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param code The new result code.
      * 
@@ -540,7 +653,11 @@ public abstract class BroadcastReceiver {
      */
     public final void setResultCode(int code) {
         checkSynchronousHint();
+<<<<<<< HEAD
         mPendingResult.mResultCode = code;
+=======
+        mResultCode = code;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -549,7 +666,11 @@ public abstract class BroadcastReceiver {
      * @return int The current result code.
      */
     public final int getResultCode() {
+<<<<<<< HEAD
         return mPendingResult != null ? mPendingResult.mResultCode : 0;
+=======
+        return mResultCode;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -569,7 +690,11 @@ public abstract class BroadcastReceiver {
      */
     public final void setResultData(String data) {
         checkSynchronousHint();
+<<<<<<< HEAD
         mPendingResult.mResultData = data;
+=======
+        mResultData = data;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -579,7 +704,11 @@ public abstract class BroadcastReceiver {
      * @return String The current result data; may be null.
      */
     public final String getResultData() {
+<<<<<<< HEAD
         return mPendingResult != null ? mPendingResult.mResultData : null;
+=======
+        return mResultData;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -601,7 +730,11 @@ public abstract class BroadcastReceiver {
      */
     public final void setResultExtras(Bundle extras) {
         checkSynchronousHint();
+<<<<<<< HEAD
         mPendingResult.mResultExtras = extras;
+=======
+        mResultExtras = extras;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -616,12 +749,18 @@ public abstract class BroadcastReceiver {
      * @return Map The current extras map.
      */
     public final Bundle getResultExtras(boolean makeMap) {
+<<<<<<< HEAD
         if (mPendingResult == null) {
             return null;
         }
         Bundle e = mPendingResult.mResultExtras;
         if (!makeMap) return e;
         if (e == null) mPendingResult.mResultExtras = e = new Bundle();
+=======
+        Bundle e = mResultExtras;
+        if (!makeMap) return e;
+        if (e == null) mResultExtras = e = new Bundle();
+>>>>>>> 54b6cfa... Initial Contribution
         return e;
     }
 
@@ -649,9 +788,15 @@ public abstract class BroadcastReceiver {
      */
     public final void setResult(int code, String data, Bundle extras) {
         checkSynchronousHint();
+<<<<<<< HEAD
         mPendingResult.mResultCode = code;
         mPendingResult.mResultData = data;
         mPendingResult.mResultExtras = extras;
+=======
+        mResultCode = code;
+        mResultData = data;
+        mResultExtras = extras;
+>>>>>>> 54b6cfa... Initial Contribution
     }
  
     /**
@@ -661,7 +806,11 @@ public abstract class BroadcastReceiver {
      * @return True if the broadcast should be aborted.
      */
     public final boolean getAbortBroadcast() {
+<<<<<<< HEAD
         return mPendingResult != null ? mPendingResult.mAbortBroadcast : false;
+=======
+        return mAbortBroadcast;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -669,7 +818,11 @@ public abstract class BroadcastReceiver {
      * current broadcast; only works with broadcasts sent through
      * {@link Context#sendOrderedBroadcast(Intent, String)
      * Context.sendOrderedBroadcast}.  This will prevent
+<<<<<<< HEAD
      * any other broadcast receivers from receiving the broadcast. It will still
+=======
+     * any other intent receivers from receiving the broadcast. It will still
+>>>>>>> 54b6cfa... Initial Contribution
      * call {@link #onReceive} of the BroadcastReceiver that the caller of 
      * {@link Context#sendOrderedBroadcast(Intent, String)
      * Context.sendOrderedBroadcast} passed in.
@@ -680,7 +833,11 @@ public abstract class BroadcastReceiver {
      */
     public final void abortBroadcast() {
         checkSynchronousHint();
+<<<<<<< HEAD
         mPendingResult.mAbortBroadcast = true;
+=======
+        mAbortBroadcast = true;
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -688,6 +845,7 @@ public abstract class BroadcastReceiver {
      * broadcast.
      */
     public final void clearAbortBroadcast() {
+<<<<<<< HEAD
         if (mPendingResult != null) {
             mPendingResult.mAbortBroadcast = false;
         }
@@ -709,6 +867,9 @@ public abstract class BroadcastReceiver {
      */
     public final boolean isInitialStickyBroadcast() {
         return mPendingResult != null ? mPendingResult.mInitialStickyHint : false;
+=======
+        mAbortBroadcast = false;
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -716,6 +877,7 @@ public abstract class BroadcastReceiver {
      * running in ordered mode.
      */
     public final void setOrderedHint(boolean isOrdered) {
+<<<<<<< HEAD
         // Accidentally left in the SDK.
     }
     
@@ -731,11 +893,18 @@ public abstract class BroadcastReceiver {
      */
     public final PendingResult getPendingResult() {
         return mPendingResult;
+=======
+        mOrderedHint = isOrdered;
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
      * Control inclusion of debugging help for mismatched
+<<<<<<< HEAD
      * calls to {@link Context#registerReceiver(BroadcastReceiver, IntentFilter)
+=======
+     * calls to {@ Context#registerReceiver(BroadcastReceiver, IntentFilter)
+>>>>>>> 54b6cfa... Initial Contribution
      * Context.registerReceiver()}.
      * If called with true, before given to registerReceiver(), then the
      * callstack of the following {@link Context#unregisterReceiver(BroadcastReceiver)
@@ -756,6 +925,7 @@ public abstract class BroadcastReceiver {
     }
     
     void checkSynchronousHint() {
+<<<<<<< HEAD
         if (mPendingResult == null) {
             throw new IllegalStateException("Call while result is not pending");
         }
@@ -764,6 +934,9 @@ public abstract class BroadcastReceiver {
         // since that may have come from an ordered broadcast.  We'll catch
         // them later when the real broadcast happens again.
         if (mPendingResult.mOrderedHint || mPendingResult.mInitialStickyHint) {
+=======
+        if (mOrderedHint) {
+>>>>>>> 54b6cfa... Initial Contribution
             return;
         }
         RuntimeException e = new RuntimeException(
@@ -771,5 +944,15 @@ public abstract class BroadcastReceiver {
         e.fillInStackTrace();
         Log.e("BroadcastReceiver", e.getMessage(), e);
     }
+<<<<<<< HEAD
+=======
+    
+    private int mResultCode;
+    private String mResultData;
+    private Bundle mResultExtras;
+    private boolean mAbortBroadcast;
+    private boolean mDebugUnregister;
+    private boolean mOrderedHint;
+>>>>>>> 54b6cfa... Initial Contribution
 }
 

@@ -23,7 +23,10 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+<<<<<<< HEAD
 import org.objectweb.asm.Opcodes;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import org.objectweb.asm.Type;
 import org.objectweb.asm.signature.SignatureReader;
 import org.objectweb.asm.signature.SignatureVisitor;
@@ -33,8 +36,13 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+<<<<<<< HEAD
 import java.util.Map.Entry;
 import java.util.TreeMap;
+=======
+import java.util.TreeMap;
+import java.util.Map.Entry;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -46,7 +54,11 @@ import java.util.zip.ZipFile;
 public class AsmAnalyzer {
 
     // Note: a bunch of stuff has package-level access for unit tests. Consider it private.
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /** Output logger. */
     private final Log mLog;
     /** The input source JAR to parse. */
@@ -60,11 +72,19 @@ public class AsmAnalyzer {
 
     /**
      * Creates a new analyzer.
+<<<<<<< HEAD
      *
      * @param log The log output.
      * @param osJarPath The input source JARs to parse.
      * @param gen The generator to fill with the class list and dependency list.
      * @param deriveFrom Keep all classes that derive from these one (these included).
+=======
+     * 
+     * @param log The log output.
+     * @param osJarPath The input source JARs to parse.
+     * @param gen The generator to fill with the class list and dependency list.
+     * @param deriveFrom Keep all classes that derive from these one (these included). 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param includeGlobs Glob patterns of classes to keep, e.g. "com.foo.*"
      *        ("*" does not matches dots whilst "**" does, "." and "$" are interpreted as-is)
      */
@@ -84,6 +104,7 @@ public class AsmAnalyzer {
     public void analyze() throws IOException, LogAbortException {
 
         AsmAnalyzer visitor = this;
+<<<<<<< HEAD
 
         Map<String, ClassReader> zipClasses = parseZip(mOsSourceJar);
         mLog.info("Found %d classes in input JAR%s.", zipClasses.size(),
@@ -92,6 +113,16 @@ public class AsmAnalyzer {
         Map<String, ClassReader> found = findIncludes(zipClasses);
         Map<String, ClassReader> deps = findDeps(zipClasses, found);
 
+=======
+        
+        Map<String, ClassReader> zipClasses = parseZip(mOsSourceJar);
+        mLog.info("Found %d classes in input JAR%s.", zipClasses.size(),
+                mOsSourceJar.size() > 1 ? "s" : "");
+        
+        Map<String, ClassReader> found = findIncludes(zipClasses);
+        Map<String, ClassReader> deps = findDeps(zipClasses, found);
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if (mGen != null) {
             mGen.setKeep(found);
             mGen.setDeps(deps);
@@ -118,10 +149,17 @@ public class AsmAnalyzer {
                 }
             }
         }
+<<<<<<< HEAD
 
         return classes;
     }
 
+=======
+        
+        return classes;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Utility that returns the fully qualified binary class name for a ClassReader.
      * E.g. it returns something like android.view.View.
@@ -133,7 +171,11 @@ public class AsmAnalyzer {
             return classReader.getClassName().replace('/', '.');
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Utility that returns the fully qualified binary class name from a path-like FQCN.
      * E.g. it returns android.view.View from android/view/View.
@@ -145,7 +187,11 @@ public class AsmAnalyzer {
             return className.replace('/', '.');
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Process the "includes" arrays.
      * <p/>
@@ -163,11 +209,19 @@ public class AsmAnalyzer {
         for (String s : mDeriveFrom) {
             findClassesDerivingFrom(s, zipClasses, found);
         }
+<<<<<<< HEAD
 
         return found;
     }
 
 
+=======
+        
+        return found;
+    }
+
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Uses ASM to find the class reader for the given FQCN class name.
      * If found, insert it in the in_out_found map.
@@ -216,7 +270,11 @@ public class AsmAnalyzer {
         globPattern += "$";
 
         Pattern regexp = Pattern.compile(globPattern);
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         for (Entry<String, ClassReader> entry : zipClasses.entrySet()) {
             String class_name = entry.getKey();
             if (regexp.matcher(class_name).matches()) {
@@ -285,7 +343,11 @@ public class AsmAnalyzer {
         for (ClassReader cr : inOutKeepClasses.values()) {
             cr.accept(visitor, 0 /* flags */);
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         while (new_deps.size() > 0 || new_keep.size() > 0) {
             deps.putAll(new_deps);
             inOutKeepClasses.putAll(new_keep);
@@ -309,6 +371,7 @@ public class AsmAnalyzer {
         return deps;
     }
 
+<<<<<<< HEAD
 
 
     // ----------------------------------
@@ -317,6 +380,17 @@ public class AsmAnalyzer {
      * Visitor to collect all the type dependencies from a class.
      */
     public class DependencyVisitor extends ClassVisitor {
+=======
+    
+
+    // ----------------------------------
+    
+    /**
+     * Visitor to collect all the type dependencies from a class. 
+     */
+    public class DependencyVisitor
+        implements ClassVisitor, FieldVisitor, MethodVisitor, SignatureVisitor, AnnotationVisitor {
+>>>>>>> 54b6cfa... Initial Contribution
 
         /** All classes found in the source JAR. */
         private final Map<String, ClassReader> mZipClasses;
@@ -333,7 +407,11 @@ public class AsmAnalyzer {
          * Creates a new visitor that will find all the dependencies for the visited class.
          * Types which are already in the zipClasses, keepClasses or inDeps are not marked.
          * New dependencies are marked in outDeps.
+<<<<<<< HEAD
          *
+=======
+         * 
+>>>>>>> 54b6cfa... Initial Contribution
          * @param zipClasses All classes found in the source JAR.
          * @param inKeep Classes from which dependencies are to be found.
          * @param inDeps Dependencies already known.
@@ -344,14 +422,21 @@ public class AsmAnalyzer {
                 Map<String, ClassReader> outKeep,
                 Map<String,ClassReader> inDeps,
                 Map<String,ClassReader> outDeps) {
+<<<<<<< HEAD
             super(Opcodes.ASM4);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             mZipClasses = zipClasses;
             mInKeep = inKeep;
             mOutKeep = outKeep;
             mInDeps = inDeps;
             mOutDeps = outDeps;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Considers the given class name as a dependency.
          * If it does, add to the mOutDeps map.
@@ -362,7 +447,11 @@ public class AsmAnalyzer {
             }
 
             className = internalToBinaryClassName(className);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             // exclude classes that have already been found
             if (mInKeep.containsKey(className) ||
                     mOutKeep.containsKey(className) ||
@@ -385,7 +474,11 @@ public class AsmAnalyzer {
             } catch (ClassNotFoundException e) {
                 // ignore
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             // accept this class:
             // - android classes are added to dependencies
             // - non-android classes are added to the list of classes to keep as-is (they don't need
@@ -396,7 +489,11 @@ public class AsmAnalyzer {
                 mOutKeep.put(className, cr);
             }
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Considers this array of names using considerName().
          */
@@ -417,7 +514,11 @@ public class AsmAnalyzer {
                 SignatureReader sr = new SignatureReader(signature);
                 // SignatureReader.accept will call accessType so we don't really have
                 // to differentiate where the signature comes from.
+<<<<<<< HEAD
                 sr.accept(new MySignatureVisitor());
+=======
+                sr.accept(this);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -451,18 +552,29 @@ public class AsmAnalyzer {
             }
         }
 
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // ---------------------------------------------------
         // --- ClassVisitor, FieldVisitor
         // ---------------------------------------------------
 
         // Visits a class header
+<<<<<<< HEAD
         @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public void visit(int version, int access, String name,
                 String signature, String superName, String[] interfaces) {
             // signature is the signature of this class. May be null if the class is not a generic
             // one, and does not extend or implement generic classes or interfaces.
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (signature != null) {
                 considerSignature(signature);
             }
@@ -470,12 +582,17 @@ public class AsmAnalyzer {
             // superName is the internal of name of the super class (see getInternalName).
             // For interfaces, the super class is Object. May be null but only for the Object class.
             considerName(superName);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             // interfaces is the internal names of the class's interfaces (see getInternalName).
             // May be null.
             considerNames(interfaces);
         }
 
+<<<<<<< HEAD
 
         @Override
         public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
@@ -485,16 +602,28 @@ public class AsmAnalyzer {
         }
 
         @Override
+=======
+        public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
+            // desc is the class descriptor of the annotation class.
+            considerDesc(desc);
+            return this; // return this to visit annotion values
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         public void visitAttribute(Attribute attr) {
             // pass
         }
 
         // Visits the end of a class
+<<<<<<< HEAD
         @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public void visitEnd() {
             // pass
         }
 
+<<<<<<< HEAD
         private class MyFieldVisitor extends FieldVisitor {
 
             public MyFieldVisitor() {
@@ -521,6 +650,8 @@ public class AsmAnalyzer {
         }
 
         @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public FieldVisitor visitField(int access, String name, String desc,
                 String signature, Object value) {
             // desc is the field's descriptor (see Type).
@@ -530,16 +661,25 @@ public class AsmAnalyzer {
             // generic types.
             considerSignature(signature);
 
+<<<<<<< HEAD
             return new MyFieldVisitor();
         }
 
         @Override
+=======
+            return this; // a visitor to visit field annotations and attributes
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         public void visitInnerClass(String name, String outerName, String innerName, int access) {
             // name is the internal name of an inner class (see getInternalName).
             considerName(name);
         }
 
+<<<<<<< HEAD
         @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public MethodVisitor visitMethod(int access, String name, String desc,
                 String signature, String[] exceptions) {
             // desc is the method's descriptor (see Type).
@@ -547,25 +687,40 @@ public class AsmAnalyzer {
             // signature is the method's signature. May be null if the method parameters, return
             // type and exceptions do not use generic types.
             considerSignature(signature);
+<<<<<<< HEAD
 
             return new MyMethodVisitor();
         }
 
         @Override
+=======
+            
+            return this; // returns this to visit the method
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         public void visitOuterClass(String owner, String name, String desc) {
             // pass
         }
 
+<<<<<<< HEAD
         @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public void visitSource(String source, String debug) {
             // pass
         }
 
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // ---------------------------------------------------
         // --- MethodVisitor
         // ---------------------------------------------------
 
+<<<<<<< HEAD
         private class MyMethodVisitor extends MethodVisitor {
 
             public MyMethodVisitor() {
@@ -803,10 +958,201 @@ public class AsmAnalyzer {
         }
 
 
+=======
+        public AnnotationVisitor visitAnnotationDefault() {
+            return this; // returns this to visit the default value
+        }
+
+
+        public void visitCode() {
+            // pass
+        }
+
+        // field instruction
+        public void visitFieldInsn(int opcode, String owner, String name, String desc) {
+            // name is the field's name.
+            considerName(name);
+            // desc is the field's descriptor (see Type).
+            considerDesc(desc);
+        }
+
+        public void visitFrame(int type, int local, Object[] local2, int stack, Object[] stack2) {
+            // pass
+        }
+
+        public void visitIincInsn(int var, int increment) {
+            // pass -- an IINC instruction
+        }
+
+        public void visitInsn(int opcode) {
+            // pass -- a zero operand instruction
+        }
+
+        public void visitIntInsn(int opcode, int operand) {
+            // pass -- a single int operand instruction
+        }
+
+        public void visitJumpInsn(int opcode, Label label) {
+            // pass -- a jump instruction
+        }
+
+        public void visitLabel(Label label) {
+            // pass -- a label target
+        }
+
+        // instruction to load a constant from the stack
+        public void visitLdcInsn(Object cst) {
+            if (cst instanceof Type) {
+                considerType((Type) cst);
+            }
+        }
+
+        public void visitLineNumber(int line, Label start) {
+            // pass
+        }
+
+        public void visitLocalVariable(String name, String desc,
+                String signature, Label start, Label end, int index) {
+            // desc is the type descriptor of this local variable.
+            considerDesc(desc);
+            // signature is the type signature of this local variable. May be null if the local
+            // variable type does not use generic types.
+            considerSignature(signature);
+        }
+
+        public void visitLookupSwitchInsn(Label dflt, int[] keys, Label[] labels) {
+            // pass -- a lookup switch instruction
+        }
+
+        public void visitMaxs(int maxStack, int maxLocals) {
+            // pass
+        }
+
+        // instruction that invokes a method
+        public void visitMethodInsn(int opcode, String owner, String name, String desc) {
+            
+            // owner is the internal name of the method's owner class
+            considerName(owner);
+            // desc is the method's descriptor (see Type).
+            considerDesc(desc);
+        }
+
+        // instruction multianewarray, whatever that is
+        public void visitMultiANewArrayInsn(String desc, int dims) {
+            
+            // desc an array type descriptor.
+            considerDesc(desc);
+        }
+
+        public AnnotationVisitor visitParameterAnnotation(int parameter, String desc,
+                boolean visible) {
+            // desc is the class descriptor of the annotation class.
+            considerDesc(desc);
+            return this; // return this to visit annotation values
+        }
+
+        public void visitTableSwitchInsn(int min, int max, Label dflt, Label[] labels) {
+            // pass -- table switch instruction
+            
+        }
+
+        public void visitTryCatchBlock(Label start, Label end, Label handler, String type) {
+            // type is the internal name of the type of exceptions handled by the handler,
+            // or null to catch any exceptions (for "finally" blocks).
+            considerName(type);
+        }
+
+        // type instruction
+        public void visitTypeInsn(int opcode, String type) {
+            // type is the operand of the instruction to be visited. This operand must be the
+            // internal name of an object or array class.
+            considerName(type);
+        }
+
+        public void visitVarInsn(int opcode, int var) {
+            // pass -- local variable instruction 
+        }
+
+        
+        // ---------------------------------------------------
+        // --- SignatureVisitor
+        // ---------------------------------------------------
+
+        private String mCurrentSignatureClass = null;
+
+        // Starts the visit of a signature corresponding to a class or interface type
+        public void visitClassType(String name) {
+            mCurrentSignatureClass = name;
+            considerName(name);
+        }
+
+        // Visits an inner class
+        public void visitInnerClassType(String name) {
+            if (mCurrentSignatureClass != null) {
+                mCurrentSignatureClass += "$" + name;
+                considerName(mCurrentSignatureClass);
+            }
+        }
+
+        public SignatureVisitor visitArrayType() {
+            return this; // returns this to visit the signature of the array element type
+        }
+
+        public void visitBaseType(char descriptor) {
+            // pass -- a primitive type, ignored
+        }
+
+        public SignatureVisitor visitClassBound() {
+            return this; // returns this to visit the signature of the class bound
+        }
+
+        public SignatureVisitor visitExceptionType() {
+            return this; // return this to visit the signature of the exception type.
+        }
+
+        public void visitFormalTypeParameter(String name) {
+            // pass
+        }
+
+        public SignatureVisitor visitInterface() {
+            return this; // returns this to visit the signature of the interface type
+        }
+
+        public SignatureVisitor visitInterfaceBound() {
+            return this; // returns this to visit the signature of the interface bound
+        }
+
+        public SignatureVisitor visitParameterType() {
+            return this; // returns this to visit the signature of the parameter type
+        }
+
+        public SignatureVisitor visitReturnType() {
+            return this; // returns this to visit the signature of the return type
+        }
+
+        public SignatureVisitor visitSuperclass() {
+            return this; // returns this to visit the signature of the super class type
+        }
+
+        public SignatureVisitor visitTypeArgument(char wildcard) {
+            return this; // returns this to visit the signature of the type argument
+        }
+
+        public void visitTypeVariable(String name) {
+            // pass
+        }
+
+        public void visitTypeArgument() {
+            // pass
+        }
+        
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // ---------------------------------------------------
         // --- AnnotationVisitor
         // ---------------------------------------------------
 
+<<<<<<< HEAD
         private class MyAnnotationVisitor extends AnnotationVisitor {
 
             public MyAnnotationVisitor() {
@@ -841,5 +1187,32 @@ public class AsmAnalyzer {
                 considerDesc(desc);
             }
         }
+=======
+
+        // Visits a primitive value of an annotation
+        public void visit(String name, Object value) {
+            // value is the actual value, whose type must be Byte, Boolean, Character, Short,
+            // Integer, Long, Float, Double, String or Type
+            if (value instanceof Type) {
+                considerType((Type) value);
+            }
+        }
+
+        public AnnotationVisitor visitAnnotation(String name, String desc) {
+            // desc is the class descriptor of the nested annotation class.
+            considerDesc(desc);
+            return this; // returns this to visit the actual nested annotation value
+        }
+
+        public AnnotationVisitor visitArray(String name) {
+            return this; // returns this to visit the actual array value elements
+        }
+
+        public void visitEnum(String name, String desc, String value) {
+            // desc is the class descriptor of the enumeration class.
+            considerDesc(desc);
+        }
+        
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

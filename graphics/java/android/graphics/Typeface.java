@@ -17,9 +17,12 @@
 package android.graphics;
 
 import android.content.res.AssetManager;
+<<<<<<< HEAD
 import android.util.SparseArray;
 
 import java.io.File;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * The Typeface class specifies the typeface and intrinsic style of a font.
@@ -44,11 +47,17 @@ public class Typeface {
     /** The NORMAL style of the default monospace typeface. */
     public static final Typeface MONOSPACE;
 
+<<<<<<< HEAD
     static Typeface[] sDefaults;
     private static final SparseArray<SparseArray<Typeface>> sTypefaceCache =
             new SparseArray<SparseArray<Typeface>>(3);
 
     int native_instance;
+=======
+    private static Typeface[] sDefaults;
+    
+    /* package */ int native_instance;
+>>>>>>> 54b6cfa... Initial Contribution
 
     // Style
     public static final int NORMAL = 0;
@@ -56,21 +65,35 @@ public class Typeface {
     public static final int ITALIC = 2;
     public static final int BOLD_ITALIC = 3;
 
+<<<<<<< HEAD
     private int mStyle = 0;
 
     /** Returns the typeface's intrinsic style attributes */
     public int getStyle() {
         return mStyle;
+=======
+    /** Returns the typeface's intrinsic style attributes */
+    public int getStyle() {
+        return nativeGetStyle(native_instance);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /** Returns true if getStyle() has the BOLD bit set. */
     public final boolean isBold() {
+<<<<<<< HEAD
         return (mStyle & BOLD) != 0;
+=======
+        return (getStyle() & BOLD) != 0;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /** Returns true if getStyle() has the ITALIC bit set. */
     public final boolean isItalic() {
+<<<<<<< HEAD
         return (mStyle & ITALIC) != 0;
+=======
+        return (getStyle() & ITALIC) != 0;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -102,6 +125,7 @@ public class Typeface {
     public static Typeface create(Typeface family, int style) {
         int ni = 0;        
         if (family != null) {
+<<<<<<< HEAD
             // Return early if we're asked for the same face/style
             if (family.mStyle == style) {
                 return family;
@@ -128,6 +152,11 @@ public class Typeface {
         styles.put(style, typeface);
 
         return typeface;
+=======
+            ni = family.native_instance;
+        }
+        return new Typeface(nativeCreateFromTypeface(ni, style));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -148,6 +177,7 @@ public class Typeface {
     public static Typeface createFromAsset(AssetManager mgr, String path) {
         return new Typeface(nativeCreateFromAsset(mgr, path));
     }
+<<<<<<< HEAD
 
     /**
      * Create a new typeface from the specified font file.
@@ -182,6 +212,17 @@ public class Typeface {
     static {
         DEFAULT         = create((String) null, 0);
         DEFAULT_BOLD    = create((String) null, Typeface.BOLD);
+=======
+    
+    // don't allow clients to call this directly
+    private Typeface(int ni) {
+        native_instance = ni;
+    }
+    
+    static {
+        DEFAULT         = create((String)null, 0);
+        DEFAULT_BOLD    = create((String)null, Typeface.BOLD);
+>>>>>>> 54b6cfa... Initial Contribution
         SANS_SERIF      = create("sans-serif", 0);
         SERIF           = create("serif", 0);
         MONOSPACE       = create("monospace", 0);
@@ -189,12 +230,18 @@ public class Typeface {
         sDefaults = new Typeface[] {
             DEFAULT,
             DEFAULT_BOLD,
+<<<<<<< HEAD
             create((String) null, Typeface.ITALIC),
             create((String) null, Typeface.BOLD_ITALIC),
+=======
+            create((String)null, Typeface.ITALIC),
+            create((String)null, Typeface.BOLD_ITALIC),
+>>>>>>> 54b6cfa... Initial Contribution
         };
     }
 
     protected void finalize() throws Throwable {
+<<<<<<< HEAD
         try {
             nativeUnref(native_instance);
         } finally {
@@ -237,4 +284,16 @@ public class Typeface {
      * @hide - this is just for calibrating devices, not for normal apps
      */
     public static native void setGammaForText(float blackGamma, float whiteGamma);
+=======
+        nativeUnref(native_instance);
+    }
+
+    private static native int  nativeCreate(String familyName, int style);
+    private static native int  nativeCreateFromTypeface(int native_instance,
+                                                        int style);
+    private static native void nativeUnref(int native_instance);
+    private static native int  nativeGetStyle(int native_instance);
+    private static native int  nativeCreateFromAsset(AssetManager mgr,
+                                                     String path);
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -39,6 +39,7 @@ public enum SupplicantState implements Parcelable {
     DISCONNECTED,
 
     /**
+<<<<<<< HEAD
      * Interface is disabled
      * <p/>
      * This state is entered if the network interface is disabled.
@@ -48,6 +49,8 @@ public enum SupplicantState implements Parcelable {
     INTERFACE_DISABLED,
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Inactive state (wpa_supplicant disabled).
      * <p/>
      * This state is entered if there are no enabled networks in the
@@ -66,6 +69,7 @@ public enum SupplicantState implements Parcelable {
     SCANNING,
 
     /**
+<<<<<<< HEAD
      * Trying to authenticate with a BSS/SSID
      * <p/>
      * This state is entered when wpa_supplicant has found a suitable BSS
@@ -75,6 +79,8 @@ public enum SupplicantState implements Parcelable {
     AUTHENTICATING,
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Trying to associate with a BSS/SSID.
      * <p/>
      * This state is entered when wpa_supplicant has found a suitable BSS
@@ -170,6 +176,7 @@ public enum SupplicantState implements Parcelable {
         return state != UNINITIALIZED && state != INVALID;
     }
 
+<<<<<<< HEAD
 
     /** Supplicant associating or authenticating is considered a handshake state {@hide} */
     public static boolean isHandshakeState(SupplicantState state) {
@@ -238,6 +245,8 @@ public enum SupplicantState implements Parcelable {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /** Implement the Parcelable interface {@hide} */
     public int describeContents() {
         return 0;

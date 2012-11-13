@@ -28,17 +28,26 @@ package android.os;
  * <pre>
  * public class MyParcelable implements Parcelable {
  *     private int mData;
+<<<<<<< HEAD
  *
  *     public int describeContents() {
  *         return 0;
  *     }
  *
+=======
+ *     
+>>>>>>> 54b6cfa... Initial Contribution
  *     public void writeToParcel(Parcel out, int flags) {
  *         out.writeInt(mData);
  *     }
  *
+<<<<<<< HEAD
  *     public static final Parcelable.Creator&lt;MyParcelable&gt; CREATOR
  *             = new Parcelable.Creator&lt;MyParcelable&gt;() {
+=======
+ *     public static final Parcelable.Creator<MyParcelable> CREATOR
+ *             = new Parcelable.Creator<MyParcelable>() {
+>>>>>>> 54b6cfa... Initial Contribution
  *         public MyParcelable createFromParcel(Parcel in) {
  *             return new MyParcelable(in);
  *         }
@@ -46,7 +55,11 @@ package android.os;
  *         public MyParcelable[] newArray(int size) {
  *             return new MyParcelable[size];
  *         }
+<<<<<<< HEAD
  *     };
+=======
+ *     }
+>>>>>>> 54b6cfa... Initial Contribution
  *     
  *     private MyParcelable(Parcel in) {
  *         mData = in.readInt();
@@ -113,6 +126,7 @@ public interface Parcelable {
          */
         public T[] newArray(int size);
     }
+<<<<<<< HEAD
 
     /**
      * Specialization of {@link Creator} that allows you to receive the
@@ -131,4 +145,6 @@ public interface Parcelable {
          */
         public T createFromParcel(Parcel source, ClassLoader loader);
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

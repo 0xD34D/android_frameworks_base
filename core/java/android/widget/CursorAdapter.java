@@ -21,6 +21,10 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.os.Handler;
+<<<<<<< HEAD
+=======
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +70,11 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
      * This field should be made private, so it is hidden from the SDK.
      * {@hide}
      */
+<<<<<<< HEAD
     protected DataSetObserver mDataSetObserver;
+=======
+    protected DataSetObserver mDataSetObserver = new MyDataSetObserver();
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * This field should be made private, so it is hidden from the SDK.
      * {@hide}
@@ -79,6 +87,7 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
     protected FilterQueryProvider mFilterQueryProvider;
 
     /**
+<<<<<<< HEAD
      * If set the adapter will call requery() on the cursor whenever a content change
      * notification is delivered. Implies {@link #FLAG_REGISTER_CONTENT_OBSERVER}.
      *
@@ -107,10 +116,15 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
      * being performed on the application's UI thread and thus can cause poor
      * responsiveness or even Application Not Responding errors.  As an alternative,
      * use {@link android.app.LoaderManager} with a {@link android.content.CursorLoader}.
+=======
+     * Constructor. The adapter will call requery() on the cursor whenever
+     * it changes so that the most recent data is always displayed.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param c The cursor from which to get the data.
      * @param context The context
      */
+<<<<<<< HEAD
     @Deprecated
     public CursorAdapter(Context context, Cursor c) {
         init(context, c, FLAG_AUTO_REQUERY);
@@ -122,10 +136,19 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
      * When using this constructor, {@link #FLAG_REGISTER_CONTENT_OBSERVER}
      * will always be set.
      *
+=======
+    public CursorAdapter(Context context, Cursor c) {
+        init(context, c, true);
+    }
+
+    /**
+     * Constructor
+>>>>>>> 54b6cfa... Initial Contribution
      * @param c The cursor from which to get the data.
      * @param context The context
      * @param autoRequery If true the adapter will call requery() on the
      *                    cursor whenever it changes so the most recent
+<<<<<<< HEAD
      *                    data is always displayed.  Using true here is discouraged.
      */
     public CursorAdapter(Context context, Cursor c, boolean autoRequery) {
@@ -162,10 +185,22 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
             mAutoRequery = false;
         }
         boolean cursorPresent = c != null;
+=======
+     *                    data is always displayed.
+     */
+    public CursorAdapter(Context context, Cursor c, boolean autoRequery) {
+        init(context, c, autoRequery);
+    }
+
+    protected void init(Context context, Cursor c, boolean autoRequery) {
+        boolean cursorPresent = c != null;
+        mAutoRequery = autoRequery;
+>>>>>>> 54b6cfa... Initial Contribution
         mCursor = c;
         mDataValid = cursorPresent;
         mContext = context;
         mRowIDColumn = cursorPresent ? c.getColumnIndexOrThrow("_id") : -1;
+<<<<<<< HEAD
         if ((flags & FLAG_REGISTER_CONTENT_OBSERVER) == FLAG_REGISTER_CONTENT_OBSERVER) {
             mChangeObserver = new ChangeObserver();
             mDataSetObserver = new MyDataSetObserver();
@@ -177,6 +212,12 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
         if (cursorPresent) {
             if (mChangeObserver != null) c.registerContentObserver(mChangeObserver);
             if (mDataSetObserver != null) c.registerDataSetObserver(mDataSetObserver);
+=======
+        mChangeObserver = new ChangeObserver();
+        if (cursorPresent) {
+            c.registerContentObserver(mChangeObserver);
+            c.registerDataSetObserver(mDataSetObserver);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -191,7 +232,11 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
     /**
      * @see android.widget.ListAdapter#getCount()
      */
+<<<<<<< HEAD
     public int getCount() {
+=======
+    public final int getCount() {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mDataValid && mCursor != null) {
             return mCursor.getCount();
         } else {
@@ -202,7 +247,11 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
     /**
      * @see android.widget.ListAdapter#getItem(int)
      */
+<<<<<<< HEAD
     public Object getItem(int position) {
+=======
+    public final Object getItem(int position) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mDataValid && mCursor != null) {
             mCursor.moveToPosition(position);
             return mCursor;
@@ -214,7 +263,11 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
     /**
      * @see android.widget.ListAdapter#getItemId(int)
      */
+<<<<<<< HEAD
     public long getItemId(int position) {
+=======
+    public final long getItemId(int position) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mDataValid && mCursor != null) {
             if (mCursor.moveToPosition(position)) {
                 return mCursor.getLong(mRowIDColumn);
@@ -303,6 +356,7 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
      * Change the underlying cursor to a new cursor. If there is an existing cursor it will be
      * closed.
      * 
+<<<<<<< HEAD
      * @param cursor The new cursor to be used
      */
     public void changeCursor(Cursor cursor) {
@@ -336,6 +390,21 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
             if (mChangeObserver != null) newCursor.registerContentObserver(mChangeObserver);
             if (mDataSetObserver != null) newCursor.registerDataSetObserver(mDataSetObserver);
             mRowIDColumn = newCursor.getColumnIndexOrThrow("_id");
+=======
+     * @param cursor the new cursor to be used
+     */
+    public void changeCursor(Cursor cursor) {
+        if (mCursor != null) {
+            mCursor.unregisterContentObserver(mChangeObserver);
+            mCursor.unregisterDataSetObserver(mDataSetObserver);
+            mCursor.close();
+        }
+        mCursor = cursor;
+        if (cursor != null) {
+            cursor.registerContentObserver(mChangeObserver);
+            cursor.registerDataSetObserver(mDataSetObserver);
+            mRowIDColumn = cursor.getColumnIndexOrThrow("_id");
+>>>>>>> 54b6cfa... Initial Contribution
             mDataValid = true;
             // notify the observers about the new cursor
             notifyDataSetChanged();
@@ -345,7 +414,10 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
             // notify the observers about the lack of a data set
             notifyDataSetInvalidated();
         }
+<<<<<<< HEAD
         return oldCursor;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -430,6 +502,7 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
         mFilterQueryProvider = filterQueryProvider;
     }
 
+<<<<<<< HEAD
     /**
      * Called when the {@link ContentObserver} on the cursor receives a change notification.
      * The default implementation provides the auto-requery logic, but may be overridden by
@@ -444,6 +517,8 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private class ChangeObserver extends ContentObserver {
         public ChangeObserver() {
             super(new Handler());
@@ -456,7 +531,15 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
 
         @Override
         public void onChange(boolean selfChange) {
+<<<<<<< HEAD
             onContentChanged();
+=======
+            if (mAutoRequery && mCursor != null) {
+                if (Config.LOGV) Log.v("Cursor", "Auto requerying " + mCursor +
+                        " due to update");
+                mDataValid = mCursor.requery();
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 

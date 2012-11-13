@@ -16,7 +16,11 @@
 
 package com.android.server.am;
 
+<<<<<<< HEAD
 import android.content.IIntentReceiver;
+=======
+import android.app.IIntentReceiver;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -26,10 +30,15 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.PrintWriterPrinter;
+<<<<<<< HEAD
 import android.util.TimeUtils;
 
 import java.io.PrintWriter;
 import java.util.Date;
+=======
+
+import java.io.PrintWriter;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.List;
 
 /**
@@ -41,6 +50,7 @@ class BroadcastRecord extends Binder {
     final String callerPackage; // who sent this
     final int callingPid;   // the pid of who sent this
     final int callingUid;   // the uid of who sent this
+<<<<<<< HEAD
     final boolean ordered;  // serialize the send to receivers?
     final boolean sticky;   // originated from existing sticky data?
     final boolean initialSticky; // initial broadcast from register to sticky?
@@ -51,15 +61,29 @@ class BroadcastRecord extends Binder {
     long dispatchClockTime; // the clock time the dispatch started
     long receiverTime;      // when current receiver started for timeouts.
     long finishTime;        // when we finished the broadcast.
+=======
+    String requiredPermission; // a permission the caller has required
+    final List receivers;   // contains BroadcastFilter and ResolveInfo
+    final IIntentReceiver resultTo; // who receives final result if non-null
+    long dispatchTime;      // when dispatch started on this set of receivers
+    long startTime;         // when current receiver started for timeouts.
+>>>>>>> 54b6cfa... Initial Contribution
     int resultCode;         // current result code value.
     String resultData;      // current result data value.
     Bundle resultExtras;    // current result extra data values.
     boolean resultAbort;    // current result abortBroadcast value.
+<<<<<<< HEAD
+=======
+    boolean ordered;        // serialize the send to receivers?
+>>>>>>> 54b6cfa... Initial Contribution
     int nextReceiver;       // next receiver to be executed.
     IBinder receiver;       // who is currently running, null if none.
     int state;
     int anrCount;           // has this broadcast record hit any ANRs?
+<<<<<<< HEAD
     BroadcastQueue queue;   // the outbound queue handling this broadcast
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     static final int IDLE = 0;
     static final int APP_RECEIVE = 1;
@@ -77,6 +101,7 @@ class BroadcastRecord extends Binder {
     ActivityInfo curReceiver;   // info about the receiver that is currently running.
 
     void dump(PrintWriter pw, String prefix) {
+<<<<<<< HEAD
         final long now = SystemClock.uptimeMillis();
 
         pw.print(prefix); pw.println(this);
@@ -139,6 +164,35 @@ class BroadcastRecord extends Binder {
                 pw.print(prefix); pw.print("curSourceDir=");
                         pw.println(curReceiver.applicationInfo.sourceDir);
             }
+=======
+        pw.println(prefix + this);
+        pw.println(prefix + intent);
+        pw.println(prefix + "proc=" + callerApp);
+        pw.println(prefix + "caller=" + callerPackage
+                + " callingPid=" + callingPid
+                + " callingUid=" + callingUid);
+        pw.println(prefix + "requiredPermission=" + requiredPermission);
+        pw.println(prefix + "dispatchTime=" + dispatchTime + " ("
+                + (SystemClock.uptimeMillis()-dispatchTime) + " since now)");
+        pw.println(prefix + "startTime=" + startTime + " ("
+                + (SystemClock.uptimeMillis()-startTime) + " since now)");
+        pw.println(prefix + "anrCount=" + anrCount);
+        pw.println(prefix + "resultTo=" + resultTo
+              + " resultCode=" + resultCode + " resultData=" + resultData);
+        pw.println(prefix + "resultExtras=" + resultExtras);
+        pw.println(prefix + "resultAbort=" + resultAbort
+                + " ordered=" + ordered);
+        pw.println(prefix + "nextReceiver=" + nextReceiver
+              + " receiver=" + receiver);
+        pw.println(prefix + "curFilter=" + curFilter);
+        pw.println(prefix + "curReceiver="
+                + ((curReceiver != null) ? curReceiver : "(null)"));
+        pw.println(prefix + "curApp=" + curApp);
+        if (curApp != null) {
+            pw.println(prefix + "curComponent="
+                    + (curComponent != null ? curComponent.toShortString() : "--"));
+            pw.println(prefix + "curSourceDir=" + curReceiver.applicationInfo.sourceDir);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         String stateStr = " (?)";
         switch (state) {
@@ -147,21 +201,32 @@ class BroadcastRecord extends Binder {
             case CALL_IN_RECEIVE:   stateStr=" (CALL_IN_RECEIVE)"; break;
             case CALL_DONE_RECEIVE: stateStr=" (CALL_DONE_RECEIVE)"; break;
         }
+<<<<<<< HEAD
         pw.print(prefix); pw.print("state="); pw.print(state); pw.println(stateStr);
+=======
+        pw.println(prefix + "state=" + state + stateStr);
+>>>>>>> 54b6cfa... Initial Contribution
         final int N = receivers != null ? receivers.size() : 0;
         String p2 = prefix + "  ";
         PrintWriterPrinter printer = new PrintWriterPrinter(pw);
         for (int i=0; i<N; i++) {
             Object o = receivers.get(i);
+<<<<<<< HEAD
             pw.print(prefix); pw.print("Receiver #"); pw.print(i);
                     pw.print(": "); pw.println(o);
             if (o instanceof BroadcastFilter)
                 ((BroadcastFilter)o).dumpBrief(pw, p2);
+=======
+            pw.println(prefix + "Receiver #" + i + ": " + o);
+            if (o instanceof BroadcastFilter)
+                ((BroadcastFilter)o).dump(pw, p2);
+>>>>>>> 54b6cfa... Initial Contribution
             else if (o instanceof ResolveInfo)
                 ((ResolveInfo)o).dump(printer, p2);
         }
     }
 
+<<<<<<< HEAD
     BroadcastRecord(BroadcastQueue _queue,
             Intent _intent, ProcessRecord _callerApp, String _callerPackage,
             int _callingPid, int _callingUid, String _requiredPermission,
@@ -169,6 +234,12 @@ class BroadcastRecord extends Binder {
             String _resultData, Bundle _resultExtras, boolean _serialized,
             boolean _sticky, boolean _initialSticky) {
         queue = _queue;
+=======
+    BroadcastRecord(Intent _intent, ProcessRecord _callerApp, String _callerPackage,
+            int _callingPid, int _callingUid, String _requiredPermission,
+            List _receivers, IIntentReceiver _resultTo, int _resultCode,
+            String _resultData, Bundle _resultExtras, boolean _serialized) {
+>>>>>>> 54b6cfa... Initial Contribution
         intent = _intent;
         callerApp = _callerApp;
         callerPackage = _callerPackage;
@@ -181,8 +252,11 @@ class BroadcastRecord extends Binder {
         resultData = _resultData;
         resultExtras = _resultExtras;
         ordered = _serialized;
+<<<<<<< HEAD
         sticky = _sticky;
         initialSticky = _initialSticky;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         nextReceiver = 0;
         state = IDLE;
     }

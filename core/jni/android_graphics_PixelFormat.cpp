@@ -20,7 +20,10 @@
 #include <ui/PixelFormat.h>
 
 #include "jni.h"
+<<<<<<< HEAD
 #include "JNIHelp.h"
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #include <android_runtime/AndroidRuntime.h>
 #include <utils/misc.h>
 
@@ -37,12 +40,22 @@ struct offsets_t {
 
 static offsets_t offsets;
 
+<<<<<<< HEAD
+=======
+static void doThrow(JNIEnv* env, const char* exc, const char* msg = NULL)
+{
+    jclass npeClazz = env->FindClass(exc);
+    env->ThrowNew(npeClazz, msg);
+}
+
+>>>>>>> 54b6cfa... Initial Contribution
 // ----------------------------------------------------------------------------
 
 static void android_graphics_getPixelFormatInfo(
         JNIEnv* env, jobject clazz, jint format, jobject pixelFormatObject)
 {
     PixelFormatInfo info;
+<<<<<<< HEAD
     status_t err;
 
     // we need this for backward compatibility with PixelFormat's
@@ -72,6 +85,13 @@ static void android_graphics_getPixelFormatInfo(
     }
 
 done:
+=======
+    status_t err = getPixelFormatInfo(format, &info);
+    if (err < 0) {
+        doThrow(env, "java/lang/IllegalArgumentException");
+        return;
+    }
+>>>>>>> 54b6cfa... Initial Contribution
     env->SetIntField(pixelFormatObject, offsets.bytesPerPixel, info.bytesPerPixel);
     env->SetIntField(pixelFormatObject, offsets.bitsPerPixel,  info.bitsPerPixel);
 }
@@ -92,7 +112,11 @@ static JNINativeMethod gMethods[] = {
 void nativeClassInit(JNIEnv* env, jclass clazz)
 {
     offsets.bytesPerPixel = env->GetFieldID(clazz, "bytesPerPixel", "I");
+<<<<<<< HEAD
     offsets.bitsPerPixel  = env->GetFieldID(clazz, "bitsPerPixel", "I");
+=======
+    offsets.bitsPerPixel  = env->GetFieldID(clazz, "bitsPerPixel", "I");    
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 int register_android_graphics_PixelFormat(JNIEnv* env)

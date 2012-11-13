@@ -16,18 +16,31 @@
 
 package android.database;
 
+<<<<<<< HEAD
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 
 /**
  * Adapts an {@link IBulkCursor} to a {@link Cursor} for use in the local process.
+=======
+import android.os.RemoteException;
+import android.os.Bundle;
+import android.util.Log;
+
+import java.util.Map;
+
+/**
+ * Adapts an {@link IBulkCursor} to a {@link Cursor} for use in the local
+ * process.
+>>>>>>> 54b6cfa... Initial Contribution
  *
  * {@hide}
  */
 public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
     private static final String TAG = "BulkCursor";
 
+<<<<<<< HEAD
     private SelfContentObserver mObserverBridge = new SelfContentObserver(this);
     private IBulkCursor mBulkCursor;
     private String[] mColumns;
@@ -46,12 +59,39 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
         mCount = d.count;
         if (d.window != null) {
             setWindow(d.window);
+=======
+    private SelfContentObserver mObserverBridge;
+    private IBulkCursor mBulkCursor;
+    private int mCount;
+    private String[] mColumns;
+    private boolean mWantsAllOnMoveCalls;
+
+    public void set(IBulkCursor bulkCursor) {
+        mBulkCursor = bulkCursor;
+
+        try {
+            mCount = mBulkCursor.count();
+            mWantsAllOnMoveCalls = mBulkCursor.getWantsAllOnMoveCalls();
+    
+            // Search for the rowID column index and set it for our parent
+            mColumns = mBulkCursor.getColumnNames();
+            int length = mColumns.length;
+            for (int i = 0; i < length; i++) {
+                if (mColumns[i].equals("_id")) {
+                    mRowIdColumnIndex = i;
+                    break;
+                }
+            }
+        } catch (RemoteException ex) {
+            Log.e(TAG, "Setup failed because the remote process is dead");
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
      * Gets a SelfDataChangeOberserver that can be sent to a remote
      * process to receive change notifications over IPC.
+<<<<<<< HEAD
      *
      * @return A SelfContentObserver hooked up to this Cursor
      */
@@ -63,16 +103,30 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
         if (mBulkCursor == null) {
             throw new StaleDataException("Attempted to access a cursor after it has been closed.");
         }
+=======
+     * 
+     * @return A SelfContentObserver hooked up to this Cursor
+     */
+    public synchronized IContentObserver getObserver() {
+        if (mObserverBridge == null) {
+            mObserverBridge = new SelfContentObserver(this);
+        }
+        return mObserverBridge.getContentObserver();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public int getCount() {
+<<<<<<< HEAD
         throwIfCursorIsClosed();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         return mCount;
     }
 
     @Override
     public boolean onMove(int oldPosition, int newPosition) {
+<<<<<<< HEAD
         throwIfCursorIsClosed();
 
         try {
@@ -83,6 +137,19 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
                 setWindow(mBulkCursor.getWindow(newPosition));
             } else if (mWantsAllOnMoveCalls) {
                 mBulkCursor.onMove(newPosition);
+=======
+        try {
+            // Make sure we have the proper window
+            if (mWindow != null) {
+                if (newPosition < mWindow.getStartPosition() ||
+                        newPosition >= (mWindow.getStartPosition() + mWindow.getNumRows())) {
+                    mWindow = mBulkCursor.getWindow(newPosition);
+                } else if (mWantsAllOnMoveCalls) {
+                    mBulkCursor.onMove(newPosition);
+                }
+            } else {
+                mWindow = mBulkCursor.getWindow(newPosition);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         } catch (RemoteException ex) {
             // We tried to get a window and failed
@@ -104,6 +171,7 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
         // which is what actually makes the data set invalid.
         super.deactivate();
 
+<<<<<<< HEAD
         if (mBulkCursor != null) {
             try {
                 mBulkCursor.deactivate();
@@ -111,11 +179,20 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
                 Log.w(TAG, "Remote process exception when deactivating");
             }
         }
+=======
+        try {
+            mBulkCursor.deactivate();
+        } catch (RemoteException ex) {
+            Log.w(TAG, "Remote process exception when deactivating");
+        }
+        mWindow = null;
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
     public void close() {
         super.close();
+<<<<<<< HEAD
 
         if (mBulkCursor != null) {
             try {
@@ -126,10 +203,19 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
                 mBulkCursor = null;
             }
         }
+=======
+        try {
+            mBulkCursor.close();
+        } catch (RemoteException ex) {
+            Log.w(TAG, "Remote process exception when closing");
+        }
+        mWindow = null;        
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public boolean requery() {
+<<<<<<< HEAD
         throwIfCursorIsClosed();
 
         try {
@@ -137,6 +223,16 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
             if (mCount != -1) {
                 mPos = -1;
                 closeWindow();
+=======
+        try {
+            int oldCount = mCount;
+            //TODO get the window from a pool somewhere to avoid creating the memory dealer
+            mCount = mBulkCursor.requery(getObserver(), new CursorWindow(
+                    false /* the window will be accessed across processes */));
+            if (mCount != -1) {
+                mPos = -1;
+                mWindow = null;
+>>>>>>> 54b6cfa... Initial Contribution
 
                 // super.requery() will call onChanged. Do it here instead of relying on the
                 // observer from the far side so that observers can see a correct value for mCount
@@ -154,6 +250,7 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
         }
     }
 
+<<<<<<< HEAD
     @Override
     public String[] getColumnNames() {
         throwIfCursorIsClosed();
@@ -165,6 +262,85 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
     public Bundle getExtras() {
         throwIfCursorIsClosed();
 
+=======
+    /**
+     * @hide
+     * @deprecated
+     */
+    @Override
+    public boolean deleteRow() {
+        try {
+            boolean result = mBulkCursor.deleteRow(mPos);
+            if (result != false) {
+                // The window contains the old value, discard it
+                mWindow = null;
+    
+                // Fix up the position
+                mCount = mBulkCursor.count();
+                if (mPos < mCount) {
+                    int oldPos = mPos;
+                    mPos = -1;
+                    moveToPosition(oldPos);
+                } else {
+                    mPos = mCount;
+                }
+
+                // Send the change notification
+                onChange(true);
+            }
+            return result;
+        } catch (RemoteException ex) {
+            Log.e(TAG, "Unable to delete row because the remote process is dead");
+            return false;
+        }
+    }
+
+    @Override
+    public String[] getColumnNames() {
+        return mColumns;
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    @Override
+    public boolean commitUpdates(Map<? extends Long,
+            ? extends Map<String,Object>> additionalValues) {
+        if (!supportsUpdates()) {
+            Log.e(TAG, "commitUpdates not supported on this cursor, did you include the _id column?");
+            return false;
+        }
+
+        synchronized(mUpdatedRows) {
+            if (additionalValues != null) {
+                mUpdatedRows.putAll(additionalValues);
+            }
+
+            if (mUpdatedRows.size() <= 0) {
+                return false;
+            }
+
+            try {
+                boolean result = mBulkCursor.updateRows(mUpdatedRows);
+    
+                if (result == true) {
+                    mUpdatedRows.clear();
+
+                    // Send the change notification
+                    onChange(true);
+                }
+                return result;
+            } catch (RemoteException ex) {
+                Log.e(TAG, "Unable to commit updates because the remote process is dead");
+                return false;
+            }
+        }
+    }
+
+    @Override
+    public Bundle getExtras() {
+>>>>>>> 54b6cfa... Initial Contribution
         try {
             return mBulkCursor.getExtras();
         } catch (RemoteException e) {
@@ -176,6 +352,7 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
 
     @Override
     public Bundle respond(Bundle extras) {
+<<<<<<< HEAD
         throwIfCursorIsClosed();
 
         try {
@@ -189,3 +366,15 @@ public final class BulkCursorToCursorAdaptor extends AbstractWindowedCursor {
         }
     }
 }
+=======
+        try {
+            return mBulkCursor.respond(extras);
+        } catch (RemoteException e) {
+            // This should never happen because the system kills processes that are using remote
+            // cursors when the provider process is killed.
+            throw new RuntimeException(e);
+        }
+    }
+}
+
+>>>>>>> 54b6cfa... Initial Contribution

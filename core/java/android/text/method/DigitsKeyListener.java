@@ -16,7 +16,10 @@
 
 package android.text.method;
 
+<<<<<<< HEAD
 import android.text.InputType;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.text.Spanned;
 import android.text.SpannableStringBuilder;
 import android.view.KeyEvent;
@@ -24,10 +27,13 @@ import android.view.KeyEvent;
 
 /**
  * For digits-only text entry
+<<<<<<< HEAD
  * <p></p>
  * As for all implementations of {@link KeyListener}, this class is only concerned
  * with hardware keyboards.  Software input methods have no obligation to trigger
  * the methods in this class.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class DigitsKeyListener extends NumberKeyListener
 {
@@ -114,6 +120,7 @@ public class DigitsKeyListener extends NumberKeyListener
         return dim;
     }
 
+<<<<<<< HEAD
     public int getInputType() {
         int contentType = InputType.TYPE_CLASS_NUMBER;
         if (mSign) {
@@ -125,6 +132,8 @@ public class DigitsKeyListener extends NumberKeyListener
         return contentType;
     }
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public CharSequence filter(CharSequence source, int start, int end,
                                Spanned dest, int dstart, int dend) {

@@ -28,8 +28,13 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+=======
+import android.view.animation.Interpolator;
+
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * An abstract base class for spinner widgets. SDK users will probably not
@@ -38,20 +43,39 @@ import android.view.accessibility.AccessibilityNodeInfo;
  * @attr ref android.R.styleable#AbsSpinner_entries
  */
 public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     SpinnerAdapter mAdapter;
 
     int mHeightMeasureSpec;
     int mWidthMeasureSpec;
+<<<<<<< HEAD
 
+=======
+    boolean mBlockLayoutRequests;
+>>>>>>> 54b6cfa... Initial Contribution
     int mSelectionLeftPadding = 0;
     int mSelectionTopPadding = 0;
     int mSelectionRightPadding = 0;
     int mSelectionBottomPadding = 0;
+<<<<<<< HEAD
     final Rect mSpinnerPadding = new Rect();
 
     final RecycleBin mRecycler = new RecycleBin();
     private DataSetObserver mDataSetObserver;
 
+=======
+    Rect mSpinnerPadding = new Rect();
+    View mSelectedView = null;
+    Interpolator mInterpolator;
+
+    RecycleBin mRecycler = new RecycleBin();
+    private DataSetObserver mDataSetObserver;
+
+
+>>>>>>> 54b6cfa... Initial Contribution
     /** Temporary frame to hold a child View's frame rectangle */
     private Rect mTouchFrame;
 
@@ -91,6 +115,10 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
         setWillNotDraw(false);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * The Adapter is used to provide the data which backs this Spinner.
      * It also provides methods to transform spinner items based on their position
@@ -185,16 +213,23 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
         boolean needsMeasuring = true;
         
         int selectedPosition = getSelectedItemPosition();
+<<<<<<< HEAD
         if (selectedPosition >= 0 && mAdapter != null && selectedPosition < mAdapter.getCount()) {
+=======
+        if (selectedPosition >= 0 && mAdapter != null) {
+>>>>>>> 54b6cfa... Initial Contribution
             // Try looking in the recycler. (Maybe we were measured once already)
             View view = mRecycler.get(selectedPosition);
             if (view == null) {
                 // Make a new one
                 view = mAdapter.getView(selectedPosition, null, this);
+<<<<<<< HEAD
 
                 if (view.getImportantForAccessibility() == IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
                     view.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
                 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             }
 
             if (view != null) {
@@ -228,14 +263,23 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
         preferredHeight = Math.max(preferredHeight, getSuggestedMinimumHeight());
         preferredWidth = Math.max(preferredWidth, getSuggestedMinimumWidth());
 
+<<<<<<< HEAD
         heightSize = resolveSizeAndState(preferredHeight, heightMeasureSpec, 0);
         widthSize = resolveSizeAndState(preferredWidth, widthMeasureSpec, 0);
+=======
+        heightSize = resolveSize(preferredHeight, heightMeasureSpec);
+        widthSize = resolveSize(preferredWidth, widthMeasureSpec);
+>>>>>>> 54b6cfa... Initial Contribution
 
         setMeasuredDimension(widthSize, heightSize);
         mHeightMeasureSpec = heightMeasureSpec;
         mWidthMeasureSpec = widthMeasureSpec;
     }
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     int getChildHeight(View child) {
         return child.getMeasuredHeight();
     }
@@ -247,11 +291,16 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
     @Override
     protected ViewGroup.LayoutParams generateDefaultLayoutParams() {
         return new ViewGroup.LayoutParams(
+<<<<<<< HEAD
                 ViewGroup.LayoutParams.MATCH_PARENT,
+=======
+                ViewGroup.LayoutParams.FILL_PARENT,
+>>>>>>> 54b6cfa... Initial Contribution
                 ViewGroup.LayoutParams.WRAP_CONTENT);
     }
     
     void recycleAllViews() {
+<<<<<<< HEAD
         final int childCount = getChildCount();
         final AbsSpinner.RecycleBin recycleBin = mRecycler;
         final int position = mFirstPosition;
@@ -263,6 +312,28 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
             recycleBin.put(index, v);
         }  
     }
+=======
+        int childCount = getChildCount();
+        final AbsSpinner.RecycleBin recycleBin = mRecycler;
+
+        // All views go in recycler
+        for (int i=0; i<childCount; i++) {
+            View v = getChildAt(i);
+            int index = mFirstPosition + i;
+            recycleBin.put(index, v);
+        }  
+    }
+    
+    @Override
+    void handleDataChanged() {
+        // FIXME -- this is called from both measure and layout.
+        // This is harmless right now, but we don't want to do redundant work if
+        // this gets more complicated
+       super.handleDataChanged();
+    }
+    
+  
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Jump directly to a specific item in the adapter data.
@@ -273,6 +344,10 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
                 position <= mFirstPosition + getChildCount() - 1;
         setSelectionInt(position, shouldAnimate);
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
 
     @Override
     public void setSelection(int position) {
@@ -323,6 +398,11 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
         }
     }
 
+<<<<<<< HEAD
+=======
+ 
+
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public SpinnerAdapter getAdapter() {
         return mAdapter;
@@ -438,7 +518,11 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
     }
 
     class RecycleBin {
+<<<<<<< HEAD
         private final SparseArray<View> mScrapHeap = new SparseArray<View>();
+=======
+        private SparseArray<View> mScrapHeap = new SparseArray<View>();
+>>>>>>> 54b6cfa... Initial Contribution
 
         public void put(int position, View v) {
             mScrapHeap.put(position, v);
@@ -455,7 +539,16 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
             }
             return result;
         }
+<<<<<<< HEAD
 
+=======
+        
+        View peek(int position) {
+            // System.out.print("Looking for " + position);
+            return mScrapHeap.get(position);
+        }
+        
+>>>>>>> 54b6cfa... Initial Contribution
         void clear() {
             final SparseArray<View> scrapHeap = mScrapHeap;
             final int count = scrapHeap.size();
@@ -468,6 +561,7 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
             scrapHeap.clear();
         }
     }
+<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -480,4 +574,6 @@ public abstract class AbsSpinner extends AdapterView<SpinnerAdapter> {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(AbsSpinner.class.getName());
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

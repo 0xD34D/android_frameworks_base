@@ -63,9 +63,14 @@ typedef struct method_type {
 } method_type;
 
 enum {
+<<<<<<< HEAD
     USER_DATA_TYPE = 12,
     INTERFACE_TYPE_BINDER,
     INTERFACE_TYPE_RPC
+=======
+    PARCELABLE_TYPE = 12,
+    INTERFACE_TYPE
+>>>>>>> 54b6cfa... Initial Contribution
 };
 
 typedef struct document_item_type {
@@ -73,6 +78,7 @@ typedef struct document_item_type {
     struct document_item_type* next;
 } document_item_type;
 
+<<<<<<< HEAD
 
 // for user_data_type.flattening_methods
 enum {
@@ -88,6 +94,15 @@ typedef struct user_data_type {
     buffer_type semicolon_token;
     int flattening_methods;
 } user_data_type;
+=======
+typedef struct parcelable_type {
+    document_item_type document_item;
+    buffer_type parcelable_token;
+    char* package;
+    buffer_type name;
+    buffer_type semicolon_token;
+} parcelable_type;
+>>>>>>> 54b6cfa... Initial Contribution
 
 typedef struct interface_type {
     document_item_type document_item;
@@ -109,7 +124,11 @@ typedef union lexer_type {
     method_type* method;
     interface_item_type* interface_item;
     interface_type* interface_obj;
+<<<<<<< HEAD
     user_data_type* user_data;
+=======
+    parcelable_type* parcelable;
+>>>>>>> 54b6cfa... Initial Contribution
     document_item_type* document_item;
 } lexer_type;
 

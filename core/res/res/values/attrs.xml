@@ -4,9 +4,15 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
+<<<<<<< HEAD
 
           http://www.apache.org/licenses/LICENSE-2.0
 
+=======
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+>>>>>>> 54b6cfa... Initial Contribution
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,11 +20,14 @@
      limitations under the License.
 -->
 
+<<<<<<< HEAD
 <!-- Formatting note: terminate all comments with a period, to avoid breaking
      the documentation output. To suppress comment lines from the documentation
      output, insert an eat-comment element after the comment lines.
 -->
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 <resources>
     <!-- These are the standard attributes that make up a complete theme. -->
     <declare-styleable name="Theme">
@@ -33,6 +42,7 @@
         <attr name="colorForegroundInverse" format="color" />
         <!-- Color that matches (as closely as possible) the window background. -->
         <attr name="colorBackground" format="color" />
+<<<<<<< HEAD
         <!-- This is a hint for a solid color that can be used for caching
              rendered views.  This should be the color of the background when
              there is a solid background color; it should be null when the
@@ -55,20 +65,26 @@
              mode. -->
         <attr name="colorMultiSelectHighlight" format="color" />
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Default disabled alpha for widgets that set enabled/disabled alpha programmatically. -->
         <attr name="disabledAlpha" format="float" />
         <!-- Default background dim amount when a menu, dialog, or something similar pops up. -->
         <attr name="backgroundDimAmount" format="float" />
+<<<<<<< HEAD
         <!-- Control whether dimming behind the window is enabled.  The default
              theme does not set this value, meaning it is based on whether the
              window is floating. -->
         <attr name="backgroundDimEnabled" format="boolean" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         <!-- =========== -->
         <!-- Text styles -->
         <!-- =========== -->
         <eat-comment />
 
+<<<<<<< HEAD
         <!-- Default appearance of text: color, typeface, size, and style. -->
         <attr name="textAppearance" format="reference" />
         <!-- Default appearance of text against an inverted background:
@@ -98,6 +114,34 @@
         <!-- Bright inverse text color. Only differentiates based on the disabled state. -->
         <attr name="textColorPrimaryInverseDisableOnly" format="reference|color" />
 
+=======
+        <!-- Default appearance of text: color, typeface, size, and style -->
+        <attr name="textAppearance" format="reference" />
+        <!-- Default appearance of text against an inverted background:
+             color, typeface, size, and style -->
+        <attr name="textAppearanceInverse" format="reference" />
+
+        <!-- The most prominent text color, for the  -->
+        <attr name="textColorPrimary" format="reference|color" />
+        <!-- Secondary text color -->
+        <attr name="textColorSecondary" format="reference|color" />
+        <!-- Tertiary text color -->
+        <attr name="textColorTertiary" format="reference|color" />
+
+        <!-- Primary inverse text color, useful for inverted backgrounds -->
+        <attr name="textColorPrimaryInverse" format="reference|color" />
+        <!-- Secondary inverse text color, useful for inverted backgrounds -->
+        <attr name="textColorSecondaryInverse" format="reference|color" />
+        <!-- Tertiary inverse text color, useful for inverted backgrounds -->
+        <attr name="textColorTertiaryInverse" format="reference|color" />
+
+        <!-- Inverse hint text color -->
+        <attr name="textColorHintInverse" format="reference|color" />
+        
+        <!-- Bright text color. Only differentiates based on the disabled state. -->
+        <attr name="textColorPrimaryDisableOnly" format="reference|color" />
+
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Bright text color. This does not differentiate the disabled state. As an example,
              buttons use this since they display the disabled state via the background and not the
              foreground text color. -->
@@ -110,6 +154,7 @@
         <!-- Dim inverse text color. This does not differentiate the disabled state. -->
         <attr name="textColorSecondaryInverseNoDisable" format="reference|color" />
 
+<<<<<<< HEAD
         <!-- Text color for urls in search suggestions, used by things like global search and the browser. @hide -->
         <attr name="textColorSearchUrl" format="reference|color" />
 
@@ -124,6 +169,8 @@
         <!-- Search widget more corpus result item background. -->
         <attr name="searchWidgetCorpusItemBackground" format="reference|color" />
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Text color, typeface, size, and style for "large" text. Defaults to primary text color. -->
         <attr name="textAppearanceLarge" format="reference" />
         <!-- Text color, typeface, size, and style for "medium" text. Defaults to primary text color. -->
@@ -138,6 +185,7 @@
         <!-- Text color, typeface, size, and style for "small" inverse text. Defaults to secondary inverse text color. -->
         <attr name="textAppearanceSmallInverse" format="reference" />
 
+<<<<<<< HEAD
         <!-- Text color, typeface, size, and style for system search result title. Defaults to primary inverse text color. -->
         <attr name="textAppearanceSearchResultTitle" format="reference" />
         <!-- Text color, typeface, size, and style for system search result subtitle. Defaults to primary inverse text color. -->
@@ -198,6 +246,21 @@
         <!-- Drawable used as a background for activated items. -->
         <attr name="activatedBackgroundIndicator" format="reference" />
 
+=======
+        <!-- Text color, typeface, size, and style for the text inside of a button. -->
+        <attr name="textAppearanceButton" format="reference" />
+        
+        <!-- Drawable to use for check marks -->
+        <attr name="textCheckMark" format="reference" />
+        <attr name="textCheckMarkInverse" format="reference" />
+
+        <!-- Drawable to use for multiple choice indicators-->
+        <attr name="listChoiceIndicatorMultiple" format="reference" />
+        
+        <!-- Drawable to use for single choice indicators-->
+        <attr name="listChoiceIndicatorSingle" format="reference" />
+
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- ============= -->
         <!-- Button styles -->
         <!-- ============= -->
@@ -219,7 +282,11 @@
         <!-- Gallery styles -->
         <!-- ============== -->
         <eat-comment />
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- The preferred background for gallery items. This should be set
              as the background of any Views you provide from the Adapter. -->
         <attr name="galleryItemBackground" format="reference" />
@@ -229,6 +296,7 @@
         <!-- =========== -->
         <eat-comment />
 
+<<<<<<< HEAD
         <!-- The preferred list item height. -->
         <attr name="listPreferredItemHeight" format="dimension" />
         <!-- A smaller, sleeker list item height. -->
@@ -252,10 +320,17 @@
         <attr name="listDivider" format="reference" />
         <!-- The list divider used in alert dialogs. -->
         <attr name="listDividerAlertDialog" format="reference" />
+=======
+        <!-- The preferred list item height -->
+        <attr name="listPreferredItemHeight" format="dimension" />
+        <!-- The drawable for the list divider -->
+        <attr name="listDivider" format="reference" />
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- TextView style for list separators. -->
         <attr name="listSeparatorTextViewStyle" format="reference" />
         <!-- The preferred left padding for an expandable list item (for child-specific layouts,
              use expandableListPreferredChildPaddingLeft). This takes into account
+<<<<<<< HEAD
              the indicator that will be shown to next to the item. -->
         <attr name="expandableListPreferredItemPaddingLeft" format="dimension" />
         <!-- The preferred left padding for an expandable list item that is a child.
@@ -275,11 +350,30 @@
         <!-- The preferred item height for dropdown lists. -->
         <attr name="dropdownListPreferredItemHeight" format="dimension" />
 
+=======
+             the indicator that will be shown to next to the item. --> 
+        <attr name="expandableListPreferredItemPaddingLeft" format="dimension" />
+        <!-- The preferred left padding for an expandable list item that is a child.
+             If this is not provided, it defaults to the expandableListPreferredItemPaddingLeft. --> 
+        <attr name="expandableListPreferredChildPaddingLeft" format="dimension" />
+        <!-- The preferred left bound for an expandable list item's indicator. For a child-specific
+             indicator, use expandableListPreferredChildIndicatorLeft. --> 
+        <attr name="expandableListPreferredItemIndicatorLeft" format="dimension" />
+        <!-- The preferred right bound for an expandable list item's indicator. For a child-specific
+             indicator, use expandableListPreferredChildIndicatorRight. --> 
+        <attr name="expandableListPreferredItemIndicatorRight" format="dimension" />
+        <!-- The preferred left bound for an expandable list child's indicator. --> 
+        <attr name="expandableListPreferredChildIndicatorLeft" format="dimension" />
+        <!-- The preferred right bound for an expandable list child's indicator. --> 
+        <attr name="expandableListPreferredChildIndicatorRight" format="dimension" />
+
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- ============= -->
         <!-- Window styles -->
         <!-- ============= -->
         <eat-comment />
 
+<<<<<<< HEAD
         <!-- Drawable to use as the overall window background.  As of
              {@link android.os.Build.VERSION_CODES#HONEYCOMB}, this may
              be a selector that uses state_accelerated to pick a non-solid
@@ -287,6 +381,10 @@
              with complex compositing on top at 60fps.
 
              <p>There are a few special considerations to use when setting this
+=======
+        <!-- Drawable to use as the overall window background.  There are a
+             few special considerations you should use when settings this
+>>>>>>> 54b6cfa... Initial Contribution
              drawable:
              <ul>
              <li> This information will be used to infer the pixel format
@@ -311,9 +409,12 @@
         <attr name="windowIsFloating" format="boolean" />
         <!-- Flag indicating whether this is a translucent window. -->
         <attr name="windowIsTranslucent" format="boolean" />
+<<<<<<< HEAD
         <!-- Flag indicating that this window's background should be the
            user's current wallpaper. -->
         <attr name="windowShowWallpaper" format="boolean" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- This Drawable is overlaid over the foreground of the Window's content area, usually
              to place a shadow below the title.  -->
         <attr name="windowContentOverlay" format="reference" />
@@ -329,6 +430,7 @@
              any of the attributes defined by
              {@link android.R.styleable#WindowAnimation}. -->
         <attr name="windowAnimationStyle" format="reference" />
+<<<<<<< HEAD
 
         <!-- Flag indicating whether this window should have an Action Bar
              in place of the usual title bar. -->
@@ -428,11 +530,15 @@
              or later. -->
         <attr name="windowCloseOnTouchOutside" format="boolean" />
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- ============ -->
         <!-- Alert Dialog styles -->
         <!-- ============ -->
         <eat-comment />
         <attr name="alertDialogStyle" format="reference" />
+<<<<<<< HEAD
         <attr name="alertDialogButtonGroupStyle" format="reference" />
         <attr name="alertDialogCenterButtons" format="boolean" />
 
@@ -447,6 +553,9 @@
              preference fragment. -->
         <attr name="detailsElementBackground" format="reference" />
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- ============ -->
         <!-- Panel styles -->
         <!-- ============ -->
@@ -463,10 +572,13 @@
         <!-- Default appearance of panel text. -->
         <attr name="panelTextAppearance" format="reference" />
 
+<<<<<<< HEAD
         <attr name="panelMenuIsCompact" format="boolean" />
         <attr name="panelMenuListWidth" format="dimension" />
         <attr name="panelMenuListTheme" format="reference" />
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- =================== -->
         <!-- Other widget styles -->
         <!-- =================== -->
@@ -484,6 +596,7 @@
         <attr name="editTextStyle" format="reference" />
         <!-- Default ExpandableListView style. -->
         <attr name="expandableListViewStyle" format="reference" />
+<<<<<<< HEAD
         <!-- ExpandableListView with white background. -->
         <attr name="expandableListViewWhiteStyle" format="reference" />
         <!-- Default Gallery style. -->
@@ -495,6 +608,15 @@
         <!-- The style resource to use for an ImageButton. -->
         <attr name="imageButtonStyle" format="reference" />
         <!-- The style resource to use for an ImageButton that is an image well. -->
+=======
+        <!-- Default Gallery style. -->
+        <attr name="galleryStyle" format="reference" />
+        <!-- Default GridView style. -->
+        <attr name="gridViewStyle" format="reference" />
+        <!-- The style resource to use for an ImageButton -->
+        <attr name="imageButtonStyle" format="reference" />
+        <!-- The style resource to use for an ImageButton that is an image well -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="imageWellStyle" format="reference" />
         <!-- Default ListView style. -->
         <attr name="listViewStyle" format="reference" />
@@ -512,12 +634,15 @@
         <attr name="progressBarStyleSmallTitle" format="reference" />
         <!-- Large ProgressBar style. This is a large circular progress bar. -->
         <attr name="progressBarStyleLarge" format="reference" />
+<<<<<<< HEAD
         <!-- Inverse ProgressBar style. This is a medium circular progress bar. -->
         <attr name="progressBarStyleInverse" format="reference" />
         <!-- Small inverse ProgressBar style. This is a small circular progress bar. -->
         <attr name="progressBarStyleSmallInverse" format="reference" />
         <!-- Large inverse ProgressBar style. This is a large circular progress bar. -->
         <attr name="progressBarStyleLargeInverse" format="reference" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Default SeekBar style. -->
         <attr name="seekBarStyle" format="reference" />
         <!-- Default RatingBar style. -->
@@ -530,6 +655,7 @@
         <attr name="radioButtonStyle" format="reference" />
         <!-- Default ScrollView style. -->
         <attr name="scrollViewStyle" format="reference" />
+<<<<<<< HEAD
         <!-- Default HorizontalScrollView style. -->
         <attr name="horizontalScrollViewStyle" format="reference" />
         <!-- Default Spinner style. -->
@@ -540,14 +666,21 @@
         <attr name="actionDropDownStyle" format="reference" />
         <!-- Default action button style. -->
         <attr name="actionButtonStyle" format="reference" />
+=======
+        <!-- Default Spinner style. -->
+        <attr name="spinnerStyle" format="reference" />
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Default Star style. -->
         <attr name="starStyle" format="reference" />
         <!-- Default TabWidget style. -->
         <attr name="tabWidgetStyle" format="reference" />
         <!-- Default TextView style. -->
         <attr name="textViewStyle" format="reference" />
+<<<<<<< HEAD
         <!-- Default WebTextView style. -->
         <attr name="webTextViewStyle" format="reference" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Default WebView style. -->
         <attr name="webViewStyle" format="reference" />
         <!-- Default style for drop down items. -->
@@ -560,6 +693,7 @@
         <attr name="spinnerItemStyle" format="reference" />
         <!-- Default MapView style. -->
         <attr name="mapViewStyle" format="reference" />
+<<<<<<< HEAD
         <!-- Drawable used as an overlay on top of quickcontact photos. -->
         <attr name="quickContactBadgeOverlay" format="reference" />
         <!-- Default quickcontact badge style with small quickcontact window. -->
@@ -694,16 +828,24 @@
 
         <!-- PopupWindow style to use for action modes when showing as a window overlay. -->
         <attr name="actionModePopupWindowStyle" format="reference" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         <!-- =================== -->
         <!-- Preference styles   -->
         <!-- =================== -->
         <eat-comment />
+<<<<<<< HEAD
 
         <!-- Default style for PreferenceScreen. -->
         <attr name="preferenceScreenStyle" format="reference" />
         <!-- Default style for Headers pane in PreferenceActivity. -->
         <attr name="preferenceFragmentStyle" format="reference" />
+=======
+        
+        <!-- Default style for PreferenceScreen. -->
+        <attr name="preferenceScreenStyle" format="reference" />
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Default style for PreferenceCategory. -->
         <attr name="preferenceCategoryStyle" format="reference" />
         <!-- Default style for Preference. -->
@@ -722,6 +864,7 @@
         <attr name="ringtonePreferenceStyle" format="reference" />
         <!-- The preference layout that has the child/tabbed effect. -->
         <attr name="preferenceLayoutChild" format="reference" />
+<<<<<<< HEAD
         <!-- Preference panel style -->
         <attr name="preferencePanelStyle" format="reference" />
         <!-- Default style for switch preferences. -->
@@ -848,6 +991,9 @@
         <!-- Drawable for WebView find-on-page dialogue's "previous" button. @hide -->
         <attr name="findOnPagePreviousDrawable" format="reference" />
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <!-- **************************************************************** -->
@@ -855,8 +1001,12 @@
     <!-- **************************************************************** -->
     <eat-comment />
 
+<<<<<<< HEAD
     <!-- Size of text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp).
          Supported values include the following:<p/>
+=======
+    <!-- Size of text (example: 15sp). Supported values include the following:<p/>
+>>>>>>> 54b6cfa... Initial Contribution
     <ul>
         <li><b>px</b> Pixels</li>
         <li><b>sp</b> Scaled pixels (scaled to relative pixel size on screen). See {@link android.util.DisplayMetrics} for more information.</li>
@@ -865,10 +1015,13 @@
     </ul>
         -->
     <attr name="textSize" format="dimension" />
+<<<<<<< HEAD
 
     <!-- Default font family. -->
     <attr name="fontFamily" format="string" />
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- Default text typeface. -->
     <attr name="typeface">
         <enum name="normal" value="0" />
@@ -876,13 +1029,17 @@
         <enum name="serif" value="2" />
         <enum name="monospace" value="3" />
     </attr>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- Default text typeface style. -->
     <attr name="textStyle">
         <flag name="normal" value="0" />
         <flag name="bold" value="1" />
         <flag name="italic" value="2" />
     </attr>
+<<<<<<< HEAD
 
     <!-- Color of text (usually same as colorForeground). -->
     <attr name="textColor" format="reference|color" />
@@ -903,12 +1060,23 @@
      Default value is false. EditText content is always selectable. -->
     <attr name="textIsSelectable" format="boolean" />
 
+=======
+    <!-- Color of text (usually same as colorForeground). -->
+    <attr name="textColor" format="reference|color" />
+    <!-- Color of highlighted text. -->
+    <attr name="textColorHighlight" format="reference|color" />
+    <!-- Color of hint text (displayed when the field is empty). -->
+    <attr name="textColorHint" format="reference|color" />
+    <!-- Color of link text (URLs). -->
+    <attr name="textColorLink" format="reference|color" />
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- Where to ellipsize text. -->
     <attr name="ellipsize">
         <enum name="none" value="0" />
         <enum name="start" value="1" />
         <enum name="middle" value="2" />
         <enum name="end" value="3" />
+<<<<<<< HEAD
         <enum name="marquee" value="4" />
     </attr>
 
@@ -1179,15 +1347,23 @@
              <p>Corresponds to
              {@link android.view.inputmethod.EditorInfo#IME_FLAG_FORCE_ASCII}. -->
         <flag name="flagForceAscii" value="0x80000000" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </attr>
 
     <!-- A coordinate in the X dimension. -->
     <attr name="x" format="dimension" />
     <!-- A coordinate in the Y dimension. -->
     <attr name="y" format="dimension" />
+<<<<<<< HEAD
 
     <!-- Specifies how to place the content of an object, both
          on the x- and y-axis, within the object itself. -->
+=======
+          
+    <!-- Specifies how to place an object, both
+         its x and y axis, within a larger containing object. -->
+>>>>>>> 54b6cfa... Initial Contribution
     <attr name="gravity">
         <!-- Push object to the top of its container, not changing its size. -->
         <flag name="top" value="0x30" />
@@ -1209,6 +1385,7 @@
         <flag name="center" value="0x11" />
         <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
         <flag name="fill" value="0x77" />
+<<<<<<< HEAD
         <!-- Additional option that can be set to have the top and/or bottom edges of
              the child clipped to its container's bounds.
              The clip will be based on the vertical gravity: a top gravity will clip the bottom
@@ -1223,12 +1400,15 @@
         <flag name="start" value="0x00800003" />
         <!-- Push object to the end of its container, not changing its size. -->
         <flag name="end" value="0x00800005" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </attr>
 
     <!-- Controls whether links such as urls and email addresses are
          automatically found and converted to clickable links.  The default
          value is "none", disabling this feature. -->
     <attr name="autoLink">
+<<<<<<< HEAD
         <!-- Match no patterns (default). -->
         <flag name="none" value="0x00" />
         <!-- Match Web URLs. -->
@@ -1248,6 +1428,28 @@
 
     <!-- Standard gravity constant that a child can supply to its parent.
          Defines how to place the view, both its x- and y-axis, within its parent view group. -->
+=======
+        <!-- Match no patterns (default) -->
+        <flag name="none" value="0x00" />
+        <!-- Match Web URLs -->
+        <flag name="web" value="0x01" />
+        <!-- Match email addresses -->
+        <flag name="email" value="0x02" />
+        <!-- Match phone numbers -->
+        <flag name="phone" value="0x04" />
+        <!-- Match map addresses -->
+        <flag name="map" value="0x08" />
+        <!-- Match all patterns (equivalent to web|email|phone|map) -->
+        <flag name="all" value="0x0f" />
+    </attr>
+
+    <!-- Reference to an array resource that will populate a list/adapter -->
+    <attr name="entries" format="reference" />
+
+    <!-- Standard gravity constant that a child can supply to its parent.
+         Defines how to place an object, both
+         its x and y axis, within a larger containing object. -->
+>>>>>>> 54b6cfa... Initial Contribution
     <attr name="layout_gravity">
         <!-- Push object to the top of its container, not changing its size. -->
         <flag name="top" value="0x30" />
@@ -1269,6 +1471,7 @@
         <flag name="center" value="0x11" />
         <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
         <flag name="fill" value="0x77" />
+<<<<<<< HEAD
         <!-- Additional option that can be set to have the top and/or bottom edges of
              the child clipped to its container's bounds.
              The clip will be based on the vertical gravity: a top gravity will clip the bottom
@@ -1283,6 +1486,8 @@
         <flag name="start" value="0x00800003" />
         <!-- Push object to the end of its container, not changing its size. -->
         <flag name="end" value="0x00800005" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </attr>
 
     <!-- Standard orientation constant. -->
@@ -1293,6 +1498,7 @@
         <enum name="vertical" value="1" />
     </attr>
 
+<<<<<<< HEAD
     <!-- Alignment constants. -->
     <attr name="alignmentMode">
         <!-- Align the bounds of the children.
@@ -1303,16 +1509,26 @@
         <enum name="alignMargins" value="1" />
     </attr>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- ========================== -->
     <!-- Key Codes                  -->
     <!-- ========================== -->
     <eat-comment />
 
+<<<<<<< HEAD
     <!-- This enum provides the same keycode values as can be found in
         {@link android.view.KeyEvent}. -->
     <attr name="keycode">
         <enum name="KEYCODE_UNKNOWN" value="0" />
         <enum name="KEYCODE_SOFT_LEFT" value="1" />
+=======
+    <!-- This enum provides the same keycode values as can be found in 
+        {@link android.view.KeyEvent} -->
+    <attr name="keycode">
+        <enum name="KEYCODE_UNKNOWN" value="0" />
+        <enum name="KEYCODE_SOFT_LEFT" value="1" />    
+>>>>>>> 54b6cfa... Initial Contribution
         <enum name="KEYCODE_SOFT_RIGHT" value="2" />
         <enum name="KEYCODE_HOME" value="3" />
         <enum name="KEYCODE_BACK" value="4" />
@@ -1396,6 +1612,7 @@
         <enum name="KEYCODE_MENU" value="82" />
         <enum name="KEYCODE_NOTIFICATION" value="83" />
         <enum name="KEYCODE_SEARCH" value="84" />
+<<<<<<< HEAD
         <enum name="KEYCODE_MEDIA_PLAY_PAUSE" value="85" />
         <enum name="KEYCODE_MEDIA_STOP" value="86" />
         <enum name="KEYCODE_MEDIA_NEXT" value="87" />
@@ -1530,6 +1747,8 @@
         <enum name="KEYCODE_YEN" value="216" />
         <enum name="KEYCODE_RO" value="217" />
         <enum name="KEYCODE_KANA" value="218" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </attr>
 
     <!-- ***************************************************************** -->
@@ -1550,6 +1769,7 @@
         <attr name="windowFullscreen" />
         <attr name="windowIsFloating" />
         <attr name="windowIsTranslucent" />
+<<<<<<< HEAD
         <attr name="windowShowWallpaper" />
         <attr name="windowAnimationStyle" />
         <attr name="windowSoftInputMode" />
@@ -1592,6 +1812,10 @@
              that is, when in portrait. Can be either an absolute dimension
              or a fraction of the screen size in that dimension. -->
         <attr name="windowFixedHeightMajor" format="dimension|fraction" />
+=======
+        <attr name="windowAnimationStyle" />
+        <attr name="textColor" />
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <!-- The set of attributes that describe a AlertDialog's theme. -->
@@ -1606,6 +1830,7 @@
         <attr name="bottomBright" format="reference|color" />
         <attr name="bottomMedium" format="reference|color" />
         <attr name="centerMedium" format="reference|color" />
+<<<<<<< HEAD
         <attr name="layout" />
         <attr name="listLayout" format="reference" />
         <attr name="multiChoiceItemLayout" format="reference" />
@@ -1625,6 +1850,10 @@
         <attr name="fragmentFadeExitAnimation" format="reference" />
     </declare-styleable>
 
+=======
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- Window animation class attributes. -->
     <declare-styleable name="WindowAnimation">
         <!-- The animation used when a window is being added. -->
@@ -1635,6 +1864,7 @@
         <attr name="windowShowAnimation" format="reference" />
         <!-- The animation used when a window is going from VISIBLE to INVISIBLE. -->
         <attr name="windowHideAnimation" format="reference" />
+<<<<<<< HEAD
 
         <!--  When opening a new activity, this is the animation that is
               run on the next activity (which is entering the screen). -->
@@ -1718,6 +1948,20 @@
               (which is exiting the screen).  The wallpaper remains
               static behind the animation. -->
         <attr name="wallpaperIntraCloseExitAnimation" format="reference" />
+=======
+        <attr name="activityOpenEnterAnimation" format="reference" />
+        <attr name="activityOpenExitAnimation" format="reference" />
+        <attr name="activityCloseEnterAnimation" format="reference" />
+        <attr name="activityCloseExitAnimation" format="reference" />
+        <attr name="taskOpenEnterAnimation" format="reference" />
+        <attr name="taskOpenExitAnimation" format="reference" />
+        <attr name="taskCloseEnterAnimation" format="reference" />
+        <attr name="taskCloseExitAnimation" format="reference" />
+        <attr name="taskToFrontEnterAnimation" format="reference" />
+        <attr name="taskToFrontExitAnimation" format="reference" />
+        <attr name="taskToBackEnterAnimation" format="reference" />
+        <attr name="taskToBackExitAnimation" format="reference" />
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <!-- ============================= -->
@@ -1739,7 +1983,11 @@
              allows you to later retrieve the view
              with <code>findViewById(R.id.my_id)</code>. -->
         <attr name="id" format="reference" />
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Supply a tag for this view containing a String, to be retrieved
              later with {@link android.view.View#getTag View.getTag()} or
              searched for with {@link android.view.View#findViewWithTag
@@ -1747,7 +1995,11 @@
              IDs (through the android:id attribute) instead of tags because
              they are faster and allow for compile-time type checking. -->
         <attr name="tag" format="string" />
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- The initial horizontal scroll offset, in pixels.-->
         <attr name="scrollX" format="dimension" />
 
@@ -1761,7 +2013,11 @@
         <attr name="background" format="reference|color" />
 
         <!-- Sets the padding, in pixels, of all four edges.  Padding is defined as
+<<<<<<< HEAD
              space between the edges of the view and the view's content. A views size
+=======
+             space between the edges of the view and the view's content. A views size 
+>>>>>>> 54b6cfa... Initial Contribution
              will include it's padding.  If a {@link android.R.attr#background}
              is provided, the padding will initially be set to that (0 if the
              drawable does not have padding).  Explicitly setting a padding value
@@ -1775,10 +2031,13 @@
         <attr name="paddingRight" format="dimension" />
         <!-- Sets the padding, in pixels, of the bottom edge; see {@link android.R.attr#padding}. -->
         <attr name="paddingBottom" format="dimension" />
+<<<<<<< HEAD
         <!-- Sets the padding, in pixels, of the start edge; see {@link android.R.attr#padding}. -->
         <attr name="paddingStart" format="dimension" />
         <!-- Sets the padding, in pixels, of the end edge; see {@link android.R.attr#padding}. -->
         <attr name="paddingEnd" format="dimension" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         <!-- Boolean that controls whether a view can take focus.  By default the user can not
              move focus to a view; by setting this attribute to true the view is
@@ -1820,12 +2079,21 @@
         </attr>
 
         <!-- Controls the scrollbar style and position. The scrollbars can be overlaid or
+<<<<<<< HEAD
              inset. When inset, they add to the padding of the view. And the
              scrollbars can be drawn inside the padding area or on the edge of
              the view. For example, if a view has a background drawable and you
              want to draw the scrollbars inside the padding specified by the
              drawable, you can use insideOverlay or insideInset. If you want them
              to appear at the edge of the view, ignoring the padding, then you can
+=======
+             inset. When inset, they add to the padding of the view. And the 
+             scrollbars can be drawn inside the padding area or on the edge of 
+             the view. For example, if a view has a background drawable and you 
+             want to draw the scrollbars inside the padding specified by the 
+             drawable, you can use insideOverlay or insideInset. If you want them 
+             to appear at the edge of the view, ignoring the padding, then you can 
+>>>>>>> 54b6cfa... Initial Contribution
              use outsideOverlay or outsideInset.-->
         <attr name="scrollbarStyle">
             <!-- Inside the padding and overlaid -->
@@ -1837,6 +2105,7 @@
             <!-- Edge of the view and inset -->
             <enum name="outsideInset" value="0x03000000" />
         </attr>
+<<<<<<< HEAD
 
         <!-- Set this if the view will serve as a scrolling container, meaing
              that it can be resized to shrink its overall window so that there
@@ -1851,6 +2120,9 @@
          <attr name="scrollbarFadeDuration" format="integer" />
          <!-- Defines the delay in milliseconds that a scrollbar waits before fade out. -->
         <attr name="scrollbarDefaultDelayBeforeFade" format="integer" />
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Sets the width of vertical scrollbars and height of horizontal scrollbars. -->
         <attr name="scrollbarSize" format="dimension" />
         <!-- Defines the horizontal scrollbar thumb drawable. -->
@@ -1863,6 +2135,7 @@
         <attr name="scrollbarTrackVertical" format="reference" />
         <!-- Defines whether the horizontal scrollbar track should always be drawn. -->
         <attr name="scrollbarAlwaysDrawHorizontalTrack" format="boolean" />
+<<<<<<< HEAD
         <!-- Defines whether the vertical scrollbar track should always be drawn. -->
         <attr name="scrollbarAlwaysDrawVerticalTrack" format="boolean" />
 
@@ -1872,6 +2145,12 @@
              degradations and should be used only when required by the application's
              visual design. To request fading edges with API level 14 and above,
              use the <code>android:requiresFadingEdge</code> attribute instead. -->
+=======
+        <!-- Defines whether the vertical scrollbar track should always be drawn -->
+        <attr name="scrollbarAlwaysDrawVerticalTrack" format="boolean" />
+
+        <!-- Defines which edges should be fadeded on scrolling. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="fadingEdge">
             <!-- No edge is faded. -->
             <flag name="none" value="0x00000000" />
@@ -1880,6 +2159,7 @@
             <!-- Fades vertical edges only. -->
             <flag name="vertical" value="0x00002000" />
         </attr>
+<<<<<<< HEAD
         <!-- Defines which edges should be faded on scrolling. -->
         <attr name="requiresFadingEdge">
             <!-- No edge is faded. -->
@@ -1889,6 +2169,8 @@
             <!-- Fades vertical edges only. -->
             <flag name="vertical" value="0x00002000" />
         </attr>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Defines the length of the fading edges. -->
         <attr name="fadingEdgeLength" format="dimension" />
 
@@ -1924,6 +2206,7 @@
              will result when the reference is accessed.-->
         <attr name="nextFocusDown" format="reference"/>
 
+<<<<<<< HEAD
         <!-- Defines the next view to give focus to when the next focus is
              {@link android.view.View#FOCUS_FORWARD}
 
@@ -1938,6 +2221,14 @@
         <!-- Defines whether this view reacts to long click events. -->
         <attr name="longClickable" format="boolean" />
 
+=======
+        <!-- Defines whether this view reacts to click events. -->
+        <attr name="clickable" format="boolean" />
+        
+        <!-- Defines whether this view reacts to long click events. -->
+        <attr name="longClickable" format="boolean" />
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- If unset, no state will be saved for this view when it is being
              frozen. The default is true, allowing the view to be saved
              (however it also must have an ID assigned to it for its
@@ -1945,6 +2236,7 @@
              state for this view, not for its children which may still
              be saved. -->
         <attr name="saveEnabled" format="boolean" />
+<<<<<<< HEAD
 
         <!-- Specifies whether to filter touches when the view's window is obscured by
              another visible window.  When set to true, the view will not receive touches
@@ -1952,6 +2244,9 @@
              Refer to the {@link android.view.View} security documentation for more details. -->
         <attr name="filterTouchesWhenObscured" format="boolean" />
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Defines the quality of translucent drawing caches. This property is used
              only when the drawing cache is enabled and translucent. The default value is auto. -->
         <attr name="drawingCacheQuality">
@@ -1969,16 +2264,28 @@
         <!-- Controls whether the view's window should keep the screen on
              while visible. -->
         <attr name="keepScreenOn" format="boolean" />
+<<<<<<< HEAD
 
         <!-- When this attribute is set to true, the view gets its drawable state
              (focused, pressed, etc.) from its direct parent rather than from itself. -->
         <attr name="duplicateParentState" format="boolean" />
 
+=======
+        
+        <!-- When this attribute is set to true, the view gets its drawable state
+             (focused, pressed, etc.) from its direct parent rather than from itself. -->
+        <attr name="duplicateParentState" format="boolean" />
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Defines the minimum height of the view. It is not guaranteed
              the view will be able to achieve this minimum height (for example,
              if its parent layout constrains it with less available height). -->
         <attr name="minHeight" />
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Defines the minimum width of the view. It is not guaranteed
              the view will be able to achieve this minimum width (for example,
              if its parent layout constrains it with less available width). -->
@@ -1988,6 +2295,7 @@
              enabled for events such as clicking and touching. -->
         <attr name="soundEffectsEnabled" format="boolean" />
 
+<<<<<<< HEAD
         <!-- Boolean that controls whether a view should have haptic feedback
              enabled for events such as long presses. -->
         <attr name="hapticFeedbackEnabled" format="boolean" />
@@ -2188,17 +2496,22 @@
             <enum name="no" value="2" />
         </attr>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <!-- Attributes that can be used with a {@link android.view.ViewGroup} or any
          of its subclasses.  Also see {@link #ViewGroup_Layout} for
          attributes that this class processes in its children. -->
     <declare-styleable name="ViewGroup">
+<<<<<<< HEAD
         <!-- Defines whether changes in layout (caused by adding and removing items) should
              cause a LayoutTransition to run. When this flag is set to true, a default
              LayoutTransition object will be set on the ViewGroup container and default
              animations will run when these layout changes occur.-->
         <attr name="animateLayoutChanges" format="boolean" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Defines whether a child is limited to draw inside of its bounds or not.
              This is useful with animations that scale the size of the children to more
              than 100% for instance. In such a case, this property should be set to false
@@ -2229,7 +2542,11 @@
             <flag name="animation" value="0x1" />
             <!-- The drawing cache is persisted after a scroll. -->
             <flag name="scrolling" value="0x2" />
+<<<<<<< HEAD
             <!-- The drawing cache is always persisted. -->
+=======
+            <!-- The drawing cache is always persisted. -->            
+>>>>>>> 54b6cfa... Initial Contribution
             <flag name="all" value="0x3" />
         </attr>
         <!-- Defines whether the ViewGroup should always draw its children using their
@@ -2252,6 +2569,7 @@
             <enum name="blocksDescendants" value="2" />
         </attr>
 
+<<<<<<< HEAD
         <!-- Sets whether this ViewGroup should split MotionEvents
              to separate child views during touch event dispatch.
              If false (default), touch events will be dispatched to
@@ -2267,6 +2585,11 @@
 
     <!-- A {@link android.view.ViewStub} lets you lazily include other XML layouts
          inside your application at runtime. -->
+=======
+    </declare-styleable>
+
+    <!-- Attributes that can be used with {@link android.view.ViewStub}. -->
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="ViewStub">
         <!-- Supply an identifier for the layout resource to inflate when the ViewStub
              becomes visible or when forced to do so. The layout resource must be a
@@ -2293,6 +2616,7 @@
              be a dimension (such as "12dip") for a constant width or one of
              the special constants. -->
         <attr name="layout_width" format="dimension">
+<<<<<<< HEAD
             <!-- The view should be as big as its parent (minus padding).
                  This constant is deprecated starting from API Level 8 and
                  is replaced by {@code match_parent}. -->
@@ -2300,6 +2624,10 @@
             <!-- The view should be as big as its parent (minus padding).
                  Introduced in API Level 8. -->
             <enum name="match_parent" value="-1" />
+=======
+            <!-- The view should be as big as its parent (minus padding). -->
+            <enum name="fill_parent" value="-1" />
+>>>>>>> 54b6cfa... Initial Contribution
             <!-- The view should be only big enough to enclose its content (plus padding). -->
             <enum name="wrap_content" value="-2" />
         </attr>
@@ -2309,6 +2637,7 @@
              be a dimension (such as "12dip") for a constant height or one of
              the special constants. -->
         <attr name="layout_height" format="dimension">
+<<<<<<< HEAD
             <!-- The view should be as big as its parent (minus padding).
                  This constant is deprecated starting from API Level 8 and
                  is replaced by {@code match_parent}. -->
@@ -2316,6 +2645,10 @@
             <!-- The view should be as big as its parent (minus padding).
                  Introduced in API Level 8. -->
             <enum name="match_parent" value="-1" />
+=======
+            <!-- The view should be as big as its parent (minus padding). -->
+            <enum name="fill_parent" value="-1" />
+>>>>>>> 54b6cfa... Initial Contribution
             <!-- The view should be only big enough to enclose its content (plus padding). -->
             <enum name="wrap_content" value="-2" />
         </attr>
@@ -2346,6 +2679,7 @@
         <!--  Specifies extra space on the bottom side of this view.
               This space is outside this view's bounds. -->
         <attr name="layout_marginBottom" format="dimension"  />
+<<<<<<< HEAD
         <!--  Specifies extra space on the start side of this view.
               This space is outside this view's bounds. -->
         <attr name="layout_marginStart" format="dimension"  />
@@ -2525,6 +2859,8 @@
 
     <declare-styleable name="ActionMenuItemView">
         <attr name="minWidth" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <!-- =============================== -->
@@ -2535,7 +2871,11 @@
     <declare-styleable name="AbsListView">
          <!-- Drawable used to indicate the currently selected item in the list. -->
         <attr name="listSelector" format="color|reference" />
+<<<<<<< HEAD
         <!-- When set to true, the selector will be drawn over the selected item.
+=======
+        <!-- When set to true, the selector will be drawn over the selected item. 
+>>>>>>> 54b6cfa... Initial Contribution
              Otherwise the selector is drawn behind the selected item. The default
              value is false. -->
         <attr name="drawSelectorOnTop" format="boolean" />
@@ -2546,7 +2886,11 @@
              value is true. -->
         <attr name="scrollingCache" format="boolean" />
         <!-- When set to true, the list will filter results as the user types. The
+<<<<<<< HEAD
              List's adapter must support the Filterable interface for this to work. -->
+=======
+             List's adapter must support the Filterable interface for this to work -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="textFilterEnabled" format="boolean" />
         <!-- Sets the transcript mode for the list. In transcript mode, the list
              scrolls to the bottom to make new items visible when they are added. -->
@@ -2558,12 +2902,17 @@
                  already visible on screen. -->
             <enum name="normal" value="1" />
             <!-- The list will automatically scroll to the bottom, no matter what items
+<<<<<<< HEAD
                  are currently visible. -->
+=======
+                 are currently visible. --> 
+>>>>>>> 54b6cfa... Initial Contribution
             <enum name="alwaysScroll" value="2" />
         </attr>
         <!-- Indicates that this list will always be drawn on top of solid, single-color
              opaque background. This allows the list to optimize drawing. -->
         <attr name="cacheColorHint" format="color" />
+<<<<<<< HEAD
         <!-- Enables the fast scroll thumb that can be dragged to quickly scroll through
              the list. -->
         <attr name="fastScrollEnabled" format="boolean" />
@@ -2600,6 +2949,8 @@
         <!-- When set to true, the list will always show the fast scroll interface.
              This setting implies fastScrollEnabled. -->
         <attr name="fastScrollAlwaysVisible" format="boolean" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="AbsSpinner">
         <!-- Reference to an array resource that will populate the Spinner.  For static content,
@@ -2622,23 +2973,37 @@
         <attr name="format" format="string" localization="suggested" />
     </declare-styleable>
     <declare-styleable name="CompoundButton">
+<<<<<<< HEAD
         <!-- Indicates the initial checked state of this button. -->
+=======
+        <!-- Indicates the initial checked state of this button -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="checked" format="boolean" />
         <!-- Drawable used for the button graphic (e.g. checkbox, radio button, etc). -->
         <attr name="button" format="reference"/>
     </declare-styleable>
     <declare-styleable name="CheckedTextView">
+<<<<<<< HEAD
         <!-- Indicates the initial checked state of this text. -->
         <attr name="checked" />
         <!-- Drawable used for the check mark graphic. -->
+=======
+        <!-- Indicates the initial checked state of this text -->
+        <attr name="checked" />
+        <!-- Drawable used for the check mark graphic -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="checkMark" format="reference"/>
     </declare-styleable>
     <declare-styleable name="EditText">
     </declare-styleable>
     <declare-styleable name="FrameLayout">
         <!-- Defines the drawable to draw over the content. This can be used as an overlay.
+<<<<<<< HEAD
              The foreground drawable participates in the padding of the content if the gravity
              is set to fill. -->
+=======
+             The foreground drawable participates in the padding of the content. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="foreground" format="reference|color" />
         <!-- Defines the gravity to apply to the foreground drawable. The gravity defaults
              to fill. -->
@@ -2663,6 +3028,7 @@
             <flag name="center" value="0x11" />
             <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
             <flag name="fill" value="0x77" />
+<<<<<<< HEAD
             <!-- Additional option that can be set to have the top and/or bottom edges of
                  the child clipped to its container's bounds.
                  The clip will be based on the vertical gravity: a top gravity will clip the bottom
@@ -2678,6 +3044,10 @@
              This property is turned on by default. -->
         <attr name="foregroundInsidePadding" format="boolean" />
         <!-- Determines whether to measure all children or just those in
+=======
+        </attr>
+        <!-- Determines whether to measure all children or just those in 
+>>>>>>> 54b6cfa... Initial Contribution
              the VISIBLE or INVISIBLE state when measuring. Defaults to false. -->
         <attr name="measureAllChildren" format="boolean" />
     </declare-styleable>
@@ -2687,6 +3057,7 @@
         <!-- Indicator shown beside the child View. This can be a stateful Drawable. -->
         <attr name="childIndicator" format="reference" />
         <!-- The left bound for an item's indicator. To specify a left bound specific to children,
+<<<<<<< HEAD
              use childIndicatorLeft. -->
         <attr name="indicatorLeft" format="dimension" />
         <!-- The right bound for an item's indicator. To specify a right bound specific to children,
@@ -2695,6 +3066,16 @@
         <!-- The left bound for a child's indicator. -->
         <attr name="childIndicatorLeft" format="dimension" />
         <!-- The right bound for a child's indicator. -->
+=======
+             use childIndicatorLeft. --> 
+        <attr name="indicatorLeft" format="dimension" />
+        <!-- The right bound for an item's indicator. To specify a right bound specific to children,
+             use childIndicatorRight. --> 
+        <attr name="indicatorRight" format="dimension" />
+        <!-- The left bound for a child's indicator. --> 
+        <attr name="childIndicatorLeft" format="dimension" />
+        <!-- The right bound for a child's indicator. --> 
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="childIndicatorRight" format="dimension" />
         <!-- Drawable or color that is used as a divider for children. (It will drawn
              below and above child items.) The height of this will be the same as
@@ -2711,6 +3092,7 @@
         <attr name="unselectedAlpha" format="float" />
     </declare-styleable>
     <declare-styleable name="GridView">
+<<<<<<< HEAD
         <!-- Defines the default horizontal spacing between columns. -->
         <attr name="horizontalSpacing" format="dimension" />
         <!-- Defines the default vertical spacing between rows. -->
@@ -2734,6 +3116,19 @@
             <enum name="auto_fit" value="-1" />
         </attr>
         <!-- Specifies the gravity within each cell. -->
+=======
+        <attr name="horizontalSpacing" format="dimension" />
+        <attr name="verticalSpacing" format="dimension" />
+        <attr name="stretchMode">
+            <enum name="none" value="0"/>
+            <enum name="spacingWidth" value="1" />
+            <enum name="columnWidth" value="2" />
+        </attr>
+        <attr name="columnWidth" format="dimension" />
+        <attr name="numColumns" format="integer" min="0">
+            <enum name="auto_fit" value="-1" />
+        </attr>
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="gravity" />
     </declare-styleable>
     <declare-styleable name="ImageSwitcher">
@@ -2756,6 +3151,7 @@
         <!-- Set this to true if you want the ImageView to adjust its bounds
              to preserve the aspect ratio of its drawable. -->
         <attr name="adjustViewBounds" format="boolean" />
+<<<<<<< HEAD
         <!-- An optional argument to supply a maximum width for this view.
              See {see android.widget.ImageView#setMaxWidth} for details. -->
         <attr name="maxWidth" format="dimension" />
@@ -2775,6 +3171,21 @@
         <!-- @hide The alpha value (0-255) set on the ImageView's drawable. Equivalent
              to calling ImageView.setAlpha(int), not the same as View.setAlpha(float). -->
         <attr name="drawableAlpha" format="integer" />
+=======
+        <!-- An optional argument to supply a maximum width for this view. 
+             See {see android.widget.ImageView#setMaxWidth} for details. -->
+        <attr name="maxWidth" format="dimension" />
+        <!-- An optional argument to supply a maximum height for this view. 
+             See {see android.widget.ImageView#setMaxHeight} for details. -->
+        <attr name="maxHeight" format="dimension" />
+        <!-- Set a tinting color for the image -->
+        <attr name="tint" format="color" />
+        <!-- If true, the image view will be baseline aligned with based on its
+             bottom edge -->
+        <attr name="baselineAlignBottom" format="boolean" />
+         <!-- If true, the image will be cropped to fit within its padding -->
+        <attr name="cropToPadding" format="boolean" />
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="ToggleButton">
         <!-- The text for the button when it is checked. -->
@@ -2801,7 +3212,11 @@
         <attr name="baselineAligned" format="boolean" />
         <!-- When a linear layout is part of another layout that is baseline
           aligned, it can specify which of its children to baseline align to
+<<<<<<< HEAD
           (that is, which child TextView).-->
+=======
+          (i.e which child TextView).-->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="baselineAlignedChildIndex" format="integer" min="0"/>
         <!-- Defines the maximum weight sum. If unspecified, the sum is computed
              by adding the layout_weight of all of the children. This can be
@@ -2809,6 +3224,7 @@
              space by giving it a layout_weight of 0.5 and setting the weightSum
              to 1.0. -->
         <attr name="weightSum" format="float" />
+<<<<<<< HEAD
         <!-- When set to true, all children with a weight will be considered having
              the minimum size of the largest child. If false, all children are
              measured normally. -->
@@ -2860,6 +3276,8 @@
         The default is true.
         See {@link android.widget.GridLayout#setColumnOrderPreserved(boolean)}.-->
         <attr name="columnOrderPreserved" format="boolean" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="ListView">
         <!-- Reference to an array resource that will populate the ListView.  For static content,
@@ -2870,6 +3288,7 @@
         <!-- Height of the divider. Will use the intrinsic height of the divider if this
              is not specified. -->
         <attr name="dividerHeight" format="dimension" />
+<<<<<<< HEAD
         <!-- When set to false, the ListView will not draw the divider after each header view.
              The default value is true. -->
         <attr name="headerDividersEnabled" format="boolean" />
@@ -2894,6 +3313,20 @@
     <declare-styleable name="PreferenceFrameLayout_Layout">
         <!-- Padding to use at the top of the prefs content. -->
         <attr name="layout_removeBorders" format="boolean" />
+=======
+        <!-- Defines the choice behavior for the List. By default, Lists do not have 
+             any choice behavior. By setting the choiceMode to singleChoice, the List
+             allows up to one item to be in a chosen state. By setting the choiceMode to 
+             multipleChoice, the list allows any number of items to be chosen. -->
+        <attr name="choiceMode">
+            <!-- Normal list that does not indicate choices -->
+            <enum name="none" value="0" />
+            <!-- The list allows up to one choice -->
+            <enum name="singleChoice" value="1" />
+            <!-- The list allows multiple choices -->
+            <enum name="multipleChoice" value="2" />
+        </attr>
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="MenuView">
         <!-- Default appearance of menu item text. -->
@@ -2906,12 +3339,19 @@
         <attr name="headerBackground" format="color|reference" />
         <!-- Default background for each menu item. -->
         <attr name="itemBackground" format="color|reference" />
+<<<<<<< HEAD
         <!-- Default animations for the menu. -->
         <attr name="windowAnimationStyle" />
         <!-- Default disabled icon alpha for each menu item that shows an icon. -->
         <attr name="itemIconDisabledAlpha" format="float" />
         <!-- Whether space should be reserved in layout when an icon is missing. -->
         <attr name="preserveIconSpacing" format="boolean" />
+=======
+        <!-- Default animations for the menu -->
+        <attr name="windowAnimationStyle" />
+        <!-- Default disabled icon alpha for each menu item that shows an icon. -->
+        <attr name="itemIconDisabledAlpha" format="float" />
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="IconMenuView">
         <!-- Defines the height of each row. -->
@@ -2920,12 +3360,19 @@
         <attr name="maxRows" format="integer" />
         <!-- Defines the maximum number of items per row. -->
         <attr name="maxItemsPerRow" format="integer" />
+<<<<<<< HEAD
         <!-- Defines the maximum number of items to show. -->
         <attr name="maxItems" format="integer" />
         <!-- 'More' icon. -->
         <attr name="moreIcon" format="reference" />
     </declare-styleable>
 
+=======
+        <!-- 'More' icon -->
+        <attr name="moreIcon" format="reference" />
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="ProgressBar">
         <!-- Defines the maximum value the progress can take. -->
         <attr name="max" format="integer" />
@@ -2958,6 +3405,7 @@
         <attr name="maxWidth" />
         <attr name="minHeight" format="dimension" />
         <attr name="maxHeight" />
+<<<<<<< HEAD
         <attr name="interpolator" format="reference" />
         <!-- Timeout between frames of animation in milliseconds
              {@deprecated Not used by the framework.} -->
@@ -2989,6 +3437,29 @@
         <attr name="isIndicator" format="boolean" />
     </declare-styleable>
 
+=======
+        <attr name="interpolator" format="reference" />        
+    </declare-styleable>
+    
+    <declare-styleable name="SeekBar">
+        <!-- Draws the thumb on a seekbar -->    
+        <attr name="thumb" format="reference" />
+        <!-- An offset for the thumb that allows it to extend out of the range of the track. -->
+        <attr name="thumbOffset" format="dimension" /> 
+    </declare-styleable>
+    
+    <declare-styleable name="RatingBar">
+        <!-- The number of stars (or rating items) to show. -->    
+        <attr name="numStars" format="integer" /> 
+        <!-- The rating to set by default. -->    
+        <attr name="rating" format="float" /> 
+        <!-- The step size of the rating. -->    
+        <attr name="stepSize" format="float" /> 
+        <!-- Whether this rating bar is an indicator (and non-changeable by the user). -->    
+        <attr name="isIndicator" format="boolean" /> 
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="RadioGroup">
         <!-- The id of the child radio button that should be checked by default
              within this radio group. -->
@@ -2999,19 +3470,32 @@
         <attr name="orientation" />
     </declare-styleable>
     <declare-styleable name="TableLayout">
+<<<<<<< HEAD
         <!-- The zero-based index of the columns to stretch. The column indices
+=======
+        <!-- The 0 based index of the columns to stretch. The column indices
+>>>>>>> 54b6cfa... Initial Contribution
              must be separated by a comma: 1, 2, 5. Illegal and duplicate
              indices are ignored. You can stretch all columns by using the
              value "*" instead. Note that a column can be marked stretchable
              and shrinkable at the same time. -->
         <attr name="stretchColumns" format="string" />
+<<<<<<< HEAD
        <!-- The zero-based index of the columns to shrink. The column indices
+=======
+       <!-- The 0 based index of the columns to shrink. The column indices
+>>>>>>> 54b6cfa... Initial Contribution
              must be separated by a comma: 1, 2, 5. Illegal and duplicate
              indices are ignored. You can shrink all columns by using the
              value "*" instead. Note that a column can be marked stretchable
              and shrinkable at the same time. -->
+<<<<<<< HEAD
         <attr name="shrinkColumns" format="string" />
         <!-- The zero-based index of the columns to collapse. The column indices
+=======
+        <attr name="shrinkColumns" format="string" /> 
+        <!-- The 0 based index of the columns to collapse. The column indices
+>>>>>>> 54b6cfa... Initial Contribution
              must be separated by a comma: 1, 2, 5. Illegal and duplicate
              indices are ignored. -->
         <attr name="collapseColumns" format="string" />
@@ -3026,6 +3510,7 @@
         <attr name="layout_span" format="integer" />
     </declare-styleable>
     <declare-styleable name="TabWidget">
+<<<<<<< HEAD
         <!-- Drawable used to draw the divider between tabs. -->
         <attr name="divider" />
         <!-- Determines whether the strip under the tab indicators is drawn or not. -->
@@ -3036,26 +3521,38 @@
         <attr name="tabStripRight" format="reference" />
         <!-- Layout used to organize each tab's content. -->
         <attr name="tabLayout" format="reference" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="TextAppearance">
         <!-- Text color. -->
         <attr name="textColor" />
+<<<<<<< HEAD
         <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
+=======
+        <!-- Size of the text. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="textSize" />
         <!-- Style (bold, italic, bolditalic) for the text. -->
         <attr name="textStyle" />
         <!-- Typeface (normal, sans, serif, monospace) for the text. -->
         <attr name="typeface" />
+<<<<<<< HEAD
         <!-- Font family (named by string) for the text. -->
         <attr name="fontFamily" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Color of the text selection highlight. -->
         <attr name="textColorHighlight" />
         <!-- Color of the hint text. -->
         <attr name="textColorHint" />
         <!-- Color of the links. -->
         <attr name="textColorLink" />
+<<<<<<< HEAD
         <!-- Present the text in ALL CAPS. This may use a small-caps form when available. -->
         <attr name="textAllCaps" format="boolean" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="TextSwitcher">
     </declare-styleable>
@@ -3085,14 +3582,21 @@
         <attr name="textColorHint" />
         <!-- Base text color, typeface, size, and style. -->
         <attr name="textAppearance" />
+<<<<<<< HEAD
         <!-- Size of the text. Recommended dimension type for text is "sp" for scaled-pixels (example: 15sp). -->
         <attr name="textSize" />
         <!-- Sets the horizontal scaling factor for the text. -->
+=======
+        <!-- Size of the text. -->
+        <attr name="textSize" />
+        <!-- Sets the horizontal scaling factor for the text -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="textScaleX" format="float" />
         <!-- Typeface (normal, sans, serif, monospace) for the text. -->
         <attr name="typeface" />
         <!-- Style (bold, italic, bolditalic) for the text. -->
         <attr name="textStyle" />
+<<<<<<< HEAD
         <!-- Font family (named by string) for the text. -->
         <attr name="fontFamily" />
         <!-- Text color for links. -->
@@ -3107,11 +3611,23 @@
         <!-- Makes the TextView be at most this many pixels tall. -->
         <attr name="maxHeight" />
         <!-- Makes the TextView be exactly this many lines tall. -->
+=======
+        <!-- Text color for links. -->
+        <attr name="textColorLink" />
+        <!-- Makes the cursor visible (the default) or invisible -->
+        <attr name="cursorVisible" format="boolean" />
+        <!-- Makes the TextView be at most this many lines tall -->
+        <attr name="maxLines" format="integer" min="0" />
+        <!-- Makes the TextView be at most this many pixels tall -->
+        <attr name="maxHeight" />
+        <!-- Makes the TextView be exactly this many lines tall -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="lines" format="integer" min="0" />
         <!-- Makes the TextView be exactly this many pixels tall.
              You could get the same effect by specifying this number in the
              layout parameters. -->
         <attr name="height" format="dimension" />
+<<<<<<< HEAD
         <!-- Makes the TextView be at least this many lines tall.
 
         When used on an editable text, the <code>inputType</code> attribute's value must be
@@ -3124,28 +3640,53 @@
         <!-- Makes the TextView be at most this many pixels wide. -->
         <attr name="maxWidth" />
         <!-- Makes the TextView be exactly this many ems wide. -->
+=======
+        <!-- Makes the TextView be at least this many lines tall -->
+        <attr name="minLines" format="integer" min="0" />
+        <!-- Makes the TextView be at least this many pixels tall -->
+        <attr name="minHeight" />
+        <!-- Makes the TextView be at most this many ems wide -->
+        <attr name="maxEms" format="integer" min="0" />
+        <!-- Makes the TextView be at most this many pixels wide -->
+        <attr name="maxWidth" />
+        <!-- Makes the TextView be exactly this many ems wide -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="ems" format="integer" min="0" />
         <!-- Makes the TextView be exactly this many pixels wide.
              You could get the same effect by specifying this number in the
              layout parameters. -->
         <attr name="width" format="dimension" />
+<<<<<<< HEAD
         <!-- Makes the TextView be at least this many ems wide. -->
         <attr name="minEms" format="integer" min="0" />
         <!-- Makes the TextView be at least this many pixels wide. -->
         <attr name="minWidth" />
         <!-- Specifies how to align the text by the view's x- and/or y-axis
              when the text is smaller than the view. -->
+=======
+        <!-- Makes the TextView be at least this many ems wide -->
+        <attr name="minEms" format="integer" min="0" />
+        <!-- Makes the TextView be at least this many pixels wide -->
+        <attr name="minWidth" />
+        <!-- Vertical gravity (top, center_vertical, bottom) when the text
+             is smaller than the view. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="gravity" />
         <!-- Whether the text is allowed to be wider than the view (and
              therefore can be scrolled horizontally). -->
         <attr name="scrollHorizontally" format="boolean" />
         <!-- Whether the characters of the field are displayed as
+<<<<<<< HEAD
              password dots instead of themselves.
              {@deprecated Use inputType instead.} -->
+=======
+             password dots instead of themselves. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="password" format="boolean" />
         <!-- Constrains the text to a single horizontally scrolling line
              instead of letting it wrap onto multiple lines, and advances
              focus instead of inserting a newline when you press the
+<<<<<<< HEAD
              enter key.
 
              The default value is false (multi-line wrapped text mode) for non-editable text, but if
@@ -3164,6 +3705,14 @@
         <attr name="enabled" format="boolean" />
         <!-- If the text is selectable, select it all when the view takes
              focus. -->
+=======
+             enter key. -->
+        <attr name="singleLine" format="boolean" />
+        <!-- Deprecated: use state_enabled instead. -->
+        <attr name="enabled" format="boolean" />
+        <!-- If the text is selectable, select it all when the view takes
+             focus instead of moving the cursor to the start or end. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="selectAllOnFocus" format="boolean" />
         <!-- Leave enough room for ascenders and descenders instead of
              using the font ascent and descent strictly.  (Normally true). -->
@@ -3185,13 +3734,21 @@
              to be found. -->
         <attr name="linksClickable" format="boolean" />
         <!-- If set, specifies that this TextView has a numeric input method.
+<<<<<<< HEAD
              The default is false.
              {@deprecated Use inputType instead.} -->
+=======
+             The default is false. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="numeric">
             <!-- Input is numeric. -->
             <flag name="integer" value="0x01" />
             <!-- Input is numeric, with sign allowed. -->
+<<<<<<< HEAD
             <flag name="signed" value="0x03" />
+=======
+            <flag name="signed" value="0x003" />
+>>>>>>> 54b6cfa... Initial Contribution
             <!-- Input is numeric, with decimals allowed. -->
             <flag name="decimal" value="0x05" />
         </attr>
@@ -3202,6 +3759,7 @@
              The default is false. -->
         <attr name="digits" format="string" />
         <!-- If set, specifies that this TextView has a phone number input
+<<<<<<< HEAD
              method. The default is false.
              {@deprecated Use inputType instead.} -->
         <attr name="phoneNumber" format="boolean" />
@@ -3213,6 +3771,17 @@
              and should automatically capitalize what the user types.
              The default is "none".
              {@deprecated Use inputType instead.} -->
+=======
+             method.
+             The default is false. -->
+        <attr name="phoneNumber" format="boolean" />
+        <!-- If set, specifies that this TextView should use the specified
+             input method (specified by fully-qualified class name). -->
+        <attr name="inputMethod" format="string" />
+        <!-- If set, specifies that this TextView has a textual input method
+             and should automatically capitalize what the user types.
+             The default is "none". -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="capitalize">
             <!-- Don't automatically capitalize anything. -->
             <enum name="none" value="0" />
@@ -3225,14 +3794,22 @@
         </attr>
         <!-- If set, specifies that this TextView has a textual input method
              and automatically corrects some common spelling errors.
+<<<<<<< HEAD
              The default is "false".
              {@deprecated Use inputType instead.} -->
+=======
+             The default is "false". -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="autoText" format="boolean" />
         <!-- If set, specifies that this TextView has an input method.
              It will be a textual one unless it has otherwise been specified.
              For TextView, this is false by default.  For EditText, it is
+<<<<<<< HEAD
              true by default.
              {@deprecated Use inputType instead.} -->
+=======
+             true by default. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="editable" format="boolean" />
         <!-- If set, the text view will include its current complete text
              inside of its frozen icicle in addition to meta-data such as
@@ -3255,16 +3832,20 @@
         <attr name="drawableLeft" format="reference|color" />
         <!-- The drawable to be drawn to the right of the text. -->
         <attr name="drawableRight" format="reference|color" />
+<<<<<<< HEAD
         <!-- The drawable to be drawn to the start of the text. -->
         <attr name="drawableStart" format="reference|color" />
         <!-- The drawable to be drawn to the end of the text. -->
         <attr name="drawableEnd" format="reference|color" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- The padding between the drawables and the text. -->
         <attr name="drawablePadding" format="dimension" />
         <!-- Extra spacing between lines of text. -->
         <attr name="lineSpacingExtra" format="dimension" />
         <!-- Extra spacing between lines of text, as a multiplier. -->
         <attr name="lineSpacingMultiplier" format="float" />
+<<<<<<< HEAD
         <!-- The number of times to repeat the marquee animation. Only applied if the
              TextView has marquee enabled. -->
         <attr name="marqueeRepeatLimit" format="integer">
@@ -3348,6 +3929,8 @@
          an input method.  Contains
          one more more {@link #Extra <extra>} tags.  -->
     <declare-styleable name="InputExtras">
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="AutoCompleteTextView">
         <!-- Defines the hint displayed in the drop down menu. -->
@@ -3358,6 +3941,7 @@
          completion suggestions are displayed in a drop down menu. -->
         <attr name="completionThreshold" format="integer" min="1" />
         <!-- Selector in a drop down list. -->
+<<<<<<< HEAD
         <attr name="dropDownSelector" format="reference|color" />
         <!-- Amount of pixels by which the drop down should be offset vertically. -->
         <attr name="dropDownVerticalOffset" format="dimension" />
@@ -3434,6 +4018,19 @@
         <attr name="flipInterval" />
         <!-- When true, automatically start animating -->
         <attr name="autoStart" />
+=======
+        <attr name="dropDownSelector" format="reference|color" />        
+    </declare-styleable>
+    <declare-styleable name="PopupWindow">
+        <attr name="popupBackground" format="reference|color" />
+    </declare-styleable>
+    <declare-styleable name="ViewAnimator">
+        <attr name="inAnimation" format="reference" />
+        <attr name="outAnimation" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="ViewFlipper">
+        <attr name="flipInterval" format="integer" min="0" />
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="ViewSwitcher">
     </declare-styleable>
@@ -3441,6 +4038,7 @@
         <!-- Defines whether the scrollview should stretch its content to fill the viewport. -->
         <attr name="fillViewport" format="boolean" />
     </declare-styleable>
+<<<<<<< HEAD
     <declare-styleable name="HorizontalScrollView">
         <!-- Defines whether the scrollview should stretch its content to fill the viewport. -->
         <attr name="fillViewport" />
@@ -3498,6 +4096,17 @@
         <attr name="maxDate" format="string" />
         <!-- @hide The layout of the date picker. -->
         <attr name="internalLayout" format="reference"  />
+=======
+    <declare-styleable name="Spinner">
+        <!-- The prompt to display when the spinner's dialog is shown. -->
+        <attr name="prompt" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="DatePicker">  
+        <!-- The first year (inclusive) i.e. 1940 -->
+        <attr name="startYear" format="integer" />
+        <!-- The last year (inclusive) i.e. 2010 -->
+        <attr name="endYear" format="integer" />
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <declare-styleable name="TwoLineListItem">
@@ -3505,14 +4114,22 @@
             <!-- Always show only the first line. -->
             <enum name="oneLine" value="1" />
             <!-- When selected show both lines, otherwise show only the first line.
+<<<<<<< HEAD
                  This is the default mode. -->
+=======
+                 This is the default mode-->
+>>>>>>> 54b6cfa... Initial Contribution
             <enum name="collapsing" value="2" />
             <!-- Always show both lines. -->
             <enum name="twoLine" value="3" />
         </attr>
     </declare-styleable>
 
+<<<<<<< HEAD
     <!-- SlidingDrawer specific attributes. These attributes are used to configure
+=======
+    <!-- SlidingDrawer specific attributes. These attribtues are used to configure
+>>>>>>> 54b6cfa... Initial Contribution
          a SlidingDrawer from XML. -->
     <declare-styleable name="SlidingDrawer">
         <!-- Identifier for the child that represents the drawer's handle. -->
@@ -3525,15 +4142,19 @@
         <attr name="bottomOffset" format="dimension"  />
         <!-- Extra offset for the handle at the top of the SlidingDrawer. -->
         <attr name="topOffset" format="dimension"  />
+<<<<<<< HEAD
         <!-- Indicates whether the drawer can be opened/closed by a single tap
              on the handle.  (If false, the user must drag or fling, or click
              using the trackball, to open/close the drawer.)  Default is true. -->
         <attr name="allowSingleTap" format="boolean" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Indicates whether the drawer should be opened/closed with an animation
              when the user clicks the handle. Default is true. -->
         <attr name="animateOnClick" format="boolean" />
     </declare-styleable>
 
+<<<<<<< HEAD
     <!-- GestureOverlayView specific attributes. These attributes are used to configure
          a GestureOverlayView from XML. -->
     <declare-styleable name="GestureOverlayView">
@@ -3580,6 +4201,8 @@
         </attr>
     </declare-styleable>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- ======================================= -->
     <!-- Widget package parent layout attributes -->
     <!-- ======================================= -->
@@ -3595,6 +4218,7 @@
         <attr name="layout_weight" format="float" />
         <attr name="layout_gravity" />
     </declare-styleable>
+<<<<<<< HEAD
     <declare-styleable name="GridLayout_Layout">
         <!-- The row boundary delimiting the top of the group of cells
         occupied by this view. -->
@@ -3617,6 +4241,8 @@
         See {@link android.widget.GridLayout.LayoutParams#setGravity(int)}. -->
         <attr name="layout_gravity" />
     </declare-styleable>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="FrameLayout_Layout">
         <attr name="layout_gravity" />
     </declare-styleable>
@@ -3654,10 +4280,17 @@
             Accommodates top margin. -->
         <attr name="layout_alignParentTop" format="boolean" />
         <!-- If true, makes the right edge of this view match the right edge of the parent.
+<<<<<<< HEAD
             Accommodates right margin. -->
         <attr name="layout_alignParentRight" format="boolean" />
         <!-- If true, makes the bottom edge of this view match the bottom edge of the parent.
             Accommodates bottom margin. -->
+=======
+            Accommodates top margin. -->
+        <attr name="layout_alignParentRight" format="boolean" />
+        <!-- f true, makes the bottom edge of this view match the bottom edge of the parent.
+            Accommodates top margin. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="layout_alignParentBottom" format="boolean" />
         <!-- If true, centers this child horizontally and vertically within its parent. -->
         <attr name="layout_centerInParent" format="boolean" />
@@ -3673,6 +4306,7 @@
         <attr name="layout_scale" format="float" />
     </declare-styleable>
 
+<<<<<<< HEAD
     <!-- attributes for internal rotary widget used in lock screen and phone app
       @hide -->
     <declare-styleable name="RotarySelector">
@@ -3745,6 +4379,8 @@
         <attr name="internalLayout" />
     </declare-styleable>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- ========================= -->
     <!-- Drawable class attributes -->
     <!-- ========================= -->
@@ -3754,6 +4390,7 @@
     <declare-styleable name="Drawable">
         <!-- Provides initial visibility state of the drawable; the default
              value is false.  See
+<<<<<<< HEAD
              {@link android.graphics.drawable.Drawable#setVisible}. -->
         <attr name="visible" format="boolean" />
     </declare-styleable>
@@ -3762,6 +4399,13 @@
          a child drawable. -->
     <declare-styleable name="StateListDrawable">
         <!-- Indicates whether the drawable should be initially visible. -->
+=======
+             {@link android.graphics.drawable.Drawable#setVisible} -->
+        <attr name="visible" format="boolean" />
+    </declare-styleable>
+    
+    <declare-styleable name="StateListDrawable">
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="visible" />
         <!-- If true, allows the drawable's padding to change based on the
              current state that is selected.  If false, the padding will
@@ -3775,6 +4419,7 @@
              of the states.  If false, the size will vary based on the
              current state. -->
         <attr name="constantSize" format="boolean" />
+<<<<<<< HEAD
         <!-- Enables or disables dithering of the bitmap if the bitmap does not have the
              same pixel configuration as the screen (for instance: a ARGB 8888 bitmap with
              an RGB 565 screen). -->
@@ -3786,6 +4431,10 @@
     </declare-styleable>
 
     <!-- Drawable used to render several animated frames. -->
+=======
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="AnimationDrawable">
         <attr name="visible" />
         <attr name="variablePadding" />
@@ -3794,15 +4443,23 @@
              restarting at the first frame after the last has finished. -->
         <attr name="oneshot" format="boolean" />
     </declare-styleable>
+<<<<<<< HEAD
 
     <!-- Represents a single frame inside an AnimationDrawable. -->
     <declare-styleable name="AnimationDrawableItem">
         <!-- Amount of time (in milliseconds) to display this frame. -->
         <attr name="duration" format="integer" />
+=======
+    
+    <declare-styleable name="AnimationDrawableItem">
+        <!-- Amount of time (in milliseconds) to display this frame. -->
+        <attr name="duration" format="integer" /> 
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Reference to a drawable resource to use for the frame.  If not
              given, the drawable must be defined by the first child tag. -->
         <attr name="drawable" format="reference" />
     </declare-styleable>
+<<<<<<< HEAD
 
     <!-- Drawable used to render a geometric shape, with a gradient or a solid color. -->
     <declare-styleable name="GradientDrawable">
@@ -3966,6 +4623,85 @@
     </declare-styleable>
 
     <!-- Drawable used to rotate another drawable. -->
+=======
+    
+    <declare-styleable name="GradientDrawable">
+        <attr name="visible" />
+        <attr name="shape">
+            <enum name="rectangle" value="0" />
+            <enum name="oval" value="1" />
+            <enum name="line" value="2" />
+            <enum name="ring" value="3" />
+        </attr>
+        <attr name="innerRadiusRatio" format="float" />
+        <attr name="thicknessRatio" format="float" />
+        <attr name="useLevel" />
+    </declare-styleable>
+    
+    <declare-styleable name="GradientDrawableSize">
+        <attr name="width" />
+        <attr name="height" />
+    </declare-styleable>
+    
+    <declare-styleable name="GradientDrawableGradient">
+        <attr name="startColor" format="color" />
+        <!-- Optional center color. For linear gradients, use centerX or centerY to place the center color. -->
+        <attr name="centerColor" format="color" />
+        <attr name="endColor" format="color" />
+        <attr name="useLevel" format="boolean" />        
+        <attr name="angle" format="float" />
+        <attr name="type">
+            <enum name="linear" value="0" />
+            <enum name="radial" value="1" />
+            <enum name="sweep"  value="2" />
+        </attr>
+        <attr name="centerX" format="float|fraction" />
+        <attr name="centerY" format="float|fraction" />
+        <attr name="gradientRadius" format="float|fraction" />
+    </declare-styleable>
+    
+    <declare-styleable name="GradientDrawableSolid">
+        <attr name="color" format="color" />
+    </declare-styleable>
+    
+    <declare-styleable name="GradientDrawableStroke">
+        <attr name="width" />
+        <attr name="color" />
+        <attr name="dashWidth" format="dimension" />
+        <attr name="dashGap" format="dimension" />
+    </declare-styleable>
+    
+    <declare-styleable name="DrawableCorners">
+        <attr name="radius" format="dimension" />
+        <attr name="topLeftRadius" format="dimension" />
+        <attr name="topRightRadius" format="dimension" />
+        <attr name="bottomLeftRadius" format="dimension" />
+        <attr name="bottomRightRadius" format="dimension" />
+    </declare-styleable>
+    
+    <declare-styleable name="GradientDrawablePadding">
+        <attr name="left" format="dimension" />
+        <attr name="top" format="dimension" />
+        <attr name="right" format="dimension" />
+        <attr name="bottom" format="dimension" />
+    </declare-styleable>
+    
+    <declare-styleable name="LayerDrawableItem">
+        <attr name="left" />
+        <attr name="top" />
+        <attr name="right" />
+        <attr name="bottom" />
+        <attr name="drawable" />
+        <attr name="id" />
+    </declare-styleable>
+    
+    <declare-styleable name="LevelListDrawableItem">
+        <attr name="minLevel" format="integer" />
+        <attr name="maxLevel" format="integer" />
+        <attr name="drawable" />
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="RotateDrawable">
         <attr name="visible" />
         <attr name="fromDegrees" format="float" />
@@ -3975,6 +4711,7 @@
         <attr name="drawable" />
     </declare-styleable>
 
+<<<<<<< HEAD
     <declare-styleable name="AnimatedRotateDrawable">
         <attr name="visible" />
         <attr name="frameDuration" format="integer" />
@@ -3984,6 +4721,8 @@
         <attr name="drawable" />
     </declare-styleable>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="InsetDrawable">
         <attr name="visible" />
         <attr name="drawable" />
@@ -4004,8 +4743,13 @@
         <attr name="filter" format="boolean" />
         <!-- Enables or disables dithering of the bitmap if the bitmap does not have the
              same pixel configuration as the screen (for instance: a ARGB 8888 bitmap with
+<<<<<<< HEAD
              an RGB 565 screen). -->
         <attr name="dither" />
+=======
+             an RGB 565 screen.) -->
+        <attr name="dither" format="boolean" />
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Defines the gravity for the bitmap. The gravity indicates where to position
              the drawable in its container if the bitmap is smaller than the container. -->
         <attr name="gravity" />
@@ -4024,6 +4768,7 @@
         </attr>
     </declare-styleable>
 
+<<<<<<< HEAD
     <!-- Drawable used to draw 9-patches. -->
     <declare-styleable name="NinePatchDrawable">
         <!-- Identifier of the bitmap file. This attribute is mandatory. -->
@@ -4034,6 +4779,8 @@
         <attr name="dither" />
     </declare-styleable>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- Drawable used to draw a single color. -->
     <declare-styleable name="ColorDrawable">
         <!-- The color to use. -->
@@ -4070,6 +4817,7 @@
             <flag name="center" value="0x11" />
             <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
             <flag name="fill" value="0x77" />
+<<<<<<< HEAD
             <!-- Additional option that can be set to have the top and/or bottom edges of
                  the child clipped to its container's bounds.
                  The clip will be based on the vertical gravity: a top gravity will clip the bottom
@@ -4087,6 +4835,11 @@
              Useful if the target drawable is a 9-patch or otherwise should not be scaled
              down beyond a minimum size. -->
         <attr name="useIntrinsicSizeAsMinimum" format="boolean" />
+=======
+        </attr>
+        <!-- Reference to a drawable resource to draw with the specified scale. -->
+        <attr name="drawable" />
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <declare-styleable name="ClipDrawable">
@@ -4124,8 +4877,11 @@
         <attr name="width" />
         <!-- Defines the height of the shape. -->
         <attr name="height" />
+<<<<<<< HEAD
         <!-- Enables or disables dithering. -->
         <attr name="dither" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <!-- ========================== -->
@@ -4133,6 +4889,7 @@
     <!-- ========================== -->
     <eat-comment />
 
+<<<<<<< HEAD
     <declare-styleable name="Animation">
         <!-- Defines the interpolator used to smooth the animation movement in time. -->
         <attr name="interpolator" />
@@ -4144,6 +4901,20 @@
         <!-- When set to true, the animation transformation is applied after the animation is
              over. The default value is false. If fillEnabled is not set to true and the
              animation is not set on a View, fillAfter is assumed to be true.-->
+=======
+    <declare-styleable name="AnimationSet">
+        <attr name="shareInterpolator" format="boolean" />
+    </declare-styleable>
+    
+    <declare-styleable name="Animation">
+        <!-- Defines the interpolator used to smooth the animation movement in time. -->
+        <attr name="interpolator" />
+        <!-- When set to true, the animation transformation is applied before the animation has
+             started. The default value is true. -->
+        <attr name="fillBefore" format="boolean" />
+        <!-- When set to true, the animation transformation is applied after the animation is
+             over. The default value is false. -->
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="fillAfter" format="boolean" />
         <!-- Amount of time (in milliseconds) for the animation to run. -->
         <attr name="duration" />
@@ -4173,6 +4944,7 @@
                  content for the duration of the animation. -->
             <enum name="bottom" value="-1" />
         </attr>
+<<<<<<< HEAD
         <!-- Special background behind animation.  Only for use with window
              animations.  Can only be a color, and only black.  If 0, the
              default, there is no background. -->
@@ -4191,12 +4963,17 @@
         <attr name="repeatMode" />
     </declare-styleable>
 
+=======
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="RotateAnimation">
         <attr name="fromDegrees" />
         <attr name="toDegrees" />
         <attr name="pivotX" />
         <attr name="pivotY" />
     </declare-styleable>
+<<<<<<< HEAD
 
     <declare-styleable name="ScaleAnimation">
         <attr name="fromXScale" format="float|fraction|dimension" />
@@ -4207,13 +4984,29 @@
         <attr name="pivotY" />
     </declare-styleable>
 
+=======
+    
+    <declare-styleable name="ScaleAnimation">
+        <attr name="fromXScale" format="float" />
+        <attr name="toXScale" format="float" />
+        <attr name="fromYScale" format="float" />
+        <attr name="toYScale" format="float" />
+        <attr name="pivotX" />
+        <attr name="pivotY" />
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="TranslateAnimation">
         <attr name="fromXDelta" format="float|fraction" />
         <attr name="toXDelta" format="float|fraction" />
         <attr name="fromYDelta" format="float|fraction" />
         <attr name="toYDelta" format="float|fraction" />
     </declare-styleable>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="AlphaAnimation">
         <attr name="fromAlpha" format="float" />
         <attr name="toAlpha" format="float" />
@@ -4272,6 +5065,7 @@
     </declare-styleable>
 
     <declare-styleable name="AccelerateInterpolator">
+<<<<<<< HEAD
         <!-- This is the amount of deceleration to add when easing in. -->
         <attr name="factor" format="float" />
     </declare-styleable>
@@ -4281,10 +5075,22 @@
         <attr name="factor" />
     </declare-styleable>
 
+=======
+        <!-- This is the amount of deceleration to ad when easing in. -->
+        <attr name="factor" format="float" />
+    </declare-styleable>
+    
+    <declare-styleable name="DecelerateInterpolator">
+        <!-- This is the amount of acceleration to ad when easing out. -->
+        <attr name="factor" />
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <declare-styleable name="CycleInterpolator">
         <attr name="cycles" format="float" />
     </declare-styleable>
 
+<<<<<<< HEAD
     <declare-styleable name="AnticipateInterpolator">
         <!-- This is the amount of tension. -->
         <attr name="tension" format="float" />
@@ -4361,6 +5167,8 @@
         </attr>
     </declare-styleable>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- ========================== -->
     <!-- State attributes           -->
     <!-- ========================== -->
@@ -4383,12 +5191,16 @@
          <li>"state_last"
          <li>"state_only"
          <li>"state_pressed"
+<<<<<<< HEAD
          <li>"state_activated"
+=======
+>>>>>>> 54b6cfa... Initial Contribution
          <li>"state_error"
          <li>"state_circle"
          <li>"state_rect"
          <li>"state_grow"
          <li>"state_move"
+<<<<<<< HEAD
          <li>"state_hovered"
          <li>"state_drag_can_accept"
          <li>"state_drag_hovered"
@@ -4456,6 +5268,39 @@
         <!-- State for {@link android.graphics.drawable.StateListDrawable StateListDrawable}
              indicating that a View has accessibility focus. -->
         <attr name="state_accessibility_focused" format="boolean" />
+=======
+         </ul>  -->
+    <declare-styleable name="DrawableStates">
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_focused" format="boolean" />
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_window_focused" format="boolean" />
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_enabled" format="boolean" />
+        <!--  State identifier indicating that the object <var>may</var> display a check mark.
+              See {@link R.attr#state_checked} for the identifier that indicates whether it is
+              actually checked. -->
+        <attr name="state_checkable" format="boolean"/>
+        <!--  State identifier indicating that the object is currently checked.  See
+              {@link R.attr#state_checkable} for an additional identifier that can indicate if
+              any object may ever display a check, regardless of whether state_checked is
+              currently set. -->
+        <attr name="state_checked" format="boolean"/>
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_selected" format="boolean" />
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_active" format="boolean" />
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_single" format="boolean" />
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_first" format="boolean" />
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_middle" format="boolean" />
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_last" format="boolean" />
+        <!--  State value for {@link android.graphics.drawable.StateListDrawable StateListDrawable}.-->
+        <attr name="state_pressed" format="boolean" />
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <declare-styleable name="ViewDrawableStates">
         <attr name="state_pressed" />
@@ -4463,11 +5308,14 @@
         <attr name="state_selected" />
         <attr name="state_window_focused" />
         <attr name="state_enabled" />
+<<<<<<< HEAD
         <attr name="state_activated" />
         <attr name="state_accelerated" />
         <attr name="state_hovered" />
         <attr name="state_drag_can_accept" />
         <attr name="state_drag_hovered" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
     <!-- State array representing a menu item that is currently checked. -->
     <declare-styleable name="MenuItemCheckedState">
@@ -4491,11 +5339,16 @@
     </declare-styleable>
     <!-- State array representing an expandable list child's indicator. -->
     <declare-styleable name="ExpandableListChildIndicatorState">
+<<<<<<< HEAD
         <!-- State identifier indicating the child is the last child within its group. -->
+=======
+        <!-- State identifier indicating the child is the last child within its group. --> 
+>>>>>>> 54b6cfa... Initial Contribution
         <attr name="state_last" />
     </declare-styleable>
     <!-- State array representing an expandable list group's indicator. -->
     <declare-styleable name="ExpandableListGroupIndicatorState">
+<<<<<<< HEAD
         <!-- State identifier indicating the group is expanded. -->
         <attr name="state_expanded" format="boolean" />
         <!-- State identifier indicating the group is empty (has no children). -->
@@ -4509,12 +5362,24 @@
         <!-- State identifier indicating a TextView has a multi-line layout. -->
         <attr name="state_multiline" format="boolean" />
     </declare-styleable>
+=======
+        <!-- State identifier indicating the group is expanded. --> 
+        <attr name="state_expanded" format="boolean" />
+        <!-- State identifier indicating the group is empty (has no children). --> 
+        <attr name="state_empty" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="PopupWindowBackgroundState">
+        <!-- State identifier indicating the popup will be above the anchor. --> 
+        <attr name="state_above_anchor" format="boolean" />
+    </declare-styleable>
+>>>>>>> 54b6cfa... Initial Contribution
 
     <!-- ***************************************************************** -->
     <!-- Support for Searchable activities. -->
     <!-- ***************************************************************** -->
     <eat-comment />
 
+<<<<<<< HEAD
     <!-- Searchable activities and applications must provide search configuration information
         in an XML file, typically called searchable.xml.  This file is referenced in your manifest.
         For a more in-depth discussion of search configuration, please refer to
@@ -4540,14 +5405,44 @@
 
         <!-- Additional features are controlled by mode bits in this field.  Omitting
             this field, or setting to zero, provides default behavior.  <i>Optional attribute.</i>
+=======
+    <!-- Searchable activities &amp; applications must provide search configuration information
+        in an XML file, typically called searchable.xml.  This file is referenced in your manifest. 
+        For a more in-depth discussion of search configuration, please refer to
+        {@link android.app.SearchManager}. -->
+    <declare-styleable name="Searchable">
+        <!-- If provided, this icon will be shown in place of the label.  It is typically used
+             in order to identify a searchable application via a logo or branding, instead of
+             plain text.  This is a reference to a drawable (icon) resource.
+             <i>Optional attribute.</i> -->
+        <attr name="icon" />
+        <!-- This is the user-displayed name of the searchable activity.  <i>Required 
+            attribute.</i> -->
+        <attr name="label" />
+        <!-- If supplied, this string will be displayed as a hint to the user.  <i>Optional 
+            attribute.</i> -->
+        <attr name="hint" />
+        <!-- If supplied, this string will be displayed as the text of the "Search" button.
+          <i>Optional attribute.</i> -->
+        <attr name="searchButtonText" format="string" />
+
+        <!-- Additional features are controlled by mode bits in this field.  Omitting
+            this field, or setting to zero, provides default behavior.  <i>Optional attribute.</i> 
+>>>>>>> 54b6cfa... Initial Contribution
         -->
         <attr name="searchMode">
           <!-- If set, this flag enables the display of the search target (label) within the
                search bar.  If neither bad mode is selected, no badge will be shown. -->
           <flag name="showSearchLabelAsBadge" value="0x04" />
+<<<<<<< HEAD
           <!--<strong>This is deprecated.</strong><br/>The default
               application icon is now always used, so this option is
               obsolete.-->
+=======
+          <!-- If set, this flag enables the display of the search target (icon) within the
+               search bar.  (Note, overrides showSearchLabel)  If neither bad mode is selected, 
+               no badge will be shown.-->
+>>>>>>> 54b6cfa... Initial Contribution
           <flag name="showSearchIconAsBadge" value="0x08" />
           <!-- If set, this flag causes the suggestion column SUGGEST_COLUMN_INTENT_DATA to
                be considered as the text for suggestion query rewriting.  This should only
@@ -4561,6 +5456,7 @@
           <flag name="queryRewriteFromText" value="0x20" />
         </attr>
 
+<<<<<<< HEAD
         <!-- Voice search features are controlled by mode bits in this field.  Omitting
             this field, or setting to zero, provides default behavior.
             If showVoiceSearchButton is set, then launchWebSearch or launchRecognizer must
@@ -4603,6 +5499,12 @@
             provides suggestions as well.  The value must be a fully-qualified content provider
             authority (e.g. "com.example.android.apis.SuggestionProvider") and should match the
             "android:authorities" tag in your content provider's manifest entry.  <i>Optional
+=======
+        <!-- If provided, this is the trigger indicating that the searchable activity
+            provides suggestions as well.  The value must be a fully-qualified content provider
+            authority (e.g. "com.example.android.apis.SuggestionProvider") and should match the 
+            "android:authorities" tag in your content provider's manifest entry.  <i>Optional 
+>>>>>>> 54b6cfa... Initial Contribution
             attribute.</i> -->
         <attr name="searchSuggestAuthority" format="string" />
         <!-- If provided, this will be inserted in the suggestions query Uri, after the authority
@@ -4610,6 +5512,7 @@
             -->
         <attr name="searchSuggestPath" format="string" />
         <!-- If provided, suggestion queries will be passed into your query function
+<<<<<<< HEAD
             as the <i>selection</i> parameter.  Typically this will be a WHERE clause for your
             database, and will contain a single question mark, which represents the actual query
             string that has been typed by the user.  If not provided, then the user query text
@@ -4655,6 +5558,24 @@
              The default value is <code>false</code>. <i>Optional attribute.</i>. -->
         <attr name="autoUrlDetect" format="boolean" />
 
+=======
+            as the <i>selection</i> parameter.  Typically this will be a WHERE clause for your 
+            database, and will contain a single question mark, which represents the actual query 
+            string that has been typed by the user.  If not provided, then the user query text
+            will be appended to the query Uri (after an additional "/".)  <i>Optional 
+            attribute.</i> -->
+        <attr name="searchSuggestSelection" format="string" />
+
+        <!-- If provided, and not overridden by an action in the selected suggestion, this 
+            string will be placed in the action field of the {@link android.content.Intent Intent}
+            when the user clicks a suggestion.  <i>Optional attribute.</i> -->
+        <attr name="searchSuggestIntentAction" format="string" />
+        <!-- If provided, and not overridden by an action in the selected suggestion, this 
+            string will be placed in the data field of the {@link android.content.Intent Intent} 
+            when the user clicks a suggestion.  <i>Optional attribute.</i> -->
+        <attr name="searchSuggestIntentData" format="string" />
+        
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <!-- In order to process special action keys during search, you must define them using
@@ -4664,6 +5585,7 @@
     <declare-styleable name="SearchableActionKey">
         <!-- This attribute denotes the action key you wish to respond to.  Note that not
             all action keys are actually supported using this mechanism, as many of them are
+<<<<<<< HEAD
             used for typing, navigation, or system functions.  This will be added to the
             {@link android.content.Intent#ACTION_SEARCH ACTION_SEARCH} intent that is passed to your
             searchable activity.  To examine the key code, use
@@ -4702,16 +5624,61 @@
             {@link android.content.Intent#ACTION_SEARCH ACTION_SEARCH} intent that is passed to
             your searchable activity.  To examine the string, use
             {@link android.content.Intent#getStringExtra
+=======
+            used for typing, navigation, or system functions.  This will be added to the 
+            {@link android.content.Intent#ACTION_SEARCH ACTION_SEARCH} intent that is passed to your
+            searchable activity.  To examine the key code, use 
+            {@link android.content.Intent#getIntExtra getIntExtra(SearchManager.ACTION_KEY)}.
+            <p>Note, in addition to the keycode, you must also provide one or more of the action 
+            specifier attributes.  <i>Required attribute.</i> -->
+        <attr name="keycode" />
+        
+        <!-- If you wish to handle an action key during normal search query entry, you
+            must define an action string here.  This will be added to the 
+            {@link android.content.Intent#ACTION_SEARCH ACTION_SEARCH} intent that is passed to your
+            searchable activity.  To examine the string, use 
+            {@link android.content.Intent#getStringExtra getStringExtra(SearchManager.ACTION_MSG)}.
+            <i>Optional attribute.</i> -->
+        <attr name="queryActionMsg"  format="string" />
+        
+        <!-- If you wish to handle an action key while a suggestion is being displayed <i>and
+            selected</i>, there are two ways to handle this.  If <i>all</i> of your suggestions
+            can handle the action key, you can simply define the action message using this 
+            attribute.  This will be added to the 
+            {@link android.content.Intent#ACTION_SEARCH ACTION_SEARCH} intent that is passed to your
+            searchable activity.  To examine the string, use 
+            {@link android.content.Intent#getStringExtra getStringExtra(SearchManager.ACTION_MSG)}.
+            <i>Optional attribute.</i> -->
+        <attr name="suggestActionMsg"  format="string" />
+        
+        <!-- If you wish to handle an action key while a suggestion is being displayed <i>and
+            selected</i>, but you do not wish to enable this action key for every suggestion, 
+            then you can use this attribute to control it on a suggestion-by-suggestion basis.
+            First, you must define a column (and name it here) where your suggestions will include 
+            the action string.  Then, in your content provider, you must provide this column, and
+            when desired, provide data in this column.
+            The search manager will look at your suggestion cursor, using the string 
+            provided here in order to select a column, and will use that to select a string from 
+            the cursor.  That string will be added to the 
+            {@link android.content.Intent#ACTION_SEARCH ACTION_SEARCH} intent that is passed to 
+            your searchable activity.  To examine the string, use 
+            {@link android.content.Intent#getStringExtra 
+>>>>>>> 54b6cfa... Initial Contribution
             getStringExtra(SearchManager.ACTION_MSG)}.  <i>If the data does not exist for the
             selection suggestion, the action key will be ignored.</i><i>Optional attribute.</i> -->
         <attr name="suggestActionMsgColumn" format="string" />
 
     </declare-styleable>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- ***************************************************************** -->
     <!-- Support for MapView. -->
     <!-- ***************************************************************** -->
     <eat-comment />
+<<<<<<< HEAD
 
     <!-- The set of attributes for a MapView. -->
     <declare-styleable name="MapView">
@@ -4719,15 +5686,34 @@
         <attr name="apiKey" format="string" />
     </declare-styleable>
 
+=======
+    
+    <!-- The set of attributes for a MapView. -->
+    <declare-styleable name="MapView">
+        <!-- An API Key required to use MapView. Currently, this can be an arbitrary string. 
+             In order to run on actual devices, though, your app will need an authentic key, but
+             the process for issuing keys is not ready at this time. -->
+        <attr name="apiKey" format="string" />
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- **************************************************************** -->
     <!-- Menu XML inflation. -->
     <!-- **************************************************************** -->
     <eat-comment />
+<<<<<<< HEAD
 
     <!-- Base attributes that are available to all Menu objects. -->
     <declare-styleable name="Menu">
     </declare-styleable>
 
+=======
+    
+    <!-- Base attributes that are available to all Menu objects. -->
+    <declare-styleable name="Menu">
+    </declare-styleable>
+    
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- Base attributes that are available to all groups. -->
     <declare-styleable name="MenuGroup">
 
@@ -4746,11 +5732,19 @@
             <!-- Items are alternative actions. -->
             <enum name="alternative" value="0x00040000" />
         </attr>
+<<<<<<< HEAD
 
         <!-- The order within the category applied to all items within this group.
              (This will be or'ed with the category attribute.) -->
         <attr name="orderInCategory" format="integer" />
 
+=======
+        
+        <!-- The order within the category applied to all items within this group.
+             (This will be or'ed with the category attribute.) -->
+        <attr name="orderInCategory" format="integer" />
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Whether the items are capable of displaying a check mark. -->
         <attr name="checkableBehavior">
             <!-- The items are not checkable. -->
@@ -4761,7 +5755,11 @@
                  this group. -->
             <enum name="single" value="2" />
         </attr>
+<<<<<<< HEAD
 
+=======
+                
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Whether the items are shown/visible. -->
         <attr name="visible" />
 
@@ -4775,7 +5773,11 @@
 
         <!-- The ID of the item. -->
         <attr name="id" />
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- The category applied to the item.
              (This will be or'ed with the orderInCategory attribute.) -->
         <attr name="menuCategory" />
@@ -4786,15 +5788,25 @@
 
         <!-- The title associated with the item. -->
         <attr name="title" format="string" />
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- The condensed title associated with the item.  This is used in situations where the
              normal title may be too long to be displayed. -->
         <attr name="titleCondensed" format="string" />
 
         <!-- The icon associated with this item.  This icon will not always be shown, so
+<<<<<<< HEAD
              the title should be sufficient in describing this item. -->
         <attr name="icon" />
 
+=======
+             the title should be sufficient in describing this item. -->        
+        <attr name="icon" />
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- The alphabetic shortcut key.  This is the shortcut when using a keyboard
              with alphabetic keys. -->
         <attr name="alphabeticShortcut" format="string" />
@@ -4802,6 +5814,7 @@
         <!-- The numeric shortcut key.  This is the shortcut when using a numeric (e.g., 12-key)
              keyboard. -->
         <attr name="numericShortcut" format="string" />
+<<<<<<< HEAD
 
         <!-- Whether the item is capable of displaying a check mark. -->
         <attr name="checkable" format="boolean" />
@@ -4810,12 +5823,23 @@
              the checkable attribute or else the check mark will not appear. -->
         <attr name="checked" />
 
+=======
+        
+        <!-- Whether the item is capable of displaying a check mark. -->
+        <attr name="checkable" format="boolean" />
+        
+        <!-- Whether the item is checked.  Note that you must first have enabled checking with 
+             the checkable attribute or else the check mark will not appear. -->
+        <attr name="checked" />
+        
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- Whether the item is shown/visible. -->
         <attr name="visible" />
 
         <!-- Whether the item is enabled. -->
         <attr name="enabled" />
 
+<<<<<<< HEAD
         <!-- Name of a method on the Context used to inflate the menu that will be
              called when the item is clicked. -->
         <attr name="onClick" />
@@ -4872,6 +5896,8 @@
              give a clue that sharing is to be performed.
          -->
         <attr name="expandActivityOverflowButtonDrawable" format="reference" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     </declare-styleable>
 
     <!-- **************************************************************** -->
@@ -4887,6 +5913,7 @@
         <attr name="orderingFromXml" format="boolean" />
     </declare-styleable>
 
+<<<<<<< HEAD
     <!-- Attribute for a header describing the item shown in the top-level list
          from which the selects the set of preference to dig in to. -->
     <declare-styleable name="PreferenceHeader">
@@ -4906,20 +5933,29 @@
         <attr name="fragment" format="string" />
     </declare-styleable>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- WARNING:  If adding attributes to Preference, make sure it does not conflict
                    with a View's attributes.  Some subclasses (e.g., EditTextPreference)
                    proxy all attributes to its EditText widget. -->
     <eat-comment />
+<<<<<<< HEAD
 
     <!-- Base attributes available to Preference. -->
     <declare-styleable name="Preference">
         <!-- The optional icon for the preference -->
         <attr name="icon" />
+=======
+    
+    <!-- Base attributes available to Preference. -->
+    <declare-styleable name="Preference">
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- The key to store the Preference value. -->
         <attr name="key" format="string" />
         <!-- The title for the Preference in a PreferenceActivity screen. -->
         <attr name="title" />
         <!-- The summary for the Preference in a PreferenceActivity screen. -->
+<<<<<<< HEAD
         <attr name="summary" />
         <!-- The order for the Preference (lower values are to be ordered first). If this is not
              specified, the default orderin will be alphabetic. -->
@@ -4927,6 +5963,12 @@
         <!-- When used inside of a modern PreferenceActivity, this declares
              a new PreferenceFragment to be shown when the user selects this item. -->
         <attr name="fragment" />
+=======
+        <attr name="summary" format="string" />
+        <!-- The order for the Preference (lower values are to be ordered first). If this is not
+             specified, the default orderin will be alphabetic. -->
+        <attr name="order" format="integer" />
+>>>>>>> 54b6cfa... Initial Contribution
         <!-- The layout for the Preference in a PreferenceActivity screen. This should
              rarely need to be changed, look at widgetLayout instead. -->
         <attr name="layout" />
@@ -4998,6 +6040,7 @@
         <attr name="entryValues" format="reference" />
     </declare-styleable>
 
+<<<<<<< HEAD
     <declare-styleable name="MultiSelectListPreference">
         <!-- The human-readable array to present as a list. Each entry must have a corresponding
              index in entryValues. -->
@@ -5008,6 +6051,8 @@
         <attr name="entryValues" />
     </declare-styleable>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <!-- Base attributes available to RingtonePreference. -->
     <declare-styleable name="RingtonePreference">
         <!-- Which ringtone type(s) to show in the picker. -->
@@ -5039,6 +6084,7 @@
         </attr>
     </declare-styleable>
 
+<<<<<<< HEAD
     <declare-styleable name="InputMethodService">
         <!-- Background to use for entire input method when it is being
              shown in fullscreen mode with the extract view, to ensure
@@ -5717,3 +6763,7 @@
     </declare-styleable>
 
 </resources>
+=======
+</resources>
+
+>>>>>>> 54b6cfa... Initial Contribution

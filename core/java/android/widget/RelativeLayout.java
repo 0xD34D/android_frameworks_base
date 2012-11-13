@@ -16,6 +16,7 @@
 
 package android.widget;
 
+<<<<<<< HEAD
 import com.android.internal.R;
 
 import java.util.ArrayDeque;
@@ -49,30 +50,59 @@ import static android.util.Log.d;
  * A Layout where the positions of the children can be described in relation to each other or to the
  * parent.
  *
+=======
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Gravity;
+import android.widget.RemoteViews.RemoteView;
+import android.graphics.Rect;
+import com.android.internal.R;
+
+
+/**
+ * A Layout where the positions of the children can be described in relation to each other or to the
+ * parent. For the sake of efficiency, the relations between views are evaluated in one pass, so if
+ * view Y is dependent on the position of view X, make sure the view X comes first in the layout.
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * <p>
  * Note that you cannot have a circular dependency between the size of the RelativeLayout and the
  * position of its children. For example, you cannot have a RelativeLayout whose height is set to
  * {@link android.view.ViewGroup.LayoutParams#WRAP_CONTENT WRAP_CONTENT} and a child set to
  * {@link #ALIGN_PARENT_BOTTOM}.
  * </p>
+<<<<<<< HEAD
  *
  * <p>See the <a href="{@docRoot}guide/topics/ui/layout/relative.html">Relative
  * Layout</a> guide.</p>
  *
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * <p>
  * Also see {@link android.widget.RelativeLayout.LayoutParams RelativeLayout.LayoutParams} for
  * layout attributes
  * </p>
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * @attr ref android.R.styleable#RelativeLayout_gravity
  * @attr ref android.R.styleable#RelativeLayout_ignoreGravity
  */
 @RemoteView
 public class RelativeLayout extends ViewGroup {
+<<<<<<< HEAD
     private static final String LOG_TAG = "RelativeLayout";
 
     private static final boolean DEBUG_GRAPH = false;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int TRUE = -1;
 
     /**
@@ -152,6 +182,7 @@ public class RelativeLayout extends ViewGroup {
 
     private static final int VERB_COUNT              = 16;
 
+<<<<<<< HEAD
 
     private static final int[] RULES_VERTICAL = {
             ABOVE, BELOW, ALIGN_BASELINE, ALIGN_TOP, ALIGN_BOTTOM
@@ -161,6 +192,8 @@ public class RelativeLayout extends ViewGroup {
             LEFT_OF, RIGHT_OF, ALIGN_LEFT, ALIGN_RIGHT
     };
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private View mBaselineView = null;
     private boolean mHasBaselineAlignedChild;
 
@@ -169,6 +202,7 @@ public class RelativeLayout extends ViewGroup {
     private final Rect mSelfBounds = new Rect();
     private int mIgnoreGravity;
 
+<<<<<<< HEAD
     private SortedSet<View> mTopToBottomLeftToRightSet = null;
     
     private boolean mDirtyHierarchy;
@@ -176,6 +210,8 @@ public class RelativeLayout extends ViewGroup {
     private View[] mSortedVerticalChildren = new View[0];
     private final DependencyGraph mGraph = new DependencyGraph();
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public RelativeLayout(Context context) {
         super(context);
     }
@@ -192,16 +228,23 @@ public class RelativeLayout extends ViewGroup {
 
     private void initFromAttributes(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RelativeLayout);
+<<<<<<< HEAD
         mIgnoreGravity = a.getResourceId(R.styleable.RelativeLayout_ignoreGravity, View.NO_ID);
+=======
+        mIgnoreGravity = a.getResourceId(R.styleable.RelativeLayout_ignoreGravity, 0);
+>>>>>>> 54b6cfa... Initial Contribution
         mGravity = a.getInt(R.styleable.RelativeLayout_gravity, mGravity);
         a.recycle();
     }
 
+<<<<<<< HEAD
     @Override
     public boolean shouldDelayChildPressedState() {
         return false;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Defines which View is ignored when the gravity is applied. This setting has no
      * effect if the gravity is <code>Gravity.LEFT | Gravity.TOP</code>.
@@ -213,12 +256,16 @@ public class RelativeLayout extends ViewGroup {
      *
      * @attr ref android.R.styleable#RelativeLayout_ignoreGravity
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setIgnoreGravity(int viewId) {
         mIgnoreGravity = viewId;
     }
 
     /**
+<<<<<<< HEAD
      * Describes how the child views are positioned.
      *
      * @return the gravity.
@@ -241,6 +288,11 @@ public class RelativeLayout extends ViewGroup {
      * the positioning of all children as a single unit within the parent.
      * This happens after children have been relatively positioned.</p>
      *
+=======
+     * Describes how the child views are positioned. Defaults to
+     * <code>Gravity.LEFT | Gravity.TOP</code>.
+     *
+>>>>>>> 54b6cfa... Initial Contribution
      * @param gravity See {@link android.view.Gravity}
      *
      * @see #setHorizontalGravity(int)
@@ -248,11 +300,18 @@ public class RelativeLayout extends ViewGroup {
      *
      * @attr ref android.R.styleable#RelativeLayout_gravity
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
     public void setGravity(int gravity) {
         if (mGravity != gravity) {
             if ((gravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) == 0) {
                 gravity |= Gravity.START;
+=======
+    public void setGravity(int gravity) {
+        if (mGravity != gravity) {
+            if ((gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == 0) {
+                gravity |= Gravity.LEFT;
+>>>>>>> 54b6cfa... Initial Contribution
             }
 
             if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == 0) {
@@ -264,16 +323,26 @@ public class RelativeLayout extends ViewGroup {
         }
     }
 
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
     public void setHorizontalGravity(int horizontalGravity) {
         final int gravity = horizontalGravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK;
         if ((mGravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) != gravity) {
             mGravity = (mGravity & ~Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) | gravity;
+=======
+    public void setHorizontalGravity(int horizontalGravity) {
+        final int gravity = horizontalGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+        if ((mGravity & Gravity.HORIZONTAL_GRAVITY_MASK) != gravity) {
+            mGravity = (mGravity & ~Gravity.HORIZONTAL_GRAVITY_MASK) | gravity;
+>>>>>>> 54b6cfa... Initial Contribution
             requestLayout();
         }
     }
 
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setVerticalGravity(int verticalGravity) {
         final int gravity = verticalGravity & Gravity.VERTICAL_GRAVITY_MASK;
         if ((mGravity & Gravity.VERTICAL_GRAVITY_MASK) != gravity) {
@@ -288,6 +357,7 @@ public class RelativeLayout extends ViewGroup {
     }
 
     @Override
+<<<<<<< HEAD
     public void requestLayout() {
         super.requestLayout();
         mDirtyHierarchy = true;
@@ -337,6 +407,9 @@ public class RelativeLayout extends ViewGroup {
             sortChildren();
         }
 
+=======
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+>>>>>>> 54b6cfa... Initial Contribution
         int myWidth = -1;
         int myHeight = -1;
 
@@ -365,10 +438,18 @@ public class RelativeLayout extends ViewGroup {
             height = myHeight;
         }
 
+<<<<<<< HEAD
         mHasBaselineAlignedChild = false;
 
         View ignore = null;
         int gravity = mGravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK;
+=======
+        int len = this.getChildCount();
+        mHasBaselineAlignedChild = false;
+
+        View ignore = null;
+        int gravity = mGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+>>>>>>> 54b6cfa... Initial Contribution
         final boolean horizontalGravity = gravity != Gravity.LEFT && gravity != 0;
         gravity = mGravity & Gravity.VERTICAL_GRAVITY_MASK;
         final boolean verticalGravity = gravity != Gravity.TOP && gravity != 0;
@@ -378,6 +459,7 @@ public class RelativeLayout extends ViewGroup {
         int right = Integer.MIN_VALUE;
         int bottom = Integer.MIN_VALUE;
 
+<<<<<<< HEAD
         boolean offsetHorizontalAxis = false;
         boolean offsetVerticalAxis = false;
 
@@ -422,6 +504,24 @@ public class RelativeLayout extends ViewGroup {
                 }
 
                 if (isWrapContentHeight) {
+=======
+        if ((horizontalGravity || verticalGravity) && mIgnoreGravity != 0) {
+            ignore = findViewById(mIgnoreGravity);
+        }
+
+        for (int i = 0; i < len; i++) {
+            View child = getChildAt(i);
+            if (child.getVisibility() != GONE) {
+                LayoutParams params = (LayoutParams) child.getLayoutParams();
+                applySizeRules(params, myWidth, myHeight);
+                measureChild(child, params, myWidth, myHeight);
+                positionChild(child, params, myWidth, myHeight);
+
+                if (widthMode != MeasureSpec.EXACTLY) {
+                    width = Math.max(width, params.mRight);
+                }
+                if (heightMode != MeasureSpec.EXACTLY) {
+>>>>>>> 54b6cfa... Initial Contribution
                     height = Math.max(height, params.mBottom);
                 }
 
@@ -438,15 +538,24 @@ public class RelativeLayout extends ViewGroup {
         }
 
         if (mHasBaselineAlignedChild) {
+<<<<<<< HEAD
             for (int i = 0; i < count; i++) {
+=======
+            for (int i = 0; i < len; i++) {
+>>>>>>> 54b6cfa... Initial Contribution
                 View child = getChildAt(i);
                 if (child.getVisibility() != GONE) {
                     LayoutParams params = (LayoutParams) child.getLayoutParams();
                     alignBaseline(child, params);
 
                     if (child != ignore || verticalGravity) {
+<<<<<<< HEAD
                         left = Math.min(left, params.mLeft - params.leftMargin);
                         top = Math.min(top, params.mTop - params.topMargin);
+=======
+                    left = Math.min(left, params.mLeft - params.leftMargin);
+                    top = Math.min(top, params.mTop - params.topMargin);
+>>>>>>> 54b6cfa... Initial Contribution
                     }
 
                     if (child != ignore || horizontalGravity) {
@@ -457,8 +566,13 @@ public class RelativeLayout extends ViewGroup {
             }
         }
 
+<<<<<<< HEAD
         if (isWrapContentWidth) {
             // Width already has left padding in it since it was calculated by looking at
+=======
+        if (widthMode != MeasureSpec.EXACTLY) {
+            // Width already has left padding in it since it was calculated by looking at 
+>>>>>>> 54b6cfa... Initial Contribution
             // the right of each child view
             width += mPaddingRight;
 
@@ -468,6 +582,7 @@ public class RelativeLayout extends ViewGroup {
 
             width = Math.max(width, getSuggestedMinimumWidth());
             width = resolveSize(width, widthMeasureSpec);
+<<<<<<< HEAD
 
             if (offsetHorizontalAxis) {
                 for (int i = 0; i < count; i++) {
@@ -489,6 +604,11 @@ public class RelativeLayout extends ViewGroup {
 
         if (isWrapContentHeight) {
             // Height already has top padding in it since it was calculated by looking at
+=======
+        }
+        if (heightMode != MeasureSpec.EXACTLY) {
+            // Height already has top padding in it since it was calculated by looking at 
+>>>>>>> 54b6cfa... Initial Contribution
             // the bottom of each child view
             height += mPaddingBottom;
 
@@ -498,6 +618,7 @@ public class RelativeLayout extends ViewGroup {
 
             height = Math.max(height, getSuggestedMinimumHeight());
             height = resolveSize(height, heightMeasureSpec);
+<<<<<<< HEAD
 
             if (offsetVerticalAxis) {
                 for (int i = 0; i < count; i++) {
@@ -515,6 +636,8 @@ public class RelativeLayout extends ViewGroup {
                     }
                 }
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (horizontalGravity || verticalGravity) {
@@ -523,13 +646,18 @@ public class RelativeLayout extends ViewGroup {
                     height - mPaddingBottom);
 
             final Rect contentBounds = mContentBounds;
+<<<<<<< HEAD
             final int layoutDirection = getResolvedLayoutDirection();
             Gravity.apply(mGravity, right - left, bottom - top, selfBounds, contentBounds,
                     layoutDirection);
+=======
+            Gravity.apply(mGravity, right - left, bottom - top, selfBounds, contentBounds);
+>>>>>>> 54b6cfa... Initial Contribution
 
             final int horizontalOffset = contentBounds.left - left;
             final int verticalOffset = contentBounds.top - top;
             if (horizontalOffset != 0 || verticalOffset != 0) {
+<<<<<<< HEAD
                 for (int i = 0; i < count; i++) {
                     View child = getChildAt(i);
                     if (child.getVisibility() != GONE && child != ignore) {
@@ -542,6 +670,16 @@ public class RelativeLayout extends ViewGroup {
                             params.mTop += verticalOffset;
                             params.mBottom += verticalOffset;
                         }
+=======
+                for (int i = 0; i < len; i++) {
+                    View child = getChildAt(i);
+                    if (child.getVisibility() != GONE && child != ignore) {
+                        LayoutParams params = (LayoutParams) child.getLayoutParams();
+                        params.mLeft += horizontalOffset;
+                        params.mRight += horizontalOffset;
+                        params.mTop += verticalOffset;
+                        params.mBottom += verticalOffset;
+>>>>>>> 54b6cfa... Initial Contribution
                     }
                 }
             }
@@ -588,7 +726,13 @@ public class RelativeLayout extends ViewGroup {
      * @param myWidth Width of the the RelativeLayout
      * @param myHeight Height of the RelativeLayout
      */
+<<<<<<< HEAD
     private void measureChild(View child, LayoutParams params, int myWidth, int myHeight) {
+=======
+    private void measureChild(View child, LayoutParams params, int myWidth,
+            int myHeight) {
+
+>>>>>>> 54b6cfa... Initial Contribution
         int childWidthMeasureSpec = getChildMeasureSpec(params.mLeft,
                 params.mRight, params.width,
                 params.leftMargin, params.rightMargin,
@@ -602,6 +746,7 @@ public class RelativeLayout extends ViewGroup {
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
 
+<<<<<<< HEAD
     private void measureChildHorizontal(View child, LayoutParams params, int myWidth, int myHeight) {
         int childWidthMeasureSpec = getChildMeasureSpec(params.mLeft,
                 params.mRight, params.width,
@@ -617,6 +762,8 @@ public class RelativeLayout extends ViewGroup {
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Get a measure spec that accounts for all of the constraints on this view.
      * This includes size contstraints imposed by the RelativeLayout as well as
@@ -671,7 +818,11 @@ public class RelativeLayout extends ViewGroup {
                     // We can grow in this dimension.
                     childSpecSize = childSize;
                 }
+<<<<<<< HEAD
             } else if (childSize == LayoutParams.MATCH_PARENT) {
+=======
+            } else if (childSize == LayoutParams.FILL_PARENT) {
+>>>>>>> 54b6cfa... Initial Contribution
                 // Child wanted to be as big as possible. Give all availble
                 // space
                 childSpecMode = MeasureSpec.EXACTLY;
@@ -696,9 +847,25 @@ public class RelativeLayout extends ViewGroup {
         return MeasureSpec.makeMeasureSpec(childSpecSize, childSpecMode);
     }
 
+<<<<<<< HEAD
     private boolean positionChildHorizontal(View child, LayoutParams params, int myWidth,
             boolean wrapContent) {
 
+=======
+    /**
+     * After the child has been measured, assign it a position. Some views may
+     * already have final values for l,t,r,b. Others may have one or both edges
+     * unfixed (i.e. set to -1) in each dimension. These will get positioned
+     * based on which edge is fixed, the view's desired dimension, and whether
+     * or not it is centered.
+     *
+     * @param child Child to position
+     * @param params LayoutParams associated with child
+     * @param myWidth Width of the the RelativeLayout
+     * @param myHeight Height of the RelativeLayout
+     */
+    private void positionChild(View child, LayoutParams params, int myWidth, int myHeight) {
+>>>>>>> 54b6cfa... Initial Contribution
         int[] rules = params.getRules();
 
         if (params.mLeft < 0 && params.mRight >= 0) {
@@ -709,6 +876,7 @@ public class RelativeLayout extends ViewGroup {
             params.mRight = params.mLeft + child.getMeasuredWidth();
         } else if (params.mLeft < 0 && params.mRight < 0) {
             // Both left and right vary
+<<<<<<< HEAD
             if (rules[CENTER_IN_PARENT] != 0 || rules[CENTER_HORIZONTAL] != 0) {
                 if (!wrapContent) {
                     centerHorizontal(child, params, myWidth);
@@ -717,11 +885,16 @@ public class RelativeLayout extends ViewGroup {
                     params.mRight = params.mLeft + child.getMeasuredWidth();
                 }
                 return true;
+=======
+            if (0 != rules[CENTER_IN_PARENT] || 0 != rules[CENTER_HORIZONTAL]) {
+                centerHorizontal(child, params, myWidth);
+>>>>>>> 54b6cfa... Initial Contribution
             } else {
                 params.mLeft = mPaddingLeft + params.leftMargin;
                 params.mRight = params.mLeft + child.getMeasuredWidth();
             }
         }
+<<<<<<< HEAD
         return rules[ALIGN_PARENT_RIGHT] != 0;
     }
 
@@ -729,6 +902,8 @@ public class RelativeLayout extends ViewGroup {
             boolean wrapContent) {
 
         int[] rules = params.getRules();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (params.mTop < 0 && params.mBottom >= 0) {
             // Bottom is fixed, but top varies
@@ -738,6 +913,7 @@ public class RelativeLayout extends ViewGroup {
             params.mBottom = params.mTop + child.getMeasuredHeight();
         } else if (params.mTop < 0 && params.mBottom < 0) {
             // Both top and bottom vary
+<<<<<<< HEAD
             if (rules[CENTER_IN_PARENT] != 0 || rules[CENTER_VERTICAL] != 0) {
                 if (!wrapContent) {
                     centerVertical(child, params, myHeight);
@@ -746,15 +922,35 @@ public class RelativeLayout extends ViewGroup {
                     params.mBottom = params.mTop + child.getMeasuredHeight();
                 }
                 return true;
+=======
+            if (0 != rules[CENTER_IN_PARENT] || 0 != rules[CENTER_VERTICAL]) {
+                centerVertical(child, params, myHeight);
+>>>>>>> 54b6cfa... Initial Contribution
             } else {
                 params.mTop = mPaddingTop + params.topMargin;
                 params.mBottom = params.mTop + child.getMeasuredHeight();
             }
         }
+<<<<<<< HEAD
         return rules[ALIGN_PARENT_BOTTOM] != 0;
     }
 
     private void applyHorizontalSizeRules(LayoutParams childParams, int myWidth) {
+=======
+    }
+
+    /**
+     * Set l,t,r,b values in the LayoutParams for one view based on its layout rules.
+     * Big assumption #1: All antecedents of this view have been sized & positioned
+     * Big assumption #2: The dimensions of the parent view (the RelativeLayout)
+     * are already known if they are needed.
+     *
+     * @param childParams LayoutParams for the view being positioned
+     * @param myWidth Width of the the RelativeLayout
+     * @param myHeight Height of the RelativeLayout
+     */
+    private void applySizeRules(LayoutParams childParams, int myWidth, int myHeight) {
+>>>>>>> 54b6cfa... Initial Contribution
         int[] rules = childParams.getRules();
         RelativeLayout.LayoutParams anchorParams;
 
@@ -814,11 +1010,14 @@ public class RelativeLayout extends ViewGroup {
                 // FIXME uh oh...
             }
         }
+<<<<<<< HEAD
     }
 
     private void applyVerticalSizeRules(LayoutParams childParams, int myHeight) {
         int[] rules = childParams.getRules();
         RelativeLayout.LayoutParams anchorParams;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         childParams.mTop = -1;
         childParams.mBottom = -1;
@@ -881,16 +1080,30 @@ public class RelativeLayout extends ViewGroup {
     private View getRelatedView(int[] rules, int relation) {
         int id = rules[relation];
         if (id != 0) {
+<<<<<<< HEAD
             DependencyGraph.Node node = mGraph.mKeyNodes.get(id);
             if (node == null) return null;
             View v = node.view;
+=======
+            View v = findViewById(id);
+            if (v == null) {
+                return null;
+            }
+>>>>>>> 54b6cfa... Initial Contribution
 
             // Find the first non-GONE view up the chain
             while (v.getVisibility() == View.GONE) {
                 rules = ((LayoutParams) v.getLayoutParams()).getRules();
+<<<<<<< HEAD
                 node = mGraph.mKeyNodes.get((rules[relation]));
                 if (node == null) return null;
                 v = node.view;
+=======
+                v = v.findViewById(rules[relation]);
+                if (v == null) {
+                    return null;
+                }
+>>>>>>> 54b6cfa... Initial Contribution
             }
 
             return v;
@@ -977,6 +1190,7 @@ public class RelativeLayout extends ViewGroup {
         return new LayoutParams(p);
     }
 
+<<<<<<< HEAD
     @Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         if (mTopToBottomLeftToRightSet == null) {
@@ -1041,6 +1255,8 @@ public class RelativeLayout extends ViewGroup {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Per-child layout information associated with RelativeLayout.
      *
@@ -1063,6 +1279,7 @@ public class RelativeLayout extends ViewGroup {
      * @attr ref android.R.styleable#RelativeLayout_Layout_layout_centerVertical
      */
     public static class LayoutParams extends ViewGroup.MarginLayoutParams {
+<<<<<<< HEAD
         @ViewDebug.ExportedProperty(category = "layout", resolveId = true, indexMapping = {
             @ViewDebug.IntToString(from = ABOVE,               to = "above"),
             @ViewDebug.IntToString(from = ALIGN_BASELINE,      to = "alignBaseline"),
@@ -1086,13 +1303,19 @@ public class RelativeLayout extends ViewGroup {
         })
         private int[] mRules = new int[VERB_COUNT];
 
+=======
+        private int[] mRules = new int[VERB_COUNT];
+>>>>>>> 54b6cfa... Initial Contribution
         private int mLeft, mTop, mRight, mBottom;
 
         /**
          * When true, uses the parent as the anchor if the anchor doesn't exist or if
          * the anchor's visibility is GONE.
          */
+<<<<<<< HEAD
         @ViewDebug.ExportedProperty(category = "layout")
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public boolean alignWithParent;
 
         public LayoutParams(Context c, AttributeSet attrs) {
@@ -1234,6 +1457,7 @@ public class RelativeLayout extends ViewGroup {
             return mRules;
         }
     }
+<<<<<<< HEAD
 
     private static class DependencyGraph {
         /**
@@ -1520,4 +1744,6 @@ public class RelativeLayout extends ViewGroup {
              */
         }
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -23,7 +23,11 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * Sanitizes the Query portion of a URL. Simple example:
  * <code>
  * UrlQuerySanitizer sanitizer = new UrlQuerySanitizer();
@@ -32,7 +36,11 @@ import java.util.StringTokenizer;
  * String name = sanitizer.getValue("name"));
  * // name now contains "Joe_User"
  * </code>
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * Register ValueSanitizers to customize the way individual
  * parameters are sanitized:
  * <code>
@@ -46,7 +54,11 @@ import java.util.StringTokenizer;
  * unregistered parameter sanitizer does not allow any special characters,
  * and ' ' is a special character.)
  * </code>
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * There are several ways to create ValueSanitizers. In order of increasing
  * sophistication:
  * <ol>
@@ -56,7 +68,11 @@ import java.util.StringTokenizer;
  * <li>Subclass UrlQuerySanitizer.ValueSanitizer to define your own value
  * sanitizer.
  * </ol>
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class UrlQuerySanitizer {
 
@@ -84,7 +100,11 @@ public class UrlQuerySanitizer {
          */
         public String mValue;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     final private HashMap<String, ValueSanitizer> mSanitizers =
         new HashMap<String, ValueSanitizer>();
     final private HashMap<String, String> mEntries =
@@ -95,9 +115,15 @@ public class UrlQuerySanitizer {
     private boolean mPreferFirstRepeatedParameter;
     private ValueSanitizer mUnregisteredParameterValueSanitizer =
         getAllIllegal();
+<<<<<<< HEAD
 
     /**
      * A functor used to sanitize a single query value.
+=======
+   
+    /**
+     * A functor used to sanitize a single query value. 
+>>>>>>> 54b6cfa... Initial Contribution
      *
      */
     public static interface ValueSanitizer {
@@ -108,7 +134,11 @@ public class UrlQuerySanitizer {
          */
         public String sanitize(String value);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Sanitize values based on which characters they contain. Illegal
      * characters are replaced with either space or '_', depending upon
@@ -117,7 +147,11 @@ public class UrlQuerySanitizer {
     public static class IllegalCharacterValueSanitizer implements
         ValueSanitizer {
         private int mFlags;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Allow space (' ') characters.
          */
@@ -165,21 +199,35 @@ public class UrlQuerySanitizer {
          * such as "javascript:" or "vbscript:"
          */
         public final static int SCRIPT_URL_OK =         1 << 10;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Mask with all fields set to OK
          */
         public final static int ALL_OK =                0x7ff;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Mask with both regular space and other whitespace OK
          */
         public final static int ALL_WHITESPACE_OK =
             SPACE_OK | OTHER_WHITESPACE_OK;
 
+<<<<<<< HEAD
 
         // Common flag combinations:
 
+=======
+        
+        // Common flag combinations:
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * <ul>
          * <li>Deny all special characters.
@@ -262,6 +310,7 @@ public class UrlQuerySanitizer {
          */
         public final static int ALL_BUT_NUL_AND_ANGLE_BRACKETS_LEGAL =
             ALL_OK & ~(NUL_OK | LT_OK | GT_OK);
+<<<<<<< HEAD
 
         /**
          *  Script URL definitions
@@ -274,6 +323,20 @@ public class UrlQuerySanitizer {
         private final static int MIN_SCRIPT_PREFIX_LENGTH = Math.min(
                 JAVASCRIPT_PREFIX.length(), VBSCRIPT_PREFIX.length());
 
+=======
+        
+        /**
+         *  Script URL definitions
+         */
+        
+        private final static String JAVASCRIPT_PREFIX = "javascript:";
+        
+        private final static String VBSCRIPT_PREFIX = "vbscript:";
+        
+        private final static int MIN_SCRIPT_PREFIX_LENGTH = Math.min(
+                JAVASCRIPT_PREFIX.length(), VBSCRIPT_PREFIX.length());
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Construct a sanitizer. The parameters set the behavior of the
          * sanitizer.
@@ -312,7 +375,11 @@ public class UrlQuerySanitizer {
                     }
                 }
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             // If whitespace isn't OK, get rid of whitespace at beginning
             // and end of value.
             if ( (mFlags & ALL_WHITESPACE_OK) == 0) {
@@ -337,7 +404,11 @@ public class UrlQuerySanitizer {
             }
             return stringBuilder.toString();
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Trim whitespace from the beginning and end of a string.
          * <p>
@@ -361,7 +432,11 @@ public class UrlQuerySanitizer {
             }
             return value.substring(start, end + 1);
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Check if c is whitespace.
          * @param c character to test
@@ -380,7 +455,11 @@ public class UrlQuerySanitizer {
                 return false;
             }
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Check whether an individual character is legal. Uses the
          * flag bit-set passed into the constructor.
@@ -400,11 +479,19 @@ public class UrlQuerySanitizer {
             case '%' : return (mFlags & PCT_OK) != 0;
             case '\0': return (mFlags & NUL_OK) != 0;
             default  : return (c >= 32 && c < 127) ||
+<<<<<<< HEAD
                 ((c >= 128) && ((mFlags & NON_7_BIT_ASCII_OK) != 0));
             }
         }
     }
 
+=======
+                (c >= 128 && c <= 255 && ((mFlags & NON_7_BIT_ASCII_OK) != 0));
+            }    
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Get the current value sanitizer used when processing
      * unregistered parameter values.
@@ -412,14 +499,22 @@ public class UrlQuerySanitizer {
      * <b>Note:</b> The default unregistered parameter value sanitizer is
      * one that doesn't allow any special characters, similar to what
      * is returned by calling createAllIllegal.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @return the current ValueSanitizer used to sanitize unregistered
      * parameter values.
      */
     public ValueSanitizer getUnregisteredParameterValueSanitizer() {
         return mUnregisteredParameterValueSanitizer;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Set the value sanitizer used when processing unregistered
      * parameter values.
@@ -430,6 +525,7 @@ public class UrlQuerySanitizer {
             ValueSanitizer sanitizer) {
         mUnregisteredParameterValueSanitizer = sanitizer;
     }
+<<<<<<< HEAD
 
 
     // Private fields for singleton sanitizers:
@@ -470,6 +566,48 @@ public class UrlQuerySanitizer {
         new IllegalCharacterValueSanitizer(
                 IllegalCharacterValueSanitizer.ALL_BUT_NUL_AND_ANGLE_BRACKETS_LEGAL);
 
+=======
+    
+    
+    // Private fields for singleton sanitizers:
+    
+    private static final ValueSanitizer sAllIllegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.ALL_ILLEGAL);
+    
+    private static final ValueSanitizer sAllButNulLegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.ALL_BUT_NUL_LEGAL);
+    
+    private static final ValueSanitizer sAllButWhitespaceLegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.ALL_BUT_WHITESPACE_LEGAL);
+    
+    private static final ValueSanitizer sURLLegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.URL_LEGAL);
+    
+    private static final ValueSanitizer sUrlAndSpaceLegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.URL_AND_SPACE_LEGAL);
+    
+    private static final ValueSanitizer sAmpLegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.AMP_LEGAL);   
+    
+    private static final ValueSanitizer sAmpAndSpaceLegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.AMP_AND_SPACE_LEGAL);
+    
+    private static final ValueSanitizer sSpaceLegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.SPACE_LEGAL);
+    
+    private static final ValueSanitizer sAllButNulAndAngleBracketsLegal =
+        new IllegalCharacterValueSanitizer(
+                IllegalCharacterValueSanitizer.ALL_BUT_NUL_AND_ANGLE_BRACKETS_LEGAL);
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return a value sanitizer that does not allow any special characters,
      * and also does not allow script URLs.
@@ -478,7 +616,11 @@ public class UrlQuerySanitizer {
     public static final ValueSanitizer getAllIllegal() {
         return sAllIllegal;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return a value sanitizer that allows everything except Nul ('\0')
      * characters. Script URLs are allowed.
@@ -547,7 +689,11 @@ public class UrlQuerySanitizer {
     public static final ValueSanitizer getAllButNulAndAngleBracketsLegal() {
         return sAllButNulAndAngleBracketsLegal;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Constructs a UrlQuerySanitizer.
      * <p>
@@ -560,7 +706,11 @@ public class UrlQuerySanitizer {
      */
     public UrlQuerySanitizer() {
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Constructs a UrlQuerySanitizer and parse a URL.
      * This constructor is provided for convenience when the
@@ -585,7 +735,11 @@ public class UrlQuerySanitizer {
         setAllowUnregisteredParamaters(true);
         parseUrl(url);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Parse the query parameters out of an encoded URL.
      * Works by extracting the query portion from the URL and then
@@ -604,7 +758,11 @@ public class UrlQuerySanitizer {
         }
         parseQuery(query);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Parse a query. A query string is any number of parameter-value clauses
      * separated by any non-zero number of ampersands. A parameter-value clause
@@ -631,7 +789,11 @@ public class UrlQuerySanitizer {
             }
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Get a set of all of the parameters found in the sanitized query.
      * <p>
@@ -641,7 +803,11 @@ public class UrlQuerySanitizer {
     public Set<String> getParameterSet() {
         return mEntries.keySet();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * An array list of all of the parameter value pairs in the sanitized
      * query, in the order they appeared in the query. May contain duplicate
@@ -691,7 +857,11 @@ public class UrlQuerySanitizer {
         }
         mSanitizers.put(parameter, valueSanitizer);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Register a value sanitizer for an array of parameters.
      * @param parameters An array of unencoded parameter names.
@@ -705,7 +875,11 @@ public class UrlQuerySanitizer {
             mSanitizers.put(parameters[i], valueSanitizer);
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Set whether or not unregistered parameters are allowed. If they
      * are not allowed, then they will be dropped when a query is sanitized.
@@ -718,7 +892,11 @@ public class UrlQuerySanitizer {
             boolean allowUnregisteredParamaters) {
         mAllowUnregisteredParamaters = allowUnregisteredParamaters;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Get whether or not unregistered parameters are allowed. If not
      * allowed, they will be dropped when a query is parsed.
@@ -728,10 +906,17 @@ public class UrlQuerySanitizer {
     public boolean getAllowUnregisteredParamaters() {
         return mAllowUnregisteredParamaters;
     }
+<<<<<<< HEAD
 
     /**
      * Set whether or not the first occurrence of a repeated parameter is
      * preferred. True means the first repeated parameter is preferred.
+=======
+    
+    /**
+     * Set whether or not the first occurrence of a repeated parameter is
+     * preferred. True means the first repeated parameter is preferred. 
+>>>>>>> 54b6cfa... Initial Contribution
      * False means that the last repeated parameter is preferred.
      * <p>
      * The preferred parameter is the one that is returned when getParameter
@@ -746,7 +931,11 @@ public class UrlQuerySanitizer {
             boolean preferFirstRepeatedParameter) {
         mPreferFirstRepeatedParameter = preferFirstRepeatedParameter;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Get whether or not the first occurrence of a repeated parameter is
      * preferred.
@@ -757,10 +946,17 @@ public class UrlQuerySanitizer {
     public boolean getPreferFirstRepeatedParameter() {
         return mPreferFirstRepeatedParameter;
     }
+<<<<<<< HEAD
 
     /**
      * Parse an escaped parameter-value pair. The default implementation
      * unescapes both the parameter and the value, then looks up the
+=======
+    
+    /**
+     * Parse an escaped parameter-value pair. The default implementation
+     * unescapes both the parameter and the value, then looks up the 
+>>>>>>> 54b6cfa... Initial Contribution
      * effective value sanitizer for the parameter and uses it to sanitize
      * the value. If all goes well then addSanitizedValue is called with
      * the unescaped parameter and the sanitized unescaped value.
@@ -779,7 +975,11 @@ public class UrlQuerySanitizer {
         String sanitizedValue = valueSanitizer.sanitize(unescapedValue);
         addSanitizedEntry(unescapedParameter, sanitizedValue);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Record a sanitized parameter-value pair. Override if you want to
      * do additional filtering or validation.
@@ -796,7 +996,11 @@ public class UrlQuerySanitizer {
         }
         mEntries.put(parameter, value);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Get the value sanitizer for a parameter. Returns null if there
      * is no value sanitizer registered for the parameter.
@@ -807,7 +1011,11 @@ public class UrlQuerySanitizer {
     public ValueSanitizer getValueSanitizer(String parameter) {
         return mSanitizers.get(parameter);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Get the effective value sanitizer for a parameter. Like getValueSanitizer,
      * except if there is no value sanitizer registered for a parameter, and
@@ -823,7 +1031,11 @@ public class UrlQuerySanitizer {
         }
         return sanitizer;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Unescape an escaped string.
      * <ul>
@@ -867,7 +1079,11 @@ public class UrlQuerySanitizer {
         }
         return stringBuilder.toString();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Test if a character is a hexidecimal digit. Both upper case and lower
      * case hex digits are allowed.
@@ -877,7 +1093,11 @@ public class UrlQuerySanitizer {
     protected boolean isHexDigit(char c) {
         return decodeHexDigit(c) >= 0;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Convert a character that represents a hexidecimal digit into an integer.
      * If the character is not a hexidecimal digit, then -1 is returned.
@@ -885,7 +1105,11 @@ public class UrlQuerySanitizer {
      * @param c the hexidecimal digit.
      * @return the integer value of the hexidecimal digit.
      */
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     protected int decodeHexDigit(char c) {
         if (c >= '0' && c <= '9') {
             return c - '0';
@@ -900,7 +1124,11 @@ public class UrlQuerySanitizer {
             return -1;
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Clear the existing entries. Called to get ready to parse a new
      * query string.

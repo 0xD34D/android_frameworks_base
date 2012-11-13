@@ -17,6 +17,7 @@
 
 package android.view;
 
+<<<<<<< HEAD
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -25,6 +26,13 @@ import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
+=======
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+
+import android.os.ParcelFileDescriptor;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * API back to a client window that the Window Manager uses to inform it of
  * interesting things happening.
@@ -45,17 +53,27 @@ oneway interface IWindow {
      */
     void executeCommand(String command, String parameters, in ParcelFileDescriptor descriptor);
 
+<<<<<<< HEAD
     void resized(int w, int h, in Rect contentInsets,
             in Rect visibleInsets, boolean reportDraw, in Configuration newConfig);
     void dispatchAppVisibility(boolean visible);
     void dispatchGetNewSurface();
     void dispatchScreenState(boolean on);
+=======
+    void resized(int w, int h, boolean reportDraw);
+    void dispatchKey(in KeyEvent event);
+    void dispatchPointer(in MotionEvent event, long eventTime);
+    void dispatchTrackball(in MotionEvent event, long eventTime);
+    void dispatchAppVisibility(boolean visible);
+    void dispatchGetNewSurface();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Tell the window that it is either gaining or losing focus.  Keep it up
      * to date on the current state showing navigational focus (touch mode) too.
      */
     void windowFocusChanged(boolean hasFocus, boolean inTouchMode);
+<<<<<<< HEAD
     
     void closeSystemDialogs(String reason);
     
@@ -84,4 +102,6 @@ oneway interface IWindow {
      * is done.
      */
     void doneAnimating();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

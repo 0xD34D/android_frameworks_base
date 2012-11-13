@@ -18,6 +18,11 @@ package android.os;
 
 import android.util.Log;
 
+<<<<<<< HEAD
+=======
+import com.android.internal.os.RuntimeInit;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * This class gives you control of the power state of the device.  
  * 
@@ -97,8 +102,12 @@ import android.util.Log;
  *     </tbody>
  * </table>
  * 
+<<<<<<< HEAD
  * Any application using a WakeLock must request the {@code android.permission.WAKE_LOCK}
  * permission in an {@code &lt;uses-permission&gt;} element of the application's manifest.
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class PowerManager
 {
@@ -113,14 +122,21 @@ public class PowerManager
     private static final int WAKE_BIT_SCREEN_DIM = 4;
     private static final int WAKE_BIT_SCREEN_BRIGHT = 8;
     private static final int WAKE_BIT_KEYBOARD_BRIGHT = 16;
+<<<<<<< HEAD
     private static final int WAKE_BIT_PROXIMITY_SCREEN_OFF = 32;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     
     private static final int LOCK_MASK = WAKE_BIT_CPU_STRONG
                                         | WAKE_BIT_CPU_WEAK
                                         | WAKE_BIT_SCREEN_DIM
                                         | WAKE_BIT_SCREEN_BRIGHT
+<<<<<<< HEAD
                                         | WAKE_BIT_KEYBOARD_BRIGHT
                                         | WAKE_BIT_PROXIMITY_SCREEN_OFF;
+=======
+                                        | WAKE_BIT_KEYBOARD_BRIGHT;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Wake lock that ensures that the CPU is running.  The screen might
@@ -131,16 +147,20 @@ public class PowerManager
     /**
      * Wake lock that ensures that the screen and keyboard are on at
      * full brightness.
+<<<<<<< HEAD
      *
      * <p class="note">Most applications should strongly consider using
      * {@link android.view.WindowManager.LayoutParams#FLAG_KEEP_SCREEN_ON}.
      * This window flag will be correctly managed by the platform
      * as the user moves between applications and doesn't require a special permission.</p>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int FULL_WAKE_LOCK = WAKE_BIT_CPU_WEAK | WAKE_BIT_SCREEN_BRIGHT 
                                             | WAKE_BIT_KEYBOARD_BRIGHT;
 
     /**
+<<<<<<< HEAD
      * @deprecated Most applications should use
      * {@link android.view.WindowManager.LayoutParams#FLAG_KEEP_SCREEN_ON} instead
      * of this type of wake lock, as it will be correctly managed by the platform
@@ -150,6 +170,11 @@ public class PowerManager
      * the keyboard backlight will be allowed to go off.
      */
     @Deprecated
+=======
+     * Wake lock that ensures that the screen is on at full brightness;
+     * the keyboard backlight will be allowed to go off.
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int SCREEN_BRIGHT_WAKE_LOCK = WAKE_BIT_CPU_WEAK | WAKE_BIT_SCREEN_BRIGHT;
 
     /**
@@ -159,6 +184,7 @@ public class PowerManager
     public static final int SCREEN_DIM_WAKE_LOCK = WAKE_BIT_CPU_WEAK | WAKE_BIT_SCREEN_DIM;
 
     /**
+<<<<<<< HEAD
      * Wake lock that turns the screen off when the proximity sensor activates.
      * Since not all devices have proximity sensors, use
      * {@link #getSupportedWakeLockFlags() getSupportedWakeLockFlags()} to determine if
@@ -178,6 +204,8 @@ public class PowerManager
     public static final int WAIT_FOR_PROXIMITY_NEGATIVE = 1;
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Normally wake locks don't actually wake the device, they just cause
      * it to remain on once it's already on.  Think of the video player
      * app as the normal behavior.  Notifications that pop up and want
@@ -197,6 +225,7 @@ public class PowerManager
      * Does not work with PARTIAL_WAKE_LOCKs.
      */
     public static final int ON_AFTER_RELEASE = 0x20000000;
+<<<<<<< HEAD
 
     /**
      * Brightness value to use when battery is low.
@@ -229,6 +258,13 @@ public class PowerManager
      * <p>
      * Any application using a WakeLock must request the {@code android.permission.WAKE_LOCK}
      * permission in an {@code &lt;uses-permission&gt;} element of the application's manifest.
+=======
+    
+    /**
+     * Class lets you say that you need to have the device on.
+     *
+     * <p>Call release when you are done and don't need the lock anymore.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public class WakeLock
     {
@@ -246,7 +282,10 @@ public class PowerManager
         int mCount = 0;
         boolean mRefCounted = true;
         boolean mHeld = false;
+<<<<<<< HEAD
         WorkSource mWorkSource;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         WakeLock(int flags, String tag)
         {
@@ -255,7 +294,10 @@ public class PowerManager
             case SCREEN_DIM_WAKE_LOCK:
             case SCREEN_BRIGHT_WAKE_LOCK:
             case FULL_WAKE_LOCK:
+<<<<<<< HEAD
             case PROXIMITY_SCREEN_OFF_WAKE_LOCK:
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -269,8 +311,11 @@ public class PowerManager
         /**
          * Sets whether this WakeLock is ref counted.
          *
+<<<<<<< HEAD
          * <p>Wake locks are reference counted by default.
          *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
          * @param value true for ref counted, false for not ref counted.
          */
         public void setReferenceCounted(boolean value)
@@ -285,10 +330,23 @@ public class PowerManager
         public void acquire()
         {
             synchronized (mToken) {
+<<<<<<< HEAD
                 acquireLocked();
             }
         }
 
+=======
+                if (!mRefCounted || mCount++ == 0) {
+                    try {
+                        mService.acquireWakeLock(mFlags, mToken, mTag);
+                    } catch (RemoteException e) {
+                    }
+                    mHeld = true;
+                }
+            }
+        }
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Makes sure the device is on at the level you asked when you created
          * the wake lock. The lock will be released after the given timeout.
@@ -296,6 +354,7 @@ public class PowerManager
          * @param timeout Release the lock after the give timeout in milliseconds.
          */
         public void acquire(long timeout) {
+<<<<<<< HEAD
             synchronized (mToken) {
                 acquireLocked();
                 mHandler.postDelayed(mReleaser, timeout);
@@ -328,10 +387,20 @@ public class PowerManager
          * Release your claim to the CPU or screen being on.
          * @param flags Combination of flag values to modify the release behavior.
          *              Currently only {@link #WAIT_FOR_PROXIMITY_NEGATIVE} is supported.
+=======
+            acquire();
+            mHandler.postDelayed(mReleaser, timeout);
+        }
+        
+
+        /**
+         * Release your claim to the CPU or screen being on.
+>>>>>>> 54b6cfa... Initial Contribution
          *
          * <p>
          * It may turn off shortly after you release it, or it may not if there
          * are other wake locks held.
+<<<<<<< HEAD
          *
          * {@hide}
          */
@@ -341,6 +410,15 @@ public class PowerManager
                     mHandler.removeCallbacks(mReleaser);
                     try {
                         mService.releaseWakeLock(mToken, flags);
+=======
+         */
+        public void release()
+        {
+            synchronized (mToken) {
+                if (!mRefCounted || --mCount == 0) {
+                    try {
+                        mService.releaseWakeLock(mToken);
+>>>>>>> 54b6cfa... Initial Contribution
                     } catch (RemoteException e) {
                     }
                     mHeld = false;
@@ -358,6 +436,7 @@ public class PowerManager
             }
         }
 
+<<<<<<< HEAD
         public void setWorkSource(WorkSource ws) {
             synchronized (mToken) {
                 if (ws != null && ws.size() == 0) {
@@ -384,6 +463,8 @@ public class PowerManager
             }
         }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public String toString() {
             synchronized (mToken) {
                 return "WakeLock{"
@@ -397,11 +478,20 @@ public class PowerManager
         {
             synchronized (mToken) {
                 if (mHeld) {
+<<<<<<< HEAD
                     Log.wtf(TAG, "WakeLock finalized while still held: " + mTag);
                     try {
                         mService.releaseWakeLock(mToken, 0);
                     } catch (RemoteException e) {
                     }
+=======
+                    try {
+                        mService.releaseWakeLock(mToken);
+                    } catch (RemoteException e) {
+                    }
+                    RuntimeInit.crash(TAG, new Exception(
+                                "WakeLock finalized while still held: "+mTag));
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -424,11 +514,14 @@ public class PowerManager
      *wl.release();
      * }
      *
+<<<<<<< HEAD
      * <p class="note">If using this to keep the screen on, you should strongly consider using
      * {@link android.view.WindowManager.LayoutParams#FLAG_KEEP_SCREEN_ON} instead.
      * This window flag will be correctly managed by the platform
      * as the user moves between applications and doesn't require a special permission.</p>
      *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param flags Combination of flag values defining the requested behavior of the WakeLock.
      * @param tag Your class name (or other tag) for debugging purposes.
      *
@@ -437,9 +530,12 @@ public class PowerManager
      */
     public WakeLock newWakeLock(int flags, String tag)
     {
+<<<<<<< HEAD
         if (tag == null) {
             throw new NullPointerException("tag is null in PowerManager.newWakeLock");
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         return new WakeLock(flags, tag);
     }
 
@@ -481,6 +577,7 @@ public class PowerManager
         } catch (RemoteException e) {
         }
     }
+<<<<<<< HEAD
 
     /**
      * sets the brightness of the backlights (screen, keyboard, button).
@@ -559,6 +656,9 @@ public class PowerManager
         }
     }
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private PowerManager()
     {
     }
@@ -582,3 +682,7 @@ public class PowerManager
     IPowerManager mService;
     Handler mHandler;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution

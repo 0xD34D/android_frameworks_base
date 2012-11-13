@@ -21,9 +21,15 @@
 extern "C" {
 #endif
 
+<<<<<<< HEAD
 #include <openssl/aes.h>
 #include <drm_common_types.h>
 #include <parser_rel.h>
+=======
+#include <drm_common_types.h>
+#include <parser_rel.h>
+#include <aes.h>
+>>>>>>> 54b6cfa... Initial Contribution
 
 #ifdef DRM_DEVICE_ARCH_ARM
 #define ANDROID_DRM_CORE_PATH   "/data/drm/rights/"
@@ -141,12 +147,20 @@ void drm_discardPaddingByte(uint8_t *decryptedBuf, int32_t *decryptedBufLen);
  *
  * \param Buffer    The buffer to decrypted and also used to save the output data.
  * \param BufferLen The length of the buffer data and also save the output data length.
+<<<<<<< HEAD
  * \param key       The structure of the CEK.
+=======
+ * \param ctx       The structure of the CEK.
+>>>>>>> 54b6cfa... Initial Contribution
  *
  * \return
  *      -0
  */
+<<<<<<< HEAD
 int32_t drm_aesDecBuffer(uint8_t * Buffer, int32_t * BufferLen, AES_KEY *key);
+=======
+int32_t drm_aesDecBuffer(uint8_t * Buffer, int32_t * BufferLen, aes_decrypt_ctx ctx[1]);
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Update the DCF data length according the CEK.

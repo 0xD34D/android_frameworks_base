@@ -18,4 +18,8 @@
 */
 -->
 
+<<<<<<< HEAD
 <linearInterpolator />
+=======
+<linearInterpolator xmlns:android="http://schemas.android.com/apk/res/android"/>
+>>>>>>> 54b6cfa... Initial Contribution

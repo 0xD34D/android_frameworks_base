@@ -17,12 +17,17 @@
 
 package android.view;
 
+<<<<<<< HEAD
 import android.content.ClipData;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.Region;
 import android.os.Bundle;
 import android.view.InputChannel;
+=======
+import android.graphics.Rect;
+import android.graphics.Region;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.view.IWindow;
 import android.view.MotionEvent;
 import android.view.WindowManager;
@@ -34,11 +39,16 @@ import android.view.Surface;
  * {@hide}
  */
 interface IWindowSession {
+<<<<<<< HEAD
     int add(IWindow window, int seq, in WindowManager.LayoutParams attrs,
             in int viewVisibility, out Rect outContentInsets,
             out InputChannel outInputChannel);
     int addWithoutInputChannel(IWindow window, int seq, in WindowManager.LayoutParams attrs,
             in int viewVisibility, out Rect outContentInsets);
+=======
+    int add(IWindow window, in WindowManager.LayoutParams attrs,
+            in int viewVisibility, out Rect outCoveredInsets);
+>>>>>>> 54b6cfa... Initial Contribution
     void remove(IWindow window);
     
     /**
@@ -49,11 +59,15 @@ interface IWindowSession {
      * to draw the window's contents.
      * 
      * @param window The window being modified.
+<<<<<<< HEAD
      * @param seq Ordering sequence number.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param attrs If non-null, new attributes to apply to the window.
      * @param requestedWidth The width the window wants to be.
      * @param requestedHeight The height the window wants to be.
      * @param viewVisibility Window root view's visibility.
+<<<<<<< HEAD
      * @param flags Request flags: {@link WindowManagerImpl#RELAYOUT_INSETS_PENDING},
      * {@link WindowManagerImpl#RELAYOUT_DEFER_SURFACE_DESTROY}.
      * @param outFrame Rect in which is placed the new position/size on
@@ -72,11 +86,18 @@ interface IWindowSession {
      * @param outConfiguration New configuration of window, if it is now
      * becoming visible and the global configuration has changed since it
      * was last displayed.
+=======
+     * @param outFrame Object in which is placed the new position/size on
+     *                 screen.
+     * @param outCoveredInsets Object in which is placed the insets for the areas covered by
+ 	 *                 system windows (e.g. status bar)
+>>>>>>> 54b6cfa... Initial Contribution
      * @param outSurface Object in which is placed the new display surface.
      * 
      * @return int Result flags: {@link WindowManagerImpl#RELAYOUT_SHOW_FOCUS},
      * {@link WindowManagerImpl#RELAYOUT_FIRST_TIME}.
      */
+<<<<<<< HEAD
     int relayout(IWindow window, int seq, in WindowManager.LayoutParams attrs,
             int requestedWidth, int requestedHeight, int viewVisibility,
             int flags, out Rect outFrame,
@@ -173,3 +194,21 @@ interface IWindowSession {
     
     void wallpaperCommandComplete(IBinder window, in Bundle result);
 }
+=======
+    int relayout(IWindow window, in WindowManager.LayoutParams attrs,
+            int requestedWidth, int requestedHeight, int viewVisibility,
+            out Rect outFrame, out Rect outCoveredInsets, out Surface outSurface);
+
+    void finishDrawing(IWindow window);
+
+    void finishKey(IWindow window);
+    MotionEvent getPendingPointerMove(IWindow window);
+    MotionEvent getPendingTrackballMove(IWindow window);
+    
+    void setTransparentRegion(IWindow window, in Region region);
+
+    void setInTouchMode(boolean showFocus);
+    boolean getInTouchMode();
+}
+
+>>>>>>> 54b6cfa... Initial Contribution

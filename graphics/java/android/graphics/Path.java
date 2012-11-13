@@ -16,8 +16,11 @@
 
 package android.graphics;
 
+<<<<<<< HEAD
 import android.view.HardwareRenderer;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * The Path class encapsulates compound (multiple contour) geometric paths
  * consisting of straight line segments, quadratic curves, and cubic curves.
@@ -26,6 +29,7 @@ import android.view.HardwareRenderer;
  * text on a path.
  */
 public class Path {
+<<<<<<< HEAD
     /**
      * @hide
      */
@@ -41,13 +45,18 @@ public class Path {
     public Region rects;
     private boolean mDetectSimplePaths;
     private Direction mLastDirection = null;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Create an empty path
      */
     public Path() {
         mNativePath = init1();
+<<<<<<< HEAD
         mDetectSimplePaths = HardwareRenderer.isAvailable();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -61,7 +70,10 @@ public class Path {
             valNative = src.mNativePath;
         }
         mNativePath = init2(valNative);
+<<<<<<< HEAD
         mDetectSimplePaths = HardwareRenderer.isAvailable();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -69,11 +81,14 @@ public class Path {
      * This does NOT change the fill-type setting.
      */
     public void reset() {
+<<<<<<< HEAD
         isSimplePath = true;
         if (mDetectSimplePaths) {
             mLastDirection = null;
             if (rects != null) rects.setEmpty();
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_reset(mNativePath);
     }
 
@@ -82,11 +97,14 @@ public class Path {
      * keeps the internal data structure for faster reuse.
      */
     public void rewind() {
+<<<<<<< HEAD
         isSimplePath = true;
         if (mDetectSimplePaths) {
             mLastDirection = null;
             if (rects != null) rects.setEmpty();
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_rewind(mNativePath);
     }
 
@@ -94,7 +112,10 @@ public class Path {
     */
     public void set(Path src) {
         if (this != src) {
+<<<<<<< HEAD
             isSimplePath = src.isSimplePath;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             native_set(mNativePath, src.mNativePath);
         }
     }
@@ -115,7 +136,11 @@ public class Path {
     }
     
     // these must be in the same order as their native values
+<<<<<<< HEAD
     static final FillType[] sFillTypeArray = {
+=======
+    private static final FillType[] sFillTypeArray = {
+>>>>>>> 54b6cfa... Initial Contribution
         FillType.WINDING,
         FillType.EVEN_ODD,
         FillType.INVERSE_WINDING,
@@ -183,6 +208,7 @@ public class Path {
     }
 
     /**
+<<<<<<< HEAD
      * Compute the bounds of the control points of the path, and write the
      * answer into bounds. If the path contains 0 or 1 points, the bounds is
      * set to (0,0,0,0)
@@ -193,6 +219,18 @@ public class Path {
     @SuppressWarnings({"UnusedDeclaration"})
     public void computeBounds(RectF bounds, boolean exact) {
         native_computeBounds(mNativePath, bounds);
+=======
+     * Compute the bounds of the path, and write the answer into bounds. If the
+     * path contains 0 or 1 points, the bounds is set to (0,0,0,0)
+     *
+     * @param bounds Returns the computed bounds of the path
+     * @param exact If true, return the exact (but slower) bounds, else return
+     *              just the bounds of all control points
+     */
+    public void computeBounds(RectF bounds, boolean exact) {
+        // 1-exact, 0-fast correspond to the values in SkPath.h
+        native_computeBounds(mNativePath, bounds, exact ? 1 : 0);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -239,7 +277,10 @@ public class Path {
      * @param y The y-coordinate of the end of a line
      */
     public void lineTo(float x, float y) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_lineTo(mNativePath, x, y);
     }
 
@@ -254,7 +295,10 @@ public class Path {
      *           this contour, to specify a line
      */
     public void rLineTo(float dx, float dy) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_rLineTo(mNativePath, dx, dy);
     }
 
@@ -269,7 +313,10 @@ public class Path {
      * @param y2 The y-coordinate of the end point on a quadratic curve
      */
     public void quadTo(float x1, float y1, float x2, float y2) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_quadTo(mNativePath, x1, y1, x2, y2);
     }
 
@@ -288,7 +335,10 @@ public class Path {
      *            this contour, for the end point of a quadratic curve
      */
     public void rQuadTo(float dx1, float dy1, float dx2, float dy2) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_rQuadTo(mNativePath, dx1, dy1, dx2, dy2);
     }
 
@@ -306,7 +356,10 @@ public class Path {
      */
     public void cubicTo(float x1, float y1, float x2, float y2,
                         float x3, float y3) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_cubicTo(mNativePath, x1, y1, x2, y2, x3, y3);
     }
 
@@ -317,7 +370,10 @@ public class Path {
      */
     public void rCubicTo(float x1, float y1, float x2, float y2,
                          float x3, float y3) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_rCubicTo(mNativePath, x1, y1, x2, y2, x3, y3);
     }
 
@@ -336,7 +392,10 @@ public class Path {
      */
     public void arcTo(RectF oval, float startAngle, float sweepAngle,
                       boolean forceMoveTo) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_arcTo(mNativePath, oval, startAngle, sweepAngle, forceMoveTo);
     }
     
@@ -352,7 +411,10 @@ public class Path {
      * @param sweepAngle  Sweep angle (in degrees) measured clockwise
      */
     public void arcTo(RectF oval, float startAngle, float sweepAngle) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_arcTo(mNativePath, oval, startAngle, sweepAngle, false);
     }
     
@@ -361,7 +423,10 @@ public class Path {
      * first point of the contour, a line segment is automatically added.
      */
     public void close() {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_close(mNativePath);
     }
 
@@ -381,6 +446,7 @@ public class Path {
         final int nativeInt;
     }
     
+<<<<<<< HEAD
     private void detectSimplePath(float left, float top, float right, float bottom, Direction dir) {
         if (mDetectSimplePaths) {
             if (mLastDirection == null) {
@@ -395,6 +461,8 @@ public class Path {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Add a closed rectangle contour to the path
      *
@@ -405,7 +473,10 @@ public class Path {
         if (rect == null) {
             throw new NullPointerException("need rect parameter");
         }
+<<<<<<< HEAD
         detectSimplePath(rect.left, rect.top, rect.right, rect.bottom, dir);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addRect(mNativePath, rect, dir.nativeInt);
     }
 
@@ -418,8 +489,13 @@ public class Path {
      * @param bottom The bottom of a rectangle to add to the path
      * @param dir    The direction to wind the rectangle's contour
      */
+<<<<<<< HEAD
     public void addRect(float left, float top, float right, float bottom, Direction dir) {
         detectSimplePath(left, top, right, bottom, dir);
+=======
+    public void addRect(float left, float top, float right, float bottom,
+                        Direction dir) {
+>>>>>>> 54b6cfa... Initial Contribution
         native_addRect(mNativePath, left, top, right, bottom, dir.nativeInt);
     }
 
@@ -433,7 +509,10 @@ public class Path {
         if (oval == null) {
             throw new NullPointerException("need oval parameter");
         }
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addOval(mNativePath, oval, dir.nativeInt);
     }
 
@@ -446,7 +525,10 @@ public class Path {
      * @param dir    The direction to wind the circle's contour
      */
     public void addCircle(float x, float y, float radius, Direction dir) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addCircle(mNativePath, x, y, radius, dir.nativeInt);
     }
 
@@ -461,7 +543,10 @@ public class Path {
         if (oval == null) {
             throw new NullPointerException("need oval parameter");
         }
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addArc(mNativePath, oval, startAngle, sweepAngle);
     }
 
@@ -477,7 +562,10 @@ public class Path {
         if (rect == null) {
             throw new NullPointerException("need rect parameter");
         }
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addRoundRect(mNativePath, rect, rx, ry, dir.nativeInt);
     }
     
@@ -497,7 +585,10 @@ public class Path {
         if (radii.length < 8) {
             throw new ArrayIndexOutOfBoundsException("radii[] needs 8 values");
         }
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addRoundRect(mNativePath, rect, radii, dir.nativeInt);
     }
     
@@ -508,7 +599,10 @@ public class Path {
      * @param dx  The amount to translate the path in X as it is added
      */
     public void addPath(Path src, float dx, float dy) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addPath(mNativePath, src.mNativePath, dx, dy);
     }
 
@@ -518,7 +612,10 @@ public class Path {
      * @param src The path that is appended to the current path
      */
     public void addPath(Path src) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addPath(mNativePath, src.mNativePath);
     }
 
@@ -528,7 +625,10 @@ public class Path {
      * @param src The path to add as a new contour
      */
     public void addPath(Path src, Matrix matrix) {
+<<<<<<< HEAD
         if (!src.isSimplePath) isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_addPath(mNativePath, src.mNativePath, matrix.native_instance);
     }
 
@@ -565,7 +665,10 @@ public class Path {
      * @param dy The new Y coordinate for the last point
      */
     public void setLastPoint(float dx, float dy) {
+<<<<<<< HEAD
         isSimplePath = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         native_setLastPoint(mNativePath, dx, dy);
     }
 
@@ -601,8 +704,13 @@ public class Path {
             super.finalize();
         }
     }
+<<<<<<< HEAD
 
     final int ni() {
+=======
+    
+    /*package*/ final int ni() {
+>>>>>>> 54b6cfa... Initial Contribution
         return mNativePath;
     }
 
@@ -615,7 +723,12 @@ public class Path {
     private static native void native_setFillType(int nPath, int ft);
     private static native boolean native_isEmpty(int nPath);
     private static native boolean native_isRect(int nPath, RectF rect);
+<<<<<<< HEAD
     private static native void native_computeBounds(int nPath, RectF bounds);
+=======
+    private static native void native_computeBounds(int nPath, RectF bounds,
+                                                    int btype);
+>>>>>>> 54b6cfa... Initial Contribution
     private static native void native_incReserve(int nPath, int extraPtCount);
     private static native void native_moveTo(int nPath, float x, float y);
     private static native void native_rMoveTo(int nPath, float dx, float dy);
@@ -656,4 +769,9 @@ public class Path {
                                                 int dst_path);
     private static native void native_transform(int nPath, int matrix);
     private static native void finalizer(int nPath);
+<<<<<<< HEAD
+=======
+
+    private final int mNativePath;
+>>>>>>> 54b6cfa... Initial Contribution
 }

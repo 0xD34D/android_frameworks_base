@@ -86,7 +86,11 @@ ErrorPos::operator=(const ErrorPos& rhs)
 void
 ErrorPos::print(FILE* to) const
 {
+<<<<<<< HEAD
     const char* type = fatal ? "error:" : "warning:";
+=======
+    const char* type = fatal ? "ERROR" : "WARNING";
+>>>>>>> 54b6cfa... Initial Contribution
     
     if (this->line >= 0) {
         fprintf(to, "%s:%d: %s %s\n", this->file.string(), this->line, type, this->error.string());

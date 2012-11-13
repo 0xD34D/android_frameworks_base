@@ -22,18 +22,27 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.net.LocalServerSocket;
 import android.os.Debug;
+<<<<<<< HEAD
 import android.os.FileUtils;
 import android.os.Process;
 import android.os.SystemClock;
 import android.os.SystemProperties;
+=======
+import android.os.SystemClock;
+import android.os.SystemProperties;
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.EventLog;
 import android.util.Log;
 
 import dalvik.system.VMRuntime;
 import dalvik.system.Zygote;
 
+<<<<<<< HEAD
 import libcore.io.IoUtils;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import java.io.BufferedReader;
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -48,7 +57,11 @@ import java.util.ArrayList;
  * Startup class for the zygote process.
  *
  * Pre-initializes some classes, and then waits for commands on a UNIX domain
+<<<<<<< HEAD
  * socket. Based on these commands, forks off child processes that inherit
+=======
+ * socket. Based on these commands, forks of child processes that inherit
+>>>>>>> 54b6cfa... Initial Contribution
  * the initial state of the VM.
  *
  * Please see {@link ZygoteConnection.Arguments} for documentation on the
@@ -68,9 +81,12 @@ public class ZygoteInit {
     /** when preloading, GC after allocating this many bytes */
     private static final int PRELOAD_GC_THRESHOLD = 50000;
 
+<<<<<<< HEAD
     public static final String USAGE_STRING =
             " <\"start-system-server\"|\"\" for startSystemServer>";
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private static LocalServerSocket sServerSocket;
 
     /**
@@ -78,7 +94,11 @@ public class ZygoteInit {
      * never gets destroyed.
      */
     private static Resources mResources;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * The number of times that the main Zygote loop
      * should run before calling gc() again.
@@ -98,7 +118,11 @@ public class ZygoteInit {
 
     /** Controls whether we should preload resources during zygote init. */
     private static final boolean PRELOAD_RESOURCES = true;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Invokes a static "main(argv[]) method on class "className".
      * Converts various failing exceptions into RuntimeExceptions, with
@@ -178,7 +202,11 @@ public class ZygoteInit {
      * RuntimeException on failure.
      */
     private static ZygoteConnection acceptCommandPeer() {
+<<<<<<< HEAD
         try {
+=======
+        try {            
+>>>>>>> 54b6cfa... Initial Contribution
             return new ZygoteConnection(sServerSocket.accept());
         } catch (IOException ex) {
             throw new RuntimeException(
@@ -228,11 +256,14 @@ public class ZygoteInit {
         }
     }
 
+<<<<<<< HEAD
     static void preload() {
         preloadClasses();
         preloadResources();
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Performs Zygote process initialization. Loads and initializes
      * commonly used classes.
@@ -242,15 +273,24 @@ public class ZygoteInit {
      */
     private static void preloadClasses() {
         final VMRuntime runtime = VMRuntime.getRuntime();
+<<<<<<< HEAD
 
         InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(
+=======
+        
+        InputStream is = ZygoteInit.class.getClassLoader().getResourceAsStream(
+>>>>>>> 54b6cfa... Initial Contribution
                 PRELOADED_CLASSES);
         if (is == null) {
             Log.e(TAG, "Couldn't find " + PRELOADED_CLASSES + ".");
         } else {
             Log.i(TAG, "Preloading classes...");
             long startTime = SystemClock.uptimeMillis();
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             // Drop root perms while running static initializers.
             setEffectiveGroup(UNPRIVILEGED_GID);
             setEffectiveUser(UNPRIVILEGED_UID);
@@ -261,16 +301,28 @@ public class ZygoteInit {
             runtime.setTargetHeapUtilization(0.8f);
 
             // Start with a clean slate.
+<<<<<<< HEAD
             System.gc();
+=======
+            runtime.gcSoftReferences();
+>>>>>>> 54b6cfa... Initial Contribution
             runtime.runFinalizationSync();
             Debug.startAllocCounting();
 
             try {
+<<<<<<< HEAD
                 BufferedReader br
+=======
+                BufferedReader br 
+>>>>>>> 54b6cfa... Initial Contribution
                     = new BufferedReader(new InputStreamReader(is), 256);
 
                 int count = 0;
                 String line;
+<<<<<<< HEAD
+=======
+                boolean gotMissingClass = false;
+>>>>>>> 54b6cfa... Initial Contribution
                 while ((line = br.readLine()) != null) {
                     // Skip comments and blank lines.
                     line = line.trim();
@@ -279,21 +331,34 @@ public class ZygoteInit {
                     }
 
                     try {
+<<<<<<< HEAD
                         if (false) {
+=======
+                        if (Config.LOGV) {
+>>>>>>> 54b6cfa... Initial Contribution
                             Log.v(TAG, "Preloading " + line + "...");
                         }
                         Class.forName(line);
                         if (Debug.getGlobalAllocSize() > PRELOAD_GC_THRESHOLD) {
+<<<<<<< HEAD
                             if (false) {
                                 Log.v(TAG,
                                     " GC at " + Debug.getGlobalAllocSize());
                             }
                             System.gc();
+=======
+                            if (Config.LOGV) {
+                                Log.v(TAG,
+                                    " GC at " + Debug.getGlobalAllocSize());
+                            }
+                            runtime.gcSoftReferences();
+>>>>>>> 54b6cfa... Initial Contribution
                             runtime.runFinalizationSync();
                             Debug.resetGlobalAllocSize();
                         }
                         count++;
                     } catch (ClassNotFoundException e) {
+<<<<<<< HEAD
                         Log.w(TAG, "Class not found for preloading: " + line);
                     } catch (Throwable t) {
                         Log.e(TAG, "Error preloading " + line + ".", t);
@@ -307,12 +372,28 @@ public class ZygoteInit {
                     }
                 }
 
+=======
+                        Log.e(TAG, "Class not found for preloading: " + line);
+                        gotMissingClass = true;
+                    }
+                }
+
+                if (gotMissingClass &&
+                        "1".equals(SystemProperties.get("persist.service.adb.enable"))) {
+                    throw new IllegalStateException(
+                            "Missing class(es) for preloading, update preloaded-classes");
+                }
+
+>>>>>>> 54b6cfa... Initial Contribution
                 Log.i(TAG, "...preloaded " + count + " classes in "
                         + (SystemClock.uptimeMillis()-startTime) + "ms.");
             } catch (IOException e) {
                 Log.e(TAG, "Error reading " + PRELOADED_CLASSES + ".", e);
             } finally {
+<<<<<<< HEAD
                 IoUtils.closeQuietly(is);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 // Restore default.
                 runtime.setTargetHeapUtilization(defaultUtilization);
 
@@ -334,15 +415,23 @@ public class ZygoteInit {
      */
     private static void preloadResources() {
         final VMRuntime runtime = VMRuntime.getRuntime();
+<<<<<<< HEAD
 
         Debug.startAllocCounting();
         try {
             System.gc();
+=======
+        
+        Debug.startAllocCounting();
+        try {
+            runtime.gcSoftReferences();
+>>>>>>> 54b6cfa... Initial Contribution
             runtime.runFinalizationSync();
             mResources = Resources.getSystem();
             mResources.startPreloading();
             if (PRELOAD_RESOURCES) {
                 Log.i(TAG, "Preloading resources...");
+<<<<<<< HEAD
 
                 long startTime = SystemClock.uptimeMillis();
                 TypedArray ar = mResources.obtainTypedArray(
@@ -357,6 +446,34 @@ public class ZygoteInit {
                         com.android.internal.R.array.preloaded_color_state_lists);
                 N = preloadColorStateLists(runtime, ar);
                 ar.recycle();
+=======
+                long startTime = SystemClock.uptimeMillis();
+                TypedArray ar = mResources.obtainTypedArray(
+                        com.android.internal.R.array.preloaded_drawables);
+                int N = ar.length();
+                for (int i=0; i<N; i++) {
+                    if (Debug.getGlobalAllocSize() > PRELOAD_GC_THRESHOLD) {
+                        if (Config.LOGV) {
+                            Log.v(TAG, " GC at " + Debug.getGlobalAllocSize());
+                        }
+                        runtime.gcSoftReferences();
+                        runtime.runFinalizationSync();
+                        Debug.resetGlobalAllocSize();
+                    }
+                    int id = ar.getResourceId(i, 0);
+                    if (Config.LOGV) {
+                        Log.v(TAG, "Preloading resource #" + Integer.toHexString(id));
+                    }
+                    if (id != 0) {
+                        Drawable dr = mResources.getDrawable(id);
+                        if ((dr.getChangingConfigurations()&~ActivityInfo.CONFIG_FONT_SCALE) != 0) {
+                            Log.w(TAG, "Preloaded drawable resource #0x"
+                                    + Integer.toHexString(id)
+                                    + " that varies with configuration!!");
+                        }
+                    }
+                }
+>>>>>>> 54b6cfa... Initial Contribution
                 Log.i(TAG, "...preloaded " + N + " resources in "
                         + (SystemClock.uptimeMillis()-startTime) + "ms.");
             }
@@ -368,6 +485,7 @@ public class ZygoteInit {
         }
     }
 
+<<<<<<< HEAD
     private static int preloadColorStateLists(VMRuntime runtime, TypedArray ar) {
         int N = ar.length();
         for (int i=0; i<N; i++) {
@@ -418,6 +536,8 @@ public class ZygoteInit {
         return N;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Runs several special GCs to try to clean up a few generations of
      * softly- and final-reachable objects, along with any other garbage.
@@ -429,11 +549,19 @@ public class ZygoteInit {
         /* runFinalizationSync() lets finalizers be called in Zygote,
          * which doesn't have a HeapWorker thread.
          */
+<<<<<<< HEAD
         System.gc();
         runtime.runFinalizationSync();
         System.gc();
         runtime.runFinalizationSync();
         System.gc();
+=======
+        runtime.gcSoftReferences();
+        runtime.runFinalizationSync();
+        runtime.gcSoftReferences();
+        runtime.runFinalizationSync();
+        runtime.gcSoftReferences();
+>>>>>>> 54b6cfa... Initial Contribution
         runtime.runFinalizationSync();
     }
 
@@ -443,6 +571,7 @@ public class ZygoteInit {
     private static void handleSystemServerProcess(
             ZygoteConnection.Arguments parsedArgs)
             throws ZygoteInit.MethodAndArgsCaller {
+<<<<<<< HEAD
 
         closeServerSocket();
 
@@ -464,20 +593,51 @@ public class ZygoteInit {
             RuntimeInit.zygoteInit(parsedArgs.targetSdkVersion, parsedArgs.remainingArgs);
         }
 
+=======
+        /*
+         * First, set the capabilities if necessary
+         */
+
+        if (parsedArgs.uid != 0) {
+            try {
+                setCapabilities(parsedArgs.permittedCapabilities,
+                                parsedArgs.effectiveCapabilities);
+            } catch (IOException ex) {
+                Log.e(TAG, "Error setting capabilities", ex);
+            }
+        }
+
+        closeServerSocket();
+
+        /*
+         * Pass the remaining arguments to SystemServer.
+         * "--nice-name=system_server com.android.server.SystemServer"
+         */
+        RuntimeInit.zygoteInit(parsedArgs.remainingArgs);
+>>>>>>> 54b6cfa... Initial Contribution
         /* should never reach here */
     }
 
     /**
      * Prepare the arguments and fork for the system server process.
      */
+<<<<<<< HEAD
     private static boolean startSystemServer()
+=======
+    private static boolean startSystemServer() 
+>>>>>>> 54b6cfa... Initial Contribution
             throws MethodAndArgsCaller, RuntimeException {
         /* Hardcoded command line to start the system server */
         String args[] = {
             "--setuid=1000",
             "--setgid=1000",
+<<<<<<< HEAD
             "--setgroups=1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1018,3001,3002,3003,3006,3007",
             "--capabilities=130104352,130104352",
+=======
+            "--setgroups=1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,3001,3002,3003",
+            "--capabilities=88161312,88161312",
+>>>>>>> 54b6cfa... Initial Contribution
             "--runtime-init",
             "--nice-name=system_server",
             "com.android.server.SystemServer",
@@ -488,12 +648,24 @@ public class ZygoteInit {
 
         try {
             parsedArgs = new ZygoteConnection.Arguments(args);
+<<<<<<< HEAD
             ZygoteConnection.applyDebuggerSystemProperty(parsedArgs);
             ZygoteConnection.applyInvokeWithSystemProperty(parsedArgs);
+=======
+
+            /*
+             * Enable debugging of the system process if *either* the command line flags
+             * indicate it should be debuggable or the ro.debuggable system property
+             * is set to "1"
+             */
+            boolean debuggableBuild = "1".equals(SystemProperties.get("ro.debuggable"));
+            boolean enableDebugger = parsedArgs.enableDebugger || debuggableBuild;
+>>>>>>> 54b6cfa... Initial Contribution
 
             /* Request to fork the system server process */
             pid = Zygote.forkSystemServer(
                     parsedArgs.uid, parsedArgs.gid,
+<<<<<<< HEAD
                     parsedArgs.gids,
                     parsedArgs.debugFlags,
                     null,
@@ -503,6 +675,13 @@ public class ZygoteInit {
             throw new RuntimeException(ex);
         }
 
+=======
+                    parsedArgs.gids, enableDebugger, null);
+        } catch (IllegalArgumentException ex) {
+            throw new RuntimeException(ex);
+        } 
+ 
+>>>>>>> 54b6cfa... Initial Contribution
         /* For child process */
         if (pid == 0) {
             handleSystemServerProcess(parsedArgs);
@@ -513,6 +692,7 @@ public class ZygoteInit {
 
     public static void main(String argv[]) {
         try {
+<<<<<<< HEAD
             // Start profiling the zygote initialization.
             SamplingProfilerIntegration.start();
 
@@ -526,11 +706,22 @@ public class ZygoteInit {
             // Finish profiling the zygote initialization.
             SamplingProfilerIntegration.writeZygoteSnapshot();
 
+=======
+            registerZygoteSocket();
+            EventLog.writeEvent(LOG_BOOT_PROGRESS_PRELOAD_START,
+                SystemClock.uptimeMillis());
+            preloadClasses();
+            preloadResources();
+            EventLog.writeEvent(LOG_BOOT_PROGRESS_PRELOAD_END,
+                SystemClock.uptimeMillis());
+
+>>>>>>> 54b6cfa... Initial Contribution
             // Do an initial gc to clean up after startup
             gc();
 
             // If requested, start system server directly from Zygote
             if (argv.length != 2) {
+<<<<<<< HEAD
                 throw new RuntimeException(argv[0] + USAGE_STRING);
             }
 
@@ -538,6 +729,14 @@ public class ZygoteInit {
                 startSystemServer();
             } else if (!argv[1].equals("")) {
                 throw new RuntimeException(argv[0] + USAGE_STRING);
+=======
+                throw new RuntimeException(
+                        "ZygoteInit.main expects two arguments");
+            }
+
+            if (argv[1].equals("true")) {
+                startSystemServer();
+>>>>>>> 54b6cfa... Initial Contribution
             }
 
             Log.i(TAG, "Accepting command socket connections");
@@ -708,6 +907,18 @@ public class ZygoteInit {
             FileDescriptor out, FileDescriptor err) throws IOException;
 
     /**
+<<<<<<< HEAD
+=======
+     * Calls close() on a file descriptor
+     *
+     * @param fd descriptor to close
+     * @throws IOException
+     */
+    static native void closeDescriptor(FileDescriptor fd)
+            throws IOException;
+
+    /**
+>>>>>>> 54b6cfa... Initial Contribution
      * Toggles the close-on-exec flag for the specified file descriptor.
      *
      * @param fd non-null; file descriptor

@@ -19,6 +19,7 @@ package com.android.server.am;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+<<<<<<< HEAD
 import android.os.UserId;
 import android.util.Slog;
 
@@ -27,6 +28,16 @@ import java.io.PrintWriter;
 class TaskRecord extends ThumbnailHolder {
     final int taskId;       // Unique identifier for this task.
     final String affinity;  // The affinity name for this task, or null.
+=======
+import android.os.SystemClock;
+
+import java.io.PrintWriter;
+
+class TaskRecord {
+    final int taskId;       // Unique identifier for this task.
+    final String affinity;  // The affinity name for this task, or null.
+    final boolean clearOnBackground; // As per the original activity.
+>>>>>>> 54b6cfa... Initial Contribution
     Intent intent;          // The original intent that started the task.
     Intent affinityIntent;  // Intent of affinity-moved activity that started this task.
     ComponentName origActivity; // The non-alias activity component of the intent.
@@ -35,6 +46,7 @@ class TaskRecord extends ThumbnailHolder {
     long lastActiveTime;    // Last time this task was active, including sleep.
     boolean rootWasReset;   // True if the intent at the root of the task had
                             // the FLAG_ACTIVITY_RESET_TASK_IF_NEEDED flag.
+<<<<<<< HEAD
     boolean askedCompatMode;// Have asked the user about compat mode for this task.
 
     String stringName;      // caching of toString() result.
@@ -43,6 +55,14 @@ class TaskRecord extends ThumbnailHolder {
     TaskRecord(int _taskId, ActivityInfo info, Intent _intent) {
         taskId = _taskId;
         affinity = info.taskAffinity;
+=======
+
+    TaskRecord(int _taskId, ActivityInfo info, Intent _intent,
+            boolean _clearOnBackground) {
+        taskId = _taskId;
+        affinity = info.taskAffinity;
+        clearOnBackground = _clearOnBackground;
+>>>>>>> 54b6cfa... Initial Contribution
         setIntent(_intent, info);
     }
 
@@ -55,6 +75,7 @@ class TaskRecord extends ThumbnailHolder {
     }
     
     void setIntent(Intent _intent, ActivityInfo info) {
+<<<<<<< HEAD
         stringName = null;
 
         if (info.targetActivity == null) {
@@ -70,6 +91,9 @@ class TaskRecord extends ThumbnailHolder {
             }
             if (ActivityManagerService.DEBUG_TASKS) Slog.v(ActivityManagerService.TAG,
                     "Setting Intent of " + this + " to " + _intent);
+=======
+        if (info.targetActivity == null) {
+>>>>>>> 54b6cfa... Initial Contribution
             intent = _intent;
             realActivity = _intent != null ? _intent.getComponent() : null;
             origActivity = null;
@@ -79,10 +103,13 @@ class TaskRecord extends ThumbnailHolder {
             if (_intent != null) {
                 Intent targetIntent = new Intent(_intent);
                 targetIntent.setComponent(targetComponent);
+<<<<<<< HEAD
                 targetIntent.setSelector(null);
                 targetIntent.setSourceBounds(null);
                 if (ActivityManagerService.DEBUG_TASKS) Slog.v(ActivityManagerService.TAG,
                         "Setting Intent of " + this + " to target " + targetIntent);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 intent = targetIntent;
                 realActivity = targetComponent;
                 origActivity = _intent.getComponent();
@@ -92,13 +119,18 @@ class TaskRecord extends ThumbnailHolder {
                 origActivity = new ComponentName(info.packageName, info.name);
             }
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if (intent != null &&
                 (intent.getFlags()&Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED) != 0) {
             // Once we are set to an Intent with this flag, we count this
             // task as having a true root activity.
             rootWasReset = true;
         }
+<<<<<<< HEAD
 
         if (info.applicationInfo != null) {
             userId = UserId.getUserId(info.applicationInfo.uid);
@@ -171,5 +203,28 @@ class TaskRecord extends ThumbnailHolder {
         sb.append(userId);
         sb.append('}');
         return stringName = sb.toString();
+=======
+    }
+    
+    void dump(PrintWriter pw, String prefix) {
+        pw.println(prefix + this);
+        pw.println(prefix + "clearOnBackground=" + clearOnBackground
+              + " numActivities=" + numActivities
+              + " rootWasReset=" + rootWasReset);
+        pw.println(prefix + "affinity=" + affinity);
+        pw.println(prefix + "intent=" + intent);
+        pw.println(prefix + "affinityIntent=" + affinityIntent);
+        pw.println(prefix + "origActivity=" + origActivity);
+        pw.println(prefix + "lastActiveTime=" + lastActiveTime
+                +" (inactive for " + (getInactiveDuration()/1000) + "s)");
+    }
+
+    public String toString() {
+        return "Task{" + taskId + " "
+                + (affinity != null ? affinity
+                        : (intent != null ? intent.getComponent().flattenToShortString()
+                                : affinityIntent != null ? affinityIntent.getComponent().flattenToShortString() : "??"))
+                + "}";
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

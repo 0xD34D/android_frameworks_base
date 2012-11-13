@@ -26,6 +26,7 @@ import android.webkit.WebView;
 /**
  * Represents a plugin (Java equivalent of the PluginPackageAndroid
  * C++ class in libs/WebKitLib/WebKit/WebCore/plugins/android/)
+<<<<<<< HEAD
  *
  * @hide
  * @deprecated This interface was intended to be used by Gears. Since Gears was
@@ -44,6 +45,11 @@ public class Plugin {
          * @deprecated This interface was intended to be used by Gears. Since Gears was
          * deprecated, so is this class.
          */
+=======
+ */
+public class Plugin {
+    public interface PreferencesClickHandler {
+>>>>>>> 54b6cfa... Initial Contribution
         public void handleClickEvent(Context context);
     }
 
@@ -53,12 +59,15 @@ public class Plugin {
     private String mDescription;
     private PreferencesClickHandler mHandler;
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public Plugin(String name,
                   String path,
                   String fileName,
@@ -70,114 +79,148 @@ public class Plugin {
         mHandler = new DefaultClickHandler();
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public String toString() {
         return mName;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public String getName() {
         return mName;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public String getPath() {
         return mPath;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public String getFileName() {
         return mFileName;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public String getDescription() {
         return mDescription;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setName(String name) {
         mName = name;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setPath(String path) {
         mPath = path;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setFileName(String fileName) {
         mFileName = fileName;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setDescription(String description) {
         mDescription = description;
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      * @deprecated This interface was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setClickHandler(PreferencesClickHandler handler) {
         mHandler = handler;
     }
 
    /**
     * Invokes the click handler for this plugin.
+<<<<<<< HEAD
     *
     * @hide
     * @deprecated This interface was intended to be used by Gears. Since Gears was
     * deprecated, so is this class.
     */
     @Deprecated
+=======
+    */
+>>>>>>> 54b6cfa... Initial Contribution
     public void dispatchClickEvent(Context context) {
         if (mHandler != null) {
             mHandler.handleClickEvent(context);
@@ -186,6 +229,7 @@ public class Plugin {
 
    /**
     * Default click handler. The plugins should implement their own.
+<<<<<<< HEAD
     *
     * @hide
     * @deprecated This interface was intended to be used by Gears. Since Gears was
@@ -196,6 +240,13 @@ public class Plugin {
                                                  DialogInterface.OnClickListener {
         private AlertDialog mDialog;
         @Deprecated
+=======
+    */
+    private class DefaultClickHandler implements PreferencesClickHandler,
+                                                 DialogInterface.OnClickListener {
+        private AlertDialog mDialog;
+
+>>>>>>> 54b6cfa... Initial Contribution
         public void handleClickEvent(Context context) {
             // Show a simple popup dialog containing the description
             // string of the plugin.
@@ -208,12 +259,16 @@ public class Plugin {
                         .show();
             }
         }
+<<<<<<< HEAD
         /**
          * @hide
          * @deprecated This interface was intended to be used by Gears. Since Gears was
          * deprecated, so is this class.
          */
         @Deprecated
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
         public void onClick(DialogInterface dialog, int which) {
             mDialog.dismiss();
             mDialog = null;

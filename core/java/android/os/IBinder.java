@@ -16,9 +16,12 @@
 
 package android.os;
 
+<<<<<<< HEAD
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * Base interface for a remotable object, the core part of a lightweight
  * remote procedure call mechanism designed for high performance when
@@ -110,6 +113,7 @@ public interface IBinder {
     int INTERFACE_TRANSACTION   = ('_'<<24)|('N'<<16)|('T'<<8)|'F';
 
     /**
+<<<<<<< HEAD
      * IBinder protocol transaction code: send a tweet to the target
      * object.  The data in the parcel is intended to be delivered to
      * a shared messaging service associated with the object; it can be
@@ -148,6 +152,11 @@ public interface IBinder {
      * caller returns immediately, without waiting for a result from the
      * callee. Applies only if the caller and callee are in different
      * processes.
+=======
+     * Flag to {@link #transact}: this is a one-way call, meaning that the
+     * caller returns immediately, without waiting for a result from the
+     * callee.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     int FLAG_ONEWAY             = 0x00000001;
     
@@ -183,6 +192,7 @@ public interface IBinder {
     public IInterface queryLocalInterface(String descriptor);
     
     /**
+<<<<<<< HEAD
      * Print the object's state into the given stream.
      * 
      * @param fd The raw file descriptor that the dump is being sent to.
@@ -201,12 +211,18 @@ public interface IBinder {
     public void dumpAsync(FileDescriptor fd, String[] args) throws RemoteException;
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Perform a generic operation with the object.
      * 
      * @param code The action to perform.  This should
      * be a number between {@link #FIRST_CALL_TRANSACTION} and
      * {@link #LAST_CALL_TRANSACTION}.
+<<<<<<< HEAD
      * @param data Marshalled data to send to the target.  Must not be null.
+=======
+     * @param data Marshalled data to send to the target.  Most not be null.
+>>>>>>> 54b6cfa... Initial Contribution
      * If you are not sending any data, you must create an empty Parcel
      * that is given here.
      * @param reply Marshalled data to be received from the target.  May be

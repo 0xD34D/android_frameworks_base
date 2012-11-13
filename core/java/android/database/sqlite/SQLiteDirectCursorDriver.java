@@ -18,13 +18,18 @@ package android.database.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+<<<<<<< HEAD
 import android.os.CancellationSignal;
+=======
+import android.util.Log;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * A cursor driver that uses the given query directly.
  * 
  * @hide
  */
+<<<<<<< HEAD
 public final class SQLiteDirectCursorDriver implements SQLiteCursorDriver {
     private final SQLiteDatabase mDatabase;
     private final String mEditTable; 
@@ -66,6 +71,63 @@ public final class SQLiteDirectCursorDriver implements SQLiteCursorDriver {
 
     public void setBindArguments(String[] bindArgs) {
         mQuery.bindAllArgsAsStrings(bindArgs);
+=======
+public class SQLiteDirectCursorDriver implements SQLiteCursorDriver {
+    private static String TAG = "SQLiteDirectCursorDriver";
+    private String mEditTable; 
+    private SQLiteDatabase mDatabase;
+    private Cursor mCursor;
+    private String mSql;
+    private SQLiteQuery mQuery;
+
+    public SQLiteDirectCursorDriver(SQLiteDatabase db, String sql, String editTable) {
+        mDatabase = db;
+        mEditTable = editTable;
+        //TODO remove all callers that end in ; and remove this check
+        if (sql.charAt(sql.length() - 1) == ';') {
+            Log.w(TAG, "Found SQL string that ends in ; -- " + sql);
+            sql = sql.substring(0, sql.length() - 1);
+        }
+        mSql = sql;
+    }
+
+    public Cursor query(CursorFactory factory, String[] selectionArgs) {
+        // Compile the query
+        SQLiteQuery query = new SQLiteQuery(mDatabase, mSql, 0, selectionArgs);
+
+        try {
+            // Arg binding
+            int numArgs = selectionArgs == null ? 0 : selectionArgs.length;
+            for (int i = 0; i < numArgs; i++) {
+                query.bindString(i + 1, selectionArgs[i]);
+            }
+
+            // Create the cursor
+            if (factory == null) {
+                mCursor = new SQLiteCursor(mDatabase, this, mEditTable, query);
+            } else {
+                mCursor = factory.newCursor(mDatabase, this, mEditTable, query);
+            }
+
+            mQuery = query;
+            query = null;
+            return mCursor;
+        } finally {
+            // Make sure this object is cleaned up if something happens
+            if (query != null) query.close();
+        }
+    }
+
+    public void cursorClosed() {
+        mCursor = null;
+    }
+
+    public void setBindArguments(String[] bindArgs) {
+        final int numArgs = bindArgs.length;
+        for (int i = 0; i < numArgs; i++) {
+            mQuery.bindString(i + 1, bindArgs[i]);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void cursorDeactivated() {

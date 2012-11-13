@@ -18,7 +18,10 @@ package android.net;
 
 import android.os.Parcelable;
 import android.os.Parcel;
+<<<<<<< HEAD
 import java.net.InetAddress;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * A simple object for retrieving the results of a DHCP request.
@@ -38,6 +41,7 @@ public class DhcpInfo implements Parcelable {
         super();
     }
 
+<<<<<<< HEAD
     /** copy constructor {@hide} */
     public DhcpInfo(DhcpInfo source) {
         if (source != null) {
@@ -51,6 +55,8 @@ public class DhcpInfo implements Parcelable {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public String toString() {
         StringBuffer str = new StringBuffer();
 
@@ -66,7 +72,14 @@ public class DhcpInfo implements Parcelable {
     }
 
     private static void putAddress(StringBuffer buf, int addr) {
+<<<<<<< HEAD
         buf.append(NetworkUtils.intToInetAddress(addr).getHostAddress());
+=======
+        buf.append(addr  & 0xff).append('.').
+            append((addr >>>= 8) & 0xff).append('.').
+            append((addr >>>= 8) & 0xff).append('.').
+            append((addr >>>= 8) & 0xff);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /** Implement the Parcelable interface {@hide} */

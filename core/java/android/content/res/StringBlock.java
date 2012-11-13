@@ -18,12 +18,19 @@ package android.content.res;
 
 import android.text.*;
 import android.text.style.*;
+<<<<<<< HEAD
+=======
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 import android.util.SparseArray;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.util.XmlUtils;
 
 /**
@@ -33,7 +40,11 @@ import com.android.internal.util.XmlUtils;
  */
 final class StringBlock {
     private static final String TAG = "AssetManager";
+<<<<<<< HEAD
     private static final boolean localLOGV = false || false;
+=======
+    private static final boolean localLOGV = Config.LOGV || false;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private final int mNative;
     private final boolean mUseSparse;
@@ -86,6 +97,7 @@ final class StringBlock {
             if (style != null) {
                 if (mStyleIDs == null) {
                     mStyleIDs = new StyleIDs();
+<<<<<<< HEAD
                 }
 
                 // the style array is a flat array of <type, start, end> hence
@@ -128,6 +140,22 @@ final class StringBlock {
                     } else if (styleTag.equals("marquee")) {
                         mStyleIDs.marqueeId = styleId;
                     }
+=======
+                    mStyleIDs.boldId = nativeIndexOfString(mNative, "b");
+                    mStyleIDs.italicId = nativeIndexOfString(mNative, "i");
+                    mStyleIDs.underlineId = nativeIndexOfString(mNative, "u");
+                    mStyleIDs.ttId = nativeIndexOfString(mNative, "tt");
+                    mStyleIDs.bigId = nativeIndexOfString(mNative, "big");
+                    mStyleIDs.smallId = nativeIndexOfString(mNative, "small");
+                    mStyleIDs.supId = nativeIndexOfString(mNative, "sup");
+                    mStyleIDs.subId = nativeIndexOfString(mNative, "sub");
+                    mStyleIDs.strikeId = nativeIndexOfString(mNative, "strike");
+                    mStyleIDs.listItemId = nativeIndexOfString(mNative, "li");
+
+                    if (localLOGV) Log.v(TAG, "BoldId=" + mStyleIDs.boldId
+                            + ", ItalicId=" + mStyleIDs.italicId
+                            + ", UnderlineId=" + mStyleIDs.underlineId);
+>>>>>>> 54b6cfa... Initial Contribution
                 }
 
                 res = applyStyles(str, style, mStyleIDs);
@@ -145,6 +173,7 @@ final class StringBlock {
     }
 
     static final class StyleIDs {
+<<<<<<< HEAD
         private int boldId = -1;
         private int italicId = -1;
         private int underlineId = -1;
@@ -156,6 +185,18 @@ final class StringBlock {
         private int strikeId = -1;
         private int listItemId = -1;
         private int marqueeId = -1;
+=======
+        private int boldId;
+        private int italicId;
+        private int underlineId;
+        private int ttId;
+        private int bigId;
+        private int smallId;
+        private int subId;
+        private int supId;
+        private int strikeId;
+        private int listItemId;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private CharSequence applyStyles(String str, int[] style, StyleIDs ids) {
@@ -168,8 +209,11 @@ final class StringBlock {
             int type = style[i];
             if (localLOGV) Log.v(TAG, "Applying style span id=" + type
                     + ", start=" + style[i+1] + ", end=" + style[i+2]);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             if (type == ids.boldId) {
                 buffer.setSpan(new StyleSpan(Typeface.BOLD),
                                style[i+1], style[i+2]+1,
@@ -207,12 +251,18 @@ final class StringBlock {
                                style[i+1], style[i+2]+1,
                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             } else if (type == ids.listItemId) {
+<<<<<<< HEAD
                 addParagraphSpan(buffer, new BulletSpan(10),
                                 style[i+1], style[i+2]+1);
             } else if (type == ids.marqueeId) {
                 buffer.setSpan(TextUtils.TruncateAt.MARQUEE,
                                style[i+1], style[i+2]+1,
                                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+=======
+                buffer.setSpan(new BulletSpan(10),
+                               style[i+1], style[i+2]+1,
+                               Spannable.SPAN_PARAGRAPH);
+>>>>>>> 54b6cfa... Initial Contribution
             } else {
                 String tag = nativeGetString(mNative, type);
 
@@ -222,14 +272,24 @@ final class StringBlock {
                     sub = subtag(tag, ";height=");
                     if (sub != null) {
                         int size = Integer.parseInt(sub);
+<<<<<<< HEAD
                         addParagraphSpan(buffer, new Height(size),
                                        style[i+1], style[i+2]+1);
+=======
+                        buffer.setSpan(new Height(size),
+                                       style[i+1], style[i+2]+1,
+                                       Spannable.SPAN_PARAGRAPH);
+>>>>>>> 54b6cfa... Initial Contribution
                     }
 
                     sub = subtag(tag, ";size=");
                     if (sub != null) {
                         int size = Integer.parseInt(sub);
+<<<<<<< HEAD
                         buffer.setSpan(new AbsoluteSizeSpan(size, true),
+=======
+                        buffer.setSpan(new AbsoluteSizeSpan(size),
+>>>>>>> 54b6cfa... Initial Contribution
                                        style[i+1], style[i+2]+1,
                                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
@@ -249,6 +309,7 @@ final class StringBlock {
                                        style[i+1], style[i+2]+1,
                                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
+<<<<<<< HEAD
                 } else if (tag.startsWith("a;")) {
                     String sub;
 
@@ -280,6 +341,8 @@ final class StringBlock {
                                        style[i+1], style[i+2]+1,
                                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
 
@@ -288,6 +351,7 @@ final class StringBlock {
         return new SpannedString(buffer);
     }
 
+<<<<<<< HEAD
     /**
      * If a translator has messed up the edges of paragraph-level markup,
      * fix it to actually cover the entire paragraph that it is attached to
@@ -316,6 +380,8 @@ final class StringBlock {
         buffer.setSpan(what, start, end, Spannable.SPAN_PARAGRAPH);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private static String subtag(String full, String attribute) {
         int start = full.indexOf(attribute);
         if (start < 0) {
@@ -337,7 +403,11 @@ final class StringBlock {
      * the ascent if possible, or the descent if shrinking the ascent further
      * will make the text unreadable.
      */
+<<<<<<< HEAD
     private static class Height implements LineHeightSpan.WithDensity {
+=======
+    private static class Height implements LineHeightSpan {
+>>>>>>> 54b6cfa... Initial Contribution
         private int mSize;
         private static float sProportion = 0;
 
@@ -348,6 +418,7 @@ final class StringBlock {
         public void chooseHeight(CharSequence text, int start, int end,
                                  int spanstartv, int v,
                                  Paint.FontMetricsInt fm) {
+<<<<<<< HEAD
             // Should not get called, at least not by StaticLayout.
             chooseHeight(text, start, end, spanstartv, v, fm, null);
         }
@@ -363,6 +434,11 @@ final class StringBlock {
             if (fm.bottom - fm.top < size) {
                 fm.top = fm.bottom - size;
                 fm.ascent = fm.ascent - size;
+=======
+            if (fm.bottom - fm.top < mSize) {
+                fm.top = fm.bottom - mSize;
+                fm.ascent = fm.ascent - mSize;
+>>>>>>> 54b6cfa... Initial Contribution
             } else {
                 if (sProportion == 0) {
                     /*
@@ -382,27 +458,45 @@ final class StringBlock {
 
                 int need = (int) Math.ceil(-fm.top * sProportion);
 
+<<<<<<< HEAD
                 if (size - fm.descent >= need) {
+=======
+                if (mSize - fm.descent >= need) {
+>>>>>>> 54b6cfa... Initial Contribution
                     /*
                      * It is safe to shrink the ascent this much.
                      */
 
+<<<<<<< HEAD
                     fm.top = fm.bottom - size;
                     fm.ascent = fm.descent - size;
                 } else if (size >= need) {
+=======
+                    fm.top = fm.bottom - mSize;
+                    fm.ascent = fm.descent - mSize;
+                } else if (mSize >= need) {
+>>>>>>> 54b6cfa... Initial Contribution
                     /*
                      * We can't show all the descent, but we can at least
                      * show all the ascent.
                      */
 
                     fm.top = fm.ascent = -need;
+<<<<<<< HEAD
                     fm.bottom = fm.descent = fm.top + size;
+=======
+                    fm.bottom = fm.descent = fm.top + mSize;
+>>>>>>> 54b6cfa... Initial Contribution
                 } else {
                     /*
                      * Show as much of the ascent as we can, and no descent.
                      */
 
+<<<<<<< HEAD
                     fm.top = fm.ascent = -size;
+=======
+                    fm.top = fm.ascent = -mSize;
+>>>>>>> 54b6cfa... Initial Contribution
                     fm.bottom = fm.descent = 0;
                 }
             }
@@ -429,5 +523,9 @@ final class StringBlock {
     private static final native int nativeGetSize(int obj);
     private static final native String nativeGetString(int obj, int idx);
     private static final native int[] nativeGetStyle(int obj, int idx);
+<<<<<<< HEAD
+=======
+    private static final native int nativeIndexOfString(int obj, String str);
+>>>>>>> 54b6cfa... Initial Contribution
     private static final native void nativeDestroy(int obj);
 }

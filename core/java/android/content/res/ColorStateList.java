@@ -16,8 +16,11 @@
 
 package android.content.res;
 
+<<<<<<< HEAD
 import com.android.internal.util.ArrayUtils;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -32,6 +35,11 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 
+<<<<<<< HEAD
+=======
+import com.android.internal.util.ArrayUtils;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  *
  * Lets you map {@link android.view.View} state sets to colors.
@@ -44,7 +52,12 @@ import java.util.Arrays;
  * &lt;selector xmlns:android="http://schemas.android.com/apk/res/android"&gt;
  *   &lt;item android:state_focused="true" android:color="@color/testcolor1"/&gt;
  *   &lt;item android:state_pressed="true" android:state_enabled="false" android:color="@color/testcolor2" /&gt;
+<<<<<<< HEAD
  *   &lt;item android:state_enabled="false" android:color="@color/testcolor3" /&gt;
+=======
+ *   &lt;item android:state_enabled="false" android:colore="@color/testcolor3" /&gt;
+ *   &lt;item android:state_active="true" android:color="@color/testcolor4" /&gt;
+>>>>>>> 54b6cfa... Initial Contribution
  *   &lt;item android:color="@color/testcolor5"/&gt;
  * &lt;/selector&gt;
  * </pre>
@@ -55,9 +68,12 @@ import java.util.Arrays;
  * An item with no state spec is considered to match any set of states and is generally useful as
  * a final item to be used as a default.  Note that if you have such an item before any other items
  * in the list then any subsequent items will end up being ignored.
+<<<<<<< HEAD
  * <p>For more information, see the guide to <a
  * href="{@docRoot}guide/topics/resources/color-list-resource.html">Color State
  * List Resource</a>.</p>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class ColorStateList implements Parcelable {
 
@@ -113,8 +129,12 @@ public class ColorStateList implements Parcelable {
      * Create a ColorStateList from an XML document, given a set of {@link Resources}.
      */
     public static ColorStateList createFromXml(Resources r, XmlPullParser parser)
+<<<<<<< HEAD
             throws XmlPullParserException, IOException {
 
+=======
+    throws XmlPullParserException, IOException {
+>>>>>>> 54b6cfa... Initial Contribution
         AttributeSet attrs = Xml.asAttributeSet(parser);
 
         int type;
@@ -126,16 +146,29 @@ public class ColorStateList implements Parcelable {
             throw new XmlPullParserException("No start tag found");
         }
 
+<<<<<<< HEAD
         return createFromXmlInner(r, parser, attrs);
+=======
+        final ColorStateList colorStateList = createFromXmlInner(r, parser, attrs);
+
+        return colorStateList;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /* Create from inside an XML document.  Called on a parser positioned at
      * a tag in an XML document, tries to create a ColorStateList from that tag.
      * Returns null if the tag is not a valid ColorStateList.
      */
+<<<<<<< HEAD
     private static ColorStateList createFromXmlInner(Resources r, XmlPullParser parser,
             AttributeSet attrs) throws XmlPullParserException, IOException {
 
+=======
+    private static ColorStateList createFromXmlInner(Resources r,
+                                                     XmlPullParser parser,
+                                                     AttributeSet attrs)
+            throws XmlPullParserException, IOException {
+>>>>>>> 54b6cfa... Initial Contribution
         ColorStateList colorStateList;
 
         final String name = parser.getName();
@@ -144,7 +177,12 @@ public class ColorStateList implements Parcelable {
             colorStateList = new ColorStateList();
         } else {
             throw new XmlPullParserException(
+<<<<<<< HEAD
                 parser.getPositionDescription() + ": invalid drawable tag " + name);
+=======
+                parser.getPositionDescription() + ": invalid drawable tag "
+                + name);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         colorStateList.inflate(r, parser, attrs);
@@ -301,11 +339,15 @@ public class ColorStateList implements Parcelable {
     }
 
     public void writeToParcel(Parcel dest, int flags) {
+<<<<<<< HEAD
         final int N = mStateSpecs.length;
         dest.writeInt(N);
         for (int i=0; i<N; i++) {
             dest.writeIntArray(mStateSpecs[i]);
         }
+=======
+        dest.writeArray(mStateSpecs);
+>>>>>>> 54b6cfa... Initial Contribution
         dest.writeIntArray(mColors);
     }
 
@@ -316,11 +358,22 @@ public class ColorStateList implements Parcelable {
         }
 
         public ColorStateList createFromParcel(Parcel source) {
+<<<<<<< HEAD
             final int N = source.readInt();
             int[][] stateSpecs = new int[N][];
             for (int i=0; i<N; i++) {
                 stateSpecs[i] = source.createIntArray();
             }
+=======
+            Object[] o = source.readArray(
+                                    ColorStateList.class.getClassLoader());
+            int[][] stateSpecs = new int[o.length][];
+
+            for (int i = 0; i < o.length; i++) {
+                stateSpecs[i] = (int[]) o[i];
+            }
+
+>>>>>>> 54b6cfa... Initial Contribution
             int[] colors = source.createIntArray();
             return new ColorStateList(stateSpecs, colors);
         }

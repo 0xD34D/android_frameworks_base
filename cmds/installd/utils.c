@@ -16,6 +16,7 @@
 
 #include "installd.h"
 
+<<<<<<< HEAD
 int create_pkg_path_in_dir(char path[PKG_PATH_MAX],
                                 const dir_rec_t* dir,
                                 const char* pkgname,
@@ -157,12 +158,32 @@ int is_valid_package_name(const char* pkgname) {
     const char *x = pkgname;
     int alpha = -1;
 
+=======
+int create_pkg_path(char path[PKG_PATH_MAX],
+                    const char *prefix,
+                    const char *pkgname,
+                    const char *postfix)
+{
+    int len;
+    const char *x;
+
+    len = strlen(pkgname);
+    if (len > PKG_NAME_MAX) {
+        return -1;
+    }
+    if ((len + strlen(prefix) + strlen(postfix)) >= PKG_PATH_MAX) {
+        return -1;
+    }
+
+    x = pkgname;
+>>>>>>> 54b6cfa... Initial Contribution
     while (*x) {
         if (isalnum(*x) || (*x == '_')) {
                 /* alphanumeric or underscore are fine */
         } else if (*x == '.') {
             if ((x == pkgname) || (x[1] == '.') || (x[1] == 0)) {
                     /* periods must not be first, last, or doubled */
+<<<<<<< HEAD
                 ALOGE("invalid package name '%s'\n", pkgname);
                 return -1;
             }
@@ -191,6 +212,20 @@ int is_valid_package_name(const char* pkgname) {
         }
     }
 
+=======
+                LOGE("invalid package name '%s'\n", pkgname);
+                return -1;
+            }
+        } else {
+                /* anything not A-Z, a-z, 0-9, _, or . is invalid */
+            LOGE("invalid package name '%s'\n", pkgname);
+            return -1;
+        }
+        x++;
+    }
+
+    sprintf(path, "%s%s%s", prefix, pkgname, postfix);
+>>>>>>> 54b6cfa... Initial Contribution
     return 0;
 }
 
@@ -222,13 +257,19 @@ static int _delete_dir_contents(DIR *d, const char *ignore)
 
             subfd = openat(dfd, name, O_RDONLY | O_DIRECTORY);
             if (subfd < 0) {
+<<<<<<< HEAD
                 ALOGE("Couldn't openat %s: %s\n", name, strerror(errno));
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 result = -1;
                 continue;
             }
             subdir = fdopendir(subfd);
             if (subdir == NULL) {
+<<<<<<< HEAD
                 ALOGE("Couldn't fdopendir %s: %s\n", name, strerror(errno));
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 close(subfd);
                 result = -1;
                 continue;
@@ -238,12 +279,18 @@ static int _delete_dir_contents(DIR *d, const char *ignore)
             }
             closedir(subdir);
             if (unlinkat(dfd, name, AT_REMOVEDIR) < 0) {
+<<<<<<< HEAD
                 ALOGE("Couldn't unlinkat %s: %s\n", name, strerror(errno));
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 result = -1;
             }
         } else {
             if (unlinkat(dfd, name, 0) < 0) {
+<<<<<<< HEAD
                 ALOGE("Couldn't unlinkat %s: %s\n", name, strerror(errno));
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 result = -1;
             }
         }
@@ -261,14 +308,20 @@ int delete_dir_contents(const char *pathname,
 
     d = opendir(pathname);
     if (d == NULL) {
+<<<<<<< HEAD
         ALOGE("Couldn't opendir %s: %s\n", pathname, strerror(errno));
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         return -errno;
     }
     res = _delete_dir_contents(d, ignore);
     closedir(d);
     if (also_delete_dir) {
         if (rmdir(pathname)) {
+<<<<<<< HEAD
             ALOGE("Couldn't rmdir %s: %s\n", pathname, strerror(errno));
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             res = -1;
         }
     }
@@ -282,12 +335,18 @@ int delete_dir_contents_fd(int dfd, const char *name)
 
     fd = openat(dfd, name, O_RDONLY | O_DIRECTORY);
     if (fd < 0) {
+<<<<<<< HEAD
         ALOGE("Couldn't openat %s: %s\n", name, strerror(errno));
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
     }
     d = fdopendir(fd);
     if (d == NULL) {
+<<<<<<< HEAD
         ALOGE("Couldn't fdopendir %s: %s\n", name, strerror(errno));
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         close(fd);
         return -1;
     }
@@ -295,6 +354,7 @@ int delete_dir_contents_fd(int dfd, const char *name)
     closedir(d);
     return res;
 }
+<<<<<<< HEAD
 
 /**
  * Checks whether a path points to a system app (.apk file). Returns 0
@@ -494,3 +554,5 @@ char *build_string3(char *s1, char *s2, char *s3) {
 
     return result;
 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution

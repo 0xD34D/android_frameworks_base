@@ -39,14 +39,22 @@ public final class ContentValues implements Parcelable {
      * Creates an empty set of values using the default initial size
      */
     public ContentValues() {
+<<<<<<< HEAD
         // Choosing a default size of 8 based on analysis of typical
+=======
+        // Choosing a default size of 8 based on analysis of typical 
+>>>>>>> 54b6cfa... Initial Contribution
         // consumption by applications.
         mValues = new HashMap<String, Object>(8);
     }
 
     /**
      * Creates an empty set of values using the given initial size
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param size the initial size of the set of values
      */
     public ContentValues(int size) {
@@ -55,7 +63,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Creates a set of values copied from the given set
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param from the values to copy
      */
     public ContentValues(ContentValues from) {
@@ -65,8 +77,13 @@ public final class ContentValues implements Parcelable {
     /**
      * Creates a set of values copied from the given HashMap. This is used
      * by the Parcel unmarshalling code.
+<<<<<<< HEAD
      *
      * @param values the values to start with
+=======
+     * 
+     * @param from the values to start with
+>>>>>>> 54b6cfa... Initial Contribution
      * {@hide}
      */
     private ContentValues(HashMap<String, Object> values) {
@@ -174,7 +191,11 @@ public final class ContentValues implements Parcelable {
     public void put(String key, Boolean value) {
         mValues.put(key, value);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Adds a value to the set.
      *
@@ -187,7 +208,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Adds a null value to the set.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the name of the value to make null
      */
     public void putNull(String key) {
@@ -196,7 +221,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Returns the number of values.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @return the number of values
      */
     public int size() {
@@ -223,7 +252,11 @@ public final class ContentValues implements Parcelable {
      * Returns true if this object has the named value.
      *
      * @param key the value to check for
+<<<<<<< HEAD
      * @return {@code true} if the value is present, {@code false} otherwise
+=======
+     * @return {@code true} if the value is present, {@code false} otherwise 
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public boolean containsKey(String key) {
         return mValues.containsKey(key);
@@ -242,18 +275,30 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Gets a value and converts it to a String.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the String for the value
      */
     public String getAsString(String key) {
         Object value = mValues.get(key);
+<<<<<<< HEAD
         return value != null ? value.toString() : null;
+=======
+        return value != null ? mValues.get(key).toString() : null;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Gets a value and converts it to a Long.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the Long value, or null if the value is missing or cannot be converted
      */
@@ -270,7 +315,11 @@ public final class ContentValues implements Parcelable {
                     return null;
                 }
             } else {
+<<<<<<< HEAD
                 Log.e(TAG, "Cannot cast value for " + key + " to a Long: " + value, e);
+=======
+                Log.e(TAG, "Cannot cast value for " + key + " to a Long");
+>>>>>>> 54b6cfa... Initial Contribution
                 return null;
             }
         }
@@ -278,7 +327,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Gets a value and converts it to an Integer.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the Integer value, or null if the value is missing or cannot be converted
      */
@@ -295,7 +348,11 @@ public final class ContentValues implements Parcelable {
                     return null;
                 }
             } else {
+<<<<<<< HEAD
                 Log.e(TAG, "Cannot cast value for " + key + " to a Integer: " + value, e);
+=======
+                Log.e(TAG, "Cannot cast value for " + key + " to a Integer");
+>>>>>>> 54b6cfa... Initial Contribution
                 return null;
             }
         }
@@ -303,7 +360,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Gets a value and converts it to a Short.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the Short value, or null if the value is missing or cannot be converted
      */
@@ -320,7 +381,11 @@ public final class ContentValues implements Parcelable {
                     return null;
                 }
             } else {
+<<<<<<< HEAD
                 Log.e(TAG, "Cannot cast value for " + key + " to a Short: " + value, e);
+=======
+                Log.e(TAG, "Cannot cast value for " + key + " to a Short");
+>>>>>>> 54b6cfa... Initial Contribution
                 return null;
             }
         }
@@ -328,7 +393,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Gets a value and converts it to a Byte.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the Byte value, or null if the value is missing or cannot be converted
      */
@@ -345,7 +414,11 @@ public final class ContentValues implements Parcelable {
                     return null;
                 }
             } else {
+<<<<<<< HEAD
                 Log.e(TAG, "Cannot cast value for " + key + " to a Byte: " + value, e);
+=======
+                Log.e(TAG, "Cannot cast value for " + key + " to a Byte");
+>>>>>>> 54b6cfa... Initial Contribution
                 return null;
             }
         }
@@ -353,7 +426,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Gets a value and converts it to a Double.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the Double value, or null if the value is missing or cannot be converted
      */
@@ -370,7 +447,11 @@ public final class ContentValues implements Parcelable {
                     return null;
                 }
             } else {
+<<<<<<< HEAD
                 Log.e(TAG, "Cannot cast value for " + key + " to a Double: " + value, e);
+=======
+                Log.e(TAG, "Cannot cast value for " + key + " to a Double");
+>>>>>>> 54b6cfa... Initial Contribution
                 return null;
             }
         }
@@ -378,7 +459,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Gets a value and converts it to a Float.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the Float value, or null if the value is missing or cannot be converted
      */
@@ -395,7 +480,11 @@ public final class ContentValues implements Parcelable {
                     return null;
                 }
             } else {
+<<<<<<< HEAD
                 Log.e(TAG, "Cannot cast value for " + key + " to a Float: " + value, e);
+=======
+                Log.e(TAG, "Cannot cast value for " + key + " to a Float");
+>>>>>>> 54b6cfa... Initial Contribution
                 return null;
             }
         }
@@ -403,7 +492,11 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Gets a value and converts it to a Boolean.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the Boolean value, or null if the value is missing or cannot be converted
      */
@@ -414,10 +507,15 @@ public final class ContentValues implements Parcelable {
         } catch (ClassCastException e) {
             if (value instanceof CharSequence) {
                 return Boolean.valueOf(value.toString());
+<<<<<<< HEAD
             } else if (value instanceof Number) {
                 return ((Number) value).intValue() != 0;
             } else {
                 Log.e(TAG, "Cannot cast value for " + key + " to a Boolean: " + value, e);
+=======
+            } else {
+                Log.e(TAG, "Cannot cast value for " + key + " to a Boolean");
+>>>>>>> 54b6cfa... Initial Contribution
                 return null;
             }
         }
@@ -426,7 +524,11 @@ public final class ContentValues implements Parcelable {
     /**
      * Gets a value that is a byte array. Note that this method will not convert
      * any other types to byte arrays.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param key the value to get
      * @return the byte[] value, or null is the value is missing or not a byte[]
      */
@@ -441,12 +543,17 @@ public final class ContentValues implements Parcelable {
 
     /**
      * Returns a set of all of the keys and values
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @return a set of all of the keys and values
      */
     public Set<Map.Entry<String, Object>> valueSet() {
         return mValues.entrySet();
     }
+<<<<<<< HEAD
 
     /**
      * Returns a set of all of the keys
@@ -457,6 +564,9 @@ public final class ContentValues implements Parcelable {
         return mValues.keySet();
     }
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public static final Parcelable.Creator<ContentValues> CREATOR =
             new Parcelable.Creator<ContentValues>() {
         @SuppressWarnings({"deprecation", "unchecked"})
@@ -499,10 +609,13 @@ public final class ContentValues implements Parcelable {
         return (ArrayList<String>) mValues.get(key);
     }
 
+<<<<<<< HEAD
     /**
      * Returns a string containing a concise, human-readable description of this object.
      * @return a printable representation of this object.
      */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

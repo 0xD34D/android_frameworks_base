@@ -17,6 +17,7 @@
 
 package com.android.server;
 
+<<<<<<< HEAD
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -47,6 +48,58 @@ public final class AttributeCache {
         
         public Package(Context c) {
             context = c;
+=======
+import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.Intent;
+import android.content.BroadcastReceiver;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.provider.Settings;
+import android.util.Config;
+import android.util.Log;
+
+import java.util.WeakHashMap;
+
+public final class AttributeCache extends BroadcastReceiver {
+    private static AttributeCache sInstance = null;
+    
+    private final Context mContext;
+    private final WeakHashMap<Key, Entry> mMap =
+            new WeakHashMap<Key, Entry>();
+    private final WeakHashMap<String, Context> mContexts =
+            new WeakHashMap<String, Context>();
+    
+    final static class Key {
+        public final String packageName;
+        public final int resId;
+        public final int[] styleable;
+        
+        public Key(String inPackageName, int inResId, int[] inStyleable) {
+            packageName = inPackageName;
+            resId = inResId;
+            styleable = inStyleable;
+        }
+        
+        @Override public boolean equals(Object obj) {
+            try {
+                if (obj != null) {
+                    Key other = (Key)obj;
+                    return packageName.equals(other.packageName)
+                            && resId == other.resId
+                            && styleable == other.styleable;
+                }
+            } catch (ClassCastException e) {
+            }
+            return false;
+        }
+
+        @Override public int hashCode() {
+            return packageName.hashCode() + resId;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
@@ -74,6 +127,7 @@ public final class AttributeCache {
         mContext = context;
     }
     
+<<<<<<< HEAD
     public void removePackage(String packageName) {
         synchronized (this) {
             mPackages.remove(packageName);
@@ -109,11 +163,23 @@ public final class AttributeCache {
                 }
             } else {
                 Context context;
+=======
+    public Entry get(String packageName, int resId, int[] styleable) {
+        synchronized (this) {
+            Key key = new Key(packageName, resId, styleable);
+            Entry ent = mMap.get(key);
+            if (ent != null) {
+                return ent;
+            }
+            Context context = mContexts.get(packageName);
+            if (context == null) {
+>>>>>>> 54b6cfa... Initial Contribution
                 try {
                     context = mContext.createPackageContext(packageName, 0);
                     if (context == null) {
                         return null;
                     }
+<<<<<<< HEAD
                 } catch (PackageManager.NameNotFoundException e) {
                     return null;
                 }
@@ -137,5 +203,24 @@ public final class AttributeCache {
             return ent;
         }
     }
+=======
+                    mContexts.put(packageName, context);
+                } catch (PackageManager.NameNotFoundException e) {
+                    return null;
+                }
+            }
+            try {
+                ent = new Entry(context,
+                        context.obtainStyledAttributes(resId, styleable));
+                mMap.put(key, ent);
+            } catch (Resources.NotFoundException e) {
+                return null;
+            }
+            return ent;
+        }
+    }
+    @Override public void onReceive(Context context, Intent intent) {
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }
 

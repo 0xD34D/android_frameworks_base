@@ -2,6 +2,7 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+<<<<<<< HEAD
 LOCAL_SRC_FILES := \
 	Compile.java  \
 	LoadedClass.java \
@@ -15,6 +16,9 @@ LOCAL_SRC_FILES := \
 	Record.java \
 	Root.java \
 	WritePreloadedClassFile.java
+=======
+LOCAL_SRC_FILES := *.java
+>>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_MODULE:= preload
 

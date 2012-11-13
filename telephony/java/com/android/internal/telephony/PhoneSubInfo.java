@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -28,19 +29,32 @@ import com.android.internal.telephony.ims.IsimRecords;
 
 public class PhoneSubInfo extends IPhoneSubInfo.Stub {
     static final String LOG_TAG = "PHONE";
+=======
+package com.android.internal.telephony;
+
+import android.content.Context;
+import android.os.ServiceManager;
+import com.android.internal.telephony.*;
+
+public class PhoneSubInfo extends IPhoneSubInfo.Stub {
+>>>>>>> 54b6cfa... Initial Contribution
     private Phone mPhone;
     private Context mContext;
     private static final String READ_PHONE_STATE =
         android.Manifest.permission.READ_PHONE_STATE;
+<<<<<<< HEAD
     // TODO: change getCompleteVoiceMailNumber() to require READ_PRIVILEGED_PHONE_STATE
     private static final String CALL_PRIVILEGED =
         android.Manifest.permission.CALL_PRIVILEGED;
     private static final String READ_PRIVILEGED_PHONE_STATE =
         android.Manifest.permission.READ_PRIVILEGED_PHONE_STATE;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     public PhoneSubInfo(Phone phone) {
         mPhone = phone;
         mContext = phone.getContext();
+<<<<<<< HEAD
     }
 
     public void dispose() {
@@ -57,6 +71,12 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
 
     /**
      * Retrieves the unique device ID, e.g., IMEI for GSM phones and MEID for CDMA phones.
+=======
+        ServiceManager.addService("iphonesubinfo", this);
+    }
+    /**
+     * Retrieves the unique device ID, e.g., IMEI for GSM phones.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public String getDeviceId() {
         mContext.enforceCallingOrSelfPermission(READ_PHONE_STATE, "Requires READ_PHONE_STATE");
@@ -73,7 +93,11 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
     }
 
     /**
+<<<<<<< HEAD
      * Retrieves the unique subscriber ID, e.g., IMSI for GSM phones.
+=======
+     * Retrieves the unique sbuscriber ID, e.g., IMSI for GSM phones.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public String getSubscriberId() {
         mContext.enforceCallingOrSelfPermission(READ_PHONE_STATE, "Requires READ_PHONE_STATE");
@@ -81,11 +105,19 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
     }
 
     /**
+<<<<<<< HEAD
      * Retrieves the serial number of the ICC, if applicable.
      */
     public String getIccSerialNumber() {
         mContext.enforceCallingOrSelfPermission(READ_PHONE_STATE, "Requires READ_PHONE_STATE");
         return mPhone.getIccSerialNumber();
+=======
+     * Retrieves the serial number of the SIM, if applicable.
+     */
+    public String getSimSerialNumber() {
+        mContext.enforceCallingOrSelfPermission(READ_PHONE_STATE, "Requires READ_PHONE_STATE");
+        return mPhone.getSimSerialNumber();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -105,6 +137,7 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
     }
 
     /**
+<<<<<<< HEAD
      * Retrieves the MSISDN string.
      */
     public String getMsisdn() {
@@ -113,10 +146,13 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Retrieves the voice mail number.
      */
     public String getVoiceMailNumber() {
         mContext.enforceCallingOrSelfPermission(READ_PHONE_STATE, "Requires READ_PHONE_STATE");
+<<<<<<< HEAD
         String number = PhoneNumberUtils.extractNetworkPortion(mPhone.getVoiceMailNumber());
         Log.d(LOG_TAG, "VM: PhoneSubInfo.getVoiceMailNUmber: "); // + number);
         return number;
@@ -133,6 +169,9 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
         String number = mPhone.getVoiceMailNumber();
         Log.d(LOG_TAG, "VM: PhoneSubInfo.getCompleteVoiceMailNUmber: "); // + number);
         return number;
+=======
+        return (String) mPhone.getVoiceMailNumber();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -142,6 +181,7 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
         mContext.enforceCallingOrSelfPermission(READ_PHONE_STATE, "Requires READ_PHONE_STATE");
         return (String) mPhone.getVoiceMailAlphaTag();
     }
+<<<<<<< HEAD
 
     /**
      * Returns the IMS private user identity (IMPI) that was loaded from the ISIM.
@@ -203,4 +243,6 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
         pw.println("  Device ID = " + mPhone.getDeviceId());
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

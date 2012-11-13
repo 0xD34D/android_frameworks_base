@@ -25,14 +25,23 @@ import android.text.*;
 import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
 import android.view.View;
+<<<<<<< HEAD
 import android.view.ViewGroup;
 import android.view.Window;
+=======
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.view.WindowManager;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+<<<<<<< HEAD
+=======
+import android.widget.TextView;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Dialog for choosing accented characters related to a base character.
@@ -44,7 +53,10 @@ public class CharacterPickerDialog extends Dialog
     private String mOptions;
     private boolean mInsert;
     private LayoutInflater mInflater;
+<<<<<<< HEAD
     private Button mCancelButton;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Creates a new CharacterPickerDialog that presents the specified
@@ -54,7 +66,11 @@ public class CharacterPickerDialog extends Dialog
     public CharacterPickerDialog(Context context, View view,
                                  Editable text, String options,
                                  boolean insert) {
+<<<<<<< HEAD
         super(context, com.android.internal.R.style.Theme_Panel);
+=======
+        super(context);
+>>>>>>> 54b6cfa... Initial Contribution
 
         mView = view;
         mText = text;
@@ -69,23 +85,34 @@ public class CharacterPickerDialog extends Dialog
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.token = mView.getApplicationWindowToken();
+<<<<<<< HEAD
         params.type = params.TYPE_APPLICATION_ATTACHED_DIALOG;
         params.flags = params.flags | Window.FEATURE_NO_TITLE;
 
+=======
+        params.type = params.TYPE_APPLICATION_PANEL;
+
+        setTitle(R.string.select_character);
+>>>>>>> 54b6cfa... Initial Contribution
         setContentView(R.layout.character_picker);
 
         GridView grid = (GridView) findViewById(R.id.characterPicker);
         grid.setAdapter(new OptionsAdapter(getContext()));
         grid.setOnItemClickListener(this);
 
+<<<<<<< HEAD
         mCancelButton = (Button) findViewById(R.id.cancel);
         mCancelButton.setOnClickListener(this);
+=======
+        findViewById(R.id.cancel).setOnClickListener(this);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Handles clicks on the character buttons.
      */
     public void onItemClick(AdapterView parent, View view, int position, long id) {
+<<<<<<< HEAD
         String result = String.valueOf(mOptions.charAt(position));
         replaceCharacterAndClose(result);
     }
@@ -96,6 +123,15 @@ public class CharacterPickerDialog extends Dialog
             mText.insert(selEnd, replace);
         } else {
             mText.replace(selEnd - 1, selEnd, replace);
+=======
+        int selEnd = Selection.getSelectionEnd(mText);
+        String result = String.valueOf(mOptions.charAt(position));
+
+        if (mInsert || selEnd == 0) {
+            mText.insert(selEnd, result);
+        } else {
+            mText.replace(selEnd - 1, selEnd, result);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         dismiss();
@@ -105,6 +141,7 @@ public class CharacterPickerDialog extends Dialog
      * Handles clicks on the Cancel button.
      */
     public void onClick(View v) {
+<<<<<<< HEAD
         if (v == mCancelButton) {
             dismiss();
         } else if (v instanceof Button) {
@@ -117,13 +154,27 @@ public class CharacterPickerDialog extends Dialog
 
         public OptionsAdapter(Context context) {
             super();
+=======
+        dismiss();
+    }
+
+    private class OptionsAdapter extends BaseAdapter {
+        private Context mContext;
+
+        public OptionsAdapter(Context context) {
+            super();
+            mContext = context;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
             Button b = (Button)
                 mInflater.inflate(R.layout.character_picker_button, null);
             b.setText(String.valueOf(mOptions.charAt(position)));
+<<<<<<< HEAD
             b.setOnClickListener(CharacterPickerDialog.this);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             return b;
         }
 

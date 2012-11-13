@@ -16,7 +16,10 @@
 
 package android.content;
 
+<<<<<<< HEAD
 import android.accounts.Account;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.Bundle;
 import android.content.ISyncContext;
 
@@ -31,16 +34,24 @@ oneway interface ISyncAdapter {
      *
      * @param syncContext the ISyncContext used to indicate the progress of the sync. When
      *   the sync is finished (successfully or not) ISyncContext.onFinished() must be called.
+<<<<<<< HEAD
      * @param authority the authority that should be synced
      * @param account the account that should be synced
      * @param extras SyncAdapter-specific parameters
      */
     void startSync(ISyncContext syncContext, String authority,
       in Account account, in Bundle extras);
+=======
+     * @param account the account that should be synced
+     * @param extras SyncAdapter-specific parameters
+     */
+    void startSync(ISyncContext syncContext, String account, in Bundle extras);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Cancel the most recently initiated sync. Due to race conditions, this may arrive
      * after the ISyncContext.onFinished() for that sync was called.
+<<<<<<< HEAD
      * @param syncContext the ISyncContext that was passed to {@link #startSync}
      */
     void cancelSync(ISyncContext syncContext);
@@ -52,4 +63,8 @@ oneway interface ISyncAdapter {
      * @param authority the authority that should be synced
      */
     void initialize(in Account account, String authority);
+=======
+     */
+    void cancelSync();
+>>>>>>> 54b6cfa... Initial Contribution
 }

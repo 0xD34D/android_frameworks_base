@@ -15,7 +15,11 @@
 -->
 
 <TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android" 
+<<<<<<< HEAD
     android:layout_width="match_parent"
+=======
+    android:layout_width="fill_parent"
+>>>>>>> 54b6cfa... Initial Contribution
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:paddingTop="2dip"
     android:paddingBottom="2dip"
@@ -24,6 +28,7 @@
 >
 
     <TextView android:id="@android:id/text1"
+<<<<<<< HEAD
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dip"
@@ -32,6 +37,16 @@
 
     <TextView android:id="@android:id/text2"
         android:layout_width="match_parent"
+=======
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dip"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+    />
+
+    <TextView android:id="@android:id/text2"
+        android:layout_width="fill_parent"
+>>>>>>> 54b6cfa... Initial Contribution
         android:layout_height="wrap_content"
         android:layout_below="@android:id/text1"
         android:layout_alignLeft="@android:id/text1"

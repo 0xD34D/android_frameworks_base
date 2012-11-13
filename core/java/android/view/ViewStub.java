@@ -20,12 +20,18 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+<<<<<<< HEAD
 import android.widget.RemoteViews.RemoteView;
 
 import com.android.internal.R;
 
 import java.lang.ref.WeakReference;
 
+=======
+
+import com.android.internal.R;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * A ViewStub is an invisible, zero-sized View that can be used to lazily inflate
  * layout resources at runtime.
@@ -67,14 +73,20 @@ import java.lang.ref.WeakReference;
  * @attr ref android.R.styleable#ViewStub_inflatedId
  * @attr ref android.R.styleable#ViewStub_layout
  */
+<<<<<<< HEAD
 @RemoteView
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 public final class ViewStub extends View {
     private int mLayoutResource = 0;
     private int mInflatedId;
 
+<<<<<<< HEAD
     private WeakReference<View> mInflatedViewRef;
 
     private LayoutInflater mInflater;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private OnInflateListener mInflateListener;
 
     public ViewStub(Context context) {
@@ -143,7 +155,10 @@ public final class ViewStub extends View {
      * @see #getInflatedId()
      * @attr ref android.R.styleable#ViewStub_inflatedId
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setInflatedId(int inflatedId) {
         mInflatedId = inflatedId;
     }
@@ -176,11 +191,15 @@ public final class ViewStub extends View {
      * @see #inflate()
      * @attr ref android.R.styleable#ViewStub_layout
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setLayoutResource(int layoutResource) {
         mLayoutResource = layoutResource;
     }
 
+<<<<<<< HEAD
     /**
      * Set {@link LayoutInflater} to use in {@link #inflate()}, or {@code null}
      * to use the default.
@@ -196,6 +215,8 @@ public final class ViewStub extends View {
         return mInflater;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(0, 0);
@@ -219,6 +240,7 @@ public final class ViewStub extends View {
      * @see #inflate() 
      */
     @Override
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
     public void setVisibility(int visibility) {
         if (mInflatedViewRef != null) {
@@ -233,6 +255,13 @@ public final class ViewStub extends View {
             if (visibility == VISIBLE || visibility == INVISIBLE) {
                 inflate();
             }
+=======
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+
+        if (visibility == VISIBLE || visibility == INVISIBLE) {
+            inflate();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -249,12 +278,16 @@ public final class ViewStub extends View {
         if (viewParent != null && viewParent instanceof ViewGroup) {
             if (mLayoutResource != 0) {
                 final ViewGroup parent = (ViewGroup) viewParent;
+<<<<<<< HEAD
                 final LayoutInflater factory;
                 if (mInflater != null) {
                     factory = mInflater;
                 } else {
                     factory = LayoutInflater.from(mContext);
                 }
+=======
+                final LayoutInflater factory = LayoutInflater.from(mContext);
+>>>>>>> 54b6cfa... Initial Contribution
                 final View view = factory.inflate(mLayoutResource, parent,
                         false);
 
@@ -272,8 +305,11 @@ public final class ViewStub extends View {
                     parent.addView(view, index);
                 }
 
+<<<<<<< HEAD
                 mInflatedViewRef = new WeakReference<View>(view);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 if (mInflateListener != null) {
                     mInflateListener.onInflate(this, view);
                 }

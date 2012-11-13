@@ -16,6 +16,7 @@
 
 package android.app;
 
+<<<<<<< HEAD
 import com.android.internal.app.IUsageStats;
 import com.android.internal.os.PkgUsageStats;
 import com.android.internal.util.MemInfoReader;
@@ -50,17 +51,40 @@ import android.view.Display;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.IPackageDataObserver;
+import android.graphics.Bitmap;
+import android.os.RemoteException;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Parcelable.Creator;
+import android.text.TextUtils;
+import android.util.Log;
+
+import java.util.List;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Interact with the overall activities running in the system.
  */
 public class ActivityManager {
     private static String TAG = "ActivityManager";
+<<<<<<< HEAD
     private static boolean localLOGV = false;
+=======
+    private static boolean DEBUG = false;
+    private static boolean localLOGV = DEBUG || android.util.Config.LOGV;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private final Context mContext;
     private final Handler mHandler;
 
+<<<<<<< HEAD
     /**
      * Result for IActivityManager.startActivity: an error where the
      * start had to be canceled.
@@ -209,12 +233,15 @@ public class ActivityManager {
      */
     public static final int INTENT_SENDER_SERVICE = 4;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /*package*/ ActivityManager(Context context, Handler handler) {
         mContext = context;
         mHandler = handler;
     }
 
     /**
+<<<<<<< HEAD
      * Screen compatibility mode: the application most always run in
      * compatibility mode.
      * @hide
@@ -404,6 +431,8 @@ public class ActivityManager {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Information you can retrieve about tasks that the user has most recently
      * started or visited.
      */
@@ -415,11 +444,14 @@ public class ActivityManager {
         public int id;
 
         /**
+<<<<<<< HEAD
          * The true identifier of this task, valid even if it is not running.
          */
         public int persistentId;
         
         /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
          * The original Intent used to launch the task.  You can use this
          * Intent to re-launch the task (if it is no longer running) or bring
          * the current task to the front.
@@ -433,11 +465,14 @@ public class ActivityManager {
          * implementation that the alias referred to.  Otherwise, this is null.
          */
         public ComponentName origActivity;
+<<<<<<< HEAD
 
         /**
          * Description of the task's last state.
          */
         public CharSequence description;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         
         public RecentTaskInfo() {
         }
@@ -448,7 +483,10 @@ public class ActivityManager {
 
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeInt(id);
+<<<<<<< HEAD
             dest.writeInt(persistentId);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             if (baseIntent != null) {
                 dest.writeInt(1);
                 baseIntent.writeToParcel(dest, 0);
@@ -456,20 +494,29 @@ public class ActivityManager {
                 dest.writeInt(0);
             }
             ComponentName.writeToParcel(origActivity, dest);
+<<<<<<< HEAD
             TextUtils.writeToParcel(description, dest,
                     Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public void readFromParcel(Parcel source) {
             id = source.readInt();
+<<<<<<< HEAD
             persistentId = source.readInt();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             if (source.readInt() != 0) {
                 baseIntent = Intent.CREATOR.createFromParcel(source);
             } else {
                 baseIntent = null;
             }
             origActivity = ComponentName.readFromParcel(source);
+<<<<<<< HEAD
             description = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
         
         public static final Creator<RecentTaskInfo> CREATOR
@@ -495,6 +542,7 @@ public class ActivityManager {
     public static final int RECENT_WITH_EXCLUDED = 0x0001;
     
     /**
+<<<<<<< HEAD
      * Provides a list that does not contain any
      * recent tasks that currently are not available to the user.
      */
@@ -518,6 +566,14 @@ public class ActivityManager {
      * user has started and the maximum number the system can remember.
      * @param flags Information about what to return.  May be any combination
      * of {@link #RECENT_WITH_EXCLUDED} and {@link #RECENT_IGNORE_UNAVAILABLE}.
+=======
+     * Return a list of the tasks that the user has recently launched, with
+     * the most recent being first and older ones after in order.
+     * 
+     * @param maxNum The maximum number of entries to return in the list.  The
+     * actual number returned may be smaller, depending on how many tasks the
+     * user has started and the maximum number the system can remember.
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @return Returns a list of RecentTaskInfo records describing each of
      * the recent tasks.
@@ -539,7 +595,11 @@ public class ActivityManager {
     /**
      * Information you can retrieve about a particular task that is currently
      * "running" in the system.  Note that a running task does not mean the
+<<<<<<< HEAD
      * given task actually has a process it is actively running in; it simply
+=======
+     * given task actual has a process it is actively running in; it simply
+>>>>>>> 54b6cfa... Initial Contribution
      * means that the user has gone to it and never closed it, but currently
      * the system may have killed its process and is only holding on to its
      * last state in order to restart it when the user returns.
@@ -563,8 +623,12 @@ public class ActivityManager {
         public ComponentName topActivity;
 
         /**
+<<<<<<< HEAD
          * Thumbnail representation of the task's current state.  Currently
          * always null.
+=======
+         * Thumbnail representation of the task's current state.
+>>>>>>> 54b6cfa... Initial Contribution
          */
         public Bitmap thumbnail;
 
@@ -634,7 +698,11 @@ public class ActivityManager {
             readFromParcel(source);
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return a list of the tasks that are currently running, with
      * the most recent being first and older ones after in order.  Note that
@@ -646,6 +714,7 @@ public class ActivityManager {
      * @param maxNum The maximum number of entries to return in the list.  The
      * actual number returned may be smaller, depending on how many tasks the
      * user has started.
+<<<<<<< HEAD
      *
      * @param flags Optional flags
      * @param receiver Optional receiver for delayed thumbnails
@@ -695,11 +764,18 @@ public class ActivityManager {
      * @return Returns a list of RunningTaskInfo records describing each of
      * the running tasks.
      *
+=======
+     * 
+     * @return Returns a list of RunningTaskInfo records describing each of
+     * the running tasks.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @throws SecurityException Throws SecurityException if the caller does
      * not hold the {@link android.Manifest.permission#GET_TASKS} permission.
      */
     public List<RunningTaskInfo> getRunningTasks(int maxNum)
             throws SecurityException {
+<<<<<<< HEAD
         return getRunningTasks(maxNum, 0, null);
     }
 
@@ -879,6 +955,26 @@ public class ActivityManager {
          * The service component.
          */
         public ComponentName service;
+=======
+        try {
+            return (List<RunningTaskInfo>)ActivityManagerNative.getDefault()
+                    .getTasks(maxNum, 0, null);
+        } catch (RemoteException e) {
+            // System dead, we will be dead too soon!
+            return null;
+        }
+    }
+    
+    /**
+     * Information you can retrieve about a particular Service that is
+     * currently running in the system.
+     */
+    public static class RunningServiceInfo implements Parcelable {
+        /**
+         * The service component.
+         */
+        public ComponentName service;
+>>>>>>> 54b6cfa... Initial Contribution
 
         /**
          * If non-zero, this is the process the service is running in.
@@ -886,11 +982,14 @@ public class ActivityManager {
         public int pid;
         
         /**
+<<<<<<< HEAD
          * The UID that owns this service.
          */
         public int uid;
         
         /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
          * The name of the process this service runs in.
          */
         public String process;
@@ -901,9 +1000,14 @@ public class ActivityManager {
         public boolean foreground;
         
         /**
+<<<<<<< HEAD
          * The time when the service was first made active, either by someone
          * starting or binding to it.  This
          * is in units of {@link android.os.SystemClock#elapsedRealtime()}.
+=======
+         * The time when the service was first made activity, either by someone
+         * starting or binding to it.
+>>>>>>> 54b6cfa... Initial Contribution
          */
         public long activeSince;
         
@@ -925,8 +1029,12 @@ public class ActivityManager {
         
         /**
          * The time when there was last activity in the service (either
+<<<<<<< HEAD
          * explicit requests to start it or clients binding to it).  This
          * is in units of {@link android.os.SystemClock#uptimeMillis()}.
+=======
+         * explicit requests to start it or clients binding to it).
+>>>>>>> 54b6cfa... Initial Contribution
          */
         public long lastActivityTime;
         
@@ -936,6 +1044,7 @@ public class ActivityManager {
          */
         public long restarting;
         
+<<<<<<< HEAD
         /**
          * Bit for {@link #flags}: set if this service has been
          * explicitly started.
@@ -978,6 +1087,8 @@ public class ActivityManager {
          */
         public int clientLabel;
         
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public RunningServiceInfo() {
         }
 
@@ -988,7 +1099,10 @@ public class ActivityManager {
         public void writeToParcel(Parcel dest, int flags) {
             ComponentName.writeToParcel(service, dest);
             dest.writeInt(pid);
+<<<<<<< HEAD
             dest.writeInt(uid);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             dest.writeString(process);
             dest.writeInt(foreground ? 1 : 0);
             dest.writeLong(activeSince);
@@ -997,15 +1111,21 @@ public class ActivityManager {
             dest.writeInt(crashCount);
             dest.writeLong(lastActivityTime);
             dest.writeLong(restarting);
+<<<<<<< HEAD
             dest.writeInt(this.flags);
             dest.writeString(clientPackage);
             dest.writeInt(clientLabel);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public void readFromParcel(Parcel source) {
             service = ComponentName.readFromParcel(source);
             pid = source.readInt();
+<<<<<<< HEAD
             uid = source.readInt();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             process = source.readString();
             foreground = source.readInt() != 0;
             activeSince = source.readLong();
@@ -1014,9 +1134,12 @@ public class ActivityManager {
             crashCount = source.readInt();
             lastActivityTime = source.readLong();
             restarting = source.readLong();
+<<<<<<< HEAD
             flags = source.readInt();
             clientPackage = source.readString();
             clientLabel = source.readInt();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
         
         public static final Creator<RunningServiceInfo> CREATOR = new Creator<RunningServiceInfo>() {
@@ -1035,10 +1158,14 @@ public class ActivityManager {
 
     /**
      * Return a list of the services that are currently running.
+<<<<<<< HEAD
      *
      * <p><b>Note: this method is only intended for debugging or implementing
      * service management type user interfaces.</b></p>
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param maxNum The maximum number of entries to return in the list.  The
      * actual number returned may be smaller, depending on how many services
      * are running.
@@ -1049,7 +1176,11 @@ public class ActivityManager {
     public List<RunningServiceInfo> getRunningServices(int maxNum)
             throws SecurityException {
         try {
+<<<<<<< HEAD
             return ActivityManagerNative.getDefault()
+=======
+            return (List<RunningServiceInfo>)ActivityManagerNative.getDefault()
+>>>>>>> 54b6cfa... Initial Contribution
                     .getServices(maxNum, 0);
         } catch (RemoteException e) {
             // System dead, we will be dead too soon!
@@ -1058,6 +1189,7 @@ public class ActivityManager {
     }
     
     /**
+<<<<<<< HEAD
      * Returns a PendingIntent you can start to show a control panel for the
      * given running service.  If the service does not have a control panel,
      * null is returned.
@@ -1074,17 +1206,24 @@ public class ActivityManager {
     }
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Information you can retrieve about the available memory through
      * {@link ActivityManager#getMemoryInfo}.
      */
     public static class MemoryInfo implements Parcelable {
         /**
+<<<<<<< HEAD
          * The available memory on the system.  This number should not
+=======
+         * The total available memory on the system.  This number should not
+>>>>>>> 54b6cfa... Initial Contribution
          * be considered absolute: due to the nature of the kernel, a significant
          * portion of this memory is actually in use and needed for the overall
          * system to run well.
          */
         public long availMem;
+<<<<<<< HEAD
 
         /**
          * The total memory accessible by the kernel.  This is basically the
@@ -1093,6 +1232,9 @@ public class ActivityManager {
          */
         public long totalMem;
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * The threshold of {@link #availMem} at which we consider memory to be
          * low and start killing background services and other non-extraneous
@@ -1106,6 +1248,7 @@ public class ActivityManager {
          */
         public boolean lowMemory;
 
+<<<<<<< HEAD
         /** @hide */
         public long hiddenAppThreshold;
         /** @hide */
@@ -1115,6 +1258,8 @@ public class ActivityManager {
         /** @hide */
         public long foregroundAppThreshold;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public MemoryInfo() {
         }
 
@@ -1124,6 +1269,7 @@ public class ActivityManager {
 
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeLong(availMem);
+<<<<<<< HEAD
             dest.writeLong(totalMem);
             dest.writeLong(threshold);
             dest.writeInt(lowMemory ? 1 : 0);
@@ -1131,10 +1277,15 @@ public class ActivityManager {
             dest.writeLong(secondaryServerThreshold);
             dest.writeLong(visibleAppThreshold);
             dest.writeLong(foregroundAppThreshold);
+=======
+            dest.writeLong(threshold);
+            dest.writeInt(lowMemory ? 1 : 0);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         
         public void readFromParcel(Parcel source) {
             availMem = source.readLong();
+<<<<<<< HEAD
             totalMem = source.readLong();
             threshold = source.readLong();
             lowMemory = source.readInt() != 0;
@@ -1142,6 +1293,10 @@ public class ActivityManager {
             secondaryServerThreshold = source.readLong();
             visibleAppThreshold = source.readLong();
             foregroundAppThreshold = source.readLong();
+=======
+            threshold = source.readLong();
+            lowMemory = source.readInt() != 0;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public static final Creator<MemoryInfo> CREATOR
@@ -1159,6 +1314,7 @@ public class ActivityManager {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Return general information about the memory state of the system.  This
      * can be used to help decide how to manage your own memory, though note
@@ -1169,6 +1325,8 @@ public class ActivityManager {
      * level of your process as needed, which gives a better hint for how to
      * manage its memory.
      */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void getMemoryInfo(MemoryInfo outInfo) {
         try {
             ActivityManagerNative.getDefault().getMemoryInfo(outInfo);
@@ -1182,7 +1340,11 @@ public class ActivityManager {
     public boolean clearApplicationUserData(String packageName, IPackageDataObserver observer) {
         try {
             return ActivityManagerNative.getDefault().clearApplicationUserData(packageName, 
+<<<<<<< HEAD
                     observer, Binder.getOrigCallingUser());
+=======
+                    observer);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             return false;
         }
@@ -1222,7 +1384,11 @@ public class ActivityManager {
         public int uid;
         
         /**
+<<<<<<< HEAD
          * The activity name associated with the error, if known.  May be null.
+=======
+         * The tag that was provided when the process crashed.
+>>>>>>> 54b6cfa... Initial Contribution
          */
         public String tag;
 
@@ -1237,6 +1403,7 @@ public class ActivityManager {
         public String longMsg;
 
         /**
+<<<<<<< HEAD
          * The stack trace where the error originated.  May be null.
          */
         public String stackTrace;
@@ -1245,6 +1412,11 @@ public class ActivityManager {
          * to be deprecated: This value will always be null.
          */
         public byte[] crashData = null;
+=======
+         * Raw data about the crash (typically a stack trace).
+         */
+        public byte[] crashData;
+>>>>>>> 54b6cfa... Initial Contribution
 
         public ProcessErrorStateInfo() {
         }
@@ -1261,7 +1433,12 @@ public class ActivityManager {
             dest.writeString(tag);
             dest.writeString(shortMsg);
             dest.writeString(longMsg);
+<<<<<<< HEAD
             dest.writeString(stackTrace);
+=======
+            dest.writeInt(crashData == null ? -1 : crashData.length);
+            dest.writeByteArray(crashData);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         
         public void readFromParcel(Parcel source) {
@@ -1272,7 +1449,17 @@ public class ActivityManager {
             tag = source.readString();
             shortMsg = source.readString();
             longMsg = source.readString();
+<<<<<<< HEAD
             stackTrace = source.readString();
+=======
+            int cdLen = source.readInt();
+            if (cdLen == -1) {
+                crashData = null;
+            } else {
+                crashData = new byte[cdLen];
+                source.readByteArray(crashData);
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
         
         public static final Creator<ProcessErrorStateInfo> CREATOR = 
@@ -1305,6 +1492,7 @@ public class ActivityManager {
             return null;
         }
     }
+<<<<<<< HEAD
 
     /**
      * Information you can retrieve about a running process.
@@ -1869,4 +2057,6 @@ public class ActivityManager {
             return false;
         }
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

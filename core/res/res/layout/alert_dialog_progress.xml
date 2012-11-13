@@ -15,6 +15,7 @@
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:layout_width="wrap_content" android:layout_height="match_parent">
         <ProgressBar android:id="@+id/progress"
             style="?android:attr/progressBarStyleHorizontal"
@@ -22,6 +23,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dip"
             android:layout_marginBottom="1dip"
+=======
+    android:layout_width="wrap_content" android:layout_height="fill_parent">
+        <ProgressBar android:id="@+id/progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dip"
+            android:layout_marginBottom="12dip"
+>>>>>>> 54b6cfa... Initial Contribution
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:layout_centerHorizontal="true" />
@@ -30,7 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="12dip"
+<<<<<<< HEAD
             android:layout_marginLeft="10dip"
+=======
+            android:layout_marginLeft="15dip"
+>>>>>>> 54b6cfa... Initial Contribution
             android:layout_marginRight="10dip"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/progress"
@@ -41,7 +55,11 @@
             android:layout_height="wrap_content"
             android:paddingBottom="12dip"
             android:layout_marginLeft="10dip"
+<<<<<<< HEAD
             android:layout_marginRight="10dip"
+=======
+            android:layout_marginRight="15dip"
+>>>>>>> 54b6cfa... Initial Contribution
             android:layout_alignParentRight="true"
             android:layout_below="@id/progress"
         />

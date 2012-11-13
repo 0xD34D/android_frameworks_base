@@ -20,7 +20,10 @@ package android.graphics;
  * AvoidXfermode xfermode will draw the src everywhere except on top of the
  * opColor or, depending on the Mode, draw only on top of the opColor.
  */
+<<<<<<< HEAD
 @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 public class AvoidXfermode extends Xfermode {
 
     // these need to match the enum in SkAvoidXfermode.h on the native side
@@ -34,6 +37,7 @@ public class AvoidXfermode extends Xfermode {
         final int nativeInt;
     }
     
+<<<<<<< HEAD
     /** This xfermode draws, or doesn't draw, based on the destination's
      * distance from an op-color.
      *
@@ -48,6 +52,19 @@ public class AvoidXfermode extends Xfermode {
      * are similar to the op-color
      * Tolerance near 0: draw only on colors that are nearly identical to the op-color
      * Tolerance near 255: draw on any colors even remotely similar to the op-color
+=======
+    /**
+     * This xfermode will draw the src everywhere except on top of the opColor
+     * or, depending on the Mode, draw only on top of the opColor.
+     *
+     * @param opColor The color to avoid (or to target depending on Mode). Note
+     *                that the alpha in opColor is ignored.
+     * @param tolerance How closely we compare a pixel to the opColor.
+     *                  0 - only operate if exact match
+     *                  255 - maximum gradation (blending) based on how
+     *                  similar the pixel is to our opColor (max tolerance)
+     * @param mode If we should avoid or target the opColor
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public AvoidXfermode(int opColor, int tolerance, Mode mode) {
         if (tolerance < 0 || tolerance > 255) {

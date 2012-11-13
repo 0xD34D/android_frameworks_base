@@ -18,12 +18,15 @@ import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.BufferedInputStream;
+<<<<<<< HEAD
 import java.io.Writer;
 import java.io.PrintStream;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.TreeSet;
 import java.util.Iterator;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Prints raw information in CSV format.
@@ -39,6 +42,7 @@ public class PrintCsv {
 
         Root root = Root.fromFile(args[0]);
 
+<<<<<<< HEAD
         printHeaders(System.out);
 
         MemoryUsage baseline = MemoryUsage.baseline();
@@ -58,6 +62,12 @@ public class PrintCsv {
                 + ",Median Load Time (us)"
                 + ",Median Init Time (us)"
                 + ",Process Names"
+=======
+        System.out.println("Name"
+                + ",Preloaded"
+                + ",Median Load Time (us)"
+                + ",Median Init Time (us)"
+>>>>>>> 54b6cfa... Initial Contribution
                 + ",Load Count"
                 + ",Init Count"
                 + ",Managed Heap (B)"
@@ -65,6 +75,7 @@ public class PrintCsv {
                 + ",Managed Pages (kB)"
                 + ",Native Pages (kB)"
                 + ",Other Pages (kB)");
+<<<<<<< HEAD
     }
 
     static void printRow(PrintStream out, MemoryUsage baseline,
@@ -123,5 +134,48 @@ public class PrintCsv {
         }
 
         out.println();
+=======
+
+        MemoryUsage baseline = root.baseline;
+
+        for (LoadedClass loadedClass : root.loadedClasses.values()) {
+            if (!loadedClass.systemClass) {
+                continue;
+            }
+
+            System.out.print(loadedClass.name);
+            System.out.print(',');
+            System.out.print(loadedClass.preloaded);
+            System.out.print(',');
+            System.out.print(loadedClass.medianLoadTimeMicros());
+            System.out.print(',');
+            System.out.print(loadedClass.medianInitTimeMicros());
+            System.out.print(',');
+            System.out.print(loadedClass.loads.size());
+            System.out.print(',');
+            System.out.print(loadedClass.initializations.size());
+
+            if (loadedClass.memoryUsage.isAvailable()) {
+                MemoryUsage subtracted
+                        = loadedClass.memoryUsage.subtract(baseline);
+
+                System.out.print(',');
+                System.out.print(subtracted.javaHeapSize());
+                System.out.print(',');
+                System.out.print(subtracted.nativeHeapSize);
+                System.out.print(',');
+                System.out.print(subtracted.javaPagesInK());
+                System.out.print(',');
+                System.out.print(subtracted.nativePagesInK());
+                System.out.print(',');
+                System.out.print(subtracted.otherPagesInK());
+
+            } else {
+                System.out.print(",n/a,n/a,n/a,n/a,n/a");
+            }
+
+            System.out.println();
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

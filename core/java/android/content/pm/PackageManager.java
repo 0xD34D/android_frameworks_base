@@ -16,18 +16,28 @@
 
 package android.content.pm;
 
+<<<<<<< HEAD
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+<<<<<<< HEAD
 import android.content.IntentSender;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+<<<<<<< HEAD
 import android.os.Environment;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.AndroidException;
 import android.util.DisplayMetrics;
 
@@ -118,7 +128,11 @@ public abstract class PackageManager {
      * {@link PackageInfo} flag: return the
      * {@link PackageInfo#gids group ids} that are associated with an
      * application.
+<<<<<<< HEAD
      * This applies for any API returning a PackageInfo class, either
+=======
+     * This applies for any API returning an PackageInfo class, either
+>>>>>>> 54b6cfa... Initial Contribution
      * directly or nested inside of another.
      */
     public static final int GET_GIDS                    = 0x00000100;
@@ -141,7 +155,11 @@ public abstract class PackageManager {
      * {@link ProviderInfo} flag: return the
      * {@link ProviderInfo#uriPermissionPatterns URI permission patterns}
      * that are associated with a content provider.
+<<<<<<< HEAD
      * This applies for any API returning a ProviderInfo class, either
+=======
+     * This applies for any API returning an ProviderInfo class, either
+>>>>>>> 54b6cfa... Initial Contribution
      * directly or nested inside of another.
      */
     public static final int GET_URI_PERMISSION_PATTERNS  = 0x00000800;
@@ -153,6 +171,7 @@ public abstract class PackageManager {
     public static final int GET_PERMISSIONS               = 0x00001000;
 
     /**
+<<<<<<< HEAD
      * Flag parameter to retrieve some information about all applications (even
      * uninstalled ones) which have data directories. This state could have
      * resulted if applications have been deleted with flag
@@ -182,6 +201,8 @@ public abstract class PackageManager {
     public static final int MATCH_DEFAULT_ONLY   = 0x00010000;
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Permission check result: this is returned by {@link #checkPermission}
      * if the permission has been granted to the given package.
      */
@@ -195,7 +216,11 @@ public abstract class PackageManager {
 
     /**
      * Signature check result: this is returned by {@link #checkSignatures}
+<<<<<<< HEAD
      * if all signatures on the two packages match.
+=======
+     * if the two packages have a matching signature.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int SIGNATURE_MATCH = 0;
 
@@ -207,29 +232,46 @@ public abstract class PackageManager {
 
     /**
      * Signature check result: this is returned by {@link #checkSignatures}
+<<<<<<< HEAD
      * if the first package is not signed but the second is.
+=======
+     * if the first package is not signed, but the second is.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int SIGNATURE_FIRST_NOT_SIGNED = -1;
 
     /**
      * Signature check result: this is returned by {@link #checkSignatures}
+<<<<<<< HEAD
      * if the second package is not signed but the first is.
+=======
+     * if the second package is not signed, but the first is.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int SIGNATURE_SECOND_NOT_SIGNED = -2;
 
     /**
      * Signature check result: this is returned by {@link #checkSignatures}
+<<<<<<< HEAD
      * if not all signatures on both packages match.
+=======
+     * if both packages are signed but there is no matching signature.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int SIGNATURE_NO_MATCH = -3;
 
     /**
      * Signature check result: this is returned by {@link #checkSignatures}
+<<<<<<< HEAD
      * if either of the packages are not valid.
+=======
+     * if either of the given package names are not valid.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int SIGNATURE_UNKNOWN_PACKAGE = -4;
 
     /**
+<<<<<<< HEAD
      * Flag for {@link #setApplicationEnabledSetting(String, int, int)}
      * and {@link #setComponentEnabledSetting(ComponentName, int, int)}: This
      * component or application is in its default enabled state (as specified
@@ -307,6 +349,31 @@ public abstract class PackageManager {
      * @hide
      */
     public static final int INSTALL_FROM_ADB = 0x00000020;
+=======
+     * Resolution and querying flag: if set, only filters that support the
+     * {@link android.content.Intent#CATEGORY_DEFAULT} will be considered for
+     * matching.  This is a synonym for including the CATEGORY_DEFAULT in your
+     * supplied Intent.
+     */
+    public static final int MATCH_DEFAULT_ONLY   = 0x00010000;
+
+    public static final int COMPONENT_ENABLED_STATE_DEFAULT = 0;
+    public static final int COMPONENT_ENABLED_STATE_ENABLED = 1;
+    public static final int COMPONENT_ENABLED_STATE_DISABLED = 2;
+
+    /**
+     * Flag parameter for {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} to
+     * indicate that this package should be installed as forward locked, i.e. only the app itself
+     * should have access to it's code and non-resource assets.
+     */
+    public static final int FORWARD_LOCK_PACKAGE = 0x00000001;
+
+    /**
+     * Flag parameter for {@link #installPackage} to indicate that you want to replace an already
+     * installed package, if one exists
+     */
+    public static final int REPLACE_EXISTING_PACKAGE = 0x00000002;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Flag parameter for
@@ -319,7 +386,10 @@ public abstract class PackageManager {
     /**
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} on success.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_SUCCEEDED = 1;
 
@@ -327,7 +397,10 @@ public abstract class PackageManager {
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if the package is
      * already installed.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_ALREADY_EXISTS = -1;
 
@@ -335,7 +408,10 @@ public abstract class PackageManager {
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if the package archive
      * file is invalid.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_INVALID_APK = -2;
 
@@ -343,15 +419,22 @@ public abstract class PackageManager {
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if the URI passed in
      * is invalid.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_INVALID_URI = -3;
 
     /**
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if the package manager
+<<<<<<< HEAD
      * service found that the device didn't have enough storage space to install the app.
      * @hide
+=======
+     * service found that the device didn't have enough storage space to install the app
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_INSUFFICIENT_STORAGE = -4;
 
@@ -359,7 +442,10 @@ public abstract class PackageManager {
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if a
      * package is already installed with the same name.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_DUPLICATE_PACKAGE = -5;
 
@@ -367,7 +453,10 @@ public abstract class PackageManager {
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if
      * the requested shared user does not exist.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_NO_SHARED_USER = -6;
 
@@ -376,7 +465,10 @@ public abstract class PackageManager {
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if
      * a previously installed package of the same name has a different signature
      * than the new package (and the old package's data was not removed).
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_UPDATE_INCOMPATIBLE = -7;
 
@@ -385,7 +477,10 @@ public abstract class PackageManager {
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if
      * the new package is requested a shared user which is already installed on the
      * device and does not have matching signature.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_SHARED_USER_INCOMPATIBLE = -8;
 
@@ -393,7 +488,10 @@ public abstract class PackageManager {
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if
      * the new package uses a shared library that is not available.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_MISSING_SHARED_LIBRARY = -9;
 
@@ -401,7 +499,10 @@ public abstract class PackageManager {
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if
      * the new package uses a shared library that is not available.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_REPLACE_COULDNT_DELETE = -10;
 
@@ -410,7 +511,10 @@ public abstract class PackageManager {
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if
      * the new package failed while optimizing and validating its dex files,
      * either because there was not enough storage or the validation failed.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_DEXOPT = -11;
 
@@ -419,11 +523,15 @@ public abstract class PackageManager {
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if
      * the new package failed because the current SDK version is older than
      * that required by the package.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_FAILED_OLDER_SDK = -12;
 
     /**
+<<<<<<< HEAD
      * Installation return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)} if
      * the new package failed because it contains a content provider with the
@@ -528,11 +636,16 @@ public abstract class PackageManager {
     public static final int INSTALL_FAILED_UID_CHANGED = -24;
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Installation parse return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser was given a path that is not a file, or does not end with the expected
      * '.apk' extension.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_NOT_APK = -100;
 
@@ -540,7 +653,10 @@ public abstract class PackageManager {
      * Installation parse return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser was unable to retrieve the AndroidManifest.xml file.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_BAD_MANIFEST = -101;
 
@@ -548,7 +664,10 @@ public abstract class PackageManager {
      * Installation parse return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser encountered an unexpected exception.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION = -102;
 
@@ -556,7 +675,10 @@ public abstract class PackageManager {
      * Installation parse return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser did not find any certificates in the .apk.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_NO_CERTIFICATES = -103;
 
@@ -564,7 +686,10 @@ public abstract class PackageManager {
      * Installation parse return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser found inconsistent certificates on the files in the .apk.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES = -104;
 
@@ -573,7 +698,10 @@ public abstract class PackageManager {
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser encountered a CertificateEncodingException in one of the
      * files in the .apk.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_CERTIFICATE_ENCODING = -105;
 
@@ -581,7 +709,10 @@ public abstract class PackageManager {
      * Installation parse return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser encountered a bad or missing package name in the manifest.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_BAD_PACKAGE_NAME = -106;
 
@@ -589,7 +720,10 @@ public abstract class PackageManager {
      * Installation parse return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser encountered a bad shared user id name in the manifest.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_BAD_SHARED_USER_ID = -107;
 
@@ -597,7 +731,10 @@ public abstract class PackageManager {
      * Installation parse return code: this is passed to the {@link IPackageInstallObserver} by
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser encountered some structural problem in the manifest.
+<<<<<<< HEAD
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int INSTALL_PARSE_FAILED_MANIFEST_MALFORMED = -108;
 
@@ -606,6 +743,7 @@ public abstract class PackageManager {
      * {@link #installPackage(android.net.Uri, IPackageInstallObserver, int)}
      * if the parser did not find any actionable tags (instrumentation or application)
      * in the manifest.
+<<<<<<< HEAD
      * @hide
      */
     public static final int INSTALL_PARSE_FAILED_MANIFEST_EMPTY = -109;
@@ -1107,10 +1245,36 @@ public abstract class PackageManager {
      */
     public static final String EXTRA_VERIFICATION_INSTALL_FLAGS
             = "android.content.pm.extra.VERIFICATION_INSTALL_FLAGS";
+=======
+     */
+    public static final int INSTALL_PARSE_FAILED_MANIFEST_EMPTY = -109;
+
+    /**
+     * Indicates the state of installation. Used by PackageManager to
+     * figure out incomplete installations. Say a package is being installed
+     * (the state is set to PKG_INSTALL_INCOMPLETE) and remains so till
+     * the package installation is successful or unsuccesful lin which case
+     * the PackageManager will no longer maintain state information associated
+     * with the package. If some exception(like device freeze or battery being
+     * pulled out) occurs during installation of a package, the PackageManager
+     * needs this information to clean up the previously failed installation.
+     */
+    public static final int PKG_INSTALL_INCOMPLETE = 0;
+    public static final int PKG_INSTALL_COMPLETE = 1;
+
+    /**
+     * Flag parameter for {@link #deletePackage} to indicate that you don't want to delete the
+     * package's data directory.
+     *
+     * @hide
+     */
+    public static final int DONT_DELETE_DATA = 0x00000001;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Retrieve overall information about an application package that is
      * installed on the system.
+<<<<<<< HEAD
      * <p>
      * Throws {@link NameNotFoundException} if a package with the given name can
      * not be found on the system.
@@ -1141,11 +1305,30 @@ public abstract class PackageManager {
      * @see #GET_SERVICES
      * @see #GET_SIGNATURES
      * @see #GET_UNINSTALLED_PACKAGES
+=======
+     *
+     * <p>Throws {@link NameNotFoundException} if a package with the given
+     * name can not be found on the system.
+     *
+     * @param packageName The full name (i.e. com.google.apps.contacts) of the
+     *                    desired package.
+     * @param flags Optional flags to control what information is returned.  If
+     *              0, none of the optional information is returned.
+     *
+     * @return Returns a PackageInfo containing information about the package.
+     *
+     * @see #GET_ACTIVITIES
+     * @see #GET_RECEIVERS
+     * @see #GET_SERVICES
+     * @see #GET_INSTRUMENTATION
+     * @see #GET_SIGNATURES
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public abstract PackageInfo getPackageInfo(String packageName, int flags)
             throws NameNotFoundException;
 
     /**
+<<<<<<< HEAD
      * Map from the current package names in use on the device to whatever
      * the current canonical name of that package is.
      * @param names Array of current names to be mapped.
@@ -1182,6 +1365,8 @@ public abstract class PackageManager {
     public abstract Intent getLaunchIntentForPackage(String packageName);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Return an array of all of the secondary group-ids that have been
      * assigned to a package.
      *
@@ -1270,6 +1455,7 @@ public abstract class PackageManager {
      *
      * @param packageName The full name (i.e. com.google.apps.contacts) of an
      *                    application.
+<<<<<<< HEAD
      * @param flags Additional option flags. Use any combination of
      * {@link #GET_META_DATA}, {@link #GET_SHARED_LIBRARY_FILES},
      * {@link #GET_UNINSTALLED_PACKAGES} to modify the data returned.
@@ -1287,6 +1473,12 @@ public abstract class PackageManager {
      * @see #GET_META_DATA
      * @see #GET_SHARED_LIBRARY_FILES
      * @see #GET_UNINSTALLED_PACKAGES
+=======
+     * @param flags Additional option flags.  Currently should always be 0.
+     *
+     * @return {@link ApplicationInfo} containing information about the
+     *         application.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public abstract ApplicationInfo getApplicationInfo(String packageName,
             int flags) throws NameNotFoundException;
@@ -1298,20 +1490,32 @@ public abstract class PackageManager {
      * <p>Throws {@link NameNotFoundException} if an activity with the given
      * class name can not be found on the system.
      *
+<<<<<<< HEAD
      * @param component The full component name (i.e.
      * com.google.apps.contacts/com.google.apps.contacts.ContactsList) of an Activity
      * class.
      * @param flags Additional option flags. Use any combination of
      * {@link #GET_META_DATA}, {@link #GET_SHARED_LIBRARY_FILES},
      * to modify the data (in ApplicationInfo) returned.
+=======
+     * @param className The full name (i.e.
+     *                  com.google.apps.contacts.ContactsList) of an Activity
+     *                  class.
+     * @param flags Additional option flags.  Usually 0.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return {@link ActivityInfo} containing information about the activity.
      *
      * @see #GET_INTENT_FILTERS
+<<<<<<< HEAD
      * @see #GET_META_DATA
      * @see #GET_SHARED_LIBRARY_FILES
      */
     public abstract ActivityInfo getActivityInfo(ComponentName component,
+=======
+     */
+    public abstract ActivityInfo getActivityInfo(ComponentName className,
+>>>>>>> 54b6cfa... Initial Contribution
             int flags) throws NameNotFoundException;
 
     /**
@@ -1321,20 +1525,32 @@ public abstract class PackageManager {
      * <p>Throws {@link NameNotFoundException} if a receiver with the given
      * class name can not be found on the system.
      *
+<<<<<<< HEAD
      * @param component The full component name (i.e.
      * com.google.apps.calendar/com.google.apps.calendar.CalendarAlarm) of a Receiver
      * class.
      * @param flags Additional option flags.  Use any combination of
      * {@link #GET_META_DATA}, {@link #GET_SHARED_LIBRARY_FILES},
      * to modify the data returned.
+=======
+     * @param className The full name (i.e.
+     *                  com.google.apps.contacts.CalendarAlarm) of a Receiver
+     *                  class.
+     * @param flags Additional option flags.  Usually 0.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return {@link ActivityInfo} containing information about the receiver.
      *
      * @see #GET_INTENT_FILTERS
+<<<<<<< HEAD
      * @see #GET_META_DATA
      * @see #GET_SHARED_LIBRARY_FILES
      */
     public abstract ActivityInfo getReceiverInfo(ComponentName component,
+=======
+     */
+    public abstract ActivityInfo getReceiverInfo(ComponentName className,
+>>>>>>> 54b6cfa... Initial Contribution
             int flags) throws NameNotFoundException;
 
     /**
@@ -1344,6 +1560,7 @@ public abstract class PackageManager {
      * <p>Throws {@link NameNotFoundException} if a service with the given
      * class name can not be found on the system.
      *
+<<<<<<< HEAD
      * @param component The full component name (i.e.
      * com.google.apps.media/com.google.apps.media.BackgroundPlayback) of a Service
      * class.
@@ -1379,12 +1596,23 @@ public abstract class PackageManager {
      * @see #GET_SHARED_LIBRARY_FILES
      */
     public abstract ProviderInfo getProviderInfo(ComponentName component,
+=======
+     * @param className The full name (i.e.
+     *                  com.google.apps.media.BackgroundPlayback) of a Service
+     *                  class.
+     * @param flags Additional option flags.  Currently should always be 0.
+     *
+     * @return ServiceInfo containing information about the service.
+     */
+    public abstract ServiceInfo getServiceInfo(ComponentName className,
+>>>>>>> 54b6cfa... Initial Contribution
             int flags) throws NameNotFoundException;
 
     /**
      * Return a List of all packages that are installed
      * on the device.
      *
+<<<<<<< HEAD
      * @param flags Additional option flags. Use any combination of
      * {@link #GET_ACTIVITIES},
      * {@link #GET_GIDS},
@@ -1396,10 +1624,15 @@ public abstract class PackageManager {
      * {@link #GET_SERVICES},
      * {@link #GET_SIGNATURES},
      * {@link #GET_UNINSTALLED_PACKAGES} to modify the data returned.
+=======
+     * @param flags Optional flags to control what information is returned.  If
+     *              0, none of the optional information is returned.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return A List of PackageInfo objects, one for each package that is
      *         installed on the device.  In the unlikely case of there being no
      *         installed packages, an empty list is returned.
+<<<<<<< HEAD
      *         If flag GET_UNINSTALLED_PACKAGES is set, a list of all
      *         applications including those deleted with DONT_DELETE_DATA
      *         (partially installed apps with data directory) will be returned.
@@ -1415,6 +1648,14 @@ public abstract class PackageManager {
      * @see #GET_SIGNATURES
      * @see #GET_UNINSTALLED_PACKAGES
      *
+=======
+     *
+     * @see #GET_ACTIVITIES
+     * @see #GET_RECEIVERS
+     * @see #GET_SERVICES
+     * @see #GET_INSTRUMENTATION
+     * @see #GET_SIGNATURES
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public abstract List<PackageInfo> getInstalledPackages(int flags);
 
@@ -1469,6 +1710,7 @@ public abstract class PackageManager {
     public abstract boolean addPermission(PermissionInfo info);
 
     /**
+<<<<<<< HEAD
      * Like {@link #addPermission(PermissionInfo)} but asynchronously
      * persists the package manager state after returning from the call,
      * allowing it to return quicker and batch a series of adds at the
@@ -1478,6 +1720,8 @@ public abstract class PackageManager {
     public abstract boolean addPermissionAsync(PermissionInfo info);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Removes a permission that was previously added with
      * {@link #addPermission(PermissionInfo)}.  The same ownership rules apply
      * -- you are only allowed to remove permissions that you are allowed
@@ -1493,6 +1737,7 @@ public abstract class PackageManager {
     public abstract void removePermission(String name);
 
     /**
+<<<<<<< HEAD
      * Grant a permission to an application which the application does not
      * already have.  The permission must have been requested by the application,
      * but as an optional permission.  If the application is not allowed to
@@ -1516,6 +1761,8 @@ public abstract class PackageManager {
     public abstract void revokePermission(String packageName, String permissionName);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Compare the signatures of two packages to determine if the same
      * signature appears in both of them.  If they do contain the same
      * signature, then they are allowed special privileges when working
@@ -1524,6 +1771,7 @@ public abstract class PackageManager {
      *
      * @param pkg1 First package name whose signature will be compared.
      * @param pkg2 Second package name whose signature will be compared.
+<<<<<<< HEAD
      *
      * @return Returns an integer indicating whether all signatures on the
      * two packages match. The value is >= 0 ({@link #SIGNATURE_MATCH}) if
@@ -1532,12 +1780,28 @@ public abstract class PackageManager {
      *
      * @see #checkSignatures(int, int)
      * @see #SIGNATURE_MATCH
+=======
+     * @return Returns an integer indicating whether there is a matching
+     * signature: the value is >= 0 if there is a match (or neither package
+     * is signed), or < 0 if there is not a match.  The match result can be
+     * further distinguished with the success (>= 0) constants
+     * {@link #SIGNATURE_MATCH}, {@link #SIGNATURE_NEITHER_SIGNED}; or
+     * failure (< 0) constants {@link #SIGNATURE_FIRST_NOT_SIGNED},
+     * {@link #SIGNATURE_SECOND_NOT_SIGNED}, {@link #SIGNATURE_NO_MATCH},
+     * or {@link #SIGNATURE_UNKNOWN_PACKAGE}.
+     *
+     * @see #SIGNATURE_MATCH
+     * @see #SIGNATURE_NEITHER_SIGNED
+     * @see #SIGNATURE_FIRST_NOT_SIGNED
+     * @see #SIGNATURE_SECOND_NOT_SIGNED
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #SIGNATURE_NO_MATCH
      * @see #SIGNATURE_UNKNOWN_PACKAGE
      */
     public abstract int checkSignatures(String pkg1, String pkg2);
 
     /**
+<<<<<<< HEAD
      * Like {@link #checkSignatures(String, String)}, but takes UIDs of
      * the two packages to be checked.  This can be useful, for example,
      * when doing the check in an IPC, where the UID is the only identity
@@ -1560,6 +1824,8 @@ public abstract class PackageManager {
     public abstract int checkSignatures(int uid1, int uid2);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Retrieve the names of all packages that are associated with a particular
      * user id.  In most cases, this will be a single package name, the package
      * that has been assigned that user id.  Where there are multiple packages
@@ -1588,6 +1854,7 @@ public abstract class PackageManager {
     public abstract String getNameForUid(int uid);
 
     /**
+<<<<<<< HEAD
      * Return the user id associated with a shared user name. Multiple
      * applications can specify a shared user name in their manifest and thus
      * end up using a common uid. This might be used for new applications
@@ -1611,10 +1878,17 @@ public abstract class PackageManager {
      * @param flags Additional option flags. Use any combination of
      * {@link #GET_META_DATA}, {@link #GET_SHARED_LIBRARY_FILES},
      * {@link #GET_UNINSTALLED_PACKAGES} to modify the data returned.
+=======
+     * Return a List of all application packages that are installed on the
+     * device.
+     *
+     * @param flags Additional option flags.  Currently should always be 0.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return A List of ApplicationInfo objects, one for each application that
      *         is installed on the device.  In the unlikely case of there being
      *         no installed applications, an empty list is returned.
+<<<<<<< HEAD
      *         If flag GET_UNINSTALLED_PACKAGES is set, a list of all
      *         applications including those deleted with DONT_DELETE_DATA
      *         (partially installed apps with data directory) will be returned.
@@ -1622,10 +1896,13 @@ public abstract class PackageManager {
      * @see #GET_META_DATA
      * @see #GET_SHARED_LIBRARY_FILES
      * @see #GET_UNINSTALLED_PACKAGES
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public abstract List<ApplicationInfo> getInstalledApplications(int flags);
 
     /**
+<<<<<<< HEAD
      * Get a list of shared libraries that are available on the
      * system.
      *
@@ -1654,10 +1931,13 @@ public abstract class PackageManager {
     public abstract boolean hasSystemFeature(String name);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Determine the best action to perform for a given Intent.  This is how
      * {@link Intent#resolveActivity} finds an activity if a class has not
      * been explicitly specified.
      *
+<<<<<<< HEAD
      * <p><em>Note:</em> if using an implicit Intent (without an explicit ComponentName
      * specified), be sure to consider whether to set the {@link #MATCH_DEFAULT_ONLY}
      * only flag.  You need to do so to resolve the activity in the same way
@@ -1676,6 +1956,17 @@ public abstract class PackageManager {
      *         matching activity was found. If multiple matching activities are
      *         found and there is no default set, returns a ResolveInfo
      *         containing something else, such as the activity resolver.
+=======
+     * @param intent An intent containing all of the desired specification
+     *               (action, data, type, category, and/or component).
+     * @param flags Additional option flags.  The most important is
+     *                    MATCH_DEFAULT_ONLY, to limit the resolution to only
+     *                    those activities that support the CATEGORY_DEFAULT.
+     *
+     * @return Returns a ResolveInfo containing the final activity intent that
+     *         was determined to be the best action.  Returns null if no
+     *         matching activity was found.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @see #MATCH_DEFAULT_ONLY
      * @see #GET_INTENT_FILTERS
@@ -1688,6 +1979,7 @@ public abstract class PackageManager {
      *
      * @param intent The desired intent as per resolveActivity().
      * @param flags Additional option flags.  The most important is
+<<<<<<< HEAD
      * {@link #MATCH_DEFAULT_ONLY}, to limit the resolution to only
      * those activities that support the {@link android.content.Intent#CATEGORY_DEFAULT}.
      *
@@ -1695,6 +1987,15 @@ public abstract class PackageManager {
      *         Activity. These are ordered from best to worst match -- that
      *         is, the first item in the list is what is returned by
      *         {@link #resolveActivity}.  If there are no matching activities, an empty
+=======
+     *                    MATCH_DEFAULT_ONLY, to limit the resolution to only
+     *                    those activities that support the CATEGORY_DEFAULT.
+     *
+     * @return A List<ResolveInfo> containing one entry for each matching
+     *         Activity. These are ordered from best to worst match -- that
+     *         is, the first item in the list is what is returned by
+     *         resolveActivity().  If there are no matching activities, an empty
+>>>>>>> 54b6cfa... Initial Contribution
      *         list is returned.
      *
      * @see #MATCH_DEFAULT_ONLY
@@ -1719,10 +2020,17 @@ public abstract class PackageManager {
      *                  first specific results.  Can be null.
      * @param intent The desired intent as per resolveActivity().
      * @param flags Additional option flags.  The most important is
+<<<<<<< HEAD
      * {@link #MATCH_DEFAULT_ONLY}, to limit the resolution to only
      * those activities that support the {@link android.content.Intent#CATEGORY_DEFAULT}.
      *
      * @return A List&lt;ResolveInfo&gt; containing one entry for each matching
+=======
+     *                    MATCH_DEFAULT_ONLY, to limit the resolution to only
+     *                    those activities that support the CATEGORY_DEFAULT.
+     *
+     * @return A List<ResolveInfo> containing one entry for each matching
+>>>>>>> 54b6cfa... Initial Contribution
      *         Activity. These are ordered first by all of the intents resolved
      *         in <var>specifics</var> and then any additional activities that
      *         can handle <var>intent</var> but did not get included by one of
@@ -1740,9 +2048,17 @@ public abstract class PackageManager {
      * Retrieve all receivers that can handle a broadcast of the given intent.
      *
      * @param intent The desired intent as per resolveActivity().
+<<<<<<< HEAD
      * @param flags Additional option flags.
      *
      * @return A List&lt;ResolveInfo&gt; containing one entry for each matching
+=======
+     * @param flags Additional option flags.  The most important is
+     *                    MATCH_DEFAULT_ONLY, to limit the resolution to only
+     *                    those activities that support the CATEGORY_DEFAULT.
+     *
+     * @return A List<ResolveInfo> containing one entry for each matching
+>>>>>>> 54b6cfa... Initial Contribution
      *         Receiver. These are ordered from first to last in priority.  If
      *         there are no matching receivers, an empty list is returned.
      *
@@ -1775,7 +2091,11 @@ public abstract class PackageManager {
      * @param intent The desired intent as per resolveService().
      * @param flags Additional option flags.
      *
+<<<<<<< HEAD
      * @return A List&lt;ResolveInfo&gt; containing one entry for each matching
+=======
+     * @return A List<ResolveInfo> containing one entry for each matching
+>>>>>>> 54b6cfa... Initial Contribution
      *         ServiceInfo. These are ordered from best to worst match -- that
      *         is, the first item in the list is what is returned by
      *         resolveService().  If there are no matching services, an empty
@@ -1812,7 +2132,11 @@ public abstract class PackageManager {
      *        uid owning the requested content providers.
      * @param flags Additional option flags.  Currently should always be 0.
      *
+<<<<<<< HEAD
      * @return A List&lt;ContentProviderInfo&gt; containing one entry for each
+=======
+     * @return A List<ContentProviderInfo> containing one entry for each
+>>>>>>> 54b6cfa... Initial Contribution
      *         content provider either patching <var>processName</var> or, if
      *         <var>processName</var> is null, all known content providers.
      *         <em>If there are no matching providers, null is returned.</em>
@@ -1848,7 +2172,11 @@ public abstract class PackageManager {
      *                      returned.
      * @param flags Additional option flags.  Currently should always be 0.
      *
+<<<<<<< HEAD
      * @return A List&lt;InstrumentationInfo&gt; containing one entry for each
+=======
+     * @return A List<InstrumentationInfo> containing one entry for each
+>>>>>>> 54b6cfa... Initial Contribution
      *         matching available Instrumentation.  Returns an empty list if
      *         there is no instrumentation available for the given package.
      */
@@ -1954,6 +2282,7 @@ public abstract class PackageManager {
             throws NameNotFoundException;
 
     /**
+<<<<<<< HEAD
      * Retrieve the logo associated with an activity.  Given the full name of
      * an activity, retrieves the information about it and calls
      * {@link ComponentInfo#loadLogo ComponentInfo.loadLogo()} to return its logo.
@@ -2027,6 +2356,8 @@ public abstract class PackageManager {
             throws NameNotFoundException;
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Retrieve text from a package.  This is a low-level API used by
      * the various package manager info structures (such as
      * {@link ComponentInfo} to implement retrieval of their associated
@@ -2128,6 +2459,7 @@ public abstract class PackageManager {
      * in a package archive file
      *
      * @param archiveFilePath The path to the archive file
+<<<<<<< HEAD
      * @param flags Additional option flags. Use any combination of
      * {@link #GET_ACTIVITIES},
      * {@link #GET_GIDS},
@@ -2138,11 +2470,16 @@ public abstract class PackageManager {
      * {@link #GET_RECEIVERS},
      * {@link #GET_SERVICES},
      * {@link #GET_SIGNATURES}, to modify the data returned.
+=======
+     * @param flags Optional flags to control what information is returned.  If
+     *              0, none of the optional information is returned.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return Returns the information about the package. Returns
      * null if the package could not be successfully parsed.
      *
      * @see #GET_ACTIVITIES
+<<<<<<< HEAD
      * @see #GET_GIDS
      * @see #GET_CONFIGURATIONS
      * @see #GET_INSTRUMENTATION
@@ -2152,6 +2489,12 @@ public abstract class PackageManager {
      * @see #GET_SERVICES
      * @see #GET_SIGNATURES
      *
+=======
+     * @see #GET_RECEIVERS
+     * @see #GET_SERVICES
+     * @see #GET_INSTRUMENTATION
+     * @see #GET_SIGNATURES
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public PackageInfo getPackageArchiveInfo(String archiveFilePath, int flags) {
         PackageParser packageParser = new PackageParser(archiveFilePath);
@@ -2163,6 +2506,7 @@ public abstract class PackageManager {
         if (pkg == null) {
             return null;
         }
+<<<<<<< HEAD
         if ((flags & GET_SIGNATURES) != 0) {
             packageParser.collectCertificates(pkg, 0);
         }
@@ -2173,6 +2517,12 @@ public abstract class PackageManager {
     /**
      * @hide
      *
+=======
+        return PackageParser.generatePackageInfo(pkg, null, flags);
+    }
+
+    /**
+>>>>>>> 54b6cfa... Initial Contribution
      * Install a package. Since this may take a little while, the result will
      * be posted back to the given observer.  An installation will fail if the calling context
      * lacks the {@link android.Manifest.permission#INSTALL_PACKAGES} permission, if the
@@ -2184,6 +2534,7 @@ public abstract class PackageManager {
      * @param observer An observer callback to get notified when the package installation is
      * complete. {@link IPackageInstallObserver#packageInstalled(String, int)} will be
      * called when that happens.  observer may be null to indicate that no callback is desired.
+<<<<<<< HEAD
      * @param flags - possible values: {@link #INSTALL_FORWARD_LOCK},
      * {@link #INSTALL_REPLACE_EXISTING}, {@link #INSTALL_ALLOW_TEST}.
      * @param installerPackageName Optional package name of the application that is performing the
@@ -2258,6 +2609,15 @@ public abstract class PackageManager {
      */
     public abstract void setInstallerPackageName(String targetPackage,
             String installerPackageName);
+=======
+     * @param flags - possible values: {@link #FORWARD_LOCK_PACKAGE},
+     * {@link #REPLACE_EXISTING_PACKAGE}
+     *
+     * @see #installPackage(android.net.Uri)
+     */
+    public abstract void installPackage(
+            Uri packageURI, IPackageInstallObserver observer, int flags);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Attempts to delete a package.  Since this may take a little while, the result will
@@ -2276,6 +2636,7 @@ public abstract class PackageManager {
      */
     public abstract void deletePackage(
             String packageName, IPackageDeleteObserver observer, int flags);
+<<<<<<< HEAD
 
     /**
      * Retrieve the package name of the application that installed a package. This identifies
@@ -2285,6 +2646,8 @@ public abstract class PackageManager {
      */
     public abstract String getInstallerPackageName(String packageName);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Attempts to clear the user data directory of an application.
      * Since this may take a little while, the result will
@@ -2321,6 +2684,7 @@ public abstract class PackageManager {
             IPackageDataObserver observer);
 
     /**
+<<<<<<< HEAD
      * Free storage by deleting LRU sorted list of cache files across
      * all applications. If the currently available free storage
      * on the device is greater than or equal to the requested
@@ -2368,6 +2732,30 @@ public abstract class PackageManager {
      * @hide
      */
     public abstract void freeStorage(long freeStorageSize, IntentSender pi);
+=======
+     * Free storage by deleting LRU sorted list of cache files across all applications.
+     * If the currently available free storage on the device is greater than or equal to the
+     * requested free storage, no cache files are cleared. If the currently available storage on the
+     * device is less than the requested free storage, some or all of the cache files across
+     * all applications are deleted(based on last accessed time) to increase the free storage
+     * space on the device to the requested value. There is no gurantee that clearing all
+     * the cache files from all applications will clear up enough storage to achieve the desired
+     * value.
+     * @param freeStorageSize The number of bytes of storage to be
+     * freed by the system. Say if freeStorageSize is XX,
+     * and the current free storage is YY,
+     * if XX is less than YY, just return. if not free XX-YY number of
+     * bytes if possible.
+     * @param observer callback used to notify when the operation is completed
+     * {@link android.content.pm.IPackageDataObserver#onRemoveCompleted(String, boolean)}
+     * will be called when that happens.  observer may be null to indicate that
+     * no callback is desired.
+     *
+     * @hide
+     */
+    public abstract void freeApplicationCache(long freeStorageSize,
+            IPackageDataObserver observer);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Retrieve the size information for a package.
@@ -2390,6 +2778,7 @@ public abstract class PackageManager {
             IPackageStatsObserver observer);
 
     /**
+<<<<<<< HEAD
      * @deprecated This function no longer does anything; it was an old
      * approach to managing preferred activities, which has been superceeded
      * (and conflicts with) the modern activity-based preferences.
@@ -2403,6 +2792,34 @@ public abstract class PackageManager {
      * (and conflicts with) the modern activity-based preferences.
      */
     @Deprecated
+=======
+     * Install a package.
+     *
+     * @param packageURI The location of the package file to install
+     *
+     * @see #installPackage(android.net.Uri, IPackageInstallObserver, int)
+     */
+    public void installPackage(Uri packageURI) {
+        installPackage(packageURI, null, 0);
+    }
+
+    /**
+     * Add a new package to the list of preferred packages.  This new package
+     * will be added to the front of the list (removed from its current location
+     * if already listed), meaning it will now be preferred over all other
+     * packages when resolving conflicts.
+     *
+     * @param packageName The package name of the new package to make preferred.
+     */
+    public abstract void addPackageToPreferred(String packageName);
+
+    /**
+     * Remove a package from the list of preferred packages.  If it was on
+     * the list, it will no longer be preferred over other packages.
+     *
+     * @param packageName The package name to remove.
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public abstract void removePackageFromPreferred(String packageName);
 
     /**
@@ -2410,6 +2827,7 @@ public abstract class PackageManager {
      * first package on the list is the most preferred, the last is the
      * least preferred.
      *
+<<<<<<< HEAD
      * @param flags Additional option flags. Use any combination of
      * {@link #GET_ACTIVITIES},
      * {@link #GET_GIDS},
@@ -2420,11 +2838,16 @@ public abstract class PackageManager {
      * {@link #GET_RECEIVERS},
      * {@link #GET_SERVICES},
      * {@link #GET_SIGNATURES}, to modify the data returned.
+=======
+     * @param flags Optional flags to control what information is returned.  If
+     *              0, none of the optional information is returned.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return Returns a list of PackageInfo objects describing each
      * preferred application, in order of preference.
      *
      * @see #GET_ACTIVITIES
+<<<<<<< HEAD
      * @see #GET_GIDS
      * @see #GET_CONFIGURATIONS
      * @see #GET_INSTRUMENTATION
@@ -2432,15 +2855,23 @@ public abstract class PackageManager {
      * @see #GET_PROVIDERS
      * @see #GET_RECEIVERS
      * @see #GET_SERVICES
+=======
+     * @see #GET_RECEIVERS
+     * @see #GET_SERVICES
+     * @see #GET_INSTRUMENTATION
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #GET_SIGNATURES
      */
     public abstract List<PackageInfo> getPreferredPackages(int flags);
 
     /**
+<<<<<<< HEAD
      * @deprecated This is a protected API that should not have been available
      * to third party applications.  It is the platform's responsibility for
      * assigning preferred activities and this can not be directly modified.
      *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Add a new preferred activity mapping to the system.  This will be used
      * to automatically select the given activity component when
      * {@link Context#startActivity(Intent) Context.startActivity()} finds
@@ -2455,11 +2886,15 @@ public abstract class PackageManager {
      * @param activity The component name of the activity that is to be
      * preferred.
      */
+<<<<<<< HEAD
     @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public abstract void addPreferredActivity(IntentFilter filter, int match,
             ComponentName[] set, ComponentName activity);
 
     /**
+<<<<<<< HEAD
      * @deprecated This is a protected API that should not have been available
      * to third party applications.  It is the platform's responsibility for
      * assigning preferred activities and this can not be directly modified.
@@ -2489,6 +2924,11 @@ public abstract class PackageManager {
      * {@link #addPreferredActivity}, from the
      * system whose activities are implemented in the given package name.
      * An application can only clear its own package(s).
+=======
+     * Remove all preferred activity mappings, previously added with
+     * {@link #addPreferredActivity}, from the
+     * system whose activities are implemented in the given package name.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param packageName The name of the package whose preferred activity
      * mappings are to be removed.
@@ -2572,7 +3012,11 @@ public abstract class PackageManager {
      */
     public abstract void setApplicationEnabledSetting(String packageName,
             int newState, int flags);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return the the enabled setting for an application.  This returns
      * the last value set by
@@ -2587,6 +3031,7 @@ public abstract class PackageManager {
      * {@link #COMPONENT_ENABLED_STATE_DEFAULT}.  The last one means the
      * application's enabled state is based on the original information in
      * the manifest as found in {@link ComponentInfo}.
+<<<<<<< HEAD
      * @throws IllegalArgumentException if the named package does not exist.
      */
     public abstract int getApplicationEnabledSetting(String packageName);
@@ -2686,4 +3131,8 @@ public abstract class PackageManager {
         return Environment.getDataDirectory().toString() + "/user/" + userId
                 + "/" + packageName;
     }
+=======
+     */
+    public abstract int getApplicationEnabledSetting(String packageName);
+>>>>>>> 54b6cfa... Initial Contribution
 }

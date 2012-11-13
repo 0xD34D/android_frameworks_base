@@ -10,8 +10,11 @@
 #include <sys/stat.h>
 
 #include <stdio.h>
+<<<<<<< HEAD
 #include <stdlib.h>
 #include <string.h>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #include <map>
 
 #ifdef HAVE_MS_C_RUNTIME
@@ -29,7 +32,11 @@ static void
 test_document(document_item_type* d)
 {
     while (d) {
+<<<<<<< HEAD
         if (d->item_type == INTERFACE_TYPE_BINDER) {
+=======
+        if (d->item_type == INTERFACE_TYPE) {
+>>>>>>> 54b6cfa... Initial Contribution
             interface_type* c = (interface_type*)d;
             printf("interface %s %s {\n", c->package, c->name.data);
             interface_item_type *q = (interface_item_type*)c->interface_items;
@@ -50,6 +57,7 @@ test_document(document_item_type* d)
             }
             printf("}\n");
         }
+<<<<<<< HEAD
         else if (d->item_type == USER_DATA_TYPE) {
             user_data_type* b = (user_data_type*)d;
             if ((b->flattening_methods & PARCELABLE_DATA) != 0) {
@@ -61,6 +69,14 @@ test_document(document_item_type* d)
         }
         else {
             printf("UNKNOWN d=0x%08lx d->item_type=%d\n", (long)d, d->item_type);
+=======
+        else if (d->item_type == PARCELABLE_TYPE) {
+            parcelable_type* b = (parcelable_type*)d;
+            printf("parcelable %s %s;\n", b->package, b->name.data);
+        }
+        else {
+            printf("UNKNOWN d=0x%08x d->item_type=%ld\n", (long)d, d->item_type);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         d = d->next;
     }
@@ -243,12 +259,20 @@ check_filenames(const char* filename, document_item_type* items)
 {
     int err = 0;
     while (items) {
+<<<<<<< HEAD
         if (items->item_type == USER_DATA_TYPE) {
             user_data_type* p = (user_data_type*)items;
             err |= check_filename(filename, p->package, &p->name);
         }
         else if (items->item_type == INTERFACE_TYPE_BINDER
                 || items->item_type == INTERFACE_TYPE_RPC) {
+=======
+        if (items->item_type == PARCELABLE_TYPE) {
+            parcelable_type* p = (parcelable_type*)items;
+            err |= check_filename(filename, p->package, &p->name);
+        }
+        else if (items->item_type == INTERFACE_TYPE) {
+>>>>>>> 54b6cfa... Initial Contribution
             interface_type* c = (interface_type*)items;
             err |= check_filename(filename, c->package, &c->name);
         }
@@ -270,8 +294,13 @@ kind_to_string(int kind)
     {
         case Type::INTERFACE:
             return "an interface";
+<<<<<<< HEAD
         case Type::USERDATA:
             return "a user data";
+=======
+        case Type::PARCELABLE:
+            return "a parcelable";
+>>>>>>> 54b6cfa... Initial Contribution
         default:
             return "ERROR";
     }
@@ -296,6 +325,7 @@ gather_types(const char* filename, document_item_type* items)
     int err = 0;
     while (items) {
         Type* type;
+<<<<<<< HEAD
         if (items->item_type == USER_DATA_TYPE) {
             user_data_type* p = (user_data_type*)items;
             type = new UserDataType(p->package ? p->package : "", p->name.data,
@@ -304,6 +334,14 @@ gather_types(const char* filename, document_item_type* items)
         }
         else if (items->item_type == INTERFACE_TYPE_BINDER
                 || items->item_type == INTERFACE_TYPE_RPC) {
+=======
+        if (items->item_type == PARCELABLE_TYPE) {
+            parcelable_type* p = (parcelable_type*)items;
+            type = new ParcelableType(p->package ? p->package : "",
+                            p->name.data, false, filename, p->name.lineno);
+        }
+        else if (items->item_type == INTERFACE_TYPE) {
+>>>>>>> 54b6cfa... Initial Contribution
             interface_type* c = (interface_type*)items;
             type = new InterfaceType(c->package ? c->package : "",
                             c->name.data, false, c->oneway,
@@ -318,7 +356,11 @@ gather_types(const char* filename, document_item_type* items)
         if (old == NULL) {
             NAMES.Add(type);
 
+<<<<<<< HEAD
             if (items->item_type == INTERFACE_TYPE_BINDER) {
+=======
+            if (items->item_type == INTERFACE_TYPE) {
+>>>>>>> 54b6cfa... Initial Contribution
                 // for interfaces, also add the stub and proxy types, we don't
                 // bother checking these for duplicates, because the parser
                 // won't let us do it.
@@ -327,13 +369,18 @@ gather_types(const char* filename, document_item_type* items)
                 string name = c->name.data;
                 name += ".Stub";
                 Type* stub = new Type(c->package ? c->package : "",
+<<<<<<< HEAD
                                         name, Type::GENERATED, false, false, false,
+=======
+                                        name, Type::GENERATED, false, false,
+>>>>>>> 54b6cfa... Initial Contribution
                                         filename, c->name.lineno);
                 NAMES.Add(stub);
 
                 name = c->name.data;
                 name += ".Stub.Proxy";
                 Type* proxy = new Type(c->package ? c->package : "",
+<<<<<<< HEAD
                                         name, Type::GENERATED, false, false, false,
                                         filename, c->name.lineno);
                 NAMES.Add(proxy);
@@ -351,6 +398,12 @@ gather_types(const char* filename, document_item_type* items)
                                         filename, c->name.lineno);
                 NAMES.Add(base);
             }
+=======
+                                        name, Type::GENERATED, false, false,
+                                        filename, c->name.lineno);
+                NAMES.Add(proxy);
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         } else {
             if (old->Kind() == Type::BUILT_IN) {
                 fprintf(stderr, "%s:%d attempt to redefine built in class %s\n",
@@ -402,7 +455,11 @@ matches_keyword(const char* str)
 }
 
 static int
+<<<<<<< HEAD
 check_method(const char* filename, int kind, method_type* m)
+=======
+check_method(const char* filename, method_type* m)
+>>>>>>> 54b6cfa... Initial Contribution
 {
     int err = 0;
 
@@ -415,6 +472,7 @@ check_method(const char* filename, int kind, method_type* m)
         return err;
     }
 
+<<<<<<< HEAD
     if (returnType == EVENT_FAKE_TYPE) {
         if (kind != INTERFACE_TYPE_RPC) {
             fprintf(stderr, "%s:%d event methods only supported for rpc interfaces\n",
@@ -428,6 +486,12 @@ check_method(const char* filename, int kind, method_type* m)
                         m->type.type.lineno, m->type.type.data);
             err = 1;
         }
+=======
+    if (!returnType->CanBeMarshalled()) {
+        fprintf(stderr, "%s:%d return type %s can't be marshalled.\n", filename,
+                    m->type.type.lineno, m->type.type.data);
+        err = 1;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     if (m->type.dimension > 0 && !returnType->CanBeArray()) {
@@ -459,6 +523,7 @@ check_method(const char* filename, int kind, method_type* m)
             err = 1;
             goto next;
         }
+<<<<<<< HEAD
 
         if (t == EVENT_FAKE_TYPE) {
             fprintf(stderr, "%s:%d parameter %s (%d) event can not be used as a parameter %s\n",
@@ -469,12 +534,17 @@ check_method(const char* filename, int kind, method_type* m)
         }
         
         if (!(kind == INTERFACE_TYPE_BINDER ? t->CanWriteToParcel() : t->CanWriteToRpcData())) {
+=======
+        
+        if (!t->CanBeMarshalled()) {
+>>>>>>> 54b6cfa... Initial Contribution
             fprintf(stderr, "%s:%d parameter %d: '%s %s' can't be marshalled.\n",
                         filename, m->type.type.lineno, index,
                         arg->type.type.data, arg->name.data);
             err = 1;
         }
 
+<<<<<<< HEAD
         if (returnType == EVENT_FAKE_TYPE
                 && convert_direction(arg->direction.data) != IN_PARAMETER) {
             fprintf(stderr, "%s:%d parameter %d: '%s %s' All paremeters on events must be 'in'.\n",
@@ -484,6 +554,8 @@ check_method(const char* filename, int kind, method_type* m)
             goto next;
         }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (arg->direction.data == NULL
                 && (arg->type.dimension != 0 || t->CanBeOutParameter())) {
             fprintf(stderr, "%s:%d parameter %d: '%s %s' can be an out"
@@ -526,7 +598,11 @@ check_method(const char* filename, int kind, method_type* m)
         // check that the name doesn't match a keyword
         if (matches_keyword(arg->name.data)) {
             fprintf(stderr, "%s:%d parameter %d %s is named the same as a"
+<<<<<<< HEAD
                     " Java or aidl keyword\n",
+=======
+                    " Java keyword\n",
+>>>>>>> 54b6cfa... Initial Contribution
                     filename, m->name.lineno, index, arg->name.data);
             err = 1;
         }
@@ -544,9 +620,14 @@ check_types(const char* filename, document_item_type* items)
 {
     int err = 0;
     while (items) {
+<<<<<<< HEAD
         // (nothing to check for USER_DATA_TYPE)
         if (items->item_type == INTERFACE_TYPE_BINDER
                 || items->item_type == INTERFACE_TYPE_RPC) {
+=======
+        // (nothing to check for PARCELABLE_TYPE)
+        if (items->item_type == INTERFACE_TYPE) {
+>>>>>>> 54b6cfa... Initial Contribution
             map<string,method_type*> methodNames;
             interface_type* c = (interface_type*)items;
 
@@ -555,7 +636,11 @@ check_types(const char* filename, document_item_type* items)
                 if (member->item_type == METHOD_TYPE) {
                     method_type* m = (method_type*)member;
 
+<<<<<<< HEAD
                     err |= check_method(filename, items->item_type, m);
+=======
+                    err |= check_method(filename, m);
+>>>>>>> 54b6cfa... Initial Contribution
 
                     // prevent duplicate methods
                     if (methodNames.find(m->name.data) == methodNames.end()) {
@@ -592,6 +677,7 @@ exactly_one_interface(const char* filename, const document_item_type* items, con
     const document_item_type* next = items->next;
     if (items->next != NULL) {
         int lineno = -1;
+<<<<<<< HEAD
         if (next->item_type == INTERFACE_TYPE_BINDER) {
             lineno = ((interface_type*)next)->interface_token.lineno;
         }
@@ -600,12 +686,20 @@ exactly_one_interface(const char* filename, const document_item_type* items, con
         }
         else if (next->item_type == USER_DATA_TYPE) {
             lineno = ((user_data_type*)next)->keyword_token.lineno;
+=======
+        if (next->item_type == INTERFACE_TYPE) {
+            lineno = ((interface_type*)next)->interface_token.lineno;
+        }
+        else if (next->item_type == PARCELABLE_TYPE) {
+            lineno = ((parcelable_type*)next)->parcelable_token.lineno;
+>>>>>>> 54b6cfa... Initial Contribution
         }
         fprintf(stderr, "%s:%d aidl can only handle one interface per file\n",
                             filename, lineno);
         return 1;
     }
 
+<<<<<<< HEAD
     if (items->item_type == USER_DATA_TYPE) {
         *onlyParcelable = true;
         if (options.failOnParcelable) {
@@ -615,6 +709,17 @@ exactly_one_interface(const char* filename, const document_item_type* items, con
             fprintf(stderr, "%s:%d .aidl files that only declare parcelables or flattenables"
                             "may not go in the Makefile.\n", filename,
                             ((user_data_type*)items)->keyword_token.lineno);
+=======
+    if (items->item_type == PARCELABLE_TYPE) {
+        *onlyParcelable = true;
+        if (options.failOnParcelable) {
+            fprintf(stderr, "%s:%d aidl can only generate code for interfaces, not"
+                            " parcelables,\n", filename,
+                            ((parcelable_type*)items)->parcelable_token.lineno);
+            fprintf(stderr, "%s:%d .aidl files that only declare parcelables "
+                            "don't need to go in the Makefile.\n", filename,
+                            ((parcelable_type*)items)->parcelable_token.lineno);
+>>>>>>> 54b6cfa... Initial Contribution
             return 1;
         }
     } else {
@@ -626,6 +731,7 @@ exactly_one_interface(const char* filename, const document_item_type* items, con
 
 // ==========================================================
 void
+<<<<<<< HEAD
 generate_dep_file(const Options& options, const document_item_type* items)
 {
     /* we open the file in binary mode to ensure that the same output is
@@ -639,6 +745,14 @@ generate_dep_file(const Options& options, const document_item_type* items)
         to = fopen(options.depFileName.c_str(), "wb");
     }
 
+=======
+generate_dep_file(const Options& options)
+{
+   /* we open the file in binary mode to ensure that the same output is
+    * generated on all platforms !!
+    */
+    FILE* to = fopen(options.depFileName.c_str(), "wb");
+>>>>>>> 54b6cfa... Initial Contribution
     if (to == NULL) {
         return;
     }
@@ -649,12 +763,16 @@ generate_dep_file(const Options& options, const document_item_type* items)
         slash = "";
     }
 
+<<<<<<< HEAD
     if (items->item_type == INTERFACE_TYPE_BINDER || items->item_type == INTERFACE_TYPE_RPC) {
         fprintf(to, "%s: \\\n", options.outputFileName.c_str());
     } else {
         // parcelable: there's no output file.
         fprintf(to, " : \\\n");
     }
+=======
+    fprintf(to, "%s: \\\n", options.outputFileName.c_str());
+>>>>>>> 54b6cfa... Initial Contribution
     fprintf(to, "  %s %s\n", options.inputFileName.c_str(), slash);
 
     while (import) {
@@ -673,6 +791,7 @@ generate_dep_file(const Options& options, const document_item_type* items)
 }
 
 // ==========================================================
+<<<<<<< HEAD
 static string
 generate_outputFileName2(const Options& options, const buffer_type& name, const char* package)
 {
@@ -745,6 +864,8 @@ check_outputFilePath(const string& path) {
 
 
 // ==========================================================
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 static int
 parse_preprocessed_file(const string& filename)
 {
@@ -752,7 +873,11 @@ parse_preprocessed_file(const string& filename)
 
     FILE* f = fopen(filename.c_str(), "rb");
     if (f == NULL) {
+<<<<<<< HEAD
         fprintf(stderr, "aidl: can't open preprocessed file: %s\n",
+=======
+        fprintf(stderr, "aidl: can't open preprocessd file: %s\n",
+>>>>>>> 54b6cfa... Initial Contribution
                 filename.c_str());
         return 1;
     }
@@ -785,17 +910,27 @@ parse_preprocessed_file(const string& filename)
         document_item_type* doc;
         
         if (0 == strcmp("parcelable", type)) {
+<<<<<<< HEAD
             user_data_type* parcl = (user_data_type*)malloc(
                     sizeof(user_data_type));
             memset(parcl, 0, sizeof(user_data_type));
             parcl->document_item.item_type = USER_DATA_TYPE;
             parcl->keyword_token.lineno = lineno;
             parcl->keyword_token.data = strdup(type);
+=======
+            parcelable_type* parcl = (parcelable_type*)malloc(
+                    sizeof(parcelable_type));
+            memset(parcl, 0, sizeof(parcelable_type));
+            parcl->document_item.item_type = PARCELABLE_TYPE;
+            parcl->parcelable_token.lineno = lineno;
+            parcl->parcelable_token.data = strdup(type);
+>>>>>>> 54b6cfa... Initial Contribution
             parcl->package = packagename ? strdup(packagename) : NULL;
             parcl->name.lineno = lineno;
             parcl->name.data = strdup(classname);
             parcl->semicolon_token.lineno = lineno;
             parcl->semicolon_token.data = strdup(";");
+<<<<<<< HEAD
             parcl->flattening_methods = PARCELABLE_DATA;
             doc = (document_item_type*)parcl;
         }
@@ -812,13 +947,19 @@ parse_preprocessed_file(const string& filename)
             parcl->semicolon_token.lineno = lineno;
             parcl->semicolon_token.data = strdup(";");
             parcl->flattening_methods = RPC_DATA;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             doc = (document_item_type*)parcl;
         }
         else if (0 == strcmp("interface", type)) {
             interface_type* iface = (interface_type*)malloc(
                     sizeof(interface_type));
             memset(iface, 0, sizeof(interface_type));
+<<<<<<< HEAD
             iface->document_item.item_type = INTERFACE_TYPE_BINDER;
+=======
+            iface->document_item.item_type = INTERFACE_TYPE;
+>>>>>>> 54b6cfa... Initial Contribution
             iface->interface_token.lineno = lineno;
             iface->interface_token.data = strdup(type);
             iface->package = packagename ? strdup(packagename) : NULL;
@@ -851,7 +992,11 @@ parse_preprocessed_file(const string& filename)
 
 // ==========================================================
 static int
+<<<<<<< HEAD
 compile_aidl(Options& options)
+=======
+compile_aidl(const Options& options)
+>>>>>>> 54b6cfa... Initial Contribution
 {
     int err = 0, N;
 
@@ -945,6 +1090,7 @@ compile_aidl(Options& options)
         return 1;
     }
 
+<<<<<<< HEAD
     // if needed, generate the outputFileName from the outputBaseFolder
     if (options.outputFileName.length() == 0 &&
             options.outputBaseFolder.length() > 0) {
@@ -960,13 +1106,22 @@ compile_aidl(Options& options)
         generate_dep_file(options, mainDoc);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // they didn't ask to fail on parcelables, so just exit quietly.
     if (onlyParcelable && !options.failOnParcelable) {
         return 0;
     }
 
+<<<<<<< HEAD
     // make sure the folders of the output file all exists
     check_outputFilePath(options.outputFileName);
+=======
+    // if we were asked to, generate a make dependency file
+    if (options.depFileName != "") {
+        generate_dep_file(options);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 
     err = generate_java(options.outputFileName, options.inputFileName.c_str(),
                         (interface_type*)mainDoc);
@@ -990,6 +1145,7 @@ preprocess_aidl(const Options& options)
         }
         document_item_type* doc = g_document;
         string line;
+<<<<<<< HEAD
         if (doc->item_type == USER_DATA_TYPE) {
             user_data_type* parcelable = (user_data_type*)doc;
             if ((parcelable->flattening_methods & PARCELABLE_DATA) != 0) {
@@ -998,6 +1154,11 @@ preprocess_aidl(const Options& options)
             if ((parcelable->flattening_methods & RPC_DATA) != 0) {
                 line = "flattenable ";
             }
+=======
+        if (doc->item_type == PARCELABLE_TYPE) {
+            line = "parcelable ";
+            parcelable_type* parcelable = (parcelable_type*)doc;
+>>>>>>> 54b6cfa... Initial Contribution
             if (parcelable->package) {
                 line += parcelable->package;
                 line += '.';
@@ -1051,6 +1212,11 @@ preprocess_aidl(const Options& options)
 int
 main(int argc, const char **argv)
 {
+<<<<<<< HEAD
+=======
+    int err = 0;
+
+>>>>>>> 54b6cfa... Initial Contribution
     Options options;
     int result = parse_options(argc, argv, &options);
     if (result) {
@@ -1067,3 +1233,8 @@ main(int argc, const char **argv)
     fprintf(stderr, "aidl: internal error\n");
     return 1;
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 54b6cfa... Initial Contribution

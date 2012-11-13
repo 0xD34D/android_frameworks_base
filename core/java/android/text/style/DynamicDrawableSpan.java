@@ -16,6 +16,7 @@
 
 package android.text.style;
 
+<<<<<<< HEAD
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -25,10 +26,18 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
+=======
+import java.lang.ref.WeakReference;
+
+import android.graphics.drawable.Drawable;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  *
  */
+<<<<<<< HEAD
 public abstract class DynamicDrawableSpan extends ReplacementSpan {
     private static final String TAG = "DynamicDrawableSpan";
     
@@ -66,6 +75,11 @@ public abstract class DynamicDrawableSpan extends ReplacementSpan {
         return mVerticalAlignment;
     }
 
+=======
+public abstract class DynamicDrawableSpan
+extends ReplacementSpan
+{
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Your subclass must implement this method to provide the bitmap   
      * to be drawn.  The dimensions of the bitmap must be the same
@@ -73,6 +87,7 @@ public abstract class DynamicDrawableSpan extends ReplacementSpan {
      */
     public abstract Drawable getDrawable();
 
+<<<<<<< HEAD
     @Override
     public int getSize(Paint paint, CharSequence text,
                          int start, int end,
@@ -83,32 +98,53 @@ public abstract class DynamicDrawableSpan extends ReplacementSpan {
         if (fm != null) {
             fm.ascent = -rect.bottom; 
             fm.descent = 0; 
+=======
+    public int getSize(Paint paint, CharSequence text,
+                         int start, int end,
+                         Paint.FontMetricsInt fm) {
+        Drawable b = getCachedDrawable();
+
+        if (fm != null) {
+            fm.ascent = -b.getIntrinsicHeight();
+            fm.descent = 0;
+>>>>>>> 54b6cfa... Initial Contribution
 
             fm.top = fm.ascent;
             fm.bottom = 0;
         }
 
+<<<<<<< HEAD
         return rect.right;
     }
 
     @Override
+=======
+        return b.getIntrinsicWidth();
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public void draw(Canvas canvas, CharSequence text,
                      int start, int end, float x, 
                      int top, int y, int bottom, Paint paint) {
         Drawable b = getCachedDrawable();
         canvas.save();
         
+<<<<<<< HEAD
         int transY = bottom - b.getBounds().bottom;
         if (mVerticalAlignment == ALIGN_BASELINE) {
             transY -= paint.getFontMetricsInt().descent;
         }
 
         canvas.translate(x, transY);
+=======
+        canvas.translate(x, bottom-b.getIntrinsicHeight());;
+>>>>>>> 54b6cfa... Initial Contribution
         b.draw(canvas);
         canvas.restore();
     }
 
     private Drawable getCachedDrawable() {
+<<<<<<< HEAD
         WeakReference<Drawable> wr = mDrawableRef;
         Drawable d = null;
 
@@ -124,5 +160,22 @@ public abstract class DynamicDrawableSpan extends ReplacementSpan {
     }
 
     private WeakReference<Drawable> mDrawableRef;
+=======
+        WeakReference wr = mDrawableRef;
+        Drawable b = null;
+
+        if (wr != null)
+            b = (Drawable) wr.get();
+
+        if (b == null) {
+            b = getDrawable();
+            mDrawableRef = new WeakReference(b);
+        }
+
+        return b;
+    }
+
+    private WeakReference mDrawableRef;
+>>>>>>> 54b6cfa... Initial Contribution
 }
 

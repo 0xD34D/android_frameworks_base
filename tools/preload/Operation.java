@@ -115,6 +115,7 @@ class Operation implements Serializable {
         }
         return microsInt;
     }
+<<<<<<< HEAD
     
     /**
      * Primarily for debugger support
@@ -133,4 +134,6 @@ class Operation implements Serializable {
         return sb.toString();
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

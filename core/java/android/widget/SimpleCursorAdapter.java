@@ -62,6 +62,7 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     private int mStringConversionColumn = -1;
     private CursorToStringConverter mCursorToStringConverter;
     private ViewBinder mViewBinder;
+<<<<<<< HEAD
 
     String[] mOriginalFrom;
 
@@ -83,10 +84,17 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
 
     /**
      * Standard constructor.
+=======
+    private String[] mOriginalFrom;
+
+    /**
+     * Constructor.
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param context The context where the ListView associated with this
      *            SimpleListItemFactory is running
      * @param layout resource identifier of a layout file that defines the views
+<<<<<<< HEAD
      *            for this list item. The layout file should include at least
      *            those named views defined in "to"
      * @param c The database cursor.  Can be null if the cursor is not available yet.
@@ -107,6 +115,25 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
         findColumns(c, from);
     }
 
+=======
+     *            for this list item. Thelayout file should include at least
+     *            those named views defined in "to"
+     * @param c The database cursor.  Can be null if the cursor is not available yet.
+     * @param from A list of column names representing the data to bind to the UI
+     * @param to The views that should display column in the "from" parameter.
+     *            These should all be TextViews. The first N views in this list
+     *            are given the values of the first N columns in the from
+     *            parameter.
+     */
+    public SimpleCursorAdapter(Context context, int layout, Cursor c,
+                               String[] from, int[] to) {
+        super(context, layout, c);
+        mTo = to;
+        mOriginalFrom = from;
+        findColumns(from);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Binds all of the field names passed into the "to" parameter of the
      * constructor with their corresponding cursor columns as specified in the
@@ -133,6 +160,7 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+<<<<<<< HEAD
         final ViewBinder binder = mViewBinder;
         final int count = mTo.length;
         final int[] from = mFrom;
@@ -152,6 +180,22 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
                         text = "";
                     }
 
+=======
+        for (int i = 0; i < mTo.length; i++) {
+            final View v = view.findViewById(mTo[i]);
+            if (v != null) {
+                String text = cursor.getString(mFrom[i]);
+                if (text == null) {
+                    text = "";
+                }
+
+                boolean bound = false;
+                if (mViewBinder != null) {
+                    bound = mViewBinder.setViewValue(v, cursor, mFrom[i]);
+                }
+
+                if (!bound) {
+>>>>>>> 54b6cfa... Initial Contribution
                     if (v instanceof TextView) {
                         setViewText((TextView) v, text);
                     } else if (v instanceof ImageView) {
@@ -216,7 +260,11 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
     /**
      * Called by bindView() to set the text for a TextView but only if
      * there is no existing ViewBinder or if the existing ViewBinder cannot
+<<<<<<< HEAD
      * handle binding to a TextView.
+=======
+     * handle binding to an TextView.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * Intended to be overridden by Adapters that need to filter strings
      * retrieved from the database.
@@ -315,6 +363,7 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
         return super.convertToString(cursor);
     }
 
+<<<<<<< HEAD
     /**
      * Create a map from an array of strings to an array of column-id integers in cursor c.
      * If c is null, the array will be discarded.
@@ -334,10 +383,27 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
             }
         } else {
             mFrom = null;
+=======
+    private void findColumns(String[] from) {
+        int i;
+        int count = from.length;
+        if (mFrom == null) {
+            mFrom = new int[count];
+        }
+        if (mCursor != null) {
+            for (i = 0; i < count; i++) {
+                mFrom[i] = mCursor.getColumnIndexOrThrow(from[i]);
+            }
+        } else {
+            for (i = 0; i < count; i++) {
+                mFrom[i] = -1;
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     @Override
+<<<<<<< HEAD
     public Cursor swapCursor(Cursor c) {
         // super.swapCursor() will notify observers before we have
         // a valid mapping, make sure we have a mapping before this
@@ -365,6 +431,12 @@ public class SimpleCursorAdapter extends ResourceCursorAdapter {
         // happens
         findColumns(c, mOriginalFrom);
         super.changeCursor(c);
+=======
+    public void changeCursor(Cursor c) {
+        super.changeCursor(c);
+        // rescan columns in case cursor layout is different
+        findColumns(mOriginalFrom);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**

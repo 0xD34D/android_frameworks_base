@@ -17,7 +17,10 @@
 package com.android.server.am;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.content.DialogInterface;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.Handler;
 import android.os.Message;
 
@@ -27,8 +30,12 @@ class FactoryErrorDialog extends BaseErrorDialog {
         setCancelable(false);
         setTitle(context.getText(com.android.internal.R.string.factorytest_failed));
         setMessage(msg);
+<<<<<<< HEAD
         setButton(DialogInterface.BUTTON_POSITIVE,
                 context.getText(com.android.internal.R.string.factorytest_reboot),
+=======
+        setButton(context.getText(com.android.internal.R.string.factorytest_reboot),
+>>>>>>> 54b6cfa... Initial Contribution
                 mHandler.obtainMessage(0));
         getWindow().setTitle("Factory Error");
     }

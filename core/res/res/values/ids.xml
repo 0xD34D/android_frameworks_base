@@ -50,6 +50,7 @@
   <item type="id" name="button1" />
   <item type="id" name="button2" />
   <item type="id" name="button3" />
+<<<<<<< HEAD
   <item type="id" name="extractArea" />
   <item type="id" name="candidatesArea" />
   <item type="id" name="inputArea" />
@@ -79,4 +80,6 @@
   <item type="id" name="action_menu_presenter" />
   <item type="id" name="overflow_menu_presenter" />
   <item type="id" name="popup_submenu_presenter" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 </resources>

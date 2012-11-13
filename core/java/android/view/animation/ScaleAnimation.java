@@ -17,10 +17,15 @@
 package android.view.animation;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+=======
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * An animation that controls the scale of an object. You can specify the point
@@ -28,13 +33,17 @@ import android.util.TypedValue;
  * 
  */
 public class ScaleAnimation extends Animation {
+<<<<<<< HEAD
     private final Resources mResources;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private float mFromX;
     private float mToX;
     private float mFromY;
     private float mToY;
 
+<<<<<<< HEAD
     private int mFromXType = TypedValue.TYPE_NULL;
     private int mToXType = TypedValue.TYPE_NULL;
     private int mFromYType = TypedValue.TYPE_NULL;
@@ -45,6 +54,8 @@ public class ScaleAnimation extends Animation {
     private int mFromYData = 0;
     private int mToYData = 0;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private int mPivotXType = ABSOLUTE;
     private int mPivotYType = ABSOLUTE;
     private float mPivotXValue = 0.0f;
@@ -54,7 +65,11 @@ public class ScaleAnimation extends Animation {
     private float mPivotY;
 
     /**
+<<<<<<< HEAD
      * Constructor used when a ScaleAnimation is loaded from a resource.
+=======
+     * Constructor used whan an ScaleAnimation is loaded from a resource.
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param context Application context to use
      * @param attrs Attribute set from which to read values
@@ -62,6 +77,7 @@ public class ScaleAnimation extends Animation {
     public ScaleAnimation(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+<<<<<<< HEAD
         mResources = context.getResources();
 
         TypedArray a = context.obtainStyledAttributes(attrs,
@@ -116,6 +132,16 @@ public class ScaleAnimation extends Animation {
                 mToYData = tv.data;
             }
         }
+=======
+        TypedArray a = context.obtainStyledAttributes(attrs,
+                com.android.internal.R.styleable.ScaleAnimation);
+
+        mFromX = a.getFloat(com.android.internal.R.styleable.ScaleAnimation_fromXScale, 0.0f);
+        mToX = a.getFloat(com.android.internal.R.styleable.ScaleAnimation_toXScale, 0.0f);
+
+        mFromY = a.getFloat(com.android.internal.R.styleable.ScaleAnimation_fromYScale, 0.0f);
+        mToY = a.getFloat(com.android.internal.R.styleable.ScaleAnimation_toYScale, 0.0f);
+>>>>>>> 54b6cfa... Initial Contribution
 
         Description d = Description.parseValue(a.peekValue(
                 com.android.internal.R.styleable.ScaleAnimation_pivotX));
@@ -128,8 +154,11 @@ public class ScaleAnimation extends Animation {
         mPivotYValue = d.value;
 
         a.recycle();
+<<<<<<< HEAD
 
         initializePivotPoint();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -143,7 +172,10 @@ public class ScaleAnimation extends Animation {
      * @param toY Vertical scaling factor to apply at the end of the animation
      */
     public ScaleAnimation(float fromX, float toX, float fromY, float toY) {
+<<<<<<< HEAD
         mResources = null;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mFromX = fromX;
         mToX = toX;
         mFromY = fromY;
@@ -170,7 +202,10 @@ public class ScaleAnimation extends Animation {
      */
     public ScaleAnimation(float fromX, float toX, float fromY, float toY,
             float pivotX, float pivotY) {
+<<<<<<< HEAD
         mResources = null;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mFromX = fromX;
         mToX = toX;
         mFromY = fromY;
@@ -180,7 +215,10 @@ public class ScaleAnimation extends Animation {
         mPivotYType = ABSOLUTE;
         mPivotXValue = pivotX;
         mPivotYValue = pivotY;
+<<<<<<< HEAD
         initializePivotPoint();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -211,7 +249,10 @@ public class ScaleAnimation extends Animation {
      */
     public ScaleAnimation(float fromX, float toX, float fromY, float toY,
             int pivotXType, float pivotXValue, int pivotYType, float pivotYValue) {
+<<<<<<< HEAD
         mResources = null;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mFromX = fromX;
         mToX = toX;
         mFromY = fromY;
@@ -221,6 +262,7 @@ public class ScaleAnimation extends Animation {
         mPivotXType = pivotXType;
         mPivotYValue = pivotYValue;
         mPivotYType = pivotYType;
+<<<<<<< HEAD
         initializePivotPoint();
     }
 
@@ -235,13 +277,18 @@ public class ScaleAnimation extends Animation {
         if (mPivotYType == ABSOLUTE) {
             mPivotY = mPivotYValue;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
         float sx = 1.0f;
         float sy = 1.0f;
+<<<<<<< HEAD
         float scale = getScaleFactor();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (mFromX != 1.0f || mToX != 1.0f) {
             sx = mFromX + ((mToX - mFromX) * interpolatedTime);
@@ -253,6 +300,7 @@ public class ScaleAnimation extends Animation {
         if (mPivotX == 0 && mPivotY == 0) {
             t.getMatrix().setScale(sx, sy);
         } else {
+<<<<<<< HEAD
             t.getMatrix().setScale(sx, sy, scale * mPivotX, scale * mPivotY);
         }
     }
@@ -274,15 +322,24 @@ public class ScaleAnimation extends Animation {
         return targetSize/(float)size;
     }
 
+=======
+            t.getMatrix().setScale(sx, sy, mPivotX, mPivotY);
+        }
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public void initialize(int width, int height, int parentWidth, int parentHeight) {
         super.initialize(width, height, parentWidth, parentHeight);
 
+<<<<<<< HEAD
         mFromX = resolveScale(mFromX, mFromXType, mFromXData, width, parentWidth);
         mToX = resolveScale(mToX, mToXType, mToXData, width, parentWidth);
         mFromY = resolveScale(mFromY, mFromYType, mFromYData, height, parentHeight);
         mToY = resolveScale(mToY, mToYType, mToYData, height, parentHeight);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mPivotX = resolveSize(mPivotXType, mPivotXValue, width, parentWidth);
         mPivotY = resolveSize(mPivotYType, mPivotYValue, height, parentHeight);
     }

@@ -16,6 +16,7 @@
 
 package android.graphics.drawable;
 
+<<<<<<< HEAD
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -57,6 +58,19 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
     private long mEnterAnimationEnd;
     private long mExitAnimationEnd;
     private Drawable mLastDrawable;
+=======
+import android.graphics.*;
+
+public class DrawableContainer extends Drawable implements Drawable.Callback {
+    
+    private DrawableContainerState mDrawableContainerState;
+    private Drawable        mCurrDrawable;
+    private int             mAlpha = 0xFF;
+    private ColorFilter     mColorFilter;
+    private boolean         mDither;
+
+    private int             mCurIndex = -1;
+>>>>>>> 54b6cfa... Initial Contribution
 
     // overrides from Drawable
 
@@ -65,9 +79,12 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         if (mCurrDrawable != null) {
             mCurrDrawable.draw(canvas);
         }
+<<<<<<< HEAD
         if (mLastDrawable != null) {
             mLastDrawable.draw(canvas);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -91,6 +108,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         }
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      */
@@ -99,26 +117,39 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         return (mCurrDrawable == null) ? Insets.NONE : mCurrDrawable.getLayoutInsets();
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public void setAlpha(int alpha) {
         if (mAlpha != alpha) {
             mAlpha = alpha;
             if (mCurrDrawable != null) {
+<<<<<<< HEAD
                 if (mEnterAnimationEnd == 0) {
                     mCurrDrawable.setAlpha(alpha);
                 } else {
                     animate(false);
                 }
+=======
+                mCurrDrawable.setAlpha(alpha);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
     @Override
     public void setDither(boolean dither) {
+<<<<<<< HEAD
         if (mDrawableContainerState.mDither != dither) {
             mDrawableContainerState.mDither = dither;
             if (mCurrDrawable != null) {
                 mCurrDrawable.setDither(mDrawableContainerState.mDither);
+=======
+        if (mDither != dither) {
+            mDither = dither;
+            if (mCurrDrawable != null) {
+                mCurrDrawable.setDither(mDither);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -133,6 +164,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         }
     }
     
+<<<<<<< HEAD
     /**
      * Change the global fade duration when a new drawable is entering
      * the scene.
@@ -156,6 +188,10 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         if (mLastDrawable != null) {
             mLastDrawable.setBounds(bounds);
         }
+=======
+    @Override
+    protected void onBoundsChange(Rect bounds) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mCurrDrawable != null) {
             mCurrDrawable.setBounds(bounds);
         }
@@ -167,6 +203,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
     }
     
     @Override
+<<<<<<< HEAD
     public void jumpToCurrentState() {
         boolean changed = false;
         if (mLastDrawable != null) {
@@ -196,6 +233,9 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         if (mLastDrawable != null) {
             return mLastDrawable.setState(state);
         }
+=======
+    protected boolean onStateChange(int[] state) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mCurrDrawable != null) {
             return mCurrDrawable.setState(state);
         }
@@ -204,9 +244,12 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
 
     @Override
     protected boolean onLevelChange(int level) {
+<<<<<<< HEAD
         if (mLastDrawable != null) {
             return mLastDrawable.setLevel(level);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (mCurrDrawable != null) {
             return mCurrDrawable.setLevel(level);
         }
@@ -245,6 +288,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         return mCurrDrawable != null ? mCurrDrawable.getMinimumHeight() : 0;
     }
 
+<<<<<<< HEAD
     public void invalidateDrawable(Drawable who) {
         if (who == mCurrDrawable && getCallback() != null) {
             getCallback().invalidateDrawable(this);
@@ -260,15 +304,38 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
     public void unscheduleDrawable(Drawable who, Runnable what) {
         if (who == mCurrDrawable && getCallback() != null) {
             getCallback().unscheduleDrawable(this, what);
+=======
+    public void invalidateDrawable(Drawable who)
+    {
+        if (who == mCurrDrawable && mCallback != null) {
+            mCallback.invalidateDrawable(this);
+        }
+    }
+
+    public void scheduleDrawable(Drawable who, Runnable what, long when)
+    {
+        if (who == mCurrDrawable && mCallback != null) {
+            mCallback.scheduleDrawable(this, what, when);
+        }
+    }
+
+    public void unscheduleDrawable(Drawable who, Runnable what)
+    {
+        if (who == mCurrDrawable && mCallback != null) {
+            mCallback.unscheduleDrawable(this, what);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     @Override
     public boolean setVisible(boolean visible, boolean restart) {
         boolean changed = super.setVisible(visible, restart);
+<<<<<<< HEAD
         if (mLastDrawable != null) {
             mLastDrawable.setVisible(visible, restart);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (mCurrDrawable != null) {
             mCurrDrawable.setVisible(visible, restart);
         }
@@ -277,6 +344,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
 
     @Override
     public int getOpacity() {
+<<<<<<< HEAD
         return mCurrDrawable == null || !mCurrDrawable.isVisible() ? PixelFormat.TRANSPARENT :
                 mDrawableContainerState.getOpacity();
     }
@@ -319,12 +387,34 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
                 }
                 d.setVisible(isVisible(), true);
                 d.setDither(mDrawableContainerState.mDither);
+=======
+        return mDrawableContainerState.getOpacity();
+    }
+
+    public boolean selectDrawable(int idx)
+    {
+        if (idx == mCurIndex) {
+            return false;
+        }
+        if (idx >= 0 && idx < mDrawableContainerState.mNumChildren) {
+            Drawable d = mDrawableContainerState.mDrawables[idx];
+            if (mCurrDrawable != null) {
+                mCurrDrawable.setVisible(false, false);
+            }
+            mCurrDrawable = d;
+            mCurIndex = idx;
+            if (d != null) {
+                d.setVisible(isVisible(), true);
+                d.setAlpha(mAlpha);
+                d.setDither(mDither);
+>>>>>>> 54b6cfa... Initial Contribution
                 d.setColorFilter(mColorFilter);
                 d.setState(getState());
                 d.setLevel(getLevel());
                 d.setBounds(getBounds());
             }
         } else {
+<<<<<<< HEAD
             mCurrDrawable = null;
             mCurIndex = -1;
         }
@@ -391,6 +481,18 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         }
     }
 
+=======
+            if (mCurrDrawable != null) {
+                mCurrDrawable.setVisible(false, false);
+            }
+            mCurrDrawable = null;
+            mCurIndex = -1;
+        }
+        invalidateSelf();
+        return true;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public Drawable getCurrent() {
         return mCurrDrawable;
@@ -399,12 +501,17 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
     @Override
     public ConstantState getConstantState() {
         if (mDrawableContainerState.canConstantState()) {
+<<<<<<< HEAD
             mDrawableContainerState.mChangingConfigurations = getChangingConfigurations();
+=======
+            mDrawableContainerState.mChangingConfigurations = super.getChangingConfigurations();
+>>>>>>> 54b6cfa... Initial Contribution
             return mDrawableContainerState;
         }
         return null;
     }
 
+<<<<<<< HEAD
     @Override
     public Drawable mutate() {
         if (!mMutated && super.mutate() == this) {
@@ -424,6 +531,8 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
      * This class was made public to enable testing, and its visibility may change in a future
      * release.
      */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public abstract static class DrawableContainerState extends ConstantState {
         final DrawableContainer mOwner;
 
@@ -452,6 +561,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         boolean     mCheckedConstantState;
         boolean     mCanConstantState;
 
+<<<<<<< HEAD
         boolean     mPaddingChecked = false;
         
         boolean     mDither = DEFAULT_DITHER;        
@@ -461,6 +571,9 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
 
         DrawableContainerState(DrawableContainerState orig, DrawableContainer owner,
                 Resources res) {
+=======
+        DrawableContainerState(DrawableContainerState orig, DrawableContainer owner) {
+>>>>>>> 54b6cfa... Initial Contribution
             mOwner = owner;
 
             if (orig != null) {
@@ -474,19 +587,27 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
 
                 final int N = mNumChildren;
                 for (int i=0; i<N; i++) {
+<<<<<<< HEAD
                     if (res != null) {
                         mDrawables[i] = origDr[i].getConstantState().newDrawable(res);
                     } else {
                         mDrawables[i] = origDr[i].getConstantState().newDrawable();
                     }
+=======
+                    mDrawables[i] = origDr[i].getConstantState().newDrawable();
+>>>>>>> 54b6cfa... Initial Contribution
                     mDrawables[i].setCallback(owner);
                 }
 
                 mCheckedConstantState = mCanConstantState = true;
                 mVariablePadding = orig.mVariablePadding;
+<<<<<<< HEAD
                 if (orig.mConstantPadding != null) {
                     mConstantPadding = new Rect(orig.mConstantPadding);
                 }
+=======
+                mConstantPadding = orig.mConstantPadding;
+>>>>>>> 54b6cfa... Initial Contribution
                 mConstantSize = orig.mConstantSize;
                 mComputedConstantSize = orig.mComputedConstantSize;
                 mConstantWidth = orig.mConstantWidth;
@@ -496,11 +617,14 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
                 mOpacity = orig.mOpacity;
                 mHaveStateful = orig.mHaveStateful;
                 mStateful = orig.mStateful;
+<<<<<<< HEAD
                 
                 mDither = orig.mDither;
 
                 mEnterFadeDuration = orig.mEnterFadeDuration;
                 mExitFadeDuration = orig.mExitFadeDuration;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
             } else {
                 mDrawables = new Drawable[10];
@@ -531,17 +655,30 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             mHaveStateful = false;
 
             mConstantPadding = null;
+<<<<<<< HEAD
             mPaddingChecked = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             mComputedConstantSize = false;
 
             return pos;
         }
 
+<<<<<<< HEAD
         public final int getChildCount() {
             return mNumChildren;
         }
 
         public final Drawable[] getChildren() {
+=======
+        public final int getChildCount()
+        {
+            return mNumChildren;
+        }
+
+        public final Drawable[] getChildren()
+        {
+>>>>>>> 54b6cfa... Initial Contribution
             return mDrawables;
         }
 
@@ -549,6 +686,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
           * all frames in the set (false), or to use the padding value of the frame 
           * being shown (true). Default value is false. 
           */
+<<<<<<< HEAD
         public final void setVariablePadding(boolean variable) {
             mVariablePadding = variable;
         }
@@ -568,12 +706,34 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             for (int i = 0; i < N; i++) {
                 if (drawables[i].getPadding(t)) {
                     if (r == null) r = new Rect(0, 0, 0, 0);
+=======
+        public final void setVariablePadding(boolean variable)
+        {
+            mVariablePadding = variable;
+        }
+
+        public final Rect getConstantPadding()
+        {
+            if (mVariablePadding) {
+                return null;
+            }
+            if (mConstantPadding != null) {
+                return mConstantPadding;
+            }
+
+            Rect r = new Rect(0, 0, 0, 0);
+            Rect t = new Rect();
+            final int N = getChildCount();
+            for (int i=0; i<N; i++) {
+                if (mDrawables[i].getPadding(t)) {
+>>>>>>> 54b6cfa... Initial Contribution
                     if (t.left > r.left) r.left = t.left;
                     if (t.top > r.top) r.top = t.top;
                     if (t.right > r.right) r.right = t.right;
                     if (t.bottom > r.bottom) r.bottom = t.bottom;
                 }
             }
+<<<<<<< HEAD
             mPaddingChecked = true;
             return (mConstantPadding = r);
         }
@@ -587,6 +747,23 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         }
 
         public final int getConstantWidth() {
+=======
+            return (mConstantPadding=r);
+        }
+
+        public final void setConstantSize(boolean constant)
+        {
+            mConstantSize = constant;
+        }
+
+        public final boolean isConstantSize()
+        {
+            return mConstantSize;
+        }
+
+        public final int getConstantWidth()
+        {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mComputedConstantSize) {
                 computeConstantSize();
             }
@@ -594,7 +771,12 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             return mConstantWidth;
         }
 
+<<<<<<< HEAD
         public final int getConstantHeight() {
+=======
+        public final int getConstantHeight()
+        {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mComputedConstantSize) {
                 computeConstantSize();
             }
@@ -602,7 +784,12 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             return mConstantHeight;
         }
 
+<<<<<<< HEAD
         public final int getConstantMinimumWidth() {
+=======
+        public final int getConstantMinimumWidth()
+        {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mComputedConstantSize) {
                 computeConstantSize();
             }
@@ -610,7 +797,12 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             return mConstantMinimumWidth;
         }
 
+<<<<<<< HEAD
         public final int getConstantMinimumHeight() {
+=======
+        public final int getConstantMinimumHeight()
+        {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mComputedConstantSize) {
                 computeConstantSize();
             }
@@ -618,6 +810,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             return mConstantMinimumHeight;
         }
 
+<<<<<<< HEAD
         protected void computeConstantSize() {
             mComputedConstantSize = true;
 
@@ -627,6 +820,17 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             mConstantMinimumWidth = mConstantMinimumHeight = 0;
             for (int i = 0; i < N; i++) {
                 Drawable dr = drawables[i];
+=======
+        private void computeConstantSize()
+        {
+            mComputedConstantSize = true;
+
+            final int N = getChildCount();
+            mConstantWidth = mConstantHeight = 0;
+            mConstantMinimumWidth = mConstantMinimumHeight = 0;
+            for (int i=0; i<N; i++) {
+                Drawable dr = mDrawables[i];
+>>>>>>> 54b6cfa... Initial Contribution
                 int s = dr.getIntrinsicWidth();
                 if (s > mConstantWidth) mConstantWidth = s;
                 s = dr.getIntrinsicHeight();
@@ -638,6 +842,7 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             }
         }
 
+<<<<<<< HEAD
         public final void setEnterFadeDuration(int duration) {
             mEnterFadeDuration = duration;
         }
@@ -655,21 +860,36 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
         }
 
         public final int getOpacity() {
+=======
+        public final int getOpacity()
+        {
+>>>>>>> 54b6cfa... Initial Contribution
             if (mHaveOpacity) {
                 return mOpacity;
             }
 
             final int N = getChildCount();
+<<<<<<< HEAD
             final Drawable[] drawables = mDrawables;
             int op = N > 0 ? drawables[0].getOpacity() : PixelFormat.TRANSPARENT;
             for (int i = 1; i < N; i++) {
                 op = Drawable.resolveOpacity(op, drawables[i].getOpacity());
+=======
+            int op = N > 0
+                ? mDrawables[0].getOpacity() : PixelFormat.TRANSPARENT;
+            for (int i=1; i<N; i++) {
+                op = Drawable.resolveOpacity(op, mDrawables[i].getOpacity());
+>>>>>>> 54b6cfa... Initial Contribution
             }
             mOpacity = op;
             mHaveOpacity = true;
             return op;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         public final boolean isStateful() {
             if (mHaveStateful) {
                 return mStateful;
@@ -689,7 +909,12 @@ public class DrawableContainer extends Drawable implements Drawable.Callback {
             return stateful;
         }
 
+<<<<<<< HEAD
         public void growArray(int oldSize, int newSize) {
+=======
+        public void growArray(int oldSize, int newSize)
+        {
+>>>>>>> 54b6cfa... Initial Contribution
             Drawable[] newDrawables = new Drawable[newSize];
             System.arraycopy(mDrawables, 0, newDrawables, 0, oldSize);
             mDrawables = newDrawables;

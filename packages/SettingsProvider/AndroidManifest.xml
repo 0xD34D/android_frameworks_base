@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.android.providers.settings"
+<<<<<<< HEAD
         coreApp="true"
         android:sharedUserId="android.uid.system">
 
@@ -14,6 +15,14 @@
 
         <provider android:name="SettingsProvider" android:authorities="settings"
                   android:multiprocess="false"
+=======
+        android:sharedUserId="android.uid.system">
+    <application android:allowClearUserData="false"
+                 android:label="Settings Storage"
+                 android:icon="@drawable/ic_launcher_settings">
+        <provider android:name="SettingsProvider" android:authorities="settings"
+                  android:process="system" android:multiprocess="false"
+>>>>>>> 54b6cfa... Initial Contribution
                   android:writePermission="android.permission.WRITE_SETTINGS"
                   android:initOrder="100" />
     </application>

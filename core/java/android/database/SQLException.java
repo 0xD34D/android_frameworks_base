@@ -19,6 +19,7 @@ package android.database;
 /**
  * An exception that indicates there was an error with SQL parsing or execution.
  */
+<<<<<<< HEAD
 public class SQLException extends RuntimeException {
     public SQLException() {
     }
@@ -30,4 +31,14 @@ public class SQLException extends RuntimeException {
     public SQLException(String error, Throwable cause) {
         super(error, cause);
     }
+=======
+public class SQLException extends RuntimeException
+{
+    public SQLException() {}
+
+    public SQLException(String error)
+    {
+        super(error);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -19,6 +19,10 @@ package android.ddm;
 import org.apache.harmony.dalvik.ddmc.Chunk;
 import org.apache.harmony.dalvik.ddmc.ChunkHandler;
 import org.apache.harmony.dalvik.ddmc.DdmServer;
+<<<<<<< HEAD
+=======
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 import java.nio.ByteBuffer;
 
@@ -58,7 +62,11 @@ public class DdmHandleExit extends ChunkHandler {
      * Handle a chunk of data.  We're only registered for "EXIT".
      */
     public Chunk handleChunk(Chunk request) {
+<<<<<<< HEAD
         if (false)
+=======
+        if (Config.LOGV)
+>>>>>>> 54b6cfa... Initial Contribution
             Log.v("ddm-exit", "Handling " + name(request.type) + " chunk");
 
         /*

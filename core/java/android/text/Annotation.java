@@ -16,22 +16,32 @@
 
 package android.text;
 
+<<<<<<< HEAD
 import android.os.Parcel;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * Annotations are simple key-value pairs that are preserved across
  * TextView save/restore cycles and can be used to keep application-specific
  * data that needs to be maintained for regions of text.
  */
+<<<<<<< HEAD
 public class Annotation implements ParcelableSpan {
     private final String mKey;
     private final String mValue;
+=======
+public class Annotation {
+    private String mKey;
+    private String mValue;
+>>>>>>> 54b6cfa... Initial Contribution
 
     public Annotation(String key, String value) {
         mKey = key;
         mValue = value;
     }
 
+<<<<<<< HEAD
     public Annotation(Parcel src) {
         mKey = src.readString();
         mValue = src.readString();
@@ -50,6 +60,8 @@ public class Annotation implements ParcelableSpan {
         dest.writeString(mValue);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public String getKey() {
         return mKey;
     }

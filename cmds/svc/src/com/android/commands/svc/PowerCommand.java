@@ -16,6 +16,7 @@
 
 package com.android.commands.svc;
 
+<<<<<<< HEAD
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.IPowerManager;
@@ -24,6 +25,11 @@ import android.os.ServiceManager;
 import android.os.RemoteException;
 import android.os.BatteryManager;
 import android.content.Context;
+=======
+import android.os.IPowerManager;
+import android.os.ServiceManager;
+import android.os.RemoteException;
+>>>>>>> 54b6cfa... Initial Contribution
 
 public class PowerCommand extends Svc.Command {
     public PowerCommand() {
@@ -37,7 +43,11 @@ public class PowerCommand extends Svc.Command {
     public String longHelp() {
         return shortHelp() + "\n"
                 + "\n"
+<<<<<<< HEAD
                 + "usage: svc power stayon [true|false|usb|ac]\n"
+=======
+                + "usage: svc power stayon [true|false]\n"
+>>>>>>> 54b6cfa... Initial Contribution
                 + "         Set the 'keep awake while plugged in' setting.\n";
     }
 
@@ -45,6 +55,7 @@ public class PowerCommand extends Svc.Command {
         fail: {
             if (args.length >= 2) {
                 if ("stayon".equals(args[1]) && args.length == 3) {
+<<<<<<< HEAD
                     int val;
                     if ("true".equals(args[2])) {
                         val = BatteryManager.BATTERY_PLUGGED_AC |
@@ -56,17 +67,31 @@ public class PowerCommand extends Svc.Command {
                         val = BatteryManager.BATTERY_PLUGGED_USB;
                     } else if ("ac".equals(args[2])) {
                         val = BatteryManager.BATTERY_PLUGGED_AC;
+=======
+                    boolean val;
+                    if ("true".equals(args[2])) {
+                        val = true;
+                    }
+                    else if ("false".equals(args[2])) {
+                        val = false;
+>>>>>>> 54b6cfa... Initial Contribution
                     }
                     else {
                         break fail;
                     }
                     IPowerManager pm
+<<<<<<< HEAD
                             = IPowerManager.Stub.asInterface(ServiceManager.getService(Context.POWER_SERVICE));
                     try {
                         IBinder lock = new Binder();
                         pm.acquireWakeLock(PowerManager.FULL_WAKE_LOCK, lock, "svc power", null);
                         pm.setStayOnSetting(val);
                         pm.releaseWakeLock(lock, 0);
+=======
+                            = IPowerManager.Stub.asInterface(ServiceManager.getService("power"));
+                    try {
+                        pm.setStayOnSetting(val);
+>>>>>>> 54b6cfa... Initial Contribution
                     }
                     catch (RemoteException e) {
                         System.err.println("Faild to set setting: " + e);

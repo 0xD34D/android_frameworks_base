@@ -24,47 +24,63 @@ import java.util.List;
  * A simple list of initialized plugins. This list gets
  * populated when the plugins are initialized (at
  * browser startup, at the moment).
+<<<<<<< HEAD
  *
  * @hide
  * @deprecated This interface was intended to be used by Gears. Since Gears was
  * deprecated, so is this class.
  */
 @Deprecated
+=======
+ */
+>>>>>>> 54b6cfa... Initial Contribution
 public class PluginList {
     private ArrayList<Plugin> mPlugins;
 
    /**
     * Public constructor. Initializes the list of plugins.
+<<<<<<< HEAD
     *
     * @hide
     * @deprecated This interface was intended to be used by Gears. Since Gears was
     * deprecated, so is this class.
     */
     @Deprecated
+=======
+    */
+>>>>>>> 54b6cfa... Initial Contribution
     public PluginList() {
         mPlugins = new ArrayList<Plugin>();
     }
 
    /**
     * Returns the list of plugins as a java.util.List.
+<<<<<<< HEAD
     *
     * @hide
     * @deprecated This interface was intended to be used by Gears. Since Gears was
     * deprecated, so is this class.
     */
     @Deprecated
+=======
+    */
+>>>>>>> 54b6cfa... Initial Contribution
     public synchronized List getList() {
         return mPlugins;
     }
 
    /**
     * Adds a plugin to the list.
+<<<<<<< HEAD
     *
     * @hide
     * @deprecated This interface was intended to be used by Gears. Since Gears was
     * deprecated, so is this class.
     */
     @Deprecated
+=======
+    */
+>>>>>>> 54b6cfa... Initial Contribution
     public synchronized void addPlugin(Plugin plugin) {
         if (!mPlugins.contains(plugin)) {
             mPlugins.add(plugin);
@@ -73,12 +89,16 @@ public class PluginList {
 
    /**
     * Removes a plugin from the list.
+<<<<<<< HEAD
     *
     * @hide
     * @deprecated This interface was intended to be used by Gears. Since Gears was
     * deprecated, so is this class.
     */
     @Deprecated
+=======
+    */
+>>>>>>> 54b6cfa... Initial Contribution
     public synchronized void removePlugin(Plugin plugin) {
         int location = mPlugins.indexOf(plugin);
         if (location != -1) {
@@ -88,24 +108,32 @@ public class PluginList {
 
    /**
     * Clears the plugin list.
+<<<<<<< HEAD
     *
     * @hide
     * @deprecated This interface was intended to be used by Gears. Since Gears was
     * deprecated, so is this class.
     */
     @Deprecated
+=======
+    */
+>>>>>>> 54b6cfa... Initial Contribution
     public synchronized void clear() {
         mPlugins.clear();
     }
 
    /**
     * Dispatches the click event to the appropriate plugin.
+<<<<<<< HEAD
     *
     * @hide
     * @deprecated This interface was intended to be used by Gears. Since Gears was
     * deprecated, so is this class.
     */
     @Deprecated
+=======
+    */
+>>>>>>> 54b6cfa... Initial Contribution
     public synchronized void pluginClicked(Context context, int position) {
         try {
             Plugin plugin = mPlugins.get(position);

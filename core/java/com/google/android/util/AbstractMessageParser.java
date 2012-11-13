@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -13,6 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+=======
+// Copyright 2007 The Android Open Source Project
+// All Rights Reserved.
+>>>>>>> 54b6cfa... Initial Contribution
 
 package com.google.android.util;
 

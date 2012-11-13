@@ -34,7 +34,11 @@ public class ATResponseParser
     {
         this.line = line;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean
     nextBoolean()
     {
@@ -147,7 +151,11 @@ public class ATResponseParser
         }
     }
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 54b6cfa... Initial Contribution
     /** Throws ATParseEx if whitespace extends to the end of string */
     private char
     skipWhiteSpace (char c)

@@ -16,11 +16,15 @@
 
 package android.view;
 
+<<<<<<< HEAD
 import com.android.internal.view.BaseIWindow;
 
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.CompatibilityInfo.Translator;
+=======
+import android.content.Context;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
@@ -32,10 +36,17 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.os.ParcelFileDescriptor;
 import android.util.AttributeSet;
+<<<<<<< HEAD
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+=======
+import android.util.Config;
+import android.util.Log;
+import java.util.ArrayList;
+
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -62,7 +73,11 @@ import java.util.concurrent.locks.ReentrantLock;
  * Surface is created and destroyed as the window is shown and hidden.
  * 
  * <p>One of the purposes of this class is to provide a surface in which a
+<<<<<<< HEAD
  * secondary thread can render into the screen.  If you are going to use it
+=======
+ * secondary thread can render in to the screen.  If you are going to use it
+>>>>>>> 54b6cfa... Initial Contribution
  * this way, you need to be aware of some threading semantics:
  * 
  * <ul>
@@ -81,21 +96,31 @@ import java.util.concurrent.locks.ReentrantLock;
 public class SurfaceView extends View {
     static private final String TAG = "SurfaceView";
     static private final boolean DEBUG = false;
+<<<<<<< HEAD
+=======
+    static private final boolean localLOGV = DEBUG ? true : Config.LOGV;
+>>>>>>> 54b6cfa... Initial Contribution
 
     final ArrayList<SurfaceHolder.Callback> mCallbacks
             = new ArrayList<SurfaceHolder.Callback>();
 
+<<<<<<< HEAD
     final int[] mLocation = new int[2];
     
     final ReentrantLock mSurfaceLock = new ReentrantLock();
     final Surface mSurface = new Surface();       // Current surface in use
     final Surface mNewSurface = new Surface();    // New surface we are switching to
+=======
+    final ReentrantLock mSurfaceLock = new ReentrantLock();
+    final Surface mSurface = new Surface();
+>>>>>>> 54b6cfa... Initial Contribution
     boolean mDrawingStopped = true;
 
     final WindowManager.LayoutParams mLayout
             = new WindowManager.LayoutParams();
     IWindowSession mSession;
     MyWindow mWindow;
+<<<<<<< HEAD
     final Rect mVisibleInsets = new Rect();
     final Rect mWinFrame = new Rect();
     final Rect mContentInsets = new Rect();
@@ -106,6 +131,13 @@ public class SurfaceView extends View {
     static final int UPDATE_WINDOW_MSG = 3;
     
     int mWindowType = WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA;
+=======
+    final Rect mWinFrame = new Rect();
+    final Rect mCoveredInsets = new Rect();
+
+    static final int KEEP_SCREEN_ON_MSG = 1;
+    static final int GET_NEW_SURFACE_MSG = 2;
+>>>>>>> 54b6cfa... Initial Contribution
     
     boolean mIsCreating = false;
 
@@ -119,13 +151,17 @@ public class SurfaceView extends View {
                 case GET_NEW_SURFACE_MSG: {
                     handleGetNewSurface();
                 } break;
+<<<<<<< HEAD
                 case UPDATE_WINDOW_MSG: {
                     updateWindow(false, false);
                 } break;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     };
     
+<<<<<<< HEAD
     final ViewTreeObserver.OnScrollChangedListener mScrollChangedListener
             = new ViewTreeObserver.OnScrollChangedListener() {
                     public void onScrollChanged() {
@@ -145,6 +181,17 @@ public class SurfaceView extends View {
 
     boolean mHaveFrame = false;
     boolean mSurfaceCreated = false;
+=======
+    boolean mRequestedVisible = false;
+    int mRequestedWidth = -1;
+    int mRequestedHeight = -1;
+    int mRequestedFormat = PixelFormat.OPAQUE;
+    int mRequestedType = -1;
+
+    boolean mHaveFrame = false;
+    boolean mDestroyReportNeeded = false;
+    boolean mNewSurfaceNeeded = false;
+>>>>>>> 54b6cfa... Initial Contribution
     long mLastLockTime = 0;
     
     boolean mVisible = false;
@@ -153,6 +200,7 @@ public class SurfaceView extends View {
     int mWidth = -1;
     int mHeight = -1;
     int mFormat = -1;
+<<<<<<< HEAD
     final Rect mSurfaceFrame = new Rect();
     Rect mTmpDirty;
     int mLastSurfaceWidth = -1, mLastSurfaceHeight = -1;
@@ -175,19 +223,34 @@ public class SurfaceView extends View {
     public SurfaceView(Context context) {
         super(context);
         init();
+=======
+    int mType = -1;
+    final Rect mSurfaceFrame = new Rect();
+
+    public SurfaceView(Context context) {
+        super(context);
+        setWillNotDraw(true);
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     public SurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
+<<<<<<< HEAD
         init();
+=======
+        setWillNotDraw(true);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public SurfaceView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+<<<<<<< HEAD
         init();
     }
 
     private void init() {
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         setWillNotDraw(true);
     }
     
@@ -208,6 +271,7 @@ public class SurfaceView extends View {
         mSession = getWindowSession();
         mLayout.token = getWindowToken();
         mLayout.setTitle("SurfaceView");
+<<<<<<< HEAD
         mViewVisibility = getVisibility() == VISIBLE;
 
         if (!mGlobalListenersAdded) {
@@ -216,11 +280,14 @@ public class SurfaceView extends View {
             observer.addOnPreDrawListener(mDrawListener);
             mGlobalListenersAdded = true;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     protected void onWindowVisibilityChanged(int visibility) {
         super.onWindowVisibilityChanged(visibility);
+<<<<<<< HEAD
         mWindowVisibility = visibility == VISIBLE;
         mRequestedVisible = mWindowVisibility && mViewVisibility;
         updateWindow(false, false);
@@ -255,12 +322,25 @@ public class SurfaceView extends View {
 
         mRequestedVisible = false;
         updateWindow(false, false);
+=======
+        mRequestedVisible = visibility == VISIBLE;
+        updateWindow(false);
+    }
+    
+    @Override
+    protected void onDetachedFromWindow() {
+        mRequestedVisible = false;
+        updateWindow(false);
+>>>>>>> 54b6cfa... Initial Contribution
         mHaveFrame = false;
         if (mWindow != null) {
             try {
                 mSession.remove(mWindow);
             } catch (RemoteException ex) {
+<<<<<<< HEAD
                 // Not much we can do here...
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             }
             mWindow = null;
         }
@@ -272,6 +352,7 @@ public class SurfaceView extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+<<<<<<< HEAD
         int width = mRequestedWidth >= 0
                 ? resolveSizeAndState(mRequestedWidth, widthMeasureSpec, 0)
                 : getDefaultSize(0, widthMeasureSpec);
@@ -287,14 +368,34 @@ public class SurfaceView extends View {
         boolean result = super.setFrame(left, top, right, bottom);
         updateWindow(false, false);
         return result;
+=======
+        int width = getDefaultSize(mRequestedWidth, widthMeasureSpec);
+        int height = getDefaultSize(mRequestedHeight, heightMeasureSpec);
+        setMeasuredDimension(width, height);
+    }
+    
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        updateWindow(false);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        updateWindow(false);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     public boolean gatherTransparentRegion(Region region) {
+<<<<<<< HEAD
         if (mWindowType == WindowManager.LayoutParams.TYPE_APPLICATION_PANEL) {
             return super.gatherTransparentRegion(region);
         }
         
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         boolean opaque = true;
         if ((mPrivateFlags & SKIP_DRAW) == 0) {
             // this view draws, remove it from the transparent region
@@ -318,18 +419,26 @@ public class SurfaceView extends View {
 
     @Override
     public void draw(Canvas canvas) {
+<<<<<<< HEAD
         if (mWindowType != WindowManager.LayoutParams.TYPE_APPLICATION_PANEL) {
             // draw() is not called when SKIP_DRAW is set
             if ((mPrivateFlags & SKIP_DRAW) == 0) {
                 // punch a whole in the view-hierarchy below us
                 canvas.drawColor(0, PorterDuff.Mode.CLEAR);
             }
+=======
+        // draw() is not called when SKIP_DRAW is set
+        if ((mPrivateFlags & SKIP_DRAW) == 0) {
+            // punch a whole in the view-hierarchy below us
+            canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         super.draw(canvas);
     }
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
+<<<<<<< HEAD
         if (mWindowType != WindowManager.LayoutParams.TYPE_APPLICATION_PANEL) {
             // if SKIP_DRAW is cleared, draw() has already punched a hole
             if ((mPrivateFlags & SKIP_DRAW) == SKIP_DRAW) {
@@ -402,16 +511,38 @@ public class SurfaceView extends View {
         if (mTranslator != null) {
             mSurface.setCompatibilityTranslator(mTranslator);
         }
+=======
+        // if SKIP_DRAW is cleared, draw() has already punched a hole
+        if ((mPrivateFlags & SKIP_DRAW) == SKIP_DRAW) {
+            // punch a whole in the view-hierarchy below us
+            canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        }
+        // reposition ourselves where the surface is 
+        mHaveFrame = true;
+        updateWindow(false);
+        super.dispatchDraw(canvas);
+    }
+
+    private void updateWindow(boolean force) {
+        if (!mHaveFrame) {
+            return;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         
         int myWidth = mRequestedWidth;
         if (myWidth <= 0) myWidth = getWidth();
         int myHeight = mRequestedHeight;
         if (myHeight <= 0) myHeight = getHeight();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         getLocationInWindow(mLocation);
         final boolean creating = mWindow == null;
         final boolean formatChanged = mFormat != mRequestedFormat;
         final boolean sizeChanged = mWidth != myWidth || mHeight != myHeight;
+<<<<<<< HEAD
         final boolean visibleChanged = mVisible != mRequestedVisible;
 
         if (force || creating || formatChanged || sizeChanged || visibleChanged
@@ -419,11 +550,24 @@ public class SurfaceView extends View {
             || mUpdateWindowNeeded || mReportDrawNeeded || redrawNeeded) {
 
             if (DEBUG) Log.i(TAG, "Changes: creating=" + creating
+=======
+        final boolean visibleChanged = mVisible != mRequestedVisible
+                || mNewSurfaceNeeded;
+        final boolean typeChanged = mType != mRequestedType;
+        if (force || creating || formatChanged || sizeChanged || visibleChanged
+            || typeChanged || mLeft != mLocation[0] || mTop != mLocation[1]) {
+
+            if (localLOGV) Log.i(TAG, "Changes: creating=" + creating
+>>>>>>> 54b6cfa... Initial Contribution
                     + " format=" + formatChanged + " size=" + sizeChanged
                     + " visible=" + visibleChanged
                     + " left=" + (mLeft != mLocation[0])
                     + " top=" + (mTop != mLocation[1]));
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             try {
                 final boolean visible = mVisible = mRequestedVisible;
                 mLeft = mLocation[0];
@@ -431,14 +575,20 @@ public class SurfaceView extends View {
                 mWidth = myWidth;
                 mHeight = myHeight;
                 mFormat = mRequestedFormat;
+<<<<<<< HEAD
 
                 // Scaling/Translate window's layout here because mLayout is not used elsewhere.
                 
                 // Places the window relative
+=======
+                mType = mRequestedType;
+
+>>>>>>> 54b6cfa... Initial Contribution
                 mLayout.x = mLeft;
                 mLayout.y = mTop;
                 mLayout.width = getWidth();
                 mLayout.height = getHeight();
+<<<<<<< HEAD
                 if (mTranslator != null) {
                     mTranslator.translateLayoutParamsInAppWindowToScreen(mLayout);
                 }
@@ -447,10 +597,15 @@ public class SurfaceView extends View {
                 mLayout.flags |=WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                               | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                               | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+=======
+                mLayout.format = mRequestedFormat;
+                mLayout.flags |=WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+>>>>>>> 54b6cfa... Initial Contribution
                               | WindowManager.LayoutParams.FLAG_SCALED
                               | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                               | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                               ;
+<<<<<<< HEAD
                 if (!getContext().getResources().getCompatibilityInfo().supportsScreen()) {
                     mLayout.flags |= WindowManager.LayoutParams.FLAG_COMPATIBLE_WINDOW;
                 }
@@ -539,11 +694,56 @@ public class SurfaceView extends View {
                             if (callbacks == null) {
                                 callbacks = getSurfaceCallbacks();
                             }
+=======
+
+                mLayout.memoryType = mRequestedType;
+
+                if (mWindow == null) {
+                    mWindow = new MyWindow();
+                    mLayout.type = WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA;
+                    mLayout.gravity = Gravity.LEFT|Gravity.TOP;
+                    mSession.add(mWindow, mLayout,
+                            mVisible ? VISIBLE : GONE, mCoveredInsets);
+                }
+                
+                if (visibleChanged && (!visible || mNewSurfaceNeeded)) {
+                    reportSurfaceDestroyed();
+                }
+                
+                mNewSurfaceNeeded = false;
+                
+                mSurfaceLock.lock();
+                mDrawingStopped = !visible;
+                final int relayoutResult = mSession.relayout(
+                    mWindow, mLayout, mWidth, mHeight,
+                    visible ? VISIBLE : GONE, mWinFrame, mCoveredInsets, mSurface);
+                if (localLOGV) Log.i(TAG, "New surface: " + mSurface
+                        + ", vis=" + visible + ", frame=" + mWinFrame);
+                mSurfaceFrame.left = 0;
+                mSurfaceFrame.top = 0;
+                mSurfaceFrame.right = mWinFrame.width();
+                mSurfaceFrame.bottom = mWinFrame.height();
+                mSurfaceLock.unlock();
+
+                try {
+                    if (visible) {
+                        mDestroyReportNeeded = true;
+
+                        SurfaceHolder.Callback callbacks[];
+                        synchronized (mCallbacks) {
+                            callbacks = new SurfaceHolder.Callback[mCallbacks.size()];
+                            mCallbacks.toArray(callbacks);
+                        }            
+
+                        if (visibleChanged) {
+                            mIsCreating = true;
+>>>>>>> 54b6cfa... Initial Contribution
                             for (SurfaceHolder.Callback c : callbacks) {
                                 c.surfaceCreated(mSurfaceHolder);
                             }
                         }
                         if (creating || formatChanged || sizeChanged
+<<<<<<< HEAD
                                 || visibleChanged || realSizeChanged) {
                             if (DEBUG) Log.i(TAG, "surfaceChanged -- format=" + mFormat
                                     + " w=" + myWidth + " h=" + myHeight);
@@ -564,11 +764,17 @@ public class SurfaceView extends View {
                                     ((SurfaceHolder.Callback2)c).surfaceRedrawNeeded(
                                             mSurfaceHolder);
                                 }
+=======
+                                || visibleChanged) {
+                            for (SurfaceHolder.Callback c : callbacks) {
+                                c.surfaceChanged(mSurfaceHolder, mFormat, mWidth, mHeight);
+>>>>>>> 54b6cfa... Initial Contribution
                             }
                         }
                     }
                 } finally {
                     mIsCreating = false;
+<<<<<<< HEAD
                     if (redrawNeeded) {
                         if (DEBUG) Log.i(TAG, "finishedDrawing");
                         mSession.finishDrawing(mWindow);
@@ -578,12 +784,22 @@ public class SurfaceView extends View {
             } catch (RemoteException ex) {
             }
             if (DEBUG) Log.v(
+=======
+                    if (creating || (relayoutResult&WindowManagerImpl.RELAYOUT_FIRST_TIME) != 0) {
+                        mSession.finishDrawing(mWindow);
+                    }
+                }
+            } catch (RemoteException ex) {
+            }
+            if (localLOGV) Log.v(
+>>>>>>> 54b6cfa... Initial Contribution
                 TAG, "Layout: x=" + mLayout.x + " y=" + mLayout.y +
                 " w=" + mLayout.width + " h=" + mLayout.height +
                 ", frame=" + mSurfaceFrame);
         }
     }
 
+<<<<<<< HEAD
     private SurfaceHolder.Callback[] getSurfaceCallbacks() {
         SurfaceHolder.Callback callbacks[];
         synchronized (mCallbacks) {
@@ -635,10 +851,58 @@ public class SurfaceView extends View {
                     }
                 } finally {
                     surfaceView.mSurfaceLock.unlock();
+=======
+    private void reportSurfaceDestroyed() {
+        if (mDestroyReportNeeded) {
+            mDestroyReportNeeded = false;
+            SurfaceHolder.Callback callbacks[];
+            synchronized (mCallbacks) {
+                callbacks = new SurfaceHolder.Callback[mCallbacks.size()];
+                mCallbacks.toArray(callbacks);
+            }            
+            for (SurfaceHolder.Callback c : callbacks) {
+                c.surfaceDestroyed(mSurfaceHolder);
+            }
+        }
+        super.onDetachedFromWindow();
+    }
+
+    void handleGetNewSurface() {
+        mNewSurfaceNeeded = true;
+        updateWindow(false);
+    }
+    
+    private class MyWindow extends IWindow.Stub {
+        public void resized(int w, int h, boolean reportDraw) {
+            if (localLOGV) Log.v(
+                "SurfaceView", SurfaceView.this + " got resized: w=" +
+                w + " h=" + h + ", cur w=" + mCurWidth + " h=" + mCurHeight);
+            synchronized (this) {
+                if (mCurWidth != w || mCurHeight != h) {
+                    mCurWidth = w;
+                    mCurHeight = h;
+                }
+                if (reportDraw) {
+                    try {
+                        mSession.finishDrawing(mWindow);
+                    } catch (RemoteException e) {
+                    }
                 }
             }
         }
 
+        public void dispatchKey(KeyEvent event) {
+            //Log.w("SurfaceView", "Unexpected key event in surface: " + event);
+            if (mSession != null && mSurface != null) {
+                try {
+                    mSession.finishKey(mWindow);
+                } catch (RemoteException ex) {
+>>>>>>> 54b6cfa... Initial Contribution
+                }
+            }
+        }
+
+<<<<<<< HEAD
         public void dispatchAppVisibility(boolean visible) {
             // The point of SurfaceView is to let the app control the surface.
         }
@@ -649,6 +913,35 @@ public class SurfaceView extends View {
                 Message msg = surfaceView.mHandler.obtainMessage(GET_NEW_SURFACE_MSG);
                 surfaceView.mHandler.sendMessage(msg);
             }
+=======
+        public void dispatchPointer(MotionEvent event, long eventTime) {
+            Log.w("SurfaceView", "Unexpected pointer event in surface: " + event);
+            //if (mSession != null && mSurface != null) {
+            //    try {
+            //        //mSession.finishKey(mWindow);
+            //    } catch (RemoteException ex) {
+            //    }
+            //}
+        }
+
+        public void dispatchTrackball(MotionEvent event, long eventTime) {
+            Log.w("SurfaceView", "Unexpected trackball event in surface: " + event);
+            //if (mSession != null && mSurface != null) {
+            //    try {
+            //        //mSession.finishKey(mWindow);
+            //    } catch (RemoteException ex) {
+            //    }
+            //}
+        }
+
+        public void dispatchAppVisibility(boolean visible) {
+            // The point of SurfaceView is to let the app control the surface.
+        }
+        
+        public void dispatchGetNewSurface() {
+            Message msg = mHandler.obtainMessage(GET_NEW_SURFACE_MSG);
+            mHandler.sendMessage(msg);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public void windowFocusChanged(boolean hasFocus, boolean touchEnabled) {
@@ -702,6 +995,7 @@ public class SurfaceView extends View {
         }
 
         public void setFormat(int format) {
+<<<<<<< HEAD
 
             // for backward compatibility reason, OPAQUE always
             // means 565 for SurfaceView
@@ -719,6 +1013,27 @@ public class SurfaceView extends View {
          */
         @Deprecated
         public void setType(int type) { }
+=======
+            mRequestedFormat = format;
+            if (mWindow != null) {
+                updateWindow(false);
+            }
+        }
+
+        public void setType(int type) {
+            switch (type) {
+            case SURFACE_TYPE_NORMAL:
+            case SURFACE_TYPE_HARDWARE:
+            case SURFACE_TYPE_GPU:
+            case SURFACE_TYPE_PUSH_BUFFERS:
+                mRequestedType = type;
+                if (mWindow != null) {
+                    updateWindow(false);
+                }
+                break;
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
 
         public void setKeepScreenOn(boolean screenOn) {
             Message msg = mHandler.obtainMessage(KEEP_SCREEN_ON_MSG);
@@ -735,13 +1050,24 @@ public class SurfaceView extends View {
         }
 
         private final Canvas internalLockCanvas(Rect dirty) {
+<<<<<<< HEAD
             mSurfaceLock.lock();
 
             if (DEBUG) Log.i(TAG, "Locking canvas... stopped="
+=======
+            if (mType == SURFACE_TYPE_PUSH_BUFFERS) {
+                throw new BadSurfaceTypeException(
+                        "Surface type is SURFACE_TYPE_PUSH_BUFFERS");
+            }
+            mSurfaceLock.lock();
+
+            if (localLOGV) Log.i(TAG, "Locking canvas... stopped="
+>>>>>>> 54b6cfa... Initial Contribution
                     + mDrawingStopped + ", win=" + mWindow);
 
             Canvas c = null;
             if (!mDrawingStopped && mWindow != null) {
+<<<<<<< HEAD
                 if (dirty == null) {
                     if (mTmpDirty == null) {
                         mTmpDirty = new Rect();
@@ -752,12 +1078,21 @@ public class SurfaceView extends View {
 
                 try {
                     c = mSurface.lockCanvas(dirty);
+=======
+                Rect frame = dirty != null ? dirty : mSurfaceFrame;
+                try {
+                    c = mSurface.lockCanvas(frame);
+>>>>>>> 54b6cfa... Initial Contribution
                 } catch (Exception e) {
                     Log.e(LOG_TAG, "Exception locking surface", e);
                 }
             }
 
+<<<<<<< HEAD
             if (DEBUG) Log.i(TAG, "Returned canvas: " + c);
+=======
+            if (localLOGV) Log.i(TAG, "Returned canvas: " + c);
+>>>>>>> 54b6cfa... Initial Contribution
             if (c != null) {
                 mLastLockTime = SystemClock.uptimeMillis();
                 return c;
@@ -795,3 +1130,7 @@ public class SurfaceView extends View {
         }
     };
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution

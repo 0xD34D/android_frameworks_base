@@ -35,6 +35,11 @@
 
 #include <cutils/sockets.h>
 #include <netinet/tcp.h>
+<<<<<<< HEAD
+=======
+#include <cutils/properties.h>
+#include <cutils/adb_networking.h>
+>>>>>>> 54b6cfa... Initial Contribution
 
 namespace android {
 
@@ -99,9 +104,15 @@ socket_connect_local(JNIEnv *env, jobject object,
 
 #define DEFAULT_BACKLOG 4
 
+<<<<<<< HEAD
 /* private native void bindLocal(FileDescriptor fd, String name, namespace)
  * throws IOException;
  */
+=======
+/* private native void bindLocal(FileDescriptor fd, String name, namespace) 
+ * throws IOException; 
+ */ 
+>>>>>>> 54b6cfa... Initial Contribution
 
 static void
 socket_bind_local (JNIEnv *env, jobject object, jobject fileDescriptor,
@@ -113,7 +124,11 @@ socket_bind_local (JNIEnv *env, jobject object, jobject fileDescriptor,
 
 
     if (name == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     fd = jniGetFDFromFileDescriptor(env, fileDescriptor);
@@ -127,7 +142,11 @@ socket_bind_local (JNIEnv *env, jobject object, jobject fileDescriptor,
     ret = socket_local_server_bind(fd, nameUtf8, namespaceId);
 
     env->ReleaseStringUTFChars(name, nameUtf8);
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 54b6cfa... Initial Contribution
     if (ret < 0) {
         jniThrowIOException(env, errno);
         return;
@@ -166,14 +185,22 @@ socket_accept (JNIEnv *env, jobject object, jobject fileDescriptor, jobject s)
         struct sockaddr address;
         struct sockaddr_un un_address;
     } sa;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     int ret;
     int retFD;
     int fd;
     socklen_t addrlen;
 
     if (s == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return NULL;
     }
 
@@ -345,7 +372,11 @@ static void socket_setOption(
             struct timeval timeout;
             timeout.tv_sec = intValue / 1000;
             timeout.tv_usec = (intValue % 1000) * 1000;
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             ret = setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO,
                     (void *)&timeout, sizeof(timeout));
 
@@ -353,7 +384,11 @@ static void socket_setOption(
                 ret = setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO,
                         (void *)&timeout, sizeof(timeout));
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             break;
         }
         default: {
@@ -372,7 +407,11 @@ static void socket_setOption(
     }
 }
 
+<<<<<<< HEAD
 static jint socket_available (JNIEnv *env, jobject object,
+=======
+static jint socket_available (JNIEnv *env, jobject object, 
+>>>>>>> 54b6cfa... Initial Contribution
         jobject fileDescriptor)
 {
     int fd;
@@ -398,7 +437,11 @@ static jint socket_available (JNIEnv *env, jobject object,
     return (jint)avail;
 #else
 // there appears to be a bionic bug that prevents this version from working.
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     ssize_t ret;
     struct msghdr msg;
 
@@ -408,7 +451,11 @@ static jint socket_available (JNIEnv *env, jobject object,
         ret = recvmsg(fd, &msg, MSG_PEEK | MSG_DONTWAIT | MSG_NOSIGNAL);
     } while (ret < 0 && errno == EINTR);
 
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // MSG_PEEK returns 0 on EOF and EWOULDBLOCK on none available
     if (ret < 0 && errno == EWOULDBLOCK) {
         return 0;
@@ -427,7 +474,11 @@ static void socket_close (JNIEnv *env, jobject object, jobject fileDescriptor)
     int err;
 
     if (fileDescriptor == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return;
     }
 
@@ -448,7 +499,11 @@ static void socket_close (JNIEnv *env, jobject object, jobject fileDescriptor)
 }
 
 /**
+<<<<<<< HEAD
  * Processes ancillary data, handling only
+=======
+ * Processes ancillary data, handling only 
+>>>>>>> 54b6cfa... Initial Contribution
  * SCM_RIGHTS. Creates appropriate objects and sets appropriate
  * fields in the LocalSocketImpl object. Returns 0 on success
  * or -1 if an exception was thrown.
@@ -457,7 +512,11 @@ static int socket_process_cmsg(JNIEnv *env, jobject thisJ, struct msghdr * pMsg)
 {
     struct cmsghdr *cmsgptr;
 
+<<<<<<< HEAD
     for (cmsgptr = CMSG_FIRSTHDR(pMsg);
+=======
+    for (cmsgptr = CMSG_FIRSTHDR(pMsg); 
+>>>>>>> 54b6cfa... Initial Contribution
             cmsgptr != NULL; cmsgptr = CMSG_NXTHDR(pMsg, cmsgptr)) {
 
         if (cmsgptr->cmsg_level != SOL_SOCKET) {
@@ -467,11 +526,19 @@ static int socket_process_cmsg(JNIEnv *env, jobject thisJ, struct msghdr * pMsg)
         if (cmsgptr->cmsg_type == SCM_RIGHTS) {
             int *pDescriptors = (int *)CMSG_DATA(cmsgptr);
             jobjectArray fdArray;
+<<<<<<< HEAD
             int count
                 = ((cmsgptr->cmsg_len - CMSG_LEN(0)) / sizeof(int));
 
             if (count < 0) {
                 jniThrowException(env, "java/io/IOException",
+=======
+            int count 
+                = ((cmsgptr->cmsg_len - CMSG_LEN(0)) / sizeof(int));
+
+            if (count < 0) {
+                jniThrowException(env, "java/io/IOException", 
+>>>>>>> 54b6cfa... Initial Contribution
                     "invalid cmsg length");
             }
 
@@ -482,7 +549,11 @@ static int socket_process_cmsg(JNIEnv *env, jobject thisJ, struct msghdr * pMsg)
             }
 
             for (int i = 0; i < count; i++) {
+<<<<<<< HEAD
                 jobject fdObject
+=======
+                jobject fdObject 
+>>>>>>> 54b6cfa... Initial Contribution
                         = jniCreateFileDescriptor(env, pDescriptors[i]);
 
                 if (env->ExceptionOccurred() != NULL) {
@@ -514,7 +585,11 @@ static int socket_process_cmsg(JNIEnv *env, jobject thisJ, struct msghdr * pMsg)
  * Returns the length of normal data read, or -1 if an exception has
  * been thrown in this function.
  */
+<<<<<<< HEAD
 static ssize_t socket_read_all(JNIEnv *env, jobject thisJ, int fd,
+=======
+static ssize_t socket_read_all(JNIEnv *env, jobject thisJ, int fd, 
+>>>>>>> 54b6cfa... Initial Contribution
         void *buffer, size_t len)
 {
     ssize_t ret;
@@ -554,7 +629,11 @@ static ssize_t socket_read_all(JNIEnv *env, jobject thisJ, int fd,
     if ((msg.msg_flags & (MSG_CTRUNC | MSG_OOB | MSG_ERRQUEUE)) != 0) {
         // To us, any of the above flags are a fatal error
 
+<<<<<<< HEAD
         jniThrowException(env, "java/io/IOException",
+=======
+        jniThrowException(env, "java/io/IOException", 
+>>>>>>> 54b6cfa... Initial Contribution
                 "Unexpected error or truncation during recvmsg()");
 
         return -1;
@@ -580,7 +659,11 @@ static int socket_write_all(JNIEnv *env, jobject object, int fd,
     unsigned char *buffer = (unsigned char *)buf;
     memset(&msg, 0, sizeof(msg));
 
+<<<<<<< HEAD
     jobjectArray outboundFds
+=======
+    jobjectArray outboundFds 
+>>>>>>> 54b6cfa... Initial Contribution
             = (jobjectArray)env->GetObjectField(
                 object, field_outboundFileDescriptors);
 
@@ -632,7 +715,11 @@ static int socket_write_all(JNIEnv *env, jobject object, int fd,
 
         msg.msg_iov = &iv;
         msg.msg_iovlen = 1;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         do {
             ret = sendmsg(fd, &msg, MSG_NOSIGNAL);
         } while (ret < 0 && errno == EINTR);
@@ -658,7 +745,11 @@ static jint socket_read (JNIEnv *env, jobject object, jobject fileDescriptor)
     int err;
 
     if (fileDescriptor == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return (jint)-1;
     }
 
@@ -685,7 +776,11 @@ static jint socket_read (JNIEnv *env, jobject object, jobject fileDescriptor)
     return (jint)buf;
 }
 
+<<<<<<< HEAD
 static jint socket_readba (JNIEnv *env, jobject object,
+=======
+static jint socket_readba (JNIEnv *env, jobject object, 
+>>>>>>> 54b6cfa... Initial Contribution
         jbyteArray buffer, jint off, jint len, jobject fileDescriptor)
 {
     int fd;
@@ -693,12 +788,20 @@ static jint socket_readba (JNIEnv *env, jobject object,
     int ret;
 
     if (fileDescriptor == NULL || buffer == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return (jint)-1;
     }
 
     if (off < 0 || len < 0 || (off + len) > env->GetArrayLength(buffer)) {
+<<<<<<< HEAD
         jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", NULL);
+=======
+        jniThrowException(env, "java/lang/ArrayIndexOutOfBounds", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return (jint)-1;
     }
 
@@ -720,7 +823,11 @@ static jint socket_readba (JNIEnv *env, jobject object,
         return (jint)-1;
     }
 
+<<<<<<< HEAD
     ret = socket_read_all(env, object,
+=======
+    ret = socket_read_all(env, object, 
+>>>>>>> 54b6cfa... Initial Contribution
             fd, byteBuffer + off, len);
 
     // A return of -1 above means an exception is pending
@@ -730,14 +837,22 @@ static jint socket_readba (JNIEnv *env, jobject object,
     return (jint) ((ret == 0) ? -1 : ret);
 }
 
+<<<<<<< HEAD
 static void socket_write (JNIEnv *env, jobject object,
+=======
+static void socket_write (JNIEnv *env, jobject object, 
+>>>>>>> 54b6cfa... Initial Contribution
         jint b, jobject fileDescriptor)
 {
     int fd;
     int err;
 
     if (fileDescriptor == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return;
     }
 
@@ -752,7 +867,11 @@ static void socket_write (JNIEnv *env, jobject object,
     // A return of -1 above means an exception is pending
 }
 
+<<<<<<< HEAD
 static void socket_writeba (JNIEnv *env, jobject object,
+=======
+static void socket_writeba (JNIEnv *env, jobject object, 
+>>>>>>> 54b6cfa... Initial Contribution
         jbyteArray buffer, jint off, jint len, jobject fileDescriptor)
 {
     int fd;
@@ -760,12 +879,20 @@ static void socket_writeba (JNIEnv *env, jobject object,
     jbyte* byteBuffer;
 
     if (fileDescriptor == NULL || buffer == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return;
     }
 
     if (off < 0 || len < 0 || (off + len) > env->GetArrayLength(buffer)) {
+<<<<<<< HEAD
         jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", NULL);
+=======
+        jniThrowException(env, "java/lang/ArrayIndexOutOfBounds", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return;
     }
 
@@ -782,7 +909,11 @@ static void socket_writeba (JNIEnv *env, jobject object,
         return;
     }
 
+<<<<<<< HEAD
     err = socket_write_all(env, object, fd,
+=======
+    err = socket_write_all(env, object, fd, 
+>>>>>>> 54b6cfa... Initial Contribution
             byteBuffer + off, len);
 
     // A return of -1 above means an exception is pending
@@ -790,14 +921,22 @@ static void socket_writeba (JNIEnv *env, jobject object,
     env->ReleaseByteArrayElements(buffer, byteBuffer, JNI_ABORT);
 }
 
+<<<<<<< HEAD
 static jobject socket_get_peer_credentials(JNIEnv *env,
+=======
+static jobject socket_get_peer_credentials(JNIEnv *env, 
+>>>>>>> 54b6cfa... Initial Contribution
         jobject object, jobject fileDescriptor)
 {
     int err;
     int fd;
 
     if (fileDescriptor == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return NULL;
     }
 
@@ -812,7 +951,11 @@ static jobject socket_get_peer_credentials(JNIEnv *env,
     memset(&creds, 0, sizeof(creds));
     socklen_t szCreds = sizeof(creds);
 
+<<<<<<< HEAD
     err = getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &creds, &szCreds);
+=======
+    err = getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &creds, &szCreds); 
+>>>>>>> 54b6cfa... Initial Contribution
 
     if (err < 0) {
         jniThrowIOException(env, errno);
@@ -823,20 +966,32 @@ static jobject socket_get_peer_credentials(JNIEnv *env,
         return NULL;
     }
 
+<<<<<<< HEAD
     return env->NewObject(class_Credentials, method_CredentialsInit,
+=======
+    return env->NewObject(class_Credentials, method_CredentialsInit, 
+>>>>>>> 54b6cfa... Initial Contribution
             creds.pid, creds.uid, creds.gid);
 }
 
 #if 0
 //TODO change this to return an instance of LocalSocketAddress
+<<<<<<< HEAD
 static jobject socket_getSockName(JNIEnv *env,
+=======
+static jobject socket_getSockName(JNIEnv *env, 
+>>>>>>> 54b6cfa... Initial Contribution
         jobject object, jobject fileDescriptor)
 {
     int err;
     int fd;
 
     if (fileDescriptor == NULL) {
+<<<<<<< HEAD
         jniThrowNullPointerException(env, NULL);
+=======
+        jniThrowException(env, "java/lang/NullPointerException", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         return NULL;
     }
 
@@ -898,10 +1053,17 @@ static JNINativeMethod gMethods[] = {
     {"readba_native", "([BIILjava/io/FileDescriptor;)I", (void*) socket_readba},
     {"writeba_native", "([BIILjava/io/FileDescriptor;)V", (void*) socket_writeba},
     {"write_native", "(ILjava/io/FileDescriptor;)V", (void*) socket_write},
+<<<<<<< HEAD
     {"getPeerCredentials_native",
             "(Ljava/io/FileDescriptor;)Landroid/net/Credentials;",
             (void*) socket_get_peer_credentials}
     //,{"getSockName_native", "(Ljava/io/FileDescriptor;)Ljava/lang/String;",
+=======
+    {"getPeerCredentials_native", 
+            "(Ljava/io/FileDescriptor;)Landroid/net/Credentials;", 
+            (void*) socket_get_peer_credentials}
+    //,{"getSockName_native", "(Ljava/io/FileDescriptor;)Ljava/lang/String;", 
+>>>>>>> 54b6cfa... Initial Contribution
     //        (void *) socket_getSockName}
 
 };
@@ -916,14 +1078,22 @@ int register_android_net_LocalSocketImpl(JNIEnv *env)
         goto error;
     }
 
+<<<<<<< HEAD
     field_inboundFileDescriptors = env->GetFieldID(clazz,
+=======
+    field_inboundFileDescriptors = env->GetFieldID(clazz, 
+>>>>>>> 54b6cfa... Initial Contribution
             "inboundFileDescriptors", "[Ljava/io/FileDescriptor;");
 
     if (field_inboundFileDescriptors == NULL) {
         goto error;
     }
 
+<<<<<<< HEAD
     field_outboundFileDescriptors = env->GetFieldID(clazz,
+=======
+    field_outboundFileDescriptors = env->GetFieldID(clazz, 
+>>>>>>> 54b6cfa... Initial Contribution
             "outboundFileDescriptors", "[Ljava/io/FileDescriptor;");
 
     if (field_outboundFileDescriptors == NULL) {
@@ -931,7 +1101,11 @@ int register_android_net_LocalSocketImpl(JNIEnv *env)
     }
 
     class_Credentials = env->FindClass("android/net/Credentials");
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     if (class_Credentials == NULL) {
         goto error;
     }
@@ -946,7 +1120,11 @@ int register_android_net_LocalSocketImpl(JNIEnv *env)
 
     class_FileDescriptor = (jclass)env->NewGlobalRef(class_FileDescriptor);
 
+<<<<<<< HEAD
     method_CredentialsInit
+=======
+    method_CredentialsInit 
+>>>>>>> 54b6cfa... Initial Contribution
             = env->GetMethodID(class_Credentials, "<init>", "(III)V");
 
     if (method_CredentialsInit == NULL) {
@@ -957,7 +1135,11 @@ int register_android_net_LocalSocketImpl(JNIEnv *env)
         "android/net/LocalSocketImpl", gMethods, NELEM(gMethods));
 
 error:
+<<<<<<< HEAD
     ALOGE("Error registering android.net.LocalSocketImpl");
+=======
+    LOGE("Error registering android.net.LocalSocketImpl");
+>>>>>>> 54b6cfa... Initial Contribution
     return -1;
 }
 

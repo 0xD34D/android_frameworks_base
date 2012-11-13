@@ -17,6 +17,7 @@
 package android.widget;
 
 import com.android.internal.R;
+<<<<<<< HEAD
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -39,6 +40,25 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+=======
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageParser;
+import android.content.pm.PermissionGroupInfo;
+import android.content.pm.PermissionInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.Set;
 
 /**
@@ -61,15 +81,25 @@ public class AppSecurityPermissions  implements View.OnClickListener {
         BOTH
     }
 
+<<<<<<< HEAD
     private final static String TAG = "AppSecurityPermissions";
+=======
+    private final String TAG = "AppSecurityPermissions";
+>>>>>>> 54b6cfa... Initial Contribution
     private boolean localLOGV = false;
     private Context mContext;
     private LayoutInflater mInflater;
     private PackageManager mPm;
     private LinearLayout mPermsView;
+<<<<<<< HEAD
     private Map<String, String> mDangerousMap;
     private Map<String, String> mNormalMap;
     private List<PermissionInfo> mPermsList;
+=======
+    private HashMap<String, String> mDangerousMap;
+    private HashMap<String, String> mNormalMap;
+    private ArrayList<PermissionInfo> mPermsList;
+>>>>>>> 54b6cfa... Initial Contribution
     private String mDefaultGrpLabel;
     private String mDefaultGrpName="DefaultGrp";
     private String mPermFormat;
@@ -84,6 +114,7 @@ public class AppSecurityPermissions  implements View.OnClickListener {
     private State mCurrentState;
     private LinearLayout mNonDangerousList;
     private LinearLayout mDangerousList;
+<<<<<<< HEAD
     private HashMap<String, CharSequence> mGroupLabelCache;
     private View mNoPermsView;
     
@@ -206,6 +237,20 @@ public class AppSecurityPermissions  implements View.OnClickListener {
     public View getPermissionsView() {
         
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+=======
+    private HashMap<String, String> mGroupLabelCache;
+    private View mNoPermsView;
+
+    public AppSecurityPermissions(Context context) {
+        this(context, null);
+    }
+
+    public AppSecurityPermissions(Context context, ArrayList<PermissionInfo> permList) {
+        mContext = context;
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mPm = context.getPackageManager();
+        mPermsList = permList;
+>>>>>>> 54b6cfa... Initial Contribution
         mPermsView = (LinearLayout) mInflater.inflate(R.layout.app_perms_summary, null);
         mShowMore = mPermsView.findViewById(R.id.show_more);
         mShowMoreIcon = (ImageView) mShowMore.findViewById(R.id.show_more_icon);
@@ -218,17 +263,52 @@ public class AppSecurityPermissions  implements View.OnClickListener {
         mShowMore.setClickable(true);
         mShowMore.setOnClickListener(this);
         mShowMore.setFocusable(true);
+<<<<<<< HEAD
+=======
+        mShowMore.setBackgroundResource(android.R.drawable.list_selector_background);
+>>>>>>> 54b6cfa... Initial Contribution
 
         // Pick up from framework resources instead.
         mDefaultGrpLabel = mContext.getString(R.string.default_permission_group);
         mPermFormat = mContext.getString(R.string.permissions_format);
         mNormalIcon = mContext.getResources().getDrawable(R.drawable.ic_text_dot);
         mDangerousIcon = mContext.getResources().getDrawable(R.drawable.ic_bullet_key_permission);
+<<<<<<< HEAD
         mShowMaxIcon = mContext.getResources().getDrawable(R.drawable.expander_close_holo_dark);
         mShowMinIcon = mContext.getResources().getDrawable(R.drawable.expander_open_holo_dark);
         
         // Set permissions view
         setPermissions(mPermsList);
+=======
+        mShowMaxIcon = mContext.getResources().getDrawable(R.drawable.expander_ic_maximized);
+        mShowMinIcon = mContext.getResources().getDrawable(R.drawable.expander_ic_minimized);
+    }
+
+    public void setSecurityPermissionsView() {
+        setPermissions(mPermsList);
+    }
+
+    public void setSecurityPermissionsView(Uri pkgURI) {
+        final String archiveFilePath = pkgURI.getPath();
+        PackageParser packageParser = new PackageParser(archiveFilePath);
+        File sourceFile = new File(archiveFilePath);
+        DisplayMetrics metrics = new DisplayMetrics();
+        metrics.setToDefaults();
+        PackageParser.Package pkgInfo = packageParser.parsePackage(sourceFile,
+                archiveFilePath, metrics, 0);
+        mPermsList = generatePermissionsInfo(pkgInfo.requestedPermissions);
+        //For packages that havent been installed we need the application info object
+        //to load the labels and other resources.
+        setPermissions(mPermsList, pkgInfo.applicationInfo);
+    }
+
+    public void setSecurityPermissionsView(PackageInfo pInfo) {
+        mPermsList = generatePermissionsInfo(pInfo.requestedPermissions);
+        setPermissions(mPermsList);
+    }
+
+    public View getPermissionsView() {
+>>>>>>> 54b6cfa... Initial Contribution
         return mPermsView;
     }
 
@@ -255,30 +335,98 @@ public class AppSecurityPermissions  implements View.OnClickListener {
      * is null the other non null value is returned without formatting
      * this is to placate initial error checks
      */
+<<<<<<< HEAD
     private String formatPermissions(String groupDesc, CharSequence permDesc) {
         if(groupDesc == null) {
             if(permDesc == null) {
                 return null;
             }
             return permDesc.toString();
+=======
+    private String formatPermissions(String groupDesc, String permDesc) {
+        if(groupDesc == null) {
+            return permDesc;
+>>>>>>> 54b6cfa... Initial Contribution
         }
         groupDesc = canonicalizeGroupDesc(groupDesc);
         if(permDesc == null) {
             return groupDesc;
         }
+<<<<<<< HEAD
         // groupDesc and permDesc are non null
         return String.format(mPermFormat, groupDesc, permDesc.toString());
     }
 
     private CharSequence getGroupLabel(String grpName) {
+=======
+        return String.format(mPermFormat, groupDesc, permDesc);
+    }
+
+    /**
+     * Utility method that concatenates two strings defined by mPermFormat.
+     */
+    private String formatPermissions(String groupDesc, CharSequence permDesc) {
+        groupDesc = canonicalizeGroupDesc(groupDesc);
+        if(permDesc == null) {
+            return groupDesc;
+        }
+        // Format only if str1 and str2 are not null.
+        return formatPermissions(groupDesc, permDesc.toString());
+    }
+
+    private ArrayList<PermissionInfo> generatePermissionsInfo(String[] strList) {
+        ArrayList<PermissionInfo> permInfoList = new ArrayList<PermissionInfo>();
+        if(strList == null) {
+            return permInfoList;
+        }
+        PermissionInfo tmpPermInfo = null;
+        for(int i = 0; i < strList.length; i++) {
+            try {
+                tmpPermInfo = mPm.getPermissionInfo(strList[i], 0);
+                permInfoList.add(tmpPermInfo);
+            } catch (NameNotFoundException e) {
+                Log.i(TAG, "Ignoring unknown permisison:"+strList[i]);
+                continue;
+            }
+        }
+        return permInfoList;
+    }
+
+    private ArrayList<PermissionInfo> generatePermissionsInfo(ArrayList<String> strList) {
+        ArrayList<PermissionInfo> permInfoList = new ArrayList<PermissionInfo>();
+        if(strList != null) {
+            PermissionInfo tmpPermInfo = null;
+            for(String permName:strList) {
+                try {
+                    tmpPermInfo = mPm.getPermissionInfo(permName, 0);
+                    permInfoList.add(tmpPermInfo);
+                } catch (NameNotFoundException e) {
+                    Log.i(TAG, "Ignoring unknown permisison:"+permName);
+                    continue;
+                }
+            }
+        }
+        return permInfoList;
+    }
+
+    private String getGroupLabel(String grpName) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (grpName == null) {
             //return default label
             return mDefaultGrpLabel;
         }
+<<<<<<< HEAD
         CharSequence cachedLabel = mGroupLabelCache.get(grpName);
         if (cachedLabel != null) {
             return cachedLabel;
         }
+=======
+        String cachedLabel = mGroupLabelCache.get(grpName);
+        if (cachedLabel != null) {
+            return cachedLabel;
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         PermissionGroupInfo pgi;
         try {
             pgi = mPm.getPermissionGroupInfo(grpName, 0);
@@ -286,7 +434,11 @@ public class AppSecurityPermissions  implements View.OnClickListener {
             Log.i(TAG, "Invalid group name:" + grpName);
             return null;
         }
+<<<<<<< HEAD
         CharSequence label = pgi.loadLabel(mPm).toString();
+=======
+        String label = pgi.loadLabel(mPm).toString();
+>>>>>>> 54b6cfa... Initial Contribution
         mGroupLabelCache.put(grpName, label);
         return label;
     }
@@ -296,13 +448,21 @@ public class AppSecurityPermissions  implements View.OnClickListener {
      * list of permission descriptions.
      */
     private void displayPermissions(boolean dangerous) {
+<<<<<<< HEAD
         Map<String, String> permInfoMap = dangerous ? mDangerousMap : mNormalMap;
+=======
+        HashMap<String, String> permInfoMap = dangerous ? mDangerousMap : mNormalMap;
+>>>>>>> 54b6cfa... Initial Contribution
         LinearLayout permListView = dangerous ? mDangerousList : mNonDangerousList;
         permListView.removeAllViews();
 
         Set<String> permInfoStrSet = permInfoMap.keySet();
         for (String loopPermGrpInfoStr : permInfoStrSet) {
+<<<<<<< HEAD
             CharSequence grpLabel = getGroupLabel(loopPermGrpInfoStr);
+=======
+            String grpLabel = getGroupLabel(loopPermGrpInfoStr);
+>>>>>>> 54b6cfa... Initial Contribution
             //guaranteed that grpLabel wont be null since permissions without groups
             //will belong to the default group
             if(localLOGV) Log.i(TAG, "Adding view group:" + grpLabel + ", desc:"
@@ -316,6 +476,7 @@ public class AppSecurityPermissions  implements View.OnClickListener {
         mNoPermsView.setVisibility(View.VISIBLE);
     }
 
+<<<<<<< HEAD
     private View getPermissionItemView(CharSequence grpName, CharSequence permList,
             boolean dangerous) {
         return getPermissionItemView(mContext, mInflater, grpName, permList,
@@ -328,6 +489,21 @@ public class AppSecurityPermissions  implements View.OnClickListener {
 
         TextView permGrpView = (TextView) permView.findViewById(R.id.permission_group);
         TextView permDescView = (TextView) permView.findViewById(R.id.permission_list);
+=======
+    private View getPermissionItemView(String grpName, String permList,
+            boolean dangerous) {
+        View permView = mInflater.inflate(R.layout.app_permission_item, null);
+        Drawable icon = dangerous ? mDangerousIcon : mNormalIcon;
+        int grpColor = dangerous ? R.color.perms_dangerous_grp_color :
+            R.color.perms_normal_grp_color;
+        int permColor = dangerous ? R.color.perms_dangerous_perm_color :
+            R.color.perms_normal_perm_color;
+
+        TextView permGrpView = (TextView) permView.findViewById(R.id.permission_group);
+        TextView permDescView = (TextView) permView.findViewById(R.id.permission_list);
+        permGrpView.setTextColor(mContext.getResources().getColor(grpColor));
+        permDescView.setTextColor(mContext.getResources().getColor(permColor));
+>>>>>>> 54b6cfa... Initial Contribution
 
         ImageView imgView = (ImageView)permView.findViewById(R.id.perm_icon);
         imgView.setImageDrawable(icon);
@@ -380,6 +556,7 @@ public class AppSecurityPermissions  implements View.OnClickListener {
         }
         return false;
     }
+<<<<<<< HEAD
     
     /*
      * Utility method that aggregates all permission descriptions categorized by group
@@ -479,6 +656,37 @@ public class AppSecurityPermissions  implements View.OnClickListener {
             // Look at dangerous permissions first
             aggregateGroupDescs(dangerousMap, mDangerousMap);
             aggregateGroupDescs(normalMap, mNormalMap);
+=======
+
+    private void setPermissions(ArrayList<PermissionInfo> permList) {
+        setPermissions(permList, null);    
+    }
+    
+    private void setPermissions(ArrayList<PermissionInfo> permList, ApplicationInfo appInfo) {
+        mDangerousMap = new HashMap<String, String>();
+        mNormalMap = new HashMap<String, String>();
+        mGroupLabelCache = new HashMap<String, String>();
+        //add the default label so that uncategorized permissions can go here
+        mGroupLabelCache.put(mDefaultGrpName, mDefaultGrpLabel);
+        if (permList != null) {
+            for (PermissionInfo pInfo : permList) {
+                if(!isDisplayablePermission(pInfo)) {
+                    continue;
+                }
+                String grpName = (pInfo.group == null) ? mDefaultGrpName : pInfo.group;
+                HashMap<String, String> permInfoMap =
+                    (pInfo.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS) ?
+                            mDangerousMap : mNormalMap;
+                // Check to make sure we have a label for the group
+                if (getGroupLabel(grpName) == null) {
+                    continue;
+                }
+                CharSequence permDesc = pInfo.loadLabel(mPm);
+                String grpDesc = permInfoMap.get(grpName);
+                permInfoMap.put(grpName, formatPermissions(grpDesc, permDesc));
+                if(localLOGV) Log.i(TAG, pInfo.name + "    :  " + permDesc+"    :    " + grpName);
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         mCurrentState = State.NO_PERMS;

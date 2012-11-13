@@ -28,9 +28,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.EditText;
+<<<<<<< HEAD
 
 /**
  * A {@link Preference} that allows for string
+=======
+import android.widget.LinearLayout;
+
+/**
+ * The {@link EditTextPreference} class is a preference that allows for string
+>>>>>>> 54b6cfa... Initial Contribution
  * input.
  * <p>
  * It is a subclass of {@link DialogPreference} and shows the {@link EditText}
@@ -127,7 +134,11 @@ public class EditTextPreference extends DialogPreference {
         ViewGroup container = (ViewGroup) dialogView
                 .findViewById(com.android.internal.R.id.edittext_container);
         if (container != null) {
+<<<<<<< HEAD
             container.addView(editText, ViewGroup.LayoutParams.MATCH_PARENT,
+=======
+            container.addView(editText, ViewGroup.LayoutParams.FILL_PARENT,
+>>>>>>> 54b6cfa... Initial Contribution
                     ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
@@ -168,6 +179,7 @@ public class EditTextPreference extends DialogPreference {
         return mEditText;
     }
 
+<<<<<<< HEAD
     /** @hide */
     @Override
     protected boolean needInputMethod() {
@@ -175,6 +187,8 @@ public class EditTextPreference extends DialogPreference {
         return true;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected Parcelable onSaveInstanceState() {
         final Parcelable superState = super.onSaveInstanceState();

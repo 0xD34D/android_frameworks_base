@@ -17,6 +17,7 @@
 package com.android.internal.telephony;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.net.LinkCapabilities;
 import android.net.LinkProperties;
 import android.os.Handler;
@@ -30,6 +31,14 @@ import android.telephony.SignalStrength;
 import com.android.internal.telephony.DataConnection;
 import com.android.internal.telephony.gsm.UsimServiceTable;
 import com.android.internal.telephony.ims.IsimRecords;
+=======
+import android.os.Handler;
+import android.os.Message;
+import android.telephony.CellLocation;
+import android.telephony.ServiceState;
+import com.android.internal.telephony.gsm.NetworkInfo;
+import com.android.internal.telephony.gsm.PdpConnection;
+>>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.telephony.test.SimulatedRadioControl;
 
 import java.util.List;
@@ -45,6 +54,7 @@ public interface Phone {
 
     /** used to enable additional debug messages */
     static final boolean DEBUG_PHONE = true;
+<<<<<<< HEAD
 
 
     /**
@@ -52,6 +62,15 @@ public interface Phone {
      * <ul>
      * <li>IDLE = no phone activity</li>
      * <li>RINGING = a phone call is ringing or call waiting.
+=======
+    
+
+    /** 
+     * The phone state. One of the following:<p>
+     * <ul>
+     * <li>IDLE = no phone activity</li>
+     * <li>RINGING = a phone call is ringing or call waiting. 
+>>>>>>> 54b6cfa... Initial Contribution
      *  In the latter case, another call is active as well</li>
      * <li>OFFHOOK = The phone is off hook. At least one call
      * exists that is dialing, active or holding and no calls are
@@ -77,7 +96,11 @@ public interface Phone {
         CONNECTED, CONNECTING, DISCONNECTED, SUSPENDED;
     };
 
+<<<<<<< HEAD
     public enum DataActivityState {
+=======
+    enum DataActivityState {
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * The state of a data activity.
          * <ul>
@@ -85,11 +108,17 @@ public interface Phone {
          * <li>DATAIN = Receiving IP ppp traffic</li>
          * <li>DATAOUT = Sending IP ppp traffic</li>
          * <li>DATAINANDOUT = Both receiving and sending IP ppp traffic</li>
+<<<<<<< HEAD
          * <li>DORMANT = The data connection is still active,
                                      but physical link is down</li>
          * </ul>
          */
         NONE, DATAIN, DATAOUT, DATAINANDOUT, DORMANT;
+=======
+         * </ul>
+         */
+        NONE, DATAIN, DATAOUT, DATAINANDOUT;
+>>>>>>> 54b6cfa... Initial Contribution
     };
 
     enum SuppService {
@@ -102,6 +131,7 @@ public interface Phone {
     static final String STATE_CHANGE_REASON_KEY = "reason";
     static final String DATA_APN_TYPE_KEY = "apnType";
     static final String DATA_APN_KEY = "apn";
+<<<<<<< HEAD
     static final String DATA_LINK_PROPERTIES_KEY = "linkProperties";
     static final String DATA_LINK_CAPABILITIES_KEY = "linkCapabilities";
 
@@ -109,6 +139,10 @@ public interface Phone {
     static final String NETWORK_UNAVAILABLE_KEY = "networkUnvailable";
     static final String DATA_NETWORK_ROAMING_KEY = "networkRoaming";
     static final String PHONE_IN_ECM_STATE = "phoneinECMState";
+=======
+    static final String DATA_IFACE_NAME_KEY = "iface";
+    static final String NETWORK_UNAVAILABLE_KEY = "networkUnvailable";
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * APN types for data connections.  These are usage categories for an APN
@@ -123,6 +157,7 @@ public interface Phone {
     static final String APN_TYPE_DEFAULT = "default";
     /** APN type for MMS traffic */
     static final String APN_TYPE_MMS = "mms";
+<<<<<<< HEAD
     /** APN type for SUPL assisted GPS */
     static final String APN_TYPE_SUPL = "supl";
     /** APN type for DUN traffic */
@@ -145,6 +180,11 @@ public interface Phone {
     static final String FEATURE_ENABLE_FOTA = "enableFOTA";
     static final String FEATURE_ENABLE_IMS = "enableIMS";
     static final String FEATURE_ENABLE_CBS = "enableCBS";
+=======
+
+    // "Features" accessible through the connectivity manager
+    static final String FEATURE_ENABLE_MMS = "enableMMS";
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return codes for <code>enableApnType()</code>
@@ -153,7 +193,10 @@ public interface Phone {
     static final int APN_REQUEST_STARTED    = 1;
     static final int APN_TYPE_NOT_AVAILABLE = 2;
     static final int APN_REQUEST_FAILED     = 3;
+<<<<<<< HEAD
     static final int APN_ALREADY_INACTIVE   = 4;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 
     /**
@@ -163,6 +206,7 @@ public interface Phone {
     static final String REASON_ROAMING_OFF = "roamingOff";
     static final String REASON_DATA_DISABLED = "dataDisabled";
     static final String REASON_DATA_ENABLED = "dataEnabled";
+<<<<<<< HEAD
     static final String REASON_DATA_ATTACHED = "dataAttached";
     static final String REASON_DATA_DETACHED = "dataDetached";
     static final String REASON_CDMA_DATA_ATTACHED = "cdmaDataAttached";
@@ -170,11 +214,18 @@ public interface Phone {
     static final String REASON_APN_CHANGED = "apnChanged";
     static final String REASON_APN_SWITCHED = "apnSwitched";
     static final String REASON_APN_FAILED = "apnFailed";
+=======
+    static final String REASON_GPRS_ATTACHED = "gprsAttached";
+    static final String REASON_GPRS_DETACHED = "gprsDetached";
+    static final String REASON_APN_CHANGED = "apnChanged";
+    static final String REASON_APN_SWITCHED = "apnSwitched";
+>>>>>>> 54b6cfa... Initial Contribution
     static final String REASON_RESTORE_DEFAULT_APN = "restoreDefaultApn";
     static final String REASON_RADIO_TURNED_OFF = "radioTurnedOff";
     static final String REASON_PDP_RESET = "pdpReset";
     static final String REASON_VOICE_CALL_ENDED = "2GVoiceCallEnded";
     static final String REASON_VOICE_CALL_STARTED = "2GVoiceCallStarted";
+<<<<<<< HEAD
     static final String REASON_PS_RESTRICT_ENABLED = "psRestrictEnabled";
     static final String REASON_PS_RESTRICT_DISABLED = "psRestrictDisabled";
     static final String REASON_SIM_LOADED = "simLoaded";
@@ -184,6 +235,10 @@ public interface Phone {
     static final String REASON_LINK_PROPERTIES_CHANGED = "linkPropertiesChanged";
 
     // Used for band mode selection methods
+=======
+
+    // Used for band mode selction methods
+>>>>>>> 54b6cfa... Initial Contribution
     static final int BM_UNSPECIFIED = 0; // selected by baseband automatically
     static final int BM_EURO_BAND   = 1; // GSM-900 / DCS-1800 / WCDMA-IMT-2000
     static final int BM_US_BAND     = 2; // GSM-850 / PCS-1900 / WCDMA-850 / WCDMA-PCS-1900
@@ -192,6 +247,7 @@ public interface Phone {
     static final int BM_AUS2_BAND   = 5; // GSM-900 / DCS-1800 / WCDMA-850
     static final int BM_BOUNDARY    = 6; // upper band boundary
 
+<<<<<<< HEAD
     // Radio Type
     static final int PHONE_TYPE_NONE = RILConstants.NO_PHONE;
     static final int PHONE_TYPE_GSM = RILConstants.GSM_PHONE;
@@ -256,6 +312,15 @@ public interface Phone {
 
     /**
      * Get the current ServiceState. Use
+=======
+    // Used for preferred network type
+    static final int NT_AUTO_TYPE  = 0;  //   WCDMA preferred (auto mode)
+    static final int NT_GSM_TYPE   = 1;  //   GSM only
+    static final int NT_WCDMA_TYPE = 2;  //   WCDMA only
+
+    /**
+     * Get the current ServiceState. Use 
+>>>>>>> 54b6cfa... Initial Contribution
      * <code>registerForServiceStateChanged</code> to be informed of
      * updates.
      */
@@ -265,6 +330,7 @@ public interface Phone {
      * Get the current CellLocation.
      */
     CellLocation getCellLocation();
+<<<<<<< HEAD
 
     /**
      * Get the current for the default apn DataState. No change notification
@@ -280,19 +346,36 @@ public interface Phone {
      * @param apnType specify for which apn to get connection state info.
      */
     DataState getDataConnectionState(String apnType);
+=======
+    
+    /**
+     * Get the current DataState. No change notification exists at this
+     * interface -- use 
+     * {@link com.android.internal.telephony.PhoneStateIntentReceiver PhoneStateIntentReceiver} instead.
+     */
+    DataState getDataConnectionState();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Get the current DataActivityState. No change notification exists at this
      * interface -- use
+<<<<<<< HEAD
      * {@link android.telephony.TelephonyManager} instead.
      */
     DataActivityState getDataActivityState();
 
+=======
+     * {@link TelephonyManager} instead.
+     */
+    DataActivityState getDataActivityState();
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Gets the context for the phone, as set at initialization time.
      */
     Context getContext();
 
+<<<<<<< HEAD
     /**
      * Disables the DNS check (i.e., allows "0.0.0.0").
      * Useful for lab testing environment.
@@ -312,19 +395,33 @@ public interface Phone {
      * If the phone has an active call and call waiting occurs,
      * then the phone state is RINGING not OFFHOOK
      * <strong>Note:</strong>
+=======
+    /** 
+     * Get current coarse-grained voice call state.
+     * Use {@link #registerForPhoneStateChanged(Handler, int, Object) 
+     * registerForPhoneStateChanged()} for change notification. <p>
+     * If the phone has an active call and call waiting occurs,
+     * then the phone state is RINGING not OFFHOOK
+     * <strong>Note:</strong> 
+>>>>>>> 54b6cfa... Initial Contribution
      * This registration point provides notification of finer-grained
      * changes.<p>
      *
      */
     State getState();
 
+<<<<<<< HEAD
     /**
+=======
+    /** 
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns a string identifier for this phone interface for parties
      *  outside the phone app process.
      *  @return The string name.
      */
     String getPhoneName();
 
+<<<<<<< HEAD
     /**
      * Return a numerical identifier for the phone radio interface.
      * @return PHONE_TYPE_XXX as defined above.
@@ -368,6 +465,34 @@ public interface Phone {
     SignalStrength getSignalStrength();
 
     /**
+=======
+    /** 
+     * Returns an array of string identifiers for the APN types serviced by the
+     * currently active or last connected APN.
+     *  @return The string array.
+     */
+    String[] getActiveApnTypes();
+    
+    /** 
+     * Returns a string identifier for currently active or last connected APN.
+     *  @return The string name.
+     */
+    String getActiveApn();
+    
+    /** 
+     * Get current signal strength. No change notification available on this
+     * interface. Use <code>PhoneStateNotifier</code> or an equivalent.
+     * An ASU is 0-31 or -1 if unknown (for GSM, dBm = -113 - 2 * asu). 
+     * The following special values are defined:</p>
+     * <ul><li>0 means "-113 dBm or less".</li>
+     * <li>31 means "-51 dBm or greater".</li></ul>
+     * 
+     * @return Current signal strength in ASU's.
+     */
+    int getSignalStrengthASU();
+    
+    /** 
+>>>>>>> 54b6cfa... Initial Contribution
      * Notifies when a previously untracked non-ringing/waiting connection has appeared.
      * This is likely due to some other entity (eg, SIM card application) initiating a call.
      */
@@ -378,15 +503,21 @@ public interface Phone {
      */
     void unregisterForUnknownConnection(Handler h);
 
+<<<<<<< HEAD
     /**
      * Register for getting notifications for change in the Call State {@link Call.State}
      * This is called PreciseCallState because the call state is more precise than the
      * {@link Phone.State} which can be obtained using the {@link PhoneStateListener}
      *
+=======
+    /** 
+     * Notifies when any aspect of the voice call state changes.
+>>>>>>> 54b6cfa... Initial Contribution
      * Resulting events will have an AsyncResult in <code>Message.obj</code>.
      * AsyncResult.userData will be set to the obj argument here.
      * The <em>h</em> parameter is held only by a weak reference.
      */
+<<<<<<< HEAD
     void registerForPreciseCallStateChanged(Handler h, int what, Object obj);
 
     /**
@@ -397,6 +528,18 @@ public interface Phone {
 
 
     /**
+=======
+    void registerForPhoneStateChanged(Handler h, int what, Object obj);
+
+    /**
+     * Unregisters for voice call state change notifications. 
+     * Extraneous calls are tolerated silently.
+     */
+    void unregisterForPhoneStateChanged(Handler h);
+
+
+    /** 
+>>>>>>> 54b6cfa... Initial Contribution
      * Notifies when a new ringing or waiting connection has appeared.<p>
      *
      *  Messages received from this:
@@ -405,19 +548,31 @@ public interface Phone {
      *  AsyncResult.result = a Connection. <p>
      *  Please check Connection.isRinging() to make sure the Connection
      *  has not dropped since this message was posted.
+<<<<<<< HEAD
      *  If Connection.isRinging() is true, then
+=======
+     *  If Connection.isRinging() is true, then 
+>>>>>>> 54b6cfa... Initial Contribution
      *   Connection.getCall() == Phone.getRingingCall()
      */
     void registerForNewRingingConnection(Handler h, int what, Object obj);
 
     /**
+<<<<<<< HEAD
      * Unregisters for new ringing connection notification.
+=======
+     * Unregisters for new ringing connection notification. 
+>>>>>>> 54b6cfa... Initial Contribution
      * Extraneous calls are tolerated silently
      */
 
     void unregisterForNewRingingConnection(Handler h);
 
+<<<<<<< HEAD
     /**
+=======
+    /** 
+>>>>>>> 54b6cfa... Initial Contribution
      * Notifies when an incoming call rings.<p>
      *
      *  Messages received from this:
@@ -426,6 +581,7 @@ public interface Phone {
      *  AsyncResult.result = a Connection. <p>
      */
     void registerForIncomingRing(Handler h, int what, Object obj);
+<<<<<<< HEAD
 
     /**
      * Unregisters for ring notification.
@@ -470,12 +626,35 @@ public interface Phone {
      *  <ul><li>Message.obj will be an AsyncResult</li>
      *  <li>AsyncResult.userObj = obj</li>
      *  <li>AsyncResult.result = a Connection object that is
+=======
+    
+    /**
+     * Unregisters for ring notification. 
+     * Extraneous calls are tolerated silently
+     */
+    
+    void unregisterForIncomingRing(Handler h);
+    
+    
+    /** 
+     * Notifies when a voice connection has disconnected, either due to local
+     * or remote hangup or error.
+     * 
+     *  Messages received from this will have the following members:<p>
+     *  <ul><li>Message.obj will be an AsyncResult</li>
+     *  <li>AsyncResult.userObj = obj</li>
+     *  <li>AsyncResult.result = a Connection object that is 
+>>>>>>> 54b6cfa... Initial Contribution
      *  no longer connected.</li></ul>
      */
     void registerForDisconnect(Handler h, int what, Object obj);
 
     /**
+<<<<<<< HEAD
      * Unregisters for voice disconnection notification.
+=======
+     * Unregisters for voice disconnection notification. 
+>>>>>>> 54b6cfa... Initial Contribution
      * Extraneous calls are tolerated silently
      */
     void unregisterForDisconnect(Handler h);
@@ -495,7 +674,11 @@ public interface Phone {
     void registerForMmiInitiate(Handler h, int what, Object obj);
 
     /**
+<<<<<<< HEAD
      * Unregisters for new MMI initiate notification.
+=======
+     * Unregisters for new MMI initiate notification. 
+>>>>>>> 54b6cfa... Initial Contribution
      * Extraneous calls are tolerated silently
      */
     void unregisterForMmiInitiate(Handler h);
@@ -511,12 +694,17 @@ public interface Phone {
     void registerForMmiComplete(Handler h, int what, Object obj);
 
     /**
+<<<<<<< HEAD
      * Unregisters for MMI complete notification.
+=======
+     * Unregisters for MMI complete notification. 
+>>>>>>> 54b6cfa... Initial Contribution
      * Extraneous calls are tolerated silently
      */
     void unregisterForMmiComplete(Handler h);
 
     /**
+<<<<<<< HEAD
      * Registration point for Ecm timer reset
      * @param h handler to notify
      * @param what user-defined message code
@@ -535,6 +723,12 @@ public interface Phone {
      * but have not yet completed).
      * Presently there is only ever one.
      * Use <code>registerForMmiInitiate</code>
+=======
+     * Returns a list of MMI codes that are pending. (They have initiated
+     * but have not yet completed).
+     * Presently there is only ever one.
+     * Use <code>registerForMmiInitiate</code> 
+>>>>>>> 54b6cfa... Initial Contribution
      * and <code>registerForMmiComplete</code> for change notification.
      */
     public List<? extends MmiCode> getPendingMmiCodes();
@@ -549,14 +743,22 @@ public interface Phone {
     public void sendUssdResponse(String ussdMessge);
 
     /**
+<<<<<<< HEAD
      * Register for ServiceState changed.
+=======
+     * Register for ServiceState changed. 
+>>>>>>> 54b6cfa... Initial Contribution
      * Message.obj will contain an AsyncResult.
      * AsyncResult.result will be a ServiceState instance
      */
     void registerForServiceStateChanged(Handler h, int what, Object obj);
 
     /**
+<<<<<<< HEAD
      * Unregisters for ServiceStateChange notification.
+=======
+     * Unregisters for ServiceStateChange notification. 
+>>>>>>> 54b6cfa... Initial Contribution
      * Extraneous calls are tolerated silently
      */
     void unregisterForServiceStateChanged(Handler h);
@@ -573,9 +775,15 @@ public interface Phone {
     void registerForSuppServiceNotification(Handler h, int what, Object obj);
 
     /**
+<<<<<<< HEAD
      * Unregisters for Supplementary Service notifications.
      * Extraneous calls are tolerated silently
      *
+=======
+     * Unregisters for Supplementary Service notifications. 
+     * Extraneous calls are tolerated silently
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param h Handler to be removed from the registrant list.
      */
     void unregisterForSuppServiceNotification(Handler h);
@@ -593,11 +801,16 @@ public interface Phone {
     /**
      * Unregister for notifications when a supplementary service attempt fails.
      * Extraneous calls are tolerated silently
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param h Handler to be removed from the registrant list.
      */
     void unregisterForSuppServiceFailed(Handler h);
 
+<<<<<<< HEAD
     /**
      * Register for notifications when a sInCall VoicePrivacy is enabled
      *
@@ -680,28 +893,69 @@ public interface Phone {
      * Answering occurs asynchronously, and final notification occurs via
      * {@link #registerForPreciseCallStateChanged(android.os.Handler, int,
      * java.lang.Object) registerForPreciseCallStateChanged()}.
+=======
+    /** 
+     * Returns SIM record load state. Use 
+     * <code>getSimCard().registerForReady()</code> for change notification.
+     *
+     * @return true if records from the SIM have been loaded and are 
+     * available (if applicable). If not applicable to the underlying
+     * technology, returns true as well.
+     */
+    boolean getSimRecordsLoaded();
+
+    /**
+     * Returns the SIM card interface for this phone, or null
+     * if not applicable to underlying technology.
+     */
+    SimCard getSimCard();
+
+    /**
+     * Answers a ringing or waiting call. Active calls, if any, go on hold. 
+     * Answering occurs asynchronously, and final notification occurs via
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int, 
+     * java.lang.Object) registerForPhoneStateChanged()}.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @exception CallStateException when no call is ringing or waiting
      */
     void acceptCall() throws CallStateException;
 
+<<<<<<< HEAD
     /**
      * Reject (ignore) a ringing call. In GSM, this means UDUB
      * (User Determined User Busy). Reject occurs asynchronously,
      * and final notification occurs via
      * {@link #registerForPreciseCallStateChanged(android.os.Handler, int,
      * java.lang.Object) registerForPreciseCallStateChanged()}.
+=======
+    /** 
+     * Reject (ignore) a ringing call. In GSM, this means UDUB  
+     * (User Determined User Busy). Reject occurs asynchronously, 
+     * and final notification occurs via 
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int, 
+     * java.lang.Object) registerForPhoneStateChanged()}.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @exception CallStateException when no call is ringing or waiting
      */
     void rejectCall() throws CallStateException;
 
+<<<<<<< HEAD
     /**
      * Places any active calls on hold, and makes any held calls
      *  active. Switch occurs asynchronously and may fail.
      * Final notification occurs via
      * {@link #registerForPreciseCallStateChanged(android.os.Handler, int,
      * java.lang.Object) registerForPreciseCallStateChanged()}.
+=======
+    /** 
+     * Places any active calls on hold, and makes any held calls
+     *  active. Switch occurs asynchronously and may fail.
+     * Final notification occurs via 
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int, 
+     * java.lang.Object) registerForPhoneStateChanged()}.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @exception CallStateException if a call is ringing, waiting, or
      * dialing/alerting. In these cases, this operation may not be performed.
@@ -709,24 +963,39 @@ public interface Phone {
     void switchHoldingAndActive() throws CallStateException;
 
     /**
+<<<<<<< HEAD
      * Whether or not the phone can conference in the current phone
      * state--that is, one call holding and one call active.
      * @return true if the phone can conference; false otherwise.
+=======
+     * Whether or not the phone can conference in the current phone 
+     * state--that is, one call holding and one call active.
+     * @return true if the phone can conference; false otherwise. 
+>>>>>>> 54b6cfa... Initial Contribution
      */
     boolean canConference();
 
     /**
+<<<<<<< HEAD
      * Conferences holding and active. Conference occurs asynchronously
      * and may fail. Final notification occurs via
      * {@link #registerForPreciseCallStateChanged(android.os.Handler, int,
      * java.lang.Object) registerForPreciseCallStateChanged()}.
      *
+=======
+     * Conferences holding and active. Conference occurs asynchronously 
+     * and may fail. Final notification occurs via 
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int, 
+     * java.lang.Object) registerForPhoneStateChanged()}.    
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @exception CallStateException if canConference() would return false.
      * In these cases, this operation may not be performed.
      */
     void conference() throws CallStateException;
 
     /**
+<<<<<<< HEAD
      * Enable or disable enhanced Voice Privacy (VP). If enhanced VP is
      * disabled, normal VP is enabled.
      *
@@ -743,6 +1012,8 @@ public interface Phone {
     void getEnhancedVoicePrivacy(Message onComplete);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Whether or not the phone can do explicit call transfer in the current
      * phone state--that is, one call holding and one call active.
      * @return true if the phone can do explicit call transfer; false otherwise.
@@ -753,8 +1024,13 @@ public interface Phone {
      * Connects the two calls and disconnects the subscriber from both calls
      * Explicit Call Transfer occurs asynchronously
      * and may fail. Final notification occurs via
+<<<<<<< HEAD
      * {@link #registerForPreciseCallStateChanged(android.os.Handler, int,
      * java.lang.Object) registerForPreciseCallStateChanged()}.
+=======
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int,
+     * java.lang.Object) registerForPhoneStateChanged()}.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @exception CallStateException if canTransfer() would return false.
      * In these cases, this operation may not be performed.
@@ -769,13 +1045,20 @@ public interface Phone {
     void clearDisconnected();
 
 
+<<<<<<< HEAD
     /**
      * Gets the foreground call object, which represents all connections that
      * are dialing or active (all connections
+=======
+    /** 
+     * Gets the foreground call object, which represents all connections that 
+     * are dialing or active (all connections 
+>>>>>>> 54b6cfa... Initial Contribution
      * that have their audio path connected).<p>
      *
      * The foreground call is a singleton object. It is constant for the life
      * of this phone. It is never null.<p>
+<<<<<<< HEAD
      *
      * The foreground call will only ever be in one of these states:
      * IDLE, ACTIVE, DIALING, ALERTING, or DISCONNECTED.
@@ -787,17 +1070,35 @@ public interface Phone {
     Call getForegroundCall();
 
     /**
+=======
+     * 
+     * The foreground call will only ever be in one of these states:
+     * IDLE, ACTIVE, DIALING, ALERTING, or DISCONNECTED. 
+     *
+     * State change notification is available via
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int, 
+     * java.lang.Object) registerForPhoneStateChanged()}.
+     */
+    Call getForegroundCall();
+
+    /** 
+>>>>>>> 54b6cfa... Initial Contribution
      * Gets the background call object, which represents all connections that
      * are holding (all connections that have been accepted or connected, but
      * do not have their audio path connected). <p>
      *
      * The background call is a singleton object. It is constant for the life
      * of this phone object . It is never null.<p>
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * The background call will only ever be in one of these states:
      * IDLE, HOLDING or DISCONNECTED.
      *
      * State change notification is available via
+<<<<<<< HEAD
      * {@link #registerForPreciseCallStateChanged(android.os.Handler, int,
      * java.lang.Object) registerForPreciseCallStateChanged()}.
      */
@@ -805,34 +1106,62 @@ public interface Phone {
 
     /**
      * Gets the ringing call object, which represents an incoming
+=======
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int, 
+     * java.lang.Object) registerForPhoneStateChanged()}.
+     */
+    Call getBackgroundCall();
+
+    /** 
+     * Gets the ringing call object, which represents an incoming 
+>>>>>>> 54b6cfa... Initial Contribution
      * connection (if present) that is pending answer/accept. (This connection
      * may be RINGING or WAITING, and there may be only one.)<p>
 
      * The ringing call is a singleton object. It is constant for the life
      * of this phone. It is never null.<p>
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * The ringing call will only ever be in one of these states:
      * IDLE, INCOMING, WAITING or DISCONNECTED.
      *
      * State change notification is available via
+<<<<<<< HEAD
      * {@link #registerForPreciseCallStateChanged(android.os.Handler, int,
      * java.lang.Object) registerForPreciseCallStateChanged()}.
      */
     Call getRingingCall();
 
     /**
+=======
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int, 
+     * java.lang.Object) registerForPhoneStateChanged()}.
+     */
+    Call getRingingCall();
+
+    /** 
+>>>>>>> 54b6cfa... Initial Contribution
      * Initiate a new voice connection. This happens asynchronously, so you
      * cannot assume the audio path is connected (or a call index has been
      * assigned) until PhoneStateChanged notification has occurred.
      *
      * @exception CallStateException if a new outgoing call is not currently
+<<<<<<< HEAD
      * possible because no more call slots exist or a call exists that is
      * dialing, alerting, ringing, or waiting.  Other errors are
+=======
+     * possible because no more call slots exist or a call exists that is 
+     * dialing, alerting, ringing, or waiting.  Other errors are 
+>>>>>>> 54b6cfa... Initial Contribution
      * handled asynchronously.
      */
     Connection dial(String dialString) throws CallStateException;
 
     /**
+<<<<<<< HEAD
      * Initiate a new voice connection with supplementary User to User
      * Information. This happens asynchronously, so you cannot assume the audio
      * path is connected (or a call index has been assigned) until
@@ -849,6 +1178,11 @@ public interface Phone {
      * Handles PIN MMI commands (PIN/PIN2/PUK/PUK2), which are initiated
      * without SEND (so <code>dial</code> is not appropriate).
      *
+=======
+     * Handles PIN MMI commands (PIN/PIN2/PUK/PUK2), which are initiated
+     * without SEND (so <code>dial</code> is not appropriate).
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param dialString the MMI command to be executed.
      * @return true if MMI command is executed.
      */
@@ -866,7 +1200,11 @@ public interface Phone {
     boolean handleInCallMmiCommands(String command) throws CallStateException;
 
     /**
+<<<<<<< HEAD
      * Play a DTMF tone on the active call. Ignored if there is no active call.
+=======
+     * Play a DTMF tone on the active call. Ignored if there is no active call. 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param c should be one of 0-9, '*' or '#'. Other values will be
      * silently ignored.
      */
@@ -886,6 +1224,7 @@ public interface Phone {
      */
     void stopDtmf();
 
+<<<<<<< HEAD
     /**
      * send burst DTMF tone, it can send the string as single character or multiple character
      * ignore if there is no active call or not valid digits string.
@@ -917,6 +1256,24 @@ public interface Phone {
     void setRadioPower(boolean power);
 
     /**
+=======
+
+    /**
+     * Sets the radio power on/off state (off is sometimes 
+     * called "airplane mode"). Current state can be gotten via 
+     * {@link #getServiceState()}.{@link 
+     * android.telephony.ServiceState#getState() getState()}.
+     * <strong>Note: </strong>This request is asynchronous. 
+     * getServiceState().getState() will not change immediately after this call.
+     * registerForServiceStateChanged() to find out when the 
+     * request is complete.
+     *
+     * @param power true means "on", false means "off". 
+     */
+    void setRadioPower(boolean power);
+
+    /** 
+>>>>>>> 54b6cfa... Initial Contribution
      * Get voice message waiting indicator status. No change notification
      * available on this interface. Use PhoneStateNotifier or similar instead.
      *
@@ -933,8 +1290,12 @@ public interface Phone {
     boolean getCallForwardingIndicator();
 
     /**
+<<<<<<< HEAD
      * Get the line 1 phone number (MSISDN). For CDMA phones, the MDN is returned
      * and {@link #getMsisdn()} will return the MSISDN on CDMA/LTE phones.<p>
+=======
+     * Get the line 1 phone number (MSISDN).<p>
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return phone number. May return null if not
      * available or the SIM is not ready
@@ -959,13 +1320,19 @@ public interface Phone {
     void setLine1Number(String alphaTag, String number, Message onComplete);
 
     /**
+<<<<<<< HEAD
      * Get the voice mail access phone number. Typically dialed when the
      * user holds the "1" key in the phone app. May return null if not
+=======
+     * Get the voice mail access phone number. Typically dialed when the 
+     * user holds the "1" key in the phone app. May return null if not 
+>>>>>>> 54b6cfa... Initial Contribution
      * available or the SIM is not ready.<p>
      */
     String getVoiceMailNumber();
 
     /**
+<<<<<<< HEAD
      * Returns unread voicemail count. This count is shown when the  voicemail
      * notification is expanded.<p>
      */
@@ -977,6 +1344,13 @@ public interface Phone {
      * returns a default localized string. <p>
      *
      * Please use this value instead of some other localized string when
+=======
+     * Returns the alpha tag associated with the voice mail number.
+     * If there is no alpha tag associated or the record is not yet available,
+     * returns a default localized string. <p>
+     * 
+     * Please use this value instead of some other localized string when 
+>>>>>>> 54b6cfa... Initial Contribution
      * showing a name for this number in the UI. For example, call log
      * entries should show this alpha tag. <p>
      *
@@ -999,6 +1373,7 @@ public interface Phone {
 
     /**
      * getCallForwardingOptions
+<<<<<<< HEAD
      * gets a call forwarding option. The return value of
      * ((AsyncResult)onComplete.obj) is an array of CallForwardInfo.
      *
@@ -1022,6 +1397,31 @@ public interface Phone {
      *        CF_ACTIONS, as defined in
      *        <code>com.android.internal.telephony.CommandsInterface.</code>
      * @param dialingNumber is the target phone number to forward calls to
+=======
+     * gets a call forwarding option. The return value of 
+     * ((AsyncResult)onComplete.obj) is an array of CallForwardInfo. 
+     * 
+     * @param commandInterfaceCFReason is one of the valid call forwarding 
+     *        CF_REASONS, as defined in 
+     *        <code>com.android.internal.telephony.gsm.CommandsInterface</code>
+     * @param onComplete a callback message when the action is completed.
+     *        @see com.android.internal.telephony.gsm.CallForwardInfo for details.
+     */
+    void getCallForwardingOption(int commandInterfaceCFReason,
+                                  Message onComplete);
+    
+    /**
+     * setCallForwardingOptions
+     * sets a call forwarding option.
+     * 
+     * @param commandInterfaceCFReason is one of the valid call forwarding 
+     *        CF_REASONS, as defined in 
+     *        <code>com.android.internal.telephony.gsm.CommandsInterface</code>
+     * @param commandInterfaceCFAction is one of the valid call forwarding 
+     *        CF_ACTIONS, as defined in 
+     *        <code>com.android.internal.telephony.gsm.CommandsInterface</code>
+     * @param dialingNumber is the target phone number to forward calls to 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param timerSeconds is used by CFNRy to indicate the timeout before
      *        forwarding is attempted.
      * @param onComplete a callback message when the action is completed.
@@ -1031,6 +1431,7 @@ public interface Phone {
                                  String dialingNumber,
                                  int timerSeconds,
                                  Message onComplete);
+<<<<<<< HEAD
 
     /**
      * getOutgoingCallerIdDisplay
@@ -1049,10 +1450,31 @@ public interface Phone {
      * @param commandInterfaceCLIRMode is one of the valid call CLIR
      *        modes, as defined in
      *        <code>com.android.internal.telephony.CommandsInterface./code>
+=======
+    
+    /**
+     * getOutgoingCallerIdDisplay
+     * gets outgoing caller id display. The return value of 
+     * ((AsyncResult)onComplete.obj) is an array of int, with a length of 2.
+     * 
+     * @param onComplete a callback message when the action is completed.
+     *        @see com.android.internal.telephony.gsm.CommandsInterface.getCLIR for details.
+     */
+    void getOutgoingCallerIdDisplay(Message onComplete);
+    
+    /**
+     * setOutgoingCallerIdDisplay
+     * sets a call forwarding option. 
+     * 
+     * @param commandInterfaceCLIRMode is one of the valid call CLIR 
+     *        modes, as defined in 
+     *        <code>com.android.internal.telephony.gsm.CommandsInterface</code>
+>>>>>>> 54b6cfa... Initial Contribution
      * @param onComplete a callback message when the action is completed.
      */
     void setOutgoingCallerIdDisplay(int commandInterfaceCLIRMode,
                                     Message onComplete);
+<<<<<<< HEAD
 
     /**
      * getCallWaiting
@@ -1069,16 +1491,39 @@ public interface Phone {
      * sets a call forwarding option.
      *
      * @param enable is a boolean representing the state that you are
+=======
+    
+    /**
+     * getCallWaiting
+     * gets call waiting activation state. The return value of 
+     * ((AsyncResult)onComplete.obj) is an array of int, with a length of 1.
+     * 
+     * @param onComplete a callback message when the action is completed.
+     *        @see com.android.internal.telephony.gsm.CommandsInterface.queryCallWaiting for details.
+     */
+    void getCallWaiting(Message onComplete);
+    
+    /**
+     * setCallWaiting
+     * sets a call forwarding option. 
+     * 
+     * @param enable is a boolean representing the state that you are 
+>>>>>>> 54b6cfa... Initial Contribution
      *        requesting, true for enabled, false for disabled.
      * @param onComplete a callback message when the action is completed.
      */
     void setCallWaiting(boolean enable, Message onComplete);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Scan available networks. This method is asynchronous; .
      * On completion, <code>response.obj</code> is set to an AsyncResult with
      * one of the following members:.<p>
      *<ul>
+<<<<<<< HEAD
      * <li><code>response.obj.result</code> will be a <code>List</code> of
      * <code>OperatorInfo</code> objects, or</li>
      * <li><code>response.obj.exception</code> will be set with an exception
@@ -1086,19 +1531,38 @@ public interface Phone {
      * </ul>
      */
     void getAvailableNetworks(Message response);
+=======
+     * <li><code>response.obj.result</code> will be a <code>List</code> of 
+     * <code>com.android.internal.telephony.gsm.NetworkInfo</code> objects, or</li> 
+     * <li><code>response.obj.exception</code> will be set with an exception 
+     * on failure.</li>
+     * </ul>
+     */
+    void getAvailableNetworks(Message response);    
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Switches network selection mode to "automatic", re-scanning and
      * re-selecting a network if appropriate.
+<<<<<<< HEAD
      *
      * @param response The message to dispatch when the network selection
      * is complete.
      *
      * @see #selectNetworkManually(OperatorInfo, android.os.Message )
+=======
+     * 
+     * @param response The message to dispatch when the network selection 
+     * is complete.
+     * 
+     * @see #selectNetworkManually(com.android.internal.telephony.gsm.NetworkInfo, 
+     * android.os.Message )
+>>>>>>> 54b6cfa... Initial Contribution
      */
     void setNetworkSelectionModeAutomatic(Message response);
 
     /**
+<<<<<<< HEAD
      * Manually selects a network. <code>response</code> is
      * dispatched when this is complete.  <code>response.obj</code> will be
      * an AsyncResult, and <code>response.obj.exception</code> will be non-null
@@ -1107,6 +1571,16 @@ public interface Phone {
      * @see #setNetworkSelectionModeAutomatic(Message)
      */
     void selectNetworkManually(OperatorInfo network,
+=======
+     * Manually selects a network. <code>response</code> is 
+     * dispatched when this is complete.  <code>response.obj</code> will be
+     * an AsyncResult, and <code>response.obj.exception</code> will be non-null
+     * on failure.
+     * 
+     * @see #setNetworkSelectionModeAutomatic(Message)
+     */
+    void selectNetworkManually(NetworkInfo network, 
+>>>>>>> 54b6cfa... Initial Contribution
                             Message response);
 
     /**
@@ -1125,6 +1599,7 @@ public interface Phone {
     void getPreferredNetworkType(Message response);
 
     /**
+<<<<<<< HEAD
      * Gets the default SMSC address.
      *
      * @param result Callback message contains the SMSC address.
@@ -1140,6 +1615,8 @@ public interface Phone {
     void setSmscAddress(String address, Message result);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Query neighboring cell IDs.  <code>response</code> is dispatched when
      * this is complete.  <code>response.obj</code> will be an AsyncResult,
      * and <code>response.obj.exception</code> will be non-null on failure.
@@ -1148,7 +1625,11 @@ public interface Phone {
      * of available cell IDs.  Cell IDs are in hexadecimal format.
      *
      * @param response callback message that is dispatched when the query
+<<<<<<< HEAD
      * completes.
+=======
+     * completes. 
+>>>>>>> 54b6cfa... Initial Contribution
      */
     void getNeighboringCids(Message response);
 
@@ -1161,6 +1642,7 @@ public interface Phone {
      * <code>AsyncResult</code>. <code>Message.obj.result</code> will be
      * a Connection object.<p>
      *
+<<<<<<< HEAD
      * Message.arg1 will be the post dial character being processed,
      * or 0 ('\0') if end of string.<p>
      *
@@ -1183,6 +1665,30 @@ public interface Phone {
      * for the telephony system to continue playing the
      * post-dial DTMF sequence.<p>
      *
+=======
+     * Message.arg1 will be the post dial character being processed, 
+     * or 0 ('\0') if end of string.<p>
+     *
+     * If Connection.getPostDialState() == WAIT, 
+     * the application must call 
+     * {@link com.android.internal.telephony.Connection#proceedAfterWaitChar() 
+     * Connection.proceedAfterWaitChar()} or 
+     * {@link com.android.internal.telephony.Connection#cancelPostDial() 
+     * Connection.cancelPostDial()}
+     * for the telephony system to continue playing the post-dial 
+     * DTMF sequence.<p>
+     *
+     * If Connection.getPostDialState() == WILD, 
+     * the application must call 
+     * {@link com.android.internal.telephony.Connection#proceedAfterWildChar
+     * Connection.proceedAfterWildChar()}
+     * or 
+     * {@link com.android.internal.telephony.Connection#cancelPostDial() 
+     * Connection.cancelPostDial()}
+     * for the telephony system to continue playing the 
+     * post-dial DTMF sequence.<p>
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * Only one post dial character handler may be set. <p>
      * Calling this method with "h" equal to null unsets this handler.<p>
      */
@@ -1190,20 +1696,34 @@ public interface Phone {
 
 
     /**
+<<<<<<< HEAD
      * Mutes or unmutes the microphone for the active call. The microphone
      * is automatically unmuted if a call is answered, dialed, or resumed
      * from a holding state.
      *
      * @param muted true to mute the microphone,
+=======
+     * Mutes or unmutes the microphone for the active call. The microphone 
+     * is automatically unmuted if a call is answered, dialed, or resumed 
+     * from a holding state.
+     * 
+     * @param muted true to mute the microphone, 
+>>>>>>> 54b6cfa... Initial Contribution
      * false to activate the microphone.
      */
 
     void setMute(boolean muted);
 
     /**
+<<<<<<< HEAD
      * Gets current mute status. Use
      * {@link #registerForPreciseCallStateChanged(android.os.Handler, int,
      * java.lang.Object) registerForPreciseCallStateChanged()}
+=======
+     * Gets current mute status. Use 
+     * {@link #registerForPhoneStateChanged(android.os.Handler, int, 
+     * java.lang.Object) registerForPhoneStateChanged()}
+>>>>>>> 54b6cfa... Initial Contribution
      * as a change notifcation, although presently phone state changed is not
      * fired when setMute() is called.
      *
@@ -1212,6 +1732,7 @@ public interface Phone {
     boolean getMute();
 
     /**
+<<<<<<< HEAD
      * Enables or disables echo suppression.
      */
     void setEchoSuppressionEnabled(boolean enabled);
@@ -1224,6 +1745,15 @@ public interface Phone {
      * (byte[])(((AsyncResult)response.obj).result)
      * <strong>On failure</strong>,
      * (((AsyncResult)response.obj).result) == null and
+=======
+     * Invokes RIL_REQUEST_OEM_HOOK_RAW on RIL implementation.
+     * 
+     * @param data The data for the request.
+     * @param response <strong>On success</strong>, 
+     * (byte[])(((AsyncResult)response.obj).result)
+     * <strong>On failure</strong>, 
+     * (((AsyncResult)response.obj).result) == null and 
+>>>>>>> 54b6cfa... Initial Contribution
      * (((AsyncResult)response.obj).exception) being an instance of
      * com.android.internal.telephony.gsm.CommandException
      *
@@ -1233,6 +1763,7 @@ public interface Phone {
 
     /**
      * Invokes RIL_REQUEST_OEM_HOOK_Strings on RIL implementation.
+<<<<<<< HEAD
      *
      * @param strings The strings to make available as the request data.
      * @param response <strong>On success</strong>, "response" bytes is
@@ -1240,6 +1771,15 @@ public interface Phone {
      * (String[])(((AsyncResult)response.obj).result).
      * <strong>On failure</strong>,
      * (((AsyncResult)response.obj).result) == null and
+=======
+     * 
+     * @param strings The strings to make available as the request data.
+     * @param response <strong>On success</strong>, "response" bytes is 
+     * made available as:
+     * (String[])(((AsyncResult)response.obj).result).
+     * <strong>On failure</strong>, 
+     * (((AsyncResult)response.obj).result) == null and 
+>>>>>>> 54b6cfa... Initial Contribution
      * (((AsyncResult)response.obj).exception) being an instance of
      * com.android.internal.telephony.gsm.CommandException
      *
@@ -1248,7 +1788,11 @@ public interface Phone {
     void invokeOemRilRequestStrings(String[] strings, Message response);
 
     /**
+<<<<<<< HEAD
      * Get the current active Data Call list
+=======
+     * Get the current active PDP context list
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param response <strong>On success</strong>, "response" bytes is
      * made available as:
@@ -1258,12 +1802,36 @@ public interface Phone {
      * (((AsyncResult)response.obj).exception) being an instance of
      * com.android.internal.telephony.gsm.CommandException
      */
+<<<<<<< HEAD
     void getDataCallList(Message response);
 
     /**
      * Update the ServiceState CellLocation for current network registration.
      */
     void updateServiceLocation();
+=======
+    void getPdpContextList(Message response);
+
+    /**
+     * Get current mutiple PDP link status
+     * 
+     * @return list of pdp link connections
+     */
+    List<PdpConnection> getCurrentPdpList ();
+
+    /**
+     * Udpate LAC and CID in service state for currnet GSM netowrk registration
+     *
+     * If get different LAC and/or CID, notifyServiceState will be sent
+     *
+     * @param
+     * <strong>On failure</strong>,
+     * (((AsyncResult)response.obj).result) == null and
+     * (((AsyncResult)response.obj).exception) being an instance of
+     * com.android.internal.telephony.gsm.CommandException
+     */
+    void updateServiceLocation(Message response);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Enable location update notifications.
@@ -1276,11 +1844,19 @@ public interface Phone {
     void disableLocationUpdates();
 
     /**
+<<<<<<< HEAD
      * For unit tests; don't send notifications to "Phone"
      * mailbox registrants if true.
      */
     void setUnitTestMode(boolean f);
 
+=======
+     * For unit tests; don't send notifications to "Phone" 
+     * mailbox registrants if true.
+     */
+    void setUnitTestMode(boolean f);
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * @return true If unit test mode is enabled
      */
@@ -1314,6 +1890,7 @@ public interface Phone {
     void setDataRoamingEnabled(boolean enable);
 
     /**
+<<<<<<< HEAD
      *  Query the CDMA roaming preference setting
      *
      * @param response is callback message to report one of  CDMA_RM_*
@@ -1340,6 +1917,36 @@ public interface Phone {
      * otherwise, null.
      */
     SimulatedRadioControl getSimulatedRadioControl();
+=======
+     * If this is a simulated phone interface, returns a SimulatedRadioControl.
+     * @ return A SimulatedRadioControl if this is a simulated interface; 
+     * otherwise, null.
+     */
+    SimulatedRadioControl getSimulatedRadioControl();
+
+    /**
+     * Allow mobile data connections.
+     * @return {@code true} if the operation started successfully
+     * <br/>{@code false} if it
+     * failed immediately.<br/>
+     * Even in the {@code true} case, it may still fail later
+     * during setup, in which case an asynchronous indication will
+     * be supplied.
+     */
+    boolean enableDataConnectivity();
+
+    /**
+     * Disallow mobile data connections, and terminate any that
+     * are in progress.
+     * @return {@code true} if the operation started successfully
+     * <br/>{@code false} if it
+     * failed immediately.<br/>
+     * Even in the {@code true} case, it may still fail later
+     * during setup, in which case an asynchronous indication will
+     * be supplied.
+     */
+    boolean disableDataConnectivity();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Enables the specified APN type. Only works for "special" APN types,
@@ -1379,6 +1986,7 @@ public interface Phone {
     boolean isDataConnectivityPossible();
 
     /**
+<<<<<<< HEAD
      * Report on whether data connectivity is allowed for an APN.
      */
     boolean isDataConnectivityPossible(String apnType);
@@ -1783,4 +2391,48 @@ public interface Phone {
      * Remove references to external object stored in this object.
      */
     void removeReferences();
+=======
+     * Returns the name of the network interface used by the specified APN type.
+     */
+    String getInterfaceName(String apnType);
+
+    /**
+     * Returns the IP address of the network interface used by the specified
+     * APN type.
+     */
+    String getIpAddress(String apnType);
+
+    /**
+     * Returns the gateway for the network interface used by the specified APN
+     * type.
+     */
+    String getGateway(String apnType);
+
+    /**
+     * Returns the DNS servers for the network interface used by the specified
+     * APN type.
+     */
+    public String[] getDnsServers(String apnType);
+
+    /**
+     * Retrieves the unique device ID, e.g., IMEI for GSM phones.
+     */
+    String getDeviceId();
+
+    /**
+     * Retrieves the software version number for the device, e.g., IMEI/SV
+     * for GSM phones.
+     */
+    String getDeviceSvn();
+
+    /**
+     * Retrieves the unique sbuscriber ID, e.g., IMSI for GSM phones.
+     */
+    String getSubscriberId();
+
+    /**
+     * Retrieves the serial number of the SIM, if applicable.
+     */
+    String getSimSerialNumber();
+>>>>>>> 54b6cfa... Initial Contribution
 }

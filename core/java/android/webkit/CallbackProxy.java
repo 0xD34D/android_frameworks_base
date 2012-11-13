@@ -16,11 +16,16 @@
 
 package android.webkit;
 
+<<<<<<< HEAD
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+=======
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,6 +35,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+<<<<<<< HEAD
 import android.provider.Browser;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -44,6 +50,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import android.util.Config;
+import android.util.Log;
+import android.view.KeyEvent;
+
+import java.util.HashMap;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * This class is a proxy class for handling WebCore -> UI thread messaging. All
@@ -61,13 +74,19 @@ class CallbackProxy extends Handler {
     private volatile WebViewClient mWebViewClient;
     // Instance of WebChromeClient for handling all chrome functions.
     private volatile WebChromeClient mWebChromeClient;
+<<<<<<< HEAD
     // Instance of WebViewClassic for handling UI requests.
     private final WebViewClassic mWebView;
+=======
+    // Instance of WebView for handling UI requests.
+    private final WebView mWebView;
+>>>>>>> 54b6cfa... Initial Contribution
     // Client registered callback listener for download events
     private volatile DownloadListener mDownloadListener;
     // Keep track of multiple progress updates.
     private boolean mProgressUpdatePending;
     // Keep track of the last progress amount.
+<<<<<<< HEAD
     // Start with 100 to indicate it is not in load for the empty page.
     private volatile int mLatestProgress = 100;
     // Back/Forward list
@@ -138,6 +157,51 @@ class CallbackProxy extends Handler {
             mResult = defaultResult;
         }
 
+=======
+    private volatile int mLatestProgress;
+    // Back/Forward list
+    private final WebBackForwardList mBackForwardList;
+    // Used to call startActivity during url override.
+    private final Context mContext;
+
+    // Message Ids
+    private static final int PAGE_STARTED         = 100;
+    private static final int RECEIVED_ICON        = 101;
+    private static final int RECEIVED_TITLE       = 102;
+    private static final int OVERRIDE_URL         = 103;
+    private static final int AUTH_REQUEST         = 104;
+    private static final int SSL_ERROR            = 105;
+    private static final int PROGRESS             = 106;
+    private static final int UPDATE_VISITED       = 107;
+    private static final int LOAD_RESOURCE        = 108;
+    private static final int CREATE_WINDOW        = 109;
+    private static final int CLOSE_WINDOW         = 110;
+    private static final int SAVE_PASSWORD        = 111;
+    private static final int JS_ALERT             = 112;
+    private static final int JS_CONFIRM           = 113;
+    private static final int JS_PROMPT            = 114;
+    private static final int JS_UNLOAD            = 115;
+    private static final int ASYNC_KEYEVENTS      = 116;
+    private static final int TOO_MANY_REDIRECTS   = 117;
+    private static final int DOWNLOAD_FILE        = 118;
+    private static final int REPORT_ERROR         = 119;
+    private static final int RESEND_POST_DATA     = 120;
+    private static final int PAGE_FINISHED        = 121;
+    private static final int REQUEST_FOCUS        = 122;
+    private static final int SCALE_CHANGED        = 123;
+    private static final int RECEIVED_CERTIFICATE = 124;
+    private static final int SWITCH_OUT_HISTORY   = 125;
+
+    // Message triggered by the client to resume execution
+    private static final int NOTIFY               = 200;
+
+    // Result transportation object for returning results across thread
+    // boundaries.
+    private class ResultTransport<E> {
+        // Private result object
+        private E mResult;
+
+>>>>>>> 54b6cfa... Initial Contribution
         public synchronized void setResult(E result) {
             mResult = result;
         }
@@ -147,6 +211,7 @@ class CallbackProxy extends Handler {
         }
     }
 
+<<<<<<< HEAD
     private class JsResultReceiver implements JsResult.ResultReceiver {
         // This prevents a user from interacting with the result before WebCore is
         // ready to handle it.
@@ -203,6 +268,16 @@ class CallbackProxy extends Handler {
         removeCallbacksAndMessages(null);
         setWebViewClient(null);
         setWebChromeClient(null);
+=======
+    /**
+     * Construct a new CallbackProxy.
+     */
+    public CallbackProxy(Context context, WebView w) {
+        // Used to start a default activity.
+        mContext = context;
+        mWebView = w;
+        mBackForwardList = new WebBackForwardList();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -214,6 +289,7 @@ class CallbackProxy extends Handler {
     }
 
     /**
+<<<<<<< HEAD
      * Get the WebViewClient.
      * @return the current WebViewClient instance.
      */
@@ -222,6 +298,8 @@ class CallbackProxy extends Handler {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Set the WebChromeClient.
      * @param client An implementation of WebChromeClient.
      */
@@ -230,6 +308,7 @@ class CallbackProxy extends Handler {
     }
 
     /**
+<<<<<<< HEAD
      * Get the WebChromeClient.
      * @return the current WebChromeClient instance.
      */
@@ -238,6 +317,8 @@ class CallbackProxy extends Handler {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Set the client DownloadListener.
      * @param client An implementation of DownloadListener.
      */
@@ -253,6 +334,7 @@ class CallbackProxy extends Handler {
         return mBackForwardList;
     }
 
+<<<<<<< HEAD
     void setWebBackForwardListClient(WebBackForwardListClient client) {
         mWebBackForwardListClient = client;
     }
@@ -261,6 +343,8 @@ class CallbackProxy extends Handler {
         return mWebBackForwardListClient;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Called by the UI side.  Calling overrideUrlLoading from the WebCore
      * side will post a message to call this method.
@@ -271,17 +355,24 @@ class CallbackProxy extends Handler {
         }
         boolean override = false;
         if (mWebViewClient != null) {
+<<<<<<< HEAD
             override = mWebViewClient.shouldOverrideUrlLoading(mWebView.getWebView(),
+=======
+            override = mWebViewClient.shouldOverrideUrlLoading(mWebView,
+>>>>>>> 54b6cfa... Initial Contribution
                     overrideUrl);
         } else {
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(overrideUrl));
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
+<<<<<<< HEAD
             // If another application is running a WebView and launches the
             // Browser through this Intent, we want to reuse the same window if
             // possible.
             intent.putExtra(Browser.EXTRA_APPLICATION_ID,
                     mContext.getPackageName());
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             try {
                 mContext.startActivity(intent);
                 override = true;
@@ -298,7 +389,11 @@ class CallbackProxy extends Handler {
      */
     public boolean uiOverrideKeyEvent(KeyEvent event) {
         if (mWebViewClient != null) {
+<<<<<<< HEAD
             return mWebViewClient.shouldOverrideKeyEvent(mWebView.getWebView(), event);
+=======
+            return mWebViewClient.shouldOverrideKeyEvent(mWebView, event);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         return false;
     }
@@ -309,6 +404,7 @@ class CallbackProxy extends Handler {
         // in the UI thread. The WebViewClient and WebChromeClient functions
         // that check for a non-null callback are ok because java ensures atomic
         // 32-bit reads and writes.
+<<<<<<< HEAD
         if (messagesBlocked()) return;
         switch (msg.what) {
             case PAGE_STARTED:
@@ -316,11 +412,19 @@ class CallbackProxy extends Handler {
                 mWebView.onPageStarted(startedUrl);
                 if (mWebViewClient != null) {
                     mWebViewClient.onPageStarted(mWebView.getWebView(), startedUrl,
+=======
+        switch (msg.what) {
+            case PAGE_STARTED:
+                if (mWebViewClient != null) {
+                    mWebViewClient.onPageStarted(mWebView,
+                            msg.getData().getString("url"),
+>>>>>>> 54b6cfa... Initial Contribution
                             (Bitmap) msg.obj);
                 }
                 break;
 
             case PAGE_FINISHED:
+<<<<<<< HEAD
                 String finishedUrl = (String) msg.obj;
                 mWebView.onPageFinished(finishedUrl);
                 if (mWebViewClient != null) {
@@ -345,6 +449,36 @@ class CallbackProxy extends Handler {
                 if (mWebChromeClient != null) {
                     mWebChromeClient.onReceivedTitle(mWebView.getWebView(),
                             (String) msg.obj);
+=======
+                if (mWebViewClient != null) {
+                    mWebViewClient.onPageFinished(mWebView, (String) msg.obj);
+                }
+                break;
+                
+            case RECEIVED_ICON:
+                if (mWebChromeClient != null) {
+                    mWebChromeClient.onReceivedIcon(mWebView, (Bitmap) msg.obj);
+                }
+                break;
+
+            case RECEIVED_TITLE:
+                if (mWebChromeClient != null) {
+                    mWebChromeClient.onReceivedTitle(mWebView,
+                            (String) msg.obj);
+                }
+                break;
+
+            case TOO_MANY_REDIRECTS:
+                Message cancelMsg =
+                        (Message) msg.getData().getParcelable("cancelMsg");
+                Message continueMsg =
+                        (Message) msg.getData().getParcelable("continueMsg");
+                if (mWebViewClient != null) {
+                    mWebViewClient.onTooManyRedirects(mWebView, cancelMsg,
+                            continueMsg);
+                } else {
+                    cancelMsg.sendToTarget();
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
@@ -353,7 +487,11 @@ class CallbackProxy extends Handler {
                     int reasonCode = msg.arg1;
                     final String description  = msg.getData().getString("description");
                     final String failUrl  = msg.getData().getString("failingUrl");
+<<<<<<< HEAD
                     mWebViewClient.onReceivedError(mWebView.getWebView(), reasonCode,
+=======
+                    mWebViewClient.onReceivedError(mWebView, reasonCode,
+>>>>>>> 54b6cfa... Initial Contribution
                             description, failUrl);
                 }
                 break;
@@ -364,7 +502,11 @@ class CallbackProxy extends Handler {
                 Message dontResend =
                         (Message) msg.getData().getParcelable("dontResend");
                 if (mWebViewClient != null) {
+<<<<<<< HEAD
                     mWebViewClient.onFormResubmission(mWebView.getWebView(), dontResend,
+=======
+                    mWebViewClient.onFormResubmission(mWebView, dontResend,
+>>>>>>> 54b6cfa... Initial Contribution
                             resend);
                 } else {
                     dontResend.sendToTarget();
@@ -387,21 +529,32 @@ class CallbackProxy extends Handler {
                     HttpAuthHandler handler = (HttpAuthHandler) msg.obj;
                     String host = msg.getData().getString("host");
                     String realm = msg.getData().getString("realm");
+<<<<<<< HEAD
                     mWebViewClient.onReceivedHttpAuthRequest(mWebView.getWebView(), handler,
+=======
+                    mWebViewClient.onReceivedHttpAuthRequest(mWebView, handler,
+>>>>>>> 54b6cfa... Initial Contribution
                             host, realm);
                 }
                 break;
 
             case SSL_ERROR:
                 if (mWebViewClient != null) {
+<<<<<<< HEAD
                     HashMap<String, Object> map =
                         (HashMap<String, Object>) msg.obj;
                     mWebViewClient.onReceivedSslError(mWebView.getWebView(),
+=======
+                    HashMap<String, Object> map = 
+                        (HashMap<String, Object>) msg.obj;
+                    mWebViewClient.onReceivedSslError(mWebView,
+>>>>>>> 54b6cfa... Initial Contribution
                             (SslErrorHandler) map.get("handler"),
                             (SslError) map.get("error"));
                 }
                 break;
 
+<<<<<<< HEAD
             case PROCEEDED_AFTER_SSL_ERROR:
                 if (mWebViewClient != null) {
                     mWebViewClient.onProceededAfterSslError(mWebView.getWebView(),
@@ -419,13 +572,19 @@ class CallbackProxy extends Handler {
                 }
                 break;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             case PROGRESS:
                 // Synchronize to ensure mLatestProgress is not modified after
                 // setProgress is called and before mProgressUpdatePending is
                 // changed.
                 synchronized (this) {
                     if (mWebChromeClient != null) {
+<<<<<<< HEAD
                         mWebChromeClient.onProgressChanged(mWebView.getWebView(),
+=======
+                        mWebChromeClient.onProgressChanged(mWebView,
+>>>>>>> 54b6cfa... Initial Contribution
                                 mLatestProgress);
                     }
                     mProgressUpdatePending = false;
@@ -434,14 +593,22 @@ class CallbackProxy extends Handler {
 
             case UPDATE_VISITED:
                 if (mWebViewClient != null) {
+<<<<<<< HEAD
                     mWebViewClient.doUpdateVisitedHistory(mWebView.getWebView(),
+=======
+                    mWebViewClient.doUpdateVisitedHistory(mWebView,
+>>>>>>> 54b6cfa... Initial Contribution
                             (String) msg.obj, msg.arg1 != 0);
                 }
                 break;
 
             case LOAD_RESOURCE:
                 if (mWebViewClient != null) {
+<<<<<<< HEAD
                     mWebViewClient.onLoadResource(mWebView.getWebView(), (String) msg.obj);
+=======
+                    mWebViewClient.onLoadResource(mWebView, (String) msg.obj);
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
@@ -461,37 +628,60 @@ class CallbackProxy extends Handler {
 
             case CREATE_WINDOW:
                 if (mWebChromeClient != null) {
+<<<<<<< HEAD
                     if (!mWebChromeClient.onCreateWindow(mWebView.getWebView(),
+=======
+                    if (!mWebChromeClient.onCreateWindow(mWebView,
+>>>>>>> 54b6cfa... Initial Contribution
                                 msg.arg1 == 1, msg.arg2 == 1,
                                 (Message) msg.obj)) {
                         synchronized (this) {
                             notify();
                         }
                     }
+<<<<<<< HEAD
                     mWebView.dismissZoomControl();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
             case REQUEST_FOCUS:
                 if (mWebChromeClient != null) {
+<<<<<<< HEAD
                     mWebChromeClient.onRequestFocus(mWebView.getWebView());
+=======
+                    mWebChromeClient.onRequestFocus(mWebView);
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
             case CLOSE_WINDOW:
                 if (mWebChromeClient != null) {
+<<<<<<< HEAD
                     mWebChromeClient.onCloseWindow(((WebViewClassic) msg.obj).getWebView());
+=======
+                    mWebChromeClient.onCloseWindow((WebView) msg.obj);
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
             case SAVE_PASSWORD:
                 Bundle bundle = msg.getData();
+<<<<<<< HEAD
                 String schemePlusHost = bundle.getString("host");
+=======
+                String host = bundle.getString("host");
+>>>>>>> 54b6cfa... Initial Contribution
                 String username = bundle.getString("username");
                 String password = bundle.getString("password");
                 // If the client returned false it means that the notify message
                 // will not be sent and we should notify WebCore ourselves.
+<<<<<<< HEAD
                 if (!mWebView.onSavePassword(schemePlusHost, username, password,
+=======
+                if (!mWebView.onSavePassword(host, username, password,
+>>>>>>> 54b6cfa... Initial Contribution
                             (Message) msg.obj)) {
                     synchronized (this) {
                         notify();
@@ -501,11 +691,16 @@ class CallbackProxy extends Handler {
 
             case ASYNC_KEYEVENTS:
                 if (mWebViewClient != null) {
+<<<<<<< HEAD
                     mWebViewClient.onUnhandledKeyEvent(mWebView.getWebView(),
+=======
+                    mWebViewClient.onUnhandledKeyEvent(mWebView,
+>>>>>>> 54b6cfa... Initial Contribution
                             (KeyEvent) msg.obj);
                 }
                 break;
 
+<<<<<<< HEAD
             case EXCEEDED_DATABASE_QUOTA:
                 if (mWebChromeClient != null) {
                     HashMap<String, Object> map =
@@ -597,11 +792,24 @@ class CallbackProxy extends Handler {
                                 .show();
                     }
                     receiver.setReady();
+=======
+            case JS_ALERT:
+                if (mWebChromeClient != null) {
+                    JsResult res = (JsResult) msg.obj;
+                    String message = msg.getData().getString("message");
+                    String url = msg.getData().getString("url");
+                    if (!mWebChromeClient.onJsAlert(mWebView, url, message,
+                                res)) {
+                        res.handleDefault();
+                    }
+                    res.setReady();
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
             case JS_CONFIRM:
                 if (mWebChromeClient != null) {
+<<<<<<< HEAD
                     final JsResultReceiver receiver = (JsResultReceiver) msg.obj;
                     final JsResult res = receiver.mJsResult;
                     String message = msg.getData().getString("message");
@@ -642,11 +850,24 @@ class CallbackProxy extends Handler {
                     // Tell the JsResult that it is ready for client
                     // interaction.
                     receiver.setReady();
+=======
+                    JsResult res = (JsResult) msg.obj;
+                    String message = msg.getData().getString("message");
+                    String url = msg.getData().getString("url");
+                    if (!mWebChromeClient.onJsConfirm(mWebView, url, message,
+                                res)) {
+                        res.handleDefault();
+                    }
+                    // Tell the JsResult that it is ready for client
+                    // interaction.
+                    res.setReady();
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
             case JS_PROMPT:
                 if (mWebChromeClient != null) {
+<<<<<<< HEAD
                     final JsResultReceiver receiver = (JsResultReceiver) msg.obj;
                     final JsPromptResult res = receiver.mJsResult;
                     String message = msg.getData().getString("message");
@@ -700,11 +921,25 @@ class CallbackProxy extends Handler {
                     // Tell the JsResult that it is ready for client
                     // interaction.
                     receiver.setReady();
+=======
+                    JsPromptResult res = (JsPromptResult) msg.obj;
+                    String message = msg.getData().getString("message");
+                    String defaultVal = msg.getData().getString("default");
+                    String url = msg.getData().getString("url");
+                    if (!mWebChromeClient.onJsPrompt(mWebView, url, message,
+                                defaultVal, res)) {
+                        res.handleDefault();
+                    }
+                    // Tell the JsResult that it is ready for client
+                    // interaction.
+                    res.setReady();
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
             case JS_UNLOAD:
                 if (mWebChromeClient != null) {
+<<<<<<< HEAD
                     final JsResultReceiver receiver = (JsResultReceiver) msg.obj;
                     final JsResult res = receiver.mJsResult;
                     String message = msg.getData().getString("message");
@@ -752,6 +987,16 @@ class CallbackProxy extends Handler {
                         res.cancel();
                     }
                     receiver.setReady();
+=======
+                    JsResult res = (JsResult) msg.obj;
+                    String message = msg.getData().getString("message");
+                    String url = msg.getData().getString("url");
+                    if (!mWebChromeClient.onJsBeforeUnload(mWebView, url,
+                                message, res)) {
+                        res.handleDefault();
+                    }
+                    res.setReady();
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 break;
 
@@ -767,7 +1012,11 @@ class CallbackProxy extends Handler {
 
             case SCALE_CHANGED:
                 if (mWebViewClient != null) {
+<<<<<<< HEAD
                     mWebViewClient.onScaleChanged(mWebView.getWebView(), msg.getData()
+=======
+                    mWebViewClient.onScaleChanged(mWebView, msg.getData()
+>>>>>>> 54b6cfa... Initial Contribution
                             .getFloat("old"), msg.getData().getFloat("new"));
                 }
                 break;
@@ -775,6 +1024,7 @@ class CallbackProxy extends Handler {
             case SWITCH_OUT_HISTORY:
                 mWebView.switchOutDrawHistory();
                 break;
+<<<<<<< HEAD
 
             case ADD_MESSAGE_TO_CONSOLE:
                 if (mWebChromeClient == null) {
@@ -893,6 +1143,8 @@ class CallbackProxy extends Handler {
                         msg.getData().getInt("id"), success);
                 break;
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -910,6 +1162,7 @@ class CallbackProxy extends Handler {
         sendMessage(obtainMessage(SWITCH_OUT_HISTORY));
     }
 
+<<<<<<< HEAD
     private String getJsDialogTitle(String url) {
         String title = url;
         if (URLUtil.isDataUrl(url)) {
@@ -928,6 +1181,8 @@ class CallbackProxy extends Handler {
         return title;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     //--------------------------------------------------------------------------
     // WebViewClient functions.
     // NOTE: shouldOverrideKeyEvent is never called from the WebCore thread so
@@ -935,6 +1190,7 @@ class CallbackProxy extends Handler {
     //--------------------------------------------------------------------------
 
     // Performance probe
+<<<<<<< HEAD
     private static final boolean PERF_PROBE = false;
     private long mWebCoreThreadTime;
     private long mWebCoreIdleTime;
@@ -980,6 +1236,20 @@ class CallbackProxy extends Handler {
             mWebCoreIdleTime = 0;
             // un-comment this if PERF_PROBE is true
 //            Looper.myQueue().setWaitCallback(mIdleCallback);
+=======
+    private long mWebCoreThreadTime;
+
+    public void onPageStarted(String url, Bitmap favicon) {
+        // Do an unsynchronized quick check to avoid posting if no callback has
+        // been set.
+        if (mWebViewClient == null) {
+            return;
+        }
+        // Performance probe
+        if (false) {
+            mWebCoreThreadTime = SystemClock.currentThreadTimeMillis();
+            Network.getInstance(mContext).startTiming();
+>>>>>>> 54b6cfa... Initial Contribution
         }
         Message msg = obtainMessage(PAGE_STARTED);
         msg.obj = favicon;
@@ -988,6 +1258,7 @@ class CallbackProxy extends Handler {
     }
 
     public void onPageFinished(String url) {
+<<<<<<< HEAD
         // Performance probe
         if (PERF_PROBE) {
             // un-comment this if PERF_PROBE is true
@@ -995,15 +1266,44 @@ class CallbackProxy extends Handler {
             Log.d("WebCore", "WebCore thread used " +
                     (SystemClock.currentThreadTimeMillis() - mWebCoreThreadTime)
                     + " ms and idled " + mWebCoreIdleTime + " ms");
+=======
+        // Do an unsynchronized quick check to avoid posting if no callback has
+        // been set.
+        if (mWebViewClient == null) {
+            return;
+        }
+        // Performance probe
+        if (false) {
+            Log.d("WebCore", "WebCore thread used " + 
+                    (SystemClock.currentThreadTimeMillis() - mWebCoreThreadTime)
+                    + " ms");
+            Network.getInstance(mContext).stopTiming();
+>>>>>>> 54b6cfa... Initial Contribution
         }
         Message msg = obtainMessage(PAGE_FINISHED, url);
         sendMessage(msg);
     }
 
+<<<<<<< HEAD
     // Because this method is public and because CallbackProxy is mistakenly
     // party of the public classes, we cannot remove this method.
     public void onTooManyRedirects(Message cancelMsg, Message continueMsg) {
         // deprecated.
+=======
+    public void onTooManyRedirects(Message cancelMsg, Message continueMsg) {
+        // Do an unsynchronized quick check to avoid posting if no callback has
+        // been set.
+        if (mWebViewClient == null) {
+            cancelMsg.sendToTarget();
+            return;
+        }
+
+        Message msg = obtainMessage(TOO_MANY_REDIRECTS);
+        Bundle bundle = msg.getData();
+        bundle.putParcelable("cancelMsg", cancelMsg);
+        bundle.putParcelable("continueMsg", continueMsg);
+        sendMessage(msg);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void onReceivedError(int errorCode, String description,
@@ -1021,7 +1321,11 @@ class CallbackProxy extends Handler {
         sendMessage(msg);
     }
 
+<<<<<<< HEAD
     public void onFormResubmission(Message dontResend,
+=======
+    public void onFormResubmission(Message dontResend, 
+>>>>>>> 54b6cfa... Initial Contribution
             Message resend) {
         // Do an unsynchronized quick check to avoid posting if no callback has
         // been set.
@@ -1043,11 +1347,27 @@ class CallbackProxy extends Handler {
     public boolean shouldOverrideUrlLoading(String url) {
         // We have a default behavior if no client exists so always send the
         // message.
+<<<<<<< HEAD
         ResultTransport<Boolean> res = new ResultTransport<Boolean>(false);
         Message msg = obtainMessage(OVERRIDE_URL);
         msg.getData().putString("url", url);
         msg.obj = res;
         sendMessageToUiThreadSync(msg);
+=======
+        ResultTransport<Boolean> res = new ResultTransport<Boolean>();
+        Message msg = obtainMessage(OVERRIDE_URL);
+        msg.getData().putString("url", url);
+        msg.obj = res;
+        synchronized (this) {
+            sendMessage(msg);
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Log.e(LOGTAG, "Caught exception while waiting for overrideUrl");
+                Log.e(LOGTAG, Log.getStackTraceString(e));
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         return res.getResult().booleanValue();
     }
 
@@ -1064,7 +1384,14 @@ class CallbackProxy extends Handler {
         msg.getData().putString("realm", realmName);
         sendMessage(msg);
     }
+<<<<<<< HEAD
 
+=======
+    /**
+     * @hide - hide this because it contains a parameter of type SslError.
+     * SslError is located in a hidden package.
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void onReceivedSslError(SslErrorHandler handler, SslError error) {
         // Do an unsynchronized quick check to avoid posting if no callback has
         // been set.
@@ -1073,12 +1400,17 @@ class CallbackProxy extends Handler {
             return;
         }
         Message msg = obtainMessage(SSL_ERROR);
+<<<<<<< HEAD
+=======
+        //, handler);
+>>>>>>> 54b6cfa... Initial Contribution
         HashMap<String, Object> map = new HashMap();
         map.put("handler", handler);
         map.put("error", error);
         msg.obj = map;
         sendMessage(msg);
     }
+<<<<<<< HEAD
 
     public void onProceededAfterSslError(SslError error) {
         if (mWebViewClient == null) {
@@ -1105,6 +1437,19 @@ class CallbackProxy extends Handler {
     }
 
     public void onReceivedCertificate(SslCertificate certificate) {
+=======
+    /**
+     * @hide - hide this because it contains a parameter of type SslCertificate,
+     * which is located in a hidden package.
+     */
+
+    public void onReceivedCertificate(SslCertificate certificate) {
+        // Do an unsynchronized quick check to avoid posting if no callback has
+        // been set.
+        if (mWebViewClient == null) {
+            return;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         // here, certificate can be null (if the site is not secure)
         sendMessage(obtainMessage(RECEIVED_CERTIFICATE, certificate));
     }
@@ -1118,6 +1463,7 @@ class CallbackProxy extends Handler {
         sendMessage(obtainMessage(UPDATE_VISITED, isReload ? 1 : 0, 0, url));
     }
 
+<<<<<<< HEAD
     WebResourceResponse shouldInterceptRequest(String url) {
         if (mWebViewClient == null) {
             return null;
@@ -1129,6 +1475,15 @@ class CallbackProxy extends Handler {
             sendMessage(obtainMessage(LOAD_RESOURCE, url));
         }
         return r;
+=======
+    public void onLoadResource(String url) {
+        // Do an unsynchronized quick check to avoid posting if no callback has
+        // been set.
+        if (mWebViewClient == null) {
+            return;
+        }
+        sendMessage(obtainMessage(LOAD_RESOURCE, url));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void onUnhandledKeyEvent(KeyEvent event) {
@@ -1153,6 +1508,7 @@ class CallbackProxy extends Handler {
         sendMessage(msg);
     }
 
+<<<<<<< HEAD
     void onReceivedLoginRequest(String realm, String account, String args) {
         // Do an unsynchronized quick check to avoid posting if no callback has
         // been set.
@@ -1167,6 +1523,8 @@ class CallbackProxy extends Handler {
         sendMessage(msg);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     //--------------------------------------------------------------------------
     // DownloadListener functions.
     //--------------------------------------------------------------------------
@@ -1201,25 +1559,50 @@ class CallbackProxy extends Handler {
     // functions just need to operate within the UI thread.
     //--------------------------------------------------------------------------
 
+<<<<<<< HEAD
     public boolean onSavePassword(String schemePlusHost, String username,
             String password, Message resumeMsg) {
         // resumeMsg should be null at this point because we want to create it
         // within the CallbackProxy.
         if (DebugFlags.CALLBACK_PROXY) {
+=======
+    public boolean onSavePassword(String host, String username, String password,
+            Message resumeMsg) {
+        // resumeMsg should be null at this point because we want to create it
+        // within the CallbackProxy.
+        if (Config.DEBUG) {
+>>>>>>> 54b6cfa... Initial Contribution
             junit.framework.Assert.assertNull(resumeMsg);
         }
         resumeMsg = obtainMessage(NOTIFY);
 
         Message msg = obtainMessage(SAVE_PASSWORD, resumeMsg);
         Bundle bundle = msg.getData();
+<<<<<<< HEAD
         bundle.putString("host", schemePlusHost);
         bundle.putString("username", username);
         bundle.putString("password", password);
         sendMessageToUiThreadSync(msg);
+=======
+        bundle.putString("host", host);
+        bundle.putString("username", username);
+        bundle.putString("password", password);
+        synchronized (this) {
+            sendMessage(msg);
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Log.e(LOGTAG,
+                        "Caught exception while waiting for onSavePassword");
+                Log.e(LOGTAG, Log.getStackTraceString(e));
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         // Doesn't matter here
         return false;
     }
 
+<<<<<<< HEAD
     public void onReceivedHttpAuthCredentials(String host, String realm,
             String username, String password) {
         Message msg = obtainMessage(AUTH_CREDENTIALS);
@@ -1230,6 +1613,8 @@ class CallbackProxy extends Handler {
         sendMessage(msg);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     //--------------------------------------------------------------------------
     // WebChromeClient methods
     //--------------------------------------------------------------------------
@@ -1237,11 +1622,14 @@ class CallbackProxy extends Handler {
     public void onProgressChanged(int newProgress) {
         // Synchronize so that mLatestProgress is up-to-date.
         synchronized (this) {
+<<<<<<< HEAD
             // update mLatestProgress even mWebChromeClient is null as
             // WebView.getProgress() needs it
             if (mLatestProgress == newProgress) {
                 return;
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             mLatestProgress = newProgress;
             if (mWebChromeClient == null) {
                 return;
@@ -1253,13 +1641,18 @@ class CallbackProxy extends Handler {
         }
     }
 
+<<<<<<< HEAD
     public BrowserFrame createWindow(boolean dialog, boolean userGesture) {
+=======
+    public WebView createWindow(boolean dialog, boolean userGesture) {
+>>>>>>> 54b6cfa... Initial Contribution
         // Do an unsynchronized quick check to avoid posting if no callback has
         // been set.
         if (mWebChromeClient == null) {
             return null;
         }
 
+<<<<<<< HEAD
         WebView.WebViewTransport transport =
             mWebView.getWebView().new WebViewTransport();
         final Message msg = obtainMessage(NOTIFY);
@@ -1277,6 +1670,28 @@ class CallbackProxy extends Handler {
             }
         }
         return null;
+=======
+        WebView.WebViewTransport transport = mWebView.new WebViewTransport();
+        final Message msg = obtainMessage(NOTIFY);
+        msg.obj = transport;
+        synchronized (this) {
+            sendMessage(obtainMessage(CREATE_WINDOW, dialog ? 1 : 0,
+                    userGesture ? 1 : 0, msg));
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Log.e(LOGTAG,
+                        "Caught exception while waiting for createWindow");
+                Log.e(LOGTAG, Log.getStackTraceString(e));
+            }
+        }
+
+        WebView w = transport.getWebView();
+        if (w != null) {
+            w.getWebViewCore().initializeSubwindow();
+        }
+        return w;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void onRequestFocus() {
@@ -1289,7 +1704,11 @@ class CallbackProxy extends Handler {
         sendEmptyMessage(REQUEST_FOCUS);
     }
 
+<<<<<<< HEAD
     public void onCloseWindow(WebViewClassic window) {
+=======
+    public void onCloseWindow(WebView window) {
+>>>>>>> 54b6cfa... Initial Contribution
         // Do an unsynchronized quick check to avoid posting if no callback has
         // been set.
         if (mWebChromeClient == null) {
@@ -1299,12 +1718,19 @@ class CallbackProxy extends Handler {
     }
 
     public void onReceivedIcon(Bitmap icon) {
+<<<<<<< HEAD
         // The current item might be null if the icon was already stored in the
         // database and this is a new WebView.
         WebHistoryItem i = mBackForwardList.getCurrentItem();
         if (i != null) {
             i.setFavicon(icon);
         }
+=======
+        if (Config.DEBUG && mBackForwardList.getCurrentItem() == null) {
+            throw new AssertionError();
+        }
+        mBackForwardList.getCurrentItem().setFavicon(icon);
+>>>>>>> 54b6cfa... Initial Contribution
         // Do an unsynchronized quick check to avoid posting if no callback has
         // been set.
         if (mWebChromeClient == null) {
@@ -1313,6 +1739,7 @@ class CallbackProxy extends Handler {
         sendMessage(obtainMessage(RECEIVED_ICON, icon));
     }
 
+<<<<<<< HEAD
     /* package */ void onReceivedTouchIconUrl(String url, boolean precomposed) {
         // We should have a current item but we do not want to crash so check
         // for null.
@@ -1329,6 +1756,8 @@ class CallbackProxy extends Handler {
                 precomposed ? 1 : 0, 0, url));
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void onReceivedTitle(String title) {
         // Do an unsynchronized quick check to avoid posting if no callback has
         // been set.
@@ -1344,11 +1773,27 @@ class CallbackProxy extends Handler {
         if (mWebChromeClient == null) {
             return;
         }
+<<<<<<< HEAD
         JsResultReceiver result = new JsResultReceiver();
         Message alert = obtainMessage(JS_ALERT, result);
         alert.getData().putString("message", message);
         alert.getData().putString("url", url);
         sendMessageToUiThreadSync(alert);
+=======
+        JsResult result = new JsResult(this, false);
+        Message alert = obtainMessage(JS_ALERT, result);
+        alert.getData().putString("message", message);
+        alert.getData().putString("url", url);
+        synchronized (this) {
+            sendMessage(alert);
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Log.e(LOGTAG, "Caught exception while waiting for jsAlert");
+                Log.e(LOGTAG, Log.getStackTraceString(e));
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public boolean onJsConfirm(String url, String message) {
@@ -1357,12 +1802,29 @@ class CallbackProxy extends Handler {
         if (mWebChromeClient == null) {
             return false;
         }
+<<<<<<< HEAD
         JsResultReceiver result = new JsResultReceiver();
         Message confirm = obtainMessage(JS_CONFIRM, result);
         confirm.getData().putString("message", message);
         confirm.getData().putString("url", url);
         sendMessageToUiThreadSync(confirm);
         return result.mJsResult.getResult();
+=======
+        JsResult result = new JsResult(this, false);
+        Message confirm = obtainMessage(JS_CONFIRM, result);
+        confirm.getData().putString("message", message);
+        confirm.getData().putString("url", url);
+        synchronized (this) {
+            sendMessage(confirm);
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Log.e(LOGTAG, "Caught exception while waiting for jsConfirm");
+                Log.e(LOGTAG, Log.getStackTraceString(e));
+            }
+        }
+        return result.getResult();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public String onJsPrompt(String url, String message, String defaultValue) {
@@ -1371,13 +1833,30 @@ class CallbackProxy extends Handler {
         if (mWebChromeClient == null) {
             return null;
         }
+<<<<<<< HEAD
         JsResultReceiver result = new JsResultReceiver();
+=======
+        JsPromptResult result = new JsPromptResult(this);
+>>>>>>> 54b6cfa... Initial Contribution
         Message prompt = obtainMessage(JS_PROMPT, result);
         prompt.getData().putString("message", message);
         prompt.getData().putString("default", defaultValue);
         prompt.getData().putString("url", url);
+<<<<<<< HEAD
         sendMessageToUiThreadSync(prompt);
         return result.mJsResult.getStringResult();
+=======
+        synchronized (this) {
+            sendMessage(prompt);
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Log.e(LOGTAG, "Caught exception while waiting for jsPrompt");
+                Log.e(LOGTAG, Log.getStackTraceString(e));
+            }
+        }
+        return result.getStringResult();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public boolean onJsBeforeUnload(String url, String message) {
@@ -1386,6 +1865,7 @@ class CallbackProxy extends Handler {
         if (mWebChromeClient == null) {
             return true;
         }
+<<<<<<< HEAD
         JsResultReceiver result = new JsResultReceiver();
         Message confirm = obtainMessage(JS_UNLOAD, result);
         confirm.getData().putString("message", message);
@@ -1658,5 +2138,21 @@ class CallbackProxy extends Handler {
             Log.e(LOGTAG, Log.getStackTraceString(e));
         }
         WebCoreThreadWatchdog.resume();
+=======
+        JsResult result = new JsResult(this, true);
+        Message confirm = obtainMessage(JS_UNLOAD, result);
+        confirm.getData().putString("message", message);
+        confirm.getData().putString("url", url);
+        synchronized (this) {
+            sendMessage(confirm);
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Log.e(LOGTAG, "Caught exception while waiting for jsUnload");
+                Log.e(LOGTAG, Log.getStackTraceString(e));
+            }
+        }
+        return result.getResult();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

@@ -219,7 +219,11 @@ int binder_parse(struct binder_state *bs, struct binder_io *bio,
         case BR_TRANSACTION: {
             struct binder_txn *txn = (void *) ptr;
             if ((end - ptr) * sizeof(uint32_t) < sizeof(struct binder_txn)) {
+<<<<<<< HEAD
                 ALOGE("parse: txn too small!\n");
+=======
+                LOGE("parse: txn too small!\n");
+>>>>>>> 54b6cfa... Initial Contribution
                 return -1;
             }
             binder_dump_txn(txn);
@@ -240,7 +244,11 @@ int binder_parse(struct binder_state *bs, struct binder_io *bio,
         case BR_REPLY: {
             struct binder_txn *txn = (void*) ptr;
             if ((end - ptr) * sizeof(uint32_t) < sizeof(struct binder_txn)) {
+<<<<<<< HEAD
                 ALOGE("parse: reply too small!\n");
+=======
+                LOGE("parse: reply too small!\n");
+>>>>>>> 54b6cfa... Initial Contribution
                 return -1;
             }
             binder_dump_txn(txn);
@@ -266,7 +274,11 @@ int binder_parse(struct binder_state *bs, struct binder_io *bio,
             r = -1;
             break;
         default:
+<<<<<<< HEAD
             ALOGE("parse: OOPS %d\n", cmd);
+=======
+            LOGE("parse: OOPS %d\n", cmd);
+>>>>>>> 54b6cfa... Initial Contribution
             return -1;
         }
     }
@@ -375,17 +387,29 @@ void binder_loop(struct binder_state *bs, binder_handler func)
         res = ioctl(bs->fd, BINDER_WRITE_READ, &bwr);
 
         if (res < 0) {
+<<<<<<< HEAD
             ALOGE("binder_loop: ioctl failed (%s)\n", strerror(errno));
+=======
+            LOGE("binder_loop: ioctl failed (%s)\n", strerror(errno));
+>>>>>>> 54b6cfa... Initial Contribution
             break;
         }
 
         res = binder_parse(bs, 0, readbuf, bwr.read_consumed, func);
         if (res == 0) {
+<<<<<<< HEAD
             ALOGE("binder_loop: unexpected reply?!\n");
             break;
         }
         if (res < 0) {
             ALOGE("binder_loop: io error %d %s\n", res, strerror(errno));
+=======
+            LOGE("binder_loop: unexpected reply?!\n");
+            break;
+        }
+        if (res < 0) {
+            LOGE("binder_loop: io error %d %s\n", res, strerror(errno));
+>>>>>>> 54b6cfa... Initial Contribution
             break;
         }
     }
@@ -412,7 +436,11 @@ void bio_init(struct binder_io *bio, void *data,
         return;
     }
 
+<<<<<<< HEAD
     bio->data = bio->data0 = (char *) data + n;
+=======
+    bio->data = bio->data0 = data + n;
+>>>>>>> 54b6cfa... Initial Contribution
     bio->offs = bio->offs0 = data;
     bio->data_avail = maxdata - n;
     bio->offs_avail = maxoffs;

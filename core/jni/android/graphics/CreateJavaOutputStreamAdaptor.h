@@ -6,7 +6,11 @@
 #include "SkStream.h"
 
 SkStream* CreateJavaInputStreamAdaptor(JNIEnv* env, jobject stream,
+<<<<<<< HEAD
                                        jbyteArray storage, int markSize = 0);
+=======
+                                       jbyteArray storage);
+>>>>>>> 54b6cfa... Initial Contribution
 SkWStream* CreateJavaOutputStreamAdaptor(JNIEnv* env, jobject stream,
                                          jbyteArray storage);
 

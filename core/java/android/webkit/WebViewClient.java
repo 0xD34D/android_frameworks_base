@@ -20,7 +20,10 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Message;
 import android.view.KeyEvent;
+<<<<<<< HEAD
 import android.view.ViewRootImpl;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 public class WebViewClient {
 
@@ -31,7 +34,11 @@ public class WebViewClient {
      * proper handler for the url. If WebViewClient is provided, return true
      * means the host application handles the url, while return false means the
      * current WebView handles the url.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param url The url to be loaded.
      * @return True if the host application wants to leave the current WebView
@@ -47,7 +54,11 @@ public class WebViewClient {
      * framesets will call onPageStarted one time for the main frame. This also
      * means that onPageStarted will not be called when the contents of an
      * embedded frame changes, i.e. clicking a link whose target is an iframe.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param url The url to be loaded.
      * @param favicon The favicon for this page if it already exists in the
@@ -61,7 +72,11 @@ public class WebViewClient {
      * is called only for main frame. When onPageFinished() is called, the
      * rendering picture may not be updated yet. To get the notification for the
      * new Picture, use {@link WebView.PictureListener#onNewPicture}.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param url The url of the page.
      */
@@ -71,7 +86,11 @@ public class WebViewClient {
     /**
      * Notify the host application that the WebView will load the resource
      * specified by the given url.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param url The url of the resource the WebView will load.
      */
@@ -79,6 +98,7 @@ public class WebViewClient {
     }
 
     /**
+<<<<<<< HEAD
      * Notify the host application of a resource request and allow the
      * application to return the data.  If the return value is null, the WebView
      * will continue to load the resource as usual.  Otherwise, the return
@@ -99,10 +119,13 @@ public class WebViewClient {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Notify the host application that there have been an excessive number of
      * HTTP redirects. As the host application if it would like to continue
      * trying to load the resource. The default behavior is to send the cancel
      * message.
+<<<<<<< HEAD
      *
      * @param view The WebView that is initiating the callback.
      * @param cancelMsg The message to send if the host wants to cancel
@@ -111,11 +134,19 @@ public class WebViewClient {
      *             a redirect loop, it will cancel the load.
      */
     @Deprecated
+=======
+     * 
+     * @param view The WebView that is initiating the callback.
+     * @param cancelMsg The message to send if the host wants to cancel
+     * @param continueMsg The message to send if the host wants to continue
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public void onTooManyRedirects(WebView view, Message cancelMsg,
             Message continueMsg) {
         cancelMsg.sendToTarget();
     }
 
+<<<<<<< HEAD
     // These ints must match up to the hidden values in EventHandler.
     /** Generic error */
     public static final int ERROR_UNKNOWN = -1;
@@ -156,6 +187,16 @@ public class WebViewClient {
      * @param errorCode The error code corresponding to an ERROR_* value.
      * @param description A String describing the error.
      * @param failingUrl The url that failed to load.
+=======
+    /**
+     * Report an error to an activity. These errors come up from WebCore, and
+     * are network errors.
+     * 
+     * @param view The WebView that is initiating the callback.
+     * @param errorCode The HTTP error code.
+     * @param description A String description.
+     * @param failingUrl The url that failed.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void onReceivedError(WebView view, int errorCode,
             String description, String failingUrl) {
@@ -165,7 +206,11 @@ public class WebViewClient {
      * As the host application if the browser should resend data as the
      * requested page was a result of a POST. The default is to not resend the
      * data.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param dontResend The message to send if the browser should not resend
      * @param resend The message to send if the browser should resend data
@@ -177,7 +222,11 @@ public class WebViewClient {
 
     /**
      * Notify the host application to update its visited links database.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param url The url being visited.
      * @param isReload True if this url is being reloaded.
@@ -187,16 +236,30 @@ public class WebViewClient {
     }
 
     /**
+<<<<<<< HEAD
      * Notify the host application that an SSL error occurred while loading a
      * resource. The host application must call either handler.cancel() or
      * handler.proceed(). Note that the decision may be retained for use in
      * response to future SSL errors. The default behavior is to cancel the
      * load.
      *
+=======
+     * Notify the host application to handle a ssl certificate error request
+     * (display the error to the user and ask whether to proceed or not). The
+     * host application has to call either handler.cancel() or handler.proceed()
+     * as the connection is suspended and waiting for the response. The default
+     * behavior is to cancel the load.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param handler An SslErrorHandler object that will handle the user's
      *            response.
      * @param error The SSL error object.
+<<<<<<< HEAD
+=======
+     * @hide - hide this because it contains a parameter of type SslError,
+     * which is located in a hidden package.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void onReceivedSslError(WebView view, SslErrorHandler handler,
             SslError error) {
@@ -204,6 +267,7 @@ public class WebViewClient {
     }
 
     /**
+<<<<<<< HEAD
      * Notify the host application that an SSL error occurred while loading a
      * resource, but the WebView chose to proceed anyway based on a
      * decision retained from a previous response to onReceivedSslError().
@@ -236,6 +300,11 @@ public class WebViewClient {
      * Notify the host application to handle an authentication request. The
      * default behavior is to cancel the request.
      *
+=======
+     * Notify the host application to handle an authentication request. The
+     * default behavior is to cancel the request.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param handler The HttpAuthHandler that will handle the user's response.
      * @param host The host requiring authentication.
@@ -253,7 +322,11 @@ public class WebViewClient {
      * true, WebView will not handle the key event. If return false, WebView
      * will always handle the key event, so none of the super in the view chain
      * will see the key event. The default behavior returns false.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param event The key event.
      * @return True if the host application wants to handle the key event
@@ -267,29 +340,43 @@ public class WebViewClient {
      * Notify the host application that a key was not handled by the WebView.
      * Except system keys, WebView always consumes the keys in the normal flow
      * or if shouldOverrideKeyEvent returns true. This is called asynchronously
+<<<<<<< HEAD
      * from where the key is dispatched. It gives the host application a chance
      * to handle the unhandled key events.
      *
+=======
+     * from where the key is dispatched. It gives the host application an chance
+     * to handle the unhandled key events.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view The WebView that is initiating the callback.
      * @param event The key event.
      */
     public void onUnhandledKeyEvent(WebView view, KeyEvent event) {
+<<<<<<< HEAD
         ViewRootImpl root = view.getViewRootImpl();
         if (root != null) {
             root.dispatchUnhandledKey(event);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Notify the host application that the scale applied to the WebView has
      * changed.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param view he WebView that is initiating the callback.
      * @param oldScale The old scale factor
      * @param newScale The new scale factor
      */
     public void onScaleChanged(WebView view, float oldScale, float newScale) {
     }
+<<<<<<< HEAD
 
     /**
      * Notify the host application that a request to automatically log in the
@@ -304,4 +391,6 @@ public class WebViewClient {
     public void onReceivedLoginRequest(WebView view, String realm,
             String account, String args) {
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

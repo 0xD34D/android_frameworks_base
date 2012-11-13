@@ -29,7 +29,11 @@ public class SendReq extends MultimediaMessagePdu {
 
         try {
             setMessageType(PduHeaders.MESSAGE_TYPE_SEND_REQ);
+<<<<<<< HEAD
             setMmsVersion(PduHeaders.CURRENT_MMS_VERSION);
+=======
+            setMmsVersion(PduHeaders.MMS_VERSION_1_3);
+>>>>>>> 54b6cfa... Initial Contribution
             // FIXME: Content-type must be decided according to whether
             // SMIL part present.
             setContentType("application/vnd.wap.multipart.related".getBytes());
@@ -206,6 +210,7 @@ public class SendReq extends MultimediaMessagePdu {
     }
 
     /**
+<<<<<<< HEAD
      * Get X-Mms-MessageSize value.
      *
      * Expiry-value = size of message
@@ -223,6 +228,26 @@ public class SendReq extends MultimediaMessagePdu {
      */
     public void setMessageSize(long value) {
         mPduHeaders.setLongInteger(value, PduHeaders.MESSAGE_SIZE);
+=======
+     * Get From value.
+     * From-value = Value-length
+     *      (Address-present-token Encoded-string-value | Insert-address-token)
+     *
+     * @return the value
+     */
+    public EncodedStringValue getFrom() {
+       return mPduHeaders.getEncodedStringValue(PduHeaders.FROM);
+    }
+
+    /**
+     * Set From value.
+     *
+     * @param value the value
+     * @throws NullPointerException if the value is null.
+     */
+    public void setFrom(EncodedStringValue value) {
+        mPduHeaders.setEncodedStringValue(value, PduHeaders.FROM);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**

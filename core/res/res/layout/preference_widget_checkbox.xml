@@ -20,6 +20,11 @@
     android:id="@+android:id/checkbox" 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+<<<<<<< HEAD
     android:layout_gravity="center"
+=======
+    android:layout_marginRight="4dip"
+    android:layout_gravity="center_vertical"
+>>>>>>> 54b6cfa... Initial Contribution
     android:focusable="false"
     android:clickable="false" />

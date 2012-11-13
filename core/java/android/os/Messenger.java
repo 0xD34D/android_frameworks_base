@@ -29,7 +29,11 @@ public final class Messenger implements Parcelable {
      * Create a new Messenger pointing to the given Handler.  Any Message
      * objects sent through this Messenger will appear in the Handler as if
      * {@link Handler#sendMessage(Message) Handler.sendMessage(Message)} had
+<<<<<<< HEAD
      * been called directly.
+=======
+     * be called directly.
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param target The Handler that will receive sent messages.
      */

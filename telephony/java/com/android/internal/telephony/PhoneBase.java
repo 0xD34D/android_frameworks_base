@@ -16,6 +16,7 @@
 
 package com.android.internal.telephony;
 
+<<<<<<< HEAD
 import android.app.ActivityManagerNative;
 import android.app.IActivityManager;
 import android.content.Context;
@@ -52,6 +53,22 @@ import java.util.concurrent.atomic.AtomicReference;
  * (<em>Not for SDK use</em>)
  * A base implementation for the com.android.internal.telephony.Phone interface.
  *
+=======
+import android.content.Context;
+import android.os.AsyncResult;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.RegistrantList;
+import android.telephony.ServiceState;
+import com.android.internal.telephony.test.SimulatedRadioControl;
+
+import java.util.List;
+
+/**
+ * (<em>Not for SDK use</em>) 
+ * A base implementation for the com.android.internal.telephony.Phone interface.
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  * Note that implementations of Phone.java are expected to be used
  * from a single application thread. This should be the same thread that
  * originally called PhoneFactory to obtain the interface.
@@ -60,6 +77,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  */
 
+<<<<<<< HEAD
 public abstract class PhoneBase extends Handler implements Phone {
     private static final String LOG_TAG = "PHONE";
     private static final boolean LOCAL_DEBUG = true;
@@ -178,6 +196,45 @@ public abstract class PhoneBase extends Handler implements Phone {
     /**
      * PhoneNotifier is an abstraction for all system-wide
      * state change notification. DefaultPhoneNotifier is
+=======
+public abstract class PhoneBase implements Phone {
+    private static final String LOG_TAG = "GSM";
+
+    protected final RegistrantList mPhoneStateRegistrants 
+            = new RegistrantList();
+
+    protected final RegistrantList mNewRingingConnectionRegistrants 
+            = new RegistrantList();
+
+    protected final RegistrantList mIncomingRingRegistrants 
+            = new RegistrantList();
+    
+    protected final RegistrantList mDisconnectRegistrants 
+            = new RegistrantList();
+
+    protected final RegistrantList mServiceStateRegistrants 
+            = new RegistrantList();
+    
+    protected final RegistrantList mMmiCompleteRegistrants 
+            = new RegistrantList();
+
+    protected final RegistrantList mMmiRegistrants 
+            = new RegistrantList();
+
+    protected final RegistrantList mUnknownConnectionRegistrants 
+            = new RegistrantList();
+    
+    protected final RegistrantList mSuppServiceFailedRegistrants 
+            = new RegistrantList();
+    
+    protected Looper mLooper; /* to insure registrants are in correct thread*/
+
+    protected Context mContext;
+
+    /** 
+     * PhoneNotifier is an abstraction for all system-wide 
+     * state change notification. DefaultPhoneNotifier is 
+>>>>>>> 54b6cfa... Initial Contribution
      * used here unless running we're inside a unit test.
      */
     protected PhoneNotifier mNotifier;
@@ -190,17 +247,26 @@ public abstract class PhoneBase extends Handler implements Phone {
      * Constructs a PhoneBase in normal (non-unit test) mode.
      *
      * @param context Context object from hosting application
+<<<<<<< HEAD
      * @param notifier An instance of DefaultPhoneNotifier,
      * unless unit testing.
      */
     protected PhoneBase(PhoneNotifier notifier, Context context, CommandsInterface ci) {
         this(notifier, context, ci, false);
+=======
+     * @param notifier An instance of DefaultPhoneNotifier, 
+     * unless unit testing.
+     */
+    protected PhoneBase(PhoneNotifier notifier, Context context) {
+        this(notifier, context, false);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Constructs a PhoneBase in normal (non-unit test) mode.
      *
      * @param context Context object from hosting application
+<<<<<<< HEAD
      * @param notifier An instance of DefaultPhoneNotifier,
      * unless unit testing.
      * @param unitTestMode when true, prevents notifications
@@ -311,6 +377,20 @@ public abstract class PhoneBase extends Handler implements Phone {
             default:
                 throw new RuntimeException("unexpected event not handled");
         }
+=======
+     * @param notifier An instance of DefaultPhoneNotifier, 
+     * unless unit testing.
+     * @param unitTestMode when true, prevents notifications 
+     * of state change events
+     */
+    protected PhoneBase(PhoneNotifier notifier, Context context, 
+                         boolean unitTestMode) {
+        this.mNotifier = notifier;
+        this.mContext = context;
+        mLooper = Looper.myLooper();
+
+        setUnitTestMode(unitTestMode);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // Inherited documentation suffices.
@@ -318,6 +398,7 @@ public abstract class PhoneBase extends Handler implements Phone {
         return mContext;
     }
 
+<<<<<<< HEAD
     /**
      * Disables the DNS check (i.e., allows "0.0.0.0").
      * Useful for lab testing environment.
@@ -366,11 +447,46 @@ public abstract class PhoneBase extends Handler implements Phone {
         mUnknownConnectionRegistrants.addUnique(h, what, obj);
     }
 
+=======
+    // Inherited documentation suffices.
+    public void registerForPhoneStateChanged(Handler h, int what, Object obj) {
+        checkCorrectThread(h);
+
+        mPhoneStateRegistrants.addUnique(h, what, obj);
+    }
+
+    // Inherited documentation suffices.
+    public void unregisterForPhoneStateChanged(Handler h) {
+        mPhoneStateRegistrants.remove(h);
+    }
+    
+    /**
+     * Notify registrants of a PhoneStateChanged.
+     * Subclasses of Phone probably want to replace this with a 
+     * version scoped to their packages
+     */
+    protected void notifyCallStateChangedP() {
+        AsyncResult ar = new AsyncResult(null, this, null);
+        mPhoneStateRegistrants.notifyRegistrants(ar);
+    }
+     
+    // Inherited documentation suffices.
+    public void registerForUnknownConnection(Handler h, int what, Object obj) {
+        checkCorrectThread(h);
+        
+        mUnknownConnectionRegistrants.addUnique(h, what, obj);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Inherited documentation suffices.
     public void unregisterForUnknownConnection(Handler h) {
         mUnknownConnectionRegistrants.remove(h);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Inherited documentation suffices.
     public void registerForNewRingingConnection(
             Handler h, int what, Object obj) {
@@ -384,6 +500,7 @@ public abstract class PhoneBase extends Handler implements Phone {
         mNewRingingConnectionRegistrants.remove(h);
     }
 
+<<<<<<< HEAD
     // Inherited documentation suffices.
     public void registerForInCallVoicePrivacyOn(Handler h, int what, Object obj){
         mCM.registerForInCallVoicePrivacyOn(h,what,obj);
@@ -402,21 +519,42 @@ public abstract class PhoneBase extends Handler implements Phone {
     // Inherited documentation suffices.
     public void unregisterForInCallVoicePrivacyOff(Handler h){
         mCM.unregisterForInCallVoicePrivacyOff(h);
+=======
+    /**
+     * Notifiy registrants of a new ringing Connection.
+     * Subclasses of Phone probably want to replace this with a 
+     * version scoped to their packages
+     */
+    protected void notifyNewRingingConnectionP(Connection cn) {    
+        AsyncResult ar = new AsyncResult(null, cn, null);
+        mNewRingingConnectionRegistrants.notifyRegistrants(ar);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // Inherited documentation suffices.
     public void registerForIncomingRing(
             Handler h, int what, Object obj) {
         checkCorrectThread(h);
+<<<<<<< HEAD
 
         mIncomingRingRegistrants.addUnique(h, what, obj);
     }
 
+=======
+        
+        mIncomingRingRegistrants.addUnique(h, what, obj);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Inherited documentation suffices.
     public void unregisterForIncomingRing(Handler h) {
         mIncomingRingRegistrants.remove(h);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Inherited documentation suffices.
     public void registerForDisconnect(Handler h, int what, Object obj) {
         checkCorrectThread(h);
@@ -432,15 +570,26 @@ public abstract class PhoneBase extends Handler implements Phone {
     // Inherited documentation suffices.
     public void registerForSuppServiceFailed(Handler h, int what, Object obj) {
         checkCorrectThread(h);
+<<<<<<< HEAD
 
         mSuppServiceFailedRegistrants.addUnique(h, what, obj);
     }
 
+=======
+        
+        mSuppServiceFailedRegistrants.addUnique(h, what, obj);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Inherited documentation suffices.
     public void unregisterForSuppServiceFailed(Handler h) {
         mSuppServiceFailedRegistrants.remove(h);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Inherited documentation suffices.
     public void registerForMmiInitiate(Handler h, int what, Object obj) {
         checkCorrectThread(h);
@@ -452,7 +601,11 @@ public abstract class PhoneBase extends Handler implements Phone {
     public void unregisterForMmiInitiate(Handler h) {
         mMmiRegistrants.remove(h);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Inherited documentation suffices.
     public void registerForMmiComplete(Handler h, int what, Object obj) {
         checkCorrectThread(h);
@@ -468,6 +621,7 @@ public abstract class PhoneBase extends Handler implements Phone {
     }
 
     /**
+<<<<<<< HEAD
      * Method to retrieve the saved operator id from the Shared Preferences
      */
     private String getSavedNetworkSelection() {
@@ -493,6 +647,12 @@ public abstract class PhoneBase extends Handler implements Phone {
         }
     }
 
+=======
+     * Subclasses should override this. See documentation in superclass.
+     */
+    public abstract List getPendingMmiCodes();
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Inherited documentation suffices.
     public void setUnitTestMode(boolean f) {
         mUnitTestMode = f;
@@ -502,11 +662,19 @@ public abstract class PhoneBase extends Handler implements Phone {
     public boolean getUnitTestMode() {
         return mUnitTestMode;
     }
+<<<<<<< HEAD
 
     /**
      * To be invoked when a voice call Connection disconnects.
      *
      * Subclasses of Phone probably want to replace this with a
+=======
+    
+    /**
+     * To be invoked when a voice call Connection disconnects.
+     *
+     * Subclasses of Phone probably want to replace this with a 
+>>>>>>> 54b6cfa... Initial Contribution
      * version scoped to their packages
      */
     protected void notifyDisconnectP(Connection cn) {
@@ -527,6 +695,7 @@ public abstract class PhoneBase extends Handler implements Phone {
         mServiceStateRegistrants.remove(h);
     }
 
+<<<<<<< HEAD
     // Inherited documentation suffices.
     public void registerForRingbackTone(Handler h, int what, Object obj) {
         mCM.registerForRingbackTone(h,what,obj);
@@ -553,6 +722,10 @@ public abstract class PhoneBase extends Handler implements Phone {
 
     /**
      * Subclasses of Phone probably want to replace this with a
+=======
+    /**
+     * Subclasses of Phone probably want to replace this with a 
+>>>>>>> 54b6cfa... Initial Contribution
      * version scoped to their packages
      */
     protected void notifyServiceStateChangedP(ServiceState ss) {
@@ -578,6 +751,7 @@ public abstract class PhoneBase extends Handler implements Phone {
     private void checkCorrectThread(Handler h) {
         if (h.getLooper() != mLooper) {
             throw new RuntimeException(
+<<<<<<< HEAD
                     "com.android.internal.telephony.Phone must be used from within one thread");
         }
     }
@@ -1185,4 +1359,10 @@ public abstract class PhoneBase extends Handler implements Phone {
         pw.println(" isDataConnectivityPossible()=" + isDataConnectivityPossible());
         pw.println(" needsOtaServiceProvisioning=" + needsOtaServiceProvisioning());
     }
+=======
+                "com.android.internal.telephony.Phone must be used from within one thread");
+        }
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
 }

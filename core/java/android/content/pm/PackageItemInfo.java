@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -14,6 +15,8 @@
  * limitations under the License.
  */
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 package android.content.pm;
 
 import android.content.res.XmlResourceParser;
@@ -67,6 +70,7 @@ public class PackageItemInfo {
     public int icon;
     
     /**
+<<<<<<< HEAD
      * A drawable resource identifier (in the package's resources) of this
      * component's logo. Logos may be larger/wider than icons and are
      * displayed by certain UI elements in place of a name or name/icon
@@ -75,6 +79,8 @@ public class PackageItemInfo {
     public int logo;
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Additional meta-data associated with this component.  This field
      * will only be filled in if you set the
      * {@link PackageManager#GET_META_DATA} flag when requesting the info.
@@ -86,6 +92,7 @@ public class PackageItemInfo {
 
     public PackageItemInfo(PackageItemInfo orig) {
         name = orig.name;
+<<<<<<< HEAD
         if (name != null) name = name.trim();
         packageName = orig.packageName;
         labelRes = orig.labelRes;
@@ -93,6 +100,12 @@ public class PackageItemInfo {
         if (nonLocalizedLabel != null) nonLocalizedLabel = nonLocalizedLabel.toString().trim();
         icon = orig.icon;
         logo = orig.logo;
+=======
+        packageName = orig.packageName;
+        labelRes = orig.labelRes;
+        nonLocalizedLabel = orig.nonLocalizedLabel;
+        icon = orig.icon;
+>>>>>>> 54b6cfa... Initial Contribution
         metaData = orig.metaData;
     }
 
@@ -112,6 +125,7 @@ public class PackageItemInfo {
             return nonLocalizedLabel;
         }
         if (labelRes != 0) {
+<<<<<<< HEAD
             CharSequence label = pm.getText(packageName, labelRes, getApplicationInfo());
             if (label != null) {
                 return label.toString().trim();
@@ -121,6 +135,14 @@ public class PackageItemInfo {
             return name;
         }
         return packageName;
+=======
+            CharSequence label = pm.getText(packageName, labelRes, null);
+            if (label != null) {
+                return label;
+            }
+        }
+        return name;
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -132,16 +154,25 @@ public class PackageItemInfo {
      * the PackageManager from which you originally retrieved this item.
      * 
      * @return Returns a Drawable containing the item's icon.  If the
+<<<<<<< HEAD
      * item does not have an icon, the item's default icon is returned
      * such as the default activity icon.
      */
     public Drawable loadIcon(PackageManager pm) {
         if (icon != 0) {
             Drawable dr = pm.getDrawable(packageName, icon, getApplicationInfo());
+=======
+     * item does not have an icon, the default activity icon is returned.
+     */
+    public Drawable loadIcon(PackageManager pm) {
+        if (icon != 0) {
+            Drawable dr = pm.getDrawable(packageName, icon, null);
+>>>>>>> 54b6cfa... Initial Contribution
             if (dr != null) {
                 return dr;
             }
         }
+<<<<<<< HEAD
         return loadDefaultIcon(pm);
     }
     
@@ -157,10 +188,13 @@ public class PackageItemInfo {
      * @hide
      */
     protected Drawable loadDefaultIcon(PackageManager pm) {
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         return pm.getDefaultActivityIcon();
     }
     
     /**
+<<<<<<< HEAD
      * Retrieve the current graphical logo associated with this item. This
      * will call back on the given PackageManager to load the logo from
      * the application.
@@ -197,6 +231,8 @@ public class PackageItemInfo {
     }
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Load an XML resource attached to the meta-data of this item.  This will
      * retrieved the name meta-data entry, and if defined call back on the
      * given PackageManager to load its XML file from the application.
@@ -213,13 +249,18 @@ public class PackageItemInfo {
         if (metaData != null) {
             int resid = metaData.getInt(name);
             if (resid != 0) {
+<<<<<<< HEAD
                 return pm.getXml(packageName, resid, getApplicationInfo());
+=======
+                return pm.getXml(packageName, resid, null);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
         return null;
     }
     
     protected void dumpFront(Printer pw, String prefix) {
+<<<<<<< HEAD
         if (name != null) {
             pw.println(prefix + "name=" + name);
         }
@@ -229,6 +270,13 @@ public class PackageItemInfo {
                     + " nonLocalizedLabel=" + nonLocalizedLabel
                     + " icon=0x" + Integer.toHexString(icon));
         }
+=======
+        pw.println(prefix + "name=" + name);
+        pw.println(prefix + "packageName=" + packageName);
+        pw.println(prefix + "labelRes=0x" + Integer.toHexString(labelRes)
+                + " nonLocalizedLabel=" + nonLocalizedLabel
+                + " icon=0x" + Integer.toHexString(icon));
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     protected void dumpBack(Printer pw, String prefix) {
@@ -241,10 +289,16 @@ public class PackageItemInfo {
         dest.writeInt(labelRes);
         TextUtils.writeToParcel(nonLocalizedLabel, dest, parcelableFlags);
         dest.writeInt(icon);
+<<<<<<< HEAD
         dest.writeInt(logo);
         dest.writeBundle(metaData);
     }
     
+=======
+        dest.writeBundle(metaData);
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     protected PackageItemInfo(Parcel source) {
         name = source.readString();
         packageName = source.readString();
@@ -252,6 +306,7 @@ public class PackageItemInfo {
         nonLocalizedLabel
                 = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source);
         icon = source.readInt();
+<<<<<<< HEAD
         logo = source.readInt();
         metaData = source.readBundle();
     }
@@ -268,6 +323,11 @@ public class PackageItemInfo {
         return null;
     }
 
+=======
+        metaData = source.readBundle();
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public static class DisplayNameComparator
             implements Comparator<PackageItemInfo> {
         public DisplayNameComparator(PackageManager pm) {
@@ -279,7 +339,11 @@ public class PackageItemInfo {
             if (sa == null) sa = aa.name;
             CharSequence  sb = ab.loadLabel(mPM);
             if (sb == null) sb = ab.name;
+<<<<<<< HEAD
             return sCollator.compare(sa.toString(), sb.toString());
+=======
+            return sCollator.compare(sa, sb);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         private final Collator   sCollator = Collator.getInstance();

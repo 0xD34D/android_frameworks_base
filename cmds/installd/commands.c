@@ -15,6 +15,7 @@
 */
 
 #include "installd.h"
+<<<<<<< HEAD
 #include <diskusage/dirsize.h>
 
 /* Directory records that are used in execution of commands. */
@@ -23,6 +24,8 @@ dir_rec_t android_asec_dir;
 dir_rec_t android_app_dir;
 dir_rec_t android_app_private_dir;
 dir_rec_array_t android_system_dirs;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 int install(const char *pkgname, uid_t uid, gid_t gid)
 {
@@ -30,6 +33,7 @@ int install(const char *pkgname, uid_t uid, gid_t gid)
     char libdir[PKG_PATH_MAX];
 
     if ((uid < AID_SYSTEM) || (gid < AID_SYSTEM)) {
+<<<<<<< HEAD
         ALOGE("invalid uid/gid: %d %d\n", uid, gid);
         return -1;
     }
@@ -62,15 +66,42 @@ int install(const char *pkgname, uid_t uid, gid_t gid)
     if (chmod(libdir, 0755) < 0) {
         ALOGE("cannot chmod dir '%s': %s\n", libdir, strerror(errno));
         unlink(libdir);
+=======
+        LOGE("invalid uid/gid: %d %d\n", uid, gid);
+        return -1;
+        
+    }
+    if (create_pkg_path(pkgdir, PKG_DIR_PREFIX, pkgname, PKG_DIR_POSTFIX))
+        return -1;
+    if (create_pkg_path(libdir, PKG_LIB_PREFIX, pkgname, PKG_LIB_POSTFIX))
+        return -1;
+
+    if (mkdir(pkgdir, 0755) < 0) {
+        LOGE("cannot create dir '%s': %s\n", pkgdir, strerror(errno));
+        return -errno;
+    }
+    if (chown(pkgdir, uid, gid) < 0) {
+        LOGE("cannot chown dir '%s': %s\n", pkgdir, strerror(errno));
+        unlink(pkgdir);
+        return -errno;
+    }
+    if (mkdir(libdir, 0755) < 0) {
+        LOGE("cannot create dir '%s': %s\n", libdir, strerror(errno));
+>>>>>>> 54b6cfa... Initial Contribution
         unlink(pkgdir);
         return -errno;
     }
     if (chown(libdir, AID_SYSTEM, AID_SYSTEM) < 0) {
+<<<<<<< HEAD
         ALOGE("cannot chown dir '%s': %s\n", libdir, strerror(errno));
+=======
+        LOGE("cannot chown dir '%s': %s\n", libdir, strerror(errno));
+>>>>>>> 54b6cfa... Initial Contribution
         unlink(libdir);
         unlink(pkgdir);
         return -errno;
     }
+<<<<<<< HEAD
 
     if (chown(pkgdir, uid, gid) < 0) {
         ALOGE("cannot chown dir '%s': %s\n", pkgdir, strerror(errno));
@@ -230,17 +261,49 @@ int clone_persona_data(uid_t src_persona, uid_t target_persona, int copy)
     return 0;
 }
 
+=======
+    return 0;
+}
+
+int uninstall(const char *pkgname)
+{
+    char pkgdir[PKG_PATH_MAX];
+
+    if (create_pkg_path(pkgdir, PKG_DIR_PREFIX, pkgname, PKG_DIR_POSTFIX))
+        return -1;
+
+        /* delete contents AND directory, no exceptions */
+    return delete_dir_contents(pkgdir, 1, 0);
+}
+
+int delete_user_data(const char *pkgname)
+{
+    char pkgdir[PKG_PATH_MAX];
+
+    if (create_pkg_path(pkgdir, PKG_DIR_PREFIX, pkgname, PKG_DIR_POSTFIX))
+        return -1;
+
+        /* delete contents, excluding "lib", but not the directory itself */
+    return delete_dir_contents(pkgdir, 0, "lib");
+}
+
+>>>>>>> 54b6cfa... Initial Contribution
 int delete_cache(const char *pkgname)
 {
     char cachedir[PKG_PATH_MAX];
 
+<<<<<<< HEAD
     if (create_pkg_path(cachedir, pkgname, CACHE_DIR_POSTFIX, 0))
+=======
+    if (create_pkg_path(cachedir, CACHE_DIR_PREFIX, pkgname, CACHE_DIR_POSTFIX))
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
 
         /* delete contents, not the directory, no exceptions */
     return delete_dir_contents(cachedir, 0, 0);
 }
 
+<<<<<<< HEAD
 static int64_t disk_free()
 {
     struct statfs sfs;
@@ -248,10 +311,23 @@ static int64_t disk_free()
         return sfs.f_bavail * sfs.f_bsize;
     } else {
         ALOGE("Couldn't statfs %s: %s\n", android_data_dir.path, strerror(errno));
+=======
+
+static int disk_free(void)
+{
+    struct statfs sfs;
+    if (statfs(PKG_DIR_PREFIX, &sfs) == 0) {
+        return sfs.f_bavail * sfs.f_bsize;
+    } else {
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
     }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
 /* Try to ensure free_size bytes of storage are available.
  * Returns 0 on success.
  * This is rather simple-minded because doing a full LRU would
@@ -259,18 +335,27 @@ static int64_t disk_free()
  * also require that apps constantly modify file metadata even
  * when just reading from the cache, which is pretty awful.
  */
+<<<<<<< HEAD
 int free_cache(int64_t free_size)
+=======
+int free_cache(int free_size)
+>>>>>>> 54b6cfa... Initial Contribution
 {
     const char *name;
     int dfd, subfd;
     DIR *d;
     struct dirent *de;
+<<<<<<< HEAD
     int64_t avail;
     char datadir[PKG_PATH_MAX];
+=======
+    int avail;
+>>>>>>> 54b6cfa... Initial Contribution
 
     avail = disk_free();
     if (avail < 0) return -1;
 
+<<<<<<< HEAD
     ALOGI("free_cache(%" PRId64 ") avail %" PRId64 "\n", free_size, avail);
     if (avail >= free_size) return 0;
 
@@ -283,6 +368,15 @@ int free_cache(int64_t free_size)
     if (d == NULL) {
         ALOGE("cannot open %s: %s\n", datadir, strerror(errno));
         return -1;
+=======
+    LOGI("free_cache(%d) avail %d\n", free_size, avail);
+    if (avail > free_size) return 0;
+
+    d = opendir(PKG_DIR_PREFIX);
+    if (d == NULL) {
+        LOGE("cannot open %s\n", PKG_DIR_PREFIX);
+        return 0;
+>>>>>>> 54b6cfa... Initial Contribution
     }
     dfd = dirfd(d);
 
@@ -290,7 +384,11 @@ int free_cache(int64_t free_size)
         if (de->d_type != DT_DIR) continue;
         name = de->d_name;
 
+<<<<<<< HEAD
         /* always skip "." and ".." */
+=======
+            /* always skip "." and ".." */
+>>>>>>> 54b6cfa... Initial Contribution
         if (name[0] == '.') {
             if (name[1] == 0) continue;
             if ((name[1] == '.') && (name[2] == 0)) continue;
@@ -303,31 +401,76 @@ int free_cache(int64_t free_size)
         close(subfd);
 
         avail = disk_free();
+<<<<<<< HEAD
         if (avail >= free_size) {
+=======
+        if (avail > free_size) {
+>>>>>>> 54b6cfa... Initial Contribution
             closedir(d);
             return 0;
         }
     }
     closedir(d);
+<<<<<<< HEAD
 
     /* Fail case - not possible to free space */
     return -1;
 }
 
+=======
+    return -1;
+}
+
+
+/* used by move_dex, rm_dex, etc to ensure that the provided paths
+ * don't point anywhere other than at the APK_DIR_PREFIX
+ */
+static int is_valid_apk_path(const char *path)
+{
+    int len = strlen(APK_DIR_PREFIX);
+    if (strncmp(path, APK_DIR_PREFIX, len)) {
+        len = strlen(PROTECTED_DIR_PREFIX);
+        if (strncmp(path, PROTECTED_DIR_PREFIX, len)) {
+            LOGE("invalid apk path '%s' (bad prefix)\n", path);
+            return 0;
+        }
+    }
+    if (strchr(path + len, '/')) {
+        LOGE("invalid apk path '%s' (subdir?)\n", path);
+        return 0;
+    }
+    if (path[len] == '.') {
+        LOGE("invalid apk path '%s' (trickery)\n", path);
+        return 0;
+    }
+    return 1;
+}
+
+>>>>>>> 54b6cfa... Initial Contribution
 int move_dex(const char *src, const char *dst)
 {
     char src_dex[PKG_PATH_MAX];
     char dst_dex[PKG_PATH_MAX];
 
+<<<<<<< HEAD
     if (validate_apk_path(src)) return -1;
     if (validate_apk_path(dst)) return -1;
+=======
+    if (!is_valid_apk_path(src)) return -1;
+    if (!is_valid_apk_path(dst)) return -1;
+>>>>>>> 54b6cfa... Initial Contribution
 
     if (create_cache_path(src_dex, src)) return -1;
     if (create_cache_path(dst_dex, dst)) return -1;
 
+<<<<<<< HEAD
     ALOGV("move %s -> %s\n", src_dex, dst_dex);
     if (rename(src_dex, dst_dex) < 0) {
         ALOGE("Couldn't move %s: %s\n", src_dex, strerror(errno));
+=======
+    LOGI("move %s -> %s\n", src_dex, dst_dex);
+    if (rename(src_dex, dst_dex) < 0) {
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
     } else {
         return 0;
@@ -338,12 +481,20 @@ int rm_dex(const char *path)
 {
     char dex_path[PKG_PATH_MAX];
 
+<<<<<<< HEAD
     if (validate_apk_path(path)) return -1;
     if (create_cache_path(dex_path, path)) return -1;
 
     ALOGV("unlink %s\n", dex_path);
     if (unlink(dex_path) < 0) {
         ALOGE("Couldn't unlink %s: %s\n", dex_path, strerror(errno));
+=======
+    if (!is_valid_apk_path(path)) return -1;
+    if (create_cache_path(dex_path, path)) return -1;
+
+    LOGI("unlink %s\n", dex_path);
+    if (unlink(dex_path) < 0) {
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
     } else {
         return 0;
@@ -357,28 +508,95 @@ int protect(char *pkgname, gid_t gid)
 
     if (gid < AID_SYSTEM) return -1;
 
+<<<<<<< HEAD
     if (create_pkg_path_in_dir(pkgpath, &android_app_private_dir, pkgname, ".apk"))
+=======
+    if (create_pkg_path(pkgpath, PROTECTED_DIR_PREFIX, pkgname, ".apk"))
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
 
     if (stat(pkgpath, &s) < 0) return -1;
 
     if (chown(pkgpath, s.st_uid, gid) < 0) {
+<<<<<<< HEAD
         ALOGE("failed to chgrp '%s': %s\n", pkgpath, strerror(errno));
+=======
+        LOGE("failed to chgrp '%s': %s\n", pkgpath, strerror(errno));
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
     }
 
     if (chmod(pkgpath, S_IRUSR|S_IWUSR|S_IRGRP) < 0) {
+<<<<<<< HEAD
         ALOGE("failed to chmod '%s': %s\n", pkgpath, strerror(errno));
+=======
+        LOGE("failed to chmod '%s': %s\n", pkgpath, strerror(errno));
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
     }
 
     return 0;
 }
 
+<<<<<<< HEAD
 int get_size(const char *pkgname, const char *apkpath,
              const char *fwdlock_apkpath, const char *asecpath,
              int64_t *_codesize, int64_t *_datasize, int64_t *_cachesize,
              int64_t* _asecsize)
+=======
+static int stat_size(struct stat *s)
+{
+    int blksize = s->st_blksize;
+    int size = s->st_size;
+
+    if (blksize) {
+            /* round up to filesystem block size */
+        size = (size + blksize - 1) & (~(blksize - 1));
+    }
+
+    return size;
+}
+
+static int calculate_dir_size(int dfd)
+{
+    int size = 0;
+    struct stat s;
+    DIR *d;
+    struct dirent *de;
+
+    d = fdopendir(dfd);
+    if (d == NULL) {
+        close(dfd);
+        return 0;
+    }
+
+    while ((de = readdir(d))) {
+        const char *name = de->d_name;
+        if (de->d_type == DT_DIR) {
+            int subfd;
+                /* always skip "." and ".." */
+            if (name[0] == '.') {
+                if (name[1] == 0) continue;
+                if ((name[1] == '.') && (name[2] == 0)) continue;
+            }
+            subfd = openat(dfd, name, O_RDONLY | O_DIRECTORY);
+            if (subfd >= 0) {
+                size += calculate_dir_size(subfd);
+            }
+        } else {
+            if (fstatat(dfd, name, &s, AT_SYMLINK_NOFOLLOW) == 0) {
+                size += stat_size(&s);
+            }
+        }
+    }
+    closedir(d);
+    return size;
+}
+
+int get_size(const char *pkgname, const char *apkpath,
+             const char *fwdlock_apkpath,
+             int *_codesize, int *_datasize, int *_cachesize)
+>>>>>>> 54b6cfa... Initial Contribution
 {
     DIR *d;
     int dfd;
@@ -386,6 +604,7 @@ int get_size(const char *pkgname, const char *apkpath,
     struct stat s;
     char path[PKG_PATH_MAX];
 
+<<<<<<< HEAD
     int64_t codesize = 0;
     int64_t datasize = 0;
     int64_t cachesize = 0;
@@ -396,6 +615,16 @@ int get_size(const char *pkgname, const char *apkpath,
          */
     if (validate_system_app_path(apkpath) &&
             strncmp(apkpath, android_asec_dir.path, android_asec_dir.len) != 0) {
+=======
+    int codesize = 0;
+    int datasize = 0;
+    int cachesize = 0;
+
+        /* count the source apk as code -- but only if it's not
+         * on the /system partition
+         */
+    if (strncmp(apkpath, "/system", 7) != 0) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (stat(apkpath, &s) == 0) {
             codesize += stat_size(&s);
         }
@@ -407,6 +636,11 @@ int get_size(const char *pkgname, const char *apkpath,
             codesize += stat_size(&s);
         }
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 54b6cfa... Initial Contribution
         /* count the cached dexfile as code */
     if (!create_cache_path(path, apkpath)) {
         if (stat(path, &s) == 0) {
@@ -414,6 +648,7 @@ int get_size(const char *pkgname, const char *apkpath,
         }
     }
 
+<<<<<<< HEAD
         /* compute asec size if it is given
          */
     if (asecpath != NULL && asecpath[0] != '!') {
@@ -423,6 +658,9 @@ int get_size(const char *pkgname, const char *apkpath,
     }
 
     if (create_pkg_path(path, pkgname, PKG_DIR_POSTFIX, 0)) {
+=======
+    if (create_pkg_path(path, PKG_DIR_PREFIX, pkgname, PKG_DIR_POSTFIX)) {
+>>>>>>> 54b6cfa... Initial Contribution
         goto done;
     }
 
@@ -432,10 +670,17 @@ int get_size(const char *pkgname, const char *apkpath,
     }
     dfd = dirfd(d);
 
+<<<<<<< HEAD
     /* most stuff in the pkgdir is data, except for the "cache"
      * directory and below, which is cache, and the "lib" directory
      * and below, which is code...
      */
+=======
+        /* most stuff in the pkgdir is data, except for the "cache"
+         * directory and below, which is cache, and the "lib" directory
+         * and below, which is code...
+         */
+>>>>>>> 54b6cfa... Initial Contribution
     while ((de = readdir(d))) {
         const char *name = de->d_name;
 
@@ -448,7 +693,11 @@ int get_size(const char *pkgname, const char *apkpath,
             }
             subfd = openat(dfd, name, O_RDONLY | O_DIRECTORY);
             if (subfd >= 0) {
+<<<<<<< HEAD
                 int64_t size = calculate_dir_size(subfd);
+=======
+                int size = calculate_dir_size(subfd);
+>>>>>>> 54b6cfa... Initial Contribution
                 if (!strcmp(name,"lib")) {
                     codesize += size;
                 } else if(!strcmp(name,"cache")) {
@@ -468,7 +717,10 @@ done:
     *_codesize = codesize;
     *_datasize = datasize;
     *_cachesize = cachesize;
+<<<<<<< HEAD
     *_asecsize = asecsize;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     return 0;
 }
 
@@ -512,8 +764,12 @@ int create_cache_path(char path[PKG_PATH_MAX], const char *src)
     return 0;
 }
 
+<<<<<<< HEAD
 static void run_dexopt(int zip_fd, int odex_fd, const char* input_file_name,
     const char* dexopt_flags)
+=======
+static void run_dexopt(int zip_fd, int odex_fd, const char* input_file_name)
+>>>>>>> 54b6cfa... Initial Contribution
 {
     static const char* DEX_OPT_BIN = "/system/bin/dexopt";
     static const int MAX_INT_LEN = 12;      // '-'+10dig+'\0' -OR- 0x+8dig
@@ -524,8 +780,13 @@ static void run_dexopt(int zip_fd, int odex_fd, const char* input_file_name,
     sprintf(odex_num, "%d", odex_fd);
 
     execl(DEX_OPT_BIN, DEX_OPT_BIN, "--zip", zip_num, odex_num, input_file_name,
+<<<<<<< HEAD
         dexopt_flags, (char*) NULL);
     ALOGE("execl(%s) failed: %s\n", DEX_OPT_BIN, strerror(errno));
+=======
+        (char*) NULL);
+    LOGE("execl(%s) failed: %s\n", DEX_OPT_BIN, strerror(errno));
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 static int wait_dexopt(pid_t pid, const char* apk_path)
@@ -545,16 +806,27 @@ static int wait_dexopt(pid_t pid, const char* apk_path)
         }
     }
     if (got_pid != pid) {
+<<<<<<< HEAD
         ALOGW("waitpid failed: wanted %d, got %d: %s\n",
+=======
+        LOGW("waitpid failed: wanted %d, got %d: %s\n",
+>>>>>>> 54b6cfa... Initial Contribution
             (int) pid, (int) got_pid, strerror(errno));
         return 1;
     }
 
     if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+<<<<<<< HEAD
         ALOGV("DexInv: --- END '%s' (success) ---\n", apk_path);
         return 0;
     } else {
         ALOGW("DexInv: --- END '%s' --- status=0x%04x, process failed\n",
+=======
+        LOGD("DexInv: --- END '%s' (success) ---\n", apk_path);
+        return 0;
+    } else {
+        LOGW("DexInv: --- END '%s' --- status=0x%04x, process failed\n",
+>>>>>>> 54b6cfa... Initial Contribution
             apk_path, status);
         return status;      /* always nonzero */
     }
@@ -565,7 +837,10 @@ int dexopt(const char *apk_path, uid_t uid, int is_public)
     struct utimbuf ut;
     struct stat apk_stat, dex_stat;
     char dex_path[PKG_PATH_MAX];
+<<<<<<< HEAD
     char dexopt_flags[PROPERTY_VALUE_MAX];
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     char *end;
     int res, zip_fd=-1, odex_fd=-1;
 
@@ -576,9 +851,12 @@ int dexopt(const char *apk_path, uid_t uid, int is_public)
         return -1;
     }
 
+<<<<<<< HEAD
     /* platform-specific flags affecting optimization and verification */
     property_get("dalvik.vm.dexopt-flags", dexopt_flags, "");
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     strcpy(dex_path, apk_path);
     end = strrchr(dex_path, '.');
     if (end != NULL) {
@@ -597,34 +875,55 @@ int dexopt(const char *apk_path, uid_t uid, int is_public)
 
     zip_fd = open(apk_path, O_RDONLY, 0);
     if (zip_fd < 0) {
+<<<<<<< HEAD
         ALOGE("dexopt cannot open '%s' for input\n", apk_path);
+=======
+        LOGE("dexopt cannot open '%s' for input\n", apk_path);
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
     }
 
     unlink(dex_path);
     odex_fd = open(dex_path, O_RDWR | O_CREAT | O_EXCL, 0644);
     if (odex_fd < 0) {
+<<<<<<< HEAD
         ALOGE("dexopt cannot open '%s' for output\n", dex_path);
         goto fail;
     }
     if (fchown(odex_fd, AID_SYSTEM, uid) < 0) {
         ALOGE("dexopt cannot chown '%s'\n", dex_path);
+=======
+        LOGE("dexopt cannot open '%s' for output\n", dex_path);
+        goto fail;
+    }
+    if (fchown(odex_fd, AID_SYSTEM, uid) < 0) {
+        LOGE("dexopt cannot chown '%s'\n", dex_path);
+>>>>>>> 54b6cfa... Initial Contribution
         goto fail;
     }
     if (fchmod(odex_fd,
                S_IRUSR|S_IWUSR|S_IRGRP |
                (is_public ? S_IROTH : 0)) < 0) {
+<<<<<<< HEAD
         ALOGE("dexopt cannot chmod '%s'\n", dex_path);
         goto fail;
     }
 
     ALOGV("DexInv: --- BEGIN '%s' ---\n", apk_path);
+=======
+        LOGE("dexopt cannot chmod '%s'\n", dex_path);
+        goto fail;
+    }
+
+    LOGD("DexInv: --- BEGIN '%s' ---\n", apk_path);
+>>>>>>> 54b6cfa... Initial Contribution
 
     pid_t pid;
     pid = fork();
     if (pid == 0) {
         /* child -- drop privileges before continuing */
         if (setgid(uid) != 0) {
+<<<<<<< HEAD
             ALOGE("setgid(%d) failed during dexopt\n", uid);
             exit(64);
         }
@@ -643,6 +942,26 @@ int dexopt(const char *apk_path, uid_t uid, int is_public)
         res = wait_dexopt(pid, apk_path);
         if (res != 0) {
             ALOGE("dexopt failed on '%s' res = %d\n", dex_path, res);
+=======
+            LOGE("setgid(%d) failed during dexopt\n", uid);
+            exit(64);
+        }
+        if (setuid(uid) != 0) {
+            LOGE("setuid(%d) during dexopt\n", uid);
+            exit(65);
+        }
+        if (flock(odex_fd, LOCK_EX | LOCK_NB) != 0) {
+            LOGE("flock(%s) failed: %s\n", dex_path, strerror(errno));
+            exit(66);
+        }
+
+        run_dexopt(zip_fd, odex_fd, apk_path);      /* does not return */
+        exit(67);
+    } else {
+        res = wait_dexopt(pid, apk_path);
+        if (res != 0) {
+            LOGE("dexopt failed on '%s' res = %d\n", dex_path, res);
+>>>>>>> 54b6cfa... Initial Contribution
             goto fail;
         }
     }
@@ -665,6 +984,7 @@ fail:
     }
     return -1;
 }
+<<<<<<< HEAD
 
 void mkinnerdirs(char* path, int basepos, mode_t mode, int uid, int gid,
         struct stat* statbuf)
@@ -1082,3 +1402,5 @@ out:
 
     return rc;
 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution

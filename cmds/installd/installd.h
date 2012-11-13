@@ -19,8 +19,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+<<<<<<< HEAD
 #include <stdint.h>
 #include <inttypes.h>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #include <sys/stat.h>
 #include <dirent.h>
 #include <unistd.h>
@@ -49,6 +52,7 @@
 
 /* elements combined with a valid package name to form paths */
 
+<<<<<<< HEAD
 #define PRIMARY_USER_PREFIX    "data/"
 #define SECONDARY_USER_PREFIX  "user/"
 
@@ -68,10 +72,31 @@
 #define DALVIK_CACHE_POSTFIX   "/classes.dex"
 
 #define UPDATE_COMMANDS_DIR_PREFIX  "/system/etc/updatecmds/"
+=======
+#define PKG_DIR_PREFIX         "/data/data/"
+#define PKG_DIR_POSTFIX        ""
+
+#define PKG_LIB_PREFIX         "/data/data/"
+#define PKG_LIB_POSTFIX        "/lib"
+
+#define CACHE_DIR_PREFIX       "/data/data/"
+#define CACHE_DIR_POSTFIX      "/cache"
+
+#define APK_DIR_PREFIX         "/data/app/"
+
+/* other handy constants */
+
+#define PROTECTED_DIR_PREFIX  "/data/app-private/"
+
+#define DALVIK_CACHE_PREFIX   "/data/dalvik-cache/"
+#define DALVIK_CACHE_POSTFIX  "/classes.dex"
+
+>>>>>>> 54b6cfa... Initial Contribution
 
 #define PKG_NAME_MAX  128   /* largest allowed package name */
 #define PKG_PATH_MAX  256   /* max size of any path we use */
 
+<<<<<<< HEAD
 #define PER_USER_RANGE ((uid_t)100000)   /* range of uids per user
                                             uid = persona * PER_USER_RANGE + appid */
 
@@ -114,6 +139,15 @@ int create_move_path(char path[PKG_PATH_MAX],
                      uid_t persona);
 
 int is_valid_package_name(const char* pkgname);
+=======
+
+/* util.c */
+
+int create_pkg_path(char path[PKG_PATH_MAX],
+                    const char *prefix,
+                    const char *pkgname,
+                    const char *postfix);
+>>>>>>> 54b6cfa... Initial Contribution
 
 int create_cache_path(char path[PKG_PATH_MAX], const char *src);
 
@@ -123,6 +157,7 @@ int delete_dir_contents(const char *pathname,
 
 int delete_dir_contents_fd(int dfd, const char *name);
 
+<<<<<<< HEAD
 int validate_system_app_path(const char* path);
 
 int get_path_from_env(dir_rec_t* rec, const char* var);
@@ -148,11 +183,19 @@ int delete_user_data(const char *pkgname, uid_t persona);
 int make_user_data(const char *pkgname, uid_t uid, uid_t persona);
 int delete_persona(uid_t persona);
 int clone_persona_data(uid_t src_persona, uid_t target_persona, int copy);
+=======
+/* commands.c */
+
+int install(const char *pkgname, uid_t uid, gid_t gid);
+int uninstall(const char *pkgname);
+int delete_user_data(const char *pkgname);
+>>>>>>> 54b6cfa... Initial Contribution
 int delete_cache(const char *pkgname);
 int move_dex(const char *src, const char *dst);
 int rm_dex(const char *path);
 int protect(char *pkgname, gid_t gid);
 int get_size(const char *pkgname, const char *apkpath, const char *fwdlock_apkpath,
+<<<<<<< HEAD
              const char *asecpath, int64_t *codesize, int64_t *datasize, int64_t *cachesize,
              int64_t *asecsize);
 int free_cache(int64_t free_size);
@@ -160,3 +203,8 @@ int dexopt(const char *apk_path, uid_t uid, int is_public);
 int movefiles();
 int linklib(const char* target, const char* source);
 int unlinklib(const char* libPath);
+=======
+             int *codesize, int *datasize, int *cachesize);
+int free_cache(int free_size);
+int dexopt(const char *apk_path, uid_t uid, int is_public);
+>>>>>>> 54b6cfa... Initial Contribution

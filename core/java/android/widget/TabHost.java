@@ -16,6 +16,7 @@
 
 package android.widget;
 
+<<<<<<< HEAD
 import com.android.internal.R;
 
 import android.app.LocalActivityManager;
@@ -25,6 +26,12 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
+=======
+import android.app.LocalActivityManager;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -33,8 +40,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+=======
+import com.android.internal.R;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +55,10 @@ import java.util.List;
  * user clicks to select a specific tab, and a FrameLayout object that displays the contents of that
  * page. The individual elements are typically controlled using this container object, rather than
  * setting values on the child elements themselves.
+<<<<<<< HEAD
  *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchModeChangeListener {
 
@@ -65,8 +79,11 @@ public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchMode
     private OnTabChangeListener mOnTabChangeListener;
     private OnKeyListener mTabKeyListener;
 
+<<<<<<< HEAD
     private int mTabLayoutId;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public TabHost(Context context) {
         super(context);
         initTabHost();
@@ -74,6 +91,7 @@ public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchMode
 
     public TabHost(Context context, AttributeSet attrs) {
         super(context, attrs);
+<<<<<<< HEAD
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 com.android.internal.R.styleable.TabWidget,
@@ -92,6 +110,12 @@ public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchMode
     }
 
     private void initTabHost() {
+=======
+        initTabHost();
+    }
+
+    private final void initTabHost() {
+>>>>>>> 54b6cfa... Initial Contribution
         setFocusableInTouchMode(true);
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
 
@@ -110,9 +134,14 @@ public class TabHost extends FrameLayout implements ViewTreeObserver.OnTouchMode
 
 
     /**
+<<<<<<< HEAD
       * <p>Call setup() before adding tabs if loading TabHost using findViewById().
       * <i><b>However</i></b>: You do not need to call setup() after getTabHost()
       * in {@link android.app.TabActivity TabActivity}.
+=======
+      * <p>Call setup() before adding tabs if loading TabHost using findViewById(). <i><b>However</i></b>: You do
+      * not need to call setup() after getTabHost() in {@link android.app.TabActivity TabActivity}.
+>>>>>>> 54b6cfa... Initial Contribution
       * Example:</p>
 <pre>mTabHost = (TabHost)findViewById(R.id.tabhost);
 mTabHost.setup();
@@ -124,8 +153,13 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
             throw new RuntimeException(
                     "Your TabHost must have a TabWidget whose id attribute is 'android.R.id.tabs'");
         }
+<<<<<<< HEAD
 
         // KeyListener to attach to all tabs. Detects non-navigation keys
+=======
+        
+        // KeyListener to attach to all tabs. Detects non-navigation keys 
+>>>>>>> 54b6cfa... Initial Contribution
         // and relays them to the tab content.
         mTabKeyListener = new OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -137,14 +171,24 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
                     case KeyEvent.KEYCODE_DPAD_DOWN:
                     case KeyEvent.KEYCODE_ENTER:
                         return false;
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 mTabContent.requestFocus(View.FOCUS_FORWARD);
                 return mTabContent.dispatchKeyEvent(event);
             }
+<<<<<<< HEAD
 
         };
 
+=======
+            
+        };
+        
+>>>>>>> 54b6cfa... Initial Contribution
         mTabWidget.setTabSelectionListener(new TabWidget.OnTabSelectionChanged() {
             public void onTabSelectionChanged(int tabIndex, boolean clicked) {
                 setCurrentTab(tabIndex);
@@ -157,6 +201,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         mTabContent = (FrameLayout) findViewById(com.android.internal.R.id.tabcontent);
         if (mTabContent == null) {
             throw new RuntimeException(
+<<<<<<< HEAD
                     "Your TabHost must have a FrameLayout whose id attribute is "
                             + "'android.R.id.tabcontent'");
         }
@@ -167,6 +212,12 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         /* avoid super class behavior - TabWidget sends the right events */
     }
 
+=======
+                    "Your TabHost must have a FrameLayout whose id attribute is 'android.R.id.tabcontent'");
+        }
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * If you are using {@link TabSpec#setContent(android.content.Intent)}, this
      * must be called since the activityGroup is needed to launch the local activity.
@@ -184,14 +235,26 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         final ViewTreeObserver treeObserver = getViewTreeObserver();
+<<<<<<< HEAD
         treeObserver.addOnTouchModeChangeListener(this);
+=======
+        if (treeObserver != null) {
+            treeObserver.addOnTouchModeChangeListener(this);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         final ViewTreeObserver treeObserver = getViewTreeObserver();
+<<<<<<< HEAD
         treeObserver.removeOnTouchModeChangeListener(this);
+=======
+        if (treeObserver != null) {
+            treeObserver.removeOnTouchModeChangeListener(this);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -201,8 +264,13 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         if (!isInTouchMode) {
             // leaving touch mode.. if nothing has focus, let's give it to
             // the indicator of the current tab
+<<<<<<< HEAD
             if (mCurrentView != null && (!mCurrentView.hasFocus() || mCurrentView.isFocused())) {
                 mTabWidget.getChildTabViewAt(mCurrentTab).requestFocus();
+=======
+            if (!mCurrentView.hasFocus() || mCurrentView.isFocused()) {
+                mTabWidget.getChildAt(mCurrentTab).requestFocus();
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -222,6 +290,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
         View tabIndicator = tabSpec.mIndicatorStrategy.createIndicatorView();
         tabIndicator.setOnKeyListener(mTabKeyListener);
+<<<<<<< HEAD
 
         // If this is a custom view, then do not draw the bottom strips for
         // the tab indicators.
@@ -229,6 +298,8 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
             mTabWidget.setStripEnabled(false);
         }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mTabWidget.addView(tabIndicator);
         mTabSpecs.add(tabSpec);
 
@@ -267,7 +338,11 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
 
     public View getCurrentTabView() {
         if (mCurrentTab >= 0 && mCurrentTab < mTabSpecs.size()) {
+<<<<<<< HEAD
             return mTabWidget.getChildTabViewAt(mCurrentTab);
+=======
+            return mTabWidget.getChildAt(mCurrentTab);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         return null;
     }
@@ -302,6 +377,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         if (!handled
                 && (event.getAction() == KeyEvent.ACTION_DOWN)
                 && (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_UP)
+<<<<<<< HEAD
                 && (mCurrentView != null)
                 && (mCurrentView.isRootNamespace())
                 && (mCurrentView.hasFocus())
@@ -311,11 +387,22 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
             return true;
         }
         return handled;
+=======
+                && (mCurrentView.isRootNamespace())
+                && (mCurrentView.hasFocus())
+                && (mCurrentView.findFocus().focusSearch(View.FOCUS_UP) == null)) {
+            mTabWidget.getChildAt(mCurrentTab).requestFocus();
+            playSoundEffect(SoundEffectConstants.NAVIGATION_UP);
+            return true;
+        }
+        return handled;        
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
 
     @Override
     public void dispatchWindowFocusChanged(boolean hasFocus) {
+<<<<<<< HEAD
         if (mCurrentView != null){
             mCurrentView.dispatchWindowFocusChanged(hasFocus);
         }
@@ -331,6 +418,9 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(TabHost.class.getName());
+=======
+        mCurrentView.dispatchWindowFocusChanged(hasFocus);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void setCurrentTab(int index) {
@@ -353,7 +443,11 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         // Call the tab widget's focusCurrentTab(), instead of just
         // selecting the tab.
         mTabWidget.focusCurrentTab(mCurrentTab);
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // tab content
         mCurrentView = spec.mContentStrategy.getContentView();
 
@@ -362,8 +456,13 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
                     .addView(
                             mCurrentView,
                             new ViewGroup.LayoutParams(
+<<<<<<< HEAD
                                     ViewGroup.LayoutParams.MATCH_PARENT,
                                     ViewGroup.LayoutParams.MATCH_PARENT));
+=======
+                                    ViewGroup.LayoutParams.FILL_PARENT,
+                                    ViewGroup.LayoutParams.FILL_PARENT));
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (!mTabWidget.hasFocus()) {
@@ -408,17 +507,28 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     public interface TabContentFactory {
         /**
          * Callback to make the tab contents
+<<<<<<< HEAD
          *
          * @param tag
          *            Which tab was selected.
          * @return The view to display the contents of the selected tab.
+=======
+         * 
+         * @param tag
+         *            Which tab was selected.
+         * @return The view to distplay the contents of the selected tab.
+>>>>>>> 54b6cfa... Initial Contribution
          */
         View createTabContent(String tag);
     }
 
 
     /**
+<<<<<<< HEAD
      * A tab has a tab indicator, content, and a tag that is used to keep
+=======
+     * A tab has a tab indictor, content, and a tag that is used to keep
+>>>>>>> 54b6cfa... Initial Contribution
      * track of it.  This builder helps choose among these options.
      *
      * For the tab indicator, your choices are:
@@ -453,6 +563,7 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
          * Specify a label and icon as the tab indicator.
          */
         public TabSpec setIndicator(CharSequence label, Drawable icon) {
+<<<<<<< HEAD
             mIndicatorStrategy = new LabelAndIconIndicatorStrategy(label, icon);
             return this;
         }
@@ -462,6 +573,9 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
          */
         public TabSpec setIndicator(View view) {
             mIndicatorStrategy = new ViewIndicatorStrategy(view);
+=======
+            mIndicatorStrategy = new LabelAndIconIndicatorStategy(label, icon);
+>>>>>>> 54b6cfa... Initial Contribution
             return this;
         }
 
@@ -492,7 +606,11 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
 
+<<<<<<< HEAD
         public String getTag() {
+=======
+        String getTag() {
+>>>>>>> 54b6cfa... Initial Contribution
             return mTag;
         }
     }
@@ -537,22 +655,31 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
         public View createIndicatorView() {
+<<<<<<< HEAD
             final Context context = getContext();
             LayoutInflater inflater =
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View tabIndicator = inflater.inflate(mTabLayoutId,
+=======
+            LayoutInflater inflater =
+                    (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View tabIndicator = inflater.inflate(R.layout.tab_indicator,
+>>>>>>> 54b6cfa... Initial Contribution
                     mTabWidget, // tab widget is the parent
                     false); // no inflate params
 
             final TextView tv = (TextView) tabIndicator.findViewById(R.id.title);
             tv.setText(mLabel);
 
+<<<<<<< HEAD
             if (context.getApplicationInfo().targetSdkVersion <= Build.VERSION_CODES.DONUT) {
                 // Donut apps get old color scheme
                 tabIndicator.setBackgroundResource(R.drawable.tab_indicator_v4);
                 tv.setTextColor(context.getResources().getColorStateList(R.color.tab_indicator_text_v4));
             }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             return tabIndicator;
         }
     }
@@ -560,25 +687,40 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     /**
      * How we create a tab indicator that has a label and an icon
      */
+<<<<<<< HEAD
     private class LabelAndIconIndicatorStrategy implements IndicatorStrategy {
+=======
+    private class LabelAndIconIndicatorStategy implements IndicatorStrategy {
+>>>>>>> 54b6cfa... Initial Contribution
 
         private final CharSequence mLabel;
         private final Drawable mIcon;
 
+<<<<<<< HEAD
         private LabelAndIconIndicatorStrategy(CharSequence label, Drawable icon) {
+=======
+        private LabelAndIconIndicatorStategy(CharSequence label, Drawable icon) {
+>>>>>>> 54b6cfa... Initial Contribution
             mLabel = label;
             mIcon = icon;
         }
 
         public View createIndicatorView() {
+<<<<<<< HEAD
             final Context context = getContext();
             LayoutInflater inflater =
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View tabIndicator = inflater.inflate(mTabLayoutId,
+=======
+            LayoutInflater inflater =
+                    (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View tabIndicator = inflater.inflate(R.layout.tab_indicator,
+>>>>>>> 54b6cfa... Initial Contribution
                     mTabWidget, // tab widget is the parent
                     false); // no inflate params
 
             final TextView tv = (TextView) tabIndicator.findViewById(R.id.title);
+<<<<<<< HEAD
             final ImageView iconView = (ImageView) tabIndicator.findViewById(R.id.icon);
 
             // when icon is gone by default, we're in exclusive mode
@@ -597,12 +739,19 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
                 tabIndicator.setBackgroundResource(R.drawable.tab_indicator_v4);
                 tv.setTextColor(context.getResources().getColorStateList(R.color.tab_indicator_text_v4));
             }
+=======
+            tv.setText(mLabel);
+
+            final ImageView iconView = (ImageView) tabIndicator.findViewById(R.id.icon);
+            iconView.setImageDrawable(mIcon);
+>>>>>>> 54b6cfa... Initial Contribution
 
             return tabIndicator;
         }
     }
 
     /**
+<<<<<<< HEAD
      * How to create a tab indicator by specifying a view.
      */
     private class ViewIndicatorStrategy implements IndicatorStrategy {
@@ -619,6 +768,8 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * How to create the tab content via a view id.
      */
     private class ViewIdContentStrategy implements ContentStrategy {
@@ -667,7 +818,11 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
         }
 
         public void tabClosed() {
+<<<<<<< HEAD
             mTabContent.setVisibility(View.GONE);
+=======
+            mTabContent.setVisibility(View.INVISIBLE);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -700,8 +855,13 @@ mTabHost.addTab(TAB_TAG_1, "Hello, world!", "Tab 1");
                 }
             }
             mLaunchedView = wd;
+<<<<<<< HEAD
 
             // XXX Set FOCUS_AFTER_DESCENDANTS on embedded activities for now so they can get
+=======
+            
+            // XXX Set FOCUS_AFTER_DESCENDANTS on embedded activies for now so they can get
+>>>>>>> 54b6cfa... Initial Contribution
             // focus if none of their children have it. They need focus to be able to
             // display menu items.
             //

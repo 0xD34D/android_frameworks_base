@@ -102,7 +102,10 @@ public class FaceDetector {
      * Creates a FaceDetector, configured with the size of the images to
      * be analysed and the maximum number of faces that can be detected.
      * These parameters cannot be changed once the object is constructed.
+<<<<<<< HEAD
      * Note that the width of the image must be even.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param width  the width of the image
      * @param height the height of the image

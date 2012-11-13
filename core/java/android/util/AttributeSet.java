@@ -34,13 +34,21 @@ package android.util;
  * <p>This interface provides an efficient mechanism for retrieving
  * data from compiled XML files, which can be retrieved for a particular
  * XmlPullParser through {@link Xml#asAttributeSet
+<<<<<<< HEAD
  * Xml.asAttributeSet()}.  Normally this will return an implementation
+=======
+ * Xml.getAttributeSet()}.  Normally this will return an implementation
+>>>>>>> 54b6cfa... Initial Contribution
  * of the interface that works on top of a generic XmlPullParser, however it
  * is more useful in conjunction with compiled XML resources:
  * 
  * <pre>
  * XmlPullParser parser = resources.getXml(myResouce);
+<<<<<<< HEAD
  * AttributeSet attributes = Xml.asAttributeSet(parser);</pre>
+=======
+ * AttributeSet attributes = Xml.getAttributeSet(parser);</pre>
+>>>>>>> 54b6cfa... Initial Contribution
  * 
  * <p>The implementation returned here, unlike using
  * the implementation on top of a generic XmlPullParser,
@@ -56,6 +64,7 @@ package android.util;
  * identifier associated with a particular XML attribute name.
  */
 public interface AttributeSet {
+<<<<<<< HEAD
     /**
      * Returns the number of attributes available in the set.
      * 
@@ -103,6 +112,12 @@ public interface AttributeSet {
      * @return A string representation of the current position in the set,
      *         may be null.
      */
+=======
+    public int getAttributeCount();
+    public String getAttributeName(int index);
+    public String getAttributeValue(int index);
+    public String getAttributeValue(String namespace, String name);
+>>>>>>> 54b6cfa... Initial Contribution
     public String getPositionDescription();
 
     /**
@@ -123,8 +138,12 @@ public interface AttributeSet {
 
     /**
      * Return the index of the value of 'attribute' in the list 'options'.
+<<<<<<< HEAD
      *
      * @param namespace Namespace of attribute to retrieve. 
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param attribute Name of attribute to retrieve.
      * @param options List of strings whose values we are checking against.
      * @param defaultValue Value returned if attribute doesn't exist or no
@@ -138,7 +157,10 @@ public interface AttributeSet {
     /**
      * Return the boolean value of 'attribute'.
      * 
+<<<<<<< HEAD
      * @param namespace Namespace of attribute to retrieve.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param attribute The attribute to retrieve.
      * @param defaultValue What to return if the attribute isn't found.
      * 
@@ -156,7 +178,10 @@ public interface AttributeSet {
      * "@package:type/resource"); the other method returns a resource
      * identifier that identifies the name of the attribute.
      * 
+<<<<<<< HEAD
      * @param namespace Namespace of attribute to retrieve.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param attribute The attribute to retrieve.
      * @param defaultValue What to return if the attribute isn't found.
      * 
@@ -168,7 +193,10 @@ public interface AttributeSet {
     /**
      * Return the integer value of 'attribute'.
      * 
+<<<<<<< HEAD
      * @param namespace Namespace of attribute to retrieve.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param attribute The attribute to retrieve.
      * @param defaultValue What to return if the attribute isn't found.
      * 
@@ -182,7 +210,10 @@ public interface AttributeSet {
      * unsigned value.  In particular, the formats 0xn...n and #n...n are
      * handled.
      * 
+<<<<<<< HEAD
      * @param namespace Namespace of attribute to retrieve.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param attribute The attribute to retrieve.
      * @param defaultValue What to return if the attribute isn't found.
      * 
@@ -194,7 +225,10 @@ public interface AttributeSet {
     /**
      * Return the float value of 'attribute'.
      * 
+<<<<<<< HEAD
      * @param namespace Namespace of attribute to retrieve.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param attribute The attribute to retrieve.
      * @param defaultValue What to return if the attribute isn't found.
      * 
@@ -214,7 +248,12 @@ public interface AttributeSet {
      * 
      * @return Index in to 'options' or defaultValue.
      */
+<<<<<<< HEAD
     public int getAttributeListValue(int index, String[] options, int defaultValue);
+=======
+    public int getAttributeListValue(int index,
+                                     String[] options, int defaultValue);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the boolean value of attribute at 'index'.
@@ -224,7 +263,12 @@ public interface AttributeSet {
      * 
      * @return Resulting value.
      */
+<<<<<<< HEAD
     public boolean getAttributeBooleanValue(int index, boolean defaultValue);
+=======
+    public boolean getAttributeBooleanValue(int index,
+                                            boolean defaultValue);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the value of attribute at 'index' as a resource identifier.
@@ -240,7 +284,12 @@ public interface AttributeSet {
      * 
      * @return Resulting value.
      */
+<<<<<<< HEAD
     public int getAttributeResourceValue(int index, int defaultValue);
+=======
+    public int getAttributeResourceValue(int index,
+                                         int defaultValue);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the integer value of attribute at 'index'.
@@ -250,7 +299,12 @@ public interface AttributeSet {
      * 
      * @return Resulting value.
      */
+<<<<<<< HEAD
     public int getAttributeIntValue(int index, int defaultValue);
+=======
+    public int getAttributeIntValue(int index,
+                                    int defaultValue);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the integer value of attribute at 'index' that is formatted as an
@@ -262,7 +316,12 @@ public interface AttributeSet {
      * 
      * @return Resulting value.
      */
+<<<<<<< HEAD
     public int getAttributeUnsignedIntValue(int index, int defaultValue);
+=======
+    public int getAttributeUnsignedIntValue(int index,
+                                            int defaultValue);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the float value of attribute at 'index'.
@@ -272,7 +331,12 @@ public interface AttributeSet {
      * 
      * @return Resulting value.
      */
+<<<<<<< HEAD
     public float getAttributeFloatValue(int index, float defaultValue);
+=======
+    public float getAttributeFloatValue(int index,
+                                        float defaultValue);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the value of the "id" attribute or null if there is not one.
@@ -309,3 +373,7 @@ public interface AttributeSet {
      */
     public int getStyleAttribute();
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution

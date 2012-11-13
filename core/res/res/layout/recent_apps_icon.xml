@@ -18,6 +18,7 @@
 -->
 
 <!-- This is not a standalone element - it is imported into recent_apps_dialog.xml -->
+<<<<<<< HEAD
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/label"
@@ -38,3 +39,29 @@
     android:ellipsize="marquee"
     android:fadingEdge="horizontal"
     android:gravity="top|center_horizontal" />
+=======
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="87dip"
+    android:layout_height="78dip"
+    android:layout_margin="3dip"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    style="?android:attr/buttonStyle"
+    android:background="@drawable/btn_application_selector">
+    <ImageView android:id="@+id/icon"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter" />
+    <TextView android:id="@+id/label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dip"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:duplicateParentState="true"
+        android:textColor="@color/primary_text_dark_focused"
+        android:gravity="center_horizontal" />
+</LinearLayout>
+>>>>>>> 54b6cfa... Initial Contribution

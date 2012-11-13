@@ -15,6 +15,7 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+<<<<<<< HEAD
     <item
         android:state_window_focused="false" android:state_enabled="true"
         android:drawable="@drawable/btn_dropdown_normal" />
@@ -36,3 +37,12 @@
     <item
         android:drawable="@drawable/btn_dropdown_disabled" />
 </selector>
+=======
+    <item  android:state_window_focused="false" android:drawable="@drawable/btn_dropdown_normal" />
+    <item android:state_pressed="true" android:drawable="@drawable/btn_dropdown_pressed" />
+    <item android:state_focused="true" android:state_pressed="false"
+        android:drawable="@drawable/btn_dropdown_selected" />
+    <item android:drawable="@drawable/btn_dropdown_normal" />
+</selector>
+
+>>>>>>> 54b6cfa... Initial Contribution

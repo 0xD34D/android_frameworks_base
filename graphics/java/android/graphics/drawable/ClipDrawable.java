@@ -24,10 +24,15 @@ import android.content.res.TypedArray;
 import android.graphics.*;
 import android.view.Gravity;
 import android.util.AttributeSet;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.io.IOException;
 
 /**
+<<<<<<< HEAD
  * A Drawable that clips another Drawable based on this Drawable's current
  * level value.  You can control how much the child Drawable gets clipped in width
  * and height based on the level, as well as a gravity to control where it is
@@ -44,6 +49,13 @@ import java.io.IOException;
  * @attr ref android.R.styleable#ClipDrawable_clipOrientation
  * @attr ref android.R.styleable#ClipDrawable_gravity
  * @attr ref android.R.styleable#ClipDrawable_drawable
+=======
+ * A drawable that clips another drawable based on this drawable's current
+ * level value.  You can control how much the child drawable gets clipped in width
+ * and height based on the level, as well as a gravity to control where it is
+ * placed in its overall container.  Most often used to implement things like
+ * progress bars.
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class ClipDrawable extends Drawable implements Drawable.Callback {
     private ClipState mClipState;
@@ -53,14 +65,22 @@ public class ClipDrawable extends Drawable implements Drawable.Callback {
     public static final int VERTICAL = 2;
     
     ClipDrawable() {
+<<<<<<< HEAD
         this(null, null);
+=======
+        this(null);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * @param orientation Bitwise-or of {@link #HORIZONTAL} and/or {@link #VERTICAL}
      */
     public ClipDrawable(Drawable drawable, int gravity, int orientation) {
+<<<<<<< HEAD
         this(null, null);
+=======
+        this(null);
+>>>>>>> 54b6cfa... Initial Contribution
 
         mClipState.mDrawable = drawable;
         mClipState.mGravity = gravity;
@@ -104,30 +124,51 @@ public class ClipDrawable extends Drawable implements Drawable.Callback {
         mClipState.mDrawable = dr;
         mClipState.mOrientation = orientation;
         mClipState.mGravity = g;
+<<<<<<< HEAD
 
         dr.setCallback(this);
+=======
+        if (dr != null) {
+            dr.setCallback(this);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // overrides from Drawable.Callback
 
     public void invalidateDrawable(Drawable who) {
+<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.invalidateDrawable(this);
+=======
+        if (mCallback != null) {
+            mCallback.invalidateDrawable(this);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     public void scheduleDrawable(Drawable who, Runnable what, long when) {
+<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.scheduleDrawable(this, what, when);
+=======
+        if (mCallback != null) {
+            mCallback.scheduleDrawable(this, what, when);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     public void unscheduleDrawable(Drawable who, Runnable what) {
+<<<<<<< HEAD
         final Callback callback = getCallback();
         if (callback != null) {
             callback.unscheduleDrawable(this, what);
+=======
+        if (mCallback != null) {
+            mCallback.unscheduleDrawable(this, what);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -174,7 +215,12 @@ public class ClipDrawable extends Drawable implements Drawable.Callback {
 
     @Override
     protected boolean onStateChange(int[] state) {
+<<<<<<< HEAD
         return mClipState.mDrawable.setState(state);
+=======
+        boolean changed = mClipState.mDrawable.setState(state);
+        return changed;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -209,8 +255,12 @@ public class ClipDrawable extends Drawable implements Drawable.Callback {
         if ((mClipState.mOrientation & VERTICAL) != 0) {
             h -= (h - ih) * (10000 - level) / 10000;
         }
+<<<<<<< HEAD
         final int layoutDirection = getResolvedLayoutDirectionSelf();
         Gravity.apply(mClipState.mGravity, w, h, bounds, r, layoutDirection);
+=======
+        Gravity.apply(mClipState.mGravity, w, h, bounds, r);
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (w > 0 && h > 0) {
             canvas.save();
@@ -233,12 +283,17 @@ public class ClipDrawable extends Drawable implements Drawable.Callback {
     @Override
     public ConstantState getConstantState() {
         if (mClipState.canConstantState()) {
+<<<<<<< HEAD
             mClipState.mChangingConfigurations = getChangingConfigurations();
+=======
+            mClipState.mChangingConfigurations = super.getChangingConfigurations();
+>>>>>>> 54b6cfa... Initial Contribution
             return mClipState;
         }
         return null;
     }
 
+<<<<<<< HEAD
     
 
     final static class ClipState extends ConstantState {
@@ -257,6 +312,12 @@ public class ClipDrawable extends Drawable implements Drawable.Callback {
                 } else {
                     mDrawable = orig.mDrawable.getConstantState().newDrawable();
                 }
+=======
+    final static class ClipState extends ConstantState {
+        ClipState(ClipState orig, ClipDrawable owner) {
+            if (orig != null) {
+                mDrawable = orig.mDrawable.getConstantState().newDrawable();
+>>>>>>> 54b6cfa... Initial Contribution
                 mDrawable.setCallback(owner);
                 mOrientation = orig.mOrientation;
                 mGravity = orig.mGravity;
@@ -266,12 +327,16 @@ public class ClipDrawable extends Drawable implements Drawable.Callback {
 
         @Override
         public Drawable newDrawable() {
+<<<<<<< HEAD
             return new ClipDrawable(this, null);
         }
 
         @Override
         public Drawable newDrawable(Resources res) {
             return new ClipDrawable(this, res);
+=======
+            return new ClipDrawable(this);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         @Override
@@ -287,10 +352,25 @@ public class ClipDrawable extends Drawable implements Drawable.Callback {
 
             return mCanConstantState;
         }
+<<<<<<< HEAD
     }
 
     private ClipDrawable(ClipState state, Resources res) {
         mClipState = new ClipState(state, this, res);
+=======
+
+        Drawable mDrawable;
+        int mChangingConfigurations;
+        int mOrientation;
+        int mGravity;
+
+        private boolean mCheckedConstantState;
+        private boolean mCanConstantState;
+    }
+
+    private ClipDrawable(ClipState state) {
+        mClipState = new ClipState(state, this);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }
 

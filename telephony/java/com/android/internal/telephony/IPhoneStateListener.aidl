@@ -18,8 +18,11 @@ package com.android.internal.telephony;
 
 import android.os.Bundle;
 import android.telephony.ServiceState;
+<<<<<<< HEAD
 import android.telephony.SignalStrength;
 import android.telephony.CellInfo;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 oneway interface IPhoneStateListener {
     void onServiceStateChanged(in ServiceState serviceState);
@@ -30,10 +33,15 @@ oneway interface IPhoneStateListener {
     // we use bundle here instead of CellLocation so it can get the right subclass
     void onCellLocationChanged(in Bundle location);
     void onCallStateChanged(int state, String incomingNumber);
+<<<<<<< HEAD
     void onDataConnectionStateChanged(int state, int networkType);
     void onDataActivity(int direction);
     void onSignalStrengthsChanged(in SignalStrength signalStrength);
     void onOtaspChanged(in int otaspMode);
     void onCellInfoChanged(in CellInfo cellInfo);
+=======
+    void onDataConnectionStateChanged(int state);
+    void onDataActivity(int direction);
+>>>>>>> 54b6cfa... Initial Contribution
 }
 

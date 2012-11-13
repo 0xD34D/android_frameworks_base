@@ -16,6 +16,7 @@
 
 package com.android.server;
 
+<<<<<<< HEAD
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,5 +52,40 @@ public class MasterClearReceiver extends BroadcastReceiver {
             }
         };
         thr.start();
+=======
+import android.content.Context;
+import android.content.Intent;
+import android.content.BroadcastReceiver;
+import android.os.RemoteException;
+import android.os.ICheckinService;
+import android.os.ServiceManager;
+import android.util.Log;
+
+public class MasterClearReceiver extends BroadcastReceiver {
+
+    private static final String TAG = "MasterClear";
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent.getAction().equals("android.intent.action.GTALK_DATA_MESSAGE_RECEIVED")) {
+            if (!intent.getBooleanExtra("from_trusted_server", false)) {
+                Log.w(TAG, "Ignoring master clear request -- not from trusted server.");
+                return;
+            }
+        }
+        Log.w(TAG, "!!! FACTORY RESETTING DEVICE !!!");
+        ICheckinService service =
+            ICheckinService.Stub.asInterface(
+                ServiceManager.getService("checkin"));
+        if (service != null) {
+            try {
+                // This RPC should never return.
+                service.masterClear();
+            } catch (RemoteException e) {
+                Log.w("MasterClear",
+                      "Unable to invoke ICheckinService.masterClear()");
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

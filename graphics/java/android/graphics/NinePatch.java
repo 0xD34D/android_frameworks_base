@@ -26,21 +26,31 @@ package android.graphics;
  * way that you define, when content added within the image exceeds the normal
  * bounds of the graphic. For a thorough explanation of a NinePatch image, 
  * read the discussion in the 
+<<<<<<< HEAD
  * <a href="{@docRoot}guide/topics/graphics/2d-graphics.html#nine-patch">2D
  * Graphics</a> document.
  * <p>
  * The <a href="{@docRoot}guide/developing/tools/draw9patch.html">Draw 9-Patch</a> 
+=======
+ * <a href="{@docRoot}reference/available-resources.html#ninepatch">Available 
+ * Resource Types</a> document.
+ * <p>
+ * The <a href="{@docRoot}reference/draw9patch.html">Draw 9-patch</a> 
+>>>>>>> 54b6cfa... Initial Contribution
  * tool offers an extremely handy way to create your NinePatch images,
  * using a WYSIWYG graphics editor.
  * </p>
  */
 public class NinePatch {
+<<<<<<< HEAD
     private final Bitmap mBitmap;
     private final byte[] mChunk;
     private Paint mPaint;
     private String mSrcName;  // Useful for debugging
     private final RectF mRect = new RectF();
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /** 
      * Create a drawable projection from a bitmap to nine patches.
      *
@@ -56,6 +66,7 @@ public class NinePatch {
         validateNinePatchChunk(mBitmap.ni(), chunk);
     }
 
+<<<<<<< HEAD
     /**
      * @hide
      */
@@ -69,17 +80,24 @@ public class NinePatch {
         validateNinePatchChunk(mBitmap.ni(), mChunk);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setPaint(Paint p) {
         mPaint = p;
     }
     
     /** 
+<<<<<<< HEAD
      * Draw a bitmap of nine patches.
+=======
+     * Draw a bitmap to nine patches.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param canvas    A container for the current matrix and clip used to draw the bitmap.
      * @param location  Where to draw the bitmap.
      */
     public void draw(Canvas canvas, RectF location) {
+<<<<<<< HEAD
         if (!canvas.isHardwareAccelerated()) {
             nativeDraw(canvas.mNativeCanvas, location,
                        mBitmap.ni(), mChunk,
@@ -92,11 +110,21 @@ public class NinePatch {
     
     /** 
      * Draw a bitmap of nine patches.
+=======
+        nativeDraw(canvas.mNativeCanvas, location,
+                   mBitmap.ni(), mChunk,
+                   mPaint != null ? mPaint.mNativePaint : 0);
+    }
+    
+    /** 
+     * Draw a bitmap to nine patches.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param canvas    A container for the current matrix and clip used to draw the bitmap.
      * @param location  Where to draw the bitmap.
      */
     public void draw(Canvas canvas, Rect location) {
+<<<<<<< HEAD
         if (!canvas.isHardwareAccelerated()) {
             nativeDraw(canvas.mNativeCanvas, location,
                         mBitmap.ni(), mChunk,
@@ -110,12 +138,22 @@ public class NinePatch {
 
     /** 
      * Draw a bitmap of nine patches.
+=======
+        nativeDraw(canvas.mNativeCanvas, location,
+                   mBitmap.ni(), mChunk,
+                   mPaint != null ? mPaint.mNativePaint : 0);
+    }
+
+    /** 
+     * Draw a bitmap to nine patches.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param canvas    A container for the current matrix and clip used to draw the bitmap.
      * @param location  Where to draw the bitmap.
      * @param paint     The Paint to draw through.
      */
     public void draw(Canvas canvas, Rect location, Paint paint) {
+<<<<<<< HEAD
         if (!canvas.isHardwareAccelerated()) {
             nativeDraw(canvas.mNativeCanvas, location,
                     mBitmap.ni(), mChunk, paint != null ? paint.mNativePaint : 0,
@@ -134,6 +172,12 @@ public class NinePatch {
         return mBitmap.mDensity;
     }
     
+=======
+        nativeDraw(canvas.mNativeCanvas, location,
+                   mBitmap.ni(), mChunk, paint != null ? paint.mNativePaint : 0);
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public int getWidth() {
         return mBitmap.getWidth();
     }
@@ -153,6 +197,7 @@ public class NinePatch {
     
     public native static boolean isNinePatchChunk(byte[] chunk);
 
+<<<<<<< HEAD
     private static native void validateNinePatchChunk(int bitmap, byte[] chunk);
     private static native void nativeDraw(int canvas_instance, RectF loc, int bitmap_instance,
                                           byte[] c, int paint_instance_or_null,
@@ -160,6 +205,19 @@ public class NinePatch {
     private static native void nativeDraw(int canvas_instance, Rect loc, int bitmap_instance,
                                           byte[] c, int paint_instance_or_null,
                                           int destDensity, int srcDensity);
+=======
+    private final Rect   mRect = new Rect();
+    private final Bitmap mBitmap;
+    private final byte[] mChunk;
+    private Paint        mPaint;
+    private String       mSrcName;  // Useful for debugging
+
+    private static native void validateNinePatchChunk(int bitmap, byte[] chunk);
+    private static native void nativeDraw(int canvas_instance, RectF loc, int bitmap_instance,
+                                          byte[] c, int paint_instance_or_null);
+    private static native void nativeDraw(int canvas_instance, Rect loc, int bitmap_instance,
+                                          byte[] c, int paint_instance_or_null);
+>>>>>>> 54b6cfa... Initial Contribution
     private static native int nativeGetTransparentRegion(
             int bitmap, byte[] chunk, Rect location);
 }

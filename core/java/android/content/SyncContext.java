@@ -18,17 +18,27 @@ package android.content;
 
 import android.os.RemoteException;
 import android.os.SystemClock;
+<<<<<<< HEAD
 import android.os.IBinder;
 
+=======
+
+/**
+ * @hide
+ */
+>>>>>>> 54b6cfa... Initial Contribution
 public class SyncContext {
     private ISyncContext mSyncContext;
     private long mLastHeartbeatSendTime;
 
     private static final long HEARTBEAT_SEND_INTERVAL_IN_MS = 1000;
 
+<<<<<<< HEAD
     /**
      * @hide
      */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public SyncContext(ISyncContext syncContextInterface) {
         mSyncContext = syncContextInterface;
         mLastHeartbeatSendTime = 0;
@@ -39,8 +49,11 @@ public class SyncContext {
      * {@link #updateHeartbeat}, so it also takes the place of a call to that.
      *
      * @param message the current status message for this sync
+<<<<<<< HEAD
      *
      * @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void setStatusText(String message) {
         updateHeartbeat();
@@ -51,14 +64,22 @@ public class SyncContext {
      * downloads or sends records to/from the server, this may be called after each record
      * is downloaded or uploaded.
      */
+<<<<<<< HEAD
     private void updateHeartbeat() {
+=======
+    public void updateHeartbeat() {
+>>>>>>> 54b6cfa... Initial Contribution
         final long now = SystemClock.elapsedRealtime();
         if (now < mLastHeartbeatSendTime + HEARTBEAT_SEND_INTERVAL_IN_MS) return;
         try {
             mLastHeartbeatSendTime = now;
+<<<<<<< HEAD
             if (mSyncContext != null) {
                 mSyncContext.sendHeartbeat();
             }
+=======
+            mSyncContext.sendHeartbeat();
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             // this should never happen
         }
@@ -66,15 +87,24 @@ public class SyncContext {
 
     public void onFinished(SyncResult result) {
         try {
+<<<<<<< HEAD
             if (mSyncContext != null) {
                 mSyncContext.onFinished(result);
             }
+=======
+            mSyncContext.onFinished(result);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             // this should never happen
         }
     }
 
+<<<<<<< HEAD
     public IBinder getSyncContextBinder() {
         return (mSyncContext == null) ? null : mSyncContext.asBinder();
+=======
+    public ISyncContext getISyncContext() {
+        return mSyncContext;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

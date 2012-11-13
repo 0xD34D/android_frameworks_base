@@ -22,6 +22,7 @@ import android.view.KeyEvent;
  * 
  */
 public interface DialogInterface {    
+<<<<<<< HEAD
     /**
      * The identifier for the positive button.
      */
@@ -55,6 +56,12 @@ public interface DialogInterface {
     @Deprecated
     public static final int BUTTON3 = BUTTON_NEUTRAL;
     
+=======
+    public static final int BUTTON1 = -1;
+    public static final int BUTTON2 = -2;
+    public static final int BUTTON3 = -3;
+
+>>>>>>> 54b6cfa... Initial Contribution
     public void cancel();
 
     public void dismiss();
@@ -92,6 +99,7 @@ public interface DialogInterface {
     }
 
     /**
+<<<<<<< HEAD
      * Interface used to allow the creator of a dialog to run some code when the
      * dialog is shown.
      */
@@ -106,6 +114,8 @@ public interface DialogInterface {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Interface used to allow the creator of a dialog to run some code when an
      * item on the dialog is clicked..
      */
@@ -114,11 +124,17 @@ public interface DialogInterface {
          * This method will be invoked when a button in the dialog is clicked.
          * 
          * @param dialog The dialog that received the click.
+<<<<<<< HEAD
          * @param which The button that was clicked (e.g.
          *            {@link DialogInterface#BUTTON1}) or the position
          *            of the item clicked.
          */
         /* TODO: Change to use BUTTON_POSITIVE after API council */
+=======
+         * @param which The button that was clicked, i.e. BUTTON1 or BUTTON2 or
+         *            the position of the item clicked.
+         */
+>>>>>>> 54b6cfa... Initial Contribution
         public void onClick(DialogInterface dialog, int which);
     }
     

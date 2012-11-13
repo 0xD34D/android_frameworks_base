@@ -26,6 +26,7 @@ import android.view.View;
  * defined in an XML file. You can specify which columns you want, which views
  * you want to display the columns, and the XML file that defines the appearance
  * of these views. Separate XML files for child and groups are possible.
+<<<<<<< HEAD
  *
  * Binding occurs in two phases. First, if a
  * {@link android.widget.SimpleCursorTreeAdapter.ViewBinder} is available,
@@ -42,6 +43,13 @@ public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter 
     /** The name of the columns that contain the data to display for a group. */
     private String[] mGroupFromNames;
     
+=======
+ * TextViews bind the values to their text property (see
+ * {@link TextView#setText(CharSequence)}). ImageViews bind the values to their
+ * image's Uri property (see {@link ImageView#setImageURI(android.net.Uri)}).
+ */
+public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter {
+>>>>>>> 54b6cfa... Initial Contribution
     /** The indices of columns that contain data to display for a group. */
     private int[] mGroupFrom;
     /**
@@ -50,9 +58,12 @@ public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter 
      */
     private int[] mGroupTo;
 
+<<<<<<< HEAD
     /** The name of the columns that contain the data to display for a child. */
     private String[] mChildFromNames;
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /** The indices of columns that contain data to display for a child. */
     private int[] mChildFrom;
     /**
@@ -62,11 +73,14 @@ public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter 
     private int[] mChildTo;
     
     /**
+<<<<<<< HEAD
      * View binder, if supplied
      */
     private ViewBinder mViewBinder;
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Constructor.
      * 
      * @param context The context where the {@link ExpandableListView}
@@ -178,6 +192,7 @@ public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter 
 
     private void init(String[] groupFromNames, int[] groupTo, String[] childFromNames,
             int[] childTo) {
+<<<<<<< HEAD
         
         mGroupFromNames = groupFromNames;
         mGroupTo = groupTo;
@@ -233,11 +248,63 @@ public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter 
                         throw new IllegalStateException("SimpleCursorTreeAdapter can bind values" +
                                 " only to TextView and ImageView!");
                     }
+=======
+        mGroupTo = groupTo;
+        
+        mChildTo = childTo;
+        
+        // Get the group cursor column indices, the child cursor column indices will come
+        // when needed
+        initGroupFromColumns(groupFromNames);
+        
+        // Get a temporary child cursor to init the column indices
+        if (getGroupCount() > 0) {
+            MyCursorHelper tmpCursorHelper = getChildrenCursorHelper(0, true);
+            if (tmpCursorHelper != null) {
+                initChildrenFromColumns(childFromNames, tmpCursorHelper.getCursor());
+                deactivateChildrenCursorHelper(0);
+            }
+        }
+    }
+    
+    private void initFromColumns(Cursor cursor, String[] fromColumnNames, int[] fromColumns) {
+        for (int i = fromColumnNames.length - 1; i >= 0; i--) {
+            fromColumns[i] = cursor.getColumnIndexOrThrow(fromColumnNames[i]);
+        }
+    }
+    
+    private void initGroupFromColumns(String[] groupFromNames) {
+        mGroupFrom = new int[groupFromNames.length];
+        initFromColumns(mGroupCursorHelper.getCursor(), groupFromNames, mGroupFrom);
+    }
+
+    private void initChildrenFromColumns(String[] childFromNames, Cursor childCursor) {
+        mChildFrom = new int[childFromNames.length];
+        initFromColumns(childCursor, childFromNames, mChildFrom);
+    }
+    
+    private void bindView(View view, Context context, Cursor cursor, int[] from, int[] to) {
+        for (int i = 0; i < to.length; i++) {
+            View v = view.findViewById(to[i]);
+            if (v != null) {
+                String text = cursor.getString(from[i]);
+                if (text == null) {
+                    text = "";
+                }
+                if (v instanceof TextView) {
+                    ((TextView) v).setText(text);
+                } else if (v instanceof ImageView) {
+                    setViewImage((ImageView) v, text);
+                } else {
+                    throw new IllegalStateException("SimpleCursorAdapter can bind values only to" +
+                            " TextView and ImageView!");
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
     }
     
+<<<<<<< HEAD
     private void initFromColumns(Cursor cursor, String[] fromColumnNames, int[] fromColumns) {
         for (int i = fromColumnNames.length - 1; i >= 0; i--) {
             fromColumns[i] = cursor.getColumnIndexOrThrow(fromColumnNames[i]);
@@ -251,16 +318,23 @@ public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter 
             initFromColumns(cursor, mChildFromNames, mChildFrom);
         }
         
+=======
+    @Override
+    protected void bindChildView(View view, Context context, Cursor cursor, boolean isLastChild) {
+>>>>>>> 54b6cfa... Initial Contribution
         bindView(view, context, cursor, mChildFrom, mChildTo);
     }
 
     @Override
     protected void bindGroupView(View view, Context context, Cursor cursor, boolean isExpanded) {
+<<<<<<< HEAD
         if (mGroupFrom == null) {
             mGroupFrom = new int[mGroupFromNames.length];
             initFromColumns(cursor, mGroupFromNames, mGroupFrom);
         }
         
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         bindView(view, context, cursor, mGroupFrom, mGroupTo);
     }
 
@@ -279,6 +353,7 @@ public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter 
             v.setImageURI(Uri.parse(value));
         }
     }
+<<<<<<< HEAD
 
     /**
      * Called by bindView() to set the text for a TextView but only if
@@ -323,4 +398,6 @@ public abstract class SimpleCursorTreeAdapter extends ResourceCursorTreeAdapter 
          */
         boolean setViewValue(View view, Cursor cursor, int columnIndex);
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

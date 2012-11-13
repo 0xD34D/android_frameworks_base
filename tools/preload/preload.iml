@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module relativePaths="true" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="false">
+<<<<<<< HEAD
     <output url="file:///tmp/preload" />
     <output-test url="file:///tmp/preload" />
     <exclude-output />
+=======
+    <output url="file:///tmp/preload/" />
+    <exclude-output />
+    <output-test url="file:///tmp/preload/" />
+>>>>>>> 54b6cfa... Initial Contribution
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
+=======
+    <orderEntryProperties />
+>>>>>>> 54b6cfa... Initial Contribution
   </component>
 </module>
 

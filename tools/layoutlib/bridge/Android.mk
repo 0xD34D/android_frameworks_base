@@ -17,6 +17,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := $(call all-java-files-under,src)
+<<<<<<< HEAD
 LOCAL_JAVA_RESOURCE_DIRS := resources
 
 
@@ -28,11 +29,23 @@ LOCAL_JAVA_LIBRARIES := \
 LOCAL_STATIC_JAVA_LIBRARIES := \
 	temp_layoutlib \
 	ninepatch-prebuilt
+=======
+
+LOCAL_JAVA_LIBRARIES := \
+	kxml2-2.3.0 \
+	layoutlib_api \
+	ninepatch
+
+LOCAL_STATIC_JAVA_LIBRARIES := temp_layoutlib
+>>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_MODULE := layoutlib
 
 include $(BUILD_HOST_JAVA_LIBRARY)
 
+<<<<<<< HEAD
 # Build all sub-directories
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution

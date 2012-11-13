@@ -61,7 +61,11 @@ static int Interpolator_timeToValues(JNIEnv* env, jobject clazz, SkInterpolator*
 
     float* values = valueArray ? env->GetFloatArrayElements(valueArray, NULL) : NULL;
     result = interp->timeToValues(msec, (SkScalar*)values);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     if (valueArray) {
         int n = env->GetArrayLength(valueArray);
         for (int i = 0; i < n; i++) {
@@ -69,7 +73,11 @@ static int Interpolator_timeToValues(JNIEnv* env, jobject clazz, SkInterpolator*
         }
         env->ReleaseFloatArrayElements(valueArray, values, 0);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     return result;
 }
 
@@ -87,6 +95,10 @@ static JNINativeMethod gInterpolatorMethods[] = {
     { "nativeTimeToValues",     "(II[F)I",      (void*)Interpolator_timeToValues    }
 };
 
+<<<<<<< HEAD
+=======
+int register_android_graphics_Interpolator(JNIEnv* env);
+>>>>>>> 54b6cfa... Initial Contribution
 int register_android_graphics_Interpolator(JNIEnv* env)
 {
     return android::AndroidRuntime::registerNativeMethods(env,

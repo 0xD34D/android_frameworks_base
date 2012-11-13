@@ -17,6 +17,7 @@
 ** limitations under the License.
 */
 -->
+<<<<<<< HEAD
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     <ZoomButton android:id="@+id/zoomOut" 
         android:background="@android:drawable/btn_zoom_down" 
@@ -29,3 +30,23 @@
         android:layout_height="wrap_content"
         />
 </merge>
+=======
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/zoom_plate"
+    android:gravity="bottom"
+    android:paddingLeft="15dip"
+    android:paddingRight="15dip">
+    <ZoomButton android:id="@+id/zoomIn" 
+        android:background="@android:drawable/btn_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <ZoomButton android:id="@+id/zoomOut" 
+        android:background="@android:drawable/btn_minus" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+  </LinearLayout>
+>>>>>>> 54b6cfa... Initial Contribution

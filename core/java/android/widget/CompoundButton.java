@@ -26,9 +26,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.Gravity;
+<<<<<<< HEAD
 import android.view.ViewDebug;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * <p>
@@ -100,7 +104,10 @@ public abstract class CompoundButton extends Button implements Checkable {
         return super.performClick();
     }
 
+<<<<<<< HEAD
     @ViewDebug.ExportedProperty
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean isChecked() {
         return mChecked;
     }
@@ -114,7 +121,10 @@ public abstract class CompoundButton extends Button implements Checkable {
         if (mChecked != checked) {
             mChecked = checked;
             refreshDrawableState();
+<<<<<<< HEAD
             notifyAccessibilityStateChanged();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
             // Avoid infinite recursions if setChecked() is called from a listener
             if (mBroadcasting) {
@@ -128,7 +138,10 @@ public abstract class CompoundButton extends Button implements Checkable {
             if (mOnCheckedChangeWidgetListener != null) {
                 mOnCheckedChangeWidgetListener.onCheckedChanged(this, mChecked);
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             mBroadcasting = false;            
         }
     }
@@ -210,6 +223,7 @@ public abstract class CompoundButton extends Button implements Checkable {
     }
 
     @Override
+<<<<<<< HEAD
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
         event.setClassName(CompoundButton.class.getName());
@@ -225,6 +239,8 @@ public abstract class CompoundButton extends Button implements Checkable {
     }
 
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
@@ -271,6 +287,7 @@ public abstract class CompoundButton extends Button implements Checkable {
             invalidate();
         }
     }
+<<<<<<< HEAD
 
     @Override
     protected boolean verifyDrawable(Drawable who) {
@@ -283,6 +300,9 @@ public abstract class CompoundButton extends Button implements Checkable {
         if (mButtonDrawable != null) mButtonDrawable.jumpToCurrentState();
     }
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     static class SavedState extends BaseSavedState {
         boolean checked;
 

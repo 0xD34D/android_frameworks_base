@@ -16,6 +16,7 @@
 
 package android.text.style;
 
+<<<<<<< HEAD
 import android.os.Parcel;
 import android.text.ParcelableSpan;
 import android.text.TextPaint;
@@ -24,11 +25,20 @@ import android.text.TextUtils;
 public class ScaleXSpan extends MetricAffectingSpan implements ParcelableSpan {
 
 	private final float mProportion;
+=======
+import android.graphics.Paint;
+import android.text.TextPaint;
+
+public class ScaleXSpan extends MetricAffectingSpan {
+
+	private float mProportion;
+>>>>>>> 54b6cfa... Initial Contribution
 
 	public ScaleXSpan(float proportion) {
 		mProportion = proportion;
 	}
 
+<<<<<<< HEAD
     public ScaleXSpan(Parcel src) {
         mProportion = src.readFloat();
     }
@@ -45,6 +55,8 @@ public class ScaleXSpan extends MetricAffectingSpan implements ParcelableSpan {
         dest.writeFloat(mProportion);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 	public float getScaleX() {
 		return mProportion;
 	}

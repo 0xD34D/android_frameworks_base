@@ -17,6 +17,10 @@
 package android.widget;
 
 import android.database.DataSetObserver;
+<<<<<<< HEAD
+=======
+import android.view.KeyEvent;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -107,7 +111,11 @@ public interface ExpandableListAdapter {
     /**
      * Gets a View that displays the given group. This View is only for the
      * group--the Views for the group's children will be fetched using
+<<<<<<< HEAD
      * {@link #getChildView(int, int, boolean, View, ViewGroup)}.
+=======
+     * getChildrenView.
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param groupPosition the position of the group for which the View is
      *            returned

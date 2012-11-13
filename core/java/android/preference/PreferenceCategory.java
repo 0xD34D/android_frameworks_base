@@ -22,6 +22,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
+<<<<<<< HEAD
  * Used to group {@link Preference} objects
  * and provide a disabled title above the group.
  * 
@@ -31,6 +32,10 @@ import android.util.AttributeSet;
  * read the <a href="{@docRoot}guide/topics/ui/settings.html">Settings</a>
  * guide.</p>
  * </div>
+=======
+ * The {@link PreferenceCategory} class is used to group {@link Preference}s
+ * and provide a disabled title above the group.
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class PreferenceCategory extends PreferenceGroup {
     private static final String TAG = "PreferenceCategory";

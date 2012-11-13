@@ -16,6 +16,10 @@
 
 package android.os;
 
+<<<<<<< HEAD
+=======
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 import java.io.FileDescriptor;
@@ -32,7 +36,11 @@ import java.lang.reflect.Modifier;
  * the standard support creating a local implementation of such an object.
  * 
  * <p>Most developers will not implement this class directly, instead using the
+<<<<<<< HEAD
  * <a href="{@docRoot}guide/components/aidl.html">aidl</a> tool to describe the desired
+=======
+ * <a href="{@docRoot}reference/aidl.html">aidl</a> tool to describe the desired
+>>>>>>> 54b6cfa... Initial Contribution
  * interface, having it generate the appropriate Binder subclass.  You can,
  * however, derive directly from Binder to implement your own custom RPC
  * protocol or simply instantiate a raw Binder object directly to use as a
@@ -49,7 +57,10 @@ public class Binder implements IBinder {
     private static final boolean FIND_POTENTIAL_LEAKS = false;
     private static final String TAG = "Binder";
 
+<<<<<<< HEAD
     /* mObject is used by native code, do not remove or rename */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private int mObject;
     private IInterface mOwner;
     private String mDescriptor;
@@ -71,6 +82,7 @@ public class Binder implements IBinder {
      * incoming transaction, then its own uid is returned.
      */
     public static final native int getCallingUid();
+<<<<<<< HEAD
 
     /**
      * Return the original ID of the user assigned to the process that sent you the current
@@ -102,21 +114,35 @@ public class Binder implements IBinder {
 
     /**
      * Reset the identity of the incoming IPC on the current thread.  This can
+=======
+    
+    /**
+     * Reset the identity of the incoming IPC to the local process.  This can
+>>>>>>> 54b6cfa... Initial Contribution
      * be useful if, while handling an incoming call, you will be calling
      * on interfaces of other objects that may be local to your process and
      * need to do permission checks on the calls coming into them (so they
      * will check the permission of your own local process, and not whatever
      * process originally called you).
+<<<<<<< HEAD
      *
      * @return Returns an opaque token that can be used to restore the
      * original calling identity by passing it to
      * {@link #restoreCallingIdentity(long)}.
      *
+=======
+     * 
+     * @return Returns an opaque token that can be used to restore the
+     * original calling identity by passing it to
+     * {@link #restoreCallingIdentity(long)}.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #getCallingPid()
      * @see #getCallingUid()
      * @see #restoreCallingIdentity(long)
      */
     public static final native long clearCallingIdentity();
+<<<<<<< HEAD
 
     /**
      * Restore the identity of the incoming IPC on the current thread
@@ -153,6 +179,20 @@ public class Binder implements IBinder {
      */
     public static final native int getThreadStrictModePolicy();
 
+=======
+    
+    /**
+     * Restore the identity of the incoming IPC back to a previously identity
+     * that was returned by {@link #clearCallingIdentity}.
+     * 
+     * @param token The opaque token that was previously returned by
+     * {@link #clearCallingIdentity}.
+     * 
+     * @see #clearCallingIdentity
+     */
+    public static final native void restoreCallingIdentity(long token);
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Flush any Binder commands pending in the current thread to the kernel
      * driver.  This can be
@@ -246,6 +286,7 @@ public class Binder implements IBinder {
             return true;
         } else if (code == DUMP_TRANSACTION) {
             ParcelFileDescriptor fd = data.readFileDescriptor();
+<<<<<<< HEAD
             String[] args = data.readStringArray();
             if (fd != null) {
                 try {
@@ -264,12 +305,29 @@ public class Binder implements IBinder {
             } else {
                 StrictMode.clearGatheredViolations();
             }
+=======
+            FileOutputStream fout = fd != null
+                    ? new FileOutputStream(fd.getFileDescriptor()) : null;
+            PrintWriter pw = fout != null ? new PrintWriter(fout) : null;
+            if (pw != null) {
+                String[] args = data.readStringArray();
+                dump(fd.getFileDescriptor(), pw, args);
+                pw.flush();
+            }
+            if (fd != null) {
+                try {
+                    fd.close();
+                } catch (IOException e) {
+                }
+            }
+>>>>>>> 54b6cfa... Initial Contribution
             return true;
         }
         return false;
     }
 
     /**
+<<<<<<< HEAD
      * Implemented to call the more convenient version
      * {@link #dump(FileDescriptor, PrintWriter, String[])}.
      */
@@ -303,6 +361,8 @@ public class Binder implements IBinder {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Print the object's state into the given stream.
      * 
      * @param fd The raw file descriptor that the dump is being sent to.
@@ -319,7 +379,11 @@ public class Binder implements IBinder {
      */
     public final boolean transact(int code, Parcel data, Parcel reply,
             int flags) throws RemoteException {
+<<<<<<< HEAD
         if (false) Log.v("Binder", "Transact: " + code + " to " + this);
+=======
+        if (Config.LOGV) Log.v("Binder", "Transact: " + code + " to " + this);
+>>>>>>> 54b6cfa... Initial Contribution
         if (data != null) {
             data.setDataPosition(0);
         }
@@ -353,8 +417,11 @@ public class Binder implements IBinder {
     
     private native final void init();
     private native final void destroy();
+<<<<<<< HEAD
 
     // Entry point from android_util_Binder.cpp's onTransact
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private boolean execTransact(int code, int dataObj, int replyObj,
             int flags) {
         Parcel data = Parcel.obtain(dataObj);
@@ -366,6 +433,7 @@ public class Binder implements IBinder {
         try {
             res = onTransact(code, data, reply, flags);
         } catch (RemoteException e) {
+<<<<<<< HEAD
             reply.setDataPosition(0);
             reply.writeException(e);
             res = true;
@@ -378,6 +446,13 @@ public class Binder implements IBinder {
             reply.setDataPosition(0);
             reply.writeException(re);
             res = true;
+=======
+            reply.writeException(e);
+            res = true;
+        } catch (RuntimeException e) {
+            reply.writeException(e);
+            res = true;
+>>>>>>> 54b6cfa... Initial Contribution
         }
         reply.recycle();
         data.recycle();
@@ -400,6 +475,7 @@ final class BinderProxy implements IBinder {
             throws RemoteException;
     public native boolean unlinkToDeath(DeathRecipient recipient, int flags);
 
+<<<<<<< HEAD
     public void dump(FileDescriptor fd, String[] args) throws RemoteException {
         Parcel data = Parcel.obtain();
         Parcel reply = Parcel.obtain();
@@ -428,6 +504,8 @@ final class BinderProxy implements IBinder {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     BinderProxy() {
         mSelf = new WeakReference(this);
     }
@@ -444,7 +522,11 @@ final class BinderProxy implements IBinder {
     private native final void destroy();
     
     private static final void sendDeathNotice(DeathRecipient recipient) {
+<<<<<<< HEAD
         if (false) Log.v("JavaBinder", "sendDeathNotice to " + recipient);
+=======
+        if (Config.LOGV) Log.v("JavaBinder", "sendDeathNotice to " + recipient);
+>>>>>>> 54b6cfa... Initial Contribution
         try {
             recipient.binderDied();
         }
@@ -456,5 +538,8 @@ final class BinderProxy implements IBinder {
     
     final private WeakReference mSelf;
     private int mObject;
+<<<<<<< HEAD
     private int mOrgue;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -5,20 +5,33 @@
      ***************************************************************
      IMPORTANT NOTE FOR ANYONE MODIFYING THIS FILE
      READ THIS BEFORE YOU MAKE ANY CHANGES
+<<<<<<< HEAD
 
      This file defines the binary compatibility for resources.  As such,
      you must be very careful when making changes here, or you will
      completely break backwards compatibility with old applications.
 
+=======
+     
+     This file defines the binary compatibility for resources.  As such,
+     you must be very careful when making changes here, or you will
+     completely break backwards compatibility with old applications.
+     
+>>>>>>> 54b6cfa... Initial Contribution
      To avoid breaking compatibility, all new resources must be placed
      at the end of the list of resources of the same type.  Placing a resource
      in the middle of type will cause all following resources to be
      assigned new resource numbers, breaking compatibility.
+<<<<<<< HEAD
 
+=======
+     
+>>>>>>> 54b6cfa... Initial Contribution
      ***************************************************************
      *************************************************************** -->
 <resources>
 
+<<<<<<< HEAD
   <!-- We don't want to publish private symbols in android.R as part of the
        SDK.  Instead, put them here. -->
   <private-symbols package="com.android.internal" />
@@ -1705,6 +1718,19 @@
      Resources for version 1 of the platform.
      =============================================================== -->
   <eat-comment />
+=======
+    <!-- We don't want to publish private symbols in android.R as part of the
+         SDK.  Instead, put them here. -->
+    <private-symbols package="com.android.internal" />
+    
+    <!-- AndroidManifest.xml attributes. -->
+    <eat-comment />
+
+<!-- ===============================================================
+     Resource set for version 1.0 of the platform.
+     =============================================================== -->
+    <eat-comment />
+>>>>>>> 54b6cfa... Initial Contribution
 
   <public type="attr" name="theme" id="0x01010000" />
   <public type="attr" name="label" id="0x01010001" />
@@ -2086,9 +2112,13 @@
   <public type="attr" name="flipInterval" id="0x01010179" />
   <public type="attr" name="fillViewport" id="0x0101017a" />
   <public type="attr" name="prompt" id="0x0101017b" />
+<<<<<<< HEAD
   <!-- {@deprecated Use minDate instead.} -->
   <public type="attr" name="startYear" id="0x0101017c" />
   <!-- {@deprecated Use maxDate instead.} -->
+=======
+  <public type="attr" name="startYear" id="0x0101017c" />
+>>>>>>> 54b6cfa... Initial Contribution
   <public type="attr" name="endYear" id="0x0101017d" />
   <public type="attr" name="mode" id="0x0101017e" />
   <public type="attr" name="layout_x" id="0x0101017f" />
@@ -2246,7 +2276,11 @@
   <public type="attr" name="lineSpacingExtra" id="0x01010217" />
   <public type="attr" name="lineSpacingMultiplier" id="0x01010218" />
   <public type="attr" name="listChoiceIndicatorSingle" id="0x01010219" />
+<<<<<<< HEAD
   <public type="attr" name="listChoiceIndicatorMultiple" id="0x0101021a" />
+=======
+  <public type="attr" name="listChoiceIndicatorMultiple" id="0x0101021a" />    
+>>>>>>> 54b6cfa... Initial Contribution
   <public type="attr" name="versionCode" id="0x0101021b" />
   <public type="attr" name="versionName" id="0x0101021c" />
 
@@ -2546,11 +2580,16 @@
   <public type="drawable" name="stat_sys_download" id="0x01080081" />
   <public type="drawable" name="stat_sys_download_done" id="0x01080082" />
   <public type="drawable" name="stat_sys_headset" id="0x01080083" />
+<<<<<<< HEAD
   <!-- @deprecated Replaced by a private asset in the phone app. -->
   <public type="drawable" name="stat_sys_phone_call" id="0x01080084" />
   <!-- @deprecated Replaced by a private asset in the phone app. -->
   <public type="drawable" name="stat_sys_phone_call_forward" id="0x01080085" />
   <!-- @deprecated Replaced by a private asset in the phone app. -->
+=======
+  <public type="drawable" name="stat_sys_phone_call" id="0x01080084" />
+  <public type="drawable" name="stat_sys_phone_call_forward" id="0x01080085" />
+>>>>>>> 54b6cfa... Initial Contribution
   <public type="drawable" name="stat_sys_phone_call_on_hold" id="0x01080086" />
   <public type="drawable" name="stat_sys_speakerphone" id="0x01080087" />
   <public type="drawable" name="stat_sys_upload" id="0x01080088" />
@@ -2596,12 +2635,17 @@
   <public type="layout" name="select_dialog_item" id="0x01090011" />
   <public type="layout" name="select_dialog_singlechoice" id="0x01090012" />
   <public type="layout" name="select_dialog_multichoice" id="0x01090013" />
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
   <public type="anim" name="fade_in" id="0x010a0000" />
   <public type="anim" name="fade_out" id="0x010a0001" />
   <public type="anim" name="slide_in_left" id="0x010a0002" />
   <public type="anim" name="slide_out_right" id="0x010a0003" />
   <public type="anim" name="accelerate_decelerate_interpolator" id="0x010a0004" />
+<<<<<<< HEAD
   <!-- Acceleration curve matching Flash's quadratic ease out function. -->
   <public type="anim" name="accelerate_interpolator" id="0x010a0005" />
   <!-- Acceleration curve matching Flash's quadratic ease in function. -->
@@ -3670,5 +3714,10 @@
   <public type="style" name="Widget.Holo.Light.MediaRouteButton" id="0x010301d6" />
   <public type="style" name="Widget.DeviceDefault.MediaRouteButton" id="0x010301d7" />
   <public type="style" name="Widget.DeviceDefault.Light.MediaRouteButton" id="0x010301d8" />
+=======
+  <public type="anim" name="accelerate_interpolator" id="0x010a0005" />
+  <public type="anim" name="decelerate_interpolator" id="0x010a0006" />
+
+>>>>>>> 54b6cfa... Initial Contribution
 
 </resources>

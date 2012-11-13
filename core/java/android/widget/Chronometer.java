@@ -22,12 +22,18 @@ import android.graphics.Canvas;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+<<<<<<< HEAD
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Slog;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+=======
+import android.pim.DateUtils;
+import android.util.AttributeSet;
+import android.util.Log;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.widget.RemoteViews.RemoteView;
 
 import java.util.Formatter;
@@ -49,6 +55,7 @@ import java.util.Locale;
 public class Chronometer extends TextView {
     private static final String TAG = "Chronometer";
 
+<<<<<<< HEAD
     /**
      * A callback that notifies when the chronometer has incremented on its own.
      */
@@ -61,6 +68,8 @@ public class Chronometer extends TextView {
 
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private long mBase;
     private boolean mVisible;
     private boolean mStarted;
@@ -71,11 +80,15 @@ public class Chronometer extends TextView {
     private Locale mFormatterLocale;
     private Object[] mFormatterArgs = new Object[1];
     private StringBuilder mFormatBuilder;
+<<<<<<< HEAD
     private OnChronometerTickListener mOnChronometerTickListener;
     private StringBuilder mRecycle = new StringBuilder(8);
     
     private static final int TICK_WHAT = 2;
     
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Initialize this Chronometer object.
      * Sets the base to the current time.
@@ -118,10 +131,15 @@ public class Chronometer extends TextView {
      *
      * @param base Use the {@link SystemClock#elapsedRealtime} time base.
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
     public void setBase(long base) {
         mBase = base;
         dispatchChronometerTick();
+=======
+    public void setBase(long base) {
+        mBase = base;
+>>>>>>> 54b6cfa... Initial Contribution
         updateText(SystemClock.elapsedRealtime());
     }
 
@@ -143,7 +161,10 @@ public class Chronometer extends TextView {
      *
      * @param format the format string.
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void setFormat(String format) {
         mFormat = format;
         if (format != null && mFormatBuilder == null) {
@@ -159,6 +180,7 @@ public class Chronometer extends TextView {
     }
 
     /**
+<<<<<<< HEAD
      * Sets the listener to be called when the chronometer changes.
      * 
      * @param listener The listener.
@@ -176,6 +198,8 @@ public class Chronometer extends TextView {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Start counting up.  This does not affect the base as set from {@link #setBase}, just
      * the view display.
      * 
@@ -200,6 +224,7 @@ public class Chronometer extends TextView {
         updateRunning();
     }
 
+<<<<<<< HEAD
     /**
      * The same as calling {@link #start} or {@link #stop}.
      * @hide pending API council approval
@@ -210,6 +235,8 @@ public class Chronometer extends TextView {
         updateRunning();
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -224,10 +251,17 @@ public class Chronometer extends TextView {
         updateRunning();
     }
 
+<<<<<<< HEAD
     private synchronized void updateText(long now) {
         long seconds = now - mBase;
         seconds /= 1000;
         String text = DateUtils.formatElapsedTime(mRecycle, seconds);
+=======
+    private void updateText(long now) {
+        long seconds = now - mBase;
+        seconds /= 1000;
+        String text = DateUtils.formatElapsedTime(seconds);
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (mFormat != null) {
             Locale loc = Locale.getDefault();
@@ -255,10 +289,14 @@ public class Chronometer extends TextView {
         if (running != mRunning) {
             if (running) {
                 updateText(SystemClock.elapsedRealtime());
+<<<<<<< HEAD
                 dispatchChronometerTick();
                 mHandler.sendMessageDelayed(Message.obtain(mHandler, TICK_WHAT), 1000);
             } else {
                 mHandler.removeMessages(TICK_WHAT);
+=======
+                mHandler.sendMessageDelayed(Message.obtain(), 1000);
+>>>>>>> 54b6cfa... Initial Contribution
             }
             mRunning = running;
         }
@@ -266,6 +304,7 @@ public class Chronometer extends TextView {
     
     private Handler mHandler = new Handler() {
         public void handleMessage(Message m) {
+<<<<<<< HEAD
             if (mRunning) {
                 updateText(SystemClock.elapsedRealtime());
                 dispatchChronometerTick();
@@ -291,4 +330,12 @@ public class Chronometer extends TextView {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(Chronometer.class.getName());
     }
+=======
+            if (mStarted) {
+                updateText(SystemClock.elapsedRealtime());
+                sendMessageDelayed(Message.obtain(), 1000);
+            }
+        }
+    };
+>>>>>>> 54b6cfa... Initial Contribution
 }

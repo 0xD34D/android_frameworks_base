@@ -1,10 +1,13 @@
 
 #include "options.h"
 
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 static int
 usage()
 {
@@ -13,20 +16,31 @@ usage()
             "       aidl --preprocess OUTPUT INPUT...\n"
             "\n"
             "OPTIONS:\n"
+<<<<<<< HEAD
             "   -I<DIR>    search path for import statements.\n"
             "   -d<FILE>   generate dependency file.\n"
             "   -a         generate dependency file next to the output file with the name based on the input file.\n"
             "   -p<FILE>   file created by --preprocess to import.\n"
             "   -o<FOLDER> base output folder for generated files.\n"
             "   -b         fail when trying to compile a parcelable.\n"
+=======
+            "   -I<DIR>  search path for import statements.\n"
+            "   -d<FILE> generate dependency file.\n"
+            "   -p<FILE> file created by --preprocess to import.\n"
+            "   -b       fail when trying to compile a parcelable.\n"
+>>>>>>> 54b6cfa... Initial Contribution
             "\n"
             "INPUT:\n"
             "   An aidl interface file.\n"
             "\n"
             "OUTPUT:\n"
+<<<<<<< HEAD
             "   The generated interface files.\n"
             "   If omitted and the -o option is not used, the input filename is used, with the .aidl extension changed to a .java extension.\n"
             "   If the -o option is used, the generated files will be placed in the base output folder, under their package folder\n"
+=======
+            "   The generated interface files. If omitted, the input filename is used, with the .aidl extension changed to a .java extension.\n"
+>>>>>>> 54b6cfa... Initial Contribution
            );
     return 1;
 }
@@ -50,7 +64,10 @@ parse_options(int argc, const char* const* argv, Options *options)
 
     options->task = COMPILE_AIDL;
     options->failOnParcelable = false;
+<<<<<<< HEAD
     options->autoDepFile = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     // OPTIONS
     while (i < argc) {
@@ -75,9 +92,12 @@ parse_options(int argc, const char* const* argv, Options *options)
                         return usage();
                     }
                 }
+<<<<<<< HEAD
                 else if (s[1] == 'a') {
                     options->autoDepFile = true;
                 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 else if (s[1] == 'p') {
                     if (len > 2) {
                         options->preprocessedFiles.push_back(s+2);
@@ -86,6 +106,7 @@ parse_options(int argc, const char* const* argv, Options *options)
                         return usage();
                     }
                 }
+<<<<<<< HEAD
                 else if (s[1] == 'o') {
                     if (len > 2) {
                         options->outputBaseFolder = s+2;
@@ -94,6 +115,8 @@ parse_options(int argc, const char* const* argv, Options *options)
                         return usage();
                     }
                 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 else if (len == 2 && s[1] == 'b') {
                     options->failOnParcelable = true;
                 }
@@ -127,7 +150,11 @@ parse_options(int argc, const char* const* argv, Options *options)
     if (i < argc) {
         options->outputFileName = argv[i];
         i++;
+<<<<<<< HEAD
     } else if (options->outputBaseFolder.length() == 0) {
+=======
+    } else {
+>>>>>>> 54b6cfa... Initial Contribution
         // copy input into output and change the extension from .aidl to .java
         options->outputFileName = options->inputFileName;
         string::size_type pos = options->outputFileName.size()-5;

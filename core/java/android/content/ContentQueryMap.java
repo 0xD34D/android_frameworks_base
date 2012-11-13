@@ -33,7 +33,11 @@ import java.util.Observable;
  * The cursor data is accessed by row key and column name via getValue().
  */
 public class ContentQueryMap extends Observable {
+<<<<<<< HEAD
     private volatile Cursor mCursor;
+=======
+    private Cursor mCursor;
+>>>>>>> 54b6cfa... Initial Contribution
     private String[] mColumnNames;
     private int mKeyColumn;
 
@@ -71,7 +75,11 @@ public class ContentQueryMap extends Observable {
         // ContentProvider then read it once into the cache. Otherwise the cache will be filled 
         // automatically.
         if (!keepUpdated) {
+<<<<<<< HEAD
             readCursorIntoCache(cursor);
+=======
+            readCursorIntoCache();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -128,6 +136,7 @@ public class ContentQueryMap extends Observable {
 
     /** Requeries the cursor and reads the contents into the cache */
     public void requery() {
+<<<<<<< HEAD
         final Cursor cursor = mCursor;
         if (cursor == null) {
             // If mCursor is null then it means there was a requery() in flight
@@ -141,10 +150,16 @@ public class ContentQueryMap extends Observable {
             return;
         }
         readCursorIntoCache(cursor);
+=======
+        mDirty = false;
+        mCursor.requery();
+        readCursorIntoCache();
+>>>>>>> 54b6cfa... Initial Contribution
         setChanged();
         notifyObservers();
     }
 
+<<<<<<< HEAD
     private synchronized void readCursorIntoCache(Cursor cursor) {
         // Make a new map so old values returned by getRows() are undisturbed.
         int capacity = mValues != null ? mValues.size() : 0;
@@ -157,6 +172,20 @@ public class ContentQueryMap extends Observable {
                 }
             }
             mValues.put(cursor.getString(mKeyColumn), values);
+=======
+    private synchronized void readCursorIntoCache() {
+        // Make a new map so old values returned by getRows() are undisturbed.
+        int capacity = mValues != null ? mValues.size() : 0;
+        mValues = new HashMap<String, ContentValues>(capacity);
+        while (mCursor.moveToNext()) {
+            ContentValues values = new ContentValues();
+            for (int i = 0; i < mColumnNames.length; i++) {
+                if (i != mKeyColumn) {
+                    values.put(mColumnNames[i], mCursor.getString(i));
+                }
+            }
+            mValues.put(mCursor.getString(mKeyColumn), values);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 

@@ -19,6 +19,7 @@
 
 <!-- Layout of date picker-->
 
+<<<<<<< HEAD
 <!-- Warning: everything within the "pickers" layout is removed and re-ordered
      depending on the date format selected by the user.
 -->
@@ -83,4 +84,46 @@
         android:visibility="gone"
         />
 
+=======
+<!-- Warning: everything within the parent is removed and re-ordered depending
+     on the date format selected by the user. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- Month -->
+    <com.android.internal.widget.NumberPicker
+        android:id="@+id/month"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1dip"
+        android:layout_marginRight="1dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
+    <!-- Day -->
+    <com.android.internal.widget.NumberPicker
+        android:id="@+id/day"
+        android:layout_width="80dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1dip"
+        android:layout_marginRight="1dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
+    <!-- Year -->
+    <com.android.internal.widget.NumberPicker
+        android:id="@+id/year"
+        android:layout_width="95dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1dip"
+        android:layout_marginRight="1dip"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+>>>>>>> 54b6cfa... Initial Contribution
 </LinearLayout>

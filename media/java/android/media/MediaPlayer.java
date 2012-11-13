@@ -23,14 +23,18 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+<<<<<<< HEAD
 import android.os.Parcel;
 import android.os.Parcelable;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.ParcelFileDescriptor;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.graphics.Bitmap;
+<<<<<<< HEAD
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 
@@ -560,20 +564,56 @@ public class MediaPlayer
     private int mNativeSurfaceTexture;  // accessed by native methods
     private int mListenerContext; // accessed by native methods
     private SurfaceHolder mSurfaceHolder;
+=======
+import android.media.AudioManager;
+
+import java.io.FileDescriptor;
+import java.io.IOException;
+
+import java.lang.ref.WeakReference;
+
+/**
+ * Used to play audio and video files and streams.
+ * See the <a href="/android/toolbox/apis/media.html">Android Media APIs</a> 
+ * page for help using using MediaPlayer.
+ */
+public class MediaPlayer
+{    
+    static {
+        System.loadLibrary("media_jni");
+    }
+    
+    private final static String TAG = "MediaPlayer";
+    
+    private int mNativeContext; // accessed by native methods
+    private int mListenerContext; // accessed by native methods
+    private Surface mSurface; // accessed by native methods
+    private SurfaceHolder  mSurfaceHolder;
+>>>>>>> 54b6cfa... Initial Contribution
     private EventHandler mEventHandler;
     private PowerManager.WakeLock mWakeLock = null;
     private boolean mScreenOnWhilePlaying;
     private boolean mStayAwake;
+<<<<<<< HEAD
 
     /**
      * Default constructor. Consider using one of the create() methods for
+=======
+    
+    /**
+     * Default constructor. Consider using one of the create() methods for 
+>>>>>>> 54b6cfa... Initial Contribution
      * synchronously instantiating a MediaPlayer from a Uri or resource.
      * <p>When done with the MediaPlayer, you should call  {@link #release()},
      * to free the resources. If not released, too many MediaPlayer instances may
      * result in an exception.</p>
      */
     public MediaPlayer() {
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 54b6cfa... Initial Contribution
         Looper looper;
         if ((looper = Looper.myLooper()) != null) {
             mEventHandler = new EventHandler(this, looper);
@@ -588,6 +628,7 @@ public class MediaPlayer
          */
         native_setup(new WeakReference<MediaPlayer>(this));
     }
+<<<<<<< HEAD
 
     /*
      * Update the MediaPlayer SurfaceTexture.
@@ -655,10 +696,19 @@ public class MediaPlayer
      * A null surface holder or surface will result in only the audio track being
      * played.
      *
+=======
+  
+    /**
+     * Sets the SurfaceHolder to use for displaying the video portion of the media.
+     * This call is optional. Not calling it when playing back a video will
+     * result in only the audio track being played.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param sh the SurfaceHolder to use for video display
      */
     public void setDisplay(SurfaceHolder sh) {
         mSurfaceHolder = sh;
+<<<<<<< HEAD
         Surface surface;
         if (sh != null) {
             surface = sh.getSurface();
@@ -666,10 +716,14 @@ public class MediaPlayer
             surface = null;
         }
         _setVideoSurface(surface);
+=======
+        mSurface = sh.getSurface();
+>>>>>>> 54b6cfa... Initial Contribution
         updateSurfaceScreenOn();
     }
 
     /**
+<<<<<<< HEAD
      * Sets the {@link Surface} to be used as the sink for the video portion of
      * the media. This is similar to {@link #setDisplay(SurfaceHolder)}, but
      * does not support {@link #setScreenOnWhilePlaying(boolean)}.  Setting a
@@ -755,34 +809,54 @@ public class MediaPlayer
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Convenience method to create a MediaPlayer for a given Uri.
      * On success, {@link #prepare()} will already have been called and must not be called again.
      * <p>When done with the MediaPlayer, you should call  {@link #release()},
      * to free the resources. If not released, too many MediaPlayer instances will
      * result in an exception.</p>
+<<<<<<< HEAD
      *
      * @param context the Context to use
+=======
+     * 
+     * @param context the Context to use 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param uri the Uri from which to get the datasource
      * @return a MediaPlayer object, or null if creation failed
      */
     public static MediaPlayer create(Context context, Uri uri) {
         return create (context, uri, null);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Convenience method to create a MediaPlayer for a given Uri.
      * On success, {@link #prepare()} will already have been called and must not be called again.
      * <p>When done with the MediaPlayer, you should call  {@link #release()},
      * to free the resources. If not released, too many MediaPlayer instances will
      * result in an exception.</p>
+<<<<<<< HEAD
      *
      * @param context the Context to use
+=======
+     * 
+     * @param context the Context to use 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param uri the Uri from which to get the datasource
      * @param holder the SurfaceHolder to use for displaying the video
      * @return a MediaPlayer object, or null if creation failed
      */
     public static MediaPlayer create(Context context, Uri uri, SurfaceHolder holder) {
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         try {
             MediaPlayer mp = new MediaPlayer();
             mp.setDataSource(context, uri);
@@ -805,17 +879,26 @@ public class MediaPlayer
         return null;
     }
 
+<<<<<<< HEAD
     // Note no convenience method to create a MediaPlayer with SurfaceTexture sink.
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Convenience method to create a MediaPlayer for a given resource id.
      * On success, {@link #prepare()} will already have been called and must not be called again.
      * <p>When done with the MediaPlayer, you should call  {@link #release()},
      * to free the resources. If not released, too many MediaPlayer instances will
      * result in an exception.</p>
+<<<<<<< HEAD
      *
      * @param context the Context to use
      * @param resid the raw resource id (<var>R.raw.&lt;something></var>) for
+=======
+     * 
+     * @param context the Context to use 
+     * @param resid the raw resource id (<var>R.raw.&lt;something></var>) for 
+>>>>>>> 54b6cfa... Initial Contribution
      *              the resource to use as the datasource
      * @return a MediaPlayer object, or null if creation failed
      */
@@ -841,6 +924,7 @@ public class MediaPlayer
         }
         return null;
     }
+<<<<<<< HEAD
 
     /**
      * Sets the data source as a content Uri.
@@ -865,12 +949,29 @@ public class MediaPlayer
     public void setDataSource(Context context, Uri uri, Map<String, String> headers)
         throws IOException, IllegalArgumentException, SecurityException, IllegalStateException {
 
+=======
+    
+    /**
+     * Sets the data source as a content Uri. Call this after reset(), or before 
+     * any other method (including setDataSource()) that might throw 
+     * IllegalStateException in this class.
+     * 
+     * @param context the Context to use when resolving the Uri
+     * @param uri the Content URI of the data you want to play
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+     */
+    public void setDataSource(Context context, Uri uri)
+        throws IOException, IllegalArgumentException, SecurityException, IllegalStateException {
+        
+>>>>>>> 54b6cfa... Initial Contribution
         String scheme = uri.getScheme();
         if(scheme == null || scheme.equals("file")) {
             setDataSource(uri.getPath());
             return;
         }
 
+<<<<<<< HEAD
         AssetFileDescriptor fd = null;
         try {
             ContentResolver resolver = context.getContentResolver();
@@ -886,6 +987,16 @@ public class MediaPlayer
             } else {
                 setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getDeclaredLength());
             }
+=======
+        ParcelFileDescriptor fd = null;
+        try {
+            ContentResolver resolver = context.getContentResolver();
+            fd = resolver.openFileDescriptor(uri, "r");
+            if (fd == null) {
+                return;
+            }
+            setDataSource(fd.getFileDescriptor());
+>>>>>>> 54b6cfa... Initial Contribution
             return;
         } catch (SecurityException ex) {
         } catch (IOException ex) {
@@ -894,13 +1005,18 @@ public class MediaPlayer
                 fd.close();
             }
         }
+<<<<<<< HEAD
 
         Log.d(TAG, "Couldn't open file on client side, trying server side");
         setDataSource(uri.toString(), headers);
+=======
+        setDataSource(uri.toString());
+>>>>>>> 54b6cfa... Initial Contribution
         return;
     }
 
     /**
+<<<<<<< HEAD
      * Sets the data source (file-path or http/rtsp URL) to use.
      *
      * @param path the path of the file, or the http/rtsp URL of the stream you want to play
@@ -962,19 +1078,42 @@ public class MediaPlayer
     private native void _setDataSource(
         String path, String[] keys, String[] values)
         throws IOException, IllegalArgumentException, SecurityException, IllegalStateException;
+=======
+     * Sets the data source (file-path or http/rtsp URL) to use. Call this after 
+     * reset(), or before any other method (including setDataSource()) that might
+     * throw IllegalStateException in this class.
+     * 
+     * @param path the path of the file, or the http/rtsp URL of the stream you want to play
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+     */
+    public native void setDataSource(String path) throws IOException, IllegalArgumentException, IllegalStateException;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Sets the data source (FileDescriptor) to use. It is the caller's responsibility
      * to close the file descriptor. It is safe to do so as soon as this call returns.
+<<<<<<< HEAD
      *
      * @param fd the FileDescriptor for the file you want to play
      * @throws IllegalStateException if it is called in an invalid state
      */
     public void setDataSource(FileDescriptor fd)
+=======
+     * Call this after reset(), or before any other method (including setDataSource()) 
+     * that might throw IllegalStateException in this class.
+     * 
+     * @param fd the FileDescriptor for the file you want to play
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+     */
+    public void setDataSource(FileDescriptor fd) 
+>>>>>>> 54b6cfa... Initial Contribution
             throws IOException, IllegalArgumentException, IllegalStateException {
         // intentionally less than LONG_MAX
         setDataSource(fd, 0, 0x7ffffffffffffffL);
     }
+<<<<<<< HEAD
 
     /**
      * Sets the data source (FileDescriptor) to use.  The FileDescriptor must be
@@ -1003,22 +1142,77 @@ public class MediaPlayer
     /**
      * Prepares the player for playback, asynchronously.
      *
+=======
+    
+    /**
+     * Sets the data source (FileDescriptor) to use.  It is the caller's responsibility
+     * to close the file descriptor. It is safe to do so as soon as this call returns.
+     * Call this after reset(), or before any other method (including setDataSource()) 
+     * that might throw IllegalStateException in this class.
+     * 
+     * @param fd the FileDescriptor for the file you want to play
+     * @param offset the offset into the file where the data to be played starts, in bytes
+     * @param length the length in bytes of the data to be played
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+     */
+    public native void setDataSource(FileDescriptor fd, long offset, long length) 
+            throws IOException, IllegalArgumentException, IllegalStateException;
+
+    /**
+     * Prepares the player for playback, synchronously. Call this after
+     * setDataSource() or stop(), and before any other method that might
+     * throw IllegalStateException in this class.
+     * 
+     * After setting the datasource and the display surface, you need to either
+     * call prepare() or prepareAsync(). For files, it is OK to call prepare(),
+     * which blocks until MediaPlayer is ready for playback.
+     * 
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+     */
+    public native void prepare() throws IOException, IllegalStateException;
+    
+    /**
+     * Prepares the player for playback, asynchronously. Call this after
+     * setDataSource() or stop(), and before any other method that might
+     * throw IllegalStateException in this class.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * After setting the datasource and the display surface, you need to either
      * call prepare() or prepareAsync(). For streams, you should call prepareAsync(),
      * which returns immediately, rather than blocking until enough data has been
      * buffered.
+<<<<<<< HEAD
      *
      * @throws IllegalStateException if it is called in an invalid state
      */
     public native void prepareAsync() throws IllegalStateException;
 
+=======
+     * 
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+     */
+    public native void prepareAsync() throws IllegalStateException;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Starts or resumes playback. If playback had previously been paused,
      * playback will continue from where it was paused. If playback had
      * been stopped, or never started before, playback will start at the
+<<<<<<< HEAD
      * beginning.
      *
      * @throws IllegalStateException if it is called in an invalid state
+=======
+     * beginning. Call this after receiving onCompletion or onPrepared
+     * event notification from OnCompletionListener or OnPreparedListener
+     * interface, or called after prepare() or pause().
+     * 
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public  void start() throws IllegalStateException {
         stayAwake(true);
@@ -1026,12 +1220,23 @@ public class MediaPlayer
     }
 
     private native void _start() throws IllegalStateException;
+<<<<<<< HEAD
 
     /**
      * Stops playback after playback has been stopped or paused.
      *
      * @throws IllegalStateException if the internal player engine has not been
      * initialized.
+=======
+    
+    /**
+     * Stops playback after playback has been stopped or paused. 
+     * Call this after start() or pause(), or after receiving the onPrepared 
+     * event notification from OnPreparedListener interface.
+     * 
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void stop() throws IllegalStateException {
         stayAwake(false);
@@ -1039,12 +1244,22 @@ public class MediaPlayer
     }
 
     private native void _stop() throws IllegalStateException;
+<<<<<<< HEAD
 
     /**
      * Pauses playback. Call start() to resume.
      *
      * @throws IllegalStateException if the internal player engine has not been
      * initialized.
+=======
+    
+    /**
+     * Pauses playback. Call start() to resume. Call this after start() 
+     * and before any other method that might throw IllegalStateException in this class.
+     * 
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void pause() throws IllegalStateException {
         stayAwake(false);
@@ -1052,20 +1267,32 @@ public class MediaPlayer
     }
 
     private native void _pause() throws IllegalStateException;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Set the low-level power management behavior for this MediaPlayer.  This
      * can be used when the MediaPlayer is not playing through a SurfaceHolder
      * set with {@link #setDisplay(SurfaceHolder)} and thus can use the
      * high-level {@link #setScreenOnWhilePlaying(boolean)} feature.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * <p>This function has the MediaPlayer access the low-level power manager
      * service to control the device's power usage while playing is occurring.
      * The parameter is a combination of {@link android.os.PowerManager} wake flags.
      * Use of this method requires {@link android.Manifest.permission#WAKE_LOCK}
      * permission.
      * By default, no attempt is made to keep the device awake during playback.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param context the Context to use
      * @param mode    the power/wake mode to set
      * @see android.os.PowerManager
@@ -1087,27 +1314,42 @@ public class MediaPlayer
             mWakeLock.acquire();
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Control whether we should use the attached SurfaceHolder to keep the
      * screen on while video playback is occurring.  This is the preferred
      * method over {@link #setWakeMode} where possible, since it doesn't
      * require that the application have permission for low-level wake lock
      * access.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param screenOn Supply true to keep the screen on, false to allow it
      * to turn off.
      */
     public void setScreenOnWhilePlaying(boolean screenOn) {
         if (mScreenOnWhilePlaying != screenOn) {
+<<<<<<< HEAD
             if (screenOn && mSurfaceHolder == null) {
                 Log.w(TAG, "setScreenOnWhilePlaying(true) is ineffective without a SurfaceHolder");
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             mScreenOnWhilePlaying = screenOn;
             updateSurfaceScreenOn();
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private void stayAwake(boolean awake) {
         if (mWakeLock != null) {
             if (awake && !mWakeLock.isHeld()) {
@@ -1119,12 +1361,17 @@ public class MediaPlayer
         mStayAwake = awake;
         updateSurfaceScreenOn();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private void updateSurfaceScreenOn() {
         if (mSurfaceHolder != null) {
             mSurfaceHolder.setKeepScreenOn(mScreenOnWhilePlaying && mStayAwake);
         }
     }
+<<<<<<< HEAD
 
     /**
      * Returns the width of the video.
@@ -1302,31 +1549,103 @@ public class MediaPlayer
      */
     public void release() {
         stayAwake(false);
+=======
+    
+    /**
+     * Returns the width of the video. Call this after setDataSource() method.
+     * 
+     * @return the width of the video, or 0 if there is no video,
+     * no display surface was set, or prepare()/prepareAsync()
+     * have not completed yet
+     */
+    public native int getVideoWidth();
+    
+    /**
+     * Returns the height of the video. Call this after setDataSource() method.
+     * 
+     * @return the height of the video, or 0 if there is no video,
+     * no display surface was set, or prepare()/prepareAsync()
+     * have not completed yet
+     */
+    public native int getVideoHeight();
+    
+    /**
+     * Checks whether the MediaPlayer is playing. Call this after
+     * setDataSource() method.
+     * 
+     * @return true if currently playing, false otherwise
+     */
+    public native boolean isPlaying();
+    
+    /**
+     * Seeks to specified time position. Call this after start(), pause(), or 
+     * prepare(), or after receiving onPrepared or onCompletion event notification
+     * from OnPreparedListener or OnCompletionListener interface.
+     * 
+     * @param msec the offset in milliseconds from the start to seek to
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+     */
+    public native void seekTo(int msec) throws IllegalStateException;
+    
+    /**
+     * Gets the current playback position. Call this after setDataSource() method.
+     * 
+     * @return the current position in milliseconds
+     */
+    public native int getCurrentPosition();
+    
+    /**
+     * Gets the duration of the file.  Call this after setDataSource() method.
+     * 
+     * @return the duration in milliseconds
+     */
+    public native int getDuration();
+    
+    /**
+     * Releases resources associated with this MediaPlayer object.
+     * It is considered good practice to call this method when you're
+     * done using the MediaPlayer.
+     */
+    public void release() {
+        if (mWakeLock != null) mWakeLock.release();
+>>>>>>> 54b6cfa... Initial Contribution
         updateSurfaceScreenOn();
         mOnPreparedListener = null;
         mOnBufferingUpdateListener = null;
         mOnCompletionListener = null;
         mOnSeekCompleteListener = null;
         mOnErrorListener = null;
+<<<<<<< HEAD
         mOnInfoListener = null;
         mOnVideoSizeChangedListener = null;
         mOnTimedTextListener = null;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         _release();
     }
 
     private native void _release();
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Resets the MediaPlayer to its uninitialized state. After calling
      * this method, you will have to initialize it again by setting the
      * data source and calling prepare().
      */
     public void reset() {
+<<<<<<< HEAD
         stayAwake(false);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         _reset();
         // make sure none of the listeners get called anymore
         mEventHandler.removeCallbacksAndMessages(null);
     }
+<<<<<<< HEAD
 
     private native void _reset();
 
@@ -1336,19 +1655,35 @@ public class MediaPlayer
      * prepareAsync() in order for the target stream type to become effective
      * thereafter.
      *
+=======
+    
+    private native void _reset();
+    
+    /**
+     * Sets the audio stream type for this MediaPlayer. See {@link AudioManager}
+     * for a list of stream types.
+     *  
+>>>>>>> 54b6cfa... Initial Contribution
      * @param streamtype the audio stream type
      * @see android.media.AudioManager
      */
     public native void setAudioStreamType(int streamtype);
 
     /**
+<<<<<<< HEAD
      * Sets the player to be looping or non-looping.
      *
+=======
+     * Sets the player to be looping or non-looping. Call this
+     * after setDataSource method.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param looping whether to loop or not
      */
     public native void setLooping(boolean looping);
 
     /**
+<<<<<<< HEAD
      * Checks whether the MediaPlayer is looping or non-looping.
      *
      * @return true if the MediaPlayer is currently looping, false otherwise
@@ -1361,6 +1696,13 @@ public class MediaPlayer
      * within an application. Unless you are writing an application to
      * control user settings, this API should be used in preference to
      * {@link AudioManager#setStreamVolume(int, int, int)} which sets the volume of ALL streams of
+=======
+     * Sets the volume on this player. Call after setDataSource method.
+     * This API is recommended for balancing the output of audio streams
+     * within an application. Unless you are writing an application to
+     * control user settings, this API should be used in preference to
+     * AudioManager::setStreamVolume API which sets the volume of ALL streams of
+>>>>>>> 54b6cfa... Initial Contribution
      * a particular type. Note that the passed volume values are raw scalars.
      * UI controls should be scaled logarithmically.
      *
@@ -1370,6 +1712,7 @@ public class MediaPlayer
     public native void setVolume(float leftVolume, float rightVolume);
 
     /**
+<<<<<<< HEAD
      * Currently not implemented, returns null.
      * @deprecated
      * @hide
@@ -1939,6 +2282,21 @@ public class MediaPlayer
     private native final int native_setRetransmitEndpoint(String addrString, int port);
 
     @Override
+=======
+     * Returns a Bitmap containing the video frame at the specified time. Call
+     * this after setDataSource() or stop().
+     *
+     * @param msec the time at which to capture the video frame, in milliseconds
+     * @return a Bitmap containing the video frame at the specified time
+     * @throws IllegalStateException if it is called
+     * in an order other than the one specified above
+     * @hide
+     */
+    public native Bitmap getFrameAt(int msec) throws IllegalStateException;
+ 
+    private native final void native_setup(Object mediaplayer_this);
+    private native final void native_finalize();
+>>>>>>> 54b6cfa... Initial Contribution
     protected void finalize() { native_finalize(); }
 
     /* Do not change these values without updating their counterparts
@@ -1949,10 +2307,26 @@ public class MediaPlayer
     private static final int MEDIA_PLAYBACK_COMPLETE = 2;
     private static final int MEDIA_BUFFERING_UPDATE = 3;
     private static final int MEDIA_SEEK_COMPLETE = 4;
+<<<<<<< HEAD
     private static final int MEDIA_SET_VIDEO_SIZE = 5;
     private static final int MEDIA_TIMED_TEXT = 99;
     private static final int MEDIA_ERROR = 100;
     private static final int MEDIA_INFO = 200;
+=======
+    private static final int MEDIA_ERROR = 100;
+
+    // error codes from framework that indicate content issues
+    // contained in arg1 of error message
+
+    // Seek not supported - live stream
+    private static final int ERROR_SEEK_NOT_SUPPORTED = 42;
+
+    // A/V interleave exceeds the progressive streaming buffer
+    private static final int ERROR_CONTENT_IS_POORLY_INTERLEAVED = 43;
+
+    // video decoder is falling behind - content is too complex
+    private static final int ERROR_VIDEO_TRACK_IS_FALLING_BEHIND = 44;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private class EventHandler extends Handler
     {
@@ -1991,11 +2365,14 @@ public class MediaPlayer
                   mOnSeekCompleteListener.onSeekComplete(mMediaPlayer);
               return;
 
+<<<<<<< HEAD
             case MEDIA_SET_VIDEO_SIZE:
               if (mOnVideoSizeChangedListener != null)
                   mOnVideoSizeChangedListener.onVideoSizeChanged(mMediaPlayer, msg.arg1, msg.arg2);
               return;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             case MEDIA_ERROR:
                 Log.e(TAG, "Error (" + msg.arg1 + "," + msg.arg2 + ")");
                 boolean error_was_handled = false;
@@ -2007,6 +2384,7 @@ public class MediaPlayer
                 }
                 stayAwake(false);
                 return;
+<<<<<<< HEAD
 
             case MEDIA_INFO:
                 if (msg.arg1 != MEDIA_INFO_VIDEO_TRACK_LAGGING) {
@@ -2032,6 +2410,8 @@ public class MediaPlayer
                 }
                 return;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             case MEDIA_NOP: // interface test message - ignore
                 break;
 
@@ -2042,7 +2422,11 @@ public class MediaPlayer
         }
     }
 
+<<<<<<< HEAD
     /*
+=======
+    /**
+>>>>>>> 54b6cfa... Initial Contribution
      * Called from native code when an interesting event happens.  This method
      * just uses the EventHandler system to post the event back to the main app thread.
      * We use a weak reference to the original MediaPlayer object so that the native
@@ -2057,10 +2441,13 @@ public class MediaPlayer
             return;
         }
 
+<<<<<<< HEAD
         if (what == MEDIA_INFO && arg1 == MEDIA_INFO_STARTED_AS_NEXT) {
             // this acquires the wakelock if needed, and sets the client side state
             mp.start();
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (mp.mEventHandler != null) {
             Message m = mp.mEventHandler.obtainMessage(what, arg1, arg2, obj);
             mp.mEventHandler.sendMessage(m);
@@ -2069,19 +2456,28 @@ public class MediaPlayer
 
     /**
      * Interface definition for a callback to be invoked when the media
+<<<<<<< HEAD
      * source is ready for playback.
+=======
+     * file is ready for playback.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public interface OnPreparedListener
     {
         /**
          * Called when the media file is ready for playback.
+<<<<<<< HEAD
          *
+=======
+         * 
+>>>>>>> 54b6cfa... Initial Contribution
          * @param mp the MediaPlayer that is ready for playback
          */
         void onPrepared(MediaPlayer mp);
     }
 
     /**
+<<<<<<< HEAD
      * Register a callback to be invoked when the media source is ready
      * for playback.
      *
@@ -2090,25 +2486,45 @@ public class MediaPlayer
     public void setOnPreparedListener(OnPreparedListener listener)
     {
         mOnPreparedListener = listener;
+=======
+     * Register a callback to be invoked when the media file is ready
+     * for playback.
+     *
+     * @param l the callback that will be run
+     */
+    public void setOnPreparedListener(OnPreparedListener l)
+    {
+        mOnPreparedListener = l;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private OnPreparedListener mOnPreparedListener;
 
     /**
      * Interface definition for a callback to be invoked when playback of
+<<<<<<< HEAD
      * a media source has completed.
+=======
+     * a media file has completed.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public interface OnCompletionListener
     {
         /**
+<<<<<<< HEAD
          * Called when the end of a media source is reached during playback.
          *
+=======
+         * Called when the end of a media file is reached during playback.
+         * 
+>>>>>>> 54b6cfa... Initial Contribution
          * @param mp the MediaPlayer that reached the end of the file
          */
         void onCompletion(MediaPlayer mp);
     }
 
     /**
+<<<<<<< HEAD
      * Register a callback to be invoked when the end of a media source
      * has been reached during playback.
      *
@@ -2117,6 +2533,16 @@ public class MediaPlayer
     public void setOnCompletionListener(OnCompletionListener listener)
     {
         mOnCompletionListener = listener;
+=======
+     * Register a callback to be invoked when the end of a media file
+     * has been reached during playback.
+     *
+     * @param l the callback that will be run
+     */
+    public void setOnCompletionListener(OnCompletionListener l)
+    {
+        mOnCompletionListener = l;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private OnCompletionListener mOnCompletionListener;
@@ -2128,6 +2554,7 @@ public class MediaPlayer
     public interface OnBufferingUpdateListener
     {
         /**
+<<<<<<< HEAD
          * Called to update status in buffering a media stream received through
          * progressive HTTP download. The received buffering percentage
          * indicates how much of the content has been buffered or played.
@@ -2142,10 +2569,22 @@ public class MediaPlayer
         void onBufferingUpdate(MediaPlayer mp, int percent);
     }
 
+=======
+         * Called to update status in buffering a media stream.
+         * 
+         * @param mp      the MediaPlayer the update pertains to
+         * @param percent the percentage (0-100) of the buffer
+         *                that has been filled thus far
+         */
+        void onBufferingUpdate(MediaPlayer mp, int percent);
+    }
+   
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Register a callback to be invoked when the status of a network
      * stream's buffer has changed.
      *
+<<<<<<< HEAD
      * @param listener the callback that will be run.
      */
     public void setOnBufferingUpdateListener(OnBufferingUpdateListener listener)
@@ -2155,6 +2594,17 @@ public class MediaPlayer
 
     private OnBufferingUpdateListener mOnBufferingUpdateListener;
 
+=======
+     * @param l the callback that will be run
+     */
+    public void setOnBufferingUpdateListener(OnBufferingUpdateListener l)
+    {
+        mOnBufferingUpdateListener = l;
+    }
+
+    private OnBufferingUpdateListener mOnBufferingUpdateListener;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Interface definition of a callback to be invoked indicating
      * the completion of a seek operation.
@@ -2163,11 +2613,16 @@ public class MediaPlayer
     {
         /**
          * Called to indicate the completion of a seek operation.
+<<<<<<< HEAD
          *
+=======
+         * 
+>>>>>>> 54b6cfa... Initial Contribution
          * @param mp the MediaPlayer that issued the seek operation
          */
         public void onSeekComplete(MediaPlayer mp);
     }
+<<<<<<< HEAD
 
     /**
      * Register a callback to be invoked when a seek operation has been
@@ -2264,6 +2719,31 @@ public class MediaPlayer
      * @see android.media.MediaPlayer.OnErrorListener
      */
     public static final int MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK = 200;
+=======
+    
+    /**
+     * Register a callback to be invoked when a seek operation has been
+     * completed.
+     * 
+     * @param l the callback that will be run
+     */
+    public void setOnSeekCompleteListener(OnSeekCompleteListener l)
+    {
+        mOnSeekCompleteListener = l;
+    }
+    
+    private OnSeekCompleteListener mOnSeekCompleteListener;
+
+    /* Do not change these values without updating their counterparts
+     * in include/media/mediaplayer.h!
+     */
+    /** Unspecified media player error.  @see #OnErrorListener */
+    public static final int MEDIA_ERROR_UNKNOWN = 1;
+    /** Media server died. In this case, the application must release the
+     * MediaPlayer object and instantiate a new one. @see #OnErrorListener */
+    public static final int MEDIA_ERROR_SERVER_DIED = 100;
+    
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Interface definition of a callback to be invoked when there
@@ -2274,21 +2754,30 @@ public class MediaPlayer
     {
         /**
          * Called to indicate an error.
+<<<<<<< HEAD
          *
+=======
+         * 
+>>>>>>> 54b6cfa... Initial Contribution
          * @param mp      the MediaPlayer the error pertains to
          * @param what    the type of error that has occurred:
          * <ul>
          * <li>{@link #MEDIA_ERROR_UNKNOWN}
          * <li>{@link #MEDIA_ERROR_SERVER_DIED}
          * </ul>
+<<<<<<< HEAD
          * @param extra an extra code, specific to the error. Typically
          * implementation dependant.
+=======
+         * @param extra   an extra code, specific to the error type
+>>>>>>> 54b6cfa... Initial Contribution
          * @return True if the method handled the error, false if it didn't.
          * Returning false, or not having an OnErrorListener at all, will
          * cause the OnCompletionListener to be called.
          */
         boolean onError(MediaPlayer mp, int what, int extra);
     }
+<<<<<<< HEAD
 
     /**
      * Register a callback to be invoked when an error has happened
@@ -2408,4 +2897,19 @@ public class MediaPlayer
         return (mode == VIDEO_SCALING_MODE_SCALE_TO_FIT ||
                 mode == VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
     }
+=======
+   
+    /**
+     * Register a callback to be invoked when an error has happened
+     * during an asynchronous operation.
+     * 
+     * @param l the callback that will be run
+     */
+    public void setOnErrorListener(OnErrorListener l)
+    {
+        mOnErrorListener = l;
+    }
+
+    private OnErrorListener mOnErrorListener;
+>>>>>>> 54b6cfa... Initial Contribution
 }

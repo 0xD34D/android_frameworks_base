@@ -214,16 +214,23 @@ public class MatrixCursor extends AbstractCursor {
 
     // AbstractCursor implementation.
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getCount() {
         return rowCount;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public String[] getColumnNames() {
         return columnNames;
     }
 
+<<<<<<< HEAD
     @Override
     public String getString(int column) {
         Object value = get(column);
@@ -283,6 +290,47 @@ public class MatrixCursor extends AbstractCursor {
     }
 
     @Override
+=======
+    public String getString(int column) {
+        return String.valueOf(get(column));
+    }
+
+    public short getShort(int column) {
+        Object value = get(column);
+        return (value instanceof String)
+                ? Short.valueOf((String) value)
+                : ((Number) value).shortValue();
+    }
+
+    public int getInt(int column) {
+        Object value = get(column);
+        return (value instanceof String)
+                ? Integer.valueOf((String) value)
+                : ((Number) value).intValue();
+    }
+
+    public long getLong(int column) {
+        Object value = get(column);
+        return (value instanceof String)
+                ? Long.valueOf((String) value)
+                : ((Number) value).longValue();
+    }
+
+    public float getFloat(int column) {
+        Object value = get(column);
+        return (value instanceof String)
+                ? Float.valueOf((String) value)
+                : ((Number) value).floatValue();
+    }
+
+    public double getDouble(int column) {
+        Object value = get(column);
+        return (value instanceof String)
+                ? Double.valueOf((String) value)
+                : ((Number) value).doubleValue();
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean isNull(int column) {
         return get(column) == null;
     }

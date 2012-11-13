@@ -3,7 +3,10 @@
 //
 
 #include "AaptAssets.h"
+<<<<<<< HEAD
 #include "ResourceFilter.h"
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #include "Main.h"
 
 #include <utils/misc.h>
@@ -17,9 +20,14 @@ static const char* kDefaultLocale = "default";
 static const char* kWildcardName = "any";
 static const char* kAssetDir = "assets";
 static const char* kResourceDir = "res";
+<<<<<<< HEAD
 static const char* kValuesDir = "values";
 static const char* kMipmapDir = "mipmap";
 static const char* kInvalidChars = "/\\:";
+=======
+static const char* kInvalidChars = "/\\:";
+static const char* kExcludeExtension = ".EXCLUDE";
+>>>>>>> 54b6cfa... Initial Contribution
 static const size_t kMaxAssetFileName = 100;
 
 static const String8 kResString(kResourceDir);
@@ -56,6 +64,7 @@ static bool validateFileName(const char* fileName)
     return true;
 }
 
+<<<<<<< HEAD
 // The default to use if no other ignore pattern is defined.
 const char * const gDefaultIgnoreAssets =
     "!.svn:!.git:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*.scc:*~";
@@ -145,6 +154,55 @@ static bool isHidden(const char *root, const char *path)
     return ignore;
 }
 
+=======
+static bool isHidden(const char *root, const char *path)
+{
+    const char *type = NULL;
+
+    // Skip all hidden files.
+    if (path[0] == '.') {
+        // Skip ., .. and  .svn but don't chatter about it.
+        if (strcmp(path, ".") == 0
+            || strcmp(path, "..") == 0
+            || strcmp(path, ".svn") == 0) {
+            return true;
+        }
+        type = "hidden";
+    } else if (path[0] == '_') {
+        // skip directories starting with _ (don't chatter about it)
+        String8 subdirName(root);
+        subdirName.appendPath(path);
+        if (getFileType(subdirName.string()) == kFileTypeDirectory) {
+            return true;
+        }
+    } else if (strcmp(path, "CVS") == 0) {
+        // Skip CVS but don't chatter about it.
+        return true;
+    } else if (strcasecmp(path, "thumbs.db") == 0
+               || strcasecmp(path, "picassa.ini") == 0) {
+        // Skip suspected image indexes files.
+        type = "index";
+    } else if (path[strlen(path)-1] == '~') {
+        // Skip suspected emacs backup files.
+        type = "backup";
+    } else {
+        // Let everything else through.
+        return false;
+    }
+
+    /* If we get this far, "type" should be set and the file
+     * should be skipped.
+     */
+    String8 subdirName(root);
+    subdirName.appendPath(path);
+    fprintf(stderr, "    (skipping %s %s '%s')\n", type,
+            getFileType(subdirName.string())==kFileTypeDirectory ? "dir":"file",
+            subdirName.string());
+
+    return true;
+}
+ 
+>>>>>>> 54b6cfa... Initial Contribution
 // =========================================================================
 // =========================================================================
 // =========================================================================
@@ -183,6 +241,7 @@ AaptGroupEntry::parseNamePart(const String8& part, int* axis, uint32_t* value)
         return 0;
     }
 
+<<<<<<< HEAD
     // smallest screen dp width
     if (getSmallestScreenWidthDpName(part.string(), &config)) {
         *axis = AXIS_SMALLESTSCREENWIDTHDP;
@@ -218,6 +277,8 @@ AaptGroupEntry::parseNamePart(const String8& part, int* axis, uint32_t* value)
         return 0;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // orientation
     if (getOrientationName(part.string(), &config)) {
         *axis = AXIS_ORIENTATION;
@@ -225,6 +286,7 @@ AaptGroupEntry::parseNamePart(const String8& part, int* axis, uint32_t* value)
         return 0;
     }
 
+<<<<<<< HEAD
     // ui mode type
     if (getUiModeTypeName(part.string(), &config)) {
         *axis = AXIS_UIMODETYPE;
@@ -239,6 +301,8 @@ AaptGroupEntry::parseNamePart(const String8& part, int* axis, uint32_t* value)
         return 0;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // density
     if (getDensityName(part.string(), &config)) {
         *axis = AXIS_DENSITY;
@@ -252,20 +316,29 @@ AaptGroupEntry::parseNamePart(const String8& part, int* axis, uint32_t* value)
         *value = config.touchscreen;
         return 0;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // keyboard hidden
     if (getKeysHiddenName(part.string(), &config)) {
         *axis = AXIS_KEYSHIDDEN;
         *value = config.inputFlags;
         return 0;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // keyboard
     if (getKeyboardName(part.string(), &config)) {
         *axis = AXIS_KEYBOARD;
         *value = config.keyboard;
         return 0;
     }
+<<<<<<< HEAD
 
     // navigation hidden
     if (getNavHiddenName(part.string(), &config)) {
@@ -274,13 +347,20 @@ AaptGroupEntry::parseNamePart(const String8& part, int* axis, uint32_t* value)
         return 0;
     }
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // navigation
     if (getNavigationName(part.string(), &config)) {
         *axis = AXIS_NAVIGATION;
         *value = config.navigation;
         return 0;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // screen size
     if (getScreenSizeName(part.string(), &config)) {
         *axis = AXIS_SCREENSIZE;
@@ -298,6 +378,7 @@ AaptGroupEntry::parseNamePart(const String8& part, int* axis, uint32_t* value)
     return 1;
 }
 
+<<<<<<< HEAD
 uint32_t
 AaptGroupEntry::getConfigValueForAxis(const ResTable_config& config, int axis)
 {
@@ -366,6 +447,14 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     String8 mcc, mnc, loc, layoutsize, layoutlong, orient, den;
     String8 touch, key, keysHidden, nav, navHidden, size, vers;
     String8 uiModeType, uiModeNight, smallestwidthdp, widthdp, heightdp;
+=======
+bool
+AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
+{
+    Vector<String8> parts;
+
+    String8 mcc, mnc, loc, orient, den, touch, key, keysHidden, nav, size, vers;
+>>>>>>> 54b6cfa... Initial Contribution
 
     const char *p = dir;
     const char *q;
@@ -452,6 +541,7 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
         //printf("not region: %s\n", part.string());
     }
 
+<<<<<<< HEAD
     if (getSmallestScreenWidthDpName(part.string())) {
         smallestwidthdp = part;
 
@@ -512,6 +602,8 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
         //printf("not screen layout long: %s\n", part.string());
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // orientation
     if (getOrientationName(part.string())) {
         orient = part;
@@ -525,6 +617,7 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
         //printf("not orientation: %s\n", part.string());
     }
 
+<<<<<<< HEAD
     // ui mode type
     if (getUiModeTypeName(part.string())) {
         uiModeType = part;
@@ -551,6 +644,8 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
         //printf("not ui mode night: %s\n", part.string());
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // density
     if (getDensityName(part.string())) {
         den = part;
@@ -567,7 +662,11 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     // touchscreen
     if (getTouchscreenName(part.string())) {
         touch = part;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         index++;
         if (index == N) {
             goto success;
@@ -576,11 +675,19 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     } else {
         //printf("not touchscreen: %s\n", part.string());
     }
+<<<<<<< HEAD
 
     // keyboard hidden
     if (getKeysHiddenName(part.string())) {
         keysHidden = part;
 
+=======
+    
+    // keyboard hidden
+    if (getKeysHiddenName(part.string())) {
+        keysHidden = part;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         index++;
         if (index == N) {
             goto success;
@@ -589,11 +696,19 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     } else {
         //printf("not keysHidden: %s\n", part.string());
     }
+<<<<<<< HEAD
 
     // keyboard
     if (getKeyboardName(part.string())) {
         key = part;
 
+=======
+    
+    // keyboard
+    if (getKeyboardName(part.string())) {
+        key = part;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         index++;
         if (index == N) {
             goto success;
@@ -602,6 +717,7 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     } else {
         //printf("not keyboard: %s\n", part.string());
     }
+<<<<<<< HEAD
 
     // navigation hidden
     if (getNavHiddenName(part.string())) {
@@ -619,6 +735,12 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     if (getNavigationName(part.string())) {
         nav = part;
 
+=======
+    
+    if (getNavigationName(part.string())) {
+        nav = part;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         index++;
         if (index == N) {
             goto success;
@@ -627,10 +749,17 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     } else {
         //printf("not navigation: %s\n", part.string());
     }
+<<<<<<< HEAD
 
     if (getScreenSizeName(part.string())) {
         size = part;
 
+=======
+    
+    if (getScreenSizeName(part.string())) {
+        size = part;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         index++;
         if (index == N) {
             goto success;
@@ -639,10 +768,17 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     } else {
         //printf("not screen size: %s\n", part.string());
     }
+<<<<<<< HEAD
 
     if (getVersionName(part.string())) {
         vers = part;
 
+=======
+    
+    if (getVersionName(part.string())) {
+        vers = part;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         index++;
         if (index == N) {
             goto success;
@@ -651,7 +787,11 @@ AaptGroupEntry::initFromDirName(const char* dir, String8* resType)
     } else {
         //printf("not version: %s\n", part.string());
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // if there are extra parts, it doesn't match
     return false;
 
@@ -659,6 +799,7 @@ success:
     this->mcc = mcc;
     this->mnc = mnc;
     this->locale = loc;
+<<<<<<< HEAD
     this->screenLayoutSize = layoutsize;
     this->screenLayoutLong = layoutlong;
     this->smallestScreenWidthDp = smallestwidthdp;
@@ -667,11 +808,17 @@ success:
     this->orientation = orient;
     this->uiModeType = uiModeType;
     this->uiModeNight = uiModeNight;
+=======
+    this->orientation = orient;
+>>>>>>> 54b6cfa... Initial Contribution
     this->density = den;
     this->touchscreen = touch;
     this->keysHidden = keysHidden;
     this->keyboard = key;
+<<<<<<< HEAD
     this->navHidden = navHidden;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     this->navigation = nav;
     this->screenSize = size;
     this->version = vers;
@@ -691,6 +838,7 @@ AaptGroupEntry::toString() const
     s += ",";
     s += this->locale;
     s += ",";
+<<<<<<< HEAD
     s += smallestScreenWidthDp;
     s += ",";
     s += screenWidthDp;
@@ -707,6 +855,10 @@ AaptGroupEntry::toString() const
     s += ",";
     s += uiModeNight;
     s += ",";
+=======
+    s += this->orientation;
+    s += ",";
+>>>>>>> 54b6cfa... Initial Contribution
     s += density;
     s += ",";
     s += touchscreen;
@@ -715,8 +867,11 @@ AaptGroupEntry::toString() const
     s += ",";
     s += keyboard;
     s += ",";
+<<<<<<< HEAD
     s += navHidden;
     s += ",";
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     s += navigation;
     s += ",";
     s += screenSize;
@@ -730,6 +885,7 @@ AaptGroupEntry::toDirName(const String8& resType) const
 {
     String8 s = resType;
     if (this->mcc != "") {
+<<<<<<< HEAD
         if (s.length() > 0) {
             s += "-";
         }
@@ -844,6 +1000,52 @@ AaptGroupEntry::toDirName(const String8& resType) const
         s += version;
     }
 
+=======
+        s += "-";
+        s += mcc;
+    }
+    if (this->mnc != "") {
+        s += "-";
+        s += mnc;
+    }
+    if (this->locale != "") {
+        s += "-";
+        s += locale;
+    }
+    if (this->orientation != "") {
+        s += "-";
+        s += orientation;
+    }
+    if (this->density != "") {
+        s += "-";
+        s += density;
+    }
+    if (this->touchscreen != "") {
+        s += "-";
+        s += touchscreen;
+    }
+    if (this->keysHidden != "") {
+        s += "-";
+        s += keysHidden;
+    }
+    if (this->keyboard != "") {
+        s += "-";
+        s += keyboard;
+    }
+    if (this->navigation != "") {
+        s += "-";
+        s += navigation;
+    }
+    if (this->screenSize != "") {
+        s += "-";
+        s += screenSize;
+    }
+    if (this->version != "") {
+        s += "-";
+        s += version;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     return s;
 }
 
@@ -861,9 +1063,15 @@ bool AaptGroupEntry::getMccName(const char* name,
     c++;
     if (tolower(*c) != 'c') return false;
     c++;
+<<<<<<< HEAD
 
     const char* val = c;
 
+=======
+    
+    const char* val = c;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     while (*c >= '0' && *c <= '9') {
         c++;
     }
@@ -893,20 +1101,36 @@ bool AaptGroupEntry::getMncName(const char* name,
     c++;
     if (tolower(*c) != 'c') return false;
     c++;
+<<<<<<< HEAD
 
     const char* val = c;
 
+=======
+    
+    const char* val = c;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     while (*c >= '0' && *c <= '9') {
         c++;
     }
     if (*c != 0) return false;
     if (c-val == 0 || c-val > 3) return false;
 
+<<<<<<< HEAD
     if (out) {
         out->mnc = atoi(val);
     }
 
     return true;
+=======
+    int d = atoi(val);
+    if (d != 0) {
+        if (out) out->mnc = d;
+        return true;
+    }
+
+    return false;
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /*
@@ -958,6 +1182,7 @@ bool AaptGroupEntry::getLocaleName(const char* fileName,
     return false;
 }
 
+<<<<<<< HEAD
 bool AaptGroupEntry::getScreenLayoutSizeName(const char* name,
                                      ResTable_config* out)
 {
@@ -1014,6 +1239,8 @@ bool AaptGroupEntry::getScreenLayoutLongName(const char* name,
     return false;
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 bool AaptGroupEntry::getOrientationName(const char* name,
                                         ResTable_config* out)
 {
@@ -1026,6 +1253,7 @@ bool AaptGroupEntry::getOrientationName(const char* name,
     } else if (strcmp(name, "land") == 0) {
         if (out) out->orientation = out->ORIENTATION_LAND;
         return true;
+<<<<<<< HEAD
     } else if (strcmp(name, "square") == 0) {
         if (out) out->orientation = out->ORIENTATION_SQUARE;
         return true;
@@ -1133,6 +1361,23 @@ bool AaptGroupEntry::getDensityName(const char* name,
         return true;
     }
 
+=======
+    } else if (strcmp(name, "square") == 0) {
+        if (out) out->orientation = out->ORIENTATION_SQUARE;
+        return true;
+    }
+    
+    return false;
+}
+
+bool AaptGroupEntry::getDensityName(const char* name,
+                                    ResTable_config* out)
+{
+    if (strcmp(name, kWildcardName) == 0) {
+        if (out) out->density = 0;
+        return true;
+    }
+>>>>>>> 54b6cfa... Initial Contribution
     char* c = (char*)name;
     while (*c >= '0' && *c <= '9') {
         c++;
@@ -1178,7 +1423,11 @@ bool AaptGroupEntry::getTouchscreenName(const char* name,
         if (out) out->touchscreen = out->TOUCHSCREEN_FINGER;
         return true;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     return false;
 }
 
@@ -1188,6 +1437,7 @@ bool AaptGroupEntry::getKeysHiddenName(const char* name,
     uint8_t mask = 0;
     uint8_t value = 0;
     if (strcmp(name, kWildcardName) == 0) {
+<<<<<<< HEAD
         mask = ResTable_config::MASK_KEYSHIDDEN;
         value = ResTable_config::KEYSHIDDEN_ANY;
     } else if (strcmp(name, "keysexposed") == 0) {
@@ -1201,11 +1451,27 @@ bool AaptGroupEntry::getKeysHiddenName(const char* name,
         value = ResTable_config::KEYSHIDDEN_SOFT;
     }
 
+=======
+        mask = out->MASK_KEYSHIDDEN;
+        value = out->KEYSHIDDEN_ANY;
+    } else if (strcmp(name, "keysexposed") == 0) {
+        mask = out->MASK_KEYSHIDDEN;
+        value = out->KEYSHIDDEN_NO;
+    } else if (strcmp(name, "keyshidden") == 0) {
+        mask = out->MASK_KEYSHIDDEN;
+        value = out->KEYSHIDDEN_YES;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     if (mask != 0) {
         if (out) out->inputFlags = (out->inputFlags&~mask) | value;
         return true;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     return false;
 }
 
@@ -1225,6 +1491,7 @@ bool AaptGroupEntry::getKeyboardName(const char* name,
         if (out) out->keyboard = out->KEYBOARD_12KEY;
         return true;
     }
+<<<<<<< HEAD
 
     return false;
 }
@@ -1250,6 +1517,9 @@ bool AaptGroupEntry::getNavHiddenName(const char* name,
         return true;
     }
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     return false;
 }
 
@@ -1272,11 +1542,20 @@ bool AaptGroupEntry::getNavigationName(const char* name,
         if (out) out->navigation = out->NAVIGATION_WHEEL;
         return true;
     }
+<<<<<<< HEAD
 
     return false;
 }
 
 bool AaptGroupEntry::getScreenSizeName(const char* name, ResTable_config* out)
+=======
+    
+    return false;
+}
+
+bool AaptGroupEntry::getScreenSizeName(const char* name,
+                                       ResTable_config* out)
+>>>>>>> 54b6cfa... Initial Contribution
 {
     if (strcmp(name, kWildcardName) == 0) {
         if (out) {
@@ -1285,28 +1564,45 @@ bool AaptGroupEntry::getScreenSizeName(const char* name, ResTable_config* out)
         }
         return true;
     }
+<<<<<<< HEAD
 
+=======
+     
+>>>>>>> 54b6cfa... Initial Contribution
     const char* x = name;
     while (*x >= '0' && *x <= '9') x++;
     if (x == name || *x != 'x') return false;
     String8 xName(name, x-name);
     x++;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     const char* y = x;
     while (*y >= '0' && *y <= '9') y++;
     if (y == name || *y != 0) return false;
     String8 yName(x, y-x);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     uint16_t w = (uint16_t)atoi(xName.string());
     uint16_t h = (uint16_t)atoi(yName.string());
     if (w < h) {
         return false;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     if (out) {
         out->screenWidth = w;
         out->screenHeight = h;
     }
+<<<<<<< HEAD
 
     return true;
 }
@@ -1383,6 +1679,14 @@ bool AaptGroupEntry::getScreenHeightDpName(const char* name, ResTable_config* ou
 }
 
 bool AaptGroupEntry::getVersionName(const char* name, ResTable_config* out)
+=======
+    
+    return true;
+}
+
+bool AaptGroupEntry::getVersionName(const char* name,
+                                    ResTable_config* out)
+>>>>>>> 54b6cfa... Initial Contribution
 {
     if (strcmp(name, kWildcardName) == 0) {
         if (out) {
@@ -1391,22 +1695,38 @@ bool AaptGroupEntry::getVersionName(const char* name, ResTable_config* out)
         }
         return true;
     }
+<<<<<<< HEAD
 
     if (*name != 'v') {
         return false;
     }
 
+=======
+    
+    if (*name != 'v') {
+        return false;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     name++;
     const char* s = name;
     while (*s >= '0' && *s <= '9') s++;
     if (s == name || *s != 0) return false;
     String8 sdkName(name, s-name);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     if (out) {
         out->sdkVersion = (uint16_t)atoi(sdkName.string());
         out->minorVersion = 0;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     return true;
 }
 
@@ -1416,6 +1736,7 @@ int AaptGroupEntry::compare(const AaptGroupEntry& o) const
     if (v == 0) v = mnc.compare(o.mnc);
     if (v == 0) v = locale.compare(o.locale);
     if (v == 0) v = vendor.compare(o.vendor);
+<<<<<<< HEAD
     if (v == 0) v = smallestScreenWidthDp.compare(o.smallestScreenWidthDp);
     if (v == 0) v = screenWidthDp.compare(o.screenWidthDp);
     if (v == 0) v = screenHeightDp.compare(o.screenHeightDp);
@@ -1424,17 +1745,24 @@ int AaptGroupEntry::compare(const AaptGroupEntry& o) const
     if (v == 0) v = orientation.compare(o.orientation);
     if (v == 0) v = uiModeType.compare(o.uiModeType);
     if (v == 0) v = uiModeNight.compare(o.uiModeNight);
+=======
+    if (v == 0) v = orientation.compare(o.orientation);
+>>>>>>> 54b6cfa... Initial Contribution
     if (v == 0) v = density.compare(o.density);
     if (v == 0) v = touchscreen.compare(o.touchscreen);
     if (v == 0) v = keysHidden.compare(o.keysHidden);
     if (v == 0) v = keyboard.compare(o.keyboard);
+<<<<<<< HEAD
     if (v == 0) v = navHidden.compare(o.navHidden);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     if (v == 0) v = navigation.compare(o.navigation);
     if (v == 0) v = screenSize.compare(o.screenSize);
     if (v == 0) v = version.compare(o.version);
     return v;
 }
 
+<<<<<<< HEAD
 const ResTable_config& AaptGroupEntry::toParams() const
 {
     if (!mParamsChanged) {
@@ -1443,10 +1771,16 @@ const ResTable_config& AaptGroupEntry::toParams() const
 
     mParamsChanged = false;
     ResTable_config& params(mParams);
+=======
+ResTable_config AaptGroupEntry::toParams() const
+{
+    ResTable_config params;
+>>>>>>> 54b6cfa... Initial Contribution
     memset(&params, 0, sizeof(params));
     getMccName(mcc.string(), &params);
     getMncName(mnc.string(), &params);
     getLocaleName(locale.string(), &params);
+<<<<<<< HEAD
     getSmallestScreenWidthDpName(smallestScreenWidthDp.string(), &params);
     getScreenWidthDpName(screenWidthDp.string(), &params);
     getScreenHeightDpName(screenHeightDp.string(), &params);
@@ -1455,10 +1789,14 @@ const ResTable_config& AaptGroupEntry::toParams() const
     getOrientationName(orientation.string(), &params);
     getUiModeTypeName(uiModeType.string(), &params);
     getUiModeNightName(uiModeNight.string(), &params);
+=======
+    getOrientationName(orientation.string(), &params);
+>>>>>>> 54b6cfa... Initial Contribution
     getDensityName(density.string(), &params);
     getTouchscreenName(touchscreen.string(), &params);
     getKeysHiddenName(keysHidden.string(), &params);
     getKeyboardName(keyboard.string(), &params);
+<<<<<<< HEAD
     getNavHiddenName(navHidden.string(), &params);
     getNavigationName(navigation.string(), &params);
     getScreenSizeName(screenSize.string(), &params);
@@ -1487,6 +1825,11 @@ const ResTable_config& AaptGroupEntry::toParams() const
         params.sdkVersion = minSdk;
     }
     
+=======
+    getNavigationName(navigation.string(), &params);
+    getScreenSizeName(screenSize.string(), &params);
+    getVersionName(version.string(), &params);
+>>>>>>> 54b6cfa... Initial Contribution
     return params;
 }
 
@@ -1557,7 +1900,12 @@ void AaptFile::clearData()
 String8 AaptFile::getPrintableSource() const
 {
     if (hasData()) {
+<<<<<<< HEAD
         String8 name(mGroupEntry.toDirName(String8()));
+=======
+        String8 name(mGroupEntry.locale.string());
+        name.appendPath(mGroupEntry.vendor.string());
+>>>>>>> 54b6cfa... Initial Contribution
         name.appendPath(mPath);
         name.append(" #generated");
         return name;
@@ -1577,6 +1925,7 @@ status_t AaptGroup::addFile(const sp<AaptFile>& file)
         return NO_ERROR;
     }
 
+<<<<<<< HEAD
 #if 0
     printf("Error adding file %s: group %s already exists in leaf=%s path=%s\n",
             file->getSourceFile().string(),
@@ -1584,6 +1933,8 @@ status_t AaptGroup::addFile(const sp<AaptFile>& file)
             mLeaf.string(), mPath.string());
 #endif
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     SourcePos(file->getSourceFile(), -1).error("Duplicate file.\n%s: Original is here.",
                                                getPrintableSource().string());
     return UNKNOWN_ERROR;
@@ -1594,15 +1945,22 @@ void AaptGroup::removeFile(size_t index)
 	mFiles.removeItemsAt(index);
 }
 
+<<<<<<< HEAD
 void AaptGroup::print(const String8& prefix) const
 {
     printf("%s%s\n", prefix.string(), getPath().string());
+=======
+void AaptGroup::print() const
+{
+    printf("  %s\n", getPath().string());
+>>>>>>> 54b6cfa... Initial Contribution
     const size_t N=mFiles.size();
     size_t i;
     for (i=0; i<N; i++) {
         sp<AaptFile> file = mFiles.valueAt(i);
         const AaptGroupEntry& e = file->getGroupEntry();
         if (file->hasData()) {
+<<<<<<< HEAD
             printf("%s  Gen: (%s) %d bytes\n", prefix.string(), e.toDirName(String8()).string(),
                     (int)file->getSize());
         } else {
@@ -1611,6 +1969,13 @@ void AaptGroup::print(const String8& prefix) const
         }
         //printf("%s  File Group Entry: %s\n", prefix.string(),
         //        file->getGroupEntry().toDirName(String8()).string());
+=======
+            printf("      Gen: (%s) %d bytes\n", e.toString().string(),
+                    (int)file->getSize());
+        } else {
+            printf("      Src: %s\n", file->getPrintableSource().string());
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }
 
@@ -1677,6 +2042,41 @@ void AaptDir::removeDir(const String8& name)
     mDirs.removeItem(name);
 }
 
+<<<<<<< HEAD
+=======
+status_t AaptDir::renameFile(const sp<AaptFile>& file, const String8& newName)
+{
+	sp<AaptGroup> origGroup;
+
+	// Find and remove the given file with shear, brute force!
+	const size_t NG = mFiles.size();
+	size_t i;
+	for (i=0; origGroup == NULL && i<NG; i++) {
+		sp<AaptGroup> g = mFiles.valueAt(i);
+		const size_t NF = g->getFiles().size();
+		for (size_t j=0; j<NF; j++) {
+			if (g->getFiles().valueAt(j) == file) {
+				origGroup = g;
+				g->removeFile(j);
+				if (NF == 1) {
+					mFiles.removeItemsAt(i);
+				}
+				break;
+			}
+		}
+	}
+
+	//printf("Renaming %s to %s\n", file->getPath().getPathName(), newName.string());
+
+	// Place the file under its new name.
+	if (origGroup != NULL) {
+		return addLeafFile(newName, file);
+	}
+
+	return NO_ERROR;
+}
+
+>>>>>>> 54b6cfa... Initial Contribution
 status_t AaptDir::addLeafFile(const String8& leafName, const sp<AaptFile>& file)
 {
     sp<AaptGroup> group;
@@ -1691,6 +2091,7 @@ status_t AaptDir::addLeafFile(const String8& leafName, const sp<AaptFile>& file)
 }
 
 ssize_t AaptDir::slurpFullTree(Bundle* bundle, const String8& srcDir,
+<<<<<<< HEAD
                             const AaptGroupEntry& kind, const String8& resType,
                             sp<FilePathStore>& fullResPaths)
 {
@@ -1698,17 +2099,31 @@ ssize_t AaptDir::slurpFullTree(Bundle* bundle, const String8& srcDir,
     {
         DIR* dir = NULL;
 
+=======
+                            const AaptGroupEntry& kind, const String8& resType)
+{
+    Vector<String8> fileNames;
+
+    {
+        DIR* dir = NULL;
+    
+>>>>>>> 54b6cfa... Initial Contribution
         dir = opendir(srcDir.string());
         if (dir == NULL) {
             fprintf(stderr, "ERROR: opendir(%s): %s\n", srcDir.string(), strerror(errno));
             return UNKNOWN_ERROR;
         }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
         /*
          * Slurp the filenames out of the directory.
          */
         while (1) {
             struct dirent* entry;
+<<<<<<< HEAD
 
             entry = readdir(dir);
             if (entry == NULL)
@@ -1725,6 +2140,19 @@ ssize_t AaptDir::slurpFullTree(Bundle* bundle, const String8& srcDir,
                 fullResPaths->add(srcDir.appendPathCopy(name));
             }
         }
+=======
+    
+            entry = readdir(dir);
+            if (entry == NULL)
+                break;
+  
+            if (isHidden(srcDir.string(), entry->d_name))
+                continue;
+
+            fileNames.add(String8(entry->d_name));
+        }
+    
+>>>>>>> 54b6cfa... Initial Contribution
         closedir(dir);
     }
 
@@ -1751,7 +2179,11 @@ ssize_t AaptDir::slurpFullTree(Bundle* bundle, const String8& srcDir,
                 notAdded = true;
             }
             ssize_t res = subdir->slurpFullTree(bundle, pathName, kind,
+<<<<<<< HEAD
                                                 resType, fullResPaths);
+=======
+                                                resType);
+>>>>>>> 54b6cfa... Initial Contribution
             if (res < NO_ERROR) {
                 return res;
             }
@@ -1841,17 +2273,29 @@ status_t AaptDir::validate() const
     return NO_ERROR;
 }
 
+<<<<<<< HEAD
 void AaptDir::print(const String8& prefix) const
+=======
+void AaptDir::print() const
+>>>>>>> 54b6cfa... Initial Contribution
 {
     const size_t ND=getDirs().size();
     size_t i;
     for (i=0; i<ND; i++) {
+<<<<<<< HEAD
         getDirs().valueAt(i)->print(prefix);
+=======
+        getDirs().valueAt(i)->print();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     const size_t NF=getFiles().size();
     for (i=0; i<NF; i++) {
+<<<<<<< HEAD
         getFiles().valueAt(i)->print(prefix);
+=======
+        getFiles().valueAt(i)->print();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }
 
@@ -1875,6 +2319,7 @@ String8 AaptDir::getPrintableSource() const
 // =========================================================================
 // =========================================================================
 
+<<<<<<< HEAD
 status_t AaptSymbols::applyJavaSymbols(const sp<AaptSymbols>& javaSymbols)
 {
     status_t err = NO_ERROR;
@@ -1936,6 +2381,8 @@ status_t AaptAssets::addFile(const String8& name, const sp<AaptGroup>& file)
     return AaptDir::addFile(name, file);
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 sp<AaptFile> AaptAssets::addFile(
         const String8& filePath, const AaptGroupEntry& entry,
         const String8& srcDir, sp<AaptGroup>* outGroup,
@@ -1997,7 +2444,11 @@ void AaptAssets::addResource(const String8& leafName, const String8& path,
     sp<AaptDir> subdir = res->makeDir(dirname);
     sp<AaptGroup> grr = new AaptGroup(leafName, path);
     grr->addFile(file);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     subdir->addFile(leafName, grr);
 }
 
@@ -2006,10 +2457,17 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
 {
     int count;
     int totalCount = 0;
+<<<<<<< HEAD
     FileType type;
     const Vector<const char *>& resDirs = bundle->getResourceSourceDirs();
     const size_t dirCount =resDirs.size();
     sp<AaptAssets> current = this;
+=======
+    int i;
+    int arg = 0;
+    FileType type;
+    const char* res;
+>>>>>>> 54b6cfa... Initial Contribution
 
     const int N = bundle->getFileSpecCount();
 
@@ -2044,7 +2502,11 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
         sp<AaptDir> assetAaptDir = makeDir(String8(kAssetDir));
         AaptGroupEntry group;
         count = assetAaptDir->slurpFullTree(bundle, assetRoot, group,
+<<<<<<< HEAD
                                             String8(), mFullAssetPaths);
+=======
+                                            String8());
+>>>>>>> 54b6cfa... Initial Contribution
         if (count < 0) {
             totalCount = count;
             goto bail;
@@ -2062,6 +2524,7 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
     /*
      * If a directory of resource-specific assets was supplied, slurp 'em up.
      */
+<<<<<<< HEAD
     for (size_t i=0; i<dirCount; i++) {
         const char *res = resDirs[i];
         if (res) {
@@ -2092,6 +2555,30 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
         }
         
     }
+=======
+    res = bundle->getResourceSourceDir();
+    if (res) {
+        type = getFileType(res);
+        if (type == kFileTypeNonexistent) {
+            fprintf(stderr, "ERROR: resource directory '%s' does not exist\n", res);
+            return UNKNOWN_ERROR;
+        }
+        if (type == kFileTypeDirectory) {
+            count = slurpResourceTree(bundle, String8(res));
+
+            if (count < 0) {
+                totalCount = count;
+                goto bail;
+            }
+            totalCount += count;
+        }
+        else {
+            fprintf(stderr, "ERROR: '%s' is not a directory\n", res);
+            return UNKNOWN_ERROR;
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /*
      * Now do any additional raw files.
      */
@@ -2118,7 +2605,11 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
          * guarantees about ordering, so we're okay with an inorder search
          * using whatever order the OS happens to hand back to us.
          */
+<<<<<<< HEAD
         count = slurpFullTree(bundle, assetRoot, AaptGroupEntry(), String8(), mFullAssetPaths);
+=======
+        count = slurpFullTree(bundle, assetRoot, AaptGroupEntry(), String8());
+>>>>>>> 54b6cfa... Initial Contribution
         if (count < 0) {
             /* failure; report error and remove archive */
             totalCount = count;
@@ -2137,11 +2628,14 @@ ssize_t AaptAssets::slurpFromArgs(Bundle* bundle)
         goto bail;
     }
 
+<<<<<<< HEAD
     count = filter(bundle);
     if (count != NO_ERROR) {
         totalCount = count;
         goto bail;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 bail:
     return totalCount;
@@ -2149,10 +2643,16 @@ bail:
 
 ssize_t AaptAssets::slurpFullTree(Bundle* bundle, const String8& srcDir,
                                     const AaptGroupEntry& kind,
+<<<<<<< HEAD
                                     const String8& resType,
                                     sp<FilePathStore>& fullResPaths)
 {
     ssize_t res = AaptDir::slurpFullTree(bundle, srcDir, kind, resType, fullResPaths);
+=======
+                                    const String8& resType)
+{
+    ssize_t res = AaptDir::slurpFullTree(bundle, srcDir, kind, resType);
+>>>>>>> 54b6cfa... Initial Contribution
     if (res > 0) {
         mGroupEntries.add(kind);
     }
@@ -2199,6 +2699,7 @@ ssize_t AaptAssets::slurpResourceTree(Bundle* bundle, const String8& srcDir)
             continue;
         }
 
+<<<<<<< HEAD
         if (bundle->getMaxResVersion() != NULL && group.getVersionString().length() != 0) {
             int maxResInt = atoi(bundle->getMaxResVersion());
             const char *verString = group.getVersionString().string();
@@ -2215,6 +2716,14 @@ ssize_t AaptAssets::slurpResourceTree(Bundle* bundle, const String8& srcDir)
             sp<AaptDir> dir = makeDir(resType);
             ssize_t res = dir->slurpFullTree(bundle, subdirName, group,
                                                 resType, mFullResPaths);
+=======
+        FileType type = getFileType(subdirName.string());
+
+        if (type == kFileTypeDirectory) {
+            sp<AaptDir> dir = makeDir(String8(entry->d_name));
+            ssize_t res = dir->slurpFullTree(bundle, subdirName, group,
+                                                resType);
+>>>>>>> 54b6cfa... Initial Contribution
             if (res < 0) {
                 count = res;
                 goto bail;
@@ -2224,6 +2733,7 @@ ssize_t AaptAssets::slurpResourceTree(Bundle* bundle, const String8& srcDir)
                 count += res;
             }
 
+<<<<<<< HEAD
             // Only add this directory if we don't already have a resource dir
             // for the current type.  This ensures that we only add the dir once
             // for all configs.
@@ -2231,6 +2741,9 @@ ssize_t AaptAssets::slurpResourceTree(Bundle* bundle, const String8& srcDir)
             if (rdir == NULL) {
                 mResDirs.add(dir);
             }
+=======
+            mDirs.add(dir);
+>>>>>>> 54b6cfa... Initial Contribution
         } else {
             if (bundle->getVerbose()) {
                 fprintf(stderr, "   (ignoring file '%s')\n", subdirName.string());
@@ -2339,6 +2852,7 @@ bail:
     return count;
 }
 
+<<<<<<< HEAD
 status_t AaptAssets::filter(Bundle* bundle)
 {
     ResourceFilter reqFilter;
@@ -2475,6 +2989,8 @@ status_t AaptAssets::filter(Bundle* bundle)
     return NO_ERROR;
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 sp<AaptSymbols> AaptAssets::getSymbolsFor(const String8& name)
 {
     sp<AaptSymbols> sym = mSymbols.valueFor(name);
@@ -2485,6 +3001,7 @@ sp<AaptSymbols> AaptAssets::getSymbolsFor(const String8& name)
     return sym;
 }
 
+<<<<<<< HEAD
 sp<AaptSymbols> AaptAssets::getJavaSymbolsFor(const String8& name)
 {
     sp<AaptSymbols> sym = mJavaSymbols.valueFor(name);
@@ -2527,6 +3044,8 @@ bool AaptAssets::isJavaSymbol(const AaptSymbolEntry& sym, bool includePrivate) c
     return false;
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 status_t AaptAssets::buildIncludedResources(Bundle* bundle)
 {
     if (!mHaveIncludedAssets) {
@@ -2560,6 +3079,7 @@ const ResTable& AaptAssets::getIncludedResources() const
     return mIncludedAssets.getResources(false);
 }
 
+<<<<<<< HEAD
 void AaptAssets::print(const String8& prefix) const
 {
     String8 innerPrefix(prefix);
@@ -2598,6 +3118,20 @@ sp<AaptDir> AaptAssets::resDir(const String8& name) const
         }
     }
     return NULL;
+=======
+void AaptAssets::print() const
+{
+    printf("Locale/Vendor pairs:\n");
+    const size_t N=mGroupEntries.size();
+    for (size_t i=0; i<N; i++) {
+        printf("   %s/%s\n",
+               mGroupEntries.itemAt(i).locale.string(),
+               mGroupEntries.itemAt(i).vendor.string());
+    }
+
+    printf("\nFiles:\n");
+    AaptDir::print();
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 bool

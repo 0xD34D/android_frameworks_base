@@ -16,7 +16,10 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true" android:color="@android:color/bright_foreground_dark_inverse" />
+<<<<<<< HEAD
     <item android:state_activated="true" android:color="@android:color/bright_foreground_dark_inverse" />
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     <item android:state_focused="true" android:color="@android:color/bright_foreground_dark_inverse" />
     <item android:state_pressed="true" android:color="@android:color/bright_foreground_dark_inverse" />
     <item android:color="@android:color/bright_foreground_dark" />

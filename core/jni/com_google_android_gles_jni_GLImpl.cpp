@@ -2,6 +2,7 @@
 **
 ** Copyright 2006, The Android Open Source Project
 **
+<<<<<<< HEAD
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
 ** You may obtain a copy of the License at
@@ -12,18 +13,34 @@
 ** distributed under the License is distributed on an "AS IS" BASIS,
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
+=======
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+>>>>>>> 54b6cfa... Initial Contribution
 ** limitations under the License.
 */
 
 // This source file is automatically generated
 
+<<<<<<< HEAD
 #include "jni.h"
 #include "JNIHelp.h"
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #include <android_runtime/AndroidRuntime.h>
 #include <utils/misc.h>
 
 #include <assert.h>
 #include <GLES/gl.h>
+<<<<<<< HEAD
 #include <GLES/glext.h>
 
 // Work around differences between the generated name and the actual name.
@@ -61,11 +78,19 @@ GL_API void GL_APIENTRY glMatrixIndexPointerOESBounds(GLint size, GLenum type,
 GL_API void GL_APIENTRY glWeightPointerOESBounds(GLint size, GLenum type,
         GLsizei stride, const GLvoid *pointer, GLsizei count);
 }
+=======
+
+#include <private/opengles/gl_context.h>
+
+#define _NUM_COMPRESSED_TEXTURE_FORMATS \
+        (::android::OGLES_NUM_COMPRESSED_TEXTURE_FORMATS)
+>>>>>>> 54b6cfa... Initial Contribution
 
 static int initialized = 0;
 
 static jclass nioAccessClass;
 static jclass bufferClass;
+<<<<<<< HEAD
 static jclass G11ImplClass;
 static jmethodID getBasePointerID;
 static jmethodID getBaseArrayID;
@@ -84,6 +109,22 @@ static jfieldID have_OES_texture_cube_mapID;
 
 static void
 nativeClassInit(JNIEnv *_env, jclass glImplClass)
+=======
+static jclass OOMEClass;
+static jclass UOEClass;
+static jclass IAEClass;
+static jmethodID getBasePointerID;
+static jmethodID getBaseArrayID;
+static jmethodID getBaseArrayOffsetID;
+static jfieldID positionID;
+static jfieldID limitID;
+static jfieldID elementSizeShiftID;
+
+/* Cache method IDs each time the class is loaded. */
+
+void
+nativeClassInitBuffer(JNIEnv *_env)
+>>>>>>> 54b6cfa... Initial Contribution
 {
     jclass nioAccessClassLocal = _env->FindClass("java/nio/NIOAccess");
     nioAccessClass = (jclass) _env->NewGlobalRef(nioAccessClassLocal);
@@ -91,6 +132,7 @@ nativeClassInit(JNIEnv *_env, jclass glImplClass)
     jclass bufferClassLocal = _env->FindClass("java/nio/Buffer");
     bufferClass = (jclass) _env->NewGlobalRef(bufferClassLocal);
 
+<<<<<<< HEAD
     jclass g11impClassLocal = _env->FindClass("com/google/android/gles_jni/GLImpl");
     G11ImplClass = (jclass) _env->NewGlobalRef(g11impClassLocal);
     haveCheckedExtensionsID =  _env->GetFieldID(G11ImplClass, "haveCheckedExtensions", "Z");
@@ -99,20 +141,47 @@ nativeClassInit(JNIEnv *_env, jclass glImplClass)
     have_OES_framebuffer_objectID =  _env->GetFieldID(G11ImplClass, "have_OES_framebuffer_object", "Z");
     have_OES_texture_cube_mapID =  _env->GetFieldID(G11ImplClass, "have_OES_texture_cube_map", "Z");
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     getBasePointerID = _env->GetStaticMethodID(nioAccessClass,
             "getBasePointer", "(Ljava/nio/Buffer;)J");
     getBaseArrayID = _env->GetStaticMethodID(nioAccessClass,
             "getBaseArray", "(Ljava/nio/Buffer;)Ljava/lang/Object;");
     getBaseArrayOffsetID = _env->GetStaticMethodID(nioAccessClass,
             "getBaseArrayOffset", "(Ljava/nio/Buffer;)I");
+<<<<<<< HEAD
     allowIndirectBuffersID = _env->GetStaticMethodID(g11impClassLocal,
             "allowIndirectBuffers", "(Ljava/lang/String;)Z");
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     positionID = _env->GetFieldID(bufferClass, "position", "I");
     limitID = _env->GetFieldID(bufferClass, "limit", "I");
     elementSizeShiftID =
         _env->GetFieldID(bufferClass, "_elementSizeShift", "I");
 }
 
+<<<<<<< HEAD
+=======
+
+static void
+nativeClassInit(JNIEnv *_env, jclass glImplClass)
+{
+    nativeClassInitBuffer(_env);
+
+    jclass IAEClassLocal =
+        _env->FindClass("java/lang/IllegalArgumentException");
+    jclass OOMEClassLocal =
+         _env->FindClass("java/lang/OutOfMemoryError");
+    jclass UOEClassLocal =
+         _env->FindClass("java/lang/UnsupportedOperationException");
+
+    IAEClass = (jclass) _env->NewGlobalRef(IAEClassLocal);
+    OOMEClass = (jclass) _env->NewGlobalRef(OOMEClassLocal);
+    UOEClass = (jclass) _env->NewGlobalRef(UOEClassLocal);
+}
+
+>>>>>>> 54b6cfa... Initial Contribution
 static void *
 getPointer(JNIEnv *_env, jobject buffer, jarray *array, jint *remaining)
 {
@@ -133,6 +202,7 @@ getPointer(JNIEnv *_env, jobject buffer, jarray *array, jint *remaining)
         *array = NULL;
         return (void *) (jint) pointer;
     }
+<<<<<<< HEAD
 
     *array = (jarray) _env->CallStaticObjectMethod(nioAccessClass,
             getBaseArrayID, buffer);
@@ -146,6 +216,19 @@ getPointer(JNIEnv *_env, jobject buffer, jarray *array, jint *remaining)
     return (void *) ((char *) data + offset);
 }
 
+=======
+    
+    *array = (jarray) _env->CallStaticObjectMethod(nioAccessClass,
+            getBaseArrayID, buffer);
+    offset = _env->CallStaticIntMethod(nioAccessClass,
+            getBaseArrayOffsetID, buffer);
+    data = _env->GetPrimitiveArrayCritical(*array, (jboolean *) 0);
+    
+    return (void *) ((char *) data + offset);
+}
+
+
+>>>>>>> 54b6cfa... Initial Contribution
 static void
 releasePointer(JNIEnv *_env, jarray array, void *data, jboolean commit)
 {
@@ -153,6 +236,7 @@ releasePointer(JNIEnv *_env, jarray array, void *data, jboolean commit)
 					   commit ? 0 : JNI_ABORT);
 }
 
+<<<<<<< HEAD
 extern "C" {
 extern char*  __progname;
 }
@@ -259,6 +343,10 @@ supportsExtension(JNIEnv *_env, jobject impl, jfieldID fieldId) {
 }
 
 // --------------------------------------------------------------------------
+=======
+// --------------------------------------------------------------------------
+
+>>>>>>> 54b6cfa... Initial Contribution
 /* void glActiveTexture ( GLenum texture ) */
 static void
 android_glActiveTexture__I
@@ -421,12 +509,16 @@ android_glColorPointerBounds__IIILjava_nio_Buffer_2I
     jint _remaining;
     GLvoid *pointer = (GLvoid *) 0;
 
+<<<<<<< HEAD
     if (pointer_buf) {
         pointer = (GLvoid *) getDirectBufferPointer(_env, pointer_buf);
         if ( ! pointer ) {
             return;
         }
     }
+=======
+    pointer = (GLvoid *)getPointer(_env, pointer_buf, &_array, &_remaining);
+>>>>>>> 54b6cfa... Initial Contribution
     glColorPointerBounds(
         (GLint)size,
         (GLenum)type,
@@ -434,6 +526,12 @@ android_glColorPointerBounds__IIILjava_nio_Buffer_2I
         (GLvoid *)pointer,
         (GLsizei)remaining
     );
+<<<<<<< HEAD
+=======
+    if (_array) {
+        releasePointer(_env, _array, pointer, JNI_FALSE);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glCompressedTexImage2D ( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const GLvoid *data ) */
@@ -535,16 +633,28 @@ android_glDeleteTextures__I_3II
     GLuint *textures = (GLuint *) 0;
 
     if (!textures_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "textures == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "textures == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(textures_ref) - offset;
     if (_remaining < n) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < n");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < n");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     textures_base = (GLuint *)
@@ -573,7 +683,11 @@ android_glDeleteTextures__ILjava_nio_IntBuffer_2
 
     textures = (GLuint *)getPointer(_env, textures_buf, &_array, &_remaining);
     if (_remaining < n) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < n");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < n");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glDeleteTextures(
@@ -663,18 +777,24 @@ android_glDrawElements__IIILjava_nio_Buffer_2
     GLvoid *indices = (GLvoid *) 0;
 
     indices = (GLvoid *)getPointer(_env, indices_buf, &_array, &_remaining);
+<<<<<<< HEAD
     if (_remaining < count) {
         jniThrowException(_env, "java/lang/ArrayIndexOutOfBoundsException", "remaining() < count");
         goto exit;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     glDrawElements(
         (GLenum)mode,
         (GLsizei)count,
         (GLenum)type,
         (GLvoid *)indices
     );
+<<<<<<< HEAD
 
 exit:
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     if (_array) {
         releasePointer(_env, _array, indices, JNI_FALSE);
     }
@@ -731,11 +851,19 @@ android_glFogfv__I_3FI
     GLfloat *params = (GLfloat *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -765,7 +893,11 @@ android_glFogfv__I_3FI
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -819,7 +951,11 @@ android_glFogfv__ILjava_nio_FloatBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glFogfv(
@@ -852,11 +988,19 @@ android_glFogxv__I_3II
     GLfixed *params = (GLfixed *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -886,7 +1030,11 @@ android_glFogxv__I_3II
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -940,7 +1088,11 @@ android_glFogxv__ILjava_nio_IntBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glFogxv(
@@ -1002,18 +1154,30 @@ android_glGenTextures__I_3II
 
     if (!textures_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "textures == null");
+=======
+        _env->ThrowNew(IAEClass, "textures == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(textures_ref) - offset;
     if (_remaining < n) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < n");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < n");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     textures_base = (GLuint *)
@@ -1044,7 +1208,11 @@ android_glGenTextures__ILjava_nio_IntBuffer_2
     textures = (GLuint *)getPointer(_env, textures_buf, &_array, &_remaining);
     if (_remaining < n) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < n");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < n");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGenTextures(
@@ -1078,12 +1246,20 @@ android_glGetIntegerv__I_3II
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -1155,12 +1331,15 @@ android_glGetIntegerv__I_3II
 #if defined(GL_IMPLEMENTATION_COLOR_READ_TYPE_OES)
         case GL_IMPLEMENTATION_COLOR_READ_TYPE_OES:
 #endif // defined(GL_IMPLEMENTATION_COLOR_READ_TYPE_OES)
+<<<<<<< HEAD
 #if defined(GL_LIGHT_MODEL_COLOR_CONTROL)
         case GL_LIGHT_MODEL_COLOR_CONTROL:
 #endif // defined(GL_LIGHT_MODEL_COLOR_CONTROL)
 #if defined(GL_LIGHT_MODEL_LOCAL_VIEWER)
         case GL_LIGHT_MODEL_LOCAL_VIEWER:
 #endif // defined(GL_LIGHT_MODEL_LOCAL_VIEWER)
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #if defined(GL_LIGHT_MODEL_TWO_SIDE)
         case GL_LIGHT_MODEL_TWO_SIDE:
 #endif // defined(GL_LIGHT_MODEL_TWO_SIDE)
@@ -1375,12 +1554,15 @@ android_glGetIntegerv__I_3II
 #if defined(GL_COLOR_WRITEMASK)
         case GL_COLOR_WRITEMASK:
 #endif // defined(GL_COLOR_WRITEMASK)
+<<<<<<< HEAD
 #if defined(GL_FOG_COLOR)
         case GL_FOG_COLOR:
 #endif // defined(GL_FOG_COLOR)
 #if defined(GL_LIGHT_MODEL_AMBIENT)
         case GL_LIGHT_MODEL_AMBIENT:
 #endif // defined(GL_LIGHT_MODEL_AMBIENT)
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #if defined(GL_SCISSOR_BOX)
         case GL_SCISSOR_BOX:
 #endif // defined(GL_SCISSOR_BOX)
@@ -1412,7 +1594,17 @@ android_glGetIntegerv__I_3II
 #if defined(GL_COMPRESSED_TEXTURE_FORMATS)
         case GL_COMPRESSED_TEXTURE_FORMATS:
 #endif // defined(GL_COMPRESSED_TEXTURE_FORMATS)
+<<<<<<< HEAD
             _needed = getNumCompressedTextureFormats();
+=======
+#if defined(GL_FOG_COLOR)
+        case GL_FOG_COLOR:
+#endif // defined(GL_FOG_COLOR)
+#if defined(GL_LIGHT_MODEL_AMBIENT)
+        case GL_LIGHT_MODEL_AMBIENT:
+#endif // defined(GL_LIGHT_MODEL_AMBIENT)
+            _needed = _NUM_COMPRESSED_TEXTURE_FORMATS;
+>>>>>>> 54b6cfa... Initial Contribution
             break;
         default:
             _needed = 0;
@@ -1420,7 +1612,11 @@ android_glGetIntegerv__I_3II
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLint *)
@@ -1517,12 +1713,15 @@ android_glGetIntegerv__ILjava_nio_IntBuffer_2
 #if defined(GL_IMPLEMENTATION_COLOR_READ_TYPE_OES)
         case GL_IMPLEMENTATION_COLOR_READ_TYPE_OES:
 #endif // defined(GL_IMPLEMENTATION_COLOR_READ_TYPE_OES)
+<<<<<<< HEAD
 #if defined(GL_LIGHT_MODEL_COLOR_CONTROL)
         case GL_LIGHT_MODEL_COLOR_CONTROL:
 #endif // defined(GL_LIGHT_MODEL_COLOR_CONTROL)
 #if defined(GL_LIGHT_MODEL_LOCAL_VIEWER)
         case GL_LIGHT_MODEL_LOCAL_VIEWER:
 #endif // defined(GL_LIGHT_MODEL_LOCAL_VIEWER)
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #if defined(GL_LIGHT_MODEL_TWO_SIDE)
         case GL_LIGHT_MODEL_TWO_SIDE:
 #endif // defined(GL_LIGHT_MODEL_TWO_SIDE)
@@ -1737,12 +1936,15 @@ android_glGetIntegerv__ILjava_nio_IntBuffer_2
 #if defined(GL_COLOR_WRITEMASK)
         case GL_COLOR_WRITEMASK:
 #endif // defined(GL_COLOR_WRITEMASK)
+<<<<<<< HEAD
 #if defined(GL_FOG_COLOR)
         case GL_FOG_COLOR:
 #endif // defined(GL_FOG_COLOR)
 #if defined(GL_LIGHT_MODEL_AMBIENT)
         case GL_LIGHT_MODEL_AMBIENT:
 #endif // defined(GL_LIGHT_MODEL_AMBIENT)
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #if defined(GL_SCISSOR_BOX)
         case GL_SCISSOR_BOX:
 #endif // defined(GL_SCISSOR_BOX)
@@ -1774,7 +1976,17 @@ android_glGetIntegerv__ILjava_nio_IntBuffer_2
 #if defined(GL_COMPRESSED_TEXTURE_FORMATS)
         case GL_COMPRESSED_TEXTURE_FORMATS:
 #endif // defined(GL_COMPRESSED_TEXTURE_FORMATS)
+<<<<<<< HEAD
             _needed = getNumCompressedTextureFormats();
+=======
+#if defined(GL_FOG_COLOR)
+        case GL_FOG_COLOR:
+#endif // defined(GL_FOG_COLOR)
+#if defined(GL_LIGHT_MODEL_AMBIENT)
+        case GL_LIGHT_MODEL_AMBIENT:
+#endif // defined(GL_LIGHT_MODEL_AMBIENT)
+            _needed = _NUM_COMPRESSED_TEXTURE_FORMATS;
+>>>>>>> 54b6cfa... Initial Contribution
             break;
         default:
             _needed = 0;
@@ -1782,7 +1994,11 @@ android_glGetIntegerv__ILjava_nio_IntBuffer_2
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetIntegerv(
@@ -1796,10 +2012,34 @@ exit:
     }
 }
 
+<<<<<<< HEAD
 /* const GLubyte * glGetString ( GLenum name ) */
 static jstring android_glGetString(JNIEnv *_env, jobject, jint name) {
     const char* chars = (const char*) glGetString((GLenum) name);
     return _env->NewStringUTF(chars);
+=======
+#include <string.h>
+
+/* const GLubyte * glGetString ( GLenum name ) */
+jstring
+android_glGetString
+  (JNIEnv *_env, jobject _this, jint name) {
+    const GLubyte * chars = glGetString((GLenum)name);
+
+    int len = strlen((const char *)chars);
+    jchar * wchars = (jchar *)malloc(len * sizeof(jchar));
+    if (wchars == (jchar*) 0) {
+        _env->ThrowNew(OOMEClass, "No space for glGetString output");
+        return (jstring) 0;
+    }
+    // Copy bytes -> chars, including trailing '\0'
+    for (int i = 0; i <= len; i++) {
+        wchars[i] = (jchar) chars[i];
+    }
+    jstring output = _env->NewString(wchars, (jsize) len);
+    free(wchars);
+    return output;
+>>>>>>> 54b6cfa... Initial Contribution
 }
 /* void glHint ( GLenum target, GLenum mode ) */
 static void
@@ -1830,11 +2070,19 @@ android_glLightModelfv__I_3FI
     GLfloat *params = (GLfloat *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -1855,7 +2103,11 @@ android_glLightModelfv__I_3FI
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -1900,7 +2152,11 @@ android_glLightModelfv__ILjava_nio_FloatBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glLightModelfv(
@@ -1933,11 +2189,19 @@ android_glLightModelxv__I_3II
     GLfixed *params = (GLfixed *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -1958,7 +2222,11 @@ android_glLightModelxv__I_3II
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -2003,7 +2271,11 @@ android_glLightModelxv__ILjava_nio_IntBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glLightModelxv(
@@ -2037,11 +2309,19 @@ android_glLightfv__II_3FI
     GLfloat *params = (GLfloat *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -2088,7 +2368,11 @@ android_glLightfv__II_3FI
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -2160,7 +2444,11 @@ android_glLightfv__IILjava_nio_FloatBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glLightfv(
@@ -2195,11 +2483,19 @@ android_glLightxv__II_3II
     GLfixed *params = (GLfixed *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -2246,7 +2542,11 @@ android_glLightxv__II_3II
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -2318,7 +2618,11 @@ android_glLightxv__IILjava_nio_IntBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glLightxv(
@@ -2367,11 +2671,19 @@ android_glLoadMatrixf___3FI
     GLfloat *m = (GLfloat *) 0;
 
     if (!m_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "m == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "m == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(m_ref) - offset;
@@ -2416,11 +2728,19 @@ android_glLoadMatrixx___3II
     GLfixed *m = (GLfixed *) 0;
 
     if (!m_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "m == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "m == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(m_ref) - offset;
@@ -2485,11 +2805,19 @@ android_glMaterialfv__II_3FI
     GLfloat *params = (GLfloat *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -2522,7 +2850,11 @@ android_glMaterialfv__II_3FI
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -2580,7 +2912,11 @@ android_glMaterialfv__IILjava_nio_FloatBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glMaterialfv(
@@ -2615,11 +2951,19 @@ android_glMaterialxv__II_3II
     GLfixed *params = (GLfixed *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -2652,7 +2996,11 @@ android_glMaterialxv__II_3II
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -2710,7 +3058,11 @@ android_glMaterialxv__IILjava_nio_IntBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glMaterialxv(
@@ -2743,11 +3095,19 @@ android_glMultMatrixf___3FI
     GLfloat *m = (GLfloat *) 0;
 
     if (!m_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "m == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "m == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(m_ref) - offset;
@@ -2792,11 +3152,19 @@ android_glMultMatrixx___3II
     GLfixed *m = (GLfixed *) 0;
 
     if (!m_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "m == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "m == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(m_ref) - offset;
@@ -2888,18 +3256,28 @@ android_glNormalPointerBounds__IILjava_nio_Buffer_2I
     jint _remaining;
     GLvoid *pointer = (GLvoid *) 0;
 
+<<<<<<< HEAD
     if (pointer_buf) {
         pointer = (GLvoid *) getDirectBufferPointer(_env, pointer_buf);
         if ( ! pointer ) {
             return;
         }
     }
+=======
+    pointer = (GLvoid *)getPointer(_env, pointer_buf, &_array, &_remaining);
+>>>>>>> 54b6cfa... Initial Contribution
     glNormalPointerBounds(
         (GLenum)type,
         (GLsizei)stride,
         (GLvoid *)pointer,
         (GLsizei)remaining
     );
+<<<<<<< HEAD
+=======
+    if (_array) {
+        releasePointer(_env, _array, pointer, JNI_FALSE);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glOrthof ( GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar ) */
@@ -3142,12 +3520,16 @@ android_glTexCoordPointerBounds__IIILjava_nio_Buffer_2I
     jint _remaining;
     GLvoid *pointer = (GLvoid *) 0;
 
+<<<<<<< HEAD
     if (pointer_buf) {
         pointer = (GLvoid *) getDirectBufferPointer(_env, pointer_buf);
         if ( ! pointer ) {
             return;
         }
     }
+=======
+    pointer = (GLvoid *)getPointer(_env, pointer_buf, &_array, &_remaining);
+>>>>>>> 54b6cfa... Initial Contribution
     glTexCoordPointerBounds(
         (GLint)size,
         (GLenum)type,
@@ -3155,6 +3537,12 @@ android_glTexCoordPointerBounds__IIILjava_nio_Buffer_2I
         (GLvoid *)pointer,
         (GLsizei)remaining
     );
+<<<<<<< HEAD
+=======
+    if (_array) {
+        releasePointer(_env, _array, pointer, JNI_FALSE);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexEnvf ( GLenum target, GLenum pname, GLfloat param ) */
@@ -3177,11 +3565,19 @@ android_glTexEnvfv__II_3FI
     GLfloat *params = (GLfloat *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -3208,7 +3604,11 @@ android_glTexEnvfv__II_3FI
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -3260,7 +3660,11 @@ android_glTexEnvfv__IILjava_nio_FloatBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glTexEnvfv(
@@ -3295,11 +3699,19 @@ android_glTexEnvxv__II_3II
     GLfixed *params = (GLfixed *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -3326,7 +3738,11 @@ android_glTexEnvxv__II_3II
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -3378,7 +3794,11 @@ android_glTexEnvxv__IILjava_nio_IntBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glTexEnvxv(
@@ -3499,12 +3919,16 @@ android_glVertexPointerBounds__IIILjava_nio_Buffer_2I
     jint _remaining;
     GLvoid *pointer = (GLvoid *) 0;
 
+<<<<<<< HEAD
     if (pointer_buf) {
         pointer = (GLvoid *) getDirectBufferPointer(_env, pointer_buf);
         if ( ! pointer ) {
             return;
         }
     }
+=======
+    pointer = (GLvoid *)getPointer(_env, pointer_buf, &_array, &_remaining);
+>>>>>>> 54b6cfa... Initial Contribution
     glVertexPointerBounds(
         (GLint)size,
         (GLenum)type,
@@ -3512,6 +3936,12 @@ android_glVertexPointerBounds__IIILjava_nio_Buffer_2I
         (GLvoid *)pointer,
         (GLsizei)remaining
     );
+<<<<<<< HEAD
+=======
+    if (_array) {
+        releasePointer(_env, _array, pointer, JNI_FALSE);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glViewport ( GLint x, GLint y, GLsizei width, GLsizei height ) */
@@ -3541,18 +3971,30 @@ android_glQueryMatrixxOES___3II_3II
 
     if (!mantissa_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "mantissa == null");
+=======
+        _env->ThrowNew(IAEClass, "mantissa == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (mantissaOffset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "mantissaOffset < 0");
+=======
+        _env->ThrowNew(IAEClass, "mantissaOffset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _mantissaRemaining = _env->GetArrayLength(mantissa_ref) - mantissaOffset;
     if (_mantissaRemaining < 16) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - mantissaOffset < 16");
+=======
+        _env->ThrowNew(IAEClass, "length - mantissaOffset < 16");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     mantissa_base = (GLfixed *)
@@ -3561,18 +4003,30 @@ android_glQueryMatrixxOES___3II_3II
 
     if (!exponent_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "exponent == null");
+=======
+        _env->ThrowNew(IAEClass, "exponent == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (exponentOffset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "exponentOffset < 0");
+=======
+        _env->ThrowNew(IAEClass, "exponentOffset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _exponentRemaining = _env->GetArrayLength(exponent_ref) - exponentOffset;
     if (_exponentRemaining < 16) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - exponentOffset < 16");
+=======
+        _env->ThrowNew(IAEClass, "length - exponentOffset < 16");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     exponent_base = (GLint *)
@@ -3612,13 +4066,21 @@ android_glQueryMatrixxOES__Ljava_nio_IntBuffer_2Ljava_nio_IntBuffer_2
     mantissa = (GLfixed *)getPointer(_env, mantissa_buf, &_mantissaArray, &_mantissaRemaining);
     if (_mantissaRemaining < 16) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 16");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 16");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     exponent = (GLint *)getPointer(_env, exponent_buf, &_exponentArray, &_exponentRemaining);
     if (_exponentRemaining < 16) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 16");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 16");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _returnValue = glQueryMatrixxOES(
@@ -3656,10 +4118,13 @@ android_glBufferData__IILjava_nio_Buffer_2I
 
     if (data_buf) {
         data = (GLvoid *)getPointer(_env, data_buf, &_array, &_remaining);
+<<<<<<< HEAD
         if (_remaining < size) {
             jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < size");
             goto exit;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     glBufferData(
         (GLenum)target,
@@ -3667,8 +4132,11 @@ android_glBufferData__IILjava_nio_Buffer_2I
         (GLvoid *)data,
         (GLenum)usage
     );
+<<<<<<< HEAD
 
 exit:
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     if (_array) {
         releasePointer(_env, _array, data, JNI_FALSE);
     }
@@ -3683,18 +4151,24 @@ android_glBufferSubData__IIILjava_nio_Buffer_2
     GLvoid *data = (GLvoid *) 0;
 
     data = (GLvoid *)getPointer(_env, data_buf, &_array, &_remaining);
+<<<<<<< HEAD
     if (_remaining < size) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < size");
         goto exit;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     glBufferSubData(
         (GLenum)target,
         (GLintptr)offset,
         (GLsizeiptr)size,
         (GLvoid *)data
     );
+<<<<<<< HEAD
 
 exit:
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     if (_array) {
         releasePointer(_env, _array, data, JNI_FALSE);
     }
@@ -3709,16 +4183,28 @@ android_glClipPlanef__I_3FI
     GLfloat *equation = (GLfloat *) 0;
 
     if (!equation_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "equation == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "equation == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(equation_ref) - offset;
     if (_remaining < 4) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 4");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 4");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     equation_base = (GLfloat *)
@@ -3747,7 +4233,11 @@ android_glClipPlanef__ILjava_nio_FloatBuffer_2
 
     equation = (GLfloat *)getPointer(_env, equation_buf, &_array, &_remaining);
     if (_remaining < 4) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 4");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 4");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glClipPlanef(
@@ -3770,16 +4260,28 @@ android_glClipPlanex__I_3II
     GLfixed *equation = (GLfixed *) 0;
 
     if (!equation_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "equation == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "equation == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(equation_ref) - offset;
     if (_remaining < 4) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 4");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 4");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     equation_base = (GLfixed *)
@@ -3808,7 +4310,11 @@ android_glClipPlanex__ILjava_nio_IntBuffer_2
 
     equation = (GLfixed *)getPointer(_env, equation_buf, &_array, &_remaining);
     if (_remaining < 4) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 4");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 4");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glClipPlanex(
@@ -3855,16 +4361,28 @@ android_glDeleteBuffers__I_3II
     GLuint *buffers = (GLuint *) 0;
 
     if (!buffers_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "buffers == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "buffers == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(buffers_ref) - offset;
     if (_remaining < n) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < n");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < n");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     buffers_base = (GLuint *)
@@ -3893,7 +4411,11 @@ android_glDeleteBuffers__ILjava_nio_IntBuffer_2
 
     buffers = (GLuint *)getPointer(_env, buffers_buf, &_array, &_remaining);
     if (_remaining < n) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < n");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < n");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glDeleteBuffers(
@@ -3930,18 +4452,30 @@ android_glGenBuffers__I_3II
 
     if (!buffers_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "buffers == null");
+=======
+        _env->ThrowNew(IAEClass, "buffers == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(buffers_ref) - offset;
     if (_remaining < n) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < n");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < n");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     buffers_base = (GLuint *)
@@ -3972,7 +4506,11 @@ android_glGenBuffers__ILjava_nio_IntBuffer_2
     buffers = (GLuint *)getPointer(_env, buffers_buf, &_array, &_remaining);
     if (_remaining < n) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < n");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < n");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGenBuffers(
@@ -3997,12 +4535,20 @@ android_glGetBooleanv__I_3ZI
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4045,7 +4591,11 @@ android_glGetBooleanv__ILjava_nio_IntBuffer_2
 static void
 android_glGetBufferParameteriv__II_3II
   (JNIEnv *_env, jobject _this, jint target, jint pname, jintArray params_ref, jint offset) {
+<<<<<<< HEAD
     jniThrowException(_env, "java/lang/UnsupportedOperationException",
+=======
+    _env->ThrowNew(UOEClass,
+>>>>>>> 54b6cfa... Initial Contribution
         "glGetBufferParameteriv");
 }
 
@@ -4053,7 +4603,11 @@ android_glGetBufferParameteriv__II_3II
 static void
 android_glGetBufferParameteriv__IILjava_nio_IntBuffer_2
   (JNIEnv *_env, jobject _this, jint target, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     jniThrowException(_env, "java/lang/UnsupportedOperationException",
+=======
+    _env->ThrowNew(UOEClass,
+>>>>>>> 54b6cfa... Initial Contribution
         "glGetBufferParameteriv");
 }
 
@@ -4068,12 +4622,20 @@ android_glGetClipPlanef__I_3FI
 
     if (!eqn_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "eqn == null");
+=======
+        _env->ThrowNew(IAEClass, "eqn == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(eqn_ref) - offset;
@@ -4123,12 +4685,20 @@ android_glGetClipPlanex__I_3II
 
     if (!eqn_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "eqn == null");
+=======
+        _env->ThrowNew(IAEClass, "eqn == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(eqn_ref) - offset;
@@ -4178,12 +4748,20 @@ android_glGetFixedv__I_3II
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4233,12 +4811,20 @@ android_glGetFloatv__I_3FI
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4288,12 +4874,20 @@ android_glGetLightfv__II_3FI
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4341,7 +4935,11 @@ android_glGetLightfv__II_3FI
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -4415,7 +5013,11 @@ android_glGetLightfv__IILjava_nio_FloatBuffer_2
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetLightfv(
@@ -4441,12 +5043,20 @@ android_glGetLightxv__II_3II
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4494,7 +5104,11 @@ android_glGetLightxv__II_3II
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -4568,7 +5182,11 @@ android_glGetLightxv__IILjava_nio_IntBuffer_2
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetLightxv(
@@ -4594,12 +5212,20 @@ android_glGetMaterialfv__II_3FI
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4633,7 +5259,11 @@ android_glGetMaterialfv__II_3FI
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -4693,7 +5323,11 @@ android_glGetMaterialfv__IILjava_nio_FloatBuffer_2
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetMaterialfv(
@@ -4719,12 +5353,20 @@ android_glGetMaterialxv__II_3II
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4758,7 +5400,11 @@ android_glGetMaterialxv__II_3II
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -4818,7 +5464,11 @@ android_glGetMaterialxv__IILjava_nio_IntBuffer_2
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetMaterialxv(
@@ -4844,12 +5494,20 @@ android_glGetTexEnviv__II_3II
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4877,7 +5535,11 @@ android_glGetTexEnviv__II_3II
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLint *)
@@ -4931,7 +5593,11 @@ android_glGetTexEnviv__IILjava_nio_IntBuffer_2
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetTexEnviv(
@@ -4957,12 +5623,20 @@ android_glGetTexEnvxv__II_3II
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -4990,7 +5664,11 @@ android_glGetTexEnvxv__II_3II
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -5044,7 +5722,11 @@ android_glGetTexEnvxv__IILjava_nio_IntBuffer_2
     }
     if (_remaining < _needed) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetTexEnvxv(
@@ -5070,18 +5752,30 @@ android_glGetTexParameterfv__II_3FI
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
     if (_remaining < 1) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 1");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -5113,7 +5807,11 @@ android_glGetTexParameterfv__IILjava_nio_FloatBuffer_2
     params = (GLfloat *)getPointer(_env, params_buf, &_array, &_remaining);
     if (_remaining < 1) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 1");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetTexParameterfv(
@@ -5139,18 +5837,30 @@ android_glGetTexParameteriv__II_3II
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
     if (_remaining < 1) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 1");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLint *)
@@ -5182,7 +5892,11 @@ android_glGetTexParameteriv__IILjava_nio_IntBuffer_2
     params = (GLint *)getPointer(_env, params_buf, &_array, &_remaining);
     if (_remaining < 1) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 1");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetTexParameteriv(
@@ -5208,18 +5922,30 @@ android_glGetTexParameterxv__II_3II
 
     if (!params_ref) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     if (offset < 0) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
     if (_remaining < 1) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 1");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -5251,7 +5977,11 @@ android_glGetTexParameterxv__IILjava_nio_IntBuffer_2
     params = (GLfixed *)getPointer(_env, params_buf, &_array, &_remaining);
     if (_remaining < 1) {
         _exception = 1;
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 1");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glGetTexParameterxv(
@@ -5329,16 +6059,28 @@ android_glPointParameterfv__I_3FI
     GLfloat *params = (GLfloat *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 1");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -5367,7 +6109,11 @@ android_glPointParameterfv__ILjava_nio_FloatBuffer_2
 
     params = (GLfloat *)getPointer(_env, params_buf, &_array, &_remaining);
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 1");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glPointParameterfv(
@@ -5400,16 +6146,28 @@ android_glPointParameterxv__I_3II
     GLfixed *params = (GLfixed *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 1");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -5438,7 +6196,11 @@ android_glPointParameterxv__ILjava_nio_IntBuffer_2
 
     params = (GLfixed *)getPointer(_env, params_buf, &_array, &_remaining);
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 1");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glPointParameterxv(
@@ -5454,12 +6216,18 @@ exit:
 
 /* void glPointSizePointerOES ( GLenum type, GLsizei stride, const GLvoid *pointer ) */
 static void
+<<<<<<< HEAD
 android_glPointSizePointerOESBounds__IILjava_nio_Buffer_2I
   (JNIEnv *_env, jobject _this, jint type, jint stride, jobject pointer_buf, jint remaining) {
+=======
+android_glPointSizePointerOES__IILjava_nio_Buffer_2
+  (JNIEnv *_env, jobject _this, jint type, jint stride, jobject pointer_buf) {
+>>>>>>> 54b6cfa... Initial Contribution
     jarray _array = (jarray) 0;
     jint _remaining;
     GLvoid *pointer = (GLvoid *) 0;
 
+<<<<<<< HEAD
     if (pointer_buf) {
         pointer = (GLvoid *) getDirectBufferPointer(_env, pointer_buf);
         if ( ! pointer ) {
@@ -5472,6 +6240,17 @@ android_glPointSizePointerOESBounds__IILjava_nio_Buffer_2I
         (GLvoid *)pointer,
         (GLsizei)remaining
     );
+=======
+    pointer = (GLvoid *)getPointer(_env, pointer_buf, &_array, &_remaining);
+    glPointSizePointerOES(
+        (GLenum)type,
+        (GLsizei)stride,
+        (GLvoid *)pointer
+    );
+    if (_array) {
+        releasePointer(_env, _array, pointer, JNI_FALSE);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexCoordPointer ( GLint size, GLenum type, GLsizei stride, GLint offset ) */
@@ -5506,11 +6285,19 @@ android_glTexEnviv__II_3II
     GLint *params = (GLint *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
@@ -5537,7 +6324,11 @@ android_glTexEnviv__II_3II
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < needed");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLint *)
@@ -5589,7 +6380,11 @@ android_glTexEnviv__IILjava_nio_IntBuffer_2
             break;
     }
     if (_remaining < _needed) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < needed");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < needed");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glTexEnviv(
@@ -5613,16 +6408,28 @@ android_glTexParameterfv__II_3FI
     GLfloat *params = (GLfloat *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 1");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfloat *)
@@ -5652,7 +6459,11 @@ android_glTexParameterfv__IILjava_nio_FloatBuffer_2
 
     params = (GLfloat *)getPointer(_env, params_buf, &_array, &_remaining);
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 1");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glTexParameterfv(
@@ -5687,16 +6498,28 @@ android_glTexParameteriv__II_3II
     GLint *params = (GLint *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 1");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLint *)
@@ -5726,7 +6549,11 @@ android_glTexParameteriv__IILjava_nio_IntBuffer_2
 
     params = (GLint *)getPointer(_env, params_buf, &_array, &_remaining);
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 1");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glTexParameteriv(
@@ -5750,16 +6577,28 @@ android_glTexParameterxv__II_3II
     GLfixed *params = (GLfixed *) 0;
 
     if (!params_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "params == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "params == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(params_ref) - offset;
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 1");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     params_base = (GLfixed *)
@@ -5789,7 +6628,11 @@ android_glTexParameterxv__IILjava_nio_IntBuffer_2
 
     params = (GLfixed *)getPointer(_env, params_buf, &_array, &_remaining);
     if (_remaining < 1) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 1");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 1");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glTexParameterxv(
@@ -5820,9 +6663,14 @@ android_glVertexPointer__IIII
 static void
 android_glCurrentPaletteMatrixOES__I
   (JNIEnv *_env, jobject _this, jint matrixpaletteindex) {
+<<<<<<< HEAD
     glCurrentPaletteMatrixOES(
         (GLuint)matrixpaletteindex
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glCurrentPaletteMatrixOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glDrawTexfOES ( GLfloat x, GLfloat y, GLfloat z, GLfloat width, GLfloat height ) */
@@ -5847,16 +6695,28 @@ android_glDrawTexfvOES___3FI
     GLfloat *coords = (GLfloat *) 0;
 
     if (!coords_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "coords == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "coords == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(coords_ref) - offset;
     if (_remaining < 5) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 5");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 5");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     coords_base = (GLfloat *)
@@ -5884,7 +6744,11 @@ android_glDrawTexfvOES__Ljava_nio_FloatBuffer_2
 
     coords = (GLfloat *)getPointer(_env, coords_buf, &_array, &_remaining);
     if (_remaining < 5) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 5");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 5");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glDrawTexfvOES(
@@ -5919,16 +6783,28 @@ android_glDrawTexivOES___3II
     GLint *coords = (GLint *) 0;
 
     if (!coords_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "coords == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "coords == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(coords_ref) - offset;
     if (_remaining < 5) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 5");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 5");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     coords_base = (GLint *)
@@ -5956,7 +6832,11 @@ android_glDrawTexivOES__Ljava_nio_IntBuffer_2
 
     coords = (GLint *)getPointer(_env, coords_buf, &_array, &_remaining);
     if (_remaining < 5) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 5");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 5");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glDrawTexivOES(
@@ -5991,16 +6871,28 @@ android_glDrawTexsvOES___3SI
     GLshort *coords = (GLshort *) 0;
 
     if (!coords_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "coords == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "coords == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(coords_ref) - offset;
     if (_remaining < 5) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 5");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 5");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     coords_base = (GLshort *)
@@ -6028,7 +6920,11 @@ android_glDrawTexsvOES__Ljava_nio_ShortBuffer_2
 
     coords = (GLshort *)getPointer(_env, coords_buf, &_array, &_remaining);
     if (_remaining < 5) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 5");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 5");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glDrawTexsvOES(
@@ -6063,16 +6959,28 @@ android_glDrawTexxvOES___3II
     GLfixed *coords = (GLfixed *) 0;
 
     if (!coords_ref) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "coords == null");
         goto exit;
     }
     if (offset < 0) {
         jniThrowException(_env, "java/lang/IllegalArgumentException", "offset < 0");
+=======
+        _env->ThrowNew(IAEClass, "coords == null");
+        goto exit;
+    }
+    if (offset < 0) {
+        _env->ThrowNew(IAEClass, "offset < 0");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     _remaining = _env->GetArrayLength(coords_ref) - offset;
     if (_remaining < 5) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "length - offset < 5");
+=======
+        _env->ThrowNew(IAEClass, "length - offset < 5");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     coords_base = (GLfixed *)
@@ -6100,7 +7008,11 @@ android_glDrawTexxvOES__Ljava_nio_IntBuffer_2
 
     coords = (GLfixed *)getPointer(_env, coords_buf, &_array, &_remaining);
     if (_remaining < 5) {
+<<<<<<< HEAD
         jniThrowException(_env, "java/lang/IllegalArgumentException", "remaining() < 5");
+=======
+        _env->ThrowNew(IAEClass, "remaining() < 5");
+>>>>>>> 54b6cfa... Initial Contribution
         goto exit;
     }
     glDrawTexxvOES(
@@ -6117,11 +7029,17 @@ exit:
 static void
 android_glLoadPaletteFromModelViewMatrixOES__
   (JNIEnv *_env, jobject _this) {
+<<<<<<< HEAD
     glLoadPaletteFromModelViewMatrixOES();
+=======
+    _env->ThrowNew(UOEClass,
+        "glLoadPaletteFromModelViewMatrixOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glMatrixIndexPointerOES ( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) */
 static void
+<<<<<<< HEAD
 android_glMatrixIndexPointerOESBounds__IIILjava_nio_Buffer_2I
   (JNIEnv *_env, jobject _this, jint size, jint type, jint stride, jobject pointer_buf, jint remaining) {
     jarray _array = (jarray) 0;
@@ -6141,22 +7059,34 @@ android_glMatrixIndexPointerOESBounds__IIILjava_nio_Buffer_2I
         (GLvoid *)pointer,
         (GLsizei)remaining
     );
+=======
+android_glMatrixIndexPointerOES__IIILjava_nio_Buffer_2
+  (JNIEnv *_env, jobject _this, jint size, jint type, jint stride, jobject pointer_buf) {
+    _env->ThrowNew(UOEClass,
+        "glMatrixIndexPointerOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glMatrixIndexPointerOES ( GLint size, GLenum type, GLsizei stride, GLint offset ) */
 static void
 android_glMatrixIndexPointerOES__IIII
   (JNIEnv *_env, jobject _this, jint size, jint type, jint stride, jint offset) {
+<<<<<<< HEAD
     glMatrixIndexPointerOES(
         (GLint)size,
         (GLenum)type,
         (GLsizei)stride,
         (const GLvoid *)offset
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glMatrixIndexPointerOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glWeightPointerOES ( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer ) */
 static void
+<<<<<<< HEAD
 android_glWeightPointerOESBounds__IIILjava_nio_Buffer_2I
   (JNIEnv *_env, jobject _this, jint size, jint type, jint stride, jobject pointer_buf, jint remaining) {
     jarray _array = (jarray) 0;
@@ -6176,24 +7106,36 @@ android_glWeightPointerOESBounds__IIILjava_nio_Buffer_2I
         (GLvoid *)pointer,
         (GLsizei)remaining
     );
+=======
+android_glWeightPointerOES__IIILjava_nio_Buffer_2
+  (JNIEnv *_env, jobject _this, jint size, jint type, jint stride, jobject pointer_buf) {
+    _env->ThrowNew(UOEClass,
+        "glWeightPointerOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glWeightPointerOES ( GLint size, GLenum type, GLsizei stride, GLint offset ) */
 static void
 android_glWeightPointerOES__IIII
   (JNIEnv *_env, jobject _this, jint size, jint type, jint stride, jint offset) {
+<<<<<<< HEAD
     glWeightPointerOES(
         (GLint)size,
         (GLenum)type,
         (GLsizei)stride,
         (const GLvoid *)offset
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glWeightPointerOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glBindFramebufferOES ( GLint target, GLint framebuffer ) */
 static void
 android_glBindFramebufferOES__II
   (JNIEnv *_env, jobject _this, jint target, jint framebuffer) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glBindFramebufferOES");
@@ -6203,12 +7145,17 @@ android_glBindFramebufferOES__II
         (GLint)target,
         (GLint)framebuffer
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glBindFramebufferOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glBindRenderbufferOES ( GLint target, GLint renderbuffer ) */
 static void
 android_glBindRenderbufferOES__II
   (JNIEnv *_env, jobject _this, jint target, jint renderbuffer) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glBindRenderbufferOES");
@@ -6218,12 +7165,17 @@ android_glBindRenderbufferOES__II
         (GLint)target,
         (GLint)renderbuffer
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glBindRenderbufferOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glBlendEquation ( GLint mode ) */
 static void
 android_glBlendEquation__I
   (JNIEnv *_env, jobject _this, jint mode) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_blend_subtractID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glBlendEquation");
@@ -6232,12 +7184,17 @@ android_glBlendEquation__I
     glBlendEquation(
         (GLint)mode
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glBlendEquation");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glBlendEquationSeparate ( GLint modeRGB, GLint modeAlpha ) */
 static void
 android_glBlendEquationSeparate__II
   (JNIEnv *_env, jobject _this, jint modeRGB, jint modeAlpha) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_blend_equation_separateID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glBlendEquationSeparate");
@@ -6247,12 +7204,17 @@ android_glBlendEquationSeparate__II
         (GLint)modeRGB,
         (GLint)modeAlpha
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glBlendEquationSeparate");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glBlendFuncSeparate ( GLint srcRGB, GLint dstRGB, GLint srcAlpha, GLint dstAlpha ) */
 static void
 android_glBlendFuncSeparate__IIII
   (JNIEnv *_env, jobject _this, jint srcRGB, jint dstRGB, jint srcAlpha, jint dstAlpha) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_blend_equation_separateID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glBlendFuncSeparate");
@@ -6264,12 +7226,17 @@ android_glBlendFuncSeparate__IIII
         (GLint)srcAlpha,
         (GLint)dstAlpha
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glBlendFuncSeparate");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* GLint glCheckFramebufferStatusOES ( GLint target ) */
 static jint
 android_glCheckFramebufferStatusOES__I
   (JNIEnv *_env, jobject _this, jint target) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glCheckFramebufferStatusOES");
@@ -6434,12 +7401,50 @@ exit:
     if (_array) {
         releasePointer(_env, _array, renderbuffers, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glCheckFramebufferStatusOES");
+    return 0;
+}
+
+/* void glDeleteFramebuffersOES ( GLint n, GLint *framebuffers ) */
+static void
+android_glDeleteFramebuffersOES__I_3II
+  (JNIEnv *_env, jobject _this, jint n, jintArray framebuffers_ref, jint offset) {
+    _env->ThrowNew(UOEClass,
+        "glDeleteFramebuffersOES");
+}
+
+/* void glDeleteFramebuffersOES ( GLint n, GLint *framebuffers ) */
+static void
+android_glDeleteFramebuffersOES__ILjava_nio_IntBuffer_2
+  (JNIEnv *_env, jobject _this, jint n, jobject framebuffers_buf) {
+    _env->ThrowNew(UOEClass,
+        "glDeleteFramebuffersOES");
+}
+
+/* void glDeleteRenderbuffersOES ( GLint n, GLint *renderbuffers ) */
+static void
+android_glDeleteRenderbuffersOES__I_3II
+  (JNIEnv *_env, jobject _this, jint n, jintArray renderbuffers_ref, jint offset) {
+    _env->ThrowNew(UOEClass,
+        "glDeleteRenderbuffersOES");
+}
+
+/* void glDeleteRenderbuffersOES ( GLint n, GLint *renderbuffers ) */
+static void
+android_glDeleteRenderbuffersOES__ILjava_nio_IntBuffer_2
+  (JNIEnv *_env, jobject _this, jint n, jobject renderbuffers_buf) {
+    _env->ThrowNew(UOEClass,
+        "glDeleteRenderbuffersOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glFramebufferRenderbufferOES ( GLint target, GLint attachment, GLint renderbuffertarget, GLint renderbuffer ) */
 static void
 android_glFramebufferRenderbufferOES__IIII
   (JNIEnv *_env, jobject _this, jint target, jint attachment, jint renderbuffertarget, jint renderbuffer) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glFramebufferRenderbufferOES");
@@ -6451,12 +7456,17 @@ android_glFramebufferRenderbufferOES__IIII
         (GLint)renderbuffertarget,
         (GLint)renderbuffer
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glFramebufferRenderbufferOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glFramebufferTexture2DOES ( GLint target, GLint attachment, GLint textarget, GLint texture, GLint level ) */
 static void
 android_glFramebufferTexture2DOES__IIIII
   (JNIEnv *_env, jobject _this, jint target, jint attachment, jint textarget, jint texture, jint level) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glFramebufferTexture2DOES");
@@ -6469,12 +7479,17 @@ android_glFramebufferTexture2DOES__IIIII
         (GLint)texture,
         (GLint)level
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glFramebufferTexture2DOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGenerateMipmapOES ( GLint target ) */
 static void
 android_glGenerateMipmapOES__I
   (JNIEnv *_env, jobject _this, jint target) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGenerateMipmapOES");
@@ -6637,12 +7652,49 @@ exit:
     if (_array) {
         releasePointer(_env, _array, renderbuffers, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGenerateMipmapOES");
+}
+
+/* void glGenFramebuffersOES ( GLint n, GLint *framebuffers ) */
+static void
+android_glGenFramebuffersOES__I_3II
+  (JNIEnv *_env, jobject _this, jint n, jintArray framebuffers_ref, jint offset) {
+    _env->ThrowNew(UOEClass,
+        "glGenFramebuffersOES");
+}
+
+/* void glGenFramebuffersOES ( GLint n, GLint *framebuffers ) */
+static void
+android_glGenFramebuffersOES__ILjava_nio_IntBuffer_2
+  (JNIEnv *_env, jobject _this, jint n, jobject framebuffers_buf) {
+    _env->ThrowNew(UOEClass,
+        "glGenFramebuffersOES");
+}
+
+/* void glGenRenderbuffersOES ( GLint n, GLint *renderbuffers ) */
+static void
+android_glGenRenderbuffersOES__I_3II
+  (JNIEnv *_env, jobject _this, jint n, jintArray renderbuffers_ref, jint offset) {
+    _env->ThrowNew(UOEClass,
+        "glGenRenderbuffersOES");
+}
+
+/* void glGenRenderbuffersOES ( GLint n, GLint *renderbuffers ) */
+static void
+android_glGenRenderbuffersOES__ILjava_nio_IntBuffer_2
+  (JNIEnv *_env, jobject _this, jint n, jobject renderbuffers_buf) {
+    _env->ThrowNew(UOEClass,
+        "glGenRenderbuffersOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetFramebufferAttachmentParameterivOES ( GLint target, GLint attachment, GLint pname, GLint *params ) */
 static void
 android_glGetFramebufferAttachmentParameterivOES__III_3II
   (JNIEnv *_env, jobject _this, jint target, jint attachment, jint pname, jintArray params_ref, jint offset) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetFramebufferAttachmentParameterivOES");
@@ -6680,12 +7732,17 @@ exit:
         _env->ReleasePrimitiveArrayCritical(params_ref, params_base,
             _exception ? JNI_ABORT: 0);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetFramebufferAttachmentParameterivOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetFramebufferAttachmentParameterivOES ( GLint target, GLint attachment, GLint pname, GLint *params ) */
 static void
 android_glGetFramebufferAttachmentParameterivOES__IIILjava_nio_IntBuffer_2
   (JNIEnv *_env, jobject _this, jint target, jint attachment, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetFramebufferAttachmentParameterivOES");
@@ -6706,12 +7763,17 @@ android_glGetFramebufferAttachmentParameterivOES__IIILjava_nio_IntBuffer_2
     if (_array) {
         releasePointer(_env, _array, params, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetFramebufferAttachmentParameterivOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetRenderbufferParameterivOES ( GLint target, GLint pname, GLint *params ) */
 static void
 android_glGetRenderbufferParameterivOES__II_3II
   (JNIEnv *_env, jobject _this, jint target, jint pname, jintArray params_ref, jint offset) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetRenderbufferParameterivOES");
@@ -6748,12 +7810,17 @@ exit:
         _env->ReleasePrimitiveArrayCritical(params_ref, params_base,
             _exception ? JNI_ABORT: 0);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetRenderbufferParameterivOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetRenderbufferParameterivOES ( GLint target, GLint pname, GLint *params ) */
 static void
 android_glGetRenderbufferParameterivOES__IILjava_nio_IntBuffer_2
   (JNIEnv *_env, jobject _this, jint target, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetRenderbufferParameterivOES");
@@ -6773,12 +7840,17 @@ android_glGetRenderbufferParameterivOES__IILjava_nio_IntBuffer_2
     if (_array) {
         releasePointer(_env, _array, params, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetRenderbufferParameterivOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetTexGenfv ( GLint coord, GLint pname, GLfloat *params ) */
 static void
 android_glGetTexGenfv__II_3FI
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jfloatArray params_ref, jint offset) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetTexGenfv");
@@ -6815,12 +7887,17 @@ exit:
         _env->ReleasePrimitiveArrayCritical(params_ref, params_base,
             _exception ? JNI_ABORT: 0);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetTexGenfv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetTexGenfv ( GLint coord, GLint pname, GLfloat *params ) */
 static void
 android_glGetTexGenfv__IILjava_nio_FloatBuffer_2
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetTexGenfv");
@@ -6840,12 +7917,17 @@ android_glGetTexGenfv__IILjava_nio_FloatBuffer_2
     if (_array) {
         releasePointer(_env, _array, params, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetTexGenfv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetTexGeniv ( GLint coord, GLint pname, GLint *params ) */
 static void
 android_glGetTexGeniv__II_3II
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jintArray params_ref, jint offset) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetTexGeniv");
@@ -6882,12 +7964,17 @@ exit:
         _env->ReleasePrimitiveArrayCritical(params_ref, params_base,
             _exception ? JNI_ABORT: 0);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetTexGeniv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetTexGeniv ( GLint coord, GLint pname, GLint *params ) */
 static void
 android_glGetTexGeniv__IILjava_nio_IntBuffer_2
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetTexGeniv");
@@ -6907,12 +7994,17 @@ android_glGetTexGeniv__IILjava_nio_IntBuffer_2
     if (_array) {
         releasePointer(_env, _array, params, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetTexGeniv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetTexGenxv ( GLint coord, GLint pname, GLint *params ) */
 static void
 android_glGetTexGenxv__II_3II
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jintArray params_ref, jint offset) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetTexGenxv");
@@ -6949,12 +8041,17 @@ exit:
         _env->ReleasePrimitiveArrayCritical(params_ref, params_base,
             _exception ? JNI_ABORT: 0);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetTexGenxv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glGetTexGenxv ( GLint coord, GLint pname, GLint *params ) */
 static void
 android_glGetTexGenxv__IILjava_nio_IntBuffer_2
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glGetTexGenxv");
@@ -6974,12 +8071,17 @@ android_glGetTexGenxv__IILjava_nio_IntBuffer_2
     if (_array) {
         releasePointer(_env, _array, params, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glGetTexGenxv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* GLboolean glIsFramebufferOES ( GLint framebuffer ) */
 static jboolean
 android_glIsFramebufferOES__I
   (JNIEnv *_env, jobject _this, jint framebuffer) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glIsFramebufferOES");
@@ -6990,12 +8092,18 @@ android_glIsFramebufferOES__I
         (GLint)framebuffer
     );
     return _returnValue;
+=======
+    _env->ThrowNew(UOEClass,
+        "glIsFramebufferOES");
+    return JNI_FALSE;
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* GLboolean glIsRenderbufferOES ( GLint renderbuffer ) */
 static jboolean
 android_glIsRenderbufferOES__I
   (JNIEnv *_env, jobject _this, jint renderbuffer) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glIsRenderbufferOES");
@@ -7006,12 +8114,18 @@ android_glIsRenderbufferOES__I
         (GLint)renderbuffer
     );
     return _returnValue;
+=======
+    _env->ThrowNew(UOEClass,
+        "glIsRenderbufferOES");
+    return JNI_FALSE;
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glRenderbufferStorageOES ( GLint target, GLint internalformat, GLint width, GLint height ) */
 static void
 android_glRenderbufferStorageOES__IIII
   (JNIEnv *_env, jobject _this, jint target, jint internalformat, jint width, jint height) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_framebuffer_objectID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glRenderbufferStorageOES");
@@ -7023,12 +8137,17 @@ android_glRenderbufferStorageOES__IIII
         (GLint)width,
         (GLint)height
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glRenderbufferStorageOES");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGenf ( GLint coord, GLint pname, GLfloat param ) */
 static void
 android_glTexGenf__IIF
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jfloat param) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGenf");
@@ -7039,12 +8158,17 @@ android_glTexGenf__IIF
         (GLint)pname,
         (GLfloat)param
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGenf");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGenfv ( GLint coord, GLint pname, GLfloat *params ) */
 static void
 android_glTexGenfv__II_3FI
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jfloatArray params_ref, jint offset) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGenfv");
@@ -7081,12 +8205,17 @@ exit:
         _env->ReleasePrimitiveArrayCritical(params_ref, params_base,
             _exception ? JNI_ABORT: 0);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGenfv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGenfv ( GLint coord, GLint pname, GLfloat *params ) */
 static void
 android_glTexGenfv__IILjava_nio_FloatBuffer_2
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGenfv");
@@ -7106,12 +8235,17 @@ android_glTexGenfv__IILjava_nio_FloatBuffer_2
     if (_array) {
         releasePointer(_env, _array, params, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGenfv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGeni ( GLint coord, GLint pname, GLint param ) */
 static void
 android_glTexGeni__III
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jint param) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGeni");
@@ -7122,12 +8256,17 @@ android_glTexGeni__III
         (GLint)pname,
         (GLint)param
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGeni");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGeniv ( GLint coord, GLint pname, GLint *params ) */
 static void
 android_glTexGeniv__II_3II
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jintArray params_ref, jint offset) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGeniv");
@@ -7164,12 +8303,17 @@ exit:
         _env->ReleasePrimitiveArrayCritical(params_ref, params_base,
             _exception ? JNI_ABORT: 0);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGeniv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGeniv ( GLint coord, GLint pname, GLint *params ) */
 static void
 android_glTexGeniv__IILjava_nio_IntBuffer_2
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGeniv");
@@ -7189,12 +8333,17 @@ android_glTexGeniv__IILjava_nio_IntBuffer_2
     if (_array) {
         releasePointer(_env, _array, params, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGeniv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGenx ( GLint coord, GLint pname, GLint param ) */
 static void
 android_glTexGenx__III
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jint param) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGenx");
@@ -7205,12 +8354,17 @@ android_glTexGenx__III
         (GLint)pname,
         (GLint)param
     );
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGenx");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGenxv ( GLint coord, GLint pname, GLint *params ) */
 static void
 android_glTexGenxv__II_3II
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jintArray params_ref, jint offset) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGenxv");
@@ -7247,12 +8401,17 @@ exit:
         _env->ReleasePrimitiveArrayCritical(params_ref, params_base,
             _exception ? JNI_ABORT: 0);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGenxv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 /* void glTexGenxv ( GLint coord, GLint pname, GLint *params ) */
 static void
 android_glTexGenxv__IILjava_nio_IntBuffer_2
   (JNIEnv *_env, jobject _this, jint coord, jint pname, jobject params_buf) {
+<<<<<<< HEAD
     if (! supportsExtension(_env, _this, have_OES_texture_cube_mapID)) {
         jniThrowException(_env, "java/lang/UnsupportedOperationException",
             "glTexGenxv");
@@ -7272,6 +8431,10 @@ android_glTexGenxv__IILjava_nio_IntBuffer_2
     if (_array) {
         releasePointer(_env, _array, params, _exception ? JNI_FALSE : JNI_TRUE);
     }
+=======
+    _env->ThrowNew(UOEClass,
+        "glTexGenxv");
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 static const char *classPathName = "com/google/android/gles_jni/GLImpl";
@@ -7457,7 +8620,11 @@ static JNINativeMethod methods[] = {
 {"glPointParameterx", "(II)V", (void *) android_glPointParameterx__II },
 {"glPointParameterxv", "(I[II)V", (void *) android_glPointParameterxv__I_3II },
 {"glPointParameterxv", "(ILjava/nio/IntBuffer;)V", (void *) android_glPointParameterxv__ILjava_nio_IntBuffer_2 },
+<<<<<<< HEAD
 {"glPointSizePointerOESBounds", "(IILjava/nio/Buffer;I)V", (void *) android_glPointSizePointerOESBounds__IILjava_nio_Buffer_2I },
+=======
+{"glPointSizePointerOES", "(IILjava/nio/Buffer;)V", (void *) android_glPointSizePointerOES__IILjava_nio_Buffer_2 },
+>>>>>>> 54b6cfa... Initial Contribution
 {"glTexCoordPointer", "(IIII)V", (void *) android_glTexCoordPointer__IIII },
 {"glTexEnvi", "(III)V", (void *) android_glTexEnvi__III },
 {"glTexEnviv", "(II[II)V", (void *) android_glTexEnviv__II_3II },
@@ -7484,9 +8651,15 @@ static JNINativeMethod methods[] = {
 {"glDrawTexxvOES", "([II)V", (void *) android_glDrawTexxvOES___3II },
 {"glDrawTexxvOES", "(Ljava/nio/IntBuffer;)V", (void *) android_glDrawTexxvOES__Ljava_nio_IntBuffer_2 },
 {"glLoadPaletteFromModelViewMatrixOES", "()V", (void *) android_glLoadPaletteFromModelViewMatrixOES__ },
+<<<<<<< HEAD
 {"glMatrixIndexPointerOESBounds", "(IIILjava/nio/Buffer;I)V", (void *) android_glMatrixIndexPointerOESBounds__IIILjava_nio_Buffer_2I },
 {"glMatrixIndexPointerOES", "(IIII)V", (void *) android_glMatrixIndexPointerOES__IIII },
 {"glWeightPointerOESBounds", "(IIILjava/nio/Buffer;I)V", (void *) android_glWeightPointerOESBounds__IIILjava_nio_Buffer_2I },
+=======
+{"glMatrixIndexPointerOES", "(IIILjava/nio/Buffer;)V", (void *) android_glMatrixIndexPointerOES__IIILjava_nio_Buffer_2 },
+{"glMatrixIndexPointerOES", "(IIII)V", (void *) android_glMatrixIndexPointerOES__IIII },
+{"glWeightPointerOES", "(IIILjava/nio/Buffer;)V", (void *) android_glWeightPointerOES__IIILjava_nio_Buffer_2 },
+>>>>>>> 54b6cfa... Initial Contribution
 {"glWeightPointerOES", "(IIII)V", (void *) android_glWeightPointerOES__IIII },
 {"glBindFramebufferOES", "(II)V", (void *) android_glBindFramebufferOES__II },
 {"glBindRenderbufferOES", "(II)V", (void *) android_glBindRenderbufferOES__II },

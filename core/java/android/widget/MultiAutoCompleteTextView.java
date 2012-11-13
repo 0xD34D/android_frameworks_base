@@ -17,6 +17,7 @@
 package android.widget;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -25,13 +26,37 @@ import android.text.method.QwertyKeyListener;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+=======
+import android.content.res.TypedArray;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.Spanned;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.method.QwertyKeyListener;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.android.internal.R;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * An editable text view, extending {@link AutoCompleteTextView}, that
  * can show completion suggestions for the substring of the text where
  * the user is typing instead of necessarily for the entire thing.
  * <p>
+<<<<<<< HEAD
  * You must provide a {@link Tokenizer} to distinguish the
+=======
+ * You must must provide a {@link Tokenizer} to distinguish the
+>>>>>>> 54b6cfa... Initial Contribution
  * various substrings.
  *
  * <p>The following code snippet shows how to create a text view which suggests
@@ -42,7 +67,11 @@ import android.view.accessibility.AccessibilityNodeInfo;
  *     protected void onCreate(Bundle savedInstanceState) {
  *         super.onCreate(savedInstanceState);
  *         setContentView(R.layout.autocomplete_7);
+<<<<<<< HEAD
  *
+=======
+ * 
+>>>>>>> 54b6cfa... Initial Contribution
  *         ArrayAdapter&lt;String&gt; adapter = new ArrayAdapter&lt;String&gt;(this,
  *                 android.R.layout.simple_dropdown_item_1line, COUNTRIES);
  *         MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) findViewById(R.id.edit);
@@ -116,7 +145,11 @@ public class MultiAutoCompleteTextView extends AutoCompleteTextView {
         Editable text = getText();
 
         int end = getSelectionEnd();
+<<<<<<< HEAD
         if (end < 0 || mTokenizer == null) {
+=======
+        if (end < 0) {
+>>>>>>> 54b6cfa... Initial Contribution
             return false;
         }
 
@@ -133,11 +166,19 @@ public class MultiAutoCompleteTextView extends AutoCompleteTextView {
      * Instead of validating the entire text, this subclass method validates
      * each token of the text individually.  Empty tokens are removed.
      */
+<<<<<<< HEAD
     @Override
     public void performValidation() {
         Validator v = getValidator();
 
         if (v == null || mTokenizer == null) {
+=======
+    @Override 
+    public void performValidation() {
+        Validator v = getValidator();
+
+        if (v == null) {
+>>>>>>> 54b6cfa... Initial Contribution
             return;
         }
 
@@ -185,8 +226,11 @@ public class MultiAutoCompleteTextView extends AutoCompleteTextView {
      */
     @Override
     protected void replaceText(CharSequence text) {
+<<<<<<< HEAD
         clearComposingText();
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         int end = getSelectionEnd();
         int start = mTokenizer.findTokenStart(getText(), end);
 
@@ -197,6 +241,7 @@ public class MultiAutoCompleteTextView extends AutoCompleteTextView {
         editable.replace(start, end, mTokenizer.terminateToken(text));
     }
 
+<<<<<<< HEAD
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
@@ -209,6 +254,8 @@ public class MultiAutoCompleteTextView extends AutoCompleteTextView {
         info.setClassName(MultiAutoCompleteTextView.class.getName());
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public static interface Tokenizer {
         /**
          * Returns the start of the token that ends at offset

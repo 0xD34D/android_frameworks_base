@@ -16,6 +16,7 @@
 
 package com.android.server.am;
 
+<<<<<<< HEAD
 import android.app.ActivityManager;
 import android.content.IIntentSender;
 import android.content.IIntentReceiver;
@@ -27,6 +28,16 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.UserId;
 import android.util.Slog;
+=======
+import android.app.IActivityManager;
+import android.app.IIntentSender;
+import android.app.IIntentReceiver;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Binder;
+import android.os.RemoteException;
+import android.util.Log;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
@@ -39,37 +50,58 @@ class PendingIntentRecord extends IIntentSender.Stub {
     boolean sent = false;
     boolean canceled = false;
 
+<<<<<<< HEAD
     String stringName;
     
     final static class Key {
         final int type;
         final String packageName;
         final ActivityRecord activity;
+=======
+    final static class Key {
+        final int type;
+        final String packageName;
+        final HistoryRecord activity;
+>>>>>>> 54b6cfa... Initial Contribution
         final String who;
         final int requestCode;
         final Intent requestIntent;
         final String requestResolvedType;
+<<<<<<< HEAD
         final Bundle options;
         Intent[] allIntents;
         String[] allResolvedTypes;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         final int flags;
         final int hashCode;
         
         private static final int ODD_PRIME_NUMBER = 37;
         
+<<<<<<< HEAD
         Key(int _t, String _p, ActivityRecord _a, String _w,
                 int _r, Intent[] _i, String[] _it, int _f, Bundle _o) {
+=======
+        Key(int _t, String _p, HistoryRecord _a, String _w,
+                int _r, Intent _i, String _it, int _f) {
+>>>>>>> 54b6cfa... Initial Contribution
             type = _t;
             packageName = _p;
             activity = _a;
             who = _w;
             requestCode = _r;
+<<<<<<< HEAD
             requestIntent = _i != null ? _i[_i.length-1] : null;
             requestResolvedType = _it != null ? _it[_it.length-1] : null;
             allIntents = _i;
             allResolvedTypes = _it;
             flags = _f;
             options = _o;
+=======
+            requestIntent = _i;
+            requestResolvedType = _it;
+            flags = _f;
+>>>>>>> 54b6cfa... Initial Contribution
             
             int hash = 23;
             hash = (ODD_PRIME_NUMBER*hash) + _f;
@@ -80,16 +112,28 @@ class PendingIntentRecord extends IIntentSender.Stub {
             if (_a != null) {
                 hash = (ODD_PRIME_NUMBER*hash) + _a.hashCode();
             }
+<<<<<<< HEAD
             if (requestIntent != null) {
                 hash = (ODD_PRIME_NUMBER*hash) + requestIntent.filterHashCode();
             }
             if (requestResolvedType != null) {
                 hash = (ODD_PRIME_NUMBER*hash) + requestResolvedType.hashCode();
+=======
+            if (_i != null) {
+                hash = (ODD_PRIME_NUMBER*hash) + _i.filterHashCode();
+            }
+            if (_it != null) {
+                hash = (ODD_PRIME_NUMBER*hash) + _it.hashCode();
+>>>>>>> 54b6cfa... Initial Contribution
             }
             hash = (ODD_PRIME_NUMBER*hash) + _p.hashCode();
             hash = (ODD_PRIME_NUMBER*hash) + _t;
             hashCode = hash;
+<<<<<<< HEAD
             //Slog.i(ActivityManagerService.TAG, this + " hashCode=0x"
+=======
+            //Log.i(ActivityManagerService.TAG, this + " hashCode=0x"
+>>>>>>> 54b6cfa... Initial Contribution
             //        + Integer.toHexString(hashCode));
         }
         
@@ -153,14 +197,20 @@ class PendingIntentRecord extends IIntentSender.Stub {
         
         public String toString() {
             return "Key{" + typeName() + " pkg=" + packageName
+<<<<<<< HEAD
                 + " intent="
                 + (requestIntent != null
                         ? requestIntent.toShortString(false, true, false, false) : "<null>")
                 + " flags=0x" + Integer.toHexString(flags) + "}";
+=======
+                + " intent=" + requestIntent + " flags=0x"
+                + Integer.toHexString(flags) + "}";
+>>>>>>> 54b6cfa... Initial Contribution
         }
         
         String typeName() {
             switch (type) {
+<<<<<<< HEAD
                 case ActivityManager.INTENT_SENDER_ACTIVITY:
                     return "startActivity";
                 case ActivityManager.INTENT_SENDER_BROADCAST:
@@ -168,6 +218,15 @@ class PendingIntentRecord extends IIntentSender.Stub {
                 case ActivityManager.INTENT_SENDER_SERVICE:
                     return "startService";
                 case ActivityManager.INTENT_SENDER_ACTIVITY_RESULT:
+=======
+                case IActivityManager.INTENT_SENDER_ACTIVITY:
+                    return "startActivity";
+                case IActivityManager.INTENT_SENDER_BROADCAST:
+                    return "broadcastIntent";
+                case IActivityManager.INTENT_SENDER_SERVICE:
+                    return "startService";
+                case IActivityManager.INTENT_SENDER_ACTIVITY_RESULT:
+>>>>>>> 54b6cfa... Initial Contribution
                     return "activityResult";
             }
             return Integer.toString(type);
@@ -182,6 +241,7 @@ class PendingIntentRecord extends IIntentSender.Stub {
     }
 
     public int send(int code, Intent intent, String resolvedType,
+<<<<<<< HEAD
             IIntentReceiver finishedReceiver, String requiredPermission) {
         return sendInner(code, intent, resolvedType, finishedReceiver,
                 requiredPermission, null, null, 0, 0, 0, null);
@@ -191,6 +251,9 @@ class PendingIntentRecord extends IIntentSender.Stub {
             IIntentReceiver finishedReceiver, String requiredPermission,
             IBinder resultTo, String resultWho, int requestCode,
             int flagsMask, int flagsValues, Bundle options) {
+=======
+            IIntentReceiver finishedReceiver) {
+>>>>>>> 54b6cfa... Initial Contribution
         synchronized(owner) {
             if (!canceled) {
                 sent = true;
@@ -208,14 +271,18 @@ class PendingIntentRecord extends IIntentSender.Stub {
                 } else {
                     resolvedType = key.requestResolvedType;
                 }
+<<<<<<< HEAD
                 flagsMask &= ~Intent.IMMUTABLE_FLAGS;
                 flagsValues &= flagsMask;
                 finalIntent.setFlags((finalIntent.getFlags()&~flagsMask) | flagsValues);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 
                 final long origId = Binder.clearCallingIdentity();
                 
                 boolean sendFinish = finishedReceiver != null;
                 switch (key.type) {
+<<<<<<< HEAD
                     case ActivityManager.INTENT_SENDER_ACTIVITY:
                         if (options == null) {
                             options = key.options;
@@ -268,11 +335,44 @@ class PendingIntentRecord extends IIntentSender.Stub {
                         }
                         break;
                     case ActivityManager.INTENT_SENDER_SERVICE:
+=======
+                    case IActivityManager.INTENT_SENDER_ACTIVITY:
+                        try {
+                            owner.startActivityInPackage(uid,
+                                    finalIntent, resolvedType,
+                                    null, null, 0, false);
+                        } catch (RuntimeException e) {
+                            Log.w(ActivityManagerService.TAG,
+                                    "Unable to send startActivity intent", e);
+                        }
+                        break;
+                    case IActivityManager.INTENT_SENDER_ACTIVITY_RESULT:
+                        owner.sendActivityResultLocked(-1, key.activity,
+                                key.who, key.requestCode, code, finalIntent);
+                        break;
+                    case IActivityManager.INTENT_SENDER_BROADCAST:
+                        try {
+                            owner.broadcastIntentInPackage(key.packageName, uid,
+                                    finalIntent, resolvedType,
+                                    finishedReceiver, code, null, null, null,
+                                    false, false);
+                            sendFinish = false;
+                        } catch (RuntimeException e) {
+                            Log.w(ActivityManagerService.TAG,
+                                    "Unable to send startActivity intent", e);
+                        }
+                        break;
+                    case IActivityManager.INTENT_SENDER_SERVICE:
+>>>>>>> 54b6cfa... Initial Contribution
                         try {
                             owner.startServiceInPackage(uid,
                                     finalIntent, resolvedType);
                         } catch (RuntimeException e) {
+<<<<<<< HEAD
                             Slog.w(ActivityManagerService.TAG,
+=======
+                            Log.w(ActivityManagerService.TAG,
+>>>>>>> 54b6cfa... Initial Contribution
                                     "Unable to send startService intent", e);
                         }
                         break;
@@ -281,7 +381,11 @@ class PendingIntentRecord extends IIntentSender.Stub {
                 if (sendFinish) {
                     try {
                         finishedReceiver.performReceive(new Intent(finalIntent), 0,
+<<<<<<< HEAD
                                 null, null, false, false);
+=======
+                                null, null, false);
+>>>>>>> 54b6cfa... Initial Contribution
                     } catch (RemoteException e) {
                     }
                 }
@@ -291,6 +395,7 @@ class PendingIntentRecord extends IIntentSender.Stub {
                 return 0;
             }
         }
+<<<<<<< HEAD
         return ActivityManager.START_CANCELED;
     }
     
@@ -351,5 +456,37 @@ class PendingIntentRecord extends IIntentSender.Stub {
         sb.append(key.typeName());
         sb.append('}');
         return stringName = sb.toString();
+=======
+        return -1;
+    }
+    
+    protected void finalize() throws Throwable {
+        if (!canceled) {
+            synchronized(owner) {
+                WeakReference<PendingIntentRecord> current =
+                        owner.mIntentSenderRecords.get(key);
+                if (current == ref) {
+                    owner.mIntentSenderRecords.remove(key);
+                }
+            }
+        }
+    }
+
+    void dump(PrintWriter pw, String prefix) {
+        pw.println(prefix + "packageName=" + key.packageName
+                + " type=" + key.typeName()
+                + " flags=0x" + Integer.toHexString(key.flags));
+        pw.println(prefix + "activity=" + key.activity + " who=" + key.who);
+        pw.println(prefix + "requestCode=" + key.requestCode
+                + " requestResolvedType=" + key.requestResolvedType);
+        pw.println(prefix + "requestIntent=" + key.requestIntent);
+        pw.println(prefix + "sent=" + sent + " canceled=" + canceled);
+    }
+
+    public String toString() {
+        return "IntentSenderRecord{"
+            + Integer.toHexString(System.identityHashCode(this))
+            + " " + key.packageName + " " + key.typeName() + "}";
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

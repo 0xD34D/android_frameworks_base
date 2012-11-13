@@ -28,7 +28,11 @@ public:
 
     static void finalizer(JNIEnv* env, jobject, SkXfermode* obj)
     {
+<<<<<<< HEAD
         SkSafeUnref(obj);
+=======
+        obj->safeUnref();
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     static SkXfermode* avoid_create(JNIEnv* env, jobject, SkColor opColor,

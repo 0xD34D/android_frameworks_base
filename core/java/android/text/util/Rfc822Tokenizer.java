@@ -19,7 +19,10 @@ package android.text.util;
 import android.widget.MultiAutoCompleteTextView;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Collection;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * This class works as a Tokenizer for MultiAutoCompleteTextView for
@@ -28,21 +31,34 @@ import java.util.Collection;
  * into a series of Rfc822Tokens.
  */
 public class Rfc822Tokenizer implements MultiAutoCompleteTextView.Tokenizer {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * This constructor will try to take a string like
      * "Foo Bar (something) &lt;foo\@google.com&gt;,
      * blah\@google.com (something)"
+<<<<<<< HEAD
      * and convert it into one or more Rfc822Tokens, output into the supplied
      * collection.
      *
+=======
+     * and convert it into one or more Rfc822Tokens.
+>>>>>>> 54b6cfa... Initial Contribution
      * It does *not* decode MIME encoded-words; charset conversion
      * must already have taken place if necessary.
      * It will try to be tolerant of broken syntax instead of
      * returning an error.
+<<<<<<< HEAD
      *
      */
     public static void tokenize(CharSequence text, Collection<Rfc822Token> out) {
+=======
+     */
+    public static Rfc822Token[] tokenize(CharSequence text) {
+        ArrayList<Rfc822Token> out = new ArrayList<Rfc822Token>();
+>>>>>>> 54b6cfa... Initial Contribution
         StringBuilder name = new StringBuilder();
         StringBuilder address = new StringBuilder();
         StringBuilder comment = new StringBuilder();
@@ -74,7 +90,11 @@ public class Rfc822Tokenizer implements MultiAutoCompleteTextView.Tokenizer {
 
                 name.setLength(0);
                 address.setLength(0);
+<<<<<<< HEAD
                 comment.setLength(0);
+=======
+                address.setLength(0);
+>>>>>>> 54b6cfa... Initial Contribution
             } else if (c == '"') {
                 i++;
 
@@ -85,9 +105,13 @@ public class Rfc822Tokenizer implements MultiAutoCompleteTextView.Tokenizer {
                         i++;
                         break;
                     } else if (c == '\\') {
+<<<<<<< HEAD
                         if (i + 1 < cursor) {
                             name.append(text.charAt(i + 1));
                         }
+=======
+                        name.append(text.charAt(i + 1));
+>>>>>>> 54b6cfa... Initial Contribution
                         i += 2;
                     } else {
                         name.append(c);
@@ -113,9 +137,13 @@ public class Rfc822Tokenizer implements MultiAutoCompleteTextView.Tokenizer {
                         level++;
                         i++;
                     } else if (c == '\\') {
+<<<<<<< HEAD
                         if (i + 1 < cursor) {
                             comment.append(text.charAt(i + 1));
                         }
+=======
+                        comment.append(text.charAt(i + 1));
+>>>>>>> 54b6cfa... Initial Contribution
                         i += 2;
                     } else {
                         comment.append(c);
@@ -156,6 +184,7 @@ public class Rfc822Tokenizer implements MultiAutoCompleteTextView.Tokenizer {
                                     name.toString(),
                                     comment.toString()));
         }
+<<<<<<< HEAD
     }
 
     /**
@@ -171,6 +200,9 @@ public class Rfc822Tokenizer implements MultiAutoCompleteTextView.Tokenizer {
     public static Rfc822Token[] tokenize(CharSequence text) {
         ArrayList<Rfc822Token> out = new ArrayList<Rfc822Token>();
         tokenize(text, out);
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
         return out.toArray(new Rfc822Token[out.size()]);
     }
 
@@ -256,7 +288,11 @@ public class Rfc822Tokenizer implements MultiAutoCompleteTextView.Tokenizer {
                     if (c == '"') {
                         i++;
                         break;
+<<<<<<< HEAD
                     } else if (c == '\\' && i + 1 < len) {
+=======
+                    } else if (c == '\\') {
+>>>>>>> 54b6cfa... Initial Contribution
                         i += 2;
                     } else {
                         i++;
@@ -275,7 +311,11 @@ public class Rfc822Tokenizer implements MultiAutoCompleteTextView.Tokenizer {
                     } else if (c == '(') {
                         level++;
                         i++;
+<<<<<<< HEAD
                     } else if (c == '\\' && i + 1 < len) {
+=======
+                    } else if (c == '\\') {
+>>>>>>> 54b6cfa... Initial Contribution
                         i += 2;
                     } else {
                         i++;

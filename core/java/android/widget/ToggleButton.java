@@ -22,17 +22,23 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
+<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.android.internal.R;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Displays checked/unchecked states as a button
  * with a "light" indicator and by default accompanied with the text "ON" or "OFF".
+<<<<<<< HEAD
  *
  * <p>See the <a href="{@docRoot}guide/topics/ui/controls/togglebutton.html">Toggle Buttons</a>
  * guide.</p>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  * 
  * @attr ref android.R.styleable#ToggleButton_textOn
  * @attr ref android.R.styleable#ToggleButton_textOff
@@ -139,8 +145,11 @@ public class ToggleButton extends CompoundButton {
             LayerDrawable layerDrawable = (LayerDrawable) backgroundDrawable;
             mIndicatorDrawable =
                     layerDrawable.findDrawableByLayerId(com.android.internal.R.id.toggle);
+<<<<<<< HEAD
         } else {
             mIndicatorDrawable = null;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
@@ -152,6 +161,7 @@ public class ToggleButton extends CompoundButton {
             mIndicatorDrawable.setAlpha(isEnabled() ? NO_ALPHA : (int) (NO_ALPHA * mDisabledAlpha));
         }
     }
+<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -164,4 +174,7 @@ public class ToggleButton extends CompoundButton {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(ToggleButton.class.getName());
     }
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
 }

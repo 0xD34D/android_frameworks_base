@@ -19,6 +19,7 @@ package android.content;
 import android.net.Uri;
 
 /**
+<<<<<<< HEAD
 * Utility methods useful for working with {@link android.net.Uri} objects
 * that use the &quot;content&quot; (content://) scheme.
 *
@@ -67,6 +68,11 @@ import android.net.Uri;
 *</dl>
 *
 */
+=======
+ * Utility methods useful for working with content {@link android.net.Uri}s,
+ * those with a "content" scheme.
+ */
+>>>>>>> 54b6cfa... Initial Contribution
 public class ContentUris {
 
     /**

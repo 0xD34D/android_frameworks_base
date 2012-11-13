@@ -7,6 +7,7 @@
 #define __BUNDLE_H
 
 #include <stdlib.h>
+<<<<<<< HEAD
 #include <utils/Log.h>
 #include <utils/threads.h>
 #include <utils/List.h>
@@ -26,6 +27,12 @@ enum {
     SDK_ICE_CREAM_SANDWICH_MR1 = 15,
 };
 
+=======
+#include <utils.h>      // android
+#include <utils/String8.h>
+#include <utils/Vector.h>
+
+>>>>>>> 54b6cfa... Initial Contribution
 /*
  * Things we can do.
  */
@@ -37,7 +44,10 @@ typedef enum Command {
     kCommandAdd,
     kCommandRemove,
     kCommandPackage,
+<<<<<<< HEAD
     kCommandCrunch,
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 } Command;
 
 /*
@@ -47,6 +57,7 @@ class Bundle {
 public:
     Bundle(void)
         : mCmd(kCommandUnknown), mVerbose(false), mAndroidList(false),
+<<<<<<< HEAD
           mForce(false), mGrayscaleTolerance(0), mMakePackageDirs(false),
           mUpdate(false), mExtending(false),
           mRequireLocalization(false), mPseudolocalize(false),
@@ -63,6 +74,16 @@ public:
           mVersionCode(NULL), mVersionName(NULL), mCustomPackage(NULL), mExtraPackages(NULL),
           mMaxResVersion(NULL), mDebugMode(false), mNonConstantId(false), mProduct(NULL),
           mUseCrunchCache(false), mArgc(0), mArgv(NULL)
+=======
+          mForce(false), mMakePackageDirs(false),
+          mUpdate(false), mExtending(false),
+          mRequireLocalization(false), mPseudolocalize(false),
+          mCompressionMethod(0), mOutputAPKFile(NULL),
+          mAssetSourceDir(NULL), mResourceSourceDir(NULL),
+          mAndroidManifestFile(NULL), mPublicOutputFile(NULL),
+          mRClassDir(NULL), mResourceIntermediatesDir(NULL),
+          mArgc(0), mArgv(NULL)
+>>>>>>> 54b6cfa... Initial Contribution
         {}
     ~Bundle(void) {}
 
@@ -82,8 +103,11 @@ public:
     void setAndroidList(bool val) { mAndroidList = val; }
     bool getForce(void) const { return mForce; }
     void setForce(bool val) { mForce = val; }
+<<<<<<< HEAD
     void setGrayscaleTolerance(int val) { mGrayscaleTolerance = val; }
     int  getGrayscaleTolerance() const { return mGrayscaleTolerance; }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     bool getMakePackageDirs(void) const { return mMakePackageDirs; }
     void setMakePackageDirs(bool val) { mMakePackageDirs = val; }
     bool getUpdate(void) const { return mUpdate; }
@@ -94,6 +118,7 @@ public:
     void setRequireLocalization(bool val) { mRequireLocalization = val; }
     bool getPseudolocalize(void) const { return mPseudolocalize; }
     void setPseudolocalize(bool val) { mPseudolocalize = val; }
+<<<<<<< HEAD
     void setWantUTF16(bool val) { mWantUTF16 = val; }
     bool getValues(void) const { return mValues; }
     void setValues(bool val) { mValues = val; }
@@ -129,6 +154,20 @@ public:
     void setProguardFile(const char* file) { mProguardFile = file; }
     const android::Vector<const char*>& getResourceSourceDirs() const { return mResourceSourceDirs; }
     void addResourceSourceDir(const char* dir) { mResourceSourceDirs.insertAt(dir,0); }
+=======
+    int getCompressionMethod(void) const { return mCompressionMethod; }
+    void setCompressionMethod(int val) { mCompressionMethod = val; }
+    const char* getOutputAPKFile() const { return mOutputAPKFile; }
+    void setOutputAPKFile(const char* val) { mOutputAPKFile = val; }
+
+    /*                                                                
+     * Input options.                                                                
+     */
+    const char* getAssetSourceDir() const { return mAssetSourceDir; }
+    void setAssetSourceDir(const char* dir) { mAssetSourceDir = dir; }
+    const char* getResourceSourceDir() const { return mResourceSourceDir; }
+    void setResourceSourceDir(const char* dir) { mResourceSourceDir = dir; }
+>>>>>>> 54b6cfa... Initial Contribution
     const char* getAndroidManifestFile() const { return mAndroidManifestFile; }
     void setAndroidManifestFile(const char* file) { mAndroidManifestFile = file; }
     const char* getPublicOutputFile() const { return mPublicOutputFile; }
@@ -137,14 +176,18 @@ public:
     void setRClassDir(const char* dir) { mRClassDir = dir; }
     const char* getConfigurations() const { return mConfigurations.size() > 0 ? mConfigurations.string() : NULL; }
     void addConfigurations(const char* val) { if (mConfigurations.size() > 0) { mConfigurations.append(","); mConfigurations.append(val); } else { mConfigurations = val; } }
+<<<<<<< HEAD
     const char* getPreferredConfigurations() const { return mPreferredConfigurations.size() > 0 ? mPreferredConfigurations.string() : NULL; }
     void addPreferredConfigurations(const char* val) { if (mPreferredConfigurations.size() > 0) { mPreferredConfigurations.append(","); mPreferredConfigurations.append(val); } else { mPreferredConfigurations = val; } }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     const char* getResourceIntermediatesDir() const { return mResourceIntermediatesDir; }
     void setResourceIntermediatesDir(const char* dir) { mResourceIntermediatesDir = dir; }
     const android::Vector<const char*>& getPackageIncludes() const { return mPackageIncludes; }
     void addPackageInclude(const char* file) { mPackageIncludes.add(file); }
     const android::Vector<const char*>& getJarFiles() const { return mJarFiles; }
     void addJarFile(const char* file) { mJarFiles.add(file); }
+<<<<<<< HEAD
     const android::Vector<const char*>& getNoCompressExtensions() const { return mNoCompressExtensions; }
     void addNoCompressExtension(const char* ext) { mNoCompressExtensions.add(ext); }
 
@@ -174,6 +217,8 @@ public:
     void setProduct(const char * val) { mProduct = val; }
     void setUseCrunchCache(bool val) { mUseCrunchCache = val; }
     bool getUseCrunchCache() const { return mUseCrunchCache; }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /*
      * Set and get the file specification.
@@ -202,6 +247,7 @@ public:
     void setPackageCount(int val) { mPackageCount = val; }
 #endif
 
+<<<<<<< HEAD
     /* Certain features may only be available on a specific SDK level or
      * above. SDK levels that have a non-numeric identifier are assumed
      * to be newer than any SDK level that has a number designated.
@@ -231,18 +277,24 @@ public:
         return true;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 private:
     /* commands & modifiers */
     Command     mCmd;
     bool        mVerbose;
     bool        mAndroidList;
     bool        mForce;
+<<<<<<< HEAD
     int         mGrayscaleTolerance;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     bool        mMakePackageDirs;
     bool        mUpdate;
     bool        mExtending;
     bool        mRequireLocalization;
     bool        mPseudolocalize;
+<<<<<<< HEAD
     bool        mWantUTF16;
     bool        mValues;
     int         mCompressionMethod;
@@ -256,11 +308,18 @@ private:
     const char* mAssetSourceDir;
     const char* mCrunchedOutputDir;
     const char* mProguardFile;
+=======
+    int         mCompressionMethod;
+    const char* mOutputAPKFile;
+    const char* mAssetSourceDir;
+    const char* mResourceSourceDir;
+>>>>>>> 54b6cfa... Initial Contribution
     const char* mAndroidManifestFile;
     const char* mPublicOutputFile;
     const char* mRClassDir;
     const char* mResourceIntermediatesDir;
     android::String8 mConfigurations;
+<<<<<<< HEAD
     android::String8 mPreferredConfigurations;
     android::Vector<const char*> mPackageIncludes;
     android::Vector<const char*> mJarFiles;
@@ -280,6 +339,10 @@ private:
     bool        mNonConstantId;
     const char* mProduct;
     bool        mUseCrunchCache;
+=======
+    android::Vector<const char*> mPackageIncludes;
+    android::Vector<const char*> mJarFiles;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /* file specification */
     int         mArgc;
@@ -289,7 +352,10 @@ private:
     /* misc stuff */
     int         mPackageCount;
 #endif
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 };
 
 #endif // __BUNDLE_H

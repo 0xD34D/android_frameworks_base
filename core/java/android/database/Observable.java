@@ -19,12 +19,16 @@ package android.database;
 import java.util.ArrayList;
 
 /**
+<<<<<<< HEAD
  * Provides methods for registering or unregistering arbitrary observers in an {@link ArrayList}.
  *
  * This abstract class is intended to be subclassed and specialized to maintain
  * a registry of observers of specific types and dispatch notifications to them.
  *
  * @param T The observer type.
+=======
+ * Provides methods for (un)registering arbitrary observers in an ArrayList.
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public abstract class Observable<T> {
     /**
@@ -71,13 +75,23 @@ public abstract class Observable<T> {
             mObservers.remove(index);
         }
     }
+<<<<<<< HEAD
 
     /**
      * Remove all registered observers.
+=======
+    
+    /**
+     * Remove all registered observer
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void unregisterAll() {
         synchronized(mObservers) {
             mObservers.clear();
+<<<<<<< HEAD
         }
+=======
+        }        
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

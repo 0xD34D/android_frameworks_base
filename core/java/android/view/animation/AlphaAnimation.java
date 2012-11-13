@@ -31,7 +31,11 @@ public class AlphaAnimation extends Animation {
     private float mToAlpha;
 
     /**
+<<<<<<< HEAD
      * Constructor used when an AlphaAnimation is loaded from a resource. 
+=======
+     * Constructor used whan an AlphaAnimation is loaded from a resource. 
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param context Application context to use
      * @param attrs Attribute set from which to read values
@@ -78,6 +82,7 @@ public class AlphaAnimation extends Animation {
     public boolean willChangeBounds() {
         return false;
     }
+<<<<<<< HEAD
 
     /**
      * @hide
@@ -86,4 +91,6 @@ public class AlphaAnimation extends Animation {
     public boolean hasAlpha() {
         return true;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

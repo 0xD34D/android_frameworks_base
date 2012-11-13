@@ -94,6 +94,10 @@ abstract class Connection {
      */
     private static final String HTTP_CONNECTION = "http.connection";
 
+<<<<<<< HEAD
+=======
+    RequestQueue.ConnectionManager mConnectionManager;
+>>>>>>> 54b6cfa... Initial Contribution
     RequestFeeder mRequestFeeder;
 
     /**
@@ -103,9 +107,17 @@ abstract class Connection {
     private byte[] mBuf;
 
     protected Connection(Context context, HttpHost host,
+<<<<<<< HEAD
                          RequestFeeder requestFeeder) {
         mContext = context;
         mHost = host;
+=======
+                         RequestQueue.ConnectionManager connectionManager,
+                         RequestFeeder requestFeeder) {
+        mContext = context;
+        mHost = host;
+        mConnectionManager = connectionManager;
+>>>>>>> 54b6cfa... Initial Contribution
         mRequestFeeder = requestFeeder;
 
         mCanPersist = false;
@@ -121,6 +133,7 @@ abstract class Connection {
      * necessary
      */
     static Connection getConnection(
+<<<<<<< HEAD
             Context context, HttpHost host, HttpHost proxy,
             RequestFeeder requestFeeder) {
 
@@ -130,6 +143,20 @@ abstract class Connection {
 
         // Otherwise, default to https
         return new HttpsConnection(context, host, proxy, requestFeeder);
+=======
+            Context context, HttpHost host,
+            RequestQueue.ConnectionManager connectionManager,
+            RequestFeeder requestFeeder) {
+
+        if (host.getSchemeName().equals("http")) {
+            return new HttpConnection(context, host, connectionManager,
+                                      requestFeeder);
+        }
+
+        // Otherwise, default to https
+        return new HttpsConnection(context, host, connectionManager,
+                                   requestFeeder);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -222,12 +249,15 @@ abstract class Connection {
                         }
                     }
 
+<<<<<<< HEAD
                     /* we have a connection, let the event handler
                      * know of any associated certificate,
                      * potentially none.
                      */
                     req.mEventHandler.certificate(mCertificate);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                     try {
                         /* FIXME: don't increment failure count if old
                            connection?  There should not be a penalty for
@@ -251,7 +281,13 @@ abstract class Connection {
                             pipe.addLast(req);
                         }
                         exception = null;
+<<<<<<< HEAD
                         state = clearPipe(pipe) ? DONE : SEND;
+=======
+                        state = (clearPipe(pipe) ||
+                                 !mConnectionManager.isNetworkConnected()) ?
+                                DONE : SEND;
+>>>>>>> 54b6cfa... Initial Contribution
                         minPipe = maxPipe = 1;
                         break;
                     }
@@ -312,7 +348,13 @@ abstract class Connection {
                         mHttpContext.removeAttribute(HTTP_CONNECTION);
                         clearPipe(pipe);
                         minPipe = maxPipe = 1;
+<<<<<<< HEAD
                         state = SEND;
+=======
+                        /* If network active continue to service this queue */
+                        state = mConnectionManager.isNetworkConnected() ?
+                                SEND : DONE;
+>>>>>>> 54b6cfa... Initial Contribution
                     }
                     break;
                 }
@@ -338,7 +380,11 @@ abstract class Connection {
                 mRequestFeeder.requeueRequest(tReq);
                 empty = false;
             }
+<<<<<<< HEAD
             if (empty) empty = !mRequestFeeder.haveRequest(mHost);
+=======
+            if (empty) empty = mRequestFeeder.haveRequest(mHost);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         return empty;
     }
@@ -371,11 +417,14 @@ abstract class Connection {
             if (HttpLog.LOGV) HttpLog.v("Failed to open connection");
             error = EventHandler.ERROR_LOOKUP;
             exception = e;
+<<<<<<< HEAD
         } catch (IllegalArgumentException e) {
             if (HttpLog.LOGV) HttpLog.v("Illegal argument exception");
             error = EventHandler.ERROR_CONNECT;
             req.mFailCount = RETRY_REQUEST_LIMIT;
             exception = e;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (SSLConnectionClosedByUserException e) {
             // hack: if we have an SSL connection failure,
             // we don't want to reconnect
@@ -404,7 +453,12 @@ abstract class Connection {
         if (error == EventHandler.OK) {
             return true;
         } else {
+<<<<<<< HEAD
             if (req.mFailCount < RETRY_REQUEST_LIMIT) {
+=======
+            if (mConnectionManager.isNetworkConnected() == false ||
+                req.mFailCount < RETRY_REQUEST_LIMIT) {
+>>>>>>> 54b6cfa... Initial Contribution
                 // requeue
                 mRequestFeeder.requeueRequest(req);
                 req.mFailCount++;
@@ -427,10 +481,15 @@ abstract class Connection {
      */
     private boolean httpFailure(Request req, int errorId, Exception e) {
         boolean ret = true;
+<<<<<<< HEAD
+=======
+        boolean networkConnected = mConnectionManager.isNetworkConnected();
+>>>>>>> 54b6cfa... Initial Contribution
 
         // e.printStackTrace();
         if (HttpLog.LOGV) HttpLog.v(
                 "httpFailure() ******* " + e + " count " + req.mFailCount +
+<<<<<<< HEAD
                 " " + mHost + " " + req.getUri());
 
         if (++req.mFailCount >= RETRY_REQUEST_LIMIT) {
@@ -438,6 +497,16 @@ abstract class Connection {
             String error;
             if (errorId < 0) {
                 error = ErrorStrings.getString(errorId, mContext);
+=======
+                " networkConnected " + networkConnected + " " + mHost + " " + req.getUri());
+
+        if (networkConnected && ++req.mFailCount >= RETRY_REQUEST_LIMIT) {
+            ret = false;
+            String error;
+            if (errorId < 0) {
+                error = mContext.getText(
+                        EventHandler.errorStringResources[-errorId]).toString();
+>>>>>>> 54b6cfa... Initial Contribution
             } else {
                 Throwable cause = e.getCause();
                 error = cause != null ? cause.toString() : e.getMessage();

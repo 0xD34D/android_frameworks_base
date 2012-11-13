@@ -32,7 +32,12 @@ import android.content.Intent;
  * <p>
  * Different menu types support different features:
  * <ol>
+<<<<<<< HEAD
  * <li><b>Context menus</b>: Do not support item shortcuts and item icons.
+=======
+ * <li><b>Context menus</b>: Do not support item shortcuts, item icons, and sub
+ * menus.
+>>>>>>> 54b6cfa... Initial Contribution
  * <li><b>Options menus</b>: The <b>icon menus</b> do not support item check
  * marks and only show the item's
  * {@link MenuItem#setTitleCondensed(CharSequence) condensed title}. The
@@ -41,12 +46,15 @@ import android.content.Intent;
  * item check marks are discouraged.
  * <li><b>Sub menus</b>: Do not support item icons, or nested sub menus.
  * </ol>
+<<<<<<< HEAD
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For more information about creating menus, read the
  * <a href="{@docRoot}guide/topics/ui/menus.html">Menus</a> developer guide.</p>
  * </div>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public interface Menu {
 
@@ -385,6 +393,7 @@ public interface Menu {
     public int size();
 
     /**
+<<<<<<< HEAD
      * Gets the menu item at the given index.
      * 
      * @param index The index of the menu item to return.
@@ -400,6 +409,8 @@ public interface Menu {
     public void close();
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Execute the menu item action associated with the given shortcut
      * character.
      *

@@ -32,8 +32,13 @@ class ConnectionThread extends Thread {
     static final int WAIT_TICK = 1000;
 
     // Performance probe
+<<<<<<< HEAD
     long mCurrentThreadTime;
     long mTotalThreadTime;
+=======
+    long mStartThreadTime;
+    long mCurrentThreadTime;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private boolean mWaiting;
     private volatile boolean mRunning = true;
@@ -69,6 +74,7 @@ class ConnectionThread extends Thread {
      */
     public void run() {
         android.os.Process.setThreadPriority(
+<<<<<<< HEAD
                 android.os.Process.THREAD_PRIORITY_DEFAULT +
                 android.os.Process.THREAD_PRIORITY_LESS_FAVORABLE);
 
@@ -84,6 +90,14 @@ class ConnectionThread extends Thread {
                 mCurrentThreadTime = SystemClock.currentThreadTimeMillis();
             }
 
+=======
+                android.os.Process.THREAD_PRIORITY_LESS_FAVORABLE);
+
+        mStartThreadTime = -1;
+        mCurrentThreadTime = SystemClock.currentThreadTimeMillis();
+
+        while (mRunning) {
+>>>>>>> 54b6cfa... Initial Contribution
             Request request;
 
             /* Get a request to process */
@@ -95,36 +109,70 @@ class ConnectionThread extends Thread {
                     if (HttpLog.LOGV) HttpLog.v("ConnectionThread: Waiting for work");
                     mWaiting = true;
                     try {
+<<<<<<< HEAD
+=======
+                        if (mStartThreadTime != -1) {
+                            mCurrentThreadTime = SystemClock
+                                    .currentThreadTimeMillis();
+                        }
+>>>>>>> 54b6cfa... Initial Contribution
                         mRequestFeeder.wait();
                     } catch (InterruptedException e) {
                     }
                     mWaiting = false;
+<<<<<<< HEAD
                     if (mCurrentThreadTime != 0) {
                         mCurrentThreadTime = SystemClock
                                 .currentThreadTimeMillis();
                     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             } else {
                 if (HttpLog.LOGV) HttpLog.v("ConnectionThread: new request " +
                                             request.mHost + " " + request );
 
+<<<<<<< HEAD
                 mConnection = mConnectionManager.getConnection(mContext,
                         request.mHost);
                 mConnection.processRequests(request);
                 if (mConnection.getCanPersist()) {
                     if (!mConnectionManager.recycleConnection(mConnection)) {
+=======
+                HttpHost proxy = mConnectionManager.getProxyHost();
+
+                HttpHost host;
+                if (false) {
+                    // Allow https proxy
+                    host = proxy == null ? request.mHost : proxy;
+                } else {
+                    // Disallow https proxy -- tmob proxy server
+                    // serves a request loop for https reqs
+                    host = (proxy == null ||
+                            request.mHost.getSchemeName().equals("https")) ?
+                            request.mHost : proxy;
+                }
+                mConnection = mConnectionManager.getConnection(mContext, host);
+                mConnection.processRequests(request);
+                if (mConnection.getCanPersist()) {
+                    if (!mConnectionManager.recycleConnection(host,
+                                mConnection)) {
+>>>>>>> 54b6cfa... Initial Contribution
                         mConnection.closeConnection();
                     }
                 } else {
                     mConnection.closeConnection();
                 }
                 mConnection = null;
+<<<<<<< HEAD
 
                 if (mCurrentThreadTime > 0) {
                     long start = mCurrentThreadTime;
                     mCurrentThreadTime = SystemClock.currentThreadTimeMillis();
                     mTotalThreadTime += mCurrentThreadTime - start;
                 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             }
 
         }

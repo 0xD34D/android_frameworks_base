@@ -16,6 +16,7 @@
 
 package android.view;
 
+<<<<<<< HEAD
 import android.app.ActivityManager;
 import android.content.ComponentCallbacks2;
 import android.content.res.CompatibilityInfo;
@@ -32,6 +33,14 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
+=======
+import android.graphics.PixelFormat;
+import android.os.IBinder;
+import android.util.AndroidRuntimeException;
+import android.util.Config;
+import android.util.Log;
+import android.view.WindowManager;
+>>>>>>> 54b6cfa... Initial Contribution
 
 final class WindowLeaked extends AndroidRuntimeException {
     public WindowLeaked(String msg) {
@@ -64,11 +73,16 @@ public class WindowManagerImpl implements WindowManager {
      * The user is navigating with keys (not the touch screen), so
      * navigational focus should be shown.
      */
+<<<<<<< HEAD
     public static final int RELAYOUT_RES_IN_TOUCH_MODE = 0x1;
+=======
+    public static final int RELAYOUT_IN_TOUCH_MODE = 0x1;
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * This is the first time the window is being drawn,
      * so the client must call drawingFinished() when done
      */
+<<<<<<< HEAD
     public static final int RELAYOUT_RES_FIRST_TIME = 0x2;
     /**
      * The window manager has changed the surface from the last call.
@@ -97,6 +111,12 @@ public class WindowManagerImpl implements WindowManager {
 
     public static final int ADD_FLAG_APP_VISIBLE = 0x2;
     public static final int ADD_FLAG_IN_TOUCH_MODE = RELAYOUT_RES_IN_TOUCH_MODE;
+=======
+    public static final int RELAYOUT_FIRST_TIME = 0x2;
+    
+    public static final int ADD_FLAG_APP_VISIBLE = 0x2;
+    public static final int ADD_FLAG_IN_TOUCH_MODE = RELAYOUT_IN_TOUCH_MODE;
+>>>>>>> 54b6cfa... Initial Contribution
     
     public static final int ADD_OKAY = 0;
     public static final int ADD_BAD_APP_TOKEN = -1;
@@ -108,6 +128,7 @@ public class WindowManagerImpl implements WindowManager {
     public static final int ADD_MULTIPLE_SINGLETON = -7;
     public static final int ADD_PERMISSION_DENIED = -8;
 
+<<<<<<< HEAD
     private View[] mViews;
     private ViewRootImpl[] mRoots;
     private WindowManager.LayoutParams[] mParams;
@@ -212,10 +233,20 @@ public class WindowManagerImpl implements WindowManager {
     }
     
     public void addView(View view) {
+=======
+    public static WindowManagerImpl getDefault()
+    {
+        return mWindowManager;
+    }
+    
+    public void addView(View view)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         addView(view, new WindowManager.LayoutParams(
             WindowManager.LayoutParams.TYPE_APPLICATION, 0, PixelFormat.OPAQUE));
     }
 
+<<<<<<< HEAD
     public void addView(View view, ViewGroup.LayoutParams params) {
         addView(view, params, null, false);
     }
@@ -227,6 +258,21 @@ public class WindowManagerImpl implements WindowManager {
     private void addView(View view, ViewGroup.LayoutParams params,
             CompatibilityInfoHolder cih, boolean nest) {
         if (false) Log.v("WindowManager", "addView view=" + view);
+=======
+    public void addView(View view, ViewGroup.LayoutParams params)
+    {
+        addView(view, params, false);
+    }
+    
+    public void addViewNesting(View view, ViewGroup.LayoutParams params)
+    {
+        addView(view, params, false);
+    }
+    
+    private void addView(View view, ViewGroup.LayoutParams params, boolean nest)
+    {
+        if (Config.LOGV) Log.v("WindowManager", "addView view=" + view);
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (!(params instanceof WindowManager.LayoutParams)) {
             throw new IllegalArgumentException(
@@ -236,6 +282,7 @@ public class WindowManagerImpl implements WindowManager {
         final WindowManager.LayoutParams wparams
                 = (WindowManager.LayoutParams)params;
         
+<<<<<<< HEAD
         ViewRootImpl root;
         View panelParentView = null;
         
@@ -256,6 +303,12 @@ public class WindowManagerImpl implements WindowManager {
                 SystemProperties.addChangeCallback(mSystemPropertyUpdater);
             }
 
+=======
+        ViewRoot root;
+        View panelParentView = null;
+        
+        synchronized (this) {
+>>>>>>> 54b6cfa... Initial Contribution
             // Here's an odd/questionable case: if someone tries to add a
             // view multiple times, then we simply bump up a nesting count
             // and they need to remove the view the corresponding number of
@@ -273,7 +326,11 @@ public class WindowManagerImpl implements WindowManager {
                 root.mAddNesting++;
                 // Update layout parameters.
                 view.setLayoutParams(wparams);
+<<<<<<< HEAD
                 root.setLayoutParams(wparams, true);
+=======
+                root.setLayoutParams(wparams);
+>>>>>>> 54b6cfa... Initial Contribution
                 return;
             }
             
@@ -289,6 +346,7 @@ public class WindowManagerImpl implements WindowManager {
                 }
             }
             
+<<<<<<< HEAD
             root = new ViewRootImpl(view.getContext());
             root.mAddNesting = 1;
             if (cih == null) {
@@ -296,13 +354,21 @@ public class WindowManagerImpl implements WindowManager {
             } else {
                 root.mCompatibilityInfo = cih;
             }
+=======
+            root = new ViewRoot();
+            root.mAddNesting = 1;
+>>>>>>> 54b6cfa... Initial Contribution
 
             view.setLayoutParams(wparams);
             
             if (mViews == null) {
                 index = 1;
                 mViews = new View[1];
+<<<<<<< HEAD
                 mRoots = new ViewRootImpl[1];
+=======
+                mRoots = new ViewRoot[1];
+>>>>>>> 54b6cfa... Initial Contribution
                 mParams = new WindowManager.LayoutParams[1];
             } else {
                 index = mViews.length + 1;
@@ -310,7 +376,11 @@ public class WindowManagerImpl implements WindowManager {
                 mViews = new View[index];
                 System.arraycopy(old, 0, mViews, 0, index-1);
                 old = mRoots;
+<<<<<<< HEAD
                 mRoots = new ViewRootImpl[index];
+=======
+                mRoots = new ViewRoot[index];
+>>>>>>> 54b6cfa... Initial Contribution
                 System.arraycopy(old, 0, mRoots, 0, index-1);
                 old = mParams;
                 mParams = new WindowManager.LayoutParams[index];
@@ -322,6 +392,10 @@ public class WindowManagerImpl implements WindowManager {
             mRoots[index] = root;
             mParams[index] = wparams;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
         // do this last because it fires off messages to start doing things
         root.setView(view, wparams, panelParentView);
     }
@@ -338,9 +412,15 @@ public class WindowManagerImpl implements WindowManager {
 
         synchronized (this) {
             int index = findViewLocked(view, true);
+<<<<<<< HEAD
             ViewRootImpl root = mRoots[index];
             mParams[index] = wparams;
             root.setLayoutParams(wparams, false);
+=======
+            ViewRoot root = mRoots[index];
+            mParams[index] = wparams;
+            root.setLayoutParams(wparams);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -353,13 +433,18 @@ public class WindowManagerImpl implements WindowManager {
             }
             
             throw new IllegalStateException("Calling with view " + view
+<<<<<<< HEAD
                     + " but the ViewAncestor is attached to " + curView);
+=======
+                    + " but the ViewRoot is attached to " + curView);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     public void removeViewImmediate(View view) {
         synchronized (this) {
             int index = findViewLocked(view, true);
+<<<<<<< HEAD
             ViewRootImpl root = mRoots[index];
             View curView = root.getView();
             
@@ -372,6 +457,12 @@ public class WindowManagerImpl implements WindowManager {
                 }
             }
 
+=======
+            ViewRoot root = mRoots[index];
+            View curView = root.getView();
+            
+            root.mAddNesting = 0;
+>>>>>>> 54b6cfa... Initial Contribution
             root.die(true);
             finishRemoveViewLocked(curView, index);
             if (curView == view) {
@@ -379,26 +470,39 @@ public class WindowManagerImpl implements WindowManager {
             }
             
             throw new IllegalStateException("Calling with view " + view
+<<<<<<< HEAD
                     + " but the ViewAncestor is attached to " + curView);
+=======
+                    + " but the ViewRoot is attached to " + curView);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
     View removeViewLocked(int index) {
+<<<<<<< HEAD
         ViewRootImpl root = mRoots[index];
         View view = root.getView();
 
+=======
+        ViewRoot root = mRoots[index];
+        View view = root.getView();
+        
+>>>>>>> 54b6cfa... Initial Contribution
         // Don't really remove until we have matched all calls to add().
         root.mAddNesting--;
         if (root.mAddNesting > 0) {
             return view;
         }
 
+<<<<<<< HEAD
         if (view != null) {
             InputMethodManager imm = InputMethodManager.getInstance(view.getContext());
             if (imm != null) {
                 imm.windowDismissed(mViews[index].getWindowToken());
             }
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         root.die(false);
         finishRemoveViewLocked(view, index);
         return view;
@@ -412,7 +516,11 @@ public class WindowManagerImpl implements WindowManager {
         removeItem(tmpViews, mViews, index);
         mViews = tmpViews;
         
+<<<<<<< HEAD
         ViewRootImpl[] tmpRoots = new ViewRootImpl[count-1];
+=======
+        ViewRoot[] tmpRoots = new ViewRoot[count-1];
+>>>>>>> 54b6cfa... Initial Contribution
         removeItem(tmpRoots, mRoots, index);
         mRoots = tmpRoots;
         
@@ -421,11 +529,17 @@ public class WindowManagerImpl implements WindowManager {
         removeItem(tmpParams, mParams, index);
         mParams = tmpParams;
 
+<<<<<<< HEAD
         if (view != null) {
             view.assignParent(null);
             // func doesn't allow null...  does it matter if we clear them?
             //view.setLayoutParams(null);
         }
+=======
+        view.assignParent(null);
+        // func doesn't allow null...  does it matter if we clear them?
+        //view.setLayoutParams(null);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void closeAll(IBinder token, String who, String what) {
@@ -439,7 +553,11 @@ public class WindowManagerImpl implements WindowManager {
                 //Log.i("foo", "@ " + i + " token " + mParams[i].token
                 //        + " view " + mRoots[i].getView());
                 if (token == null || mParams[i].token == token) {
+<<<<<<< HEAD
                     ViewRootImpl root = mRoots[i];
+=======
+                    ViewRoot root = mRoots[i];
+>>>>>>> 54b6cfa... Initial Contribution
                     root.mAddNesting = 1;
                     
                     //Log.i("foo", "Force closing " + root);
@@ -450,7 +568,11 @@ public class WindowManagerImpl implements WindowManager {
                         leak.setStackTrace(root.getLocation().getStackTrace());
                         Log.e("WindowManager", leak.getMessage(), leak);
                     }
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 54b6cfa... Initial Contribution
                     removeViewLocked(i);
                     i--;
                     count--;
@@ -458,6 +580,7 @@ public class WindowManagerImpl implements WindowManager {
             }
         }
     }
+<<<<<<< HEAD
 
     /**
      * @param level See {@link android.content.ComponentCallbacks}
@@ -621,16 +744,30 @@ public class WindowManagerImpl implements WindowManager {
         
         return null;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     
     public void closeAll() {
         closeAll(null, null, null);
     }
     
     public Display getDefaultDisplay() {
+<<<<<<< HEAD
         return new Display(Display.DEFAULT_DISPLAY, null);
     }
 
     private static void removeItem(Object[] dst, Object[] src, int index) {
+=======
+        return new Display(Display.DEFAULT_DISPLAY);
+    }
+
+    private View[] mViews;
+    private ViewRoot[] mRoots;
+    private WindowManager.LayoutParams[] mParams;
+
+    private static void removeItem(Object[] dst, Object[] src, int index)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         if (dst.length > 0) {
             if (index > 0) {
                 System.arraycopy(src, 0, dst, 0, index);
@@ -641,7 +778,12 @@ public class WindowManagerImpl implements WindowManager {
         }
     }
 
+<<<<<<< HEAD
     private int findViewLocked(View view, boolean required) {
+=======
+    private int findViewLocked(View view, boolean required)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         synchronized (this) {
             final int count = mViews != null ? mViews.length : 0;
             for (int i=0; i<count; i++) {
@@ -656,4 +798,9 @@ public class WindowManagerImpl implements WindowManager {
             return -1;
         }
     }
+<<<<<<< HEAD
+=======
+
+    private static WindowManagerImpl mWindowManager = new WindowManagerImpl();
+>>>>>>> 54b6cfa... Initial Contribution
 }

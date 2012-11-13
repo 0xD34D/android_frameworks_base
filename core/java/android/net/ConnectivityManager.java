@@ -16,6 +16,7 @@
 
 package android.net;
 
+<<<<<<< HEAD
 import static com.android.internal.util.Preconditions.checkNotNull;
 
 import android.annotation.SdkConstant;
@@ -27,6 +28,9 @@ import android.os.RemoteException;
 import android.provider.Settings;
 
 import java.net.InetAddress;
+=======
+import android.os.RemoteException;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Class that answers queries about the state of network connectivity. It also
@@ -44,9 +48,14 @@ import java.net.InetAddress;
  * state of the available networks</li>
  * </ol>
  */
+<<<<<<< HEAD
 public class ConnectivityManager {
     private static final String TAG = "ConnectivityManager";
 
+=======
+public class ConnectivityManager
+{
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * A change in network connectivity has occurred. A connection has either
      * been established or lost. The NetworkInfo for the affected network is
@@ -71,6 +80,7 @@ public class ConnectivityManager {
      * is set to {@code true} if there are no connected networks at all.
      */
     public static final String CONNECTIVITY_ACTION = "android.net.conn.CONNECTIVITY_CHANGE";
+<<<<<<< HEAD
 
     /**
      * Identical to {@link #CONNECTIVITY_ACTION} broadcast, but sent without any
@@ -93,6 +103,13 @@ public class ConnectivityManager {
     @Deprecated
     public static final String EXTRA_NETWORK_INFO = "networkInfo";
 
+=======
+    /**
+     * The lookup key for a {@link NetworkInfo} object. Retrieve with
+     * {@link android.content.Intent#getParcelableExtra(String)}.
+     */
+    public static final String EXTRA_NETWORK_INFO = "networkInfo";
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * The lookup key for a boolean that indicates whether a connect event
      * is for a network to which the connectivity manager was failing over
@@ -127,6 +144,7 @@ public class ConnectivityManager {
      * it with {@link android.content.Intent#getStringExtra(String)}.
      */
     public static final String EXTRA_EXTRA_INFO = "extraInfo";
+<<<<<<< HEAD
     /**
      * The lookup key for an int that provides information about
      * our connection to the internet at large.  0 indicates no connection,
@@ -355,6 +373,18 @@ public class ConnectivityManager {
             default:
                 return false;
         }
+=======
+
+    public static final int TYPE_MOBILE = 0;
+    public static final int TYPE_WIFI   = 1;
+
+    public static final int DEFAULT_NETWORK_PREFERENCE = TYPE_WIFI;
+
+    private IConnectivityManager mService;
+
+    static public boolean isNetworkTypeValid(int networkType) {
+        return networkType == TYPE_WIFI || networkType == TYPE_MOBILE;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void setNetworkPreference(int preference) {
@@ -372,6 +402,7 @@ public class ConnectivityManager {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Returns details about the currently active data network. When connected,
      * this network is the default route for outgoing connections. You should
@@ -380,6 +411,8 @@ public class ConnectivityManager {
      * <p>This method requires the caller to hold the permission
      * {@link android.Manifest.permission#ACCESS_NETWORK_STATE}.
      */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public NetworkInfo getActiveNetworkInfo() {
         try {
             return mService.getActiveNetworkInfo();
@@ -388,6 +421,7 @@ public class ConnectivityManager {
         }
     }
 
+<<<<<<< HEAD
     /** {@hide} */
     public NetworkInfo getActiveNetworkInfoForUid(int uid) {
         try {
@@ -397,6 +431,8 @@ public class ConnectivityManager {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public NetworkInfo getNetworkInfo(int networkType) {
         try {
             return mService.getNetworkInfo(networkType);
@@ -414,6 +450,7 @@ public class ConnectivityManager {
     }
 
     /** {@hide} */
+<<<<<<< HEAD
     public LinkProperties getActiveLinkProperties() {
         try {
             return mService.getActiveLinkProperties();
@@ -432,6 +469,8 @@ public class ConnectivityManager {
     }
 
     /** {@hide} */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean setRadios(boolean turnOn) {
         try {
             return mService.setRadios(turnOn);
@@ -453,8 +492,11 @@ public class ConnectivityManager {
      * Tells the underlying networking system that the caller wants to
      * begin using the named feature. The interpretation of {@code feature}
      * is completely up to each networking implementation.
+<<<<<<< HEAD
      * <p>This method requires the caller to hold the permission
      * {@link android.Manifest.permission#CHANGE_NETWORK_STATE}.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param networkType specifies which network the request pertains to
      * @param feature the name of the feature to be used
      * @return an integer value representing the outcome of the request.
@@ -464,8 +506,12 @@ public class ConnectivityManager {
      */
     public int startUsingNetworkFeature(int networkType, String feature) {
         try {
+<<<<<<< HEAD
             return mService.startUsingNetworkFeature(networkType, feature,
                     new Binder());
+=======
+            return mService.startUsingNetworkFeature(networkType, feature);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             return -1;
         }
@@ -475,8 +521,11 @@ public class ConnectivityManager {
      * Tells the underlying networking system that the caller is finished
      * using the named feature. The interpretation of {@code feature}
      * is completely up to each networking implementation.
+<<<<<<< HEAD
      * <p>This method requires the caller to hold the permission
      * {@link android.Manifest.permission#CHANGE_NETWORK_STATE}.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param networkType specifies which network the request pertains to
      * @param feature the name of the feature that is no longer needed
      * @return an integer value representing the outcome of the request.
@@ -496,14 +545,18 @@ public class ConnectivityManager {
      * Ensure that a network route exists to deliver traffic to the specified
      * host via the specified network interface. An attempt to add a route that
      * already exists is ignored, but treated as successful.
+<<<<<<< HEAD
      * <p>This method requires the caller to hold the permission
      * {@link android.Manifest.permission#CHANGE_NETWORK_STATE}.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param networkType the type of the network over which traffic to the specified
      * host is to be routed
      * @param hostAddress the IP address of the host to which the route is desired
      * @return {@code true} on success, {@code false} on failure
      */
     public boolean requestRouteToHost(int networkType, int hostAddress) {
+<<<<<<< HEAD
         InetAddress inetAddress = NetworkUtils.intToInetAddress(hostAddress);
 
         if (inetAddress == null) {
@@ -527,12 +580,17 @@ public class ConnectivityManager {
         byte[] address = hostAddress.getAddress();
         try {
             return mService.requestRouteToHostAddress(networkType, address);
+=======
+        try {
+            return mService.requestRouteToHost(networkType, hostAddress);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             return false;
         }
     }
 
     /**
+<<<<<<< HEAD
      * Returns the value of the setting for background data usage. If false,
      * applications should not use the network if the application is not in the
      * foreground. Developers should respect this setting, and check the value
@@ -611,12 +669,19 @@ public class ConnectivityManager {
             mService.setMobileDataEnabled(enabled);
         } catch (RemoteException e) {
         }
+=======
+     * Don't allow use of default constructor.
+     */
+    @SuppressWarnings({"UnusedDeclaration"})
+    private ConnectivityManager() {
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * {@hide}
      */
     public ConnectivityManager(IConnectivityManager service) {
+<<<<<<< HEAD
         mService = checkNotNull(service, "missing IConnectivityManager");
     }
 
@@ -879,5 +944,12 @@ public class ConnectivityManager {
         } catch (RemoteException e) {
             return false;
         }
+=======
+        if (service == null) {
+            throw new IllegalArgumentException(
+                "ConnectivityManager() cannot be constructed with null service");
+        }
+        mService = service;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

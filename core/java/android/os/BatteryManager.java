@@ -18,6 +18,7 @@ package android.os;
 
 /**
  * The BatteryManager class contains strings and constants used for values
+<<<<<<< HEAD
  * in the {@link android.content.Intent#ACTION_BATTERY_CHANGED} Intent.
  */
 public class BatteryManager {
@@ -92,6 +93,11 @@ public class BatteryManager {
      * {@hide}
      */
     public static final String EXTRA_INVALID_CHARGER = "invalid_charger";
+=======
+ * in the ACTION_BATTERY_CHANGED Intent.
+ */
+public class BatteryManager {
+>>>>>>> 54b6cfa... Initial Contribution
 
     // values for "status" field in the ACTION_BATTERY_CHANGED Intent
     public static final int BATTERY_STATUS_UNKNOWN = 1;
@@ -107,6 +113,7 @@ public class BatteryManager {
     public static final int BATTERY_HEALTH_DEAD = 4;
     public static final int BATTERY_HEALTH_OVER_VOLTAGE = 5;
     public static final int BATTERY_HEALTH_UNSPECIFIED_FAILURE = 6;
+<<<<<<< HEAD
     public static final int BATTERY_HEALTH_COLD = 7;
 
     // values of the "plugged" field in the ACTION_BATTERY_CHANGED intent.
@@ -115,4 +122,11 @@ public class BatteryManager {
     public static final int BATTERY_PLUGGED_AC = 1;
     /** Power source is a USB port. */
     public static final int BATTERY_PLUGGED_USB = 2;
+=======
+
+    // values of the "plugged" field in the ACTION_BATTERY_CHANGED intent
+    public static final int BATTERY_PLUGGED_AC = 1;
+    public static final int BATTERY_PLUGGED_USB = 2;
+
+>>>>>>> 54b6cfa... Initial Contribution
 }

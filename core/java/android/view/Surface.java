@@ -16,6 +16,7 @@
 
 package android.view;
 
+<<<<<<< HEAD
 import android.content.res.CompatibilityInfo.Translator;
 import android.graphics.*;
 import android.os.Parcelable;
@@ -131,12 +132,42 @@ public class Surface implements Parcelable {
     /** Surface is created hidden @hide */
     public static final int HIDDEN              = 0x00000004;
 
+=======
+import android.graphics.*;
+import android.os.Parcelable;
+import android.os.Parcel;
+import android.util.Log;
+
+/**
+ * Handle on to a raw buffer that is being managed by the screen compositor.
+ */
+public class Surface implements Parcelable {
+    private static final String LOG_TAG = "Surface";
+    
+    /* flags used in constructor (keep in sync with ISurfaceComposer.h) */
+
+    /** Surface is created hidden */
+    public static final int HIDDEN              = 0x00000004;
+
+    /** The surface is to be used by hardware accelerators or DMA engines */
+    public static final int HARDWARE            = 0x00000010;
+
+    /** Implies "HARDWARE", the surface is to be used by the GPU
+     * additionally the backbuffer is never preserved for these
+     * surfaces. */
+    public static final int GPU                 = 0x00000028;
+
+>>>>>>> 54b6cfa... Initial Contribution
     /** The surface contains secure content, special measures will
      * be taken to disallow the surface's content to be copied from
      * another process. In particular, screenshots and VNC servers will
      * be disabled, but other measures can take place, for instance the
+<<<<<<< HEAD
      * surface might not be hardware accelerated. 
      * @hide*/
+=======
+     * surface might not be hardware accelerated. */
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int SECURE              = 0x00000080;
     
     /** Creates a surface where color components are interpreted as 
@@ -159,11 +190,15 @@ public class Surface implements Parcelable {
      *  
      *  In some rare situations, a non pre-multiplied surface is preferable.
      *  
+<<<<<<< HEAD
      *  @hide
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static final int NON_PREMULTIPLIED   = 0x00000100;
     
     /**
+<<<<<<< HEAD
      * Indicates that the surface must be considered opaque, even if its
      * pixel format is set to translucent. This can be useful if an
      * application needs full RGBA 8888 support for instance but will
@@ -185,6 +220,16 @@ public class Surface implements Parcelable {
     // 0x1000 is reserved for an independent DRM protected flag in framework
 
     /** Creates a normal surface. This is the default. @hide */
+=======
+     * Creates a surface without a rendering buffer. Instead, the content
+     * of the surface must be pushed by an external entity. This is type
+     * of surface can be used for efficient camera preview or movie
+     * play back.
+     */
+    public static final int PUSH_BUFFERS        = 0x00000200;
+    
+    /** Creates a normal surface. This is the default */
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int FX_SURFACE_NORMAL   = 0x00000000;
     
     /** Creates a Blur surface. Everything behind this surface is blurred
@@ -192,6 +237,7 @@ public class Surface implements Parcelable {
      * is not settable or guaranteed.
      * It is an error to lock a Blur surface, since it doesn't have
      * a backing store.
+<<<<<<< HEAD
      * @hide
      * @deprecated
      */
@@ -210,10 +256,24 @@ public class Surface implements Parcelable {
     public static final int FX_SURFACE_SCREENSHOT   = 0x00030000;
 
     /** Mask used for FX values above @hide */
+=======
+     */
+    public static final int FX_SURFACE_BLUR     = 0x00010000;
+    
+    /** Creates a Dim surface. Everything behind this surface is dimmed
+     * by the amount specified in setAlpha(). 
+     * It is an error to lock a Dim surface, since it doesn't have
+     * a backing store.
+     */
+    public static final int FX_SURFACE_DIM     = 0x00020000;
+
+    /** Mask used for FX values above */
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int FX_SURFACE_MASK     = 0x000F0000;
 
     /* flags used with setFlags() (keep in sync with ISurfaceComposer.h) */
     
+<<<<<<< HEAD
     /** Hide the surface. Equivalent to calling hide(). @hide */
     public static final int SURFACE_HIDDEN    = 0x01;
     
@@ -244,6 +304,42 @@ public class Surface implements Parcelable {
 
     private Exception mCreationStack;
 
+=======
+    /** Hide the surface. Equivalent to calling hide() */
+    public static final int SURFACE_HIDDEN    = 0x01;
+    
+    /** Freeze the surface. Equivalent to calling freeze() */ 
+    public static final int SURACE_FROZEN     = 0x02;
+    
+    /** Enable dithering when compositing this surface */
+    public static final int SURFACE_DITHER    = 0x04;
+
+    public static final int SURFACE_BLUR_FREEZE= 0x10;
+
+    /* orientations for setOrientation() */
+    public static final int ROTATION_0       = 0;
+    public static final int ROTATION_90      = 1;
+    public static final int ROTATION_180     = 2;
+    public static final int ROTATION_270     = 3;
+    
+    @SuppressWarnings("unused")
+    private int mSurface;
+    @SuppressWarnings("unused")
+    private int mSaveCount;
+    @SuppressWarnings("unused")
+    private Canvas mCanvas;
+
+    /**
+     * Exception thrown when a surface couldn't be created or resized
+     */
+    public static class OutOfResourcesException extends Exception {
+        public OutOfResourcesException() {
+        }
+        public OutOfResourcesException(String name) {
+            super(name);
+        }
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 
     /*
      * We use a class initializer to allow the native code to cache some
@@ -252,6 +348,7 @@ public class Surface implements Parcelable {
     native private static void nativeClassInit();
     static { nativeClassInit(); }
 
+<<<<<<< HEAD
     /** create a surface @hide */
     public Surface(SurfaceSession s,
             int pid, int display, int w, int h, int format, int flags)
@@ -277,11 +374,24 @@ public class Surface implements Parcelable {
         mCanvas = new CompatibleCanvas();
         init(s,pid,name,display,w,h,format,flags);
         mName = name;
+=======
+    
+    /**
+     * create a surface
+     * {@hide}
+     */
+    public Surface(SurfaceSession s,
+            int pid, int display, int w, int h, int format, int flags)
+        throws OutOfResourcesException {
+        mCanvas = new Canvas();
+        init(s,pid,display,w,h,format,flags);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Create an empty surface, which will later be filled in by
      * readFromParcel().
+<<<<<<< HEAD
      * @hide
      */
     public Surface() {
@@ -414,19 +524,77 @@ public class Surface implements Parcelable {
      * set display parameters & screenshots
      */
     
+=======
+     * {@hide}
+     */
+    public Surface() {
+        mCanvas = new Canvas();
+    }
+    
+    /**
+     * Copy another surface to this one.  This surface now holds a reference
+     * to the same data as the original surface, and is -not- the owner.
+     * {@hide}
+     */
+    public native   void copyFrom(Surface o);
+    
+    /**
+     * Does this object hold a valid surface?  Returns true if it holds
+     * a physical surface, so lockCanvas() will succeed.  Otherwise
+     * returns false.
+     */
+    public native   boolean isValid();
+    
+    /** Call this free the surface up. {@hide} */
+    public native   void clear();
+    
+    /** draw into a surface */
+    public Canvas lockCanvas(Rect dirty) throws OutOfResourcesException {
+        /* the dirty rectangle may be expanded to the surface's size, if
+         * for instance it has been resized or if the bits were lost, since
+         * the last call.
+         */
+        return lockCanvasNative(dirty);
+    }
+
+    private native Canvas lockCanvasNative(Rect dirty);
+
+    /** unlock the surface and asks a page flip */
+    public native   void unlockCanvasAndPost(Canvas canvas);
+
+    /** 
+     * unlock the surface. the screen won't be updated until
+     * post() or postAll() is called
+     */
+    public native   void unlockCanvas(Canvas canvas);
+    
+    /** start/end a transaction {@hide} */
+    public static native   void openTransaction();
+    /** {@hide} */
+    public static native   void closeTransaction();
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Freezes the specified display, No updating of the screen will occur
      * until unfreezeDisplay() is called. Everything else works as usual though,
      * in particular transactions.
      * @param display
+<<<<<<< HEAD
      * @hide
+=======
+     * {@hide}
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static native   void freezeDisplay(int display);
 
     /**
      * resume updating the specified display.
      * @param display
+<<<<<<< HEAD
      * @hide
+=======
+     * {@hide}
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static native   void unfreezeDisplay(int display);
 
@@ -434,6 +602,7 @@ public class Surface implements Parcelable {
      * set the orientation of the given display.
      * @param display
      * @param orientation
+<<<<<<< HEAD
      * @param flags Currently unused, set to 0.
      * @hide
      */
@@ -515,6 +684,49 @@ public class Surface implements Parcelable {
 
 
    
+=======
+     */
+    public static native   void setOrientation(int display, int orientation);
+
+    /**
+     * set surface parameters.
+     * needs to be inside open/closeTransaction block
+     */
+    public native   void setLayer(int zorder);
+    public native   void setPosition(int x, int y);
+    public native   void setSize(int w, int h);
+
+    public native   void hide();
+    public native   void show();
+    public native   void setTransparentRegionHint(Region region);
+    public native   void setAlpha(float alpha);
+    public native   void setMatrix(float dsdx, float dtdx,
+                                   float dsdy, float dtdy);
+
+    public native   void freeze();
+    public native   void unfreeze();
+
+    public native   void setFreezeTint(int tint);
+
+    public native   void setFlags(int flags, int mask);
+
+    @Override
+    public String toString() {
+        return "Surface(native-token=" + mSurface + ")";
+    }
+
+    private Surface(Parcel source) throws OutOfResourcesException {
+        init(source);
+    }
+    
+    public int describeContents() {
+        return 0;
+    }
+
+    public native   void readFromParcel(Parcel source);
+    public native   void writeToParcel(Parcel dest, int flags);
+
+>>>>>>> 54b6cfa... Initial Contribution
     public static final Parcelable.Creator<Surface> CREATOR
             = new Parcelable.Creator<Surface>()
     {
@@ -532,6 +744,7 @@ public class Surface implements Parcelable {
         }
     };
 
+<<<<<<< HEAD
     @Override
     protected void finalize() throws Throwable {
         try {
@@ -559,4 +772,17 @@ public class Surface implements Parcelable {
     private native void initFromSurfaceTexture(SurfaceTexture surfaceTexture);
 
     private native int getIdentity();
+=======
+    /* no user serviceable parts here ... */
+    @Override
+    protected void finalize() throws Throwable {
+        clear();
+    }
+    
+    private native void init(SurfaceSession s,
+            int pid, int display, int w, int h, int format, int flags)
+            throws OutOfResourcesException;
+
+    private native void init(Parcel source);
+>>>>>>> 54b6cfa... Initial Contribution
 }

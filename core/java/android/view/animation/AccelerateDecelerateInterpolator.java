@@ -28,7 +28,10 @@ public class AccelerateDecelerateInterpolator implements Interpolator {
     public AccelerateDecelerateInterpolator() {
     }
     
+<<<<<<< HEAD
     @SuppressWarnings({"UnusedDeclaration"})
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public AccelerateDecelerateInterpolator(Context context, AttributeSet attrs) {
     }
     

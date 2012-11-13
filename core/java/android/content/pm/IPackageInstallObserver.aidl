@@ -19,7 +19,11 @@ package android.content.pm;
 
 /**
  * API for installation callbacks from the Package Manager.
+<<<<<<< HEAD
  * @hide
+=======
+ *
+>>>>>>> 54b6cfa... Initial Contribution
  */
 oneway interface IPackageInstallObserver {
     void packageInstalled(in String packageName, int returnCode);

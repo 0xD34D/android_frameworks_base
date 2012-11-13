@@ -36,6 +36,7 @@ import java.util.Map;
  * Binding data to views occurs in two phases. First, if a
  * {@link android.widget.SimpleAdapter.ViewBinder} is available,
  * {@link ViewBinder#setViewValue(android.view.View, Object, String)}
+<<<<<<< HEAD
  * is invoked. If the returned value is true, binding has occurred. 
  * If the returned value is false, the following views are then tried in order:
  * <ul>
@@ -46,6 +47,14 @@ import java.util.Map;
  * {@link #setViewImage(ImageView, int)} or {@link #setViewImage(ImageView, String)} is invoked. 
  * </ul>
  * If no appropriate binding can be found, an {@link IllegalStateException} is thrown.
+=======
+ * is invoked. If the returned value is true, binding has occured. If the
+ * returned value is false and the view to bind is a TextView,
+ * {@link #setViewText(TextView, String)} is invoked. If the returned value
+ * is false and the view to bind is an ImageView,
+ * {@link #setViewImage(ImageView, int)} or {@link #setViewImage(ImageView, String)} is
+ * invoked. If no appropriate binding can be found, an {@link IllegalStateException} is thrown.
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class SimpleAdapter extends BaseAdapter implements Filterable {
     private int[] mTo;
@@ -122,9 +131,13 @@ public class SimpleAdapter extends BaseAdapter implements Filterable {
         } else {
             v = convertView;
         }
+<<<<<<< HEAD
 
         bindView(position, v);
 
+=======
+        bindView(position, v);
+>>>>>>> 54b6cfa... Initial Contribution
         return v;
     }
 
@@ -149,12 +162,20 @@ public class SimpleAdapter extends BaseAdapter implements Filterable {
             return;
         }
 
+<<<<<<< HEAD
         final ViewBinder binder = mViewBinder;
         final String[] from = mFrom;
         final int[] to = mTo;
         final int count = to.length;
 
         for (int i = 0; i < count; i++) {
+=======
+        final String[] from = mFrom;
+        final int[] to = mTo;
+        final int len = to.length;
+
+        for (int i = 0; i < len; i++) {
+>>>>>>> 54b6cfa... Initial Contribution
             final View v = view.findViewById(to[i]);
             if (v != null) {
                 final Object data = dataSet.get(from[i]);
@@ -164,6 +185,7 @@ public class SimpleAdapter extends BaseAdapter implements Filterable {
                 }
 
                 boolean bound = false;
+<<<<<<< HEAD
                 if (binder != null) {
                     bound = binder.setViewValue(v, data, text);
                 }
@@ -184,6 +206,14 @@ public class SimpleAdapter extends BaseAdapter implements Filterable {
                     } else if (v instanceof TextView) {
                         // Note: keep the instanceof TextView check at the bottom of these
                         // ifs since a lot of views are TextViews (e.g. CheckBoxes).
+=======
+                if (mViewBinder != null) {
+                    bound = mViewBinder.setViewValue(v, data, text);
+                }
+
+                if (!bound) {
+                    if (v instanceof TextView) {
+>>>>>>> 54b6cfa... Initial Contribution
                         setViewText((TextView) v, text);
                     } else if (v instanceof ImageView) {
                         if (data instanceof Integer) {
@@ -268,7 +298,11 @@ public class SimpleAdapter extends BaseAdapter implements Filterable {
     /**
      * Called by bindView() to set the text for a TextView but only if
      * there is no existing ViewBinder or if the existing ViewBinder cannot
+<<<<<<< HEAD
      * handle binding to a TextView.
+=======
+     * handle binding to an TextView.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param v TextView to receive text
      * @param text the text to be set for the TextView

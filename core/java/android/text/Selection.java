@@ -16,8 +16,11 @@
 
 package android.text;
 
+<<<<<<< HEAD
 import java.text.BreakIterator;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Utility class for manipulating cursors and selections in CharSequences.
@@ -40,7 +43,11 @@ public class Selection {
         else
             return -1;
     }
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return the offset of the selection edge or cursor, or -1 if
      * there is no selection or cursor.
@@ -59,7 +66,11 @@ public class Selection {
     // private static int pin(int value, int min, int max) {
     //     return value < min ? 0 : (value > max ? max : value);
     // }
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Set the selection anchor to <code>start</code> and the selection edge
      * to <code>stop</code>.
@@ -71,10 +82,17 @@ public class Selection {
 
         int ostart = getSelectionStart(text);
         int oend = getSelectionEnd(text);
+<<<<<<< HEAD
 
         if (ostart != start || oend != stop) {
             text.setSpan(SELECTION_START, start, start,
                          Spanned.SPAN_POINT_POINT|Spanned.SPAN_INTERMEDIATE);
+=======
+    
+        if (ostart != start || oend != stop) {
+            text.setSpan(SELECTION_START, start, start,
+                         Spanned.SPAN_POINT_POINT);
+>>>>>>> 54b6cfa... Initial Contribution
             text.setSpan(SELECTION_END, stop, stop,
                          Spanned.SPAN_POINT_POINT);
         }
@@ -359,6 +377,7 @@ public class Selection {
         return true;
     }
 
+<<<<<<< HEAD
     /** {@hide} */
     public static interface PositionIterator {
         public static final int DONE = BreakIterator.DONE;
@@ -395,6 +414,8 @@ public class Selection {
         return true;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private static int findEdge(Spannable text, Layout layout, int dir) {
         int pt = getSelectionEnd(text);
         int line = layout.getLineForOffset(pt);
@@ -455,13 +476,21 @@ public class Selection {
         }
     }
 
+<<<<<<< HEAD
     private static final class START implements NoCopySpan { }
     private static final class END implements NoCopySpan { }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /*
      * Public constants
      */
 
+<<<<<<< HEAD
     public static final Object SELECTION_START = new START();
     public static final Object SELECTION_END = new END();
+=======
+    public static final Object SELECTION_START = new Object();
+    public static final Object SELECTION_END = new Object();
+>>>>>>> 54b6cfa... Initial Contribution
 }

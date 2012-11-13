@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -14,6 +15,8 @@
  * limitations under the License.
  */
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 package android.bluetooth;
 
 import java.lang.Thread;
@@ -23,6 +26,7 @@ import android.os.Handler;
 import android.util.Log;
 
 /**
+<<<<<<< HEAD
  * Listens for incoming RFCOMM connection for the headset / handsfree service.
  *
  * TODO: Use the new generic BluetoothSocket class instead of this legacy code
@@ -30,17 +34,35 @@ import android.util.Log;
  * @hide
  */
 public final class BluetoothAudioGateway {
+=======
+ * Listen's for incoming RFCOMM connection for the headset / handsfree service.
+ *
+ * This class is planned for deletion, in favor of a generic Rfcomm class.
+ *
+ * @hide
+ */
+public class BluetoothAudioGateway {
+>>>>>>> 54b6cfa... Initial Contribution
     private static final String TAG = "BT Audio Gateway";
     private static final boolean DBG = false;
 
     private int mNativeData;
     static { classInitNative(); }
 
+<<<<<<< HEAD
+=======
+    private BluetoothDevice mBluetooth;
+
+>>>>>>> 54b6cfa... Initial Contribution
     /* in */
     private int mHandsfreeAgRfcommChannel = -1;
     private int mHeadsetAgRfcommChannel   = -1;
 
+<<<<<<< HEAD
     /* out - written by native code */
+=======
+    /* out */
+>>>>>>> 54b6cfa... Initial Contribution
     private String mConnectingHeadsetAddress;
     private int mConnectingHeadsetRfcommChannel; /* -1 when not connected */
     private int mConnectingHeadsetSocketFd;
@@ -49,6 +71,7 @@ public final class BluetoothAudioGateway {
     private int mConnectingHandsfreeSocketFd;
     private int mTimeoutRemainingMs; /* in/out */
 
+<<<<<<< HEAD
     private final BluetoothAdapter mAdapter;
 
     public static final int DEFAULT_HF_AG_CHANNEL = 10;
@@ -61,6 +84,19 @@ public final class BluetoothAudioGateway {
     public BluetoothAudioGateway(BluetoothAdapter adapter, int handsfreeAgRfcommChannel,
                 int headsetAgRfcommChannel) {
         mAdapter = adapter;
+=======
+    public static final int DEFAULT_HF_AG_CHANNEL = 10;
+    public static final int DEFAULT_HS_AG_CHANNEL = 11;
+
+    public BluetoothAudioGateway(BluetoothDevice bluetooth) {
+        this(bluetooth, DEFAULT_HF_AG_CHANNEL, DEFAULT_HS_AG_CHANNEL);
+    }
+
+    public BluetoothAudioGateway(BluetoothDevice bluetooth,
+                                 int handsfreeAgRfcommChannel,
+                                 int headsetAgRfcommChannel) {
+        mBluetooth = bluetooth;
+>>>>>>> 54b6cfa... Initial Contribution
         mHandsfreeAgRfcommChannel = handsfreeAgRfcommChannel;
         mHeadsetAgRfcommChannel = headsetAgRfcommChannel;
         initializeNativeDataNative();
@@ -73,6 +109,7 @@ public final class BluetoothAudioGateway {
     private Handler mCallback;
 
     public class IncomingConnectionInfo {
+<<<<<<< HEAD
         public BluetoothAdapter mAdapter;
         public BluetoothDevice mRemoteDevice;
         public int mSocketFd;
@@ -84,6 +121,20 @@ public final class BluetoothAudioGateway {
             mSocketFd = socketFd;
             mRfcommChan = rfcommChan;
         }
+=======
+        IncomingConnectionInfo(BluetoothDevice bluetooth, String address, int socketFd,
+                               int rfcommChan) {
+            mBluetooth = bluetooth;
+            mAddress = address;
+            mSocketFd = socketFd;
+            mRfcommChan = rfcommChan;
+        }
+
+        public BluetoothDevice mBluetooth;
+        public String mAddress;
+        public int mSocketFd;
+        public int mRfcommChan;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final int MSG_INCOMING_HEADSET_CONNECTION   = 100;
@@ -125,11 +176,20 @@ public final class BluetoothAudioGateway {
                                           mConnectingHeadsetRfcommChannel);
                                     Message msg = Message.obtain(mCallback);
                                     msg.what = MSG_INCOMING_HEADSET_CONNECTION;
+<<<<<<< HEAD
                                     msg.obj = new IncomingConnectionInfo(
                                         mAdapter,
                                         mAdapter.getRemoteDevice(mConnectingHeadsetAddress),
                                         mConnectingHeadsetSocketFd,
                                         mConnectingHeadsetRfcommChannel);
+=======
+                                    msg.obj = 
+                                        new IncomingConnectionInfo(
+                                            mBluetooth, 
+                                            mConnectingHeadsetAddress,
+                                            mConnectingHeadsetSocketFd,
+                                            mConnectingHeadsetRfcommChannel);
+>>>>>>> 54b6cfa... Initial Contribution
                                     msg.sendToTarget();
                                 }
                                 if (mConnectingHandsfreeRfcommChannel >= 0) {
@@ -139,11 +199,20 @@ public final class BluetoothAudioGateway {
                                     Message msg = Message.obtain();
                                     msg.setTarget(mCallback);
                                     msg.what = MSG_INCOMING_HANDSFREE_CONNECTION;
+<<<<<<< HEAD
                                     msg.obj = new IncomingConnectionInfo(
                                         mAdapter,
                                         mAdapter.getRemoteDevice(mConnectingHandsfreeAddress),
                                         mConnectingHandsfreeSocketFd,
                                         mConnectingHandsfreeRfcommChannel);
+=======
+                                    msg.obj = 
+                                        new IncomingConnectionInfo(
+                                            mBluetooth,
+                                            mConnectingHandsfreeAddress,
+                                            mConnectingHandsfreeSocketFd,
+                                            mConnectingHandsfreeRfcommChannel);
+>>>>>>> 54b6cfa... Initial Contribution
                                     msg.sendToTarget();
                                 }
                             }

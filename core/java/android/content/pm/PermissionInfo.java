@@ -55,6 +55,7 @@ public class PermissionInfo extends PackageItemInfo implements Parcelable {
     public static final int PROTECTION_SIGNATURE_OR_SYSTEM = 3;
 
     /**
+<<<<<<< HEAD
      * Additional flag for {@link #protectionLevel}, corresponding
      * to the <code>system</code> value of
      * {@link android.R.attr#protectionLevel}.
@@ -79,6 +80,8 @@ public class PermissionInfo extends PackageItemInfo implements Parcelable {
     public static final int PROTECTION_MASK_FLAGS = 0xf0;
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * The group this permission is a part of, as per
      * {@link android.R.attr#permissionGroup}.
      */
@@ -103,13 +106,17 @@ public class PermissionInfo extends PackageItemInfo implements Parcelable {
      * The level of access this permission is protecting, as per
      * {@link android.R.attr#protectionLevel}.  Values may be
      * {@link #PROTECTION_NORMAL}, {@link #PROTECTION_DANGEROUS}, or
+<<<<<<< HEAD
      * {@link #PROTECTION_SIGNATURE}.  May also include the additional
      * flags {@link #PROTECTION_FLAG_SYSTEM} or {@link #PROTECTION_FLAG_DEVELOPMENT}
      * (which only make sense in combination with the base
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * {@link #PROTECTION_SIGNATURE}.
      */
     public int protectionLevel;
 
+<<<<<<< HEAD
     /** @hide */
     public static int fixProtectionLevel(int level) {
         if (level == PROTECTION_SIGNATURE_OR_SYSTEM) {
@@ -144,6 +151,8 @@ public class PermissionInfo extends PackageItemInfo implements Parcelable {
         return protLevel;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public PermissionInfo() {
     }
 

@@ -28,11 +28,16 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 
 /**
+<<<<<<< HEAD
  * A Drawable object that draws primitive shapes. 
+=======
+ * An object that draws primitive shapes. 
+>>>>>>> 54b6cfa... Initial Contribution
  * A ShapeDrawable takes a {@link android.graphics.drawable.shapes.Shape}
  * object and manages its presence on the screen. If no Shape is given, then
  * the ShapeDrawable will default to a 
  * {@link android.graphics.drawable.shapes.RectShape}.
+<<<<<<< HEAD
  *
  * <p>This object can be defined in an XML file with the <code>&lt;shape></code> element.</p>
  *
@@ -57,6 +62,12 @@ public class ShapeDrawable extends Drawable {
     private ShapeState mShapeState;
     private boolean mMutated;
 
+=======
+ */
+public class ShapeDrawable extends Drawable {
+    private ShapeState mShapeState;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * ShapeDrawable constructor.
      */
@@ -136,7 +147,10 @@ public class ShapeDrawable extends Drawable {
             }
             mShapeState.mPadding.set(left, top, right, bottom);
         }
+<<<<<<< HEAD
         invalidateSelf();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -152,7 +166,10 @@ public class ShapeDrawable extends Drawable {
             }
             mShapeState.mPadding.set(padding);
         }
+<<<<<<< HEAD
         invalidateSelf();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -162,7 +179,10 @@ public class ShapeDrawable extends Drawable {
      */
     public void setIntrinsicWidth(int width) {
         mShapeState.mIntrinsicWidth = width;
+<<<<<<< HEAD
         invalidateSelf();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -172,7 +192,10 @@ public class ShapeDrawable extends Drawable {
      */
     public void setIntrinsicHeight(int height) {
         mShapeState.mIntrinsicHeight = height;
+<<<<<<< HEAD
         invalidateSelf();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
@@ -247,13 +270,19 @@ public class ShapeDrawable extends Drawable {
      */
     @Override public void setAlpha(int alpha) {
         mShapeState.mAlpha = alpha;
+<<<<<<< HEAD
         invalidateSelf();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
     public void setColorFilter(ColorFilter cf) {
         mShapeState.mPaint.setColorFilter(cf);
+<<<<<<< HEAD
         invalidateSelf();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
@@ -277,7 +306,10 @@ public class ShapeDrawable extends Drawable {
     @Override
     public void setDither(boolean dither) {
         mShapeState.mPaint.setDither(dither);
+<<<<<<< HEAD
         invalidateSelf();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -293,6 +325,7 @@ public class ShapeDrawable extends Drawable {
     protected boolean inflateTag(String name, Resources r, XmlPullParser parser,
             AttributeSet attrs) {
 
+<<<<<<< HEAD
         if ("padding".equals(name)) {
             TypedArray a = r.obtainAttributes(attrs,
                     com.android.internal.R.styleable.ShapeDrawablePadding);
@@ -305,6 +338,15 @@ public class ShapeDrawable extends Drawable {
                             com.android.internal.R.styleable.ShapeDrawablePadding_right, 0),
                     a.getDimensionPixelOffset(
                             com.android.internal.R.styleable.ShapeDrawablePadding_bottom, 0));
+=======
+        if (name.equals("padding")) {
+            TypedArray a = r.obtainAttributes(attrs,
+                    com.android.internal.R.styleable.ShapeDrawablePadding);
+            setPadding(a.getInt(com.android.internal.R.styleable.ShapeDrawablePadding_left, 0),
+                       a.getInt(com.android.internal.R.styleable.ShapeDrawablePadding_top, 0),
+                       a.getInt(com.android.internal.R.styleable.ShapeDrawablePadding_right, 0),
+                       a.getInt(com.android.internal.R.styleable.ShapeDrawablePadding_bottom, 0));
+>>>>>>> 54b6cfa... Initial Contribution
             a.recycle();
             return true;
         }
@@ -322,10 +364,14 @@ public class ShapeDrawable extends Drawable {
         int color = mShapeState.mPaint.getColor();
         color = a.getColor(com.android.internal.R.styleable.ShapeDrawable_color, color);
         mShapeState.mPaint.setColor(color);
+<<<<<<< HEAD
 
         boolean dither = a.getBoolean(com.android.internal.R.styleable.ShapeDrawable_dither, false);
         mShapeState.mPaint.setDither(dither);
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
         setIntrinsicWidth((int)
                 a.getDimension(com.android.internal.R.styleable.ShapeDrawable_width, 0f));
         setIntrinsicHeight((int)
@@ -361,11 +407,15 @@ public class ShapeDrawable extends Drawable {
                 mShapeState.mPaint.setShader(mShapeState.mShaderFactory.resize(w, h));
             }
         }
+<<<<<<< HEAD
         invalidateSelf();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     @Override
     public ConstantState getConstantState() {
+<<<<<<< HEAD
         mShapeState.mChangingConfigurations = getChangingConfigurations();
         return mShapeState;
     }
@@ -385,6 +435,12 @@ public class ShapeDrawable extends Drawable {
         return this;
     }
 
+=======
+        mShapeState.mChangingConfigurations = super.getChangingConfigurations();
+        return mShapeState;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Defines the intrinsic properties of this ShapeDrawable's Shape.
      */
@@ -418,11 +474,14 @@ public class ShapeDrawable extends Drawable {
         }
         
         @Override
+<<<<<<< HEAD
         public Drawable newDrawable(Resources res) {
             return new ShapeDrawable(this);
         }
         
         @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public int getChangingConfigurations() {
             return mChangingConfigurations;
         }

@@ -16,14 +16,18 @@
 
 package com.android.internal.util;
 
+<<<<<<< HEAD
 import java.util.Arrays;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * Object utility methods.
  */
 public class Objects {
 
     /**
+<<<<<<< HEAD
      * Determines whether two possibly-null objects are equal. Returns:
      *
      * <ul>
@@ -59,4 +63,30 @@ public class Objects {
         return Arrays.hashCode(objects);
     }
 
+=======
+     * Ensures the given object isn't {@code null}.
+     *
+     * @return the given object
+     * @throws NullPointerException if the object is null
+     */
+    public static <T> T nonNull(T t) {
+        if (t == null) {
+            throw new NullPointerException();
+        }
+        return t;
+    }
+
+    /**
+     * Ensures the given object isn't {@code null}.
+     *
+     * @return the given object
+     * @throws NullPointerException if the object is null
+     */
+    public static <T> T nonNull(T t, String message) {
+        if (t == null) {
+            throw new NullPointerException(message);
+        }
+        return t;
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }

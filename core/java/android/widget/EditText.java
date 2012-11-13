@@ -16,6 +16,7 @@
 
 package android.widget;
 
+<<<<<<< HEAD
 import android.content.Context;
 import android.text.Editable;
 import android.text.Selection;
@@ -26,6 +27,13 @@ import android.text.method.MovementMethod;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+=======
+import android.text.*;
+import android.text.method.*;
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.AttributeSet;
+>>>>>>> 54b6cfa... Initial Contribution
 
 
 /*
@@ -37,9 +45,12 @@ import android.view.accessibility.AccessibilityNodeInfo;
 /**
  * EditText is a thin veneer over TextView that configures itself
  * to be editable.
+<<<<<<< HEAD
  *
  * <p>See the <a href="{@docRoot}guide/topics/ui/controls/text.html">Text Fields</a>
  * guide.</p>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  * <p>
  * <b>XML attributes</b>
  * <p>
@@ -107,6 +118,7 @@ public class EditText extends TextView {
     public void extendSelection(int index) {
         Selection.extendSelection(getText(), index);
     }
+<<<<<<< HEAD
 
     @Override
     public void setEllipsize(TextUtils.TruncateAt ellipsis) {
@@ -128,4 +140,6 @@ public class EditText extends TextView {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(EditText.class.getName());
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

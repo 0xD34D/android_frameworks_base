@@ -16,10 +16,15 @@
 */
 
 #define LOG_TAG "NinePatch"
+<<<<<<< HEAD
 #define LOG_NDEBUG 1
 
 #include <androidfw/ResourceTypes.h>
 #include <utils/Log.h>
+=======
+
+#include <utils/ResourceTypes.h>
+>>>>>>> 54b6cfa... Initial Contribution
 
 #include "SkBitmap.h"
 #include "SkCanvas.h"
@@ -27,7 +32,11 @@
 #include "SkPaint.h"
 #include "SkUnPreMultiply.h"
 
+<<<<<<< HEAD
 #define USE_TRACE
+=======
+#define USE_TRACEx
+>>>>>>> 54b6cfa... Initial Contribution
 
 #ifdef USE_TRACE
     static bool gTrace;
@@ -105,6 +114,7 @@ SkScalar calculateStretch(SkScalar boundsLimit, SkScalar startingPoint,
 void NinePatch_Draw(SkCanvas* canvas, const SkRect& bounds,
                        const SkBitmap& bitmap, const android::Res_png_9patch& chunk,
                        const SkPaint* paint, SkRegion** outRegion) {
+<<<<<<< HEAD
     if (canvas && canvas->quickReject(bounds, SkCanvas::kBW_EdgeType)) {
         return;
     }
@@ -119,6 +129,11 @@ void NinePatch_Draw(SkCanvas* canvas, const SkRect& bounds,
     // if our SkCanvas were back by GL we should enable this and draw this as
     // a mesh, which will be faster in most cases.
     if (false) {
+=======
+    // if our canvas is GL, draw this as a mesh, which will be faster than
+    // in parts (which is faster for raster)
+    if (canvas && canvas->getViewport(NULL)) {
+>>>>>>> 54b6cfa... Initial Contribution
         SkNinePatch::DrawMesh(canvas, bounds, bitmap,
                               chunk.xDivs, chunk.numXDivs,
                               chunk.yDivs, chunk.numYDivs,
@@ -132,10 +147,17 @@ void NinePatch_Draw(SkCanvas* canvas, const SkRect& bounds,
 
     SkASSERT(canvas || outRegion);
 
+<<<<<<< HEAD
 #ifdef USE_TRACE
     if (canvas) {
         const SkMatrix& m = canvas->getTotalMatrix();
         ALOGV("ninepatch [%g %g %g] [%g %g %g]\n",
+=======
+#if 0
+    if (canvas) {
+        const SkMatrix& m = canvas->getTotalMatrix();
+        SkDebugf("ninepatch [%g %g %g] [%g %g %g]\n",
+>>>>>>> 54b6cfa... Initial Contribution
                  SkScalarToFloat(m[0]), SkScalarToFloat(m[1]), SkScalarToFloat(m[2]),
                  SkScalarToFloat(m[3]), SkScalarToFloat(m[4]), SkScalarToFloat(m[5]));
     }
@@ -143,10 +165,17 @@ void NinePatch_Draw(SkCanvas* canvas, const SkRect& bounds,
 
 #ifdef USE_TRACE
     if (gTrace) {
+<<<<<<< HEAD
         ALOGV("======== ninepatch bounds [%g %g]\n", SkScalarToFloat(bounds.width()), SkScalarToFloat(bounds.height()));
         ALOGV("======== ninepatch paint bm [%d,%d]\n", bitmap.width(), bitmap.height());
         ALOGV("======== ninepatch xDivs [%d,%d]\n", chunk.xDivs[0], chunk.xDivs[1]);
         ALOGV("======== ninepatch yDivs [%d,%d]\n", chunk.yDivs[0], chunk.yDivs[1]);
+=======
+        SkDEBUGF(("======== ninepatch bounds [%g %g]\n", SkScalarToFloat(bounds.width()), SkScalarToFloat(bounds.height())));
+        SkDEBUGF(("======== ninepatch paint bm [%d,%d]\n", bitmap.width(), bitmap.height()));
+        SkDEBUGF(("======== ninepatch xDivs [%d,%d]\n", chunk.xDivs[0], chunk.xDivs[1]));
+        SkDEBUGF(("======== ninepatch yDivs [%d,%d]\n", chunk.yDivs[0], chunk.yDivs[1]));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 #endif
 
@@ -155,7 +184,11 @@ void NinePatch_Draw(SkCanvas* canvas, const SkRect& bounds,
         (paint && paint->getXfermode() == NULL && paint->getAlpha() == 0))
     {
 #ifdef USE_TRACE
+<<<<<<< HEAD
         if (gTrace) ALOGV("======== abort ninepatch draw\n");
+=======
+        if (gTrace) SkDEBUGF(("======== abort ninepatch draw\n"));
+>>>>>>> 54b6cfa... Initial Contribution
 #endif
         return;
     }
@@ -167,6 +200,14 @@ void NinePatch_Draw(SkCanvas* canvas, const SkRect& bounds,
     if (bitmap.getPixels() == NULL)
         return;
 
+<<<<<<< HEAD
+=======
+    SkPaint defaultPaint;
+    if (NULL == paint) {
+        paint = &defaultPaint;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     const bool hasXfer = paint->getXfermode() != NULL;
     SkRect      dst;
     SkIRect     src;
@@ -200,8 +241,13 @@ void NinePatch_Draw(SkCanvas* canvas, const SkRect& bounds,
     }
     int numFixedYPixelsRemaining = bitmapHeight - numStretchyYPixelsRemaining;
 
+<<<<<<< HEAD
 #ifdef USE_TRACE
     ALOGV("NinePatch [%d %d] bounds [%g %g %g %g] divs [%d %d]\n",
+=======
+#if 0
+    SkDebugf("NinePatch [%d %d] bounds [%g %g %g %g] divs [%d %d]\n",
+>>>>>>> 54b6cfa... Initial Contribution
              bitmap.width(), bitmap.height(),
              SkScalarToFloat(bounds.fLeft), SkScalarToFloat(bounds.fTop),
              SkScalarToFloat(bounds.width()), SkScalarToFloat(bounds.height()),
@@ -297,20 +343,33 @@ void NinePatch_Draw(SkCanvas* canvas, const SkRect& bounds,
                     }
                     SkIRect idst;
                     dst.round(&idst);
+<<<<<<< HEAD
                     //ALOGI("Adding trans rect: (%d,%d)-(%d,%d)\n",
+=======
+                    //LOGI("Adding trans rect: (%d,%d)-(%d,%d)\n",
+>>>>>>> 54b6cfa... Initial Contribution
                     //     idst.fLeft, idst.fTop, idst.fRight, idst.fBottom);
                     (*outRegion)->op(idst, SkRegion::kUnion_Op);
                 }
                 goto nextDiv;
             }
             if (canvas) {
+<<<<<<< HEAD
 #ifdef USE_TRACE
                 ALOGV("-- src [%d %d %d %d] dst [%g %g %g %g]\n",
+=======
+#if 0
+                SkDebugf("-- src [%d %d %d %d] dst [%g %g %g %g]\n",
+>>>>>>> 54b6cfa... Initial Contribution
                          src.fLeft, src.fTop, src.width(), src.height(),
                          SkScalarToFloat(dst.fLeft), SkScalarToFloat(dst.fTop),
                          SkScalarToFloat(dst.width()), SkScalarToFloat(dst.height()));
                 if (2 == src.width() && SkIntToScalar(5) == dst.width()) {
+<<<<<<< HEAD
                     ALOGV("--- skip patch\n");
+=======
+                    SkDebugf("--- skip patch\n");
+>>>>>>> 54b6cfa... Initial Contribution
                 }
 #endif
                 drawStretchyPatch(canvas, src, dst, bitmap, *paint, initColor,

@@ -18,7 +18,10 @@ package android.provider;
 
 /**
  * Columns for tables that are synced to a server.
+<<<<<<< HEAD
  * @deprecated Do not use.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  * @hide
  */
 public interface SyncConstValue
@@ -30,12 +33,15 @@ public interface SyncConstValue
     public static final String _SYNC_ACCOUNT = "_sync_account";
 
     /**
+<<<<<<< HEAD
      * The type of the account that was used to sync the entry to the device.
      * <P>Type: TEXT</P>
      */
     public static final String _SYNC_ACCOUNT_TYPE = "_sync_account_type";
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * The unique ID for a row assigned by the sync source. NULL if the row has never been synced.
      * <P>Type: TEXT</P>
      */
@@ -70,14 +76,21 @@ public interface SyncConstValue
      * <P>Type: INTEGER (long)</P>
      */
     public static final String _SYNC_DIRTY = "_sync_dirty";
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Used to indicate that this account is not synced
      */
     public static final String NON_SYNCABLE_ACCOUNT = "non_syncable";
+<<<<<<< HEAD
 
     /**
      * Used to indicate that this account is not synced
      */
     public static final String NON_SYNCABLE_ACCOUNT_TYPE = "android.local";
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

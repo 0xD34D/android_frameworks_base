@@ -19,7 +19,10 @@ package android.text;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+<<<<<<< HEAD
 import android.text.style.ParagraphStyle;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.FloatMath;
 
 /**
@@ -93,7 +96,11 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
                                       int ellipsizedWidth) {
         boolean trust;
 
+<<<<<<< HEAD
         if (ellipsize == null || ellipsize == TextUtils.TruncateAt.MARQUEE) {
+=======
+        if (ellipsize == null) {
+>>>>>>> 54b6cfa... Initial Contribution
             replaceWith(source, paint, outerwidth, align, spacingmult,
                         spacingadd);
 
@@ -146,7 +153,11 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
 
         boolean trust;
 
+<<<<<<< HEAD
         if (ellipsize == null || ellipsize == TextUtils.TruncateAt.MARQUEE) {
+=======
+        if (ellipsize == null) {
+>>>>>>> 54b6cfa... Initial Contribution
             mEllipsizedWidth = outerwidth;
             mEllipsizedStart = 0;
             mEllipsizedCount = 0;
@@ -208,11 +219,19 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
              * width because the width that was passed in was for the
              * full text, not the ellipsized form.
              */
+<<<<<<< HEAD
             TextLine line = TextLine.obtain();
             line.set(paint, source, 0, source.length(), Layout.DIR_LEFT_TO_RIGHT,
                     Layout.DIRS_ALL_LEFT_TO_RIGHT, false, null);
             mMax = (int) FloatMath.ceil(line.metrics(null));
             TextLine.recycle(line);
+=======
+            synchronized (sTemp) {
+                mMax = (int) (FloatMath.ceil(Styled.measureText(paint, sTemp,
+                                                source, 0, source.length(),
+                                                null)));
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (includepad) {
@@ -226,6 +245,7 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
      */
     public static Metrics isBoring(CharSequence text,
                                    TextPaint paint) {
+<<<<<<< HEAD
         return isBoring(text, paint, TextDirectionHeuristics.FIRSTSTRONG_LTR, null);
     }
 
@@ -237,6 +257,9 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
                                    TextPaint paint,
                                    TextDirectionHeuristic textDir) {
         return isBoring(text, paint, textDir, null);
+=======
+        return isBoring(text, paint, null);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -244,6 +267,7 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
      * provided Metrics object (or a new one if the provided one was null)
      * if boring.
      */
+<<<<<<< HEAD
     public static Metrics isBoring(CharSequence text, TextPaint paint, Metrics metrics) {
         return isBoring(text, paint, TextDirectionHeuristics.FIRSTSTRONG_LTR, metrics);
     }
@@ -266,6 +290,20 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
 
             if (j > length)
                 j = length;
+=======
+    public static Metrics isBoring(CharSequence text, TextPaint paint,
+                                   Metrics metrics) {
+        char[] temp = TextUtils.obtain(500);
+        int len = text.length();
+        boolean boring = true;
+
+        outer:
+        for (int i = 0; i < len; i += 500) {
+            int j = i + 500;
+
+            if (j > len)
+                j = len;
+>>>>>>> 54b6cfa... Initial Contribution
 
             TextUtils.getChars(text, i, j, temp, 0);
 
@@ -279,15 +317,19 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
                     break outer;
                 }
             }
+<<<<<<< HEAD
 
             if (textDir != null && textDir.isRtl(temp, 0, n)) {
                boring = false;
                break outer;
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         TextUtils.recycle(temp);
 
+<<<<<<< HEAD
         if (boring && text instanceof Spanned) {
             Spanned sp = (Spanned) text;
             Object[] styles = sp.getSpans(0, length, ParagraphStyle.class);
@@ -296,11 +338,14 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
             }
         }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (boring) {
             Metrics fm = metrics;
             if (fm == null) {
                 fm = new Metrics();
             }
+<<<<<<< HEAD
 
             TextLine line = TextLine.obtain();
             line.set(paint, text, 0, length, Layout.DIR_LEFT_TO_RIGHT,
@@ -308,12 +353,23 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
             fm.width = (int) FloatMath.ceil(line.metrics(fm));
             TextLine.recycle(line);
 
+=======
+    
+            int wid;
+
+            synchronized (sTemp) {
+                wid = (int) (FloatMath.ceil(Styled.measureText(paint, sTemp,
+                                                text, 0, text.length(), fm)));
+            }
+            fm.width = wid;
+>>>>>>> 54b6cfa... Initial Contribution
             return fm;
         } else {
             return null;
         }
     }
 
+<<<<<<< HEAD
     @Override
     public int getHeight() {
         return mBottom;
@@ -326,12 +382,24 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
 
     @Override
     public int getLineTop(int line) {
+=======
+    @Override public int getHeight() {
+        return mBottom;
+    }
+
+    @Override public int getLineCount() {
+        return 1;
+    }
+
+    @Override public int getLineTop(int line) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (line == 0)
             return 0;
         else
             return mBottom;
     }
 
+<<<<<<< HEAD
     @Override
     public int getLineDescent(int line) {
         return mDesc;
@@ -339,12 +407,20 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
 
     @Override
     public int getLineStart(int line) {
+=======
+    @Override public int getLineDescent(int line) {
+        return mDesc;
+    }
+
+    @Override public int getLineStart(int line) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (line == 0)
             return 0;
         else
             return getText().length();
     }
 
+<<<<<<< HEAD
     @Override
     public int getParagraphDirection(int line) {
         return DIR_LEFT_TO_RIGHT;
@@ -366,11 +442,32 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
     }
 
     @Override
+=======
+    @Override public int getParagraphDirection(int line) {
+        return DIR_LEFT_TO_RIGHT;
+    }
+
+    @Override public boolean getLineContainsTab(int line) {
+        return false;
+    }
+
+    @Override public float getLineMax(int line) {
+        return mMax;
+    }
+
+    @Override public final Directions getLineDirections(int line) {
+        return Layout.DIRS_ALL_LEFT_TO_RIGHT;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public int getTopPadding() {
         return mTopPadding;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getBottomPadding() {
         return mBottomPadding;
     }
@@ -424,7 +521,11 @@ public class BoringLayout extends Layout implements TextUtils.EllipsizeCallback 
 
     public static class Metrics extends Paint.FontMetricsInt {
         public int width;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         @Override public String toString() {
             return super.toString() + " width=" + width;
         }

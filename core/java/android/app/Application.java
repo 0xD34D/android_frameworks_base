@@ -16,6 +16,7 @@
 
 package android.app;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 import android.content.ComponentCallbacks;
@@ -24,6 +25,12 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.os.Bundle;
+=======
+import android.content.ComponentCallbacks;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.res.Configuration;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Base class for those who need to maintain global application state. You can
@@ -31,6 +38,7 @@ import android.os.Bundle;
  * AndroidManifest.xml's &lt;application&gt; tag, which will cause that class
  * to be instantiated for you when the process for your application/package is
  * created.
+<<<<<<< HEAD
  * 
  * <p class="note">There is normally no need to subclass Application.  In
  * most situation, static singletons can provide the same functionality in a
@@ -59,6 +67,11 @@ public class Application extends ContextWrapper implements ComponentCallbacks2 {
         void onActivityDestroyed(Activity activity);
     }
 
+=======
+ */
+public class Application extends ContextWrapper implements ComponentCallbacks {
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public Application() {
         super(null);
     }
@@ -75,6 +88,7 @@ public class Application extends ContextWrapper implements ComponentCallbacks2 {
     }
 
     /**
+<<<<<<< HEAD
      * This method is for use in emulated process environments.  It will
      * never be called on a production Android device, where processes are
      * removed by simply killing them; no user code (including this callback)
@@ -135,6 +149,22 @@ public class Application extends ContextWrapper implements ComponentCallbacks2 {
         synchronized (mActivityLifecycleCallbacks) {
             mActivityLifecycleCallbacks.remove(callback);
         }
+=======
+     * Called when the application is stopping.  There are no more application
+     * objects running and the process will exit.  <em>Note: never depend on
+     * this method being called; in many cases an unneeded application process
+     * will simply be killed by the kernel without executing any application
+     * code.</em>
+     * If you override this method, be sure to call super.onTerminate().
+     */
+    public void onTerminate() {
+    }
+    
+    public void onConfigurationChanged(Configuration newConfig) {
+    }
+    
+    public void onLowMemory() {
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     // ------------------ Internal API ------------------
@@ -144,6 +174,7 @@ public class Application extends ContextWrapper implements ComponentCallbacks2 {
      */
     /* package */ final void attach(Context context) {
         attachBaseContext(context);
+<<<<<<< HEAD
         mLoadedApk = ContextImpl.getImpl(context).mPackageInfo;
     }
 
@@ -231,4 +262,8 @@ public class Application extends ContextWrapper implements ComponentCallbacks2 {
         }
         return callbacks;
     }
+=======
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
 }

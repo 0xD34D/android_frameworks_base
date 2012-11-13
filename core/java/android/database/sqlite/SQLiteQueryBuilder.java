@@ -18,17 +18,29 @@ package android.database.sqlite;
 
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+<<<<<<< HEAD
 import android.os.CancellationSignal;
 import android.os.OperationCanceledException;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
+=======
+import android.database.sqlite.SQLiteDatabase;
+import android.provider.BaseColumns;
+import android.text.TextUtils;
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 import java.util.Iterator;
 import java.util.Map;
+<<<<<<< HEAD
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
+=======
+import java.util.Set;
+import java.util.Map.Entry;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * This is a convience class that helps build SQL queries to be sent to
@@ -37,6 +49,7 @@ import java.util.regex.Pattern;
 public class SQLiteQueryBuilder
 {
     private static final String TAG = "SQLiteQueryBuilder";
+<<<<<<< HEAD
     private static final Pattern sLimitPattern =
             Pattern.compile("\\s*\\d+\\s*(,\\s*\\d+\\s*)?");
 
@@ -46,6 +59,14 @@ public class SQLiteQueryBuilder
     private boolean mDistinct;
     private SQLiteDatabase.CursorFactory mFactory;
     private boolean mStrict;
+=======
+
+    private Map<String, String> mProjectionMap = null;
+    private String mTables = "";
+    private StringBuilder mWhereClause = new StringBuilder(64);
+    private boolean mDistinct;
+    private SQLiteDatabase.CursorFactory mFactory;
+>>>>>>> 54b6cfa... Initial Contribution
 
     public SQLiteQueryBuilder() {
         mDistinct = false;
@@ -92,9 +113,12 @@ public class SQLiteQueryBuilder
      * @param inWhere the chunk of text to append to the WHERE clause.
      */
     public void appendWhere(CharSequence inWhere) {
+<<<<<<< HEAD
         if (mWhereClause == null) {
             mWhereClause = new StringBuilder(inWhere.length() + 16);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (mWhereClause.length() == 0) {
             mWhereClause.append('(');
         }
@@ -112,9 +136,12 @@ public class SQLiteQueryBuilder
      * to avoid SQL injection attacks
      */
     public void appendWhereEscapeString(String inWhere) {
+<<<<<<< HEAD
         if (mWhereClause == null) {
             mWhereClause = new StringBuilder(inWhere.length() + 16);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (mWhereClause.length() == 0) {
             mWhereClause.append('(');
         }
@@ -139,15 +166,21 @@ public class SQLiteQueryBuilder
     /**
      * Sets the cursor factory to be used for the query.  You can use
      * one factory for all queries on a database but it is normally
+<<<<<<< HEAD
      * easier to specify the factory when doing this query.
      *
      * @param factory the factory to use.
+=======
+     * easier to specify the factory when doing this query.  @param
+     * factory the factor to use
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void setCursorFactory(SQLiteDatabase.CursorFactory factory) {
         mFactory = factory;
     }
 
     /**
+<<<<<<< HEAD
      * When set, the selection is verified against malicious arguments.
      * When using this class to create a statement using
      * {@link #buildQueryString(boolean, String, String[], String, String, String, String, String)},
@@ -173,6 +206,8 @@ public class SQLiteQueryBuilder
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Build an SQL query string from the given clauses.
      *
      * @param distinct true if you want each row to be unique, false otherwise.
@@ -205,9 +240,12 @@ public class SQLiteQueryBuilder
             throw new IllegalArgumentException(
                     "HAVING clauses are only permitted when using a groupBy clause");
         }
+<<<<<<< HEAD
         if (!TextUtils.isEmpty(limit) && !sLimitPattern.matcher(limit).matches()) {
             throw new IllegalArgumentException("invalid LIMIT clauses:" + limit);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         StringBuilder query = new StringBuilder(120);
 
@@ -226,7 +264,11 @@ public class SQLiteQueryBuilder
         appendClause(query, " GROUP BY ", groupBy);
         appendClause(query, " HAVING ", having);
         appendClause(query, " ORDER BY ", orderBy);
+<<<<<<< HEAD
         appendClause(query, " LIMIT ", limit);
+=======
+        appendClauseEscapeClause(query, " LIMIT ", limit);
+>>>>>>> 54b6cfa... Initial Contribution
 
         return query.toString();
     }
@@ -238,6 +280,16 @@ public class SQLiteQueryBuilder
         }
     }
 
+<<<<<<< HEAD
+=======
+    private static void appendClauseEscapeClause(StringBuilder s, String name, String clause) {
+        if (!TextUtils.isEmpty(clause)) {
+            s.append(name);
+            DatabaseUtils.appendEscapedSQLString(s, clause);
+        }
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Add the names that are non-null in columns to s, separating
      * them with commas.
@@ -292,7 +344,11 @@ public class SQLiteQueryBuilder
             String selection, String[] selectionArgs, String groupBy,
             String having, String sortOrder) {
         return query(db, projectionIn, selection, selectionArgs, groupBy, having, sortOrder,
+<<<<<<< HEAD
                 null /* limit */, null /* cancellationSignal */);
+=======
+                null /* limit */);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -330,6 +386,7 @@ public class SQLiteQueryBuilder
     public Cursor query(SQLiteDatabase db, String[] projectionIn,
             String selection, String[] selectionArgs, String groupBy,
             String having, String sortOrder, String limit) {
+<<<<<<< HEAD
         return query(db, projectionIn, selection, selectionArgs,
                 groupBy, having, sortOrder, limit, null);
     }
@@ -372,10 +429,13 @@ public class SQLiteQueryBuilder
     public Cursor query(SQLiteDatabase db, String[] projectionIn,
             String selection, String[] selectionArgs, String groupBy,
             String having, String sortOrder, String limit, CancellationSignal cancellationSignal) {
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (mTables == null) {
             return null;
         }
 
+<<<<<<< HEAD
         if (mStrict && selection != null && selection.length() > 0) {
             // Validate the user-supplied selection to detect syntactic anomalies
             // in the selection string that could indicate a SQL injection attempt.
@@ -392,6 +452,10 @@ public class SQLiteQueryBuilder
 
         String sql = buildQuery(
                 projectionIn, selection, groupBy, having,
+=======
+        String sql = buildQuery(
+                projectionIn, selection, selectionArgs, groupBy, having,
+>>>>>>> 54b6cfa... Initial Contribution
                 sortOrder, limit);
 
         if (Log.isLoggable(TAG, Log.DEBUG)) {
@@ -399,6 +463,7 @@ public class SQLiteQueryBuilder
         }
         return db.rawQueryWithFactory(
                 mFactory, sql, selectionArgs,
+<<<<<<< HEAD
                 SQLiteDatabase.findEditTable(mTables),
                 cancellationSignal); // will throw if query is invalid
     }
@@ -411,6 +476,9 @@ public class SQLiteQueryBuilder
             CancellationSignal cancellationSignal) {
         db.getThreadSession().prepare(sql,
                 db.getThreadDefaultConnectionFlags(true /*readOnly*/), cancellationSignal, null);
+=======
+                SQLiteDatabase.findEditTable(mTables));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -426,6 +494,13 @@ public class SQLiteQueryBuilder
      *   formatted as an SQL WHERE clause (excluding the WHERE
      *   itself).  Passing null will return all rows for the given
      *   URL.
+<<<<<<< HEAD
+=======
+     * @param selectionArgs You may include ?s in selection, which
+     *   will be replaced by the values from selectionArgs, in order
+     *   that they appear in the selection.  The values will be bound
+     *   as Strings.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param groupBy A filter declaring how to group rows, formatted
      *   as an SQL GROUP BY clause (excluding the GROUP BY itself).
      *   Passing null will cause the rows to not be grouped.
@@ -442,6 +517,7 @@ public class SQLiteQueryBuilder
      * @return the resulting SQL SELECT statement
      */
     public String buildQuery(
+<<<<<<< HEAD
             String[] projectionIn, String selection, String groupBy,
             String having, String sortOrder, String limit) {
         String[] projection = computeProjection(projectionIn);
@@ -452,10 +528,19 @@ public class SQLiteQueryBuilder
         if (hasBaseWhereClause) {
             where.append(mWhereClause.toString());
             where.append(')');
+=======
+            String[] projectionIn, String selection, String[] selectionArgs,
+            String groupBy, String having, String sortOrder, String limit) {
+        String[] projection = computeProjection(projectionIn);
+
+        if (mWhereClause.length() > 0) {
+            mWhereClause.append(')');
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         // Tack on the user's selection, if present.
         if (selection != null && selection.length() > 0) {
+<<<<<<< HEAD
             if (hasBaseWhereClause) {
                 where.append(" AND ");
             }
@@ -467,10 +552,24 @@ public class SQLiteQueryBuilder
 
         return buildQueryString(
                 mDistinct, mTables, projection, where.toString(),
+=======
+            if (mWhereClause.length() > 0) {
+                mWhereClause.append(" AND ");
+            }
+
+            mWhereClause.append('(');
+            mWhereClause.append(selection);
+            mWhereClause.append(')');
+        }
+
+        return buildQueryString(
+                mDistinct, mTables, projection, mWhereClause.toString(),
+>>>>>>> 54b6cfa... Initial Contribution
                 groupBy, having, sortOrder, limit);
     }
 
     /**
+<<<<<<< HEAD
      * @deprecated This method's signature is misleading since no SQL parameter
      * substitution is carried out.  The selection arguments parameter does not get
      * used at all.  To avoid confusion, call
@@ -484,6 +583,8 @@ public class SQLiteQueryBuilder
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Construct a SELECT statement suitable for use in a group of
      * SELECT statements that will be joined through UNION operators
      * in buildUnionQuery.
@@ -512,6 +613,13 @@ public class SQLiteQueryBuilder
      *   formatted as an SQL WHERE clause (excluding the WHERE
      *   itself).  Passing null will return all rows for the given
      *   URL.
+<<<<<<< HEAD
+=======
+     * @param selectionArgs You may include ?s in selection, which
+     *   will be replaced by the values from selectionArgs, in order
+     *   that they appear in the selection.  The values will be bound
+     *   as Strings.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param groupBy A filter declaring how to group rows, formatted
      *   as an SQL GROUP BY clause (excluding the GROUP BY itself).
      *   Passing null will cause the rows to not be grouped.
@@ -529,6 +637,10 @@ public class SQLiteQueryBuilder
             int computedColumnsOffset,
             String typeDiscriminatorValue,
             String selection,
+<<<<<<< HEAD
+=======
+            String[] selectionArgs,
+>>>>>>> 54b6cfa... Initial Contribution
             String groupBy,
             String having) {
         int unionColumnsCount = unionColumns.length;
@@ -548,12 +660,17 @@ public class SQLiteQueryBuilder
             }
         }
         return buildQuery(
+<<<<<<< HEAD
                 projectionIn, selection, groupBy, having,
+=======
+                projectionIn, selection, selectionArgs, groupBy, having,
+>>>>>>> 54b6cfa... Initial Contribution
                 null /* sortOrder */,
                 null /* limit */);
     }
 
     /**
+<<<<<<< HEAD
      * @deprecated This method's signature is misleading since no SQL parameter
      * substitution is carried out.  The selection arguments parameter does not get
      * used at all.  To avoid confusion, call
@@ -578,6 +695,8 @@ public class SQLiteQueryBuilder
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Given a set of subqueries, all of which are SELECT statements,
      * construct a query that returns the union of what those
      * subqueries return.
@@ -617,6 +736,7 @@ public class SQLiteQueryBuilder
                     String userColumn = projectionIn[i];
                     String column = mProjectionMap.get(userColumn);
 
+<<<<<<< HEAD
                     if (column != null) {
                         projection[i] = column;
                         continue;
@@ -631,6 +751,14 @@ public class SQLiteQueryBuilder
 
                     throw new IllegalArgumentException("Invalid column "
                             + projectionIn[i]);
+=======
+                    if (column == null) {
+                        throw new IllegalArgumentException(
+                                    "Invalid column " + projectionIn[i]);
+                    } else {
+                        projection[i] = column;
+                    }
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 return projection;
             } else {

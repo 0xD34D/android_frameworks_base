@@ -16,6 +16,7 @@
 
 package com.android.internal.os;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -27,6 +28,13 @@ import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 import java.util.Formatter;
 import java.util.Locale;
+=======
+import java.io.PrintStream;
+import java.io.OutputStream;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Formatter;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * A print stream which logs output line by line.
@@ -37,6 +45,7 @@ abstract class LoggingPrintStream extends PrintStream {
 
     private final StringBuilder builder = new StringBuilder();
 
+<<<<<<< HEAD
     /**
      * A buffer that is initialized when raw bytes are first written to this
      * stream. It may contain the leading bytes of multi-byte characters.
@@ -58,6 +67,8 @@ abstract class LoggingPrintStream extends PrintStream {
      */
     private CharsetDecoder decoder;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     protected LoggingPrintStream() {
         super(new OutputStream() {
             public void write(int oneByte) throws IOException {
@@ -107,6 +118,7 @@ abstract class LoggingPrintStream extends PrintStream {
         }
     }
 
+<<<<<<< HEAD
     public void write(int oneByte) {
         write(new byte[] { (byte) oneByte }, 0, 1);
     }
@@ -149,6 +161,22 @@ abstract class LoggingPrintStream extends PrintStream {
         }
         flush(false);
     }
+=======
+    /*
+     * We have no idea of how these bytes are encoded, so just ignore them.
+     */
+
+    /** Ignored. */
+    public void write(int oneByte) {}
+
+    /** Ignored. */
+    @Override
+    public void write(byte buffer[]) {}
+
+    /** Ignored. */
+    @Override
+    public void write(byte bytes[], int start, int count) {}
+>>>>>>> 54b6cfa... Initial Contribution
 
     /** Always returns false. */
     @Override

@@ -18,6 +18,7 @@ package android.text.style;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+<<<<<<< HEAD
 import android.graphics.Path;
 import android.graphics.Path.Direction;
 import android.os.Parcel;
@@ -39,12 +40,24 @@ public class BulletSpan implements LeadingMarginSpan, ParcelableSpan {
         mGapWidth = STANDARD_GAP_WIDTH;
         mWantColor = false;
         mColor = 0;
+=======
+import android.text.Layout;
+import android.text.Spanned;
+
+public class BulletSpan implements LeadingMarginSpan {
+
+    public BulletSpan() {
+        mGapWidth = STANDARD_GAP_WIDTH;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public BulletSpan(int gapWidth) {
         mGapWidth = gapWidth;
+<<<<<<< HEAD
         mWantColor = false;
         mColor = 0;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public BulletSpan(int gapWidth, int color) {
@@ -53,6 +66,7 @@ public class BulletSpan implements LeadingMarginSpan, ParcelableSpan {
         mColor = color;
     }
 
+<<<<<<< HEAD
     public BulletSpan(Parcel src) {
         mGapWidth = src.readInt();
         mWantColor = src.readInt() != 0;
@@ -73,6 +87,8 @@ public class BulletSpan implements LeadingMarginSpan, ParcelableSpan {
         dest.writeInt(mColor);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getLeadingMargin(boolean first) {
         return 2 * BULLET_RADIUS + mGapWidth;
     }
@@ -92,6 +108,7 @@ public class BulletSpan implements LeadingMarginSpan, ParcelableSpan {
 
             p.setStyle(Paint.Style.FILL);
 
+<<<<<<< HEAD
             if (c.isHardwareAccelerated()) {
                 if (sBulletPath == null) {
                     sBulletPath = new Path();
@@ -106,6 +123,10 @@ public class BulletSpan implements LeadingMarginSpan, ParcelableSpan {
             } else {
                 c.drawCircle(x + dir * BULLET_RADIUS, (top + bottom) / 2.0f, BULLET_RADIUS, p);
             }
+=======
+            c.drawCircle(x + dir * BULLET_RADIUS, (top + bottom) / 2.0f,
+                         BULLET_RADIUS, p);
+>>>>>>> 54b6cfa... Initial Contribution
 
             if (mWantColor) {
                 p.setColor(oldcolor);
@@ -114,4 +135,14 @@ public class BulletSpan implements LeadingMarginSpan, ParcelableSpan {
             p.setStyle(style);
         }
     }
+<<<<<<< HEAD
+=======
+
+    private int mGapWidth;
+    private boolean mWantColor;
+    private int mColor;
+
+    private static final int BULLET_RADIUS = 3;
+    public static final int STANDARD_GAP_WIDTH = 2;
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -20,10 +20,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Region implements Parcelable {
+<<<<<<< HEAD
     /**
      * @hide
      */
     public final int mNativeRegion;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     // the native values for these must match up with the enum in SkRegion.h
     public enum Op {
@@ -37,11 +40,15 @@ public class Region implements Parcelable {
         Op(int nativeInt) {
             this.nativeInt = nativeInt;
         }
+<<<<<<< HEAD
 
         /**
          * @hide
          */
         public final int nativeInt;
+=======
+        final int nativeInt;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /** Create an empty region
@@ -219,6 +226,7 @@ public class Region implements Parcelable {
      */
     public native void translate(int dx, int dy, Region dst);
 
+<<<<<<< HEAD
     /**
      * Scale the region by the given scale amount. This re-constructs new region by
      * scaling the rects that this region consists of. New rectis are computed by scaling 
@@ -239,6 +247,8 @@ public class Region implements Parcelable {
      */
     public native void scale(float scale, Region dst);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final boolean union(Rect r) {
         return op(r, Op.UNION);
     }
@@ -287,10 +297,13 @@ public class Region implements Parcelable {
                         region2.mNativeRegion, op.nativeInt);
     }
 
+<<<<<<< HEAD
     public String toString() {
         return nativeToString(mNativeRegion);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     //////////////////////////////////////////////////////////////////////////
     
     public static final Parcelable.Creator<Region> CREATOR
@@ -326,6 +339,7 @@ public class Region implements Parcelable {
             throw new RuntimeException();
         }
     }
+<<<<<<< HEAD
 
     @Override
     public boolean equals(Object obj) {
@@ -345,6 +359,14 @@ public class Region implements Parcelable {
     }
     
     Region(int ni) {
+=======
+    
+    protected void finalize() throws Throwable {
+        nativeDestructor(mNativeRegion);
+    }
+    
+    /*package*/ Region(int ni) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (ni == 0) {
             throw new RuntimeException();
         }
@@ -357,12 +379,19 @@ public class Region implements Parcelable {
         this(ni);
     }
 
+<<<<<<< HEAD
     final int ni() {
         return mNativeRegion;
     }
 
     private static native boolean nativeEquals(int native_r1, int native_r2);
 
+=======
+    /*package*/ final int ni() {
+        return mNativeRegion;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     private static native int nativeConstructor();
     private static native void nativeDestructor(int native_region);
 
@@ -387,5 +416,9 @@ public class Region implements Parcelable {
     private static native boolean nativeWriteToParcel(int native_region,
                                                       Parcel p);
 
+<<<<<<< HEAD
     private static native String nativeToString(int native_region);
+=======
+    private final int mNativeRegion;
+>>>>>>> 54b6cfa... Initial Contribution
 }

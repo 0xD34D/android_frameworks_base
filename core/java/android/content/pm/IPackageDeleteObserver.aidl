@@ -23,6 +23,10 @@ package android.content.pm;
  * {@hide}
  */
 oneway interface IPackageDeleteObserver {
+<<<<<<< HEAD
     void packageDeleted(in String packageName, in int returnCode);
+=======
+    void packageDeleted(in boolean succeeded);
+>>>>>>> 54b6cfa... Initial Contribution
 }
 

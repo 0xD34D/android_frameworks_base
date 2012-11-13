@@ -16,9 +16,12 @@
 
 package com.android.tools.layoutlib.create;
 
+<<<<<<< HEAD
 import com.android.tools.layoutlib.annotations.VisibleForTesting;
 import com.android.tools.layoutlib.annotations.VisibleForTesting.Visibility;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.ClassVisitor;
@@ -29,6 +32,7 @@ import org.objectweb.asm.Opcodes;
 /**
  * Indicates if a class contains any native methods.
  */
+<<<<<<< HEAD
 public class ClassHasNativeVisitor extends ClassVisitor {
     public ClassHasNativeVisitor() {
         super(Opcodes.ASM4);
@@ -36,50 +40,75 @@ public class ClassHasNativeVisitor extends ClassVisitor {
 
     private boolean mHasNativeMethods = false;
 
+=======
+public class ClassHasNativeVisitor implements ClassVisitor {
+    
+    private boolean mHasNativeMethods = false;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean hasNativeMethods() {
         return mHasNativeMethods;
     }
 
+<<<<<<< HEAD
     @VisibleForTesting(visibility=Visibility.PRIVATE)
     protected void setHasNativeMethods(boolean hasNativeMethods, String methodName) {
         mHasNativeMethods = hasNativeMethods;
     }
 
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void visit(int version, int access, String name, String signature,
             String superName, String[] interfaces) {
         // pass
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
         // pass
         return null;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void visitAttribute(Attribute attr) {
         // pass
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void visitEnd() {
         // pass
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public FieldVisitor visitField(int access, String name, String desc,
             String signature, Object value) {
         // pass
         return null;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void visitInnerClass(String name, String outerName,
             String innerName, int access) {
         // pass
     }
 
+<<<<<<< HEAD
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc,
             String signature, String[] exceptions) {
@@ -90,11 +119,22 @@ public class ClassHasNativeVisitor extends ClassVisitor {
     }
 
     @Override
+=======
+    public MethodVisitor visitMethod(int access, String name, String desc,
+            String signature, String[] exceptions) {
+        mHasNativeMethods |= ((access & Opcodes.ACC_NATIVE) != 0);
+        return null;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public void visitOuterClass(String owner, String name, String desc) {
         // pass
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public void visitSource(String source, String debug) {
         // pass
     }

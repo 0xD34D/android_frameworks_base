@@ -34,6 +34,7 @@ public class AndroidConfig {
         super();
         
         try {
+<<<<<<< HEAD
             Logger rootLogger = Logger.getLogger("");
             rootLogger.addHandler(new AndroidHandler());
             rootLogger.setLevel(Level.INFO);
@@ -44,4 +45,13 @@ public class AndroidConfig {
             ex.printStackTrace();
         }
     }    
+=======
+            Logger.global.addHandler(new AndroidHandler());
+            Logger.global.setLevel(Level.ALL);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
 }

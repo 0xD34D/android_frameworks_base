@@ -16,17 +16,21 @@
 
 package com.android.providers.settings;
 
+<<<<<<< HEAD
 import java.io.FileNotFoundException;
 import java.security.SecureRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import android.app.backup.BackupManager;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
+<<<<<<< HEAD
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,6 +40,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.FileObserver;
+=======
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.media.RingtoneManager;
+import android.net.Uri;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.ParcelFileDescriptor;
 import android.os.SystemProperties;
 import android.provider.DrmStore;
@@ -43,12 +54,18 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
+<<<<<<< HEAD
 import android.util.LruCache;
+=======
+
+import java.io.FileNotFoundException;
+>>>>>>> 54b6cfa... Initial Contribution
 
 public class SettingsProvider extends ContentProvider {
     private static final String TAG = "SettingsProvider";
     private static final boolean LOCAL_LOGV = false;
 
+<<<<<<< HEAD
     private static final String TABLE_FAVORITES = "favorites";
     private static final String TABLE_OLD_FAVORITES = "old_favorites";
 
@@ -79,13 +96,22 @@ public class SettingsProvider extends ContentProvider {
 
     protected DatabaseHelper mOpenHelper;
     private BackupManager mBackupManager;
+=======
+    private static final String WRITE_GSERVICES_PERMISSION = "android.permission.WRITE_GSERVICES";
+
+    private DatabaseHelper mOpenHelper;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Decode a content URL into the table, projection, and arguments
      * used to access the corresponding database rows.
      */
     private static class SqlArguments {
+<<<<<<< HEAD
         public String table;
+=======
+        public final String table;
+>>>>>>> 54b6cfa... Initial Contribution
         public final String where;
         public final String[] args;
 
@@ -93,9 +119,12 @@ public class SettingsProvider extends ContentProvider {
         SqlArguments(Uri url, String where, String[] args) {
             if (url.getPathSegments().size() == 1) {
                 this.table = url.getPathSegments().get(0);
+<<<<<<< HEAD
                 if (!DatabaseHelper.isValidTable(this.table)) {
                     throw new IllegalArgumentException("Bad root path: " + this.table);
                 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 this.where = where;
                 this.args = args;
             } else if (url.getPathSegments().size() != 2) {
@@ -104,10 +133,14 @@ public class SettingsProvider extends ContentProvider {
                 throw new UnsupportedOperationException("WHERE clause not supported: " + url);
             } else {
                 this.table = url.getPathSegments().get(0);
+<<<<<<< HEAD
                 if (!DatabaseHelper.isValidTable(this.table)) {
                     throw new IllegalArgumentException("Bad root path: " + this.table);
                 }
                 if ("system".equals(this.table) || "secure".equals(this.table)) {
+=======
+                if ("gservices".equals(this.table) || "system".equals(this.table)) {
+>>>>>>> 54b6cfa... Initial Contribution
                     this.where = Settings.NameValueTable.NAME + "=?";
                     this.args = new String[] { url.getPathSegments().get(1) };
                 } else {
@@ -121,9 +154,12 @@ public class SettingsProvider extends ContentProvider {
         SqlArguments(Uri url) {
             if (url.getPathSegments().size() == 1) {
                 this.table = url.getPathSegments().get(0);
+<<<<<<< HEAD
                 if (!DatabaseHelper.isValidTable(this.table)) {
                     throw new IllegalArgumentException("Bad root path: " + this.table);
                 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 this.where = null;
                 this.args = null;
             } else {
@@ -144,7 +180,11 @@ public class SettingsProvider extends ContentProvider {
             throw new IllegalArgumentException("Invalid URI: " + tableUri);
         }
         String table = tableUri.getPathSegments().get(0);
+<<<<<<< HEAD
         if ("system".equals(table) || "secure".equals(table)) {
+=======
+        if ("gservices".equals(table) || "system".equals(table)) {
+>>>>>>> 54b6cfa... Initial Contribution
             String name = values.getAsString(Settings.NameValueTable.NAME);
             return Uri.withAppendedPath(tableUri, name);
         } else {
@@ -164,6 +204,7 @@ public class SettingsProvider extends ContentProvider {
         // a notification and then using the contract class to get their data,
         // the system property will be updated and they'll get the new data.
 
+<<<<<<< HEAD
         boolean backedUpDataChanged = false;
         String property = null, table = uri.getPathSegments().get(0);
         if (table.equals("system")) {
@@ -172,6 +213,13 @@ public class SettingsProvider extends ContentProvider {
         } else if (table.equals("secure")) {
             property = Settings.Secure.SYS_PROP_SETTING_VERSION;
             backedUpDataChanged = true;
+=======
+        String property = null, table = uri.getPathSegments().get(0);
+        if (table.equals("system")) {
+            property = Settings.System.SYS_PROP_SETTING_VERSION;
+        } else if (table.equals("gservices")) {
+            property = Settings.Gservices.SYS_PROP_SETTING_VERSION;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (property != null) {
@@ -180,10 +228,13 @@ public class SettingsProvider extends ContentProvider {
             SystemProperties.set(property, Long.toString(version));
         }
 
+<<<<<<< HEAD
         // Inform the backup manager about a data change
         if (backedUpDataChanged) {
             mBackupManager.dataChanged();
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         // Now send the notification through the content framework.
 
         String notify = uri.getQueryParameter("notify");
@@ -201,6 +252,7 @@ public class SettingsProvider extends ContentProvider {
      * @throws SecurityException if the caller is forbidden to write.
      */
     private void checkWritePermissions(SqlArguments args) {
+<<<<<<< HEAD
         if ("secure".equals(args.table) &&
             getContext().checkCallingOrSelfPermission(
                     android.Manifest.permission.WRITE_SECURE_SETTINGS) !=
@@ -245,12 +297,20 @@ public class SettingsProvider extends ContentProvider {
             Log.d(TAG, "updating our caches for " + mPath);
             fullyPopulateCaches();
             mIsDirty.set(false);
+=======
+        // TODO: Move gservices into its own provider so we don't need this nonsense.
+        if ("gservices".equals(args.table) &&
+            getContext().checkCallingOrSelfPermission(WRITE_GSERVICES_PERMISSION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            throw new SecurityException("Cannot write gservices table");
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     @Override
     public boolean onCreate() {
         mOpenHelper = new DatabaseHelper(getContext());
+<<<<<<< HEAD
         mBackupManager = new BackupManager(getContext());
 
         if (!ensureAndroidIdIsSet()) {
@@ -418,6 +478,18 @@ public class SettingsProvider extends ContentProvider {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(args.table);
 
+=======
+        return true;
+    }
+
+    @Override
+    public Cursor query(Uri url, String[] select, String where, String[] whereArgs, String sort) {
+        SqlArguments args = new SqlArguments(url, where, whereArgs);
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        qb.setTables(args.table);
+
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+>>>>>>> 54b6cfa... Initial Contribution
         Cursor ret = qb.query(db, select, args.where, args.args, null, null, sort);
         ret.setNotificationUri(getContext().getContentResolver(), url);
         return ret;
@@ -438,6 +510,7 @@ public class SettingsProvider extends ContentProvider {
     @Override
     public int bulkInsert(Uri uri, ContentValues[] values) {
         SqlArguments args = new SqlArguments(uri);
+<<<<<<< HEAD
         if (TABLE_FAVORITES.equals(args.table)) {
             return 0;
         }
@@ -445,25 +518,36 @@ public class SettingsProvider extends ContentProvider {
         SettingsCache cache = SettingsCache.forTable(args.table);
 
         sKnownMutationsInFlight.incrementAndGet();
+=======
+        checkWritePermissions(args);
+
+>>>>>>> 54b6cfa... Initial Contribution
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         db.beginTransaction();
         try {
             int numValues = values.length;
             for (int i = 0; i < numValues; i++) {
                 if (db.insert(args.table, null, values[i]) < 0) return 0;
+<<<<<<< HEAD
                 SettingsCache.populate(cache, values[i]);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 if (LOCAL_LOGV) Log.v(TAG, args.table + " <- " + values[i]);
             }
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
+<<<<<<< HEAD
             sKnownMutationsInFlight.decrementAndGet();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         sendNotify(uri);
         return values.length;
     }
 
+<<<<<<< HEAD
     /*
      * Used to parse changes to the value of Settings.Secure.LOCATION_PROVIDERS_ALLOWED.
      * This setting contains a list of the currently enabled location providers.
@@ -565,6 +649,17 @@ public class SettingsProvider extends ContentProvider {
 
         SettingsCache.populate(cache, initialValues);  // before we notify
 
+=======
+    @Override
+    public Uri insert(Uri url, ContentValues initialValues) {
+        SqlArguments args = new SqlArguments(url);
+        checkWritePermissions(args);
+
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        final long rowId = db.insert(args.table, null, initialValues);
+        if (rowId <= 0) return null;
+
+>>>>>>> 54b6cfa... Initial Contribution
         if (LOCAL_LOGV) Log.v(TAG, args.table + " <- " + initialValues);
         url = getUriFor(url, initialValues, rowId);
         sendNotify(url);
@@ -574,6 +669,7 @@ public class SettingsProvider extends ContentProvider {
     @Override
     public int delete(Uri url, String where, String[] whereArgs) {
         SqlArguments args = new SqlArguments(url, where, whereArgs);
+<<<<<<< HEAD
         if (TABLE_FAVORITES.equals(args.table)) {
             return 0;
         } else if (TABLE_OLD_FAVORITES.equals(args.table)) {
@@ -590,6 +686,13 @@ public class SettingsProvider extends ContentProvider {
             sendNotify(url);
         }
         startAsyncCachePopulation();
+=======
+        checkWritePermissions(args);
+
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int count = db.delete(args.table, args.where, args.args);
+        if (count > 0) sendNotify(url);
+>>>>>>> 54b6cfa... Initial Contribution
         if (LOCAL_LOGV) Log.v(TAG, args.table + ": " + count + " row(s) deleted");
         return count;
     }
@@ -597,6 +700,7 @@ public class SettingsProvider extends ContentProvider {
     @Override
     public int update(Uri url, ContentValues initialValues, String where, String[] whereArgs) {
         SqlArguments args = new SqlArguments(url, where, whereArgs);
+<<<<<<< HEAD
         if (TABLE_FAVORITES.equals(args.table)) {
             return 0;
         }
@@ -611,6 +715,13 @@ public class SettingsProvider extends ContentProvider {
             sendNotify(url);
         }
         startAsyncCachePopulation();
+=======
+        checkWritePermissions(args);
+
+        SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+        int count = db.update(args.table, initialValues, args.where, args.args);
+        if (count > 0) sendNotify(url);
+>>>>>>> 54b6cfa... Initial Contribution
         if (LOCAL_LOGV) Log.v(TAG, args.table + ": " + count + " row(s) <- " + initialValues);
         return count;
     }
@@ -622,16 +733,32 @@ public class SettingsProvider extends ContentProvider {
          * When a client attempts to openFile the default ringtone or
          * notification setting Uri, we will proxy the call to the current
          * default ringtone's Uri (if it is in the DRM or media provider).
+<<<<<<< HEAD
          */
+=======
+         */ 
+>>>>>>> 54b6cfa... Initial Contribution
         int ringtoneType = RingtoneManager.getDefaultType(uri);
         // Above call returns -1 if the Uri doesn't match a default type
         if (ringtoneType != -1) {
             Context context = getContext();
+<<<<<<< HEAD
 
             // Get the current value for the default sound
             Uri soundUri = RingtoneManager.getActualDefaultRingtoneUri(context, ringtoneType);
 
             if (soundUri != null) {
+=======
+            
+            // Get the current value for the default sound
+            Uri soundUri = RingtoneManager.getActualDefaultRingtoneUri(context, ringtoneType);
+            if (soundUri == null) {
+                // Fallback on any valid ringtone Uri
+                soundUri = RingtoneManager.getValidRingtoneUri(context);
+            }
+
+            if (soundUri != null) { 
+>>>>>>> 54b6cfa... Initial Contribution
                 // Only proxy the openFile call to drm or media providers
                 String authority = soundUri.getAuthority();
                 boolean isDrmAuthority = authority.equals(DrmStore.AUTHORITY);
@@ -647,7 +774,11 @@ public class SettingsProvider extends ContentProvider {
                             throw new FileNotFoundException(e.getMessage());
                         }
                     }
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 54b6cfa... Initial Contribution
                     return context.getContentResolver().openFileDescriptor(soundUri, mode);
                 }
             }
@@ -655,6 +786,7 @@ public class SettingsProvider extends ContentProvider {
 
         return super.openFile(uri, mode);
     }
+<<<<<<< HEAD
 
     @Override
     public AssetFileDescriptor openAssetFile(Uri uri, String mode) throws FileNotFoundException {
@@ -840,4 +972,6 @@ public class SettingsProvider extends ContentProvider {
             }
         }
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

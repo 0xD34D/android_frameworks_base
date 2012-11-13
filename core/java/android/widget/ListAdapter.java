@@ -26,6 +26,7 @@ package android.widget;
 public interface ListAdapter extends Adapter {
 
     /**
+<<<<<<< HEAD
      * Indicates whether all the items in this adapter are enabled. If the
      * value returned by this method changes over time, there is no guarantee
      * it will take effect.  If true, it means all items are selectable and
@@ -34,12 +35,19 @@ public interface ListAdapter extends Adapter {
      * @return True if all items are enabled, false otherwise.
      * 
      * @see #isEnabled(int) 
+=======
+     * Are all items in this ListAdapter enabled?
+     * If yes it means all items are selectable and clickable.
+     * 
+     * @return True if all items are enabled
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public boolean areAllItemsEnabled();
 
     /**
      * Returns true if the item at the specified position is not a separator.
      * (A separator is a non-selectable, non-clickable item).
+<<<<<<< HEAD
      * 
      * The result is unspecified if position is invalid. An {@link ArrayIndexOutOfBoundsException}
      * should be thrown in that case for fast failure.
@@ -49,6 +57,11 @@ public interface ListAdapter extends Adapter {
      * @return True if the item is not a separator
      * 
      * @see #areAllItemsEnabled() 
+=======
+     *
+     * @param position Index of the item
+     * @return True if the item is not a separator
+>>>>>>> 54b6cfa... Initial Contribution
      */
     boolean isEnabled(int position);
 }

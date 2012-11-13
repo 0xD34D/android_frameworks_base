@@ -16,6 +16,7 @@
 
 package android.database;
 
+<<<<<<< HEAD
 import android.net.Uri;
 
 /**
@@ -27,12 +28,21 @@ public class ContentObservable extends Observable<ContentObserver> {
     // Even though the generic method defined in Observable would be perfectly
     // fine on its own, we can't delete this overridden method because it would
     // potentially break binary compatibility with existing applications.
+=======
+/**
+ * A specialization of Observable for ContentObserver that provides methods for
+ * invoking the various callback methods of ContentObserver.
+ */
+public class ContentObservable extends Observable<ContentObserver> {
+
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public void registerObserver(ContentObserver observer) {
         super.registerObserver(observer);
     }
 
     /**
+<<<<<<< HEAD
      * Invokes {@link ContentObserver#dispatchChange(boolean)} on each observer.
      * <p>
      * If <code>selfChange</code> is true, only delivers the notification
@@ -68,12 +78,24 @@ public class ContentObservable extends Observable<ContentObserver> {
             for (ContentObserver observer : mObservers) {
                 if (!selfChange || observer.deliverSelfNotifications()) {
                     observer.dispatchChange(selfChange, uri);
+=======
+     * invokes dispatchUpdate on each observer, unless the observer doesn't want
+     * self-notifications and the update is from a self-notification
+     * @param selfChange
+     */
+    public void dispatchChange(boolean selfChange) {
+        synchronized(mObservers) {
+            for (ContentObserver observer : mObservers) {
+                if (!selfChange || observer.deliverSelfNotifications()) {
+                    observer.dispatchChange(selfChange);
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
     }
 
     /**
+<<<<<<< HEAD
      * Invokes {@link ContentObserver#onChange} on each observer.
      *
      * @param selfChange True if this is a self-change notification.
@@ -85,6 +107,15 @@ public class ContentObservable extends Observable<ContentObserver> {
         synchronized(mObservers) {
             for (ContentObserver observer : mObservers) {
                 observer.onChange(selfChange, null);
+=======
+     * invokes onChange on each observer
+     * @param selfChange
+     */
+    public void notifyChange(boolean selfChange) {
+        synchronized(mObservers) {
+            for (ContentObserver observer : mObservers) {
+                observer.onChange(selfChange);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }

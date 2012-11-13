@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -14,13 +15,18 @@
  * limitations under the License.
  */
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 package android.content.res;
 
 import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
+<<<<<<< HEAD
 import android.util.LocaleUtil;
 import android.view.View;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.util.Locale;
 
@@ -28,11 +34,15 @@ import java.util.Locale;
  * This class describes all device configuration information that can
  * impact the resources the application retrieves.  This includes both
  * user-specified configuration options (locale and scaling) as well
+<<<<<<< HEAD
  * as device configurations (such as input modes, screen size and screen orientation).
  * <p>You can acquire this object from {@link Resources}, using {@link
  * Resources#getConfiguration}. Thus, from an activity, you can get it by chaining the request
  * with {@link android.app.Activity#getResources}:</p>
  * <pre>Configuration config = getResources().getConfiguration();</pre>
+=======
+ * as dynamic device configuration (various types of input devices).
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public final class Configuration implements Parcelable, Comparable<Configuration> {
     /**
@@ -42,20 +52,29 @@ public final class Configuration implements Parcelable, Comparable<Configuration
     public float fontScale;
 
     /**
+<<<<<<< HEAD
      * IMSI MCC (Mobile Country Code), corresponding to
      * <a href="{@docRoot}guide/topics/resources/providing-resources.html#MccQualifier">mcc</a>
      * resource qualifier.  0 if undefined.
+=======
+     * IMSI MCC (Mobile Country Code).  0 if undefined.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public int mcc;
     
     /**
+<<<<<<< HEAD
      * IMSI MNC (Mobile Network Code), corresponding to
      * <a href="{@docRoot}guide/topics/resources/providing-resources.html#MccQualifier">mnc</a>
      * resource qualifier.  0 if undefined.
+=======
+     * IMSI MNC (Mobile Network Code).  0 if undefined.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public int mnc;
     
     /**
+<<<<<<< HEAD
      * Current user preference for the locale, corresponding to
      * <a href="{@docRoot}guide/topics/resources/providing-resources.html#LocaleQualifier">locale</a>
      * resource qualifier.
@@ -175,10 +194,20 @@ public final class Configuration implements Parcelable, Comparable<Configuration
     /** Constant for {@link #touchscreen}, value corresponding to the
      * <a href="{@docRoot}guide/topics/resources/providing-resources.html#TouchscreenQualifier">finger</a>
      * resource qualifier. */
+=======
+     * Current user preference for the locale.
+     */
+    public Locale locale;
+
+    public static final int TOUCHSCREEN_UNDEFINED = 0;
+    public static final int TOUCHSCREEN_NOTOUCH = 1;
+    public static final int TOUCHSCREEN_STYLUS = 2;
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int TOUCHSCREEN_FINGER = 3;
     
     /**
      * The kind of touch screen attached to the device.
+<<<<<<< HEAD
      * One of: {@link #TOUCHSCREEN_NOTOUCH}, {@link #TOUCHSCREEN_FINGER}.
      */
     public int touchscreen;
@@ -196,10 +225,21 @@ public final class Configuration implements Parcelable, Comparable<Configuration
     /** Constant for {@link #keyboard}, value corresponding to the
      * <a href="{@docRoot}guide/topics/resources/providing-resources.html#ImeQualifier">12key</a>
      * resource qualifier. */
+=======
+     * One of: {@link #TOUCHSCREEN_NOTOUCH}, {@link #TOUCHSCREEN_STYLUS}, 
+     * {@link #TOUCHSCREEN_FINGER}. 
+     */
+    public int touchscreen;
+    
+    public static final int KEYBOARD_UNDEFINED = 0;
+    public static final int KEYBOARD_NOKEYS = 1;
+    public static final int KEYBOARD_QWERTY = 2;
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int KEYBOARD_12KEY = 3;
     
     /**
      * The kind of keyboard attached to the device.
+<<<<<<< HEAD
      * One of: {@link #KEYBOARD_NOKEYS}, {@link #KEYBOARD_QWERTY},
      * {@link #KEYBOARD_12KEY}.
      */
@@ -261,10 +301,32 @@ public final class Configuration implements Parcelable, Comparable<Configuration
     /** Constant for {@link #navigation}, value corresponding to the
      * <a href="{@docRoot}guide/topics/resources/providing-resources.html#NavigationQualifier">wheel</a>
      * resource qualifier. */
+=======
+     * One of: {@link #KEYBOARD_QWERTY}, {@link #KEYBOARD_12KEY}.
+     */
+    public int keyboard;
+    
+    public static final int KEYBOARDHIDDEN_UNDEFINED = 0;
+    public static final int KEYBOARDHIDDEN_NO = 1;
+    public static final int KEYBOARDHIDDEN_YES = 2;
+    
+    /**
+     * A flag indicating whether the keyboard has been hidden.  This will
+     * be set on a device with a mechanism to hide the keyboard from the
+     * user, when that mechanism is closed.
+     */
+    public int keyboardHidden;
+    
+    public static final int NAVIGATION_UNDEFINED = 0;
+    public static final int NAVIGATION_NONAV = 1;
+    public static final int NAVIGATION_DPAD = 2;
+    public static final int NAVIGATION_TRACKBALL = 3;
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int NAVIGATION_WHEEL = 4;
     
     /**
      * The kind of navigation method available on the device.
+<<<<<<< HEAD
      * One of: {@link #NAVIGATION_NONAV}, {@link #NAVIGATION_DPAD},
      * {@link #NAVIGATION_TRACKBALL}, {@link #NAVIGATION_WHEEL}.
      */
@@ -417,6 +479,24 @@ public final class Configuration implements Parcelable, Comparable<Configuration
      * @hide Internal book-keeping.
      */
     public int seq;
+=======
+     * One of: {@link #NAVIGATION_DPAD}, {@link #NAVIGATION_TRACKBALL}, 
+     * {@link #NAVIGATION_WHEEL}. 
+     */
+    public int navigation;
+    
+    public static final int ORIENTATION_UNDEFINED = 0;
+    public static final int ORIENTATION_PORTRAIT = 1;
+    public static final int ORIENTATION_LANDSCAPE = 2;
+    public static final int ORIENTATION_SQUARE = 3;
+    
+    /**
+     * Overall orientation of the screen.  May be one of
+     * {@link #ORIENTATION_LANDSCAPE}, {@link #ORIENTATION_PORTRAIT},
+     * or {@link #ORIENTATION_SQUARE}.
+     */
+    public int orientation;
+>>>>>>> 54b6cfa... Initial Contribution
     
     /**
      * Construct an invalid Configuration.  You must call {@link #setToDefaults}
@@ -430,15 +510,19 @@ public final class Configuration implements Parcelable, Comparable<Configuration
      * Makes a deep copy suitable for modification.
      */
     public Configuration(Configuration o) {
+<<<<<<< HEAD
         setTo(o);
     }
 
     public void setTo(Configuration o) {
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         fontScale = o.fontScale;
         mcc = o.mcc;
         mnc = o.mnc;
         if (o.locale != null) {
             locale = (Locale) o.locale.clone();
+<<<<<<< HEAD
             layoutDirection = o.layoutDirection;
         }
         userSetLocale = o.userSetLocale;
@@ -579,6 +663,22 @@ public final class Configuration implements Parcelable, Comparable<Configuration
         }
         sb.append('}');
         return sb.toString();
+=======
+        }
+        touchscreen = o.touchscreen;
+        keyboard = o.keyboard;
+        keyboardHidden = o.keyboardHidden;
+        navigation = o.navigation;
+        orientation = o.orientation;
+    }
+
+    public String toString() {
+        return "{ scale=" + fontScale + " imsi=" + mcc + "/" + mnc
+                + " locale=" + locale
+                + " touch=" + touchscreen + " key=" + keyboard + "/"
+                + keyboardHidden
+                + " nav=" + navigation + " orien=" + orientation + " }";
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -587,6 +687,7 @@ public final class Configuration implements Parcelable, Comparable<Configuration
     public void setToDefaults() {
         fontScale = 1;
         mcc = mnc = 0;
+<<<<<<< HEAD
         locale = null;
         userSetLocale = false;
         touchscreen = TOUCHSCREEN_UNDEFINED;
@@ -603,6 +704,14 @@ public final class Configuration implements Parcelable, Comparable<Configuration
         smallestScreenWidthDp = compatSmallestScreenWidthDp = SMALLEST_SCREEN_WIDTH_DP_UNDEFINED;
         layoutDirection = View.LAYOUT_DIRECTION_LTR;
         seq = 0;
+=======
+        locale = Locale.getDefault();
+        touchscreen = TOUCHSCREEN_UNDEFINED;
+        keyboard = KEYBOARD_UNDEFINED;
+        keyboardHidden = KEYBOARDHIDDEN_UNDEFINED;
+        navigation = NAVIGATION_UNDEFINED;
+        orientation = ORIENTATION_UNDEFINED;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /** {@hide} */
@@ -637,12 +746,15 @@ public final class Configuration implements Parcelable, Comparable<Configuration
             changed |= ActivityInfo.CONFIG_LOCALE;
             locale = delta.locale != null
                     ? (Locale) delta.locale.clone() : null;
+<<<<<<< HEAD
             layoutDirection = LocaleUtil.getLayoutDirectionFromLocale(locale);
         }
         if (delta.userSetLocale && (!userSetLocale || ((changed & ActivityInfo.CONFIG_LOCALE) != 0)))
         {
             userSetLocale = true;
             changed |= ActivityInfo.CONFIG_LOCALE;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
         if (delta.touchscreen != TOUCHSCREEN_UNDEFINED
                 && touchscreen != delta.touchscreen) {
@@ -659,26 +771,33 @@ public final class Configuration implements Parcelable, Comparable<Configuration
             changed |= ActivityInfo.CONFIG_KEYBOARD_HIDDEN;
             keyboardHidden = delta.keyboardHidden;
         }
+<<<<<<< HEAD
         if (delta.hardKeyboardHidden != HARDKEYBOARDHIDDEN_UNDEFINED
                 && hardKeyboardHidden != delta.hardKeyboardHidden) {
             changed |= ActivityInfo.CONFIG_KEYBOARD_HIDDEN;
             hardKeyboardHidden = delta.hardKeyboardHidden;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (delta.navigation != NAVIGATION_UNDEFINED
                 && navigation != delta.navigation) {
             changed |= ActivityInfo.CONFIG_NAVIGATION;
             navigation = delta.navigation;
         }
+<<<<<<< HEAD
         if (delta.navigationHidden != NAVIGATIONHIDDEN_UNDEFINED
                 && navigationHidden != delta.navigationHidden) {
             changed |= ActivityInfo.CONFIG_KEYBOARD_HIDDEN;
             navigationHidden = delta.navigationHidden;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (delta.orientation != ORIENTATION_UNDEFINED
                 && orientation != delta.orientation) {
             changed |= ActivityInfo.CONFIG_ORIENTATION;
             orientation = delta.orientation;
         }
+<<<<<<< HEAD
         if (delta.screenLayout != SCREENLAYOUT_SIZE_UNDEFINED
                 && screenLayout != delta.screenLayout) {
             changed |= ActivityInfo.CONFIG_SCREEN_LAYOUT;
@@ -722,6 +841,8 @@ public final class Configuration implements Parcelable, Comparable<Configuration
         if (delta.seq != 0) {
             seq = delta.seq;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         
         return changed;
     }
@@ -745,6 +866,7 @@ public final class Configuration implements Parcelable, Comparable<Configuration
      * {@link android.content.pm.ActivityInfo#CONFIG_KEYBOARD
      * PackageManager.ActivityInfo.CONFIG_KEYBOARD},
      * {@link android.content.pm.ActivityInfo#CONFIG_NAVIGATION
+<<<<<<< HEAD
      * PackageManager.ActivityInfo.CONFIG_NAVIGATION},
      * {@link android.content.pm.ActivityInfo#CONFIG_ORIENTATION
      * PackageManager.ActivityInfo.CONFIG_ORIENTATION},
@@ -754,6 +876,11 @@ public final class Configuration implements Parcelable, Comparable<Configuration
      * PackageManager.ActivityInfo.CONFIG_SCREEN_SIZE}, or
      * {@link android.content.pm.ActivityInfo#CONFIG_SMALLEST_SCREEN_SIZE
      * PackageManager.ActivityInfo.CONFIG_SMALLEST_SCREEN_SIZE}.
+=======
+     * PackageManager.ActivityInfo.CONFIG_NAVIGATION}, or
+     * {@link android.content.pm.ActivityInfo#CONFIG_ORIENTATION
+     * PackageManager.ActivityInfo.CONFIG_ORIENTATION}.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public int diff(Configuration delta) {
         int changed = 0;
@@ -782,22 +909,29 @@ public final class Configuration implements Parcelable, Comparable<Configuration
                 && keyboardHidden != delta.keyboardHidden) {
             changed |= ActivityInfo.CONFIG_KEYBOARD_HIDDEN;
         }
+<<<<<<< HEAD
         if (delta.hardKeyboardHidden != HARDKEYBOARDHIDDEN_UNDEFINED
                 && hardKeyboardHidden != delta.hardKeyboardHidden) {
             changed |= ActivityInfo.CONFIG_KEYBOARD_HIDDEN;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (delta.navigation != NAVIGATION_UNDEFINED
                 && navigation != delta.navigation) {
             changed |= ActivityInfo.CONFIG_NAVIGATION;
         }
+<<<<<<< HEAD
         if (delta.navigationHidden != NAVIGATIONHIDDEN_UNDEFINED
                 && navigationHidden != delta.navigationHidden) {
             changed |= ActivityInfo.CONFIG_KEYBOARD_HIDDEN;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (delta.orientation != ORIENTATION_UNDEFINED
                 && orientation != delta.orientation) {
             changed |= ActivityInfo.CONFIG_ORIENTATION;
         }
+<<<<<<< HEAD
         if (delta.screenLayout != SCREENLAYOUT_SIZE_UNDEFINED
                 && screenLayout != delta.screenLayout) {
             changed |= ActivityInfo.CONFIG_SCREEN_LAYOUT;
@@ -818,6 +952,8 @@ public final class Configuration implements Parcelable, Comparable<Configuration
                 && smallestScreenWidthDp != delta.smallestScreenWidthDp) {
             changed |= ActivityInfo.CONFIG_SMALLEST_SCREEN_SIZE;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         
         return changed;
     }
@@ -838,6 +974,7 @@ public final class Configuration implements Parcelable, Comparable<Configuration
     }
     
     /**
+<<<<<<< HEAD
      * @hide Return true if the sequence of 'other' is better than this.  Assumes
      * that 'this' is your current sequence and 'other' is a new one you have
      * received some how and want to compare with what you have.
@@ -867,6 +1004,8 @@ public final class Configuration implements Parcelable, Comparable<Configuration
     }
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Parcelable methods
      */
     public int describeContents() {
@@ -885,6 +1024,7 @@ public final class Configuration implements Parcelable, Comparable<Configuration
             dest.writeString(locale.getCountry());
             dest.writeString(locale.getVariant());
         }
+<<<<<<< HEAD
         if(userSetLocale) {
             dest.writeInt(1);
         } else {
@@ -937,6 +1077,15 @@ public final class Configuration implements Parcelable, Comparable<Configuration
         seq = source.readInt();
     }
     
+=======
+        dest.writeInt(touchscreen);
+        dest.writeInt(keyboard);
+        dest.writeInt(keyboardHidden);
+        dest.writeInt(navigation);
+        dest.writeInt(orientation);
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public static final Parcelable.Creator<Configuration> CREATOR
             = new Parcelable.Creator<Configuration>() {
         public Configuration createFromParcel(Parcel source) {
@@ -952,7 +1101,22 @@ public final class Configuration implements Parcelable, Comparable<Configuration
      * Construct this Configuration object, reading from the Parcel.
      */
     private Configuration(Parcel source) {
+<<<<<<< HEAD
         readFromParcel(source);
+=======
+        fontScale = source.readFloat();
+        mcc = source.readInt();
+        mnc = source.readInt();
+        if (source.readInt() != 0) {
+            locale = new Locale(source.readString(), source.readString(),
+                    source.readString());
+        }
+        touchscreen = source.readInt();
+        keyboard = source.readInt();
+        keyboardHidden = source.readInt();
+        navigation = source.readInt();
+        orientation = source.readInt();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int compareTo(Configuration that) {
@@ -965,6 +1129,7 @@ public final class Configuration implements Parcelable, Comparable<Configuration
         if (n != 0) return n;
         n = this.mnc - that.mnc;
         if (n != 0) return n;
+<<<<<<< HEAD
         if (this.locale == null) {
             if (that.locale != null) return 1;
         } else if (that.locale == null) {
@@ -977,12 +1142,21 @@ public final class Configuration implements Parcelable, Comparable<Configuration
             n = this.locale.getVariant().compareTo(that.locale.getVariant());
             if (n != 0) return n;
         }
+=======
+        n = this.locale.getLanguage().compareTo(that.locale.getLanguage());
+        if (n != 0) return n;
+        n = this.locale.getCountry().compareTo(that.locale.getCountry());
+        if (n != 0) return n;
+        n = this.locale.getVariant().compareTo(that.locale.getVariant());
+        if (n != 0) return n;
+>>>>>>> 54b6cfa... Initial Contribution
         n = this.touchscreen - that.touchscreen;
         if (n != 0) return n;
         n = this.keyboard - that.keyboard;
         if (n != 0) return n;
         n = this.keyboardHidden - that.keyboardHidden;
         if (n != 0) return n;
+<<<<<<< HEAD
         n = this.hardKeyboardHidden - that.hardKeyboardHidden;
         if (n != 0) return n;
         n = this.navigation - that.navigation;
@@ -1000,6 +1174,11 @@ public final class Configuration implements Parcelable, Comparable<Configuration
         n = this.screenHeightDp - that.screenHeightDp;
         if (n != 0) return n;
         n = this.smallestScreenWidthDp - that.smallestScreenWidthDp;
+=======
+        n = this.navigation - that.navigation;
+        if (n != 0) return n;
+        n = this.orientation - that.orientation;
+>>>>>>> 54b6cfa... Initial Contribution
         //if (n != 0) return n;
         return n;
     }
@@ -1019,6 +1198,7 @@ public final class Configuration implements Parcelable, Comparable<Configuration
     }
     
     public int hashCode() {
+<<<<<<< HEAD
         int result = 17;
         result = 31 * result + Float.floatToIntBits(fontScale);
         result = 31 * result + mcc;
@@ -1039,3 +1219,11 @@ public final class Configuration implements Parcelable, Comparable<Configuration
         return result;
     }
 }
+=======
+        return ((int)this.fontScale) + this.mcc + this.mnc
+                + this.locale.hashCode() + this.touchscreen
+                + this.keyboard + this.keyboardHidden + this.navigation
+                + this.orientation;
+    }
+}
+>>>>>>> 54b6cfa... Initial Contribution

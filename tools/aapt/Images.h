@@ -8,6 +8,7 @@
 #define IMAGES_H
 
 #include "ResourceTable.h"
+<<<<<<< HEAD
 #include "Bundle.h"
 
 #include <utils/String8.h>
@@ -22,5 +23,13 @@ status_t preProcessImageToCache(const Bundle* bundle, const String8& source, con
 
 status_t postProcessImage(const sp<AaptAssets>& assets,
                           ResourceTable* table, const sp<AaptFile>& file);
+=======
+
+status_t preProcessImage(Bundle* bundle, const sp<AaptAssets>& assets,
+                         const sp<AaptFile>& file, String8* outNewLeafName);
+
+status_t postProcessImage(const sp<AaptAssets>& assets,
+						  ResourceTable* table, const sp<AaptFile>& file);
+>>>>>>> 54b6cfa... Initial Contribution
 
 #endif

@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 54b6cfa... Initial Contribution
 package android.app;
 
 import android.content.Context;
@@ -22,10 +26,13 @@ import android.os.Binder;
 import android.os.RemoteException;
 import android.os.IBinder;
 import android.os.ServiceManager;
+<<<<<<< HEAD
 import android.util.Slog;
 import android.view.View;
 
 import com.android.internal.statusbar.IStatusBarService;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Allows an app to control the status bar.
@@ -33,6 +40,7 @@ import com.android.internal.statusbar.IStatusBarService;
  * @hide
  */
 public class StatusBarManager {
+<<<<<<< HEAD
 
     public static final int DISABLE_EXPAND = View.STATUS_BAR_DISABLE_EXPAND;
     public static final int DISABLE_NOTIFICATION_ICONS = View.STATUS_BAR_DISABLE_NOTIFICATION_ICONS;
@@ -63,10 +71,37 @@ public class StatusBarManager {
 
     private Context mContext;
     private IStatusBarService mService;
+=======
+    /**
+     * Flag for {@link #disable} to make the status bar not expandable.  Unless you also
+     * set {@link #DISABLE_NOTIFICATIONS}, new notifications will continue to show.
+     */
+    public static final int DISABLE_EXPAND = 0x00000001;
+
+    /**
+     * Flag for {@link #disable} to hide notification icons and ticker text.
+     */
+    public static final int DISABLE_NOTIFICATION_ICONS = 0x00000002;
+
+    /**
+     * Flag for {@link #disable} to disable incoming notification alerts.  This will not block
+     * icons, but it will block sound, vibrating and other visual or aural notifications.
+     */
+    public static final int DISABLE_NOTIFICATION_ALERTS = 0x00000004;
+
+    /**
+     * Re-enable all of the status bar features that you've disabled.
+     */
+    public static final int DISABLE_NONE = 0x00000000;
+
+    private Context mContext;
+    private IStatusBar mService;
+>>>>>>> 54b6cfa... Initial Contribution
     private IBinder mToken = new Binder();
 
     StatusBarManager(Context context) {
         mContext = context;
+<<<<<<< HEAD
     }
 
     private synchronized IStatusBarService getService() {
@@ -78,6 +113,10 @@ public class StatusBarManager {
             }
         }
         return mService;
+=======
+        mService = IStatusBar.Stub.asInterface(
+                ServiceManager.getService(Context.STATUS_BAR_SERVICE));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -86,10 +125,14 @@ public class StatusBarManager {
      */
     public void disable(int what) {
         try {
+<<<<<<< HEAD
             final IStatusBarService svc = getService();
             if (svc != null) {
                 svc.disable(what, mToken, mContext.getPackageName());
             }
+=======
+            mService.disable(what, mToken, mContext.getPackageName());
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead anyway.
             throw new RuntimeException(ex);
@@ -101,10 +144,14 @@ public class StatusBarManager {
      */
     public void expand() {
         try {
+<<<<<<< HEAD
             final IStatusBarService svc = getService();
             if (svc != null) {
                 svc.expand();
             }
+=======
+            mService.activate();
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead anyway.
             throw new RuntimeException(ex);
@@ -116,16 +163,33 @@ public class StatusBarManager {
      */
     public void collapse() {
         try {
+<<<<<<< HEAD
             final IStatusBarService svc = getService();
             if (svc != null) {
                 svc.collapse();
             }
+=======
+            mService.deactivate();
+        } catch (RemoteException ex) {
+            // system process is dead anyway.
+            throw new RuntimeException(ex);
+        }
+    }
+    
+    /**
+     * Toggle the status bar.
+     */
+    public void toggle() {
+        try {
+            mService.toggle();
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead anyway.
             throw new RuntimeException(ex);
         }
     }
 
+<<<<<<< HEAD
     public void setIcon(String slot, int iconId, int iconLevel, String contentDescription) {
         try {
             final IStatusBarService svc = getService();
@@ -133,30 +197,47 @@ public class StatusBarManager {
                 svc.setIcon(slot, mContext.getPackageName(), iconId, iconLevel,
                     contentDescription);
             }
+=======
+    public IBinder addIcon(String slot, int iconId, int iconLevel) {
+        try {
+            return mService.addIcon(slot, mContext.getPackageName(), iconId, iconLevel);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead anyway.
             throw new RuntimeException(ex);
         }
     }
 
+<<<<<<< HEAD
     public void removeIcon(String slot) {
         try {
             final IStatusBarService svc = getService();
             if (svc != null) {
                 svc.removeIcon(slot);
             }
+=======
+    public void updateIcon(IBinder key, String slot, int iconId, int iconLevel) {
+        try {
+            mService.updateIcon(key, slot, mContext.getPackageName(), iconId, iconLevel);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead anyway.
             throw new RuntimeException(ex);
         }
     }
 
+<<<<<<< HEAD
     public void setIconVisibility(String slot, boolean visible) {
         try {
             final IStatusBarService svc = getService();
             if (svc != null) {
                 svc.setIconVisibility(slot, visible);
             }
+=======
+    public void removeIcon(IBinder key) {
+        try {
+            mService.removeIcon(key);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException ex) {
             // system process is dead anyway.
             throw new RuntimeException(ex);

@@ -17,19 +17,25 @@
 package android.webkit;
 
 import android.webkit.CacheManager.CacheResult;
+<<<<<<< HEAD
 import android.webkit.PluginData;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.webkit.UrlInterceptHandler;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
+<<<<<<< HEAD
 /**
  * @hide
  * @deprecated This class was intended to be used by Gears. Since Gears was
  * deprecated, so is this class.
  */
 @Deprecated
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 public final class UrlInterceptRegistry {
 
     private final static String LOGTAG = "intercept";
@@ -48,12 +54,16 @@ public final class UrlInterceptRegistry {
      * set the flag to control whether url intercept is enabled or disabled
      * 
      * @param disabled true to disable the cache
+<<<<<<< HEAD
      *
      * @hide
      * @deprecated This class was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public static synchronized void setUrlInterceptDisabled(boolean disabled) {
         mDisabled = disabled;
     }
@@ -62,12 +72,16 @@ public final class UrlInterceptRegistry {
      * get the state of the url intercept, enabled or disabled
      * 
      * @return return if it is disabled
+<<<<<<< HEAD
      *
      * @hide
      * @deprecated This class was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public static synchronized boolean urlInterceptDisabled() {
         return mDisabled;
     }
@@ -78,12 +92,16 @@ public final class UrlInterceptRegistry {
      *
      * @param handler The new UrlInterceptHandler object
      * @return true if the handler was not previously registered.
+<<<<<<< HEAD
      *
      * @hide
      * @deprecated This class was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public static synchronized boolean registerHandler(
             UrlInterceptHandler handler) {
         if (!getHandlers().contains(handler)) {
@@ -99,16 +117,21 @@ public final class UrlInterceptRegistry {
      *
      * @param handler A previously registered UrlInterceptHandler.
      * @return true if the handler was found and removed from the list.
+<<<<<<< HEAD
      *
      * @hide
      * @deprecated This class was intended to be used by Gears. Since Gears was
      * deprecated, so is this class.
      */
     @Deprecated
+=======
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public static synchronized boolean unregisterHandler(
             UrlInterceptHandler handler) {
         return getHandlers().remove(handler);
     }
+<<<<<<< HEAD
 
     /**
      * Given an url, returns the CacheResult of the first
@@ -126,6 +149,19 @@ public final class UrlInterceptRegistry {
         if (urlInterceptDisabled()) {
             return null;
         }
+=======
+    
+    /**
+     * Given an url, returns the CacheResult of the first
+     * UrlInterceptHandler interested, or null if none are.
+     * 
+     * @return A CacheResult containing surrogate content.
+     */
+    public static synchronized CacheResult getSurrogate(
+            String url, Map<String, String> headers) {
+        if (urlInterceptDisabled())
+            return null;
+>>>>>>> 54b6cfa... Initial Contribution
         Iterator iter = getHandlers().listIterator();
         while (iter.hasNext()) {
             UrlInterceptHandler handler = (UrlInterceptHandler) iter.next();
@@ -136,6 +172,7 @@ public final class UrlInterceptRegistry {
         }
         return null;
     }
+<<<<<<< HEAD
 
     /**
      * Given an url, returns the PluginData of the first
@@ -164,4 +201,6 @@ public final class UrlInterceptRegistry {
         }
         return null;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

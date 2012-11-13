@@ -32,6 +32,7 @@ public class ImageSpan extends DynamicDrawableSpan {
     private int mResourceId;
     private Context mContext;
     private String mSource;
+<<<<<<< HEAD
 
     /**
      * @deprecated Use {@link #ImageSpan(Context, Bitmap)} instead.
@@ -78,10 +79,22 @@ public class ImageSpan extends DynamicDrawableSpan {
      */
     public ImageSpan(Drawable d, int verticalAlignment) {
         super(verticalAlignment);
+=======
+    
+
+    public ImageSpan(Bitmap b) {
+        mDrawable = new BitmapDrawable(b);
+        mDrawable.setBounds(0, 0, mDrawable.getIntrinsicWidth(),
+                mDrawable.getIntrinsicHeight());
+    }
+
+    public ImageSpan(Drawable d) {
+>>>>>>> 54b6cfa... Initial Contribution
         mDrawable = d;
     }
 
     public ImageSpan(Drawable d, String source) {
+<<<<<<< HEAD
         this(d, source, ALIGN_BOTTOM);
     }
 
@@ -91,11 +104,14 @@ public class ImageSpan extends DynamicDrawableSpan {
      */
     public ImageSpan(Drawable d, String source, int verticalAlignment) {
         super(verticalAlignment);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mDrawable = d;
         mSource = source;
     }
 
     public ImageSpan(Context context, Uri uri) {
+<<<<<<< HEAD
         this(context, uri, ALIGN_BOTTOM);
     }
 
@@ -120,6 +136,13 @@ public class ImageSpan extends DynamicDrawableSpan {
      */
     public ImageSpan(Context context, int resourceId, int verticalAlignment) {
         super(verticalAlignment);
+=======
+        mContext = context;
+        mContentUri = uri;
+    }
+
+    public ImageSpan(Context context, int resourceId) {
+>>>>>>> 54b6cfa... Initial Contribution
         mContext = context;
         mResourceId = resourceId;
     }
@@ -136,9 +159,13 @@ public class ImageSpan extends DynamicDrawableSpan {
                 InputStream is = mContext.getContentResolver().openInputStream(
                         mContentUri);
                 bitmap = BitmapFactory.decodeStream(is);
+<<<<<<< HEAD
                 drawable = new BitmapDrawable(mContext.getResources(), bitmap);
                 drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
                         drawable.getIntrinsicHeight());
+=======
+                drawable = new BitmapDrawable(bitmap);
+>>>>>>> 54b6cfa... Initial Contribution
                 is.close();
             } catch (Exception e) {
                 Log.e("sms", "Failed to loaded content " + mContentUri, e);

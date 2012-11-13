@@ -6,10 +6,13 @@ WriteModifiers(FILE* to, int mod, int mask)
 {
     int m = mod & mask;
 
+<<<<<<< HEAD
     if (m & OVERRIDE) {
         fprintf(to, "@Override ");
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     if ((m & SCOPE_MASK) == PUBLIC) {
         fprintf(to, "public ");
     }
@@ -83,7 +86,11 @@ Field::Write(FILE* to)
     if (this->comment.length() != 0) {
         fprintf(to, "%s\n", this->comment.c_str());
     }
+<<<<<<< HEAD
     WriteModifiers(to, this->modifiers, SCOPE_MASK | STATIC | FINAL | OVERRIDE);
+=======
+    WriteModifiers(to, this->modifiers, SCOPE_MASK | STATIC | FINAL);
+>>>>>>> 54b6cfa... Initial Contribution
     fprintf(to, "%s %s", this->variable->type->QualifiedName().c_str(),
             this->variable->name.c_str());
     if (this->value.length() != 0) {
@@ -111,6 +118,7 @@ LiteralExpression::Write(FILE* to)
     fprintf(to, "%s", this->value.c_str());
 }
 
+<<<<<<< HEAD
 StringLiteralExpression::StringLiteralExpression(const string& v)
     :value(v)
 {
@@ -126,6 +134,8 @@ StringLiteralExpression::Write(FILE* to)
     fprintf(to, "\"%s\"", this->value.c_str());
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 Variable::Variable()
     :type(NULL),
      name(),
@@ -292,6 +302,7 @@ MethodCall::MethodCall(const string& n)
 {
 }
 
+<<<<<<< HEAD
 MethodCall::MethodCall(const string& n, int argc = 0, ...)
     :obj(NULL),
      clazz(NULL),
@@ -303,6 +314,8 @@ MethodCall::MethodCall(const string& n, int argc = 0, ...)
   va_end(args);
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 MethodCall::MethodCall(Expression* o, const string& n)
     :obj(o),
      clazz(NULL),
@@ -393,6 +406,7 @@ NewExpression::NewExpression(Type* t)
 {
 }
 
+<<<<<<< HEAD
 NewExpression::NewExpression(Type* t, int argc = 0, ...)
     :type(t)
 {
@@ -402,11 +416,14 @@ NewExpression::NewExpression(Type* t, int argc = 0, ...)
   va_end(args);
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 NewExpression::~NewExpression()
 {
 }
 
 void
+<<<<<<< HEAD
 NewExpression::init(int n, va_list args)
 {
     for (int i=0; i<n; i++) {
@@ -416,6 +433,8 @@ NewExpression::init(int n, va_list args)
 }
 
 void
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 NewExpression::Write(FILE* to)
 {
     fprintf(to, "new %s(", this->type->InstantiableName().c_str());
@@ -680,6 +699,7 @@ SwitchStatement::Write(FILE* to)
     fprintf(to, "}\n");
 }
 
+<<<<<<< HEAD
 Break::Break()
 {
 }
@@ -694,6 +714,8 @@ Break::Write(FILE* to)
     fprintf(to, "break;\n");
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 Method::Method()
     :ClassElement(),
      modifiers(0),
@@ -736,7 +758,11 @@ Method::Write(FILE* to)
         fprintf(to, "%s\n", this->comment.c_str());
     }
 
+<<<<<<< HEAD
     WriteModifiers(to, this->modifiers, SCOPE_MASK | STATIC | ABSTRACT | FINAL | OVERRIDE);
+=======
+    WriteModifiers(to, this->modifiers, SCOPE_MASK | STATIC | FINAL);
+>>>>>>> 54b6cfa... Initial Contribution
 
     if (this->returnType != NULL) {
         string dim;
@@ -903,6 +929,26 @@ Document::Write(FILE* to)
         fprintf(to, "package %s;\n", this->package.c_str());
     }
 
+<<<<<<< HEAD
+=======
+    // gather the types for the import statements
+    set<Type*> types;
+    N = this->classes.size();
+    for (i=0; i<N; i++) {
+        Class* c = this->classes[i];
+        c->GatherTypes(&types);
+    }
+    
+    set<Type*>::iterator it;
+    for (it=types.begin(); it!=types.end(); it++) {
+        Type* t = *it;
+        string pkg = t->Package();
+        if (pkg.length() != 0 && pkg != this->package) {
+            fprintf(to, "import %s;\n", t->ImportType().c_str());
+        }
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     N = this->classes.size();
     for (i=0; i<N; i++) {
         Class* c = this->classes[i];

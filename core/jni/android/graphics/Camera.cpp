@@ -45,6 +45,7 @@ static void Camera_rotateZ(JNIEnv* env, jobject obj, float degrees) {
     v->rotateZ(SkFloatToScalar(degrees));
 }
 
+<<<<<<< HEAD
 static void Camera_rotate(JNIEnv* env, jobject obj, jfloat x, jfloat y, jfloat z) {
     Sk3DView* v = (Sk3DView*)env->GetIntField(obj, gNativeInstanceFieldID);
     v->rotateX(SkFloatToScalar(x));
@@ -72,6 +73,8 @@ static jfloat Camera_getLocationZ(JNIEnv* env, jobject obj) {
     return SkScalarToFloat(v->getCameraLocationZ());
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 static void Camera_getMatrix(JNIEnv* env, jobject obj, int native_matrix) {
     Sk3DView* v = (Sk3DView*)env->GetIntField(obj, gNativeInstanceFieldID);
     v->getMatrix((SkMatrix*)native_matrix);
@@ -106,16 +109,23 @@ static JNINativeMethod gCameraMethods[] = {
     { "rotateX",             "(F)V",   (void*)Camera_rotateX       },
     { "rotateY",             "(F)V",   (void*)Camera_rotateY       },
     { "rotateZ",             "(F)V",   (void*)Camera_rotateZ       },
+<<<<<<< HEAD
     { "rotate",              "(FFF)V", (void*)Camera_rotate        },
     { "setLocation",         "(FFF)V", (void*)Camera_setLocation   },
     { "getLocationX",        "()F",    (void*)Camera_getLocationX  },
     { "getLocationY",        "()F",    (void*)Camera_getLocationY  },
     { "getLocationZ",        "()F",    (void*)Camera_getLocationZ  },
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     { "nativeGetMatrix",     "(I)V",   (void*)Camera_getMatrix     },
     { "nativeApplyToCanvas", "(I)V",   (void*)Camera_applyToCanvas },
     { "dotWithNormal",       "(FFF)F", (void*)Camera_dotWithNormal }
 };
 
+<<<<<<< HEAD
+=======
+int register_android_graphics_Camera(JNIEnv* env);
+>>>>>>> 54b6cfa... Initial Contribution
 int register_android_graphics_Camera(JNIEnv* env) {
     jclass clazz = env->FindClass("android/graphics/Camera");
     if (clazz == 0) {
@@ -130,3 +140,7 @@ int register_android_graphics_Camera(JNIEnv* env) {
                                                gCameraMethods,
                                                SK_ARRAY_COUNT(gCameraMethods));
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution

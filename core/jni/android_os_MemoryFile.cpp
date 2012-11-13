@@ -26,15 +26,25 @@
 
 namespace android {
 
+<<<<<<< HEAD
 static jobject android_os_MemoryFile_open(JNIEnv* env, jobject clazz, jstring name, jint length)
 {
     const char* namestr = (name ? env->GetStringUTFChars(name, NULL) : NULL);
 
+=======
+static jint android_os_MemoryFile_open(JNIEnv* env, jobject clazz, jstring name, jint length)
+{
+    const char* namestr = (name ? env->GetStringUTFChars(name, NULL) : NULL);
+
+    // round up length to page boundary
+    length = (((length - 1) / getpagesize()) + 1) * getpagesize();
+>>>>>>> 54b6cfa... Initial Contribution
     int result = ashmem_create_region(namestr, length);
 
     if (name)
         env->ReleaseStringUTFChars(name, namestr);
 
+<<<<<<< HEAD
     if (result < 0) {
         jniThrowException(env, "java/io/IOException", "ashmem_create_region failed");
         return NULL;
@@ -48,11 +58,22 @@ static jint android_os_MemoryFile_mmap(JNIEnv* env, jobject clazz, jobject fileD
 {
     int fd = jniGetFDFromFileDescriptor(env, fileDescriptor);
     jint result = (jint)mmap(NULL, length, prot, MAP_SHARED, fd, 0);
+=======
+    if (result < 0)
+        jniThrowException(env, "java/io/IOException", "ashmem_create_region failed");
+    return result;
+}
+
+static jint android_os_MemoryFile_mmap(JNIEnv* env, jobject clazz, jint fd, jint length)
+{
+    jint result = (jint)mmap(NULL, length, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+>>>>>>> 54b6cfa... Initial Contribution
     if (!result)
         jniThrowException(env, "java/io/IOException", "mmap failed");
     return result;
 }
 
+<<<<<<< HEAD
 static void android_os_MemoryFile_munmap(JNIEnv* env, jobject clazz, jint addr, jint length)
 {
     int result = munmap((void *)addr, length);
@@ -74,13 +95,30 @@ static jint android_os_MemoryFile_read(JNIEnv* env, jobject clazz,
         jint count, jboolean unpinned)
 {
     int fd = jniGetFDFromFileDescriptor(env, fileDescriptor);
+=======
+static void android_os_MemoryFile_close(JNIEnv* env, jobject clazz, jint fd)
+{
+    close(fd);
+}
+
+static jint android_os_MemoryFile_read(JNIEnv* env, jobject clazz,
+        jint fd, jint address, jbyteArray buffer, jint srcOffset, jint destOffset,
+        jint count, jboolean unpinned)
+{
+>>>>>>> 54b6cfa... Initial Contribution
     if (unpinned && ashmem_pin_region(fd, 0, 0) == ASHMEM_WAS_PURGED) {
         ashmem_unpin_region(fd, 0, 0);
         jniThrowException(env, "java/io/IOException", "ashmem region was purged");
         return -1;
     }
 
+<<<<<<< HEAD
     env->SetByteArrayRegion(buffer, destOffset, count, (const jbyte *)address + srcOffset);
+=======
+    jbyte* bytes = env->GetByteArrayElements(buffer, 0);
+    memcpy(bytes + destOffset, (const char *)address + srcOffset, count);
+    env->ReleaseByteArrayElements(buffer, bytes, 0);
+>>>>>>> 54b6cfa... Initial Contribution
 
     if (unpinned) {
         ashmem_unpin_region(fd, 0, 0);
@@ -89,17 +127,29 @@ static jint android_os_MemoryFile_read(JNIEnv* env, jobject clazz,
 }
 
 static jint android_os_MemoryFile_write(JNIEnv* env, jobject clazz,
+<<<<<<< HEAD
         jobject fileDescriptor, jint address, jbyteArray buffer, jint srcOffset, jint destOffset,
         jint count, jboolean unpinned)
 {
     int fd = jniGetFDFromFileDescriptor(env, fileDescriptor);
+=======
+        jint fd, jint address, jbyteArray buffer, jint srcOffset, jint destOffset,
+        jint count, jboolean unpinned)
+{
+>>>>>>> 54b6cfa... Initial Contribution
     if (unpinned && ashmem_pin_region(fd, 0, 0) == ASHMEM_WAS_PURGED) {
         ashmem_unpin_region(fd, 0, 0);
         jniThrowException(env, "java/io/IOException", "ashmem region was purged");
         return -1;
     }
 
+<<<<<<< HEAD
     env->GetByteArrayRegion(buffer, srcOffset, count, (jbyte *)address + destOffset);
+=======
+    jbyte* bytes = env->GetByteArrayElements(buffer, 0);
+    memcpy((char *)address + destOffset, bytes + srcOffset, count);
+    env->ReleaseByteArrayElements(buffer, bytes, 0);
+>>>>>>> 54b6cfa... Initial Contribution
 
     if (unpinned) {
         ashmem_unpin_region(fd, 0, 0);
@@ -107,15 +157,21 @@ static jint android_os_MemoryFile_write(JNIEnv* env, jobject clazz,
     return count;
 }
 
+<<<<<<< HEAD
 static void android_os_MemoryFile_pin(JNIEnv* env, jobject clazz, jobject fileDescriptor, jboolean pin)
 {
     int fd = jniGetFDFromFileDescriptor(env, fileDescriptor);
+=======
+static void android_os_MemoryFile_pin(JNIEnv* env, jobject clazz, jint fd, jboolean pin)
+{
+>>>>>>> 54b6cfa... Initial Contribution
     int result = (pin ? ashmem_pin_region(fd, 0, 0) : ashmem_unpin_region(fd, 0, 0));
     if (result < 0) {
         jniThrowException(env, "java/io/IOException", NULL);
     }
 }
 
+<<<<<<< HEAD
 static jint android_os_MemoryFile_get_size(JNIEnv* env, jobject clazz,
         jobject fileDescriptor) {
     int fd = jniGetFDFromFileDescriptor(env, fileDescriptor);
@@ -152,6 +208,28 @@ int register_android_os_MemoryFile(JNIEnv* env)
 {
     return AndroidRuntime::registerNativeMethods(
         env, "android/os/MemoryFile",
+=======
+static const JNINativeMethod methods[] = {
+	{"native_open",  "(Ljava/lang/String;I)I", (void*)android_os_MemoryFile_open},
+    {"native_mmap",  "(II)I", (void*)android_os_MemoryFile_mmap},
+    {"native_close", "(I)V", (void*)android_os_MemoryFile_close},
+    {"native_read",  "(II[BIIIZ)I", (void*)android_os_MemoryFile_read},
+    {"native_write", "(II[BIIIZ)V", (void*)android_os_MemoryFile_write},
+    {"native_pin",   "(IZ)V", (void*)android_os_MemoryFile_pin},
+};
+
+static const char* const kClassPathName = "android/os/MemoryFile";
+
+int register_android_os_MemoryFile(JNIEnv* env)
+{
+    jclass clazz;
+
+    clazz = env->FindClass(kClassPathName);
+    LOG_FATAL_IF(clazz == NULL, "Unable to find class android.os.FileUtils");
+
+    return AndroidRuntime::registerNativeMethods(
+        env, kClassPathName,
+>>>>>>> 54b6cfa... Initial Contribution
         methods, NELEM(methods));
 }
 

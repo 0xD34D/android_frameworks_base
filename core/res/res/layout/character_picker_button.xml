@@ -15,6 +15,7 @@
 -->
 
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -22,5 +23,13 @@
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:background="@drawable/btn_keyboard_key_trans"
     android:textColor="#FFFFFFFF"
+=======
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:focusable="false"
+    android:textAppearance="?android:attr/textAppearanceLargeInverse"
+    android:textColor="#FF000000"
+>>>>>>> 54b6cfa... Initial Contribution
 />
 

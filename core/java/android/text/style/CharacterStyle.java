@@ -16,12 +16,20 @@
 
 package android.text.style;
 
+<<<<<<< HEAD
+=======
+import android.graphics.Paint;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.text.TextPaint;
 
 /**
  * The classes that affect character-level text formatting extend this
+<<<<<<< HEAD
  * class.  Most extend its subclass {@link MetricAffectingSpan}, but simple
  * ones may just implement {@link UpdateAppearance}.
+=======
+ * class.  Most also extend {@link MetricAffectingSpan}.
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public abstract class CharacterStyle {
 	public abstract void updateDrawState(TextPaint tp);

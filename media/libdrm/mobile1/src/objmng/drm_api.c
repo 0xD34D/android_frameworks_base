@@ -22,6 +22,10 @@
 #include <drm_rights_manager.h>
 #include <drm_time.h>
 #include <drm_decoder.h>
+<<<<<<< HEAD
+=======
+#include <aes.h>
+>>>>>>> 54b6cfa... Initial Contribution
 #include "log.h"
 
 /**
@@ -1577,7 +1581,11 @@ static int32_t drm_readAesContent(T_DRM_Session_Node* s, int32_t offset, uint8_t
     int32_t readBytes = 0;
     int32_t bufLen, piece, i, copyBytes, leftBytes;
     int32_t aesStart, mediaStart, mediaBufOff;
+<<<<<<< HEAD
     AES_KEY key;
+=======
+    aes_decrypt_ctx ctx[1];
+>>>>>>> 54b6cfa... Initial Contribution
 
     if (FALSE == drm_getKey(s->contentID, keyValue))
         return DRM_NO_RIGHTS;
@@ -1599,7 +1607,11 @@ static int32_t drm_readAesContent(T_DRM_Session_Node* s, int32_t offset, uint8_t
         piece = (offset + readBytes - 1) / DRM_ONE_AES_BLOCK_LEN - offset / DRM_ONE_AES_BLOCK_LEN + 2;
         mediaStart = offset % DRM_ONE_AES_BLOCK_LEN;
 
+<<<<<<< HEAD
         AES_set_decrypt_key(keyValue, DRM_KEY_LEN * 8, &key);
+=======
+        aes_decrypt_key128(keyValue, ctx);
+>>>>>>> 54b6cfa... Initial Contribution
         mediaBufOff = 0;
         leftBytes = readBytes;
 
@@ -1607,7 +1619,11 @@ static int32_t drm_readAesContent(T_DRM_Session_Node* s, int32_t offset, uint8_t
             memcpy(buf, s->rawContent + aesStart + i * DRM_ONE_AES_BLOCK_LEN, DRM_TWO_AES_BLOCK_LEN);
             bufLen = DRM_TWO_AES_BLOCK_LEN;
 
+<<<<<<< HEAD
             if (drm_aesDecBuffer(buf, &bufLen, &key) < 0)
+=======
+            if (drm_aesDecBuffer(buf, &bufLen, ctx) < 0)
+>>>>>>> 54b6cfa... Initial Contribution
                 return DRM_MEDIA_DATA_INVALID;
 
             if (0 != i)
@@ -1650,7 +1666,11 @@ static int32_t drm_readAesContent(T_DRM_Session_Node* s, int32_t offset, uint8_t
         piece = (offset + leftBytes - 1) / DRM_ONE_AES_BLOCK_LEN - offset / DRM_ONE_AES_BLOCK_LEN + 2;
         mediaBufOff = readBytes;
 
+<<<<<<< HEAD
         AES_set_decrypt_key(keyValue, DRM_KEY_LEN * 8, &key);
+=======
+        aes_decrypt_key128(keyValue, ctx);
+>>>>>>> 54b6cfa... Initial Contribution
 
         for (i = 0; i < piece - 1; i++) {
             if (-1 == (res = drm_readAesData(buf, s, aesStart, DRM_TWO_AES_BLOCK_LEN)))
@@ -1662,7 +1682,11 @@ static int32_t drm_readAesContent(T_DRM_Session_Node* s, int32_t offset, uint8_t
             bufLen = DRM_TWO_AES_BLOCK_LEN;
             aesStart += DRM_ONE_AES_BLOCK_LEN;
 
+<<<<<<< HEAD
             if (drm_aesDecBuffer(buf, &bufLen, &key) < 0)
+=======
+            if (drm_aesDecBuffer(buf, &bufLen, ctx) < 0)
+>>>>>>> 54b6cfa... Initial Contribution
                 return DRM_MEDIA_DATA_INVALID;
 
             drm_discardPaddingByte(buf, &bufLen);

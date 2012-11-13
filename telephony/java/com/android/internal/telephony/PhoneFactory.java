@@ -16,6 +16,7 @@
 
 package com.android.internal.telephony;
 
+<<<<<<< HEAD
 import android.content.Context;
 import android.net.LocalServerSocket;
 import android.os.Looper;
@@ -29,10 +30,31 @@ import com.android.internal.telephony.cdma.CdmaSubscriptionSourceManager;
 import com.android.internal.telephony.gsm.GSMPhone;
 import com.android.internal.telephony.sip.SipPhone;
 import com.android.internal.telephony.sip.SipPhoneFactory;
+=======
+import java.util.ArrayList;
+import java.util.List;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+
+import java.util.Collections;
+
+import android.util.Log;
+import com.android.internal.telephony.gsm.GSMPhone;
+import com.android.internal.telephony.gsm.RIL;
+import com.android.internal.telephony.test.ModelInterpreter;
+import com.android.internal.telephony.test.SimulatedCommands;
+import android.os.Looper;
+import android.os.SystemProperties;
+import android.content.Context;
+import android.content.Intent;
+import android.net.LocalServerSocket;
+import android.app.ActivityManagerNative;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * {@hide}
  */
+<<<<<<< HEAD
 public class PhoneFactory {
     static final String LOG_TAG = "PHONE";
     static final int SOCKET_OPEN_RETRY_MILLIS = 2 * 1000;
@@ -42,10 +64,22 @@ public class PhoneFactory {
 
     static private Phone sProxyPhone = null;
     static private CommandsInterface sCommandsInterface = null;
+=======
+public class PhoneFactory
+{
+    static final String LOG_TAG="GSM";
+
+    static final int SOCKET_OPEN_RETRY_MILLIS = 2 * 1000;
+    static final int SOCKET_OPEN_MAX_RETRY = 3;
+    //***** Class Variables 
+
+    static private ArrayList<Phone> sPhones = new ArrayList<Phone>();
+>>>>>>> 54b6cfa... Initial Contribution
 
     static private boolean sMadeDefaults = false;
     static private PhoneNotifier sPhoneNotifier;
     static private Looper sLooper;
+<<<<<<< HEAD
     static private Context sContext;
 
     static final int preferredCdmaSubscription =
@@ -57,10 +91,38 @@ public class PhoneFactory {
         makeDefaultPhone(context);
     }
 
+=======
+
+    static private Object testMailbox;
+
+    //***** Class Methods
+
+    private static void
+    useNewRIL(Context context)
+    {
+        ModelInterpreter mi = null;
+        GSMPhone phone;
+
+        try {
+            if (false) {
+                mi = new ModelInterpreter(new InetSocketAddress("127.0.0.1", 6502));
+            }
+            
+            phone = new GSMPhone(context, new RIL(context), sPhoneNotifier);
+
+            registerPhone (phone);
+        } catch (IOException ex) {
+            Log.e(LOG_TAG, "Error creating ModelInterpreter", ex);
+        }
+    }
+
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * FIXME replace this with some other way of making these
      * instances
      */
+<<<<<<< HEAD
     public static void makeDefaultPhone(Context context) {
         synchronized(Phone.class) {
             if (!sMadeDefaults) {
@@ -70,6 +132,18 @@ public class PhoneFactory {
                 if (sLooper == null) {
                     throw new RuntimeException(
                         "PhoneFactory.makeDefaultPhone must be called from Looper thread");
+=======
+    public static void 
+    makeDefaultPhones(Context context)
+    {
+        synchronized(Phone.class) {        
+            if (!sMadeDefaults) {  
+                sLooper = Looper.myLooper();
+
+                if (sLooper == null) {
+                    throw new RuntimeException(
+                        "PhoneFactory.makeDefaultPhones must be called from Looper thread");
+>>>>>>> 54b6cfa... Initial Contribution
                 }
 
                 int retryCount = 0;
@@ -89,7 +163,11 @@ public class PhoneFactory {
                         break;
                     } else if (retryCount > SOCKET_OPEN_MAX_RETRY) {
                         throw new RuntimeException("PhoneFactory probably already running");
+<<<<<<< HEAD
                     } else {
+=======
+                    }else {
+>>>>>>> 54b6cfa... Initial Contribution
                         try {
                             Thread.sleep(SOCKET_OPEN_RETRY_MILLIS);
                         } catch (InterruptedException er) {
@@ -99,6 +177,7 @@ public class PhoneFactory {
 
                 sPhoneNotifier = new DefaultPhoneNotifier();
 
+<<<<<<< HEAD
                 // Get preferred network mode
                 int preferredNetworkMode = RILConstants.PREFERRED_NETWORK_MODE;
                 if (BaseCommands.getLteOnCdmaModeStatic() == Phone.LTE_ON_CDMA_TRUE) {
@@ -156,6 +235,14 @@ public class PhoneFactory {
                                     sCommandsInterface, sPhoneNotifier));
                             break;
                     }
+=======
+                if ((SystemProperties.get("ro.radio.noril","")).equals("")) {
+                    useNewRIL(context);
+                } else {
+                    GSMPhone phone;
+                    phone = new GSMPhone(context, new SimulatedCommands(), sPhoneNotifier);
+                    registerPhone (phone);
+>>>>>>> 54b6cfa... Initial Contribution
                 }
 
                 sMadeDefaults = true;
@@ -163,6 +250,7 @@ public class PhoneFactory {
         }
     }
 
+<<<<<<< HEAD
     /*
      * This function returns the type of the phone, depending
      * on the network mode.
@@ -201,11 +289,20 @@ public class PhoneFactory {
     }
 
     public static Phone getDefaultPhone() {
+=======
+    public static Phone getDefaultPhone()
+    {
+        if (!sMadeDefaults) {
+            throw new IllegalStateException("Default phones haven't been made yet!");
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         if (sLooper != Looper.myLooper()) {
             throw new RuntimeException(
                 "PhoneFactory.getDefaultPhone must be called from Looper thread");
         }
 
+<<<<<<< HEAD
         if (!sMadeDefaults) {
             throw new IllegalStateException("Default phones haven't been made yet!");
         }
@@ -247,3 +344,22 @@ public class PhoneFactory {
         return SipPhoneFactory.makePhone(sipUri, sContext, sPhoneNotifier);
     }
 }
+=======
+        synchronized (sPhones) {
+            return sPhones.isEmpty() ? null : sPhones.get(0);
+        }
+    }
+    
+    public static void registerPhone(Phone p)
+    {
+        if (sLooper != Looper.myLooper()) {
+            throw new RuntimeException(
+                "PhoneFactory.getDefaultPhone must be called from Looper thread");
+        }
+        synchronized (sPhones) {
+            sPhones.add(p);
+        }
+    }
+}
+
+>>>>>>> 54b6cfa... Initial Contribution

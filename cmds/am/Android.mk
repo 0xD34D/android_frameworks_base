@@ -12,6 +12,7 @@ ALL_PREBUILT += $(TARGET_OUT)/bin/am
 $(TARGET_OUT)/bin/am : $(LOCAL_PATH)/am | $(ACP)
 	$(transform-prebuilt-to-target)
 
+<<<<<<< HEAD
 NOTICE_FILE := NOTICE
 files_noticed := bin/am
 
@@ -29,3 +30,5 @@ $(TARGET_OUT_NOTICE_FILES)/hash-timestamp: $(TARGET_OUT_NOTICE_FILES)/src/$(1).t
 endef
 
 $(foreach file,$(files_noticed),$(eval $(call make-notice-file,$(file))))
+=======
+>>>>>>> 54b6cfa... Initial Contribution

@@ -16,7 +16,10 @@
 
 package android.net.http;
 
+<<<<<<< HEAD
 import com.android.internal.http.HttpDateTime;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
@@ -27,6 +30,10 @@ import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.AbstractHttpEntity;
 import org.apache.http.entity.ByteArrayEntity;
+<<<<<<< HEAD
+=======
+import org.apache.http.client.CookieStore;
+>>>>>>> 54b6cfa... Initial Contribution
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.ClientProtocolException;
@@ -37,6 +44,10 @@ import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
+<<<<<<< HEAD
+=======
+import org.apache.http.conn.ssl.SSLSocketFactory;
+>>>>>>> 54b6cfa... Initial Contribution
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.RequestWrapper;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
@@ -55,6 +66,7 @@ import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import java.net.URI;
+<<<<<<< HEAD
 
 import android.content.Context;
 import android.content.ContentResolver;
@@ -66,6 +78,17 @@ import android.util.Log;
 
 /**
  * Implementation of the Apache {@link DefaultHttpClient} that is configured with
+=======
+import java.util.concurrent.atomic.AtomicInteger;
+
+import android.util.Log;
+import android.content.ContentResolver;
+import android.provider.Settings;
+import android.text.TextUtils;
+
+/**
+ * Subclass of the Apache {@link DefaultHttpClient} that is configured with
+>>>>>>> 54b6cfa... Initial Contribution
  * reasonable default settings and registered schemes for Android, and
  * also lets the user add {@link HttpRequestInterceptor} classes.
  * Don't create this directly, use the {@link #newInstance} factory method.
@@ -74,6 +97,7 @@ import android.util.Log;
  * To retain cookies, simply add a cookie store to the HttpContext:</p>
  *
  * <pre>context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);</pre>
+<<<<<<< HEAD
  */
 public final class AndroidHttpClient implements HttpClient {
 
@@ -90,13 +114,33 @@ public final class AndroidHttpClient implements HttpClient {
             "application/xml",
             "application/json"
     };
+=======
+ * 
+ * {@hide}
+ */
+public final class AndroidHttpClient implements HttpClient {
+        
+    // Gzip of data shorter than this probably won't be worthwhile
+    public static long DEFAULT_SYNC_MIN_GZIP_BYTES = 256;
+
+    private static final String TAG = "AndroidHttpClient";
+
+
+    /** Set if HTTP requests are blocked from being executed on this thread */
+    private static final ThreadLocal<Boolean> sThreadBlocked =
+            new ThreadLocal<Boolean>();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /** Interceptor throws an exception if the executing thread is blocked */
     private static final HttpRequestInterceptor sThreadCheckInterceptor =
             new HttpRequestInterceptor() {
         public void process(HttpRequest request, HttpContext context) {
+<<<<<<< HEAD
             // Prevent the HttpRequest from being sent on the main thread
             if (Looper.myLooper() != null && Looper.myLooper() == Looper.getMainLooper() ) {
+=======
+            if (sThreadBlocked.get() != null && sThreadBlocked.get()) {
+>>>>>>> 54b6cfa... Initial Contribution
                 throw new RuntimeException("This thread forbids HTTP requests");
             }
         }
@@ -104,38 +148,58 @@ public final class AndroidHttpClient implements HttpClient {
 
     /**
      * Create a new HttpClient with reasonable defaults (which you can update).
+<<<<<<< HEAD
      *
      * @param userAgent to report in your HTTP requests
      * @param context to use for caching SSL sessions (may be null for no caching)
      * @return AndroidHttpClient for you to use for all your requests.
      */
     public static AndroidHttpClient newInstance(String userAgent, Context context) {
+=======
+     * @param userAgent to report in your HTTP requests.
+     * @return AndroidHttpClient for you to use for all your requests.
+     */
+    public static AndroidHttpClient newInstance(String userAgent) {
+>>>>>>> 54b6cfa... Initial Contribution
         HttpParams params = new BasicHttpParams();
 
         // Turn off stale checking.  Our connections break all the time anyway,
         // and it's not worth it to pay the penalty of checking every time.
         HttpConnectionParams.setStaleCheckingEnabled(params, false);
 
+<<<<<<< HEAD
         HttpConnectionParams.setConnectionTimeout(params, SOCKET_OPERATION_TIMEOUT);
         HttpConnectionParams.setSoTimeout(params, SOCKET_OPERATION_TIMEOUT);
+=======
+        // Default connection and socket timeout of 20 seconds.  Tweak to taste.
+        HttpConnectionParams.setConnectionTimeout(params, 20 * 1000);
+        HttpConnectionParams.setSoTimeout(params, 20 * 1000);
+>>>>>>> 54b6cfa... Initial Contribution
         HttpConnectionParams.setSocketBufferSize(params, 8192);
 
         // Don't handle redirects -- return them to the caller.  Our code
         // often wants to re-POST after a redirect, which we must do ourselves.
         HttpClientParams.setRedirecting(params, false);
 
+<<<<<<< HEAD
         // Use a session cache for SSL sockets
         SSLSessionCache sessionCache = context == null ? null : new SSLSessionCache(context);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         // Set the specified user agent and register standard protocols.
         HttpProtocolParams.setUserAgent(params, userAgent);
         SchemeRegistry schemeRegistry = new SchemeRegistry();
         schemeRegistry.register(new Scheme("http",
                 PlainSocketFactory.getSocketFactory(), 80));
         schemeRegistry.register(new Scheme("https",
+<<<<<<< HEAD
                 SSLCertificateSocketFactory.getHttpSocketFactory(
                 SOCKET_OPERATION_TIMEOUT, sessionCache), 443));
 
+=======
+                SSLSocketFactory.getSocketFactory(), 443));
+>>>>>>> 54b6cfa... Initial Contribution
         ClientConnectionManager manager =
                 new ThreadSafeClientConnManager(params, schemeRegistry);
 
@@ -144,6 +208,7 @@ public final class AndroidHttpClient implements HttpClient {
         return new AndroidHttpClient(manager, params);
     }
 
+<<<<<<< HEAD
     /**
      * Create a new HttpClient with reasonable defaults (which you can update).
      * @param userAgent to report in your HTTP requests.
@@ -153,6 +218,8 @@ public final class AndroidHttpClient implements HttpClient {
         return newInstance(userAgent, null /* session cache */);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private final HttpClient delegate;
 
     private RuntimeException mLeakedException = new IllegalStateException(
@@ -199,6 +266,18 @@ public final class AndroidHttpClient implements HttpClient {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Block this thread from executing HTTP requests.
+     * Used to guard against HTTP requests blocking the main application thread.
+     * @param blocked if HTTP requests run on this thread should be denied
+     */
+    public static void setThreadBlocked(boolean blocked) {
+        sThreadBlocked.set(blocked);
+    }
+
+    /**
+>>>>>>> 54b6cfa... Initial Contribution
      * Modifies a request to indicate to the server that we would like a
      * gzipped response.  (Uses the "Accept-Encoding" HTTP header.)
      * @param request the request to modify
@@ -319,7 +398,23 @@ public final class AndroidHttpClient implements HttpClient {
      * Shorter data will not be compressed.
      */
     public static long getMinGzipSize(ContentResolver resolver) {
+<<<<<<< HEAD
         return DEFAULT_SYNC_MIN_GZIP_BYTES;  // For now, this is just a constant.
+=======
+        String sMinGzipBytes = Settings.Gservices.getString(resolver,
+                Settings.Gservices.SYNC_MIN_GZIP_BYTES);
+
+        if (!TextUtils.isEmpty(sMinGzipBytes)) {
+            try {
+                return Long.parseLong(sMinGzipBytes);
+            } catch (NumberFormatException nfe) {
+                Log.w(TAG, "Unable to parse " +
+                        Settings.Gservices.SYNC_MIN_GZIP_BYTES + " " +
+                        sMinGzipBytes, nfe);
+            }
+        }
+        return DEFAULT_SYNC_MIN_GZIP_BYTES;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /* cURL logging support. */
@@ -367,7 +462,11 @@ public final class AndroidHttpClient implements HttpClient {
         }
         if (level < Log.VERBOSE || level > Log.ASSERT) {
             throw new IllegalArgumentException("Level is out of range ["
+<<<<<<< HEAD
                 + Log.VERBOSE + ".." + Log.ASSERT + "]");
+=======
+                + Log.VERBOSE + ".." + Log.ASSERT + "]");    
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         curlConfiguration = new LoggingConfiguration(name, level);
@@ -390,9 +489,13 @@ public final class AndroidHttpClient implements HttpClient {
             if (configuration != null
                     && configuration.isLoggable()
                     && request instanceof HttpUriRequest) {
+<<<<<<< HEAD
                 // Never print auth token -- we used to check ro.secure=0 to
                 // enable that, but can't do that in unbundled code.
                 configuration.println(toCurl((HttpUriRequest) request, false));
+=======
+                configuration.println(toCurl((HttpUriRequest) request));
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -400,17 +503,24 @@ public final class AndroidHttpClient implements HttpClient {
     /**
      * Generates a cURL command equivalent to the given request.
      */
+<<<<<<< HEAD
     private static String toCurl(HttpUriRequest request, boolean logAuthToken) throws IOException {
+=======
+    private static String toCurl(HttpUriRequest request) throws IOException {
+>>>>>>> 54b6cfa... Initial Contribution
         StringBuilder builder = new StringBuilder();
 
         builder.append("curl ");
 
         for (Header header: request.getAllHeaders()) {
+<<<<<<< HEAD
             if (!logAuthToken
                     && (header.getName().equals("Authorization") ||
                         header.getName().equals("Cookie"))) {
                 continue;
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             builder.append("--header \"");
             builder.append(header.toString().trim());
             builder.append("\" ");
@@ -440,6 +550,7 @@ public final class AndroidHttpClient implements HttpClient {
                 if (entity.getContentLength() < 1024) {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     entity.writeTo(stream);
+<<<<<<< HEAD
 
                     if (isBinaryContent(request)) {
                         String base64 = Base64.encodeToString(stream.toByteArray(), Base64.NO_WRAP);
@@ -451,6 +562,14 @@ public final class AndroidHttpClient implements HttpClient {
                                 .append(entityString)
                                 .append("\"");
                     }
+=======
+                    String entityString = stream.toString();
+
+                    // TODO: Check the content type, too.
+                    builder.append(" --data-ascii \"")
+                            .append(entityString)
+                            .append("\"");
+>>>>>>> 54b6cfa... Initial Contribution
                 } else {
                     builder.append(" [TOO MUCH DATA TO INCLUDE]");
                 }
@@ -459,6 +578,7 @@ public final class AndroidHttpClient implements HttpClient {
 
         return builder.toString();
     }
+<<<<<<< HEAD
 
     private static boolean isBinaryContent(HttpUriRequest request) {
         Header[] headers;
@@ -501,4 +621,6 @@ public final class AndroidHttpClient implements HttpClient {
     public static long parseDate(String dateString) {
         return HttpDateTime.parse(dateString);
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

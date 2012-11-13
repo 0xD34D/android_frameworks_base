@@ -18,7 +18,10 @@ package android.content;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+<<<<<<< HEAD
 import java.lang.Comparable;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Identifier for a specific application component
@@ -30,7 +33,11 @@ import java.lang.Comparable;
  * name inside of that package.
  * 
  */
+<<<<<<< HEAD
 public final class ComponentName implements Parcelable, Cloneable, Comparable<ComponentName> {
+=======
+public final class ComponentName implements Parcelable {
+>>>>>>> 54b6cfa... Initial Contribution
     private final String mPackage;
     private final String mClass;
 
@@ -76,10 +83,13 @@ public final class ComponentName implements Parcelable, Cloneable, Comparable<Co
         mClass = cls.getName();
     }
 
+<<<<<<< HEAD
     public ComponentName clone() {
         return new ComponentName(mPackage, mClass);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Return the package name of this component.
      */
@@ -126,7 +136,11 @@ public final class ComponentName implements Parcelable, Cloneable, Comparable<Co
     }
     
     /**
+<<<<<<< HEAD
      * The same as {@link #flattenToString()}, but abbreviates the class
+=======
+     * The samee as {@link #flattenToString()}, but abbreviates the class
+>>>>>>> 54b6cfa... Initial Contribution
      * name if it is a suffix of the package.  The result can still be used
      * with {@link #unflattenFromString(String)}.
      * 
@@ -201,6 +215,7 @@ public final class ComponentName implements Parcelable, Cloneable, Comparable<Co
     public int hashCode() {
         return mPackage.hashCode() + mClass.hashCode();
     }
+<<<<<<< HEAD
 
     public int compareTo(ComponentName that) {
         int v;
@@ -210,6 +225,8 @@ public final class ComponentName implements Parcelable, Cloneable, Comparable<Co
         }
         return this.mClass.compareTo(that.mClass);
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     
     public int describeContents() {
         return 0;

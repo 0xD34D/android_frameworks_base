@@ -20,6 +20,7 @@ import android.content.ContentValues;
 import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
+<<<<<<< HEAD
 import android.media.DecoderCapabilities;
 import android.media.DecoderCapabilities.VideoDecoder;
 import android.media.DecoderCapabilities.AudioDecoder;
@@ -28,6 +29,11 @@ import android.mtp.MtpConstants;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+=======
+
+import java.util.HashMap;
+import java.util.Iterator;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * MediaScanner helper class.
@@ -35,6 +41,11 @@ import java.util.List;
  * {@hide}
  */
 public class MediaFile {
+<<<<<<< HEAD
+=======
+    // comma separated list of all file extensions supported by the media scanner
+    public static String sFileExtensions;
+>>>>>>> 54b6cfa... Initial Contribution
 
     // Audio file types
     public static final int FILE_TYPE_MP3     = 1;
@@ -44,11 +55,16 @@ public class MediaFile {
     public static final int FILE_TYPE_AWB     = 5;
     public static final int FILE_TYPE_WMA     = 6;
     public static final int FILE_TYPE_OGG     = 7;
+<<<<<<< HEAD
     public static final int FILE_TYPE_AAC     = 8;
     public static final int FILE_TYPE_MKA     = 9;
     public static final int FILE_TYPE_FLAC    = 10;
     private static final int FIRST_AUDIO_FILE_TYPE = FILE_TYPE_MP3;
     private static final int LAST_AUDIO_FILE_TYPE = FILE_TYPE_FLAC;
+=======
+    private static final int FIRST_AUDIO_FILE_TYPE = FILE_TYPE_MP3;
+    private static final int LAST_AUDIO_FILE_TYPE = FILE_TYPE_OGG;
+>>>>>>> 54b6cfa... Initial Contribution
 
     // MIDI file types
     public static final int FILE_TYPE_MID     = 11;
@@ -63,6 +79,7 @@ public class MediaFile {
     public static final int FILE_TYPE_3GPP    = 23;
     public static final int FILE_TYPE_3GPP2   = 24;
     public static final int FILE_TYPE_WMV     = 25;
+<<<<<<< HEAD
     public static final int FILE_TYPE_ASF     = 26;
     public static final int FILE_TYPE_MKV     = 27;
     public static final int FILE_TYPE_MP2TS   = 28;
@@ -76,12 +93,18 @@ public class MediaFile {
     private static final int FIRST_VIDEO_FILE_TYPE2 = FILE_TYPE_MP2PS;
     private static final int LAST_VIDEO_FILE_TYPE2 = FILE_TYPE_MP2PS;
 
+=======
+    private static final int FIRST_VIDEO_FILE_TYPE = FILE_TYPE_MP4;
+    private static final int LAST_VIDEO_FILE_TYPE = FILE_TYPE_WMV;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     // Image file types
     public static final int FILE_TYPE_JPEG    = 31;
     public static final int FILE_TYPE_GIF     = 32;
     public static final int FILE_TYPE_PNG     = 33;
     public static final int FILE_TYPE_BMP     = 34;
     public static final int FILE_TYPE_WBMP    = 35;
+<<<<<<< HEAD
     public static final int FILE_TYPE_WEBP    = 36;
     private static final int FIRST_IMAGE_FILE_TYPE = FILE_TYPE_JPEG;
     private static final int LAST_IMAGE_FILE_TYPE = FILE_TYPE_WEBP;
@@ -113,6 +136,22 @@ public class MediaFile {
     public static class MediaFileType {
         public final int fileType;
         public final String mimeType;
+=======
+    private static final int FIRST_IMAGE_FILE_TYPE = FILE_TYPE_JPEG;
+    private static final int LAST_IMAGE_FILE_TYPE = FILE_TYPE_WBMP;
+   
+    // Playlist file types
+    public static final int FILE_TYPE_M3U     = 41;
+    public static final int FILE_TYPE_PLS     = 42;
+    public static final int FILE_TYPE_WPL     = 43;
+    private static final int FIRST_PLAYLIST_FILE_TYPE = FILE_TYPE_M3U;
+    private static final int LAST_PLAYLIST_FILE_TYPE = FILE_TYPE_WPL;
+    
+    static class MediaFileType {
+    
+        int fileType;
+        String mimeType;
+>>>>>>> 54b6cfa... Initial Contribution
         
         MediaFileType(int fileType, String mimeType) {
             this.fileType = fileType;
@@ -120,6 +159,7 @@ public class MediaFile {
         }
     }
     
+<<<<<<< HEAD
     private static final HashMap<String, MediaFileType> sFileTypeMap
             = new HashMap<String, MediaFileType>();
     private static final HashMap<String, Integer> sMimeTypeMap
@@ -188,10 +228,31 @@ public class MediaFile {
  
         addFileType("MID", FILE_TYPE_MID, "audio/midi");
         addFileType("MIDI", FILE_TYPE_MID, "audio/midi");
+=======
+    private static HashMap<String, MediaFileType> sFileTypeMap 
+            = new HashMap<String, MediaFileType>();
+    private static HashMap<String, Integer> sMimeTypeMap 
+            = new HashMap<String, Integer>();            
+    static void addFileType(String extension, int fileType, String mimeType) {
+        sFileTypeMap.put(extension, new MediaFileType(fileType, mimeType));
+        sMimeTypeMap.put(mimeType, new Integer(fileType));
+    }
+    static {
+        addFileType("MP3", FILE_TYPE_MP3, "audio/mpeg");
+        addFileType("M4A", FILE_TYPE_M4A, "audio/mp4");
+        addFileType("WAV", FILE_TYPE_WAV, "audio/x-wav");
+        addFileType("AMR", FILE_TYPE_AMR, "audio/amr");
+        addFileType("AWB", FILE_TYPE_AWB, "audio/amr-wb");
+        addFileType("WMA", FILE_TYPE_WMA, "audio/x-ms-wma");    
+        addFileType("OGG", FILE_TYPE_OGG, "application/ogg");    
+ 
+        addFileType("MID", FILE_TYPE_MID, "audio/midi");
+>>>>>>> 54b6cfa... Initial Contribution
         addFileType("XMF", FILE_TYPE_MID, "audio/midi");
         addFileType("RTTTL", FILE_TYPE_MID, "audio/midi");
         addFileType("SMF", FILE_TYPE_SMF, "audio/sp-midi");
         addFileType("IMY", FILE_TYPE_IMY, "audio/imelody");
+<<<<<<< HEAD
         addFileType("RTX", FILE_TYPE_MID, "audio/midi");
         addFileType("OTA", FILE_TYPE_MID, "audio/midi");
         addFileType("MXMF", FILE_TYPE_MID, "audio/midi");
@@ -245,12 +306,50 @@ public class MediaFile {
         addFileType("MPEG", FILE_TYPE_MP2PS, "video/mp2p");
     }
 
+=======
+        
+        addFileType("MP4", FILE_TYPE_MP4, "video/mp4");
+        addFileType("M4V", FILE_TYPE_M4V, "video/mp4");
+        addFileType("3GP", FILE_TYPE_3GPP, "video/3gpp");
+        addFileType("3GPP", FILE_TYPE_3GPP, "video/3gpp");
+        addFileType("3G2", FILE_TYPE_3GPP2, "video/3gpp2");
+        addFileType("3GPP2", FILE_TYPE_3GPP2, "video/3gpp2");
+        addFileType("WMV", FILE_TYPE_WMV, "video/x-ms-wmv");
+
+        addFileType("JPG", FILE_TYPE_JPEG, "image/jpeg");
+        addFileType("JPEG", FILE_TYPE_JPEG, "image/jpeg");
+        addFileType("GIF", FILE_TYPE_GIF, "image/gif");
+        addFileType("PNG", FILE_TYPE_PNG, "image/png");
+        addFileType("BMP", FILE_TYPE_BMP, "image/x-ms-bmp");
+        addFileType("WBMP", FILE_TYPE_WBMP, "image/vnd.wap.wbmp");
+ 
+        addFileType("M3U", FILE_TYPE_M3U, "audio/x-mpegurl");
+        addFileType("PLS", FILE_TYPE_PLS, "audio/x-scpls");
+        addFileType("WPL", FILE_TYPE_WPL, "application/vnd.ms-wpl");
+
+        // compute file extensions list for native Media Scanner
+        StringBuilder builder = new StringBuilder();
+        Iterator<String> iterator = sFileTypeMap.keySet().iterator();
+        
+        while (iterator.hasNext()) {
+            if (builder.length() > 0) {
+                builder.append(',');
+            }
+            builder.append(iterator.next());
+        } 
+        sFileExtensions = builder.toString();
+    }
+    
+    public static final String UNKNOWN_STRING = "<unknown>";
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public static boolean isAudioFileType(int fileType) {
         return ((fileType >= FIRST_AUDIO_FILE_TYPE &&
                 fileType <= LAST_AUDIO_FILE_TYPE) ||
                 (fileType >= FIRST_MIDI_FILE_TYPE &&
                 fileType <= LAST_MIDI_FILE_TYPE));
     }
+<<<<<<< HEAD
 
     public static boolean isVideoFileType(int fileType) {
         return (fileType >= FIRST_VIDEO_FILE_TYPE &&
@@ -259,27 +358,44 @@ public class MediaFile {
                 fileType <= LAST_VIDEO_FILE_TYPE2);
     }
 
+=======
+    
+    public static boolean isVideoFileType(int fileType) {
+        return (fileType >= FIRST_VIDEO_FILE_TYPE &&
+                fileType <= LAST_VIDEO_FILE_TYPE);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public static boolean isImageFileType(int fileType) {
         return (fileType >= FIRST_IMAGE_FILE_TYPE &&
                 fileType <= LAST_IMAGE_FILE_TYPE);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public static boolean isPlayListFileType(int fileType) {
         return (fileType >= FIRST_PLAYLIST_FILE_TYPE &&
                 fileType <= LAST_PLAYLIST_FILE_TYPE);
     }
+<<<<<<< HEAD
 
     public static boolean isDrmFileType(int fileType) {
         return (fileType >= FIRST_DRM_FILE_TYPE &&
                 fileType <= LAST_DRM_FILE_TYPE);
     }
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public static MediaFileType getFileType(String path) {
         int lastDot = path.lastIndexOf(".");
         if (lastDot < 0)
             return null;
         return sFileTypeMap.get(path.substring(lastDot + 1).toUpperCase());
     }
+<<<<<<< HEAD
 
     public static boolean isMimeTypeMedia(String mimeType) {
         int fileType = getFileTypeForMimeType(mimeType);
@@ -305,11 +421,15 @@ public class MediaFile {
         return path;
     }
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public static int getFileTypeForMimeType(String mimeType) {
         Integer value = sMimeTypeMap.get(mimeType);
         return (value == null ? 0 : value.intValue());
     }
 
+<<<<<<< HEAD
     public static String getMimeTypeForFile(String path) {
         MediaFileType mediaFileType = getFileType(path);
         return (mediaFileType == null ? null : mediaFileType.mimeType);
@@ -336,4 +456,6 @@ public class MediaFile {
     public static String getMimeTypeForFormatCode(int formatCode) {
         return sFormatToMimeTypeMap.get(formatCode);
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

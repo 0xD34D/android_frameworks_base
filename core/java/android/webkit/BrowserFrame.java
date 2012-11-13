@@ -16,6 +16,7 @@
 
 package android.webkit;
 
+<<<<<<< HEAD
 import android.app.ActivityManager;
 import android.content.ComponentCallbacks;
 import android.content.Context;
@@ -58,6 +59,25 @@ import java.util.Set;
 import org.apache.harmony.security.provider.cert.X509CertImpl;
 import org.apache.harmony.xnet.provider.jsse.OpenSSLDSAPrivateKey;
 import org.apache.harmony.xnet.provider.jsse.OpenSSLRSAPrivateKey;
+=======
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.net.ParseException;
+import android.net.WebAddress;
+import android.net.http.SslCertificate;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Config;
+import android.util.Log;
+
+import junit.framework.Assert;
+
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Iterator;
+>>>>>>> 54b6cfa... Initial Contribution
 
 class BrowserFrame extends Handler {
 
@@ -72,6 +92,7 @@ class BrowserFrame extends Handler {
     private final static int MAX_OUTSTANDING_REQUESTS = 300;
 
     private final CallbackProxy mCallbackProxy;
+<<<<<<< HEAD
     private final WebSettingsClassic mSettings;
     private final Context mContext;
     private final WebViewCore mWebViewCore;
@@ -84,11 +105,24 @@ class BrowserFrame extends Handler {
     // queue has been cleared,they are ignored.
     private boolean mBlockMessages = false;
     private int mOrientation = -1;
+=======
+    private final WebSettings mSettings;
+    private final Context mContext;
+    private final WebViewDatabase mDatabase;
+    private final WebViewCore mWebViewCore;
+    private boolean mLoadInitFromJava;
+    private String mCurrentUrl;
+    private int mLoadType;
+    private String mCompletedUrl;
+    private boolean mFirstLayoutDone = true;
+    private boolean mCommitted = true;
+>>>>>>> 54b6cfa... Initial Contribution
 
     // Is this frame the main frame?
     private boolean mIsMainFrame;
 
     // Attached Javascript interfaces
+<<<<<<< HEAD
     private Map<String, Object> mJavaScriptObjects;
     private Set<Object> mRemovedJavaScriptObjects;
 
@@ -97,12 +131,18 @@ class BrowserFrame extends Handler {
 
     // Implementation of the searchbox API.
     private final SearchBoxImpl mSearchBox;
+=======
+    private HashMap mJSInterfaceMap;
+>>>>>>> 54b6cfa... Initial Contribution
 
     // message ids
     // a message posted when a frame loading is completed
     static final int FRAME_COMPLETED = 1001;
+<<<<<<< HEAD
     // orientation change message
     static final int ORIENTATION_CHANGED = 1002;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // a message posted when the user decides the policy
     static final int POLICY_FUNCTION = 1003;
 
@@ -127,6 +167,7 @@ class BrowserFrame extends Handler {
     // requests from WebCore.
     static JWebCoreJavaBridge sJavaBridge;
 
+<<<<<<< HEAD
     private static class ConfigCallback implements ComponentCallbacks {
         private final ArrayList<WeakReference<Handler>> mHandlers =
                 new ArrayList<WeakReference<Handler>>();
@@ -191,6 +232,8 @@ class BrowserFrame extends Handler {
     }
     static ConfigCallback sConfigCallback;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Create a new BrowserFrame to be used in an application.
      * @param context An application context to use when retrieving assets.
@@ -201,15 +244,20 @@ class BrowserFrame extends Handler {
      * XXX: Called by WebCore thread.
      */
     public BrowserFrame(Context context, WebViewCore w, CallbackProxy proxy,
+<<<<<<< HEAD
             WebSettingsClassic settings, Map<String, Object> javascriptInterfaces) {
 
         Context appContext = context.getApplicationContext();
 
+=======
+            WebSettings settings) {
+>>>>>>> 54b6cfa... Initial Contribution
         // Create a global JWebCoreJavaBridge to handle timers and
         // cookies in the WebCore thread.
         if (sJavaBridge == null) {
             sJavaBridge = new JWebCoreJavaBridge();
             // set WebCore native cache size
+<<<<<<< HEAD
             ActivityManager am = (ActivityManager) context
                     .getSystemService(Context.ACTIVITY_SERVICE);
             if (am.getMemoryClass() > 16) {
@@ -238,10 +286,23 @@ class BrowserFrame extends Handler {
             mJavaScriptObjects = new HashMap<String, Object>();
         }
         mRemovedJavaScriptObjects = new HashSet<Object>();
+=======
+            sJavaBridge.setCacheSize(4 * 1024 * 1024);
+            // initialize CacheManager
+            CacheManager.init(context);
+            // create CookieSyncManager with current Context
+            CookieSyncManager.createInstance(context);
+        }
+        AssetManager am = context.getAssets();
+        nativeCreateFrame(am, proxy.getBackForwardList());
+        // Create a native FrameView and attach it to the native frame.
+        nativeCreateView(w);
+>>>>>>> 54b6cfa... Initial Contribution
 
         mSettings = settings;
         mContext = context;
         mCallbackProxy = proxy;
+<<<<<<< HEAD
         mWebViewCore = w;
 
         mSearchBox = new SearchBoxImpl(mWebViewCore, mCallbackProxy);
@@ -251,12 +312,19 @@ class BrowserFrame extends Handler {
         nativeCreateFrame(w, am, proxy.getBackForwardList());
 
         if (DebugFlags.BROWSER_FRAME) {
+=======
+        mDatabase = WebViewDatabase.getInstance(context);
+        mWebViewCore = w;
+
+        if (Config.LOGV) {
+>>>>>>> 54b6cfa... Initial Contribution
             Log.v(LOGTAG, "BrowserFrame constructor: this=" + this);
         }
     }
 
     /**
      * Load a url from the network or the filesystem into the main frame.
+<<<<<<< HEAD
      * Following the same behaviour as Safari, javascript: URLs are not passed
      * to the main frame, instead they are evaluated immediately.
      * @param url The url to load.
@@ -265,18 +333,34 @@ class BrowserFrame extends Handler {
      *            will be replaced by the intrinsic value of the WebView.
      */
     public void loadUrl(String url, Map<String, String> extraHeaders) {
+=======
+     * Following the same behaviour as Safari, javascript: URLs are not
+     * passed to the main frame, instead they are evaluated immediately.
+     * @param url The url to load.
+     */
+    public void loadUrl(String url) {
+>>>>>>> 54b6cfa... Initial Contribution
         mLoadInitFromJava = true;
         if (URLUtil.isJavaScriptUrl(url)) {
             // strip off the scheme and evaluate the string
             stringByEvaluatingJavaScriptFromString(
                     url.substring("javascript:".length()));
         } else {
+<<<<<<< HEAD
             nativeLoadUrl(url, extraHeaders);
+=======
+            if (!nativeLoadUrl(url)) {
+                reportError(android.net.http.EventHandler.ERROR_BAD_URL,
+                        mContext.getString(com.android.internal.R.string.httpErrorBadUrl),
+                        url);
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
         mLoadInitFromJava = false;
     }
 
     /**
+<<<<<<< HEAD
      * Load a url with "POST" method from the network into the main frame.
      * @param url The url to load.
      * @param data The data for POST request.
@@ -290,11 +374,18 @@ class BrowserFrame extends Handler {
     /**
      * Load the content as if it was loaded by the provided base URL. The
      * historyUrl is used as the history entry for the load data.
+=======
+     * Load the content as if it was loaded by the provided base URL. The
+     * failUrl is used as the history entry for the load data. If null or
+     * an empty string is passed for the failUrl, then no history entry is
+     * created.
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @param baseUrl Base URL used to resolve relative paths in the content
      * @param data Content to render in the browser
      * @param mimeType Mimetype of the data being passed in
      * @param encoding Character set encoding of the provided data.
+<<<<<<< HEAD
      * @param historyUrl URL to use as the history entry.
      */
     public void loadData(String baseUrl, String data, String mimeType,
@@ -302,6 +393,15 @@ class BrowserFrame extends Handler {
         mLoadInitFromJava = true;
         if (historyUrl == null || historyUrl.length() == 0) {
             historyUrl = "about:blank";
+=======
+     * @param failUrl URL to use if the content fails to load or null.
+     */
+    public void loadData(String baseUrl, String data, String mimeType,
+            String encoding, String failUrl) {
+        mLoadInitFromJava = true;
+        if (failUrl == null) {
+            failUrl = "";
+>>>>>>> 54b6cfa... Initial Contribution
         }
         if (data == null) {
             data = "";
@@ -315,6 +415,7 @@ class BrowserFrame extends Handler {
         if (mimeType == null || mimeType.length() == 0) {
             mimeType = "text/html";
         }
+<<<<<<< HEAD
         nativeLoadData(baseUrl, data, mimeType, encoding, historyUrl);
         mLoadInitFromJava = false;
     }
@@ -339,6 +440,9 @@ class BrowserFrame extends Handler {
     public void goBackOrForward(int steps) {
         mLoadInitFromJava = true;
         nativeGoBackOrForward(steps);
+=======
+        nativeLoadData(baseUrl, data, mimeType, encoding, failUrl);
+>>>>>>> 54b6cfa... Initial Contribution
         mLoadInitFromJava = false;
     }
 
@@ -346,13 +450,18 @@ class BrowserFrame extends Handler {
      * native callback
      * Report an error to an activity.
      * @param errorCode The HTTP error code.
+<<<<<<< HEAD
      * @param description Optional human-readable description. If no description
      *     is given, we'll use a standard localized error message.
      * @param failingUrl The URL that was being loaded when the error occurred.
+=======
+     * @param description A String description.
+>>>>>>> 54b6cfa... Initial Contribution
      * TODO: Report all errors including resource errors but include some kind
      * of domain identifier. Change errorCode to an enum for a cleaner
      * interface.
      */
+<<<<<<< HEAD
     private void reportError(int errorCode, String description, String failingUrl) {
         // As this is called for the main resource and loading will be stopped
         // after, reset the state variables.
@@ -366,6 +475,16 @@ class BrowserFrame extends Handler {
     private void resetLoadingStates() {
         mCommitted = true;
         mFirstLayoutDone = true;
+=======
+    private void reportError(final int errorCode, final String description,
+            final String failingUrl) {
+        // As this is called for the main resource and loading will be stopped
+        // after, reset the state variables.
+        mCommitted = true;
+        mWebViewCore.mEndScaleZoom = mFirstLayoutDone == false;
+        mFirstLayoutDone = true;
+        mCallbackProxy.onReceivedError(errorCode, description, failingUrl);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /* package */boolean committed() {
@@ -380,6 +499,7 @@ class BrowserFrame extends Handler {
         return mLoadType;
     }
 
+<<<<<<< HEAD
     /* package */void didFirstLayout() {
         if (!mFirstLayoutDone) {
             mFirstLayoutDone = true;
@@ -387,6 +507,38 @@ class BrowserFrame extends Handler {
             // blocking the update in {@link #loadStarted}
             mWebViewCore.contentDraw();
         }
+=======
+    /* package */String currentUrl() {
+        return mCurrentUrl;
+    }
+
+    /* package */void didFirstLayout(String url) {
+        // this is common case
+        if (url.equals(mCurrentUrl)) {
+            if (!mFirstLayoutDone) {
+                mFirstLayoutDone = true;
+                // ensure {@link WebViewCore#webkitDraw} is called as we were
+                // blocking the update in {@link #loadStarted}
+                mWebViewCore.contentInvalidate();
+            }
+        } else if (url.equals(mCompletedUrl)) {
+            /*
+             * FIXME: when loading http://www.google.com/m, 
+             * mCurrentUrl will be http://www.google.com/m, 
+             * mCompletedUrl will be http://www.google.com/m#search 
+             * and url will be http://www.google.com/m#search. 
+             * This is probably a bug in WebKit. If url matches mCompletedUrl, 
+             * also set mFirstLayoutDone to be true and update.
+             */
+            if (!mFirstLayoutDone) {
+                mFirstLayoutDone = true;
+                // ensure {@link WebViewCore#webkitDraw} is called as we were
+                // blocking the update in {@link #loadStarted}
+                mWebViewCore.contentInvalidate();
+            }
+        }
+        mWebViewCore.mEndScaleZoom = true;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -399,6 +551,11 @@ class BrowserFrame extends Handler {
         mIsMainFrame = isMainFrame;
 
         if (isMainFrame || loadType == FRAME_LOADTYPE_STANDARD) {
+<<<<<<< HEAD
+=======
+            mCurrentUrl = url;
+            mCompletedUrl = null;
+>>>>>>> 54b6cfa... Initial Contribution
             mLoadType = loadType;
 
             if (isMainFrame) {
@@ -410,6 +567,7 @@ class BrowserFrame extends Handler {
                 mCommitted = false;
                 // remove pending draw to block update until mFirstLayoutDone is
                 // set to true in didFirstLayout()
+<<<<<<< HEAD
                 mWebViewCore.clearContent();
                 mWebViewCore.removeMessages(WebViewCore.EventHub.WEBKIT_DRAW);
             }
@@ -426,11 +584,27 @@ class BrowserFrame extends Handler {
                 if (url != null) {
                     WebViewDatabaseClassic.getInstance(mContext).setFormData(
                             url, data);
+=======
+                mWebViewCore.removeMessages(WebViewCore.EventHub.WEBKIT_DRAW);
+            }
+
+            // Note: only saves committed form data in standard load
+            if (loadType == FRAME_LOADTYPE_STANDARD
+                    && mSettings.getSaveFormData()) {
+                final WebHistoryItem h = mCallbackProxy.getBackForwardList()
+                        .getCurrentItem();
+                if (h != null) {
+                    String currentUrl = h.getUrl();
+                    if (currentUrl != null) {
+                        mDatabase.setFormData(currentUrl, getFormTextData());
+                    }
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
     }
 
+<<<<<<< HEAD
     @SuppressWarnings("unused")
     private boolean shouldSaveFormData() {
         if (mSettings.getSaveFormData()) {
@@ -441,6 +615,8 @@ class BrowserFrame extends Handler {
         return false;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * native callback
      * Indicates the WebKit has committed to the new load
@@ -449,7 +625,10 @@ class BrowserFrame extends Handler {
         // loadType is not used yet
         if (isMainFrame) {
             mCommitted = true;
+<<<<<<< HEAD
             mWebViewCore.getWebViewClassic().mViewManager.postResetStateAll();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -463,8 +642,13 @@ class BrowserFrame extends Handler {
         // mIsMainFrame and isMainFrame are better be equal!!!
 
         if (isMainFrame || loadType == FRAME_LOADTYPE_STANDARD) {
+<<<<<<< HEAD
             if (isMainFrame) {
                 resetLoadingStates();
+=======
+            mCompletedUrl = url;
+            if (isMainFrame) {
+>>>>>>> 54b6cfa... Initial Contribution
                 mCallbackProxy.switchOutDrawHistory();
                 mCallbackProxy.onPageFinished(url);
             }
@@ -472,11 +656,30 @@ class BrowserFrame extends Handler {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * We have received an SSL certificate for the main top-level page.
+     *
+     * !!!Called from the network thread!!!
+     */
+    void certificate(SslCertificate certificate) {
+        if (mIsMainFrame) {
+            // we want to make this call even if the certificate is null
+            // (ie, the site is not secure)
+            mCallbackProxy.onReceivedCertificate(certificate);
+        }
+    }
+
+    /**
+>>>>>>> 54b6cfa... Initial Contribution
      * Destroy all native components of the BrowserFrame.
      */
     public void destroy() {
         nativeDestroyFrame();
+<<<<<<< HEAD
         mBlockMessages = true;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         removeCallbacksAndMessages(null);
     }
 
@@ -486,6 +689,7 @@ class BrowserFrame extends Handler {
      */
     @Override
     public void handleMessage(Message msg) {
+<<<<<<< HEAD
         if (mBlockMessages) {
             return;
         }
@@ -505,6 +709,25 @@ class BrowserFrame extends Handler {
                         }
                     }
                 }
+=======
+        switch (msg.what) {
+            case FRAME_COMPLETED: {
+                if (mSettings.getSavePassword() && hasPasswordField()) {
+                    if (Config.DEBUG) {
+                        Assert.assertNotNull(mCallbackProxy.getBackForwardList()
+                                .getCurrentItem());
+                    }
+                    WebAddress uri = new WebAddress(
+                            mCallbackProxy.getBackForwardList().getCurrentItem()
+                            .getUrl());
+                    String host = uri.mHost;
+                    String[] up = mDatabase.getUsernamePassword(host);
+                    if (up != null && up[0] != null) {
+                        setUsernamePassword(up[0], up[1]);
+                    }
+                }
+                CacheManager.trimCacheIfNeeded();
+>>>>>>> 54b6cfa... Initial Contribution
                 break;
             }
 
@@ -513,6 +736,7 @@ class BrowserFrame extends Handler {
                 break;
             }
 
+<<<<<<< HEAD
             case ORIENTATION_CHANGED: {
                 if (mOrientation != msg.arg1) {
                     mOrientation = msg.arg1;
@@ -521,6 +745,8 @@ class BrowserFrame extends Handler {
                 break;
             }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             default:
                 break;
         }
@@ -554,11 +780,16 @@ class BrowserFrame extends Handler {
     private native String externalRepresentation();
 
     /**
+<<<<<<< HEAD
      * Retrieves the visual text of the frames, puts it as the object for
+=======
+     * Retrieves the visual text of the current frame, puts it as the object for
+>>>>>>> 54b6cfa... Initial Contribution
      * the message and sends the message.
      * @param callback the message to use to send the visual text
      */
     public void documentAsText(Message callback) {
+<<<<<<< HEAD
         StringBuilder text = new StringBuilder();
         if (callback.arg1 != 0) {
             // Dump top frame as text.
@@ -569,6 +800,9 @@ class BrowserFrame extends Handler {
             text.append(childFramesAsText());
         }
         callback.obj = text.toString();
+=======
+        callback.obj = documentAsText();;
+>>>>>>> 54b6cfa... Initial Contribution
         callback.sendToTarget();
     }
 
@@ -577,17 +811,21 @@ class BrowserFrame extends Handler {
      */
     private native String documentAsText();
 
+<<<<<<< HEAD
     /**
      * Return the text drawn on the child frames as a string
      */
     private native String childFramesAsText();
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /*
      * This method is called by WebCore to inform the frame that
      * the Javascript window object has been cleared.
      * We should re-attach any attached js interfaces.
      */
     private void windowObjectCleared(int nativeFramePointer) {
+<<<<<<< HEAD
         Iterator<String> iter = mJavaScriptObjects.keySet().iterator();
         while (iter.hasNext())  {
             String interfaceName = iter.next();
@@ -600,6 +838,16 @@ class BrowserFrame extends Handler {
         mRemovedJavaScriptObjects.clear();
 
         stringByEvaluatingJavaScriptFromString(SearchBoxImpl.JS_BRIDGE);
+=======
+        if (mJSInterfaceMap != null) {
+            Iterator iter = mJSInterfaceMap.keySet().iterator();
+            while (iter.hasNext())  {
+                String interfaceName = (String) iter.next();
+                nativeAddJavascriptInterface(nativeFramePointer,
+                        mJSInterfaceMap.get(interfaceName), interfaceName);
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -610,6 +858,7 @@ class BrowserFrame extends Handler {
         if (mLoadInitFromJava == true) {
             return false;
         }
+<<<<<<< HEAD
         if (mCallbackProxy.shouldOverrideUrlLoading(url)) {
             // if the url is hijacked, reset the state of the BrowserFrame
             didFirstLayout();
@@ -852,6 +1101,145 @@ class BrowserFrame extends Handler {
             }
         }
         return response;
+=======
+        return mCallbackProxy.shouldOverrideUrlLoading(url);
+    }
+
+    public void addJavascriptInterface(Object obj, String interfaceName) {
+        if (mJSInterfaceMap == null) {
+            mJSInterfaceMap = new HashMap<String, Object>();
+        }
+        if (mJSInterfaceMap.containsKey(interfaceName)) {
+            mJSInterfaceMap.remove(interfaceName);
+        }
+        mJSInterfaceMap.put(interfaceName, obj);
+    }
+
+    /**
+     * Start loading a resource.
+     * @param loaderHandle The native ResourceLoader that is the target of the
+     *                     data.
+     * @param url The url to load.
+     * @param method The http method.
+     * @param headers The http headers.
+     * @param postData If the method is "POST" postData is sent as the request
+     *                 body.
+     * @param cacheMode The cache mode to use when loading this resource.
+     * @param isHighPriority True if this resource needs to be put at the front
+     *                       of the network queue.
+     * @param synchronous True if the load is synchronous.
+     * @return A newly created LoadListener object.
+     */
+    private LoadListener startLoadingResource(int loaderHandle,
+                                              String url,
+                                              String method,
+                                              HashMap headers,
+                                              String postData,
+                                              int cacheMode,
+                                              boolean isHighPriority,
+                                              boolean synchronous) {
+        PerfChecker checker = new PerfChecker();
+
+        if (mSettings.getCacheMode() != WebSettings.LOAD_DEFAULT) {
+            cacheMode = mSettings.getCacheMode();
+        }
+
+        if (method.equals("POST")) {
+            // Don't use the cache on POSTs when issuing a normal POST
+            // request.
+            if (cacheMode == WebSettings.LOAD_NORMAL) {
+                cacheMode = WebSettings.LOAD_NO_CACHE;
+            }
+            if (mSettings.getSavePassword() && hasPasswordField()) {
+                try {
+                    if (Config.DEBUG) {
+                        Assert.assertNotNull(mCallbackProxy.getBackForwardList()
+                                .getCurrentItem());
+                    }
+                    WebAddress uri = new WebAddress(mCallbackProxy
+                            .getBackForwardList().getCurrentItem().getUrl());
+                    String host = uri.mHost;
+                    String[] ret = getUsernamePassword();
+                    if (ret != null && postData != null && ret[0].length() > 0
+                            && ret[1].length() > 0
+                            && postData.contains(URLEncoder.encode(ret[0]))
+                            && postData.contains(URLEncoder.encode(ret[1]))) {
+                        String[] saved = mDatabase.getUsernamePassword(host);
+                        if (saved != null) {
+                            // null username implies that user has chosen not to
+                            // save password
+                            if (saved[0] != null) {
+                                // non-null username implies that user has
+                                // chosen to save password, so update the 
+                                // recorded password
+                                mDatabase.setUsernamePassword(host, ret[0],
+                                        ret[1]);
+                            }
+                        } else {
+                            // CallbackProxy will handle creating the resume
+                            // message
+                            mCallbackProxy.onSavePassword(host, ret[0], ret[1],
+                                    null);
+                        }
+                    }
+                } catch (ParseException ex) {
+                    // if it is bad uri, don't save its password
+                }
+            }
+            if (postData == null) {
+                postData = "";
+            }
+        }
+
+        // is this resource the main-frame top-level page?
+        boolean isMainFramePage = mIsMainFrame && url.equals(mCurrentUrl);
+
+        if (Config.LOGV) {
+            Log.v(LOGTAG, "startLoadingResource: url=" + url + ", method="
+                    + method + ", postData=" + postData + ", isHighPriority="
+                    + isHighPriority + ", isMainFramePage=" + isMainFramePage);
+        }
+
+        // Create a LoadListener
+        LoadListener loadListener = LoadListener.getLoadListener(mContext, this, url,
+                loaderHandle, synchronous, isMainFramePage);
+
+        mCallbackProxy.onLoadResource(url);
+
+        if (LoadListener.getNativeLoaderCount() > MAX_OUTSTANDING_REQUESTS) {
+            loadListener.error(
+                    android.net.http.EventHandler.ERROR, mContext.getString(
+                            com.android.internal.R.string.httpErrorTooManyRequests));
+            loadListener.notifyError();
+            loadListener.tearDown();
+            return null;
+        }
+
+        // during synchronous load, the WebViewCore thread is blocked, so we
+        // need to endCacheTransaction first so that http thread won't be 
+        // blocked in setupFile() when createCacheFile.
+        if (synchronous) {
+            CacheManager.endCacheTransaction();
+        }
+
+        FrameLoader loader = new FrameLoader(loadListener,
+                mSettings.getUserAgentString(), method, isHighPriority);
+        loader.setHeaders(headers);
+        loader.setPostData(postData);
+        loader.setCacheMode(cacheMode); // Set the load mode to the mode used
+                                        // for the current page.
+        // Set referrer to current URL?
+        if (!loader.executeLoad()) {
+            checker.responseAlert("startLoadingResource fail");
+        }
+        checker.responseAlert("startLoadingResource succeed");
+
+        if (synchronous) {
+            CacheManager.startCacheTransaction();
+        }
+
+        return !synchronous ? loadListener : null;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -881,17 +1269,28 @@ class BrowserFrame extends Handler {
         mCallbackProxy.onReceivedIcon(icon);
     }
 
+<<<<<<< HEAD
     // Called by JNI when an apple-touch-icon attribute was found.
     private void didReceiveTouchIconUrl(String url, boolean precomposed) {
         mCallbackProxy.onReceivedTouchIconUrl(url, precomposed);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Request a new window from the client.
      * @return The BrowserFrame object stored in the new WebView.
      */
     private BrowserFrame createWindow(boolean dialog, boolean userGesture) {
+<<<<<<< HEAD
         return mCallbackProxy.createWindow(dialog, userGesture);
+=======
+        WebView w = mCallbackProxy.createWindow(dialog, userGesture);
+        if (w != null) {
+            return w.getWebViewCore().getBrowserFrame();
+        }
+        return null;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -905,7 +1304,11 @@ class BrowserFrame extends Handler {
      * Close this frame and window.
      */
     private void closeWindow(WebViewCore w) {
+<<<<<<< HEAD
         mCallbackProxy.onCloseWindow(w.getWebViewClassic());
+=======
+        mCallbackProxy.onCloseWindow(w.getWebView());
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // XXX: Must match PolicyAction in FrameLoaderTypes.h in webcore
@@ -941,6 +1344,7 @@ class BrowserFrame extends Handler {
         return mSettings.getUserAgentString();
     }
 
+<<<<<<< HEAD
     // These ids need to be in sync with enum rawResId in PlatformBridge.h
     private static final int NODOMAIN = 1;
     private static final int LOADERROR = 2;
@@ -1202,17 +1606,24 @@ class BrowserFrame extends Handler {
         mCallbackProxy.onReceivedLoginRequest(realm, account, args);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     //==========================================================================
     // native functions
     //==========================================================================
 
     /**
+<<<<<<< HEAD
      * Create a new native frame for a given WebView
      * @param w     A WebView that the frame draws into.
+=======
+     * Create a new native frame.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param am    AssetManager to use to get assets.
      * @param list  The native side will add and remove items from this list as
      *              the native list changes.
      */
+<<<<<<< HEAD
     private native void nativeCreateFrame(WebViewCore w, AssetManager am,
             WebBackForwardList list);
 
@@ -1223,6 +1634,28 @@ class BrowserFrame extends Handler {
 
     private native void nativeCallPolicyFunction(int policyFunction,
             int decision);
+=======
+    private native void nativeCreateFrame(AssetManager am,
+            WebBackForwardList list);
+
+    /**
+     * Create a native view attached to a WebView.
+     * @param w A WebView that the frame draws into.
+     */
+    private native void nativeCreateView(WebViewCore w);
+
+    private native void nativeCallPolicyFunction(int policyFunction,
+            int decision);
+    /**
+     * Destroy the native frame.
+     */
+    public native void nativeDestroyFrame();
+
+    /**
+     * Detach the view from the frame.
+     */
+    private native void nativeDetachView();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Reload the current main frame.
@@ -1234,7 +1667,11 @@ class BrowserFrame extends Handler {
      * @param steps A negative or positive number indicating the direction
      *              and number of steps to move.
      */
+<<<<<<< HEAD
     private native void nativeGoBackOrForward(int steps);
+=======
+    public native void goBackOrForward(int steps);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * stringByEvaluatingJavaScriptFromString will execute the
@@ -1251,21 +1688,41 @@ class BrowserFrame extends Handler {
     private native void nativeAddJavascriptInterface(int nativeFramePointer,
             Object obj, String interfaceName);
 
+<<<<<<< HEAD
+=======
+    /**
+     * Enable or disable the native cache.
+     */
+    /* FIXME: The native cache is always on for now until we have a better
+     * solution for our 2 caches. */
+    private native void setCacheDisabled(boolean disabled);
+
+    public native boolean cacheDisabled();
+
+>>>>>>> 54b6cfa... Initial Contribution
     public native void clearCache();
 
     /**
      * Returns false if the url is bad.
      */
+<<<<<<< HEAD
     private native void nativeLoadUrl(String url, Map<String, String> headers);
 
     private native void nativePostUrl(String url, byte[] postData);
 
     private native void nativeLoadData(String baseUrl, String data,
             String mimeType, String encoding, String historyUrl);
+=======
+    private native boolean nativeLoadUrl(String url);
+
+    private native void nativeLoadData(String baseUrl, String data,
+            String mimeType, String encoding, String failUrl);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Stop loading the current page.
      */
+<<<<<<< HEAD
     public void stopLoading() {
         if (mIsMainFrame) {
             resetLoadingStates();
@@ -1274,6 +1731,9 @@ class BrowserFrame extends Handler {
     }
 
     private native void nativeStopLoading();
+=======
+    public native void stopLoading();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return true if the document has images.
@@ -1299,6 +1759,7 @@ class BrowserFrame extends Handler {
      */
     private native void setUsernamePassword(String username, String password);
 
+<<<<<<< HEAD
     private native String nativeSaveWebArchive(String basename, boolean autoname);
 
     private native void nativeOrientationChanged(int orientation);
@@ -1329,4 +1790,12 @@ class BrowserFrame extends Handler {
     }
 
     private native boolean nativeGetShouldStartScrolledRight(int nativeBrowserFrame);
+=======
+    /**
+     * Get form's "text" type data associated with the current frame.
+     * @return HashMap If succeed, returns a list of name/value pair. Otherwise
+     *         returns null.
+     */
+    private native HashMap getFormTextData();
+>>>>>>> 54b6cfa... Initial Contribution
 }

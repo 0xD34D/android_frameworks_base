@@ -18,6 +18,7 @@ package com.android.internal.telephony;
 
 import android.content.Context;
 import android.database.Cursor;
+<<<<<<< HEAD
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.CountryDetector;
@@ -39,6 +40,19 @@ import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import java.util.Locale;
 
 
+=======
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.Contacts;
+import android.provider.Contacts.People;
+import android.provider.Contacts.Phones;
+import android.text.TextUtils;
+import android.telephony.TelephonyManager;
+import android.telephony.PhoneNumberUtils;
+import android.util.Config;
+import android.util.Log;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * Looks up caller information for the given phone number.
  *
@@ -46,6 +60,7 @@ import java.util.Locale;
  */
 public class CallerInfo {
     private static final String TAG = "CallerInfo";
+<<<<<<< HEAD
     private static final boolean VDBG = Log.isLoggable(TAG, Log.VERBOSE);
 
     public static final String UNKNOWN_NUMBER = "-1";
@@ -89,17 +104,34 @@ public class CallerInfo {
     public int namePresentation;
     public boolean contactExists;
 
+=======
+
+    public static final String UNKNOWN_NUMBER = "-1";
+    public static final String PRIVATE_NUMBER = "-2";
+
+    public String name;
+    public String phoneNumber;
+>>>>>>> 54b6cfa... Initial Contribution
     public String phoneLabel;
     /* Split up the phoneLabel into number type and label name */
     public int    numberType;
     public String numberLabel;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public int photoResource;
     public long person_id;
     public boolean needUpdate;
     public Uri contactRefUri;
+<<<<<<< HEAD
 
     // fields to hold individual contact preference data,
+=======
+    
+    // fields to hold individual contact preference data, 
+>>>>>>> 54b6cfa... Initial Contribution
     // including the send to voicemail flag and the ringtone
     // uri reference.
     public Uri contactRingtoneUri;
@@ -108,6 +140,7 @@ public class CallerInfo {
     /**
      * Drawable representing the caller image.  This is essentially
      * a cache for the image data tied into the connection /
+<<<<<<< HEAD
      * callerinfo object.
      *
      * This might be a high resolution picture which is more suitable
@@ -144,6 +177,18 @@ public class CallerInfo {
         // TODO: Move all the basic initialization here?
         mIsEmergency = false;
         mIsVoiceMail = false;
+=======
+     * callerinfo object.  The isCachedPhotoCurrent flag indicates
+     * if the image data needs to be reloaded.
+     */
+    public Drawable cachedPhoto;
+    public boolean isCachedPhotoCurrent;
+
+    // Don't keep checking VM if it's going to throw an exception for this proc.
+    private static boolean sSkipVmCheck = false;
+
+    public CallerInfo() {
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -155,6 +200,10 @@ public class CallerInfo {
      * number. The returned CallerInfo is null if no number is supplied.
      */
     public static CallerInfo getCallerInfo(Context context, Uri contactRef, Cursor cursor) {
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         CallerInfo info = new CallerInfo();
         info.photoResource = 0;
         info.phoneLabel = null;
@@ -162,6 +211,7 @@ public class CallerInfo {
         info.numberLabel = null;
         info.cachedPhoto = null;
         info.isCachedPhotoCurrent = false;
+<<<<<<< HEAD
         info.contactExists = false;
 
         if (VDBG) Log.v(TAG, "getCallerInfo() based on cursor...");
@@ -171,16 +221,28 @@ public class CallerInfo {
                 // TODO: photo_id is always available but not taken
                 // care of here. Maybe we should store it in the
                 // CallerInfo object as well.
+=======
+        
+        if (Config.LOGV) Log.v(TAG, "construct callerInfo from cursor");
+        
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+>>>>>>> 54b6cfa... Initial Contribution
 
                 int columnIndex;
 
                 // Look for the name
+<<<<<<< HEAD
                 columnIndex = cursor.getColumnIndex(PhoneLookup.DISPLAY_NAME);
+=======
+                columnIndex = cursor.getColumnIndex(People.NAME);
+>>>>>>> 54b6cfa... Initial Contribution
                 if (columnIndex != -1) {
                     info.name = cursor.getString(columnIndex);
                 }
 
                 // Look for the number
+<<<<<<< HEAD
                 columnIndex = cursor.getColumnIndex(PhoneLookup.NUMBER);
                 if (columnIndex != -1) {
                     info.phoneNumber = cursor.getString(columnIndex);
@@ -200,11 +262,27 @@ public class CallerInfo {
                         info.numberType = cursor.getInt(typeColumnIndex);
                         info.numberLabel = cursor.getString(columnIndex);
                         info.phoneLabel = Phone.getDisplayLabel(context,
+=======
+                columnIndex = cursor.getColumnIndex(Phones.NUMBER);
+                if (columnIndex != -1) {
+                    info.phoneNumber = cursor.getString(columnIndex);
+                }
+                
+                // Look for the label/type combo
+                columnIndex = cursor.getColumnIndex(Phones.LABEL);
+                if (columnIndex != -1) {
+                    int typeColumnIndex = cursor.getColumnIndex(Phones.TYPE);
+                    if (typeColumnIndex != -1) {
+                        info.numberType = cursor.getInt(typeColumnIndex);
+                        info.numberLabel = cursor.getString(columnIndex);
+                        info.phoneLabel = Contacts.Phones.getDisplayLabel(context,
+>>>>>>> 54b6cfa... Initial Contribution
                                 info.numberType, info.numberLabel)
                                 .toString();
                     }
                 }
 
+<<<<<<< HEAD
                 // Look for the person_id.
                 columnIndex = getColumnIndexForPersonId(contactRef, cursor);
                 if (columnIndex != -1) {
@@ -221,6 +299,22 @@ public class CallerInfo {
                 // look for the custom ringtone, create from the string stored
                 // in the database.
                 columnIndex = cursor.getColumnIndex(PhoneLookup.CUSTOM_RINGTONE);
+=======
+                // Look for the person ID
+                columnIndex = cursor.getColumnIndex(Phones.PERSON_ID);
+                if (columnIndex != -1) {
+                    info.person_id = cursor.getLong(columnIndex);
+                } else {
+                    columnIndex = cursor.getColumnIndex(People._ID);
+                    if (columnIndex != -1) {
+                        info.person_id = cursor.getLong(columnIndex);
+                    }
+                }
+                
+                // look for the custom ringtone, create from the string stored
+                // in the database.
+                columnIndex = cursor.getColumnIndex(People.CUSTOM_RINGTONE);
+>>>>>>> 54b6cfa... Initial Contribution
                 if ((columnIndex != -1) && (cursor.getString(columnIndex) != null)) {
                     info.contactRingtoneUri = Uri.parse(cursor.getString(columnIndex));
                 } else {
@@ -229,10 +323,16 @@ public class CallerInfo {
 
                 // look for the send to voicemail flag, set it to true only
                 // under certain circumstances.
+<<<<<<< HEAD
                 columnIndex = cursor.getColumnIndex(PhoneLookup.SEND_TO_VOICEMAIL);
                 info.shouldSendToVoicemail = (columnIndex != -1) &&
                         ((cursor.getInt(columnIndex)) == 1);
                 info.contactExists = true;
+=======
+                columnIndex = cursor.getColumnIndex(People.SEND_TO_VOICEMAIL);
+                info.shouldSendToVoicemail = (columnIndex != -1) && 
+                        ((cursor.getInt(columnIndex)) == 1);
+>>>>>>> 54b6cfa... Initial Contribution
             }
             cursor.close();
         }
@@ -243,7 +343,11 @@ public class CallerInfo {
 
         return info;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * getCallerInfo given a URI, look up in the call-log database
      * for the uri unique key.
@@ -253,11 +357,19 @@ public class CallerInfo {
      * number. The returned CallerInfo is null if no number is supplied.
      */
     public static CallerInfo getCallerInfo(Context context, Uri contactRef) {
+<<<<<<< HEAD
 
         return getCallerInfo(context, contactRef,
                 context.getContentResolver().query(contactRef, null, null, null, null));
     }
 
+=======
+        
+        return getCallerInfo(context, contactRef, 
+                context.getContentResolver().query(contactRef, null, null, null, null));
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * getCallerInfo given a phone number, look up in the call-log database
      * for the matching caller id info.
@@ -269,6 +381,7 @@ public class CallerInfo {
      * with all relevant fields empty or null.
      */
     public static CallerInfo getCallerInfo(Context context, String number) {
+<<<<<<< HEAD
         if (VDBG) Log.v(TAG, "getCallerInfo() based on number...");
 
         if (TextUtils.isEmpty(number)) {
@@ -295,10 +408,53 @@ public class CallerInfo {
             info.phoneNumber = number;
         }
 
+=======
+        if (TextUtils.isEmpty(number)) {
+            return null;
+        } else {
+            // Change the callerInfo number ONLY if it is an emergency number
+            // or if it is the voicemail number.  If it is either, take a 
+            // shortcut and skip the query.
+            if (PhoneNumberUtils.isEmergencyNumber(number)) {
+                CallerInfo ci = new CallerInfo();
+                ci.phoneNumber = context.getString(
+                        com.android.internal.R.string.emergency_call_dialog_number_for_display);
+                return ci;
+            } else {
+                try {
+                    if (!sSkipVmCheck && PhoneNumberUtils.compare(number,
+                                TelephonyManager.getDefault().getVoiceMailNumber())) {
+                        CallerInfo ci = new CallerInfo();
+                        ci.name = TelephonyManager.getDefault().getVoiceMailAlphaTag();
+                        // TODO: FIND ANOTHER ICON
+                        //info.photoResource = android.R.drawable.badge_voicemail;
+                        return ci;
+                    }
+                } catch (SecurityException ex) {
+                    // Don't crash if this process doesn't have permission to 
+                    // retrieve VM number.  It's still allowed to look up caller info.
+                    // But don't try it again.
+                    sSkipVmCheck = true;
+                }
+            }
+        }
+
+        Uri contactUri = Uri.withAppendedPath(Contacts.Phones.CONTENT_FILTER_URL, number); 
+        
+        CallerInfo info = getCallerInfo(context, contactUri);
+
+        // if no query results were returned with a viable number, 
+        // fill in the original number value we used to query with. 
+        if (TextUtils.isEmpty(info.phoneNumber)) {
+            info.phoneNumber = number;
+        }
+                
+>>>>>>> 54b6cfa... Initial Contribution
         return info;
     }
 
     /**
+<<<<<<< HEAD
      * Performs another lookup if previous lookup fails and it's a SIP call
      * and the peer's username is all numeric. Look up the username as it
      * could be a PSTN number in the contact database.
@@ -323,6 +479,8 @@ public class CallerInfo {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * getCallerId: a convenience method to get the caller id for a given
      * number.
      *
@@ -330,9 +488,15 @@ public class CallerInfo {
      * @param number a phone number.
      * @return if the number belongs to a contact, the contact's name is
      * returned; otherwise, the number itself is returned.
+<<<<<<< HEAD
      *
      * TODO NOTE: This MAY need to refer to the Asynchronous Query API
      * [startQuery()], instead of getCallerInfo, but since it looks like
+=======
+     * 
+     * TODO NOTE: This MAY need to refer to the Asynchronous Query API 
+     * [startQuery()], instead of getCallerInfo, but since it looks like 
+>>>>>>> 54b6cfa... Initial Contribution
      * it is only being used by the provider calls in the messaging app:
      *   1. android.provider.Telephony.Mms.getDisplayAddress()
      *   2. android.provider.Telephony.Sms.getDisplayAddress()
@@ -355,6 +519,7 @@ public class CallerInfo {
         return callerID;
     }
 
+<<<<<<< HEAD
     // Accessors
 
     /**
@@ -422,6 +587,8 @@ public class CallerInfo {
         return this;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private static String normalize(String s) {
         if (s == null || s.length() > 0) {
             return s;
@@ -429,6 +596,7 @@ public class CallerInfo {
             return null;
         }
     }
+<<<<<<< HEAD
 
     /**
      * Returns the column index to use to find the "person_id" field in
@@ -622,3 +790,7 @@ public class CallerInfo {
         }
     }
 }
+=======
+}    
+
+>>>>>>> 54b6cfa... Initial Contribution

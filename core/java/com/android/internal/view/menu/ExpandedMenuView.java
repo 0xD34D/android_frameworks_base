@@ -17,15 +17,27 @@
 package com.android.internal.view.menu;
 
 
+<<<<<<< HEAD
 import com.android.internal.view.menu.MenuBuilder.ItemInvoker;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
+<<<<<<< HEAD
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+=======
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+
+import com.android.internal.view.menu.MenuBuilder.ItemInvoker;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * The expanded menu view is a list-like menu with all of the available menu items.  It is opened
@@ -51,8 +63,28 @@ public final class ExpandedMenuView extends ListView implements ItemInvoker, Men
         setOnItemClickListener(this);
     }
 
+<<<<<<< HEAD
     public void initialize(MenuBuilder menu) {
         mMenu = menu;
+=======
+    public void initialize(MenuBuilder menu, int menuType) {
+        mMenu = menu;
+
+        setAdapter(menu.new MenuAdapter(menuType));
+    }
+
+    public void updateChildren(boolean cleared) {
+        ListAdapter adapter = getAdapter();
+        // Tell adapter of the change, it will notify the mListView
+        if (adapter != null) {
+            if (cleared) {
+                ((BaseAdapter)adapter).notifyDataSetInvalidated();
+            }
+            else {
+                ((BaseAdapter)adapter).notifyDataSetChanged();
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override

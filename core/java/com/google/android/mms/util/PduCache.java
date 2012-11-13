@@ -21,6 +21,10 @@ import android.content.ContentUris;
 import android.content.UriMatcher;
 import android.net.Uri;
 import android.provider.Telephony.Mms;
+<<<<<<< HEAD
+=======
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 
 import java.util.HashMap;
@@ -29,7 +33,11 @@ import java.util.HashSet;
 public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
     private static final String TAG = "PduCache";
     private static final boolean DEBUG = false;
+<<<<<<< HEAD
     private static final boolean LOCAL_LOGV = false;
+=======
+    private static final boolean LOCAL_LOGV = DEBUG ? Config.LOGD : Config.LOGV;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private static final int MMS_ALL             = 0;
     private static final int MMS_ALL_ID          = 1;
@@ -73,12 +81,18 @@ public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
 
     private final HashMap<Integer, HashSet<Uri>> mMessageBoxes;
     private final HashMap<Long, HashSet<Uri>> mThreads;
+<<<<<<< HEAD
     private final HashSet<Uri> mUpdating;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     private PduCache() {
         mMessageBoxes = new HashMap<Integer, HashSet<Uri>>();
         mThreads = new HashMap<Long, HashSet<Uri>>();
+<<<<<<< HEAD
         mUpdating = new HashSet<Uri>();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     synchronized public static final PduCache getInstance() {
@@ -113,6 +127,7 @@ public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
             msgBox.add(finalKey);
             thread.add(finalKey);
         }
+<<<<<<< HEAD
         setUpdating(uri, false);
         return result;
     }
@@ -129,6 +144,11 @@ public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
         return mUpdating.contains(uri);
     }
 
+=======
+        return result;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     synchronized public PduCacheEntry purge(Uri uri) {
         int match = URI_MATCHER.match(uri);
@@ -161,7 +181,10 @@ public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
     }
 
     private PduCacheEntry purgeSingleEntry(Uri key) {
+<<<<<<< HEAD
         mUpdating.remove(key);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         PduCacheEntry entry = super.purge(key);
         if (entry != null) {
             removeFromThreads(key, entry);
@@ -177,7 +200,10 @@ public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
 
         mMessageBoxes.clear();
         mThreads.clear();
+<<<<<<< HEAD
         mUpdating.clear();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -218,7 +244,10 @@ public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
             HashSet<Uri> msgBox = mMessageBoxes.remove(msgBoxId);
             if (msgBox != null) {
                 for (Uri key : msgBox) {
+<<<<<<< HEAD
                     mUpdating.remove(key);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                     PduCacheEntry entry = super.purge(key);
                     if (entry != null) {
                         removeFromThreads(key, entry);
@@ -243,7 +272,10 @@ public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
         HashSet<Uri> thread = mThreads.remove(threadId);
         if (thread != null) {
             for (Uri key : thread) {
+<<<<<<< HEAD
                 mUpdating.remove(key);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 PduCacheEntry entry = super.purge(key);
                 if (entry != null) {
                     removeFromMessageBoxes(key, entry);
@@ -253,7 +285,11 @@ public final class PduCache extends AbstractCache<Uri, PduCacheEntry> {
     }
 
     private void removeFromMessageBoxes(Uri key, PduCacheEntry entry) {
+<<<<<<< HEAD
         HashSet<Uri> msgBox = mThreads.get(Long.valueOf(entry.getMessageBox()));
+=======
+        HashSet<Uri> msgBox = mThreads.get(entry.getMessageBox());
+>>>>>>> 54b6cfa... Initial Contribution
         if (msgBox != null) {
             msgBox.remove(key);
         }

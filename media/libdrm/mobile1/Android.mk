@@ -36,15 +36,25 @@ LOCAL_C_INCLUDES :=                 \
     $(LOCAL_PATH)/include/objmng    \
     $(LOCAL_PATH)/include/parser    \
     $(LOCAL_PATH)/include/xml       \
+<<<<<<< HEAD
     external/openssl/include        \
+=======
+    external/aes                     \
+>>>>>>> 54b6cfa... Initial Contribution
     $(call include-path-for, system-core)/cutils
 
 LOCAL_CFLAGS := $(LOCAL_DRM_CFLAG)
 
 LOCAL_SHARED_LIBRARIES :=   \
+<<<<<<< HEAD
     libutils                \
     libcutils               \
     libcrypto
+=======
+	libaes                  \
+	libutils                \
+	libcutils
+>>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_MODULE := libdrm1
 
@@ -66,6 +76,7 @@ LOCAL_SRC_FILES :=      \
 # Header files path
 LOCAL_C_INCLUDES :=         \
     $(LOCAL_PATH)/include   \
+<<<<<<< HEAD
     $(LOCAL_PATH)/include/parser \
     $(JNI_H_INCLUDE)    \
     $(call include-path-for, system-core)/cutils
@@ -75,6 +86,17 @@ LOCAL_SHARED_LIBRARIES := libdrm1 \
     libnativehelper               \
     libutils                      \
     libcutils
+=======
+	$(LOCAL_PATH)/include/parser \
+    $(JNI_H_INCLUDE)    \
+	$(call include-path-for, system-core)/cutils \
+	external/aes
+	
+
+LOCAL_SHARED_LIBRARIES := libdrm1 \
+	libutils                      \
+	libcutils
+>>>>>>> 54b6cfa... Initial Contribution
 
 LOCAL_MODULE := libdrm1_jni
 

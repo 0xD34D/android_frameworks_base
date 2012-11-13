@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+<<<<<<< HEAD
 import android.content.pm.ContainerEncryptionParams;
 import android.content.pm.FeatureInfo;
 import android.content.pm.IPackageInstallObserver;
@@ -33,15 +34,27 @@ import android.content.pm.InstrumentationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.ManifestDigest;
 import android.content.pm.ParceledListSlice;
+=======
+import android.content.pm.IPackageInstallObserver;
+import android.content.pm.IPackageDeleteObserver;
+import android.content.pm.IPackageDataObserver;
+import android.content.pm.IPackageStatsObserver;
+import android.content.pm.InstrumentationInfo;
+import android.content.pm.PackageInfo;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.pm.ProviderInfo;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
+<<<<<<< HEAD
 import android.content.pm.UserInfo;
 import android.content.pm.VerifierDeviceIdentity;
 import android.net.Uri;
 import android.content.IntentSender;
+=======
+import android.net.Uri;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  *  See {@link PackageManager} for documentation on most of the APIs
@@ -50,12 +63,18 @@ import android.content.IntentSender;
  *  {@hide}
  */
 interface IPackageManager {
+<<<<<<< HEAD
     PackageInfo getPackageInfo(String packageName, int flags, int userId);
     int getPackageUid(String packageName, int userId);
     int[] getPackageGids(String packageName);
     
     String[] currentToCanonicalPackageNames(in String[] names);
     String[] canonicalToCurrentPackageNames(in String[] names);
+=======
+    PackageInfo getPackageInfo(String packageName, int flags);
+    int getPackageUid(String packageName);
+    int[] getPackageGids(String packageName);
+>>>>>>> 54b6cfa... Initial Contribution
 
     PermissionInfo getPermissionInfo(String name, int flags);
     
@@ -65,6 +84,7 @@ interface IPackageManager {
     
     List<PermissionGroupInfo> getAllPermissionGroups(int flags);
     
+<<<<<<< HEAD
     ApplicationInfo getApplicationInfo(String packageName, int flags ,int userId);
 
     ActivityInfo getActivityInfo(in ComponentName className, int flags, int userId);
@@ -74,6 +94,15 @@ interface IPackageManager {
     ServiceInfo getServiceInfo(in ComponentName className, int flags, int userId);
 
     ProviderInfo getProviderInfo(in ComponentName className, int flags, int userId);
+=======
+    ApplicationInfo getApplicationInfo(String packageName, int flags);
+
+    ActivityInfo getActivityInfo(in ComponentName className, int flags);
+
+    ActivityInfo getReceiverInfo(in ComponentName className, int flags);
+
+    ServiceInfo getServiceInfo(in ComponentName className, int flags);
+>>>>>>> 54b6cfa... Initial Contribution
 
     int checkPermission(String permName, String pkgName);
     
@@ -82,6 +111,7 @@ interface IPackageManager {
     boolean addPermission(in PermissionInfo info);
     
     void removePermission(String name);
+<<<<<<< HEAD
 
     void grantPermission(String packageName, String permissionName);
 
@@ -93,20 +123,33 @@ interface IPackageManager {
     
     int checkUidSignatures(int uid1, int uid2);
     
+=======
+    
+    int checkSignatures(String pkg1, String pkg2);
+    
+>>>>>>> 54b6cfa... Initial Contribution
     String[] getPackagesForUid(int uid);
     
     String getNameForUid(int uid);
     
+<<<<<<< HEAD
     int getUidForSharedUser(String sharedUserName);
     
     ResolveInfo resolveIntent(in Intent intent, String resolvedType, int flags, int userId);
 
     List<ResolveInfo> queryIntentActivities(in Intent intent, 
             String resolvedType, int flags, int userId);
+=======
+    ResolveInfo resolveIntent(in Intent intent, String resolvedType, int flags);
+
+    List<ResolveInfo> queryIntentActivities(in Intent intent, 
+            String resolvedType, int flags);
+>>>>>>> 54b6cfa... Initial Contribution
 
     List<ResolveInfo> queryIntentActivityOptions(
             in ComponentName caller, in Intent[] specifics,
             in String[] specificTypes, in Intent intent,
+<<<<<<< HEAD
             String resolvedType, int flags, int userId);
 
     List<ResolveInfo> queryIntentReceivers(in Intent intent,
@@ -133,6 +176,22 @@ interface IPackageManager {
      * returned.
      */
     ParceledListSlice getInstalledApplications(int flags, in String lastRead, int userId);
+=======
+            String resolvedType, int flags);
+
+    List<ResolveInfo> queryIntentReceivers(in Intent intent,
+            String resolvedType, int flags);
+
+    ResolveInfo resolveService(in Intent intent,
+            String resolvedType, int flags);
+
+    List<ResolveInfo> queryIntentServices(in Intent intent,
+            String resolvedType, int flags);
+
+    List<PackageInfo> getInstalledPackages(int flags);
+
+    List<ApplicationInfo> getInstalledApplications(int flags);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Retrieve all applications that are marked as persistent.
@@ -142,7 +201,11 @@ interface IPackageManager {
      */
     List<ApplicationInfo> getPersistentApplications(int flags);
 
+<<<<<<< HEAD
     ProviderInfo resolveContentProvider(String name, int flags, int userId);
+=======
+    ProviderInfo resolveContentProvider(String name, int flags);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Retrieve sync information for all content providers.
@@ -171,6 +234,7 @@ interface IPackageManager {
      * @param observer a callback to use to notify when the package installation in finished.
      * @param flags - possible values: {@link #FORWARD_LOCK_PACKAGE},
      * {@link #REPLACE_EXISITING_PACKAGE}
+<<<<<<< HEAD
      * @param installerPackageName Optional package name of the application that is performing the
      * installation. This identifies which market the package came from.
      */
@@ -180,6 +244,10 @@ interface IPackageManager {
     void finishPackageInstall(int token);
 
     void setInstallerPackageName(in String targetPackage, in String installerPackageName);
+=======
+     */
+    void installPackage(in Uri packageURI, IPackageInstallObserver observer, int flags);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Delete a package.
@@ -190,8 +258,11 @@ interface IPackageManager {
      */
     void deletePackage(in String packageName, IPackageDeleteObserver observer, int flags);
 
+<<<<<<< HEAD
     String getInstallerPackageName(in String packageName);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     void addPackageToPreferred(String packageName);
     
     void removePackageFromPreferred(String packageName);
@@ -200,12 +271,16 @@ interface IPackageManager {
 
     void addPreferredActivity(in IntentFilter filter, int match,
             in ComponentName[] set, in ComponentName activity);
+<<<<<<< HEAD
 
     void replacePreferredActivity(in IntentFilter filter, int match,
             in ComponentName[] set, in ComponentName activity);
 
     void clearPackagePreferredActivities(String packageName);
 
+=======
+    void clearPackagePreferredActivities(String packageName);
+>>>>>>> 54b6cfa... Initial Contribution
     int getPreferredActivities(out List<IntentFilter> outFilters,
             out List<ComponentName> outActivities, String packageName);
     
@@ -213,21 +288,34 @@ interface IPackageManager {
      * As per {@link android.content.pm.PackageManager#setComponentEnabledSetting}.
      */
     void setComponentEnabledSetting(in ComponentName componentName,
+<<<<<<< HEAD
             in int newState, in int flags, int userId);
+=======
+            in int newState, in int flags);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * As per {@link android.content.pm.PackageManager#getComponentEnabledSetting}.
      */
+<<<<<<< HEAD
     int getComponentEnabledSetting(in ComponentName componentName, int userId);
+=======
+    int getComponentEnabledSetting(in ComponentName componentName);
+>>>>>>> 54b6cfa... Initial Contribution
     
     /**
      * As per {@link android.content.pm.PackageManager#setApplicationEnabledSetting}.
      */
+<<<<<<< HEAD
     void setApplicationEnabledSetting(in String packageName, in int newState, int flags, int userId);
+=======
+    void setApplicationEnabledSetting(in String packageName, in int newState, int flags);
+>>>>>>> 54b6cfa... Initial Contribution
     
     /**
      * As per {@link android.content.pm.PackageManager#getApplicationEnabledSetting}.
      */
+<<<<<<< HEAD
     int getApplicationEnabledSetting(in String packageName, int userId);
     
     /**
@@ -282,6 +370,27 @@ interface IPackageManager {
      */
      void freeStorage(in long freeStorageSize,
              in IntentSender pi);
+=======
+    int getApplicationEnabledSetting(in String packageName);
+    
+    /**
+     * Free storage by deleting LRU sorted list of cache files across all applications.
+     * If the currently available free storage on the device is greater than or equal to the
+     * requested free storage, no cache files are cleared. If the currently available storage on the 
+     * device is less than the requested free storage, some or all of the cache files across
+     * all applications are deleted(based on last accessed time) to increase the free storage 
+     * space on the device to the requested value. There is no gurantee that clearing all
+     * the cache files from all applications will clear up enough storage to achieve the desired
+     * value.
+     * @param freeStorageSize The number of bytes of storage to be 
+     * freed by the system. Say if freeStorageSize is XX, 
+     * and the current free storage is YY, 
+     * if XX is less than YY, just return. if not free XX-YY number of
+     * bytes if possible.
+     * @param observer callback used to notify when the operation is completed
+     */
+     void freeApplicationCache(in long freeStorageSize, IPackageDataObserver observer);
+>>>>>>> 54b6cfa... Initial Contribution
      
     /**
      * Delete all the cache files in an applications cache directory
@@ -297,7 +406,11 @@ interface IPackageManager {
      * files need to be deleted
      * @param observer a callback used to notify when the operation is completed.
      */
+<<<<<<< HEAD
     void clearApplicationUserData(in String packageName, IPackageDataObserver observer, int userId);
+=======
+    void clearApplicationUserData(in String packageName, IPackageDataObserver observer);
+>>>>>>> 54b6cfa... Initial Contribution
     
    /**
      * Get package statistics including the code, data and cache size for
@@ -307,6 +420,7 @@ interface IPackageManager {
      * retrieval of information is complete.
      */
     void getPackageSizeInfo(in String packageName, IPackageStatsObserver observer);
+<<<<<<< HEAD
     
     /**
      * Get a list of shared libraries that are available on the
@@ -379,4 +493,10 @@ interface IPackageManager {
 
     /** Reflects current DeviceStorageMonitorService state */
     boolean isStorageLow();
+=======
+
+    void enterSafeMode();
+    void systemReady();
+    boolean hasSystemUidErrors();
+>>>>>>> 54b6cfa... Initial Contribution
 }

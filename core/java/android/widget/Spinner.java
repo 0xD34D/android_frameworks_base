@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
+<<<<<<< HEAD
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -32,12 +33,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
+=======
+import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+>>>>>>> 54b6cfa... Initial Contribution
 
 
 /**
  * A view that displays one child at a time and lets the user pick among them.
  * The items in the Spinner come from the {@link Adapter} associated with
  * this view.
+<<<<<<< HEAD
  *
  * <p>See the <a href="{@docRoot}guide/topics/ui/controls/spinner.html">Spinners</a> guide.</p>
  *
@@ -87,10 +95,21 @@ public class Spinner extends AbsSpinner implements OnClickListener {
      * @param context The Context the view is running in, through which it can
      *        access the current theme, resources, etc.
      */
+=======
+ * 
+ * @attr ref android.R.styleable#Spinner_prompt
+ */
+@Widget
+public class Spinner extends AbsSpinner implements OnClickListener {
+    
+    private CharSequence mPrompt;
+
+>>>>>>> 54b6cfa... Initial Contribution
     public Spinner(Context context) {
         this(context, null);
     }
 
+<<<<<<< HEAD
     /**
      * Construct a new spinner with the given context's theme and the supplied
      * mode of displaying choices. <code>mode</code> may be one of
@@ -114,10 +133,13 @@ public class Spinner extends AbsSpinner implements OnClickListener {
      *        access the current theme, resources, etc.
      * @param attrs The attributes of the XML tag that is inflating the view.
      */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public Spinner(Context context, AttributeSet attrs) {
         this(context, attrs, com.android.internal.R.attr.spinnerStyle);
     }
 
+<<<<<<< HEAD
     /**
      * Construct a new spinner with the given context's theme, the supplied attribute set,
      * and default style.
@@ -152,10 +174,14 @@ public class Spinner extends AbsSpinner implements OnClickListener {
      * @see #MODE_DROPDOWN
      */
     public Spinner(Context context, AttributeSet attrs, int defStyle, int mode) {
+=======
+    public Spinner(Context context, AttributeSet attrs, int defStyle) {
+>>>>>>> 54b6cfa... Initial Contribution
         super(context, attrs, defStyle);
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 com.android.internal.R.styleable.Spinner, defStyle, 0);
+<<<<<<< HEAD
 
         if (mode == MODE_THEME) {
             mode = a.getInt(com.android.internal.R.styleable.Spinner_spinnerMode, MODE_DIALOG);
@@ -381,6 +407,12 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         } else {
             mTempAdapter = new DropDownAdapter(adapter);
         }
+=======
+        
+        mPrompt = a.getString(com.android.internal.R.styleable.Spinner_prompt);
+
+        a.recycle();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -391,6 +423,7 @@ public class Spinner extends AbsSpinner implements OnClickListener {
             child = getChildAt(0);
         } else if (mAdapter != null && mAdapter.getCount() > 0) {
             child = makeAndAddView(0);
+<<<<<<< HEAD
             mRecycler.put(0, child);
             removeAllViewsInLayout();
         }
@@ -398,11 +431,19 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         if (child != null) {
             final int childBaseline = child.getBaseline();
             return childBaseline >= 0 ? child.getTop() + childBaseline : -1;
+=======
+            // TODO: We should probably put the child in the recycler
+        }
+
+        if (child != null) {
+            return child.getTop() + child.getBaseline();
+>>>>>>> 54b6cfa... Initial Contribution
         } else {
             return -1;
         }
     }
 
+<<<<<<< HEAD
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -416,6 +457,11 @@ public class Spinner extends AbsSpinner implements OnClickListener {
      * <p>A spinner does not support item click events. Calling this method
      * will raise an exception.</p>
      * <p>Instead use {@link AdapterView#setOnItemSelectedListener}.
+=======
+    /**
+     * <p>A spinner does not support item click events. Calling this method
+     * will raise an exception.</p>
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param l this listener will be ignored
      */
@@ -425,6 +471,7 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     }
 
     /**
+<<<<<<< HEAD
      * @hide internal use only
      */
     public void setOnItemClickListenerInt(OnItemClickListener l) {
@@ -444,6 +491,8 @@ public class Spinner extends AbsSpinner implements OnClickListener {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @see android.view.View#onLayout(boolean,int,int,int,int)
      *
      * Creates and positions all views
@@ -487,6 +536,7 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         // Clear out old views
         removeAllViewsInLayout();
 
+<<<<<<< HEAD
         // Make selected view and position it
         mFirstPosition = mSelectedPosition;
         View sel = makeAndAddView(mSelectedPosition);
@@ -500,6 +550,13 @@ public class Spinner extends AbsSpinner implements OnClickListener {
                 selectedOffset = childrenLeft + childrenWidth - width;
                 break;
         }
+=======
+        // Make selected view and center it
+        mFirstPosition = mSelectedPosition;
+        View sel = makeAndAddView(mSelectedPosition);
+        int width = sel.getMeasuredWidth();
+        int selectedOffset = childrenLeft + (childrenWidth / 2) - (width / 2);
+>>>>>>> 54b6cfa... Initial Contribution
         sel.offsetLeftAndRight(selectedOffset);
 
         // Flush any cached views that did not get reused above
@@ -546,6 +603,11 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         return child;
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Helper for makeAndAddView to set the position of a view
      * and fill out its layout paramters.
@@ -564,9 +626,12 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         addViewInLayout(child, 0, lp);
 
         child.setSelected(hasFocus());
+<<<<<<< HEAD
         if (mDisableChildrenWhenDisabled) {
             child.setEnabled(isEnabled());
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
         // Get measure specs
         int childHeightSpec = ViewGroup.getChildMeasureSpec(mHeightMeasureSpec,
@@ -582,7 +647,11 @@ public class Spinner extends AbsSpinner implements OnClickListener {
 
         // Position vertically based on gravity setting
         int childTop = mSpinnerPadding.top
+<<<<<<< HEAD
                 + ((getMeasuredHeight() - mSpinnerPadding.bottom -
+=======
+                + ((mMeasuredHeight - mSpinnerPadding.bottom - 
+>>>>>>> 54b6cfa... Initial Contribution
                         mSpinnerPadding.top - child.getMeasuredHeight()) / 2);
         int childBottom = childTop + child.getMeasuredHeight();
 
@@ -599,20 +668,37 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         
         if (!handled) {
             handled = true;
+<<<<<<< HEAD
 
             if (!mPopup.isShowing()) {
                 mPopup.show();
             }
+=======
+            Context context = getContext();
+            
+            final DropDownAdapter adapter = new DropDownAdapter(getAdapter());
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            if (mPrompt != null) {
+                builder.setTitle(mPrompt);
+            }
+            builder.setSingleChoiceItems(adapter, getSelectedItemPosition(), this).show();
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         return handled;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public void onClick(DialogInterface dialog, int which) {
         setSelection(which);
         dialog.dismiss();
     }
 
+<<<<<<< HEAD
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         super.onInitializeAccessibilityEvent(event);
@@ -625,12 +711,18 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         info.setClassName(Spinner.class.getName());
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Sets the prompt to display when the dialog is shown.
      * @param prompt the prompt to set
      */
     public void setPrompt(CharSequence prompt) {
+<<<<<<< HEAD
         mPopup.setPromptText(prompt);
+=======
+        mPrompt = prompt;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -638,13 +730,18 @@ public class Spinner extends AbsSpinner implements OnClickListener {
      * @param promptId the resource ID of the prompt to display when the dialog is shown
      */
     public void setPromptId(int promptId) {
+<<<<<<< HEAD
         setPrompt(getContext().getText(promptId));
+=======
+        mPrompt = getContext().getText(promptId);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * @return The prompt to display when the dialog is shown
      */
     public CharSequence getPrompt() {
+<<<<<<< HEAD
         return mPopup.getHintText();
     }
 
@@ -692,24 +789,38 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         return width;
     }
 
+=======
+        return mPrompt;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * <p>Wrapper class for an Adapter. Transforms the embedded Adapter instance
      * into a ListAdapter.</p>
      */
     private static class DropDownAdapter implements ListAdapter, SpinnerAdapter {
         private SpinnerAdapter mAdapter;
+<<<<<<< HEAD
         private ListAdapter mListAdapter;
 
         /**
          * <p>Creates a new ListAdapter wrapper for the specified adapter.</p>
+=======
+
+        /**
+         * <p>Creates a new ListAddapter wrapper for the specified adapter.</p>
+>>>>>>> 54b6cfa... Initial Contribution
          *
          * @param adapter the Adapter to transform into a ListAdapter
          */
         public DropDownAdapter(SpinnerAdapter adapter) {
             this.mAdapter = adapter;
+<<<<<<< HEAD
             if (adapter instanceof ListAdapter) {
                 this.mListAdapter = (ListAdapter) adapter;
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public int getCount() {
@@ -750,6 +861,7 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         }
 
         /**
+<<<<<<< HEAD
          * If the wrapped SpinnerAdapter is also a ListAdapter, delegate this call.
          * Otherwise, return true. 
          */
@@ -773,6 +885,23 @@ public class Spinner extends AbsSpinner implements OnClickListener {
             } else {
                 return true;
             }
+=======
+         * <p>Always returns false.</p>
+         *
+         * @return false
+         */
+        public boolean areAllItemsEnabled() {
+            return true;
+        }
+
+        /**
+         * <p>Always returns false.</p>
+         *
+         * @return false
+         */
+        public boolean isEnabled(int position) {
+            return true;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public int getItemViewType(int position) {
@@ -787,6 +916,7 @@ public class Spinner extends AbsSpinner implements OnClickListener {
             return getCount() == 0;
         }
     }
+<<<<<<< HEAD
     
     /**
      * Implements some sort of popup selection interface for selecting a spinner option.
@@ -976,4 +1106,6 @@ public class Spinner extends AbsSpinner implements OnClickListener {
             setSelection(Spinner.this.getSelectedItemPosition());
         }
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

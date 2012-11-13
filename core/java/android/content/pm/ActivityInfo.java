@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -14,6 +15,8 @@
  * limitations under the License.
  */
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 package android.content.pm;
 
 import android.os.Parcel;
@@ -136,6 +139,7 @@ public class ActivityInfo extends ComponentInfo
      */
     public static final int FLAG_ALLOW_TASK_REPARENTING = 0x0040;
     /**
+<<<<<<< HEAD
      * Bit in {@link #flags} indicating that, when the user navigates away
      * from an activity, it should be finished.
      * Set from the
@@ -182,6 +186,14 @@ public class ActivityInfo extends ComponentInfo
      * {@link #FLAG_ALLOW_TASK_REPARENTING}, {@link #FLAG_NO_HISTORY},
      * {@link #FLAG_FINISH_ON_CLOSE_SYSTEM_DIALOGS},
      * {@link #FLAG_HARDWARE_ACCELERATED}
+=======
+     * Options that have been set in the activity declaration in the
+     * manifest: {@link #FLAG_MULTIPROCESS},
+     * {@link #FLAG_FINISH_ON_TASK_LAUNCH}, {@link #FLAG_CLEAR_TASK_ON_LAUNCH},
+     * {@link #FLAG_ALWAYS_RETAIN_TASK_STATE},
+     * {@link #FLAG_STATE_NOT_NEEDED}, {@link #FLAG_EXCLUDE_FROM_RECENTS},
+     * {@link #FLAG_ALLOW_TASK_REPARENTING}.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public int flags;
 
@@ -217,6 +229,7 @@ public class ActivityInfo extends ComponentInfo
     public static final int SCREEN_ORIENTATION_SENSOR = 4;
   
     /**
+<<<<<<< HEAD
      * Constant corresponding to <code>nosensor</code> in
      * the {@link android.R.attr#screenOrientation} attribute.
      */
@@ -252,6 +265,12 @@ public class ActivityInfo extends ComponentInfo
      */
     public static final int SCREEN_ORIENTATION_FULL_SENSOR = 10;
 
+=======
+     * Constant corresponding to <code>sensor</code> in
+     * the {@link android.R.attr#screenOrientation} attribute.
+     */
+    public static final int SCREEN_ORIENTATION_NOSENSOR = 5;
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * The preferred screen orientation this activity would like to run in.
      * From the {@link android.R.attr#screenOrientation} attribute, one of
@@ -261,12 +280,16 @@ public class ActivityInfo extends ComponentInfo
      * {@link #SCREEN_ORIENTATION_USER},
      * {@link #SCREEN_ORIENTATION_BEHIND},
      * {@link #SCREEN_ORIENTATION_SENSOR},
+<<<<<<< HEAD
      * {@link #SCREEN_ORIENTATION_NOSENSOR},
      * {@link #SCREEN_ORIENTATION_SENSOR_LANDSCAPE},
      * {@link #SCREEN_ORIENTATION_SENSOR_PORTRAIT},
      * {@link #SCREEN_ORIENTATION_REVERSE_LANDSCAPE},
      * {@link #SCREEN_ORIENTATION_REVERSE_PORTRAIT},
      * {@link #SCREEN_ORIENTATION_FULL_SENSOR}.
+=======
+     * {@link #SCREEN_ORIENTATION_NOSENSOR}.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public int screenOrientation = SCREEN_ORIENTATION_UNSPECIFIED;
     
@@ -302,9 +325,13 @@ public class ActivityInfo extends ComponentInfo
     public static final int CONFIG_KEYBOARD = 0x0010;
     /**
      * Bit in {@link #configChanges} that indicates that the activity
+<<<<<<< HEAD
      * can itself handle changes to the keyboard or navigation being hidden/exposed.
      * Note that inspite of the name, this applies to the changes to any
      * hidden states: keyboard or navigation.
+=======
+     * can itself handle changes to the keyboard being hidden/exposed. 
+>>>>>>> 54b6cfa... Initial Contribution
      * Set from the {@link android.R.attr#configChanges} attribute.
      */
     public static final int CONFIG_KEYBOARD_HIDDEN = 0x0020;
@@ -322,6 +349,7 @@ public class ActivityInfo extends ComponentInfo
     public static final int CONFIG_ORIENTATION = 0x0080;
     /**
      * Bit in {@link #configChanges} that indicates that the activity
+<<<<<<< HEAD
      * can itself handle changes to the screen layout.  Set from the
      * {@link android.R.attr#configChanges} attribute.
      */
@@ -358,6 +386,8 @@ public class ActivityInfo extends ComponentInfo
     public static final int CONFIG_SMALLEST_SCREEN_SIZE = 0x0800;
     /**
      * Bit in {@link #configChanges} that indicates that the activity
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * can itself handle changes to the font scaling factor.  Set from the
      * {@link android.R.attr#configChanges} attribute.  This is
      * not a core resource configutation, but a higher-level value, so its
@@ -365,6 +395,7 @@ public class ActivityInfo extends ComponentInfo
      */
     public static final int CONFIG_FONT_SCALE = 0x40000000;
     
+<<<<<<< HEAD
     /** @hide
      * Unfortunately the constants for config changes in native code are
      * different from ActivityInfo. :(  Here are the values we should use for the
@@ -412,18 +443,26 @@ public class ActivityInfo extends ComponentInfo
                 : configChanges;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Bit mask of kinds of configuration changes that this activity
      * can handle itself (without being restarted by the system).
      * Contains any combination of {@link #CONFIG_FONT_SCALE},
      * {@link #CONFIG_MCC}, {@link #CONFIG_MNC},
      * {@link #CONFIG_LOCALE}, {@link #CONFIG_TOUCHSCREEN},
+<<<<<<< HEAD
      * {@link #CONFIG_KEYBOARD}, {@link #CONFIG_NAVIGATION},
      * {@link #CONFIG_ORIENTATION}, and {@link #CONFIG_SCREEN_LAYOUT}.  Set from the
+=======
+     * {@link #CONFIG_KEYBOARD}, {@link #CONFIG_NAVIGATION}, and
+     * {@link #CONFIG_ORIENTATION}.  Set from the
+>>>>>>> 54b6cfa... Initial Contribution
      * {@link android.R.attr#configChanges} attribute.
      */
     public int configChanges;
     
+<<<<<<< HEAD
     /**
      * The desired soft input mode for this activity's main window.
      * Set from the {@link android.R.attr#windowSoftInputMode} attribute
@@ -455,6 +494,8 @@ public class ActivityInfo extends ComponentInfo
      */
     public String parentActivityName;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public ActivityInfo() {
     }
 
@@ -468,9 +509,12 @@ public class ActivityInfo extends ComponentInfo
         flags = orig.flags;
         screenOrientation = orig.screenOrientation;
         configChanges = orig.configChanges;
+<<<<<<< HEAD
         softInputMode = orig.softInputMode;
         uiOptions = orig.uiOptions;
         parentActivityName = orig.parentActivityName;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -486,6 +530,7 @@ public class ActivityInfo extends ComponentInfo
 
     public void dump(Printer pw, String prefix) {
         super.dumpFront(pw, prefix);
+<<<<<<< HEAD
         if (permission != null) {
             pw.println(prefix + "permission=" + permission);
         }
@@ -505,6 +550,16 @@ public class ActivityInfo extends ComponentInfo
         if (uiOptions != 0) {
             pw.println(prefix + " uiOptions=0x" + Integer.toHexString(uiOptions));
         }
+=======
+        pw.println(prefix + "permission=" + permission);
+        pw.println(prefix + "taskAffinity=" + taskAffinity
+                + " targetActivity=" + targetActivity);
+        pw.println(prefix + "launchMode=" + launchMode
+                + " flags=0x" + Integer.toHexString(flags)
+                + " theme=0x" + Integer.toHexString(theme)
+                + " orien=" + screenOrientation
+                + " configChanges=0x" + Integer.toHexString(configChanges));
+>>>>>>> 54b6cfa... Initial Contribution
         super.dumpBack(pw, prefix);
     }
     
@@ -528,9 +583,12 @@ public class ActivityInfo extends ComponentInfo
         dest.writeInt(flags);
         dest.writeInt(screenOrientation);
         dest.writeInt(configChanges);
+<<<<<<< HEAD
         dest.writeInt(softInputMode);
         dest.writeInt(uiOptions);
         dest.writeString(parentActivityName);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final Parcelable.Creator<ActivityInfo> CREATOR
@@ -553,8 +611,11 @@ public class ActivityInfo extends ComponentInfo
         flags = source.readInt();
         screenOrientation = source.readInt();
         configChanges = source.readInt();
+<<<<<<< HEAD
         softInputMode = source.readInt();
         uiOptions = source.readInt();
         parentActivityName = source.readString();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

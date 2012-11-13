@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 
 package android.provider;
 
@@ -29,6 +30,18 @@ import android.provider.ContactsContract.CommonDataKinds.Callable;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.DataUsageFeedback;
 import android.text.TextUtils;
+=======
+package android.provider;
+
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.net.Uri;
+import android.provider.Contacts.People;
+import com.android.internal.telephony.CallerInfo;
+import android.text.TextUtils;
+import android.util.Log;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * The CallLog provider contains information about placed and received calls.
@@ -59,6 +72,7 @@ public class CallLog {
                 Uri.parse("content://call_log/calls/filter");
 
         /**
+<<<<<<< HEAD
          * An optional URI parameter which instructs the provider to allow the operation to be
          * applied to voicemail records as well.
          * <p>
@@ -82,6 +96,8 @@ public class CallLog {
                 .build();
 
         /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
          * The default sort order for this table
          */
         public static final String DEFAULT_SORT_ORDER = "date DESC";
@@ -99,11 +115,16 @@ public class CallLog {
         public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/calls";
 
         /**
+<<<<<<< HEAD
          * The type of the call (incoming, outgoing or missed).
+=======
+         * The type of the the phone number.
+>>>>>>> 54b6cfa... Initial Contribution
          * <P>Type: INTEGER (int)</P>
          */
         public static final String TYPE = "type";
 
+<<<<<<< HEAD
         /** Call log type for incoming calls. */
         public static final int INCOMING_TYPE = 1;
         /** Call log type for outgoing calls. */
@@ -115,6 +136,11 @@ public class CallLog {
          * @hide
          */
         public static final int VOICEMAIL_TYPE = 4;
+=======
+        public static final int INCOMING_TYPE = 1;
+        public static final int OUTGOING_TYPE = 2;
+        public static final int MISSED_TYPE = 3;
+>>>>>>> 54b6cfa... Initial Contribution
 
         /**
          * The phone number as the user entered it.
@@ -123,6 +149,7 @@ public class CallLog {
         public static final String NUMBER = "number";
 
         /**
+<<<<<<< HEAD
          * The ISO 3166-1 two letters country code of the country where the
          * user received or made the call.
          * <P>
@@ -134,6 +161,8 @@ public class CallLog {
         public static final String COUNTRY_ISO = "countryiso";
 
         /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
          * The date the call occured, in milliseconds since the epoch
          * <P>Type: INTEGER (long)</P>
          */
@@ -158,21 +187,33 @@ public class CallLog {
          * <P>Type: TEXT</P>
          */
         public static final String CACHED_NAME = "name";
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * The cached number type (Home, Work, etc) associated with the
          * phone number, if it exists.
          * This value is not guaranteed to be current, if the contact information
          * associated with this number has changed.
+<<<<<<< HEAD
          * <P>Type: INTEGER</P>
          */
         public static final String CACHED_NUMBER_TYPE = "numbertype";
 
+=======
+         * <P>Type: INTEGER</P> 
+         */
+        public static final String CACHED_NUMBER_TYPE = "numbertype";
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * The cached number label, for a custom number type, associated with the
          * phone number, if it exists.
          * This value is not guaranteed to be current, if the contact information
          * associated with this number has changed.
+<<<<<<< HEAD
          * <P>Type: TEXT</P>
          */
         public static final String CACHED_NUMBER_LABEL = "numberlabel";
@@ -246,6 +287,12 @@ public class CallLog {
          */
         public static final String CACHED_FORMATTED_NUMBER = "formatted_number";
 
+=======
+         * <P>Type: TEXT</P> 
+         */
+        public static final String CACHED_NUMBER_LABEL = "numberlabel";
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Adds a call to the call log.
          *
@@ -253,6 +300,7 @@ public class CallLog {
          * if the contact is unknown.
          * @param context the context used to get the ContentResolver
          * @param number the phone number to be added to the calls db
+<<<<<<< HEAD
          * @param presentation the number presenting rules set by the network for
          *        "allowed", "payphone", "restricted" or "unknown"
          * @param callType enumerated values for "incoming", "outgoing", or "missed"
@@ -277,6 +325,25 @@ public class CallLog {
                     || presentation == Connection.PRESENTATION_UNKNOWN) {
                 number = CallerInfo.UNKNOWN_NUMBER;
                 if (ci != null) ci.name = "";
+=======
+         * @param isPrivateNumber <code>true</code> if the call was marked as private by the network
+         * @param callType enumerated values for "incoming", "outgoing", or "missed"
+         * @param start time stamp for the call in milliseconds
+         * @param duration call duration in seconds
+         * 
+         * {@hide}
+         */
+        public static Uri addCall(CallerInfo ci, Context context, String number, 
+                boolean isPrivateNumber, int callType, long start, int duration) {
+            final ContentResolver resolver = context.getContentResolver();
+
+            if (TextUtils.isEmpty(number)) {
+                if (isPrivateNumber) {
+                    number = CallerInfo.PRIVATE_NUMBER;
+                } else {
+                    number = CallerInfo.UNKNOWN_NUMBER;
+                }
+>>>>>>> 54b6cfa... Initial Contribution
             }
 
             ContentValues values = new ContentValues(5);
@@ -286,14 +353,18 @@ public class CallLog {
             values.put(DATE, Long.valueOf(start));
             values.put(DURATION, Long.valueOf(duration));
             values.put(NEW, Integer.valueOf(1));
+<<<<<<< HEAD
             if (callType == MISSED_TYPE) {
                 values.put(IS_READ, Integer.valueOf(0));
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             if (ci != null) {
                 values.put(CACHED_NAME, ci.name);
                 values.put(CACHED_NUMBER_TYPE, ci.numberType);
                 values.put(CACHED_NUMBER_LABEL, ci.numberLabel);
             }
+<<<<<<< HEAD
 
             if ((ci != null) && (ci.person_id > 0)) {
                 // Update usage information for the number associated with the contact ID.
@@ -374,6 +445,24 @@ public class CallLog {
             final ContentResolver resolver = context.getContentResolver();
             resolver.delete(CONTENT_URI, "_id IN " +
                     "(SELECT _id FROM calls ORDER BY " + DEFAULT_SORT_ORDER
+=======
+            
+            if ((ci != null) && (ci.person_id > 0)) {
+                People.markAsContacted(resolver, ci.person_id);
+            }
+            
+            Uri result = resolver.insert(CONTENT_URI, values);
+            
+            removeExpiredEntries(context);
+            
+            return result;
+        }
+        
+        private static void removeExpiredEntries(Context context) {
+            final ContentResolver resolver = context.getContentResolver();
+            resolver.delete(CONTENT_URI, "_id IN " +
+                    "(SELECT _id FROM calls ORDER BY " + DEFAULT_SORT_ORDER 
+>>>>>>> 54b6cfa... Initial Contribution
                     + " LIMIT -1 OFFSET 500)", null);
         }
     }

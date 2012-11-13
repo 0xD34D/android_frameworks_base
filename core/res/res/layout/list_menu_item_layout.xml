@@ -15,10 +15,17 @@
 -->
 
 <com.android.internal.view.menu.ListMenuItemView xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeightSmall">
     
     <!-- Icon will be inserted here. -->
+=======
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight">
+    
+    <!-- Icon, checkbox, and/or radio button will be inserted here. -->
+>>>>>>> 54b6cfa... Initial Contribution
     
     <!-- The title and summary have some gap between them, and this 'group' should be centered vertically. -->
     <RelativeLayout
@@ -26,12 +33,18 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+<<<<<<< HEAD
         android:layout_marginLeft="?android:attr/listPreferredItemPaddingLeft"
         android:layout_marginRight="?android:attr/listPreferredItemPaddingRight"
+=======
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip"
+>>>>>>> 54b6cfa... Initial Contribution
         android:duplicateParentState="true">
         
         <TextView 
             android:id="@+id/title"
+<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -41,6 +54,15 @@
             android:duplicateParentState="true"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal" />
+=======
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:singleLine="true"
+            android:duplicateParentState="true" />
+>>>>>>> 54b6cfa... Initial Contribution
 
         <TextView
             android:id="@+id/shortcut"
@@ -48,12 +70,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_alignParentLeft="true"
+<<<<<<< HEAD
             android:textAppearance="?android:attr/textAppearanceSmall"
+=======
+            android:textAppearance="?android:attr/textAppearanceSmallInverse"
+>>>>>>> 54b6cfa... Initial Contribution
             android:singleLine="true"
             android:duplicateParentState="true" />
 
     </RelativeLayout>
 
+<<<<<<< HEAD
     <!-- Checkbox, and/or radio button will be inserted here. -->
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 </com.android.internal.view.menu.ListMenuItemView>

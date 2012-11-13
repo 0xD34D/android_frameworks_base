@@ -17,6 +17,7 @@
 package android.webkit;
 
 import android.webkit.CacheManager.CacheResult;
+<<<<<<< HEAD
 import android.webkit.PluginData;
 import java.util.Map;
 
@@ -26,6 +27,10 @@ import java.util.Map;
  * deprecated, so is this class.
  */
 @Deprecated
+=======
+import java.util.Map;
+
+>>>>>>> 54b6cfa... Initial Contribution
 public interface UrlInterceptHandler {
 
     /**
@@ -36,6 +41,7 @@ public interface UrlInterceptHandler {
      * @param url URL string.
      * @param headers The headers associated with the request. May be null.
      * @return The CacheResult containing the surrogate response.
+<<<<<<< HEAD
      *
      * @hide
      * @deprecated Do not use, this interface is deprecated.
@@ -57,4 +63,8 @@ public interface UrlInterceptHandler {
      */
     @Deprecated
     public PluginData getPluginData(String url, Map<String, String> headers);
+=======
+     */
+    public CacheResult service(String url, Map<String, String> headers);
+>>>>>>> 54b6cfa... Initial Contribution
 }

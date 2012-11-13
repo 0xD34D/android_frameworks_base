@@ -17,7 +17,10 @@
 package android.content;
 
 import java.util.Map;
+<<<<<<< HEAD
 import java.util.Set;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Interface for accessing and modifying preference data returned by {@link
@@ -30,12 +33,15 @@ import java.util.Set;
  * <p><em>Note: currently this class does not support use across multiple
  * processes.  This will be added later.</em>
  *
+<<<<<<< HEAD
  * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For more information about using SharedPreferences, read the
  * <a href="{@docRoot}guide/topics/data/data-storage.html#pref">Data Storage</a>
  * developer guide.</p></div>
  *
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  * @see Context#getSharedPreferences
  */
 public interface SharedPreferences {
@@ -47,9 +53,13 @@ public interface SharedPreferences {
         /**
          * Called when a shared preference is changed, added, or removed. This
          * may be called even if a preference is set to its existing value.
+<<<<<<< HEAD
          *
          * <p>This callback will be run on your main thread.
          *
+=======
+         * 
+>>>>>>> 54b6cfa... Initial Contribution
          * @param sharedPreferences The {@link SharedPreferences} that received
          *            the change.
          * @param key The key of the preference that was changed, added, or
@@ -61,13 +71,22 @@ public interface SharedPreferences {
     /**
      * Interface used for modifying values in a {@link SharedPreferences}
      * object.  All changes you make in an editor are batched, and not copied
+<<<<<<< HEAD
      * back to the original {@link SharedPreferences} until you call {@link #commit}
      * or {@link #apply}
+=======
+     * back to the original {@link SharedPreferences} or persistent storage
+     * until you call {@link #commit}.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public interface Editor {
         /**
          * Set a String value in the preferences editor, to be written back once
+<<<<<<< HEAD
          * {@link #commit} or {@link #apply} are called.
+=======
+         * {@link #commit} is called.
+>>>>>>> 54b6cfa... Initial Contribution
          * 
          * @param key The name of the preference to modify.
          * @param value The new value for the preference.
@@ -78,6 +97,7 @@ public interface SharedPreferences {
         Editor putString(String key, String value);
         
         /**
+<<<<<<< HEAD
          * Set a set of String values in the preferences editor, to be written
          * back once {@link #commit} is called.
          * 
@@ -91,6 +111,10 @@ public interface SharedPreferences {
         /**
          * Set an int value in the preferences editor, to be written back once
          * {@link #commit} or {@link #apply} are called.
+=======
+         * Set an int value in the preferences editor, to be written back once
+         * {@link #commit} is called.
+>>>>>>> 54b6cfa... Initial Contribution
          * 
          * @param key The name of the preference to modify.
          * @param value The new value for the preference.
@@ -102,7 +126,11 @@ public interface SharedPreferences {
         
         /**
          * Set a long value in the preferences editor, to be written back once
+<<<<<<< HEAD
          * {@link #commit} or {@link #apply} are called.
+=======
+         * {@link #commit} is called.
+>>>>>>> 54b6cfa... Initial Contribution
          * 
          * @param key The name of the preference to modify.
          * @param value The new value for the preference.
@@ -114,7 +142,11 @@ public interface SharedPreferences {
         
         /**
          * Set a float value in the preferences editor, to be written back once
+<<<<<<< HEAD
          * {@link #commit} or {@link #apply} are called.
+=======
+         * {@link #commit} is called.
+>>>>>>> 54b6cfa... Initial Contribution
          * 
          * @param key The name of the preference to modify.
          * @param value The new value for the preference.
@@ -126,7 +158,11 @@ public interface SharedPreferences {
         
         /**
          * Set a boolean value in the preferences editor, to be written back
+<<<<<<< HEAD
          * once {@link #commit} or {@link #apply} are called.
+=======
+         * once {@link #commit} is called.
+>>>>>>> 54b6cfa... Initial Contribution
          * 
          * @param key The name of the preference to modify.
          * @param value The new value for the preference.
@@ -171,6 +207,7 @@ public interface SharedPreferences {
          * {@link SharedPreferences} object it is editing.  This atomically
          * performs the requested modifications, replacing whatever is currently
          * in the SharedPreferences.
+<<<<<<< HEAD
          *
          * <p>Note that when two editors are modifying preferences at the same
          * time, the last one to call commit wins.
@@ -179,10 +216,17 @@ public interface SharedPreferences {
          * using this from your application's main thread, consider
          * using {@link #apply} instead.
          *
+=======
+         * 
+         * <p>Note that when two editors are modifying preferences at the same
+         * time, the last one to call commit wins.
+         * 
+>>>>>>> 54b6cfa... Initial Contribution
          * @return Returns true if the new values were successfully written
          * to persistent storage.
          */
         boolean commit();
+<<<<<<< HEAD
 
         /**
          * Commit your preferences changes back from this Editor to the
@@ -221,6 +265,8 @@ public interface SharedPreferences {
          * {@link #commit} from <code>apply()</code>.
          */
         void apply();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -248,6 +294,7 @@ public interface SharedPreferences {
     String getString(String key, String defValue);
     
     /**
+<<<<<<< HEAD
      * Retrieve a set of String values from the preferences.
      * 
      * @param key The name of the preference to retrieve.
@@ -262,6 +309,8 @@ public interface SharedPreferences {
     Set<String> getStringSet(String key, Set<String> defValues);
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Retrieve an int value from the preferences.
      * 
      * @param key The name of the preference to retrieve.

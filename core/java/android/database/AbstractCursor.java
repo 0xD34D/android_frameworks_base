@@ -18,10 +18,19 @@ package android.database;
 
 import android.content.ContentResolver;
 import android.net.Uri;
+<<<<<<< HEAD
 import android.os.Bundle;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
+=======
+import android.util.Config;
+import android.util.Log;
+import android.os.Bundle;
+
+import java.lang.ref.WeakReference;
+import java.lang.UnsupportedOperationException;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +42,7 @@ import java.util.Map;
 public abstract class AbstractCursor implements CrossProcessCursor {
     private static final String TAG = "Cursor";
 
+<<<<<<< HEAD
     /**
      * @deprecated This is never updated by this class and should not be used
      */
@@ -72,6 +82,10 @@ public abstract class AbstractCursor implements CrossProcessCursor {
     private final ContentObservable mContentObservable = new ContentObservable();
 
     private Bundle mExtras = Bundle.EMPTY;
+=======
+    DataSetObservable mDataSetObservable = new DataSetObservable();
+    ContentObservable mContentObservable = new ContentObservable();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /* -------------------------------------------------------- */
     /* These need to be implemented by subclasses */
@@ -87,6 +101,7 @@ public abstract class AbstractCursor implements CrossProcessCursor {
     abstract public double getDouble(int column);
     abstract public boolean isNull(int column);
 
+<<<<<<< HEAD
     public int getType(int column) {
         // Reflects the assumption that all commonly used field types (meaning everything
         // but blobs) are convertible to strings so it should be safe to call
@@ -94,6 +109,8 @@ public abstract class AbstractCursor implements CrossProcessCursor {
         return FIELD_TYPE_STRING;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // TODO implement getBlob in all cursor types
     public byte[] getBlob(int column) {
         throw new UnsupportedOperationException("getBlob is not supported");
@@ -102,10 +119,14 @@ public abstract class AbstractCursor implements CrossProcessCursor {
     /* Methods that may optionally be implemented by subclasses */
 
     /**
+<<<<<<< HEAD
      * If the cursor is backed by a {@link CursorWindow}, returns a pre-filled
      * window with the contents of the cursor, otherwise null.
      *
      * @return The pre-filled window that backs this cursor, or null if none.
+=======
+     * returns a pre-filled window, return NULL if no such window
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public CursorWindow getWindow() {
         return null;
@@ -114,6 +135,7 @@ public abstract class AbstractCursor implements CrossProcessCursor {
     public int getColumnCount() {
         return getColumnNames().length;
     }
+<<<<<<< HEAD
 
     public void deactivate() {
         onDeactivateOrClose();
@@ -121,13 +143,28 @@ public abstract class AbstractCursor implements CrossProcessCursor {
 
     /** @hide */
     protected void onDeactivateOrClose() {
+=======
+    
+    public void deactivate() {
+        deactivateInternal();
+    }
+    
+    /**
+     * @hide
+     */
+    public void deactivateInternal() {
+>>>>>>> 54b6cfa... Initial Contribution
         if (mSelfObserver != null) {
             mContentResolver.unregisterContentObserver(mSelfObserver);
             mSelfObserverRegistered = false;
         }
         mDataSetObservable.notifyInvalidated();
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean requery() {
         if (mSelfObserver != null && mSelfObserverRegistered == false) {
             mContentResolver.registerContentObserver(mNotifyUri, true, mSelfObserver);
@@ -140,11 +177,35 @@ public abstract class AbstractCursor implements CrossProcessCursor {
     public boolean isClosed() {
         return mClosed;
     }
+<<<<<<< HEAD
 
     public void close() {
         mClosed = true;
         mContentObservable.unregisterAll();
         onDeactivateOrClose();
+=======
+    
+    public void close() {
+        mClosed = true;
+        mContentObservable.unregisterAll();
+        deactivateInternal();
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean commitUpdates(Map<? extends Long,? extends Map<String,Object>> values) {
+        return false;
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean deleteRow() {
+        return false;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -161,7 +222,11 @@ public abstract class AbstractCursor implements CrossProcessCursor {
         return true;
     }
 
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public void copyStringToBuffer(int columnIndex, CharArrayBuffer buffer) {
         // Default implementation, uses getString
         String result = getString(columnIndex);
@@ -173,11 +238,17 @@ public abstract class AbstractCursor implements CrossProcessCursor {
                 result.getChars(0, result.length(), data, 0);
             }
             buffer.sizeCopied = result.length();
+<<<<<<< HEAD
         } else {
             buffer.sizeCopied = 0;
         }
     }
 
+=======
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /* -------------------------------------------------------- */
     /* Implementation */
     public AbstractCursor() {
@@ -222,10 +293,54 @@ public abstract class AbstractCursor implements CrossProcessCursor {
 
         return result;
     }
+<<<<<<< HEAD
 
     @Override
     public void fillWindow(int position, CursorWindow window) {
         DatabaseUtils.cursorFillWindow(this, position, window);
+=======
+    
+    /**
+     * Copy data from cursor to CursorWindow
+     * @param position start position of data
+     * @param window
+     */
+    public void fillWindow(int position, CursorWindow window) {
+        if (position < 0 || position > getCount()) {
+            return;
+        }
+        window.acquireReference();
+        try {
+            int oldpos = mPos;
+            mPos = position - 1;
+            window.clear();
+            window.setStartPosition(position);
+            int columnNum = getColumnCount();
+            window.setNumColumns(columnNum);
+            while (moveToNext() && window.allocRow()) {            
+                for (int i = 0; i < columnNum; i++) {
+                    String field = getString(i);
+                    if (field != null) {
+                        if (!window.putString(field, mPos, i)) {
+                            window.freeLastRow();
+                            break;
+                        }
+                    } else {
+                        if (!window.putNull(mPos, i)) {
+                            window.freeLastRow();
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            mPos = oldpos;
+        } catch (IllegalStateException e){
+            // simply ignore it
+        } finally {
+            window.releaseReference();
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public final boolean move(int offset) {
@@ -288,7 +403,11 @@ public abstract class AbstractCursor implements CrossProcessCursor {
             }
         }
 
+<<<<<<< HEAD
         if (false) {
+=======
+        if (Config.LOGV) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (getCount() > 0) {
                 Log.w("AbstractCursor", "Unknown column " + columnName);
             }
@@ -308,6 +427,140 @@ public abstract class AbstractCursor implements CrossProcessCursor {
         return getColumnNames()[columnIndex];
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean updateBlob(int columnIndex, byte[] value) {
+        return update(columnIndex, value);
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean updateString(int columnIndex, String value) {
+        return update(columnIndex, value);
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean updateShort(int columnIndex, short value) {
+        return update(columnIndex, Short.valueOf(value));
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean updateInt(int columnIndex, int value) {
+        return update(columnIndex, Integer.valueOf(value));
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean updateLong(int columnIndex, long value) {
+        return update(columnIndex, Long.valueOf(value));
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean updateFloat(int columnIndex, float value) {
+        return update(columnIndex, Float.valueOf(value));
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean updateDouble(int columnIndex, double value) {
+        return update(columnIndex, Double.valueOf(value));
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean updateToNull(int columnIndex) {
+        return update(columnIndex, null);
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean update(int columnIndex, Object obj) {
+        if (!supportsUpdates()) {
+            return false;
+        }
+
+        // Long.valueOf() returns null sometimes!
+//        Long rowid = Long.valueOf(getLong(mRowIdColumnIndex));
+        Long rowid = new Long(getLong(mRowIdColumnIndex));
+        if (rowid == null) {
+            throw new IllegalStateException("null rowid. mRowIdColumnIndex = " + mRowIdColumnIndex);
+        }
+
+        synchronized(mUpdatedRows) {
+            Map<String, Object> row = mUpdatedRows.get(rowid);
+            if (row == null) {
+                row = new HashMap<String, Object>();
+                mUpdatedRows.put(rowid, row);
+            }
+            row.put(getColumnNames()[columnIndex], obj);
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns <code>true</code> if there are pending updates that have not yet been committed.
+     * 
+     * @return <code>true</code> if there are pending updates that have not yet been committed.
+     * @hide
+     * @deprecated
+     */
+    public boolean hasUpdates() {
+        synchronized(mUpdatedRows) {
+            return mUpdatedRows.size() > 0;
+        }
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public void abortUpdates() {
+        synchronized(mUpdatedRows) {
+            mUpdatedRows.clear();
+        }
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean commitUpdates() {
+        return commitUpdates(null);
+    }
+
+    /**
+     * @hide
+     * @deprecated
+     */
+    public boolean supportsUpdates() {
+        return mRowIdColumnIndex != -1;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public void registerContentObserver(ContentObserver observer) {
         mContentObservable.registerObserver(observer);
     }
@@ -335,7 +588,11 @@ public abstract class AbstractCursor implements CrossProcessCursor {
      */
     protected void onChange(boolean selfChange) {
         synchronized (mSelfObserverLock) {
+<<<<<<< HEAD
             mContentObservable.dispatchChange(selfChange, null);
+=======
+            mContentObservable.dispatchChange(selfChange);
+>>>>>>> 54b6cfa... Initial Contribution
             if (mNotifyUri != null && selfChange) {
                 mContentResolver.notifyChange(mNotifyUri, mSelfObserver);
             }
@@ -362,14 +619,18 @@ public abstract class AbstractCursor implements CrossProcessCursor {
         }
     }
 
+<<<<<<< HEAD
     public Uri getNotificationUri() {
         return mNotifyUri;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean getWantsAllOnMoveCalls() {
         return false;
     }
 
+<<<<<<< HEAD
     /**
      * Sets a {@link Bundle} that will be returned by {@link #getExtras()}.  <code>null</code> will
      * be converted into {@link Bundle#EMPTY}.
@@ -383,6 +644,10 @@ public abstract class AbstractCursor implements CrossProcessCursor {
 
     public Bundle getExtras() {
         return mExtras;
+=======
+    public Bundle getExtras() {
+        return Bundle.EMPTY;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public Bundle respond(Bundle extras) {
@@ -390,19 +655,51 @@ public abstract class AbstractCursor implements CrossProcessCursor {
     }
 
     /**
+<<<<<<< HEAD
      * @deprecated Always returns false since Cursors do not support updating rows
      */
     @Deprecated
     protected boolean isFieldUpdated(int columnIndex) {
+=======
+     * This function returns true if the field has been updated and is
+     * used in conjunction with {@link #getUpdatedField} to allow subclasses to
+     * support reading uncommitted updates. NOTE: This function and
+     * {@link #getUpdatedField} should be called together inside of a
+     * block synchronized on mUpdatedRows.
+     *
+     * @param columnIndex the column index of the field to check
+     * @return true if the field has been updated, false otherwise
+     */
+    protected boolean isFieldUpdated(int columnIndex) {
+        if (mRowIdColumnIndex != -1 && mUpdatedRows.size() > 0) {
+            Map<String, Object> updates = mUpdatedRows.get(mCurrentRowID);
+            if (updates != null && updates.containsKey(getColumnNames()[columnIndex])) {
+                return true;
+            }
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         return false;
     }
 
     /**
+<<<<<<< HEAD
      * @deprecated Always returns null since Cursors do not support updating rows
      */
     @Deprecated
     protected Object getUpdatedField(int columnIndex) {
         return null;
+=======
+     * This function returns the uncommitted updated value for the field
+     * at columnIndex.  NOTE: This function and {@link #isFieldUpdated} should
+     * be called together inside of a block synchronized on mUpdatedRows.
+     *
+     * @param columnIndex the column index of the field to retrieve
+     * @return the updated value
+     */
+    protected Object getUpdatedField(int columnIndex) {
+        Map<String, Object> updates = mUpdatedRows.get(mCurrentRowID);
+        return updates.get(getColumnNames()[columnIndex]);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -450,4 +747,30 @@ public abstract class AbstractCursor implements CrossProcessCursor {
             }
         }
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * This HashMap contains a mapping from Long rowIDs to another Map
+     * that maps from String column names to new values. A NULL value means to
+     * remove an existing value, and all numeric values are in their class
+     * forms, i.e. Integer, Long, Float, etc.
+     */
+    protected HashMap<Long, Map<String, Object>> mUpdatedRows;
+
+    /**
+     * This must be set to the index of the row ID column by any
+     * subclass that wishes to support updates.
+     */
+    protected int mRowIdColumnIndex;
+
+    protected int mPos;
+    protected Long mCurrentRowID;
+    protected ContentResolver mContentResolver;
+    protected boolean mClosed = false;
+    private Uri mNotifyUri;
+    private ContentObserver mSelfObserver;
+    final private Object mSelfObserverLock = new Object();
+    private boolean mSelfObserverRegistered;
+>>>>>>> 54b6cfa... Initial Contribution
 }

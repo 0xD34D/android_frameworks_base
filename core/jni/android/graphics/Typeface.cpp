@@ -2,10 +2,17 @@
 #include <android_runtime/AndroidRuntime.h>
 
 #include "GraphicsJNI.h"
+<<<<<<< HEAD
 #include "SkStream.h"
 #include "SkTypeface.h"
 #include <android_runtime/android_util_AssetManager.h>
 #include <androidfw/AssetManager.h>
+=======
+#include <android_runtime/android_util_AssetManager.h>
+#include "SkStream.h"
+#include "SkTypeface.h"
+#include <utils/AssetManager.h>
+>>>>>>> 54b6cfa... Initial Contribution
 
 using namespace android;
 
@@ -32,11 +39,19 @@ static SkTypeface* Typeface_create(JNIEnv* env, jobject, jstring name,
     SkTypeface* face;
 
     if (NULL == name) {
+<<<<<<< HEAD
         face = SkTypeface::CreateFromName(NULL, (SkTypeface::Style)style);
     }
     else {
         AutoJavaStringToUTF8    str(env, name);
         face = SkTypeface::CreateFromName(str.c_str(), style);
+=======
+        face = SkTypeface::Create(NULL, (SkTypeface::Style)style);
+    }
+    else {
+        AutoJavaStringToUTF8    str(env, name);
+        face = SkTypeface::Create(str.c_str(), style);
+>>>>>>> 54b6cfa... Initial Contribution
     }
     return face;
 }
@@ -44,6 +59,7 @@ static SkTypeface* Typeface_create(JNIEnv* env, jobject, jstring name,
 static SkTypeface* Typeface_createFromTypeface(JNIEnv* env, jobject, SkTypeface* family, int style) {
     return SkTypeface::CreateFromTypeface(family, (SkTypeface::Style)style);
 }
+<<<<<<< HEAD
 
 static void Typeface_unref(JNIEnv* env, jobject obj, SkTypeface* face) {
     SkSafeUnref(face);
@@ -51,6 +67,15 @@ static void Typeface_unref(JNIEnv* env, jobject obj, SkTypeface* face) {
 
 static int Typeface_getStyle(JNIEnv* env, jobject obj, SkTypeface* face) {
     return face->style();
+=======
+ 
+static void Typeface_unref(JNIEnv* env, jobject obj, SkTypeface* face) {
+    face->unref();
+}
+
+static int Typeface_getStyle(JNIEnv* env, jobject obj, SkTypeface* face) {
+    return face->getStyle();
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 class AssetStream : public SkStream {
@@ -64,7 +89,11 @@ public:
     {
         delete fAsset;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     virtual const void* getMemoryBase()
     {
         return fMemoryBase;
@@ -72,6 +101,7 @@ public:
 
 	virtual bool rewind()
     {
+<<<<<<< HEAD
         off64_t pos = fAsset->seek(0, SEEK_SET);
         return pos != (off64_t)-1;
     }
@@ -80,10 +110,21 @@ public:
     {
         ssize_t amount;
 
+=======
+        off_t pos = fAsset->seek(0, SEEK_SET);
+        return pos != (off_t)-1;
+    }
+    
+	virtual size_t read(void* buffer, size_t size)
+    {
+        ssize_t amount;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if (NULL == buffer)
         {
             if (0 == size)  // caller is asking us for our total length
                 return fAsset->getLength();
+<<<<<<< HEAD
 
             // asset->seek returns new total offset
             // we want to return amount that was skipped
@@ -95,18 +136,39 @@ public:
             if (-1 == newOffset)
                 return 0;
 
+=======
+            
+            // asset->seek returns new total offset
+            // we want to return amount that was skipped
+            
+            off_t oldOffset = fAsset->seek(0, SEEK_CUR);
+            if (-1 == oldOffset)
+                return 0;
+            off_t newOffset = fAsset->seek(size, SEEK_CUR);
+            if (-1 == newOffset)
+                return 0;
+            
+>>>>>>> 54b6cfa... Initial Contribution
             amount = newOffset - oldOffset;
         }
         else
         {
             amount = fAsset->read(buffer, size);
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if (amount < 0)
             amount = 0;
         return amount;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
 private:
     Asset*      fAsset;
     const void* fMemoryBase;
@@ -115,20 +177,32 @@ private:
 static SkTypeface* Typeface_createFromAsset(JNIEnv* env, jobject,
                                             jobject jassetMgr,
                                             jstring jpath) {
+<<<<<<< HEAD
 
     NPE_CHECK_RETURN_ZERO(env, jassetMgr);
     NPE_CHECK_RETURN_ZERO(env, jpath);
 
+=======
+    
+    NPE_CHECK_RETURN_ZERO(env, jassetMgr);
+    NPE_CHECK_RETURN_ZERO(env, jpath);
+    
+>>>>>>> 54b6cfa... Initial Contribution
     AssetManager* mgr = assetManagerForJavaObject(env, jassetMgr);
     if (NULL == mgr) {
         return NULL;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     AutoJavaStringToUTF8    str(env, jpath);
     Asset* asset = mgr->open(str.c_str(), Asset::ACCESS_BUFFER);
     if (NULL == asset) {
         return NULL;
     }
+<<<<<<< HEAD
 
     SkStream* stream = new AssetStream(asset, true);
     SkTypeface* face = SkTypeface::CreateFromStream(stream);
@@ -164,6 +238,10 @@ static void Typeface_setGammaForText(JNIEnv* env, jobject, jfloat blackGamma,
                                      jfloat whiteGamma) {
     // Comment this out for release builds. This is only used during development
     skia_set_text_gamma(pinGamma(blackGamma), pinGamma(whiteGamma));
+=======
+    
+    return SkTypeface::CreateFromStream(new AssetStream(asset, true));
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -173,6 +251,7 @@ static JNINativeMethod gTypefaceMethods[] = {
     { "nativeCreateFromTypeface", "(II)I", (void*)Typeface_createFromTypeface },
     { "nativeUnref",              "(I)V",  (void*)Typeface_unref },
     { "nativeGetStyle",           "(I)I",  (void*)Typeface_getStyle },
+<<<<<<< HEAD
     { "nativeCreateFromAsset",    "(Landroid/content/res/AssetManager;Ljava/lang/String;)I",
                                            (void*)Typeface_createFromAsset },
     { "nativeCreateFromFile",     "(Ljava/lang/String;)I",
@@ -180,6 +259,14 @@ static JNINativeMethod gTypefaceMethods[] = {
     { "setGammaForText", "(FF)V", (void*)Typeface_setGammaForText },
 };
 
+=======
+    { "nativeCreateFromAsset",
+                        "(Landroid/content/res/AssetManager;Ljava/lang/String;)I",
+                                            (void*)Typeface_createFromAsset }
+};
+
+int register_android_graphics_Typeface(JNIEnv* env);
+>>>>>>> 54b6cfa... Initial Contribution
 int register_android_graphics_Typeface(JNIEnv* env)
 {
     return android::AndroidRuntime::registerNativeMethods(env,
@@ -187,3 +274,7 @@ int register_android_graphics_Typeface(JNIEnv* env)
                                                        gTypefaceMethods,
                                                        SK_ARRAY_COUNT(gTypefaceMethods));
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution

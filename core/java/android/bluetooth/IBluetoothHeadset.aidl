@@ -16,14 +16,22 @@
 
 package android.bluetooth;
 
+<<<<<<< HEAD
 import android.bluetooth.BluetoothDevice;
 
 /**
  * API for Bluetooth Headset service
+=======
+import android.bluetooth.IBluetoothHeadsetCallback;
+
+/**
+ * System private API for Bluetooth Headset service
+>>>>>>> 54b6cfa... Initial Contribution
  *
  * {@hide}
  */
 interface IBluetoothHeadset {
+<<<<<<< HEAD
     // Public API
     boolean connect(in BluetoothDevice device);
     boolean disconnect(in BluetoothDevice device);
@@ -51,4 +59,21 @@ interface IBluetoothHeadset {
 
     boolean startScoUsingVirtualVoiceCall(in BluetoothDevice device);
     boolean stopScoUsingVirtualVoiceCall(in BluetoothDevice device);
+=======
+    int getState();
+
+    String getHeadsetAddress();
+
+    // Request that the given headset be connected
+    // Assumes the given headset is already bonded
+    // Will disconnect any currently connected headset
+    // returns false if cannot start a connection (for example, there is
+    // already a pending connect). callback will always be called iff this
+    // returns true
+    boolean connectHeadset(in String address, in IBluetoothHeadsetCallback callback);
+
+    boolean isConnected(in String address);
+
+    void disconnectHeadset();
+>>>>>>> 54b6cfa... Initial Contribution
 }

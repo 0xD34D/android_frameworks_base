@@ -16,32 +16,52 @@
 
 package android.content;
 
+<<<<<<< HEAD
 import android.content.res.AssetFileDescriptor;
 import android.database.BulkCursorDescriptor;
 import android.database.BulkCursorNative;
 import android.database.BulkCursorToCursorAdaptor;
 import android.database.Cursor;
 import android.database.CursorToBulkCursorAdaptor;
+=======
+import android.database.BulkCursorNative;
+import android.database.BulkCursorToCursorAdaptor;
+import android.database.Cursor;
+import android.database.CursorWindow;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.database.DatabaseUtils;
 import android.database.IBulkCursor;
 import android.database.IContentObserver;
 import android.net.Uri;
 import android.os.Binder;
+<<<<<<< HEAD
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.IBinder;
 import android.os.ICancellationSignal;
+=======
+import android.os.RemoteException;
+import android.os.IBinder;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 
 import java.io.FileNotFoundException;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * {@hide}
  */
 abstract public class ContentProviderNative extends Binder implements IContentProvider {
+<<<<<<< HEAD
+=======
+    private static final String TAG = "ContentProvider";
+
+>>>>>>> 54b6cfa... Initial Contribution
     public ContentProviderNative()
     {
         attachInterface(this, descriptor);
@@ -65,6 +85,7 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
         return new ContentProviderProxy(obj);
     }
 
+<<<<<<< HEAD
     /**
      * Gets the name of the content provider.
      * Should probably be part of the {@link IContentProvider} interface.
@@ -72,6 +93,8 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
      */
     public abstract String getProviderName();
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     public boolean onTransact(int code, Parcel data, Parcel reply, int flags)
             throws RemoteException {
@@ -80,10 +103,14 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
                 case QUERY_TRANSACTION:
                 {
                     data.enforceInterface(IContentProvider.descriptor);
+<<<<<<< HEAD
 
                     Uri url = Uri.CREATOR.createFromParcel(data);
 
                     // String[] projection
+=======
+                    Uri url = Uri.CREATOR.createFromParcel(data);
+>>>>>>> 54b6cfa... Initial Contribution
                     int num = data.readInt();
                     String[] projection = null;
                     if (num > 0) {
@@ -92,8 +119,11 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
                             projection[i] = data.readString();
                         }
                     }
+<<<<<<< HEAD
 
                     // String selection, String[] selectionArgs...
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                     String selection = data.readString();
                     num = data.readInt();
                     String[] selectionArgs = null;
@@ -103,6 +133,7 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
                             selectionArgs[i] = data.readString();
                         }
                     }
+<<<<<<< HEAD
 
                     String sortOrder = data.readString();
                     IContentObserver observer = IContentObserver.Stub.asInterface(
@@ -125,6 +156,21 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
                         reply.writeInt(0);
                     }
 
+=======
+                    String sortOrder = data.readString();
+                    IContentObserver observer = IContentObserver.Stub.
+                        asInterface(data.readStrongBinder());
+                    CursorWindow window = CursorWindow.CREATOR.createFromParcel(data);
+
+                    IBulkCursor bulkCursor = bulkQuery(url, projection, selection,
+                            selectionArgs, sortOrder, observer, window);
+                    reply.writeNoException();
+                    if (bulkCursor != null) {
+                        reply.writeStrongBinder(bulkCursor.asBinder());
+                    } else {
+                        reply.writeStrongBinder(null);
+                    }
+>>>>>>> 54b6cfa... Initial Contribution
                     return true;
                 }
 
@@ -163,6 +209,7 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
                     return true;
                 }
 
+<<<<<<< HEAD
                 case APPLY_BATCH_TRANSACTION:
                 {
                     data.enforceInterface(IContentProvider.descriptor);
@@ -178,6 +225,8 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
                     return true;
                 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 case DELETE_TRANSACTION:
                 {
                     data.enforceInterface(IContentProvider.descriptor);
@@ -226,6 +275,7 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
                     return true;
                 }
 
+<<<<<<< HEAD
                 case OPEN_ASSET_FILE_TRANSACTION:
                 {
                     data.enforceInterface(IContentProvider.descriptor);
@@ -299,6 +349,14 @@ abstract public class ContentProviderNative extends Binder implements IContentPr
                     ICancellationSignal cancellationSignal = createCancellationSignal();
                     reply.writeNoException();
                     reply.writeStrongBinder(cancellationSignal.asBinder());
+=======
+                case GET_SYNC_ADAPTER_TRANSACTION:
+                {
+                    data.enforceInterface(IContentProvider.descriptor);
+                    ISyncAdapter sa = getSyncAdapter();
+                    reply.writeNoException();
+                    reply.writeStrongBinder(sa != null ? sa.asBinder() : null);
+>>>>>>> 54b6cfa... Initial Contribution
                     return true;
                 }
             }
@@ -329,6 +387,7 @@ final class ContentProviderProxy implements IContentProvider
         return mRemote;
     }
 
+<<<<<<< HEAD
     public Cursor query(Uri url, String[] projection, String selection,
             String[] selectionArgs, String sortOrder, ICancellationSignal cancellationSignal)
                     throws RemoteException {
@@ -383,12 +442,75 @@ final class ContentProviderProxy implements IContentProvider
             data.recycle();
             reply.recycle();
         }
+=======
+    public IBulkCursor bulkQuery(Uri url, String[] projection,
+            String selection, String[] selectionArgs, String sortOrder, IContentObserver observer,
+            CursorWindow window) throws RemoteException {
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+
+        data.writeInterfaceToken(IContentProvider.descriptor);
+
+        url.writeToParcel(data, 0);
+        int length = 0;
+        if (projection != null) {
+            length = projection.length;
+        }
+        data.writeInt(length);
+        for (int i = 0; i < length; i++) {
+            data.writeString(projection[i]);
+        }
+        data.writeString(selection);
+        if (selectionArgs != null) {
+            length = selectionArgs.length;
+        } else {
+            length = 0;
+        }
+        data.writeInt(length);
+        for (int i = 0; i < length; i++) {
+            data.writeString(selectionArgs[i]);
+        }
+        data.writeString(sortOrder);
+        data.writeStrongBinder(observer.asBinder());
+        window.writeToParcel(data, 0);
+
+        mRemote.transact(IContentProvider.QUERY_TRANSACTION, data, reply, 0);
+
+        DatabaseUtils.readExceptionFromParcel(reply);
+
+        IBulkCursor bulkCursor = null;
+        IBinder bulkCursorBinder = reply.readStrongBinder();
+        if (bulkCursorBinder != null) {
+            bulkCursor = BulkCursorNative.asInterface(bulkCursorBinder);
+        }
+        
+        data.recycle();
+        reply.recycle();
+        
+        return bulkCursor;
+    }
+
+    public Cursor query(Uri url, String[] projection, String selection,
+            String[] selectionArgs, String sortOrder) throws RemoteException {
+        //TODO make a pool of windows so we can reuse memory dealers
+        CursorWindow window = new CursorWindow(false /* window will be used remotely */);
+        BulkCursorToCursorAdaptor adaptor = new BulkCursorToCursorAdaptor();
+        IBulkCursor bulkCursor = bulkQuery(url, projection, selection, selectionArgs, sortOrder,
+                adaptor.getObserver(), window);
+         
+        if (bulkCursor == null) {
+            return null;
+        }
+        adaptor.set(bulkCursor);
+        return adaptor;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public String getType(Uri url) throws RemoteException
     {
         Parcel data = Parcel.obtain();
         Parcel reply = Parcel.obtain();
+<<<<<<< HEAD
         try {
             data.writeInterfaceToken(IContentProvider.descriptor);
 
@@ -403,12 +525,29 @@ final class ContentProviderProxy implements IContentProvider
             data.recycle();
             reply.recycle();
         }
+=======
+
+        data.writeInterfaceToken(IContentProvider.descriptor);
+
+        url.writeToParcel(data, 0);
+
+        mRemote.transact(IContentProvider.GET_TYPE_TRANSACTION, data, reply, 0);
+
+        DatabaseUtils.readExceptionFromParcel(reply);
+        String out = reply.readString();
+
+        data.recycle();
+        reply.recycle();
+
+        return out;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public Uri insert(Uri url, ContentValues values) throws RemoteException
     {
         Parcel data = Parcel.obtain();
         Parcel reply = Parcel.obtain();
+<<<<<<< HEAD
         try {
             data.writeInterfaceToken(IContentProvider.descriptor);
 
@@ -424,11 +563,29 @@ final class ContentProviderProxy implements IContentProvider
             data.recycle();
             reply.recycle();
         }
+=======
+
+        data.writeInterfaceToken(IContentProvider.descriptor);
+
+        url.writeToParcel(data, 0);
+        values.writeToParcel(data, 0);
+
+        mRemote.transact(IContentProvider.INSERT_TRANSACTION, data, reply, 0);
+
+        DatabaseUtils.readExceptionFromParcel(reply);
+        Uri out = Uri.CREATOR.createFromParcel(reply);
+
+        data.recycle();
+        reply.recycle();
+
+        return out;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int bulkInsert(Uri url, ContentValues[] values) throws RemoteException {
         Parcel data = Parcel.obtain();
         Parcel reply = Parcel.obtain();
+<<<<<<< HEAD
         try {
             data.writeInterfaceToken(IContentProvider.descriptor);
 
@@ -466,12 +623,30 @@ final class ContentProviderProxy implements IContentProvider
             data.recycle();
             reply.recycle();
         }
+=======
+
+        data.writeInterfaceToken(IContentProvider.descriptor);
+
+        url.writeToParcel(data, 0);
+        data.writeTypedArray(values, 0);
+
+        mRemote.transact(IContentProvider.BULK_INSERT_TRANSACTION, data, reply, 0);
+
+        DatabaseUtils.readExceptionFromParcel(reply);
+        int count = reply.readInt();
+
+        data.recycle();
+        reply.recycle();
+
+        return count;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int delete(Uri url, String selection, String[] selectionArgs)
             throws RemoteException {
         Parcel data = Parcel.obtain();
         Parcel reply = Parcel.obtain();
+<<<<<<< HEAD
         try {
             data.writeInterfaceToken(IContentProvider.descriptor);
 
@@ -488,12 +663,31 @@ final class ContentProviderProxy implements IContentProvider
             data.recycle();
             reply.recycle();
         }
+=======
+
+        data.writeInterfaceToken(IContentProvider.descriptor);
+
+        url.writeToParcel(data, 0);
+        data.writeString(selection);
+        data.writeStringArray(selectionArgs);
+
+        mRemote.transact(IContentProvider.DELETE_TRANSACTION, data, reply, 0);
+
+        DatabaseUtils.readExceptionFromParcel(reply);
+        int count = reply.readInt();
+
+        data.recycle();
+        reply.recycle();
+
+        return count;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public int update(Uri url, ContentValues values, String selection,
             String[] selectionArgs) throws RemoteException {
         Parcel data = Parcel.obtain();
         Parcel reply = Parcel.obtain();
+<<<<<<< HEAD
         try {
             data.writeInterfaceToken(IContentProvider.descriptor);
 
@@ -642,7 +836,69 @@ final class ContentProviderProxy implements IContentProvider
             data.recycle();
             reply.recycle();
         }
+=======
+
+        data.writeInterfaceToken(IContentProvider.descriptor);
+
+        url.writeToParcel(data, 0);
+        values.writeToParcel(data, 0);
+        data.writeString(selection);
+        data.writeStringArray(selectionArgs);
+
+        mRemote.transact(IContentProvider.UPDATE_TRANSACTION, data, reply, 0);
+
+        DatabaseUtils.readExceptionFromParcel(reply);
+        int count = reply.readInt();
+
+        data.recycle();
+        reply.recycle();
+
+        return count;
+    }
+
+    public ParcelFileDescriptor openFile(Uri url, String mode)
+            throws RemoteException, FileNotFoundException {
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+
+        data.writeInterfaceToken(IContentProvider.descriptor);
+
+        url.writeToParcel(data, 0);
+        data.writeString(mode);
+
+        mRemote.transact(IContentProvider.OPEN_FILE_TRANSACTION, data, reply, 0);
+
+        DatabaseUtils.readExceptionWithFileNotFoundExceptionFromParcel(reply);
+        int has = reply.readInt();
+        ParcelFileDescriptor fd = has != 0 ? reply.readFileDescriptor() : null;
+
+        data.recycle();
+        reply.recycle();
+
+        return fd;
+    }
+
+    public ISyncAdapter getSyncAdapter() throws RemoteException {
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+
+        data.writeInterfaceToken(IContentProvider.descriptor);
+
+        mRemote.transact(IContentProvider.GET_SYNC_ADAPTER_TRANSACTION, data, reply, 0);
+
+        DatabaseUtils.readExceptionFromParcel(reply);
+        ISyncAdapter syncAdapter = ISyncAdapter.Stub.asInterface(reply.readStrongBinder());
+
+        data.recycle();
+        reply.recycle();
+
+        return syncAdapter;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private IBinder mRemote;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution

@@ -27,10 +27,13 @@ public class AndroidException extends Exception {
         super(name);
     }
 
+<<<<<<< HEAD
     public AndroidException(String name, Throwable cause) {
         super(name, cause);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public AndroidException(Exception cause) {
         super(cause);
     }

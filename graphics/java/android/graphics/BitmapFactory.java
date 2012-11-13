@@ -18,6 +18,7 @@ package android.graphics;
 
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+<<<<<<< HEAD
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
@@ -33,6 +34,27 @@ import java.io.InputStream;
  */
 public class BitmapFactory {
     private static final int DECODE_BUFFER_SIZE = 16 * 1024;
+=======
+import android.util.Log;
+
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.FileDescriptor;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
+
+
+/**
+ * Creates Bitmap objects from various sources, including files, streams, 
+ * and byte-arrays. 
+ */
+public class BitmapFactory {
+    private static final String TAG = "BitmapFactory";
+    private static final boolean DEBUG_LOAD = false;
+>>>>>>> 54b6cfa... Initial Contribution
 
     public static class Options {
         /**
@@ -40,6 +62,7 @@ public class BitmapFactory {
          * the same result from the decoder as if null were passed.
          */
         public Options() {
+<<<<<<< HEAD
             inDither = false;
             inScaled = true;
         }
@@ -74,12 +97,21 @@ public class BitmapFactory {
         public boolean inMutable;
 
         /**
+=======
+            inDither = true;
+        }
+
+        /**
+>>>>>>> 54b6cfa... Initial Contribution
          * If set to true, the decoder will return null (no bitmap), but
          * the out... fields will still be set, allowing the caller to query
          * the bitmap without having to allocate the memory for its pixels.
          */
         public boolean inJustDecodeBounds;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * If set to a value > 1, requests the decoder to subsample the original
          * image, returning a smaller image to save memory. The sample size is
@@ -92,13 +124,18 @@ public class BitmapFactory {
          * Also, powers of 2 are often faster/easier for the decoder to honor.
          */
         public int inSampleSize;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * If this is non-null, the decoder will try to decode into this
          * internal configuration. If it is null, or the request cannot be met,
          * the decoder will try to pick the best matching config based on the
          * system's screen depth, and characteristics of the original image such
          * as if it has per-pixel alpha (requiring a config that also does).
+<<<<<<< HEAD
          * 
          * Image are loaded with the {@link Bitmap.Config#ARGB_8888} config by
          * default.
@@ -232,10 +269,23 @@ public class BitmapFactory {
         public boolean inPreferQualityOverSpeed;
 
         /**
+=======
+         */
+        public Bitmap.Config inPreferredConfig;
+        
+        /**
+         * If dither is true, the decoder will atttempt to dither the decoded
+         * image.
+         */
+        public boolean inDither;
+        
+        /**
+>>>>>>> 54b6cfa... Initial Contribution
          * The resulting width of the bitmap, set independent of the state of
          * inJustDecodeBounds. However, if there is an error trying to decode,
          * outWidth will be set to -1.
          */
+<<<<<<< HEAD
 
         public int outWidth;
 
@@ -246,17 +296,36 @@ public class BitmapFactory {
          */
         public int outHeight;
 
+=======
+        public int outWidth;
+        /**
+         * The resulting height of the bitmap, set independent of the state of
+         * inJustDecodeBounds. However, if there is an error trying to decode,
+         * outHeight will be set to -1.
+         */
+        public int outHeight;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * If known, this string is set to the mimetype of the decoded image.
          * If not know, or there is an error, it is set to null.
          */
         public String outMimeType;
+<<<<<<< HEAD
 
         /**
          * Temp storage to use for decoding.  Suggest 16K or so.
          */
         public byte[] inTempStorage;
 
+=======
+        
+        /**
+         * Temp storage to use for decoding.  Suggest 16K or so.
+         */
+        public byte [] inTempStorage;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         private native void requestCancel();
 
         /**
@@ -267,7 +336,11 @@ public class BitmapFactory {
          * if the operation is canceled.
          */
         public boolean mCancel;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          *  This can be called from another thread while this options object is
          *  inside a decode... call. Calling this will notify the decoder that
@@ -327,6 +400,7 @@ public class BitmapFactory {
     }
 
     /**
+<<<<<<< HEAD
      * Decode a new Bitmap from an InputStream. This InputStream was obtained from
      * resources, which we pass to be able to scale the bitmap accordingly.
      */
@@ -356,6 +430,9 @@ public class BitmapFactory {
     /**
      * Synonym for opening the given resource and calling
      * {@link #decodeResourceStream}.
+=======
+     * Decode an image referenced by a resource ID.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param res   The resources object containing the image data
      * @param id The resource id of the image data
@@ -367,6 +444,7 @@ public class BitmapFactory {
      */
     public static Bitmap decodeResource(Resources res, int id, Options opts) {
         Bitmap bm = null;
+<<<<<<< HEAD
         InputStream is = null; 
         
         try {
@@ -375,10 +453,20 @@ public class BitmapFactory {
 
             bm = decodeResourceStream(res, value, is, null, opts);
         } catch (Exception e) {
+=======
+        
+        try {
+            InputStream is = res.openRawResource(id);
+            bm = decodeStream(is, null, opts);
+            is.close();
+        }
+        catch (java.io.IOException e) {
+>>>>>>> 54b6cfa... Initial Contribution
             /*  do nothing.
                 If the exception happened on open, bm will be null.
                 If it happened on close, bm is still valid.
             */
+<<<<<<< HEAD
         } finally {
             try {
                 if (is != null) is.close();
@@ -397,6 +485,14 @@ public class BitmapFactory {
     /**
      * Synonym for {@link #decodeResource(Resources, int, android.graphics.BitmapFactory.Options)}
      * will null Options.
+=======
+        }
+        return bm;
+    }
+    
+    /**
+     * Decode an image referenced by a resource ID.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param res The resources object containing the image data
      * @param id The resource id of the image data
@@ -419,6 +515,7 @@ public class BitmapFactory {
      *         decoded, or, if opts is non-null, if opts requested only the
      *         size be returned (in opts.outWidth and opts.outHeight)
      */
+<<<<<<< HEAD
     public static Bitmap decodeByteArray(byte[] data, int offset, int length, Options opts) {
         if ((offset | length) < 0 || data.length < offset + length) {
             throw new ArrayIndexOutOfBoundsException();
@@ -431,6 +528,16 @@ public class BitmapFactory {
         return bm;
     }
 
+=======
+    public static Bitmap decodeByteArray(byte[] data, int offset, int length,
+                                         Options opts) {
+        if ((offset | length) < 0 || data.length < offset + length) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return nativeDecodeByteArray(data, offset, length, opts);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Decode an immutable bitmap from the specified byte array.
      *
@@ -443,13 +550,21 @@ public class BitmapFactory {
     public static Bitmap decodeByteArray(byte[] data, int offset, int length) {
         return decodeByteArray(data, offset, length, null);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Decode an input stream into a bitmap. If the input stream is null, or
      * cannot be used to decode a bitmap, the function returns null.
      * The stream's position will be where ever it was after the encoded data
      * was read.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param is The input stream that holds the raw data to be decoded into a
      *           bitmap.
      * @param outPadding If not null, return the padding rect for the bitmap if
@@ -462,17 +577,30 @@ public class BitmapFactory {
      *         decoded, or, if opts is non-null, if opts requested only the
      *         size be returned (in opts.outWidth and opts.outHeight)
      */
+<<<<<<< HEAD
     public static Bitmap decodeStream(InputStream is, Rect outPadding, Options opts) {
+=======
+    public static Bitmap decodeStream(InputStream is, Rect outPadding,
+                                      Options opts) {
+>>>>>>> 54b6cfa... Initial Contribution
         // we don't throw in this case, thus allowing the caller to only check
         // the cache, and not force the image to be decoded.
         if (is == null) {
             return null;
         }
+<<<<<<< HEAD
 
         // we need mark/reset to work properly
 
         if (!is.markSupported()) {
             is = new BufferedInputStream(is, DECODE_BUFFER_SIZE);
+=======
+        
+        // we need mark/reset to work properly
+
+        if (!is.markSupported()) {
+            is = new BufferedInputStream(is, 16 * 1024);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         // so we can call reset() if a given codec gives up after reading up to
@@ -480,6 +608,7 @@ public class BitmapFactory {
         // value should be.
         is.mark(1024);
 
+<<<<<<< HEAD
         Bitmap bm;
         boolean finish = true;
 
@@ -505,11 +634,22 @@ public class BitmapFactory {
                 bm = nativeDecodeAsset(asset, outPadding, opts);
             }
         } else {
+=======
+        Bitmap  bm;
+
+        if (is instanceof AssetManager.AssetInputStream) {
+            bm = nativeDecodeAsset(
+                ((AssetManager.AssetInputStream)is).getAssetInt(), outPadding,
+                                   opts);
+        }
+        else {
+>>>>>>> 54b6cfa... Initial Contribution
             // pass some temp storage down to the native code. 1024 is made up,
             // but should be large enough to avoid too many small calls back
             // into is.read(...) This number is not related to the value passed
             // to mark(...) above.
             byte [] tempStorage = null;
+<<<<<<< HEAD
             if (opts != null) tempStorage = opts.inTempStorage;
             if (tempStorage == null) tempStorage = new byte[16 * 1024];
 
@@ -585,15 +725,41 @@ public class BitmapFactory {
         return bm;
     }
     
+=======
+            if (opts != null)
+                tempStorage = opts.inTempStorage;
+            if (tempStorage == null)
+                tempStorage = new byte[16 * 1024];
+            bm = nativeDecodeStream(is, tempStorage, outPadding, opts);
+        }
+
+        try {
+            is.reset();
+        } catch (IOException ex) {
+            // ignore
+        }
+        return bm;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Decode an input stream into a bitmap. If the input stream is null, or
      * cannot be used to decode a bitmap, the function returns null.
      * The stream's position will be where ever it was after the encoded data
      * was read.
+<<<<<<< HEAD
      *
      * @param is The input stream that holds the raw data to be decoded into a
      *           bitmap.
      * @return The decoded bitmap, or null if the image data could not be decoded.
+=======
+     * 
+     * @param is The input stream that holds the raw data to be decoded into a
+     *           bitmap.
+     * @return The decoded bitmap, or null if the image data could not be
+     *         decoded, or, if opts is non-null, if opts requested only the
+     *         size be returned (in opts.outWidth and opts.outHeight)
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static Bitmap decodeStream(InputStream is) {
         return decodeStream(is, null, null);
@@ -602,7 +768,11 @@ public class BitmapFactory {
     /**
      * Decode a bitmap from the file descriptor. If the bitmap cannot be decoded
      * return null. The position within the descriptor will not be changed when
+<<<<<<< HEAD
      * this returns, so the descriptor can be used again as-is.
+=======
+     * this returns, so the descriptor can be used again as is.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param fd The file descriptor containing the bitmap data to decode
      * @param outPadding If not null, return the padding rect for the bitmap if
@@ -613,6 +783,7 @@ public class BitmapFactory {
      *             image should be completely decoded, or just is size returned.
      * @return the decoded bitmap, or null
      */
+<<<<<<< HEAD
     public static Bitmap decodeFileDescriptor(FileDescriptor fd, Rect outPadding, Options opts) {
         if (nativeIsSeekable(fd)) {
             Bitmap bm = nativeDecodeFileDescriptor(fd, outPadding, opts);
@@ -632,6 +803,13 @@ public class BitmapFactory {
         }
     }
 
+=======
+    public static Bitmap decodeFileDescriptor(FileDescriptor fd,
+                                              Rect outPadding, Options opts) {
+        return nativeDecodeFileDescriptor(fd, outPadding, opts);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Decode a bitmap from the file descriptor. If the bitmap cannot be decoded
      * return null. The position within the descriptor will not be changed when
@@ -641,6 +819,7 @@ public class BitmapFactory {
      * @return the decoded bitmap, or null
      */
     public static Bitmap decodeFileDescriptor(FileDescriptor fd) {
+<<<<<<< HEAD
         return decodeFileDescriptor(fd, null, null);
     }
 
@@ -658,3 +837,18 @@ public class BitmapFactory {
     private static native byte[] nativeScaleNinePatch(byte[] chunk, float scale, Rect pad);
     private static native boolean nativeIsSeekable(FileDescriptor fd);
 }
+=======
+        return nativeDecodeFileDescriptor(fd, null, null);
+    }
+    
+    private static native Bitmap nativeDecodeStream(InputStream is,
+                                    byte[] storage, Rect padding, Options opts);
+    private static native Bitmap nativeDecodeFileDescriptor(FileDescriptor fd,
+                                    Rect padding, Options opts);
+    private static native Bitmap nativeDecodeAsset(int asset, Rect padding,
+                                    Options opts);
+    private static native Bitmap nativeDecodeByteArray(byte[] data, int offset,
+                                    int length, Options opts);
+}
+
+>>>>>>> 54b6cfa... Initial Contribution

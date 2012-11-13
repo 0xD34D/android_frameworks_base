@@ -10,12 +10,15 @@
 #include "StringPool.h"
 #include "SourcePos.h"
 
+<<<<<<< HEAD
 #include <set>
 #include <map>
 
 using namespace std;
 
 class XMLNode;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 class ResourceTable;
 
 enum {
@@ -24,7 +27,10 @@ enum {
     XML_COMPILE_COMPACT_WHITESPACE = 1<<2,
     XML_COMPILE_STRIP_WHITESPACE = 1<<3,
     XML_COMPILE_STRIP_RAW_VALUES = 1<<4,
+<<<<<<< HEAD
     XML_COMPILE_UTF8 = 1<<5,
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     
     XML_COMPILE_STANDARD_RESOURCE =
             XML_COMPILE_STRIP_COMMENTS | XML_COMPILE_ASSIGN_ATTRIBUTE_IDS
@@ -36,6 +42,7 @@ status_t compileXmlFile(const sp<AaptAssets>& assets,
                         ResourceTable* table,
                         int options = XML_COMPILE_STANDARD_RESOURCE);
 
+<<<<<<< HEAD
 status_t compileXmlFile(const sp<AaptAssets>& assets,
                         const sp<AaptFile>& target,
                         const sp<AaptFile>& outTarget,
@@ -48,11 +55,16 @@ status_t compileXmlFile(const sp<AaptAssets>& assets,
                         ResourceTable* table,
                         int options = XML_COMPILE_STANDARD_RESOURCE);
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 status_t compileResourceFile(Bundle* bundle,
                              const sp<AaptAssets>& assets,
                              const sp<AaptFile>& in,
                              const ResTable_config& defParams,
+<<<<<<< HEAD
                              const bool overwrite,
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                              ResourceTable* outTable);
 
 struct AccessorCookie
@@ -76,6 +88,7 @@ public:
     class Type;
     class Entry;
 
+<<<<<<< HEAD
     struct ConfigDescription : public ResTable_config {
         ConfigDescription() {
             memset(this, 0, sizeof(*this));
@@ -107,6 +120,8 @@ public:
         inline bool operator>(const ConfigDescription& o) const { return compare(o) > 0; }
     };
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     ResourceTable(Bundle* bundle, const String16& assetsPackage);
 
     status_t addIncludedResources(Bundle* bundle, const sp<AaptAssets>& assets);
@@ -125,8 +140,12 @@ public:
                       const Vector<StringPool::entry_style_span>* style = NULL,
                       const ResTable_config* params = NULL,
                       const bool doSetIndex = false,
+<<<<<<< HEAD
                       const int32_t format = ResTable_map::TYPE_ANY,
                       const bool overwrite = false);
+=======
+                      const int32_t format = ResTable_map::TYPE_ANY);
+>>>>>>> 54b6cfa... Initial Contribution
 
     status_t startBag(const SourcePos& pos,
                     const String16& package,
@@ -134,7 +153,10 @@ public:
                     const String16& name,
                     const String16& bagParent,
                     const ResTable_config* params = NULL,
+<<<<<<< HEAD
                     bool overlay = false,
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                     bool replace = false,
                     bool isId = false);
     
@@ -155,11 +177,14 @@ public:
                        const String16& type,
                        const String16& name) const;
 
+<<<<<<< HEAD
     bool hasBagOrEntry(const String16& package,
                        const String16& type,
                        const String16& name,
                        const ResTable_config& config) const;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     bool hasBagOrEntry(const String16& ref,
                        const String16* defType = NULL,
                        const String16* defPackage = NULL);
@@ -175,9 +200,12 @@ public:
                            const String16& name,
                            const String16& comment);
     
+<<<<<<< HEAD
     void canAddEntry(const SourcePos& pos,
         const String16& package, const String16& type, const String16& name);
         
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     size_t size() const;
     size_t numLocalResources() const;
     bool hasResources() const;
@@ -197,14 +225,22 @@ public:
 
     uint32_t getResId(const String16& package,
                       const String16& type,
+<<<<<<< HEAD
                       const String16& name,
                       bool onlyPublic = true) const;
+=======
+                      const String16& name) const;
+>>>>>>> 54b6cfa... Initial Contribution
 
     uint32_t getResId(const String16& ref,
                       const String16* defType = NULL,
                       const String16* defPackage = NULL,
+<<<<<<< HEAD
                       const char** outErrorMsg = NULL,
                       bool onlyPublic = true) const;
+=======
+                      const char** outErrorMsg = NULL) const;
+>>>>>>> 54b6cfa... Initial Contribution
 
     static bool isValidResourceName(const String16& s);
     
@@ -214,6 +250,7 @@ public:
                        uint32_t attrID,
                        const Vector<StringPool::entry_style_span>* style = NULL,
                        String16* outStr = NULL, void* accessorCookie = NULL,
+<<<<<<< HEAD
                        uint32_t attrType = ResTable_map::TYPE_ANY,
                        const String8* configTypeName = NULL,
                        const ConfigDescription* config = NULL);
@@ -222,6 +259,12 @@ public:
     status_t addSymbols(const sp<AaptSymbols>& outSymbols = NULL);
     void addLocalization(const String16& name, const String8& locale);
     status_t validateLocalizations(void);
+=======
+                       uint32_t attrType = ResTable_map::TYPE_ANY);
+
+    status_t assignResourceIds();
+    status_t addSymbols(const sp<AaptSymbols>& outSymbols = NULL);
+>>>>>>> 54b6cfa... Initial Contribution
 
     status_t flatten(Bundle*, const sp<AaptFile>& dest);
 
@@ -310,6 +353,7 @@ public:
         String16 getParent() const { return mParent; }
 
         status_t makeItABag(const SourcePos& sourcePos);
+<<<<<<< HEAD
 
         status_t emptyBag(const SourcePos& sourcePos);
  
@@ -318,6 +362,13 @@ public:
                          const Vector<StringPool::entry_style_span>* style = NULL,
                          int32_t format = ResTable_map::TYPE_ANY,
                          const bool overwrite = false);
+=======
+        
+        status_t setItem(const SourcePos& pos,
+                         const String16& value,
+                         const Vector<StringPool::entry_style_span>* style = NULL,
+                         int32_t format = ResTable_map::TYPE_ANY);
+>>>>>>> 54b6cfa... Initial Contribution
 
         status_t addToBag(const SourcePos& pos,
                           const String16& key, const String16& value,
@@ -338,10 +389,14 @@ public:
         status_t assignResourceIds(ResourceTable* table,
                                    const String16& package);
 
+<<<<<<< HEAD
         status_t prepareFlatten(StringPool* strings, ResourceTable* table,
                const String8* configTypeName, const ConfigDescription* config);
 
         status_t remapStringValue(StringPool* strings);
+=======
+        status_t prepareFlatten(StringPool* strings, ResourceTable* table);
+>>>>>>> 54b6cfa... Initial Contribution
 
         ssize_t flatten(Bundle*, const sp<AaptFile>& data, bool isPublic);
 
@@ -358,6 +413,40 @@ public:
         uint32_t mParentId;
         SourcePos mPos;
     };
+<<<<<<< HEAD
+=======
+
+    struct ConfigDescription : public ResTable_config {
+        ConfigDescription() {
+            memset(this, 0, sizeof(*this));
+            size = sizeof(ResTable_config);
+        }
+        ConfigDescription(const ResTable_config&o) {
+            *static_cast<ResTable_config*>(this) = o;
+            size = sizeof(ResTable_config);
+        }
+        ConfigDescription(const ConfigDescription&o) {
+            *static_cast<ResTable_config*>(this) = o;
+        }
+        
+        ConfigDescription& operator=(const ResTable_config& o) {
+            *static_cast<ResTable_config*>(this) = o;
+            size = sizeof(ResTable_config);
+            return *this;
+        }
+        ConfigDescription& operator=(const ConfigDescription& o) {
+            *static_cast<ResTable_config*>(this) = o;
+            return *this;
+        }
+        
+        inline bool operator<(const ConfigDescription& o) const { return compare(o) < 0; }
+        inline bool operator<=(const ConfigDescription& o) const { return compare(o) <= 0; }
+        inline bool operator==(const ConfigDescription& o) const { return compare(o) == 0; }
+        inline bool operator!=(const ConfigDescription& o) const { return compare(o) != 0; }
+        inline bool operator>=(const ConfigDescription& o) const { return compare(o) >= 0; }
+        inline bool operator>(const ConfigDescription& o) const { return compare(o) > 0; }
+    };
+>>>>>>> 54b6cfa... Initial Contribution
     
     class ConfigList : public RefBase {
     public:
@@ -433,16 +522,24 @@ public:
         status_t addPublic(const SourcePos& pos,
                            const String16& name,
                            const uint32_t ident);
+<<<<<<< HEAD
                            
         void canAddEntry(const String16& name);
         
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
         String16 getName() const { return mName; }
         sp<Entry> getEntry(const String16& entry,
                            const SourcePos& pos,
                            const ResTable_config* config = NULL,
+<<<<<<< HEAD
                            bool doSetIndex = false,
                            bool overlay = false,
                            bool autoAddOverlay = false);
+=======
+                           bool doSetIndex = false);
+>>>>>>> 54b6cfa... Initial Contribution
 
         const SourcePos& getFirstPublicSourcePos() const { return *mFirstPublicSourcePos; }
 
@@ -458,8 +555,11 @@ public:
         const DefaultKeyedVector<String16, sp<ConfigList> >& getConfigs() const { return mConfigs; }
         const Vector<sp<ConfigList> >& getOrderedConfigs() const { return mOrderedConfigs; }
 
+<<<<<<< HEAD
         const SortedVector<String16>& getCanAddEntries() const { return mCanAddEntries; }
         
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         const SourcePos& getPos() const { return mPos; }
     private:
         String16 mName;
@@ -468,7 +568,10 @@ public:
         SortedVector<ConfigDescription> mUniqueConfigs;
         DefaultKeyedVector<String16, sp<ConfigList> > mConfigs;
         Vector<sp<ConfigList> > mOrderedConfigs;
+<<<<<<< HEAD
         SortedVector<String16> mCanAddEntries;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         int32_t mPublicIndex;
         int32_t mIndex;
         SourcePos mPos;
@@ -529,7 +632,10 @@ private:
                        const String16& type,
                        const String16& name,
                        const SourcePos& pos,
+<<<<<<< HEAD
                        bool overlay,
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                        const ResTable_config* config = NULL,
                        bool doSetIndex = false);
     sp<const Entry> getEntry(uint32_t resID,
@@ -541,6 +647,10 @@ private:
 
     String16 mAssetsPackage;
     sp<AaptAssets> mAssets;
+<<<<<<< HEAD
+=======
+    DefaultKeyedVector<String16, DefaultKeyedVector<String16, uint32_t> > mPublicNames;
+>>>>>>> 54b6cfa... Initial Contribution
     DefaultKeyedVector<String16, sp<Package> > mPackages;
     Vector<sp<Package> > mOrderedPackages;
     uint32_t mNextPackageId;
@@ -549,9 +659,29 @@ private:
     size_t mNumLocal;
     SourcePos mCurrentXmlPos;
     Bundle* mBundle;
+<<<<<<< HEAD
     
     // key = string resource name, value = set of locales in which that name is defined
     map<String16, set<String8> > mLocalizations;
 };
 
+=======
+};
+
+class ResourceFilter
+{
+public:
+    ResourceFilter() : mData(), mContainsPseudo(false) {}
+    status_t parse(const char* arg);
+    bool match(int axis, uint32_t value);
+    bool match(const ResTable_config& config);
+    inline bool containsPseudo() { return mContainsPseudo; }
+
+private:
+    KeyedVector<int,SortedVector<uint32_t> > mData;
+    bool mContainsPseudo;
+};
+
+
+>>>>>>> 54b6cfa... Initial Contribution
 #endif

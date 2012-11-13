@@ -16,6 +16,7 @@
 
 package android.text.style;
 
+<<<<<<< HEAD
 /**
  * Represents a single tab stop on a line.
  */
@@ -41,6 +42,16 @@ extends ParagraphStyle
          * @param where the offset of the tab stop from the leading margin of
          *        the line
          */
+=======
+public interface TabStopSpan
+extends ParagraphStyle
+{
+    public int getTabStop();
+
+    public static class Standard
+    implements TabStopSpan
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         public Standard(int where) {
             mTab = where;
         }

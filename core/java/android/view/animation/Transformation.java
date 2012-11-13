@@ -18,8 +18,11 @@ package android.view.animation;
 
 import android.graphics.Matrix;
 
+<<<<<<< HEAD
 import java.io.PrintWriter;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * Defines the transformation to be applied at
  * one point in time of an Animation.
@@ -112,6 +115,7 @@ public class Transformation {
     }
     
     /**
+<<<<<<< HEAD
      * Like {@link #compose(Transformation)} but does this.postConcat(t) of
      * the transformation matrix.
      * @hide
@@ -122,6 +126,8 @@ public class Transformation {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @return The 3x3 Matrix representing the trnasformation to apply to the
      * coordinates of the object being animated
      */
@@ -146,6 +152,7 @@ public class Transformation {
     
     @Override
     public String toString() {
+<<<<<<< HEAD
         StringBuilder sb = new StringBuilder(64);
         sb.append("Transformation");
         toShortString(sb);
@@ -179,5 +186,8 @@ public class Transformation {
         pw.print(" matrix=");
         mMatrix.printShortString(pw);
         pw.print('}');
+=======
+        return "Transformation{alpha=" + mAlpha + " matrix=" + mMatrix + "}";
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

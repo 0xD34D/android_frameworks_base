@@ -22,14 +22,20 @@ import android.content.DialogInterface;
 import android.os.IBinder;
 import android.view.KeyEvent;
 import android.view.View;
+<<<<<<< HEAD
 import android.view.Window;
 import android.view.WindowManager;
+=======
+import android.view.WindowManager;
+import android.widget.ListAdapter;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Helper for menus that appear as Dialogs (context and submenus).
  * 
  * @hide
  */
+<<<<<<< HEAD
 public class MenuDialogHelper implements DialogInterface.OnKeyListener,
         DialogInterface.OnClickListener,
         DialogInterface.OnDismissListener,
@@ -38,6 +44,12 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
     private AlertDialog mDialog;
     ListMenuPresenter mPresenter;
     private MenuPresenter.Callback mPresenterCallback;
+=======
+public class MenuDialogHelper implements DialogInterface.OnKeyListener, DialogInterface.OnClickListener {
+    private MenuBuilder mMenu;
+    private ListAdapter mAdapter;
+    private AlertDialog mDialog;
+>>>>>>> 54b6cfa... Initial Contribution
     
     public MenuDialogHelper(MenuBuilder menu) {
         mMenu = menu;
@@ -52,6 +64,7 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
         // Many references to mMenu, create local reference
         final MenuBuilder menu = mMenu;
         
+<<<<<<< HEAD
         // Get the builder for the dialog
         final AlertDialog.Builder builder = new AlertDialog.Builder(menu.getContext());
 
@@ -61,6 +74,14 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
         mPresenter.setCallback(this);
         mMenu.addMenuPresenter(mPresenter);
         builder.setAdapter(mPresenter.getAdapter(), this);
+=======
+        // Get an adapter for the menu item views
+        mAdapter = menu.getMenuAdapter(MenuBuilder.TYPE_DIALOG);
+        
+        // Get the builder for the dialog
+        final AlertDialog.Builder builder = new AlertDialog.Builder(menu.getContext())
+                .setAdapter(mAdapter, this); 
+>>>>>>> 54b6cfa... Initial Contribution
 
         // Set the title
         final View headerView = menu.getHeaderView();
@@ -77,6 +98,7 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
         
         // Show the menu
         mDialog = builder.create();
+<<<<<<< HEAD
         mDialog.setOnDismissListener(this);
         
         WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
@@ -85,11 +107,20 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
             lp.token = windowToken;
         }
         lp.flags |= WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+=======
+        
+        WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
+        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_PANEL;
+        if (windowToken != null) {
+            lp.token = windowToken;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         
         mDialog.show();
     }
     
     public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+<<<<<<< HEAD
         if (keyCode == KeyEvent.KEYCODE_MENU || keyCode == KeyEvent.KEYCODE_BACK) {
             if (event.getAction() == KeyEvent.ACTION_DOWN
                     && event.getRepeatCount() == 0) {
@@ -127,6 +158,28 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
 
     public void setPresenterCallback(MenuPresenter.Callback cb) {
         mPresenterCallback = cb;
+=======
+        /*
+         * Close menu on key down (more responsive, and there's no way to cancel
+         * a key press so no point having it on key up. Note: This is also
+         * needed because when a top-level menu item that shows a submenu is
+         * invoked by chording, this onKey method will be called with the menu
+         * up event.
+         */
+        if (event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_MENU)
+                || (keyCode == KeyEvent.KEYCODE_BACK)) {
+            mMenu.close(true);
+            dialog.dismiss();
+            return true;
+        }
+
+        // Menu shortcut matching
+        if (mMenu.performShortcut(keyCode, event, 0)) {
+            return true;
+        }
+        
+        return false;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -139,6 +192,7 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
             mDialog.dismiss();
         }
     }
+<<<<<<< HEAD
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -166,4 +220,11 @@ public class MenuDialogHelper implements DialogInterface.OnKeyListener,
     public void onClick(DialogInterface dialog, int which) {
         mMenu.performItemAction((MenuItemImpl) mPresenter.getAdapter().getItem(which), 0);
     }
+=======
+    
+    public void onClick(DialogInterface dialog, int which) {
+        mMenu.performItemAction((MenuItemImpl) mAdapter.getItem(which), 0);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -16,6 +16,11 @@
 
 package android.test;
 
+<<<<<<< HEAD
+=======
+import junit.framework.TestCase;
+
+>>>>>>> 54b6cfa... Initial Contribution
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
@@ -24,6 +29,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import java.lang.reflect.Field;
+<<<<<<< HEAD
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -32,6 +38,15 @@ import junit.framework.TestCase;
 
 /**
  * A test case that has access to {@link Instrumentation}.
+=======
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.InvocationTargetException;
+
+/**
+ * A test case that has access to {@link Instrumentation}.  See
+ * <code>InstrumentationTestRunner</code>.
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class InstrumentationTestCase extends TestCase {
 
@@ -43,6 +58,7 @@ public class InstrumentationTestCase extends TestCase {
      * 
      * @param instrumentation the instrumentation to use with this instance
      */
+<<<<<<< HEAD
     public void injectInstrumentation(Instrumentation instrumentation) {
         mInstrumentation = instrumentation;
     }
@@ -59,6 +75,10 @@ public class InstrumentationTestCase extends TestCase {
     @Deprecated
     public void injectInsrumentation(Instrumentation instrumentation) {
         injectInstrumentation(instrumentation);
+=======
+    public void injectInsrumentation(Instrumentation instrumentation) {
+        mInstrumentation = instrumentation;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -70,6 +90,7 @@ public class InstrumentationTestCase extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
      * Utility method for launching an activity.  
      * 
      * <p>The {@link Intent} used to launch the Activity is:
@@ -81,16 +102,24 @@ public class InstrumentationTestCase extends TestCase {
      * package hosting the activity to be launched, which is specified in the AndroidManifest.xml
      * file.  This is not necessarily the same as the java package name.
      *
+=======
+     * Utility method for launching an activity.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param pkg The package hosting the activity to be launched.
      * @param activityCls The activity class to launch.
      * @param extras Optional extra stuff to pass to the activity.
      * @return The activity, or null if non launched.
      */
+<<<<<<< HEAD
+=======
+    @SuppressWarnings("unchecked")
+>>>>>>> 54b6cfa... Initial Contribution
     public final <T extends Activity> T launchActivity(
             String pkg,
             Class<T> activityCls,
             Bundle extras) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
+<<<<<<< HEAD
         if (extras != null) {
             intent.putExtras(extras);
         }
@@ -116,10 +145,18 @@ public class InstrumentationTestCase extends TestCase {
             Intent intent) {
         intent.setClassName(pkg, activityCls.getName());
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+=======
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setClassName(pkg, activityCls.getName());
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         T activity = (T) getInstrumentation().startActivitySync(intent);
         getInstrumentation().waitForIdleSync();
         return activity;
     }
+<<<<<<< HEAD
     
     /**
      * Helper for running portions of a test on the UI thread.
@@ -145,12 +182,17 @@ public class InstrumentationTestCase extends TestCase {
             throw exceptions[0];
         }
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Runs the current unit test. If the unit test is annotated with
      * {@link android.test.UiThreadTest}, the test is run on the UI thread.
      */
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     protected void runTest() throws Throwable {
         String fName = getName();
         assertNotNull(fName);
@@ -170,23 +212,35 @@ public class InstrumentationTestCase extends TestCase {
         }
 
         int runCount = 1;
+<<<<<<< HEAD
         boolean isRepetitive = false;
         if (method.isAnnotationPresent(FlakyTest.class)) {
             runCount = method.getAnnotation(FlakyTest.class).tolerance();
         } else if (method.isAnnotationPresent(RepetitiveTest.class)) {
             runCount = method.getAnnotation(RepetitiveTest.class).numIterations();
             isRepetitive = true;
+=======
+        if (method.isAnnotationPresent(FlakyTest.class)) {
+            runCount = method.getAnnotation(FlakyTest.class).tolerance();
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (method.isAnnotationPresent(UiThreadTest.class)) {
             final int tolerance = runCount;
+<<<<<<< HEAD
             final boolean repetitive = isRepetitive;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             final Method testMethod = method;
             final Throwable[] exceptions = new Throwable[1];
             getInstrumentation().runOnMainSync(new Runnable() {
                 public void run() {
                     try {
+<<<<<<< HEAD
                         runMethod(testMethod, tolerance, repetitive);
+=======
+                        runMethod(testMethod, tolerance);
+>>>>>>> 54b6cfa... Initial Contribution
                     } catch (Throwable throwable) {
                         exceptions[0] = throwable;
                     }
@@ -196,6 +250,7 @@ public class InstrumentationTestCase extends TestCase {
                 throw exceptions[0];
             }
         } else {
+<<<<<<< HEAD
             runMethod(method, runCount, isRepetitive);
         }
     }
@@ -206,6 +261,13 @@ public class InstrumentationTestCase extends TestCase {
     }
 
     private void runMethod(Method runMethod, int tolerance, boolean isRepetitive) throws Throwable {
+=======
+            runMethod(method, runCount);
+        }
+    }
+
+    private void runMethod(Method runMethod, int tolerance) throws Throwable {
+>>>>>>> 54b6cfa... Initial Contribution
         Throwable exception = null;
 
         int runCount = 0;
@@ -221,6 +283,7 @@ public class InstrumentationTestCase extends TestCase {
                 exception = e;
             } finally {
                 runCount++;
+<<<<<<< HEAD
                 // Report current iteration number, if test is repetitive
                 if (isRepetitive) {
                     Bundle iterations = new Bundle();
@@ -229,6 +292,10 @@ public class InstrumentationTestCase extends TestCase {
                 }
             }
         } while ((runCount < tolerance) && (isRepetitive || exception != null));
+=======
+            }
+        } while ((runCount < tolerance) && (exception != null));
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (exception != null) {
             throw exception;
@@ -270,6 +337,7 @@ public class InstrumentationTestCase extends TestCase {
                 try {
                     final Field keyCodeField = KeyEvent.class.getField("KEYCODE_" + key);
                     final int keyCode = keyCodeField.getInt(null);
+<<<<<<< HEAD
                     try {
                         instrumentation.sendKeyDownUpSync(keyCode);
                     } catch (SecurityException e) {
@@ -277,6 +345,9 @@ public class InstrumentationTestCase extends TestCase {
                         // when trying to send to another app, to retain
                         // compatibility with existing tests.
                     }
+=======
+                    instrumentation.sendKeyDownUpSync(keyCode);
+>>>>>>> 54b6cfa... Initial Contribution
                 } catch (NoSuchFieldException e) {
                     Log.w("ActivityTestCase", "Unknown keycode: KEYCODE_" + key);
                     break;
@@ -301,6 +372,7 @@ public class InstrumentationTestCase extends TestCase {
         final Instrumentation instrumentation = getInstrumentation();
 
         for (int i = 0; i < count; i++) {
+<<<<<<< HEAD
             try {
                 instrumentation.sendKeyDownUpSync(keys[i]);
             } catch (SecurityException e) {
@@ -308,6 +380,9 @@ public class InstrumentationTestCase extends TestCase {
                 // when trying to send to another app, to retain
                 // compatibility with existing tests.
             }
+=======
+            instrumentation.sendKeyDownUpSync(keys[i]);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         instrumentation.waitForIdleSync();
@@ -333,6 +408,7 @@ public class InstrumentationTestCase extends TestCase {
             final int keyCount = keys[i];
             final int keyCode = keys[i + 1];
             for (int j = 0; j < keyCount; j++) {
+<<<<<<< HEAD
                 try {
                     instrumentation.sendKeyDownUpSync(keyCode);
                 } catch (SecurityException e) {
@@ -340,6 +416,9 @@ public class InstrumentationTestCase extends TestCase {
                     // when trying to send to another app, to retain
                     // compatibility with existing tests.
                 }
+=======
+                instrumentation.sendKeyDownUpSync(keyCode);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
 
@@ -353,11 +432,18 @@ public class InstrumentationTestCase extends TestCase {
      * 
      * @throws Exception
      */
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     protected void tearDown() throws Exception {
         Runtime.getRuntime().gc();
         Runtime.getRuntime().runFinalization();
         Runtime.getRuntime().gc();
         super.tearDown();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 54b6cfa... Initial Contribution

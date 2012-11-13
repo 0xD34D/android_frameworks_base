@@ -1,6 +1,7 @@
 #include "GraphicsJNI.h"
 #include "SkMaskFilter.h"
 #include "SkBlurMaskFilter.h"
+<<<<<<< HEAD
 #include "SkTableMaskFilter.h"
 
 #include <jni.h>
@@ -24,6 +25,22 @@ public:
         return filter;
     }
 
+=======
+
+#include <jni.h>
+
+class SkMaskFilterGlue {
+public:
+    static void destructor(JNIEnv* env, jobject, SkMaskFilter* filter) {
+        SkASSERT(filter);
+        filter->unref();
+    }
+
+    static SkMaskFilter* createBlur(JNIEnv* env, jobject, float radius, int blurStyle) {
+        return SkBlurMaskFilter::Create(SkFloatToScalar(radius), (SkBlurMaskFilter::BlurStyle)blurStyle);
+    }
+ 
+>>>>>>> 54b6cfa... Initial Contribution
     static SkMaskFilter* createEmboss(JNIEnv* env, jobject, jfloatArray dirArray, float ambient, float specular, float radius) {
         SkScalar direction[3];
 
@@ -33,6 +50,7 @@ public:
             direction[i] = SkFloatToScalar(values[i]);
         }
 
+<<<<<<< HEAD
         SkMaskFilter* filter =  SkBlurMaskFilter::CreateEmboss(direction,
                                                       SkFloatToScalar(ambient),
                                                       SkFloatToScalar(specular),
@@ -52,6 +70,10 @@ public:
 
     static SkMaskFilter* createGammaTable(JNIEnv* env, jobject, float gamma) {
         return SkTableMaskFilter::CreateGamma(gamma);
+=======
+        return SkBlurMaskFilter::CreateEmboss(direction, SkFloatToScalar(ambient),
+                                              SkFloatToScalar(specular), SkFloatToScalar(radius));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 };
 
@@ -67,18 +89,22 @@ static JNINativeMethod gEmbossMaskFilterMethods[] = {
     { "nativeConstructor",  "([FFFF)I", (void*)SkMaskFilterGlue::createEmboss    }
 };
 
+<<<<<<< HEAD
 static JNINativeMethod gTableMaskFilterMethods[] = {
     { "nativeNewTable", "([B)I", (void*)SkMaskFilterGlue::createTable    },
     { "nativeNewClip",  "(II)I", (void*)SkMaskFilterGlue::createClipTable    },
     { "nativeNewGamma", "(F)I", (void*)SkMaskFilterGlue::createGammaTable    }
 };
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #include <android_runtime/AndroidRuntime.h>
 
 #define REG(env, name, array)                                                                       \
     result = android::AndroidRuntime::registerNativeMethods(env, name, array, SK_ARRAY_COUNT(array));  \
     if (result < 0) return result
 
+<<<<<<< HEAD
 int register_android_graphics_MaskFilter(JNIEnv* env)
 {
     int result;
@@ -90,3 +116,17 @@ int register_android_graphics_MaskFilter(JNIEnv* env)
 
     return 0;
 }
+=======
+int register_android_graphics_MaskFilter(JNIEnv* env);
+int register_android_graphics_MaskFilter(JNIEnv* env)
+{
+    int result;
+    
+    REG(env, "android/graphics/MaskFilter", gMaskFilterMethods);
+    REG(env, "android/graphics/BlurMaskFilter", gBlurMaskFilterMethods);
+    REG(env, "android/graphics/EmbossMaskFilter", gEmbossMaskFilterMethods);
+    
+    return 0;
+}
+
+>>>>>>> 54b6cfa... Initial Contribution

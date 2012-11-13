@@ -1,7 +1,10 @@
 #ifndef DEVICE_TOOLS_AIDL_H
 #define DEVICE_TOOLS_AIDL_H
 
+<<<<<<< HEAD
 #include <string.h>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #include <string>
 #include <vector>
 
@@ -21,9 +24,13 @@ struct Options
     vector<string> preprocessedFiles;
     string inputFileName;
     string outputFileName;
+<<<<<<< HEAD
     string outputBaseFolder;
     string depFileName;
     bool autoDepFile;
+=======
+    string depFileName;
+>>>>>>> 54b6cfa... Initial Contribution
 
     vector<string> filesToPreprocess;
 };

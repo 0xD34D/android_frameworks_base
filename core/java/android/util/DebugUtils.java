@@ -20,11 +20,17 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
 /**
+<<<<<<< HEAD
  * <p>Various utilities for debugging and logging.</p>
  */
 public class DebugUtils {
     /** @hide */ public DebugUtils() {}
 
+=======
+ * <p>Various utilities for debugging and logging.</p> 
+ */
+public class DebugUtils {
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * <p>Filters objects against the <code>ANDROID_OBJECT_FILTER</code>
      * environment variable. This environment variable can filter objects
@@ -45,8 +51,13 @@ public class DebugUtils {
      *
      * <p>This class is useful for debugging and logging purpose:</p>
      * <pre>
+<<<<<<< HEAD
      * if (DEBUG) {
      *   if (DebugUtils.isObjectSelected(childView) && LOGV_ENABLED) {
+=======
+     * if (Config.DEBUG) {
+     *   if (DebugUtils.isObjectSelected(childView) && Config.LOGV) {
+>>>>>>> 54b6cfa... Initial Contribution
      *     Log.v(TAG, "Object " + childView + " logged!");
      *   }
      * }
@@ -103,6 +114,7 @@ public class DebugUtils {
         return match;
     }
 
+<<<<<<< HEAD
     /** @hide */
     public static void buildShortClassTag(Object cls, StringBuilder out) {
         if (cls == null) {
@@ -122,4 +134,6 @@ public class DebugUtils {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

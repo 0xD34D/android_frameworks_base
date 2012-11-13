@@ -17,6 +17,7 @@
 
 package android.os;
 
+<<<<<<< HEAD
 import android.os.WorkSource;
 
 /** @hide */
@@ -46,4 +47,17 @@ interface IPowerManager
     void setBacklightBrightness(int brightness);
     void setAttentionLight(boolean on, int color);
     void setAutoBrightnessAdjustment(float adj);
+=======
+/** @hide */
+interface IPowerManager
+{
+    void acquireWakeLock(int flags, IBinder lock, String tag);
+    void goToSleep(long time);
+    void releaseWakeLock(IBinder lock);
+    void userActivity(long when, boolean noChangeLights);
+    void userActivityWithForce(long when, boolean noChangeLights, boolean force);
+    void setPokeLock(int pokey, IBinder lock, String tag);
+    void setStayOnSetting(boolean val);
+    long getScreenOnTime();
+>>>>>>> 54b6cfa... Initial Contribution
 }

@@ -17,7 +17,10 @@
 package com.android.server.am;
 
 import android.app.IServiceConnection;
+<<<<<<< HEAD
 import android.app.PendingIntent;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.io.PrintWriter;
 
@@ -26,6 +29,7 @@ import java.io.PrintWriter;
  */
 class ConnectionRecord {
     final AppBindRecord binding;    // The application/service binding.
+<<<<<<< HEAD
     final ActivityRecord activity;   // If non-null, the owning activity.
     final IServiceConnection conn;  // The client connection.
     final int flags;                // Binding options.
@@ -39,17 +43,33 @@ class ConnectionRecord {
         if (activity != null) {
             pw.println(prefix + "activity=" + activity);
         }
+=======
+    final HistoryRecord activity;   // If non-null, the owning activity.
+    final IServiceConnection conn;  // The client connection.
+    final int flags;                // Binding options.
+
+    void dump(PrintWriter pw, String prefix) {
+        pw.println(prefix + this);
+        pw.println(prefix + "binding=" + binding);
+        pw.println(prefix + "activity=" + activity);
+>>>>>>> 54b6cfa... Initial Contribution
         pw.println(prefix + "conn=" + conn.asBinder()
                 + " flags=0x" + Integer.toHexString(flags));
     }
     
+<<<<<<< HEAD
     ConnectionRecord(AppBindRecord _binding, ActivityRecord _activity,
                IServiceConnection _conn, int _flags,
                int _clientLabel, PendingIntent _clientIntent) {
+=======
+    ConnectionRecord(AppBindRecord _binding, HistoryRecord _activity,
+               IServiceConnection _conn, int _flags) {
+>>>>>>> 54b6cfa... Initial Contribution
         binding = _binding;
         activity = _activity;
         conn = _conn;
         flags = _flags;
+<<<<<<< HEAD
         clientLabel = _clientLabel;
         clientIntent = _clientIntent;
     }
@@ -70,5 +90,14 @@ class ConnectionRecord {
         sb.append(Integer.toHexString(System.identityHashCode(conn.asBinder())));
         sb.append('}');
         return stringName = sb.toString();
+=======
+    }
+
+    public String toString() {
+        return "ConnectionRecord{"
+            + Integer.toHexString(System.identityHashCode(this))
+            + " " + binding.service.shortName
+            + ":@" + Integer.toHexString(System.identityHashCode(conn.asBinder())) + "}";
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

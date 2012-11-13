@@ -932,83 +932,145 @@ class GLLogWrapper extends GLWrapperBase {
         boolean convertWholeBuffer = (byteCount < 0);
         if (input instanceof ByteBuffer) {
             ByteBuffer input2 = (ByteBuffer) input;
+<<<<<<< HEAD
             int position = input2.position();
             if (convertWholeBuffer) {
                 byteCount = input2.limit() - position;
             }
             result = ByteBuffer.allocate(byteCount).order(input2.order());
+=======
+            if (convertWholeBuffer) {
+                byteCount = input2.limit();
+            }
+            result = ByteBuffer.allocate(byteCount).order(input2.order());
+            int position = input2.position();
+>>>>>>> 54b6cfa... Initial Contribution
             for (int i = 0; i < byteCount; i++) {
                 result.put(input2.get());
             }
             input2.position(position);
         } else if (input instanceof CharBuffer) {
             CharBuffer input2 = (CharBuffer) input;
+<<<<<<< HEAD
             int position = input2.position();
             if (convertWholeBuffer) {
                 byteCount = (input2.limit() - position) * 2;
             }
             result = ByteBuffer.allocate(byteCount).order(input2.order());
             CharBuffer result2 = result.asCharBuffer();
+=======
+            if (convertWholeBuffer) {
+                byteCount = input2.limit() * 2;
+            }
+            result = ByteBuffer.allocate(byteCount).order(input2.order());
+            CharBuffer result2 = result.asCharBuffer();
+            int position = input2.position();
+>>>>>>> 54b6cfa... Initial Contribution
             for (int i = 0; i < byteCount / 2; i++) {
                 result2.put(input2.get());
             }
             input2.position(position);
         } else if (input instanceof ShortBuffer) {
             ShortBuffer input2 = (ShortBuffer) input;
+<<<<<<< HEAD
             int position = input2.position();
             if (convertWholeBuffer) {
                 byteCount = (input2.limit() - position)* 2;
             }
             result = ByteBuffer.allocate(byteCount).order(input2.order());
             ShortBuffer result2 = result.asShortBuffer();
+=======
+            if (convertWholeBuffer) {
+                byteCount = input2.limit() * 2;
+            }
+            result = ByteBuffer.allocate(byteCount).order(input2.order());
+            ShortBuffer result2 = result.asShortBuffer();
+            int position = input2.position();
+>>>>>>> 54b6cfa... Initial Contribution
             for (int i = 0; i < byteCount / 2; i++) {
                 result2.put(input2.get());
             }
             input2.position(position);
         } else if (input instanceof IntBuffer) {
             IntBuffer input2 = (IntBuffer) input;
+<<<<<<< HEAD
             int position = input2.position();
             if (convertWholeBuffer) {
                 byteCount = (input2.limit() - position) * 4;
             }
             result = ByteBuffer.allocate(byteCount).order(input2.order());
             IntBuffer result2 = result.asIntBuffer();
+=======
+            if (convertWholeBuffer) {
+                byteCount = input2.limit() * 4;
+            }
+            result = ByteBuffer.allocate(byteCount).order(input2.order());
+            IntBuffer result2 = result.asIntBuffer();
+            int position = input2.position();
+>>>>>>> 54b6cfa... Initial Contribution
             for (int i = 0; i < byteCount / 4; i++) {
                 result2.put(input2.get());
             }
             input2.position(position);
         } else if (input instanceof FloatBuffer) {
             FloatBuffer input2 = (FloatBuffer) input;
+<<<<<<< HEAD
             int position = input2.position();
             if (convertWholeBuffer) {
                 byteCount = (input2.limit() - position) * 4;
             }
             result = ByteBuffer.allocate(byteCount).order(input2.order());
             FloatBuffer result2 = result.asFloatBuffer();
+=======
+            if (convertWholeBuffer) {
+                byteCount = input2.limit() * 4;
+            }
+            result = ByteBuffer.allocate(byteCount).order(input2.order());
+            FloatBuffer result2 = result.asFloatBuffer();
+            int position = input2.position();
+>>>>>>> 54b6cfa... Initial Contribution
             for (int i = 0; i < byteCount / 4; i++) {
                 result2.put(input2.get());
             }
             input2.position(position);
         } else if (input instanceof DoubleBuffer) {
             DoubleBuffer input2 = (DoubleBuffer) input;
+<<<<<<< HEAD
             int position = input2.position();
             if (convertWholeBuffer) {
                 byteCount = (input2.limit() - position) * 8;
             }
             result = ByteBuffer.allocate(byteCount).order(input2.order());
             DoubleBuffer result2 = result.asDoubleBuffer();
+=======
+            if (convertWholeBuffer) {
+                byteCount = input2.limit() * 8;
+            }
+            result = ByteBuffer.allocate(byteCount).order(input2.order());
+            DoubleBuffer result2 = result.asDoubleBuffer();
+            int position = input2.position();
+>>>>>>> 54b6cfa... Initial Contribution
             for (int i = 0; i < byteCount / 8; i++) {
                 result2.put(input2.get());
             }
             input2.position(position);
         } else if (input instanceof LongBuffer) {
             LongBuffer input2 = (LongBuffer) input;
+<<<<<<< HEAD
             int position = input2.position();
             if (convertWholeBuffer) {
                 byteCount = (input2.limit() - position) * 8;
             }
             result = ByteBuffer.allocate(byteCount).order(input2.order());
             LongBuffer result2 = result.asLongBuffer();
+=======
+            if (convertWholeBuffer) {
+                byteCount = input2.limit() * 8;
+            }
+            result = ByteBuffer.allocate(byteCount).order(input2.order());
+            LongBuffer result2 = result.asLongBuffer();
+            int position = input2.position();
+>>>>>>> 54b6cfa... Initial Contribution
             for (int i = 0; i < byteCount / 8; i++) {
                 result2.put(input2.get());
             }
@@ -1064,8 +1126,13 @@ class GLLogWrapper extends GLWrapperBase {
         }
         builder.append(" ");
         builder.append(name + ":{");
+<<<<<<< HEAD
         if (pointer == null || pointer.mTempByteBuffer == null ) {
             builder.append("undefined }");
+=======
+        if (pointer == null) {
+            builder.append("undefined");
+>>>>>>> 54b6cfa... Initial Contribution
             return;
         }
         if (pointer.mStride < 0) {
@@ -1517,7 +1584,11 @@ class GLLogWrapper extends GLWrapperBase {
         arg("count", count);
         startLogIndices();
         for (int i = 0; i < count; i++) {
+<<<<<<< HEAD
             doElement(mStringBuilder, i, first + i);
+=======
+            doElement(mStringBuilder, i, first + count);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         endLogIndices();
         end();
@@ -2767,6 +2838,7 @@ class GLLogWrapper extends GLWrapperBase {
         return valid;
     }
 
+<<<<<<< HEAD
     public void glBindBuffer(int target, int buffer) {
         begin("glBindBuffer");
         arg("target", target);
@@ -3883,6 +3955,232 @@ class GLLogWrapper extends GLWrapperBase {
         end();
         mgl11ExtensionPack.glTexGenxv(coord, pname, params);
         checkError();
+=======
+    // Unsupported GL11 methods
+
+    public void glBindBuffer(int target, int buffer) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glBufferData(int target, int size, Buffer data, int usage) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glBufferSubData(int target, int offset, int size, Buffer data) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glColor4ub(byte red, byte green, byte blue, byte alpha) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glDeleteBuffers(int n, int[] buffers, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glDeleteBuffers(int n, IntBuffer buffers) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGenBuffers(int n, int[] buffers, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGenBuffers(int n, IntBuffer buffers) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetBooleanv(int pname, boolean[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetBooleanv(int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetBufferParameteriv(int target, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetBufferParameteriv(int target, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetClipPlanef(int pname, float[] eqn, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetClipPlanef(int pname, FloatBuffer eqn) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetClipPlanex(int pname, int[] eqn, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetClipPlanex(int pname, IntBuffer eqn) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetFixedv(int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetFixedv(int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetFloatv(int pname, float[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetFloatv(int pname, FloatBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetLightfv(int light, int pname, float[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetLightfv(int light, int pname, FloatBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetLightxv(int light, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetLightxv(int light, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetMaterialfv(int face, int pname, float[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetMaterialfv(int face, int pname, FloatBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetMaterialxv(int face, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetMaterialxv(int face, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexEnviv(int env, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexEnviv(int env, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexEnvxv(int env, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexEnvxv(int env, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexParameterfv(int target, int pname, float[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexParameterfv(int target, int pname, FloatBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexParameteriv(int target, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexParameteriv(int target, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexParameterxv(int target, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glGetTexParameterxv(int target, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean glIsBuffer(int buffer) {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean glIsEnabled(int cap) {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean glIsTexture(int texture) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glPointParameterf(int pname, float param) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glPointParameterfv(int pname, float[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glPointParameterfv(int pname, FloatBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glPointParameterx(int pname, int param) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glPointParameterxv(int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glPointParameterxv(int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glPointSizePointerOES(int type, int stride, Buffer pointer) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glTexEnvi(int target, int pname, int param) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glTexEnviv(int target, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glTexEnviv(int target, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glTexParameterfv(int target, int pname, float[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glTexParameterfv(int target, int pname, FloatBuffer params) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glTexParameteri(int target, int pname, int param) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glTexParameterxv(int target, int pname, int[] params, int offset) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void glTexParameterxv(int target, int pname, IntBuffer params) {
+        throw new UnsupportedOperationException();
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private class PointerInfo {
@@ -3902,9 +4200,12 @@ class GLLogWrapper extends GLWrapperBase {
         public Buffer mPointer;
         public ByteBuffer mTempByteBuffer; // Only valid during glDrawXXX calls
 
+<<<<<<< HEAD
         public PointerInfo() {
         }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public PointerInfo(int size, int type, int stride, Buffer pointer) {
             mSize = size;
             mType = type;
@@ -3934,7 +4235,11 @@ class GLLogWrapper extends GLWrapperBase {
         }
 
         public void bindByteBuffer() {
+<<<<<<< HEAD
             mTempByteBuffer = mPointer == null ? null : toByteBuffer(-1, mPointer);
+=======
+            mTempByteBuffer = toByteBuffer(-1, mPointer);
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public void unbindByteBuffer() {
@@ -3946,10 +4251,17 @@ class GLLogWrapper extends GLWrapperBase {
     private boolean mLogArgumentNames;
     private int mArgCount;
 
+<<<<<<< HEAD
     private PointerInfo mColorPointer = new PointerInfo();
     private PointerInfo mNormalPointer = new PointerInfo();
     private PointerInfo mTexCoordPointer = new PointerInfo();
     private PointerInfo mVertexPointer = new PointerInfo();
+=======
+    private PointerInfo mColorPointer;
+    private PointerInfo mNormalPointer;
+    private PointerInfo mTexCoordPointer;
+    private PointerInfo mVertexPointer;
+>>>>>>> 54b6cfa... Initial Contribution
 
     boolean mColorArrayEnabled;
     boolean mNormalArrayEnabled;

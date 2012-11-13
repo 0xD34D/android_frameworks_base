@@ -23,7 +23,10 @@ package android.util;
 public class LogPrinter implements Printer {
     private final int mPriority;
     private final String mTag;
+<<<<<<< HEAD
     private final int mBuffer;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     
     /**
      * Create a new Printer that sends to the log with the given priority
@@ -40,6 +43,7 @@ public class LogPrinter implements Printer {
     public LogPrinter(int priority, String tag) {
         mPriority = priority;
         mTag = tag;
+<<<<<<< HEAD
         mBuffer = Log.LOG_ID_MAIN;
     }
 
@@ -55,5 +59,11 @@ public class LogPrinter implements Printer {
     
     public void println(String x) {
         Log.println_native(mBuffer, mPriority, mTag, x);
+=======
+    }
+    
+    public void println(String x) {
+        Log.println(mPriority, mTag, x);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

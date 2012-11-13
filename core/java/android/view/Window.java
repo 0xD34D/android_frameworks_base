@@ -16,9 +16,13 @@
 
 package android.view;
 
+<<<<<<< HEAD
 import android.app.Application;
 import android.content.Context;
 import android.content.res.CompatibilityInfo;
+=======
+import android.content.Context;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.PixelFormat;
@@ -26,9 +30,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+<<<<<<< HEAD
 import android.os.SystemProperties;
 import android.util.Slog;
 import android.view.accessibility.AccessibilityEvent;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Abstract base class for a top-level window look and behavior policy.  An
@@ -60,6 +67,7 @@ public abstract class Window {
     public static final int FEATURE_CONTEXT_MENU = 6;
     /** Flag for custom title. You cannot combine this feature with other title features. */
     public static final int FEATURE_CUSTOM_TITLE = 7;
+<<<<<<< HEAD
     /**
      * Flag for enabling the Action Bar.
      * This is enabled by default for some devices. The Action Bar
@@ -92,6 +100,13 @@ public abstract class Window {
      * If overlay is enabled, the action mode UI will be allowed to cover existing window content.
      */
     public static final int FEATURE_ACTION_MODE_OVERLAY = 10;
+=======
+    /*  Flag for asking for an OpenGL enabled window.
+        All 2D graphics will be handled by OpenGL ES.
+        Private for now, until it is better tested (not shipping in 1.0)
+    */
+    private static final int FEATURE_OPENGL = 8;
+>>>>>>> 54b6cfa... Initial Contribution
     /** Flag for setting the progress bar's visibility to VISIBLE */
     public static final int PROGRESS_VISIBILITY_ON = -1;
     /** Flag for setting the progress bar's visibility to GONE */
@@ -130,14 +145,18 @@ public abstract class Window {
     private Window mActiveChild;
     private boolean mIsActive = false;
     private boolean mHasChildren = false;
+<<<<<<< HEAD
     private boolean mCloseOnTouchOutside = false;
     private boolean mSetCloseOnTouchOutside = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private int mForcedWindowFlags = 0;
 
     private int mFeatures = DEFAULT_FEATURES;
     private int mLocalFeatures = DEFAULT_FEATURES;
 
     private boolean mHaveWindowFormat = false;
+<<<<<<< HEAD
     private boolean mHaveDimAmount = false;
     private int mDefaultWindowFormat = PixelFormat.OPAQUE;
 
@@ -145,6 +164,10 @@ public abstract class Window {
     
     private boolean mDestroyed;
 
+=======
+    private int mDefaultWindowFormat = PixelFormat.OPAQUE;
+
+>>>>>>> 54b6cfa... Initial Contribution
     // The current window attributes.
     private final WindowManager.LayoutParams mWindowAttributes =
         new WindowManager.LayoutParams();
@@ -167,6 +190,7 @@ public abstract class Window {
         public boolean dispatchKeyEvent(KeyEvent event);
 
         /**
+<<<<<<< HEAD
          * Called to process a key shortcut event.
          * At the very least your implementation must call
          * {@link android.view.Window#superDispatchKeyShortcutEvent} to do the
@@ -178,6 +202,8 @@ public abstract class Window {
         public boolean dispatchKeyShortcutEvent(KeyEvent event);
 
         /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
          * Called to process touch screen events.  At the very least your
          * implementation must call
          * {@link android.view.Window#superDispatchTouchEvent} to do the
@@ -200,6 +226,7 @@ public abstract class Window {
          * @return boolean Return true if this event was consumed.
          */
         public boolean dispatchTrackballEvent(MotionEvent event);
+<<<<<<< HEAD
 
         /**
          * Called to process generic motion events.  At the very least your
@@ -222,6 +249,9 @@ public abstract class Window {
          */
         public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event);
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         /**
          * Instantiate the view to display in the panel for 'featureId'.
          * You can return null, in which case the default content (typically
@@ -296,6 +326,10 @@ public abstract class Window {
         /**
          * This is called whenever the current window attributes change.
          *
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
          */
         public void onWindowAttributesChanged(WindowManager.LayoutParams attrs);
 
@@ -310,15 +344,20 @@ public abstract class Window {
         public void onContentChanged();
 
         /**
+<<<<<<< HEAD
          * This hook is called whenever the window focus changes.  See
          * {@link View#onWindowFocusChanged(boolean)
          * View.onWindowFocusChanged(boolean)} for more information.
+=======
+         * This hook is called whenever the window focus changes.
+>>>>>>> 54b6cfa... Initial Contribution
          *
          * @param hasFocus Whether the window now has focus.
          */
         public void onWindowFocusChanged(boolean hasFocus);
 
         /**
+<<<<<<< HEAD
          * Called when the window has been attached to the window manager.
          * See {@link View#onAttachedToWindow() View.onAttachedToWindow()}
          * for more information.
@@ -333,6 +372,8 @@ public abstract class Window {
         public void onDetachedFromWindow();
         
         /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
          * Called when a panel is being closed.  If another logical subsequent
          * panel is being opened (and this panel is being closed to make room for the subsequent
          * panel), this method will NOT be called.
@@ -351,6 +392,7 @@ public abstract class Window {
          * @see android.app.Activity#onSearchRequested() 
          */
         public boolean onSearchRequested();
+<<<<<<< HEAD
 
         /**
          * Called when an action mode is being started for this window. Gives the
@@ -378,6 +420,8 @@ public abstract class Window {
          * @param mode The mode that was just finished.
          */
         public void onActionModeFinished(ActionMode mode);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public Window(Context context) {
@@ -439,6 +483,7 @@ public abstract class Window {
         return mHasChildren;
     }
     
+<<<<<<< HEAD
     /** @hide */
     public final void destroy() {
         mDestroyed = true;
@@ -449,6 +494,8 @@ public abstract class Window {
         return mDestroyed;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Set the window manager for use by this Window to, for example,
      * display panels.  This is <em>not</em> used for displaying the
@@ -456,6 +503,7 @@ public abstract class Window {
      *
      * @param wm The ViewManager for adding new windows.
      */
+<<<<<<< HEAD
     public void setWindowManager(WindowManager wm, IBinder appToken, String appName) {
         setWindowManager(wm, appToken, appName, false);
     }
@@ -469,11 +517,16 @@ public abstract class Window {
      */
     public void setWindowManager(WindowManager wm, IBinder appToken, String appName,
             boolean hardwareAccelerated) {
+=======
+    public void setWindowManager(WindowManager wm,
+            IBinder appToken, String appName) {
+>>>>>>> 54b6cfa... Initial Contribution
         mAppToken = appToken;
         mAppName = appName;
         if (wm == null) {
             wm = WindowManagerImpl.getDefault();
         }
+<<<<<<< HEAD
         mWindowManager = new LocalWindowManager(wm, hardwareAccelerated);
     }
 
@@ -497,6 +550,16 @@ public abstract class Window {
             return mHardwareAccelerated;
         }
         
+=======
+        mWindowManager = new LocalWindowManager(wm);
+    }
+
+    private class LocalWindowManager implements WindowManager {
+        LocalWindowManager(WindowManager wm) {
+            mWindowManager = wm;
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         public final void addView(View view, ViewGroup.LayoutParams params) {
             // Let this throw an exception on a bad params.
             WindowManager.LayoutParams wp = (WindowManager.LayoutParams)params;
@@ -513,6 +576,7 @@ public abstract class Window {
                     String title;
                     if (wp.type == WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA) {
                         title="Media";
+<<<<<<< HEAD
                     } else if (wp.type == WindowManager.LayoutParams.TYPE_APPLICATION_MEDIA_OVERLAY) {
                         title="MediaOvr";
                     } else if (wp.type == WindowManager.LayoutParams.TYPE_APPLICATION_PANEL) {
@@ -521,6 +585,10 @@ public abstract class Window {
                         title="SubPanel";
                     } else if (wp.type == WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG) {
                         title="AtchDlg";
+=======
+                    } else if (wp.type == WindowManager.LayoutParams.TYPE_APPLICATION_PANEL) {
+                        title="Panel";
+>>>>>>> 54b6cfa... Initial Contribution
                     } else {
                         title=Integer.toString(wp.type);
                     }
@@ -537,6 +605,7 @@ public abstract class Window {
                         && mAppName != null) {
                     wp.setTitle(mAppName);
                 }
+<<<<<<< HEAD
            }
             if (wp.packageName == null) {
                 wp.packageName = mContext.getPackageName();
@@ -546,6 +615,36 @@ public abstract class Window {
             }
             super.addView(view, params);
         }
+=======
+                if (wp.windowAnimations == 0) {
+                    wp.windowAnimations = getWindowStyle().getResourceId(
+                            com.android.internal.R.styleable.Window_windowAnimationStyle, 0);
+                }
+            }
+            if (wp.packageName == null) {
+                wp.packageName = mContext.getPackageName();
+            }
+            mWindowManager.addView(view, params);
+        }
+
+        public void updateViewLayout(View view, ViewGroup.LayoutParams params) {
+            mWindowManager.updateViewLayout(view, params);
+        }
+
+        public final void removeView(View view) {
+            mWindowManager.removeView(view);
+        }
+
+        public final void removeViewImmediate(View view) {
+            mWindowManager.removeViewImmediate(view);
+        }
+
+        public Display getDefaultDisplay() {
+            return mWindowManager.getDefaultDisplay();
+        }
+        
+        WindowManager mWindowManager;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -576,6 +675,7 @@ public abstract class Window {
     }
 
     /**
+<<<<<<< HEAD
      * Take ownership of this window's surface.  The window's view hierarchy
      * will no longer draw into the surface, though it will otherwise continue
      * to operate (such as for receiving input events).  The given SurfaceHolder
@@ -591,6 +691,8 @@ public abstract class Window {
     public abstract void takeInputQueue(InputQueue.Callback callback);
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Return whether this window is being displayed with a floating style
      * (based on the {@link android.R.attr#windowIsFloating} attribute in
      * the style/theme).
@@ -602,6 +704,7 @@ public abstract class Window {
 
     /**
      * Set the width and height layout parameters of the window.  The default
+<<<<<<< HEAD
      * for both of these is MATCH_PARENT; you can change them to WRAP_CONTENT
      * or an absolute value to make a window that is not full-screen.
      *
@@ -612,6 +715,16 @@ public abstract class Window {
      * @see ViewGroup.LayoutParams#width
      */
     public void setLayout(int width, int height) {
+=======
+     * for both of these is FILL_PARENT; you can change them to WRAP_CONTENT to
+     * make a window that is not full-screen.
+     *
+     * @param width The desired layout width of the window.
+     * @param height The desired layout height of the window.
+     */
+    public void setLayout(int width, int height)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         final WindowManager.LayoutParams attrs = getAttributes();
         attrs.width = width;
         attrs.height = height;
@@ -679,6 +792,7 @@ public abstract class Window {
     }
 
     /**
+<<<<<<< HEAD
      * Specify custom animations to use for the window, as per
      * {@link WindowManager.LayoutParams#windowAnimations
      * WindowManager.LayoutParams.windowAnimations}.  Providing anything besides
@@ -714,6 +828,8 @@ public abstract class Window {
     }
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Convenience function to set the flag bits as specified in flags, as
      * per {@link #setFlags}.
      * @param flags The flag bits to be set.
@@ -753,9 +869,12 @@ public abstract class Window {
     public void setFlags(int flags, int mask) {
         final WindowManager.LayoutParams attrs = getAttributes();
         attrs.flags = (attrs.flags&~mask) | (flags&mask);
+<<<<<<< HEAD
         if ((mask&WindowManager.LayoutParams.FLAG_NEEDS_MENU_KEY) != 0) {
             attrs.privateFlags |= WindowManager.LayoutParams.PRIVATE_FLAG_SET_NEEDS_MENU_KEY;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         mForcedWindowFlags |= mask;
         if (mCallback != null) {
             mCallback.onWindowAttributesChanged(attrs);
@@ -763,6 +882,7 @@ public abstract class Window {
     }
 
     /**
+<<<<<<< HEAD
      * Set the amount of dim behind the window when using
      * {@link WindowManager.LayoutParams#FLAG_DIM_BEHIND}.  This overrides
      * the default dim amount of that is selected by the Window based on
@@ -785,12 +905,19 @@ public abstract class Window {
      * retrieved with {@link #getAttributes()}; you probably do not want to
      * blindly create and apply your own, since this will blow away any values
      * set by the framework that you are not interested in.
+=======
+     * Specify custom window attributes.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param a The new window attributes, which will completely override any
      *          current values.
      */
     public void setAttributes(WindowManager.LayoutParams a) {
         mWindowAttributes.copyFrom(a);
+<<<<<<< HEAD
+=======
+        mForcedWindowFlags = 0xffffffff;
+>>>>>>> 54b6cfa... Initial Contribution
         if (mCallback != null) {
             mCallback.onWindowAttributesChanged(mWindowAttributes);
         }
@@ -815,6 +942,7 @@ public abstract class Window {
     }
     
     /**
+<<<<<<< HEAD
      * Has the app specified their own soft input mode?
      */
     protected final boolean hasSoftInputMode() {
@@ -858,6 +986,8 @@ public abstract class Window {
     }
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Enable extended screen features.  This must be called before
      * setContentView().  May be called as many times as desired as long as it
      * is before setContentView().  If not called, no extended features
@@ -874,6 +1004,7 @@ public abstract class Window {
         return (mFeatures&flag) != 0;
     }
 
+<<<<<<< HEAD
     /**
      * @hide Used internally to help resolve conflicting features.
      */
@@ -883,6 +1014,8 @@ public abstract class Window {
         mLocalFeatures &= ~(mContainer != null ? (flag&~mContainer.mFeatures) : flag);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final void makeActive() {
         if (mContainer != null) {
             if (mContainer.mActiveChild != null) {
@@ -987,8 +1120,11 @@ public abstract class Window {
 
     public abstract void togglePanel(int featureId, KeyEvent event);
 
+<<<<<<< HEAD
     public abstract void invalidatePanelMenu(int featureId);
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public abstract boolean performPanelShortcut(int featureId,
                                                  int keyCode,
                                                  KeyEvent event,
@@ -1110,6 +1246,7 @@ public abstract class Window {
     public abstract boolean superDispatchKeyEvent(KeyEvent event);
 
     /**
+<<<<<<< HEAD
      * Used by custom windows, such as Dialog, to pass the key shortcut press event
      * further down the view hierarchy. Application developers should
      * not need to implement or call this.
@@ -1118,6 +1255,8 @@ public abstract class Window {
     public abstract boolean superDispatchKeyShortcutEvent(KeyEvent event);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Used by custom windows, such as Dialog, to pass the touch screen event
      * further down the view hierarchy. Application developers should
      * not need to implement or call this.
@@ -1134,6 +1273,7 @@ public abstract class Window {
     public abstract boolean superDispatchTrackballEvent(MotionEvent event);
     
     /**
+<<<<<<< HEAD
      * Used by custom windows, such as Dialog, to pass the generic motion event
      * further down the view hierarchy. Application developers should
      * not need to implement or call this.
@@ -1142,6 +1282,8 @@ public abstract class Window {
     public abstract boolean superDispatchGenericMotionEvent(MotionEvent event);
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Retrieve the top-level window decor view (containing the standard
      * window frame/decorations and the client's content inside of that), which
      * can be added as a window to the window manager.
@@ -1184,6 +1326,7 @@ public abstract class Window {
     {
         return mFeatures;
     }
+<<<<<<< HEAD
     
     /**
      * Query for the availability of a certain feature.
@@ -1194,6 +1337,8 @@ public abstract class Window {
     public boolean hasFeature(int feature) {
         return (getFeatures() & (1 << feature)) != 0;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Return the feature bits that are being implemented by this Window.
@@ -1217,7 +1362,12 @@ public abstract class Window {
      * @see #setFormat
      * @see PixelFormat
      */
+<<<<<<< HEAD
     protected void setDefaultWindowFormat(int format) {
+=======
+    protected void setDefaultWindowFormat(int format)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         mDefaultWindowFormat = format;
         if (!mHaveWindowFormat) {
             final WindowManager.LayoutParams attrs = getAttributes();
@@ -1228,11 +1378,14 @@ public abstract class Window {
         }
     }
 
+<<<<<<< HEAD
     /** @hide */
     protected boolean haveDimAmount() {
         return mHaveDimAmount;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public abstract void setChildDrawable(int featureId, Drawable drawable);
 
     public abstract void setChildInt(int featureId, int value);
@@ -1253,6 +1406,7 @@ public abstract class Window {
      * @see android.app.Activity#getVolumeControlStream()
      */
     public abstract int getVolumeControlStream();
+<<<<<<< HEAD
 
     /**
      * Set extra options that will influence the UI for this window.
@@ -1267,4 +1421,7 @@ public abstract class Window {
      * @param mask Flags specifying which options should be modified. Others will remain unchanged.
      */
     public void setUiOptions(int uiOptions, int mask) { }
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
 }

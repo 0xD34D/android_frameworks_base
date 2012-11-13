@@ -17,7 +17,10 @@
 package android.content.res;
 
 import android.util.TypedValue;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import com.android.internal.util.XmlUtils;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -60,7 +63,11 @@ final class XmlBlock {
         if (mOpenCount == 0) {
             nativeDestroy(mNative);
             if (mAssets != null) {
+<<<<<<< HEAD
                 mAssets.xmlBlockGone(hashCode());
+=======
+                mAssets.xmlBlockGone();
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -484,7 +491,11 @@ final class XmlBlock {
 
     private final AssetManager mAssets;
     private final int mNative;
+<<<<<<< HEAD
     /*package*/ final StringBlock mStrings;
+=======
+    private final StringBlock mStrings;
+>>>>>>> 54b6cfa... Initial Contribution
     private boolean mOpen = true;
     private int mOpenCount = 1;
 
@@ -494,9 +505,15 @@ final class XmlBlock {
     private static final native int nativeGetStringBlock(int obj);
 
     private static final native int nativeCreateParseState(int obj);
+<<<<<<< HEAD
     /*package*/ static final native int nativeNext(int state);
     private static final native int nativeGetNamespace(int state);
     /*package*/ static final native int nativeGetName(int state);
+=======
+    private static final native int nativeNext(int state);
+    private static final native int nativeGetNamespace(int state);
+    private static final native int nativeGetName(int state);
+>>>>>>> 54b6cfa... Initial Contribution
     private static final native int nativeGetText(int state);
     private static final native int nativeGetLineNumber(int state);
     private static final native int nativeGetAttributeCount(int state);

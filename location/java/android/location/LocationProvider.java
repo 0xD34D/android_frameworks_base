@@ -16,9 +16,12 @@
 
 package android.location;
 
+<<<<<<< HEAD
 import android.os.RemoteException;
 import android.util.Log;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * An abstract superclass for location providers.  A location provider
  * provides periodic reports on the geographical location of the
@@ -39,8 +42,12 @@ public abstract class LocationProvider {
     // in the name of a LocationProvider.
     static final String BAD_CHARS_REGEX = "[^a-zA-Z0-9]";
 
+<<<<<<< HEAD
     private final String mName;
     private final ILocationManager mService;
+=======
+    private String mName;
+>>>>>>> 54b6cfa... Initial Contribution
 
     public static final int OUT_OF_SERVICE = 0;
     public static final int TEMPORARILY_UNAVAILABLE = 1;
@@ -51,16 +58,26 @@ public abstract class LocationProvider {
      * consist only of the characters [a-zA-Z0-9].
      *
      * @throws IllegalArgumentException if name contains an illegal character
+<<<<<<< HEAD
      *
      * {@hide}
      */
     public LocationProvider(String name, ILocationManager service) {
+=======
+     */
+    LocationProvider(String name) {
+>>>>>>> 54b6cfa... Initial Contribution
         if (name.matches(BAD_CHARS_REGEX)) {
             throw new IllegalArgumentException("name " + name +
                 " contains an illegal character");
         }
+<<<<<<< HEAD
         mName = name;
         mService = service;
+=======
+        // Log.d(TAG, "Constructor: name = " + name);
+        mName = name;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -75,12 +92,34 @@ public abstract class LocationProvider {
      * false otherwise.
      */
     public boolean meetsCriteria(Criteria criteria) {
+<<<<<<< HEAD
         try {
             return mService.providerMeetsCriteria(mName, criteria);
         } catch (RemoteException e) {
             Log.e(TAG, "meetsCriteria: RemoteException", e);
             return false;
         }
+=======
+        if ((criteria.getAccuracy() != Criteria.NO_REQUIREMENT) && 
+            (criteria.getAccuracy() < getAccuracy())) {
+            return false;
+        }
+        int criteriaPower = criteria.getPowerRequirement();
+        if ((criteriaPower != Criteria.NO_REQUIREMENT) &&
+            (criteriaPower < getPowerRequirement())) {
+            return false;
+        }
+        if (criteria.isAltitudeRequired() && !supportsAltitude()) {
+            return false;
+        }
+        if (criteria.isSpeedRequired() && !supportsSpeed()) {
+            return false;
+        }
+        if (criteria.isBearingRequired() && !supportsBearing()) {
+            return false;
+        }
+        return true;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**

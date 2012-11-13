@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*
+=======
+/* //device/libs/android_runtime/android_media_AudioSystem.cpp
+>>>>>>> 54b6cfa... Initial Contribution
 **
 ** Copyright 2006, The Android Open Source Project
 **
@@ -16,13 +20,18 @@
 */
 
 #define LOG_TAG "AudioSystem"
+<<<<<<< HEAD
 #include <utils/Log.h>
+=======
+#include "utils/Log.h"
+>>>>>>> 54b6cfa... Initial Contribution
 
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <math.h>
 
+<<<<<<< HEAD
 #include <jni.h>
 #include <JNIHelp.h>
 #include <android_runtime/AndroidRuntime.h>
@@ -31,13 +40,24 @@
 
 #include <system/audio.h>
 #include <system/audio_policy.h>
+=======
+#include "jni.h"
+#include "JNIHelp.h"
+#include "android_runtime/AndroidRuntime.h"
+
+#include <media/AudioSystem.h>
+#include <media/AudioTrack.h>
+>>>>>>> 54b6cfa... Initial Contribution
 
 // ----------------------------------------------------------------------------
 
 using namespace android;
 
+<<<<<<< HEAD
 static const char* const kClassPathName = "android/media/AudioSystem";
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 enum AudioError {
     kAudioStatusOk = 0,
     kAudioStatusError = 1,
@@ -54,6 +74,36 @@ static int check_AudioSystem_Command(status_t status)
 }
 
 static int
+<<<<<<< HEAD
+=======
+android_media_AudioSystem_setVolume(JNIEnv *env, jobject clazz, jint type, jint volume)
+{
+    LOGV("setVolume(%d)", int(volume));
+    if (int(type) == AudioTrack::VOICE_CALL) {
+        return check_AudioSystem_Command(AudioSystem::setStreamVolume(type, float(volume) / 100.0));
+    } else {
+        return check_AudioSystem_Command(AudioSystem::setStreamVolume(type, AudioSystem::linearToLog(volume)));
+    }
+}
+
+static int
+android_media_AudioSystem_getVolume(JNIEnv *env, jobject clazz, jint type)
+{
+    float v;
+    int v_int = -1;
+    if (AudioSystem::getStreamVolume(int(type), &v) == NO_ERROR) {
+        // voice call volume is converted to log scale in the hardware
+        if (int(type) == AudioTrack::VOICE_CALL) {
+            v_int = lrint(v * 100.0);
+        } else {
+            v_int = AudioSystem::logToLinear(v);
+        }
+    }
+    return v_int;
+}
+
+static int
+>>>>>>> 54b6cfa... Initial Contribution
 android_media_AudioSystem_muteMicrophone(JNIEnv *env, jobject thiz, jboolean on)
 {
     return check_AudioSystem_Command(AudioSystem::muteMicrophone(on));
@@ -67,6 +117,7 @@ android_media_AudioSystem_isMicrophoneMuted(JNIEnv *env, jobject thiz)
     return state;
 }
 
+<<<<<<< HEAD
 static jboolean
 android_media_AudioSystem_isStreamActive(JNIEnv *env, jobject thiz, jint stream, jint inPastMs)
 {
@@ -109,6 +160,60 @@ android_media_AudioSystem_error_callback(status_t err)
     }
 
     jclass clazz = env->FindClass(kClassPathName);
+=======
+static int
+android_media_AudioSystem_setRouting(JNIEnv *env, jobject clazz, jint mode, jint routes, jint mask)
+{
+    return check_AudioSystem_Command(AudioSystem::setRouting(mode, uint32_t(routes), uint32_t(mask)));
+}
+
+static jint
+android_media_AudioSystem_getRouting(JNIEnv *env, jobject clazz, jint mode)
+{
+    uint32_t routes = -1;
+    AudioSystem::getRouting(mode, &routes);
+    return jint(routes);
+}
+
+static int
+android_media_AudioSystem_setMode(JNIEnv *env, jobject clazz, jint mode)
+{
+    return check_AudioSystem_Command(AudioSystem::setMode(mode));
+}
+
+static jint
+android_media_AudioSystem_getMode(JNIEnv *env, jobject clazz)
+{
+    int mode = AudioSystem::MODE_INVALID;
+    AudioSystem::getMode(&mode);
+    return jint(mode);
+}
+
+static jboolean
+android_media_AudioSystem_isMusicActive(JNIEnv *env, jobject thiz)
+{
+    bool state = false;
+    AudioSystem::isMusicActive(&state);
+    return state;
+}
+
+// Temporary interface, do not use
+// TODO: Replace with a more generic key:value get/set mechanism
+static void
+android_media_AudioSystem_setParameter(JNIEnv *env, jobject thiz, jstring key, jstring value)
+{
+    const char *c_key = env->GetStringUTFChars(key, NULL);
+    const char *c_value = env->GetStringUTFChars(value, NULL);
+    AudioSystem::setParameter(c_key, c_value);
+    env->ReleaseStringUTFChars(key, c_key);
+    env->ReleaseStringUTFChars(value, c_value);
+}
+
+void android_media_AudioSystem_error_callback(status_t err)
+{
+    JNIEnv *env = AndroidRuntime::getJNIEnv();
+    jclass clazz = env->FindClass("android/media/AudioSystem");
+>>>>>>> 54b6cfa... Initial Contribution
 
     int error;
 
@@ -127,6 +232,7 @@ android_media_AudioSystem_error_callback(status_t err)
     env->CallStaticVoidMethod(clazz, env->GetStaticMethodID(clazz, "errorCallbackFromNative","(I)V"), error);
 }
 
+<<<<<<< HEAD
 static int
 android_media_AudioSystem_setDeviceConnectionState(JNIEnv *env, jobject thiz, jint device, jint state, jstring device_address)
 {
@@ -271,4 +377,29 @@ int register_android_media_AudioSystem(JNIEnv *env)
 
     return AndroidRuntime::registerNativeMethods(env,
                 kClassPathName, gMethods, NELEM(gMethods));
+=======
+// ----------------------------------------------------------------------------
+
+static JNINativeMethod gMethods[] = {
+    {"setVolume",           "(II)I",    (void *)android_media_AudioSystem_setVolume},
+    {"getVolume",           "(I)I",     (void *)android_media_AudioSystem_getVolume},
+    {"setParameter",        "(Ljava/lang/String;Ljava/lang/String;)V", (void *)android_media_AudioSystem_setParameter},
+    {"muteMicrophone",      "(Z)I",     (void *)android_media_AudioSystem_muteMicrophone},
+    {"isMicrophoneMuted",   "()Z",      (void *)android_media_AudioSystem_isMicrophoneMuted},
+    {"setRouting",          "(III)I",   (void *)android_media_AudioSystem_setRouting},
+    {"getRouting",          "(I)I",     (void *)android_media_AudioSystem_getRouting},
+    {"setMode",             "(I)I",     (void *)android_media_AudioSystem_setMode},
+    {"getMode",             "()I",      (void *)android_media_AudioSystem_getMode},
+    {"isMusicActive",       "()Z",      (void *)android_media_AudioSystem_isMusicActive},
+};
+
+const char* const kClassPathName = "android/media/AudioSystem";
+
+int register_android_media_AudioSystem(JNIEnv *env)
+{
+    AudioSystem::setErrorCallback(android_media_AudioSystem_error_callback);
+    
+    return AndroidRuntime::registerNativeMethods(env,
+                "android/media/AudioSystem", gMethods, NELEM(gMethods));
+>>>>>>> 54b6cfa... Initial Contribution
 }

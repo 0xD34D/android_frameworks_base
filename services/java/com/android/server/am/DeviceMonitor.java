@@ -16,7 +16,11 @@
 
 package com.android.server.am;
 
+<<<<<<< HEAD
 import android.util.Slog;
+=======
+import android.util.Log;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.io.*;
 import java.util.Arrays;
@@ -65,7 +69,11 @@ class DeviceMonitor {
                 try {
                     dump();
                 } catch (IOException e) {
+<<<<<<< HEAD
                     Slog.w(LOG_TAG, "Dump failed.", e);
+=======
+                    Log.w(LOG_TAG, "Dump failed.", e);
+>>>>>>> 54b6cfa... Initial Contribution
                 }
                 pause();
             }
@@ -100,7 +108,11 @@ class DeviceMonitor {
             Arrays.sort(files);
             for (int i = 0; i < count; i++) {
                 if (!files[i].delete()) {
+<<<<<<< HEAD
                     Slog.w(LOG_TAG, "Couldn't delete " + files[i] + ".");
+=======
+                    Log.w(LOG_TAG, "Couldn't delete " + files[i] + ".");
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -178,7 +190,11 @@ class DeviceMonitor {
                 closeable.close();
             }
         } catch (IOException e) {
+<<<<<<< HEAD
             Slog.w(LOG_TAG, e);
+=======
+            Log.w(LOG_TAG, e);
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 

@@ -69,12 +69,20 @@ static inline int write_error_check(int fd, const char* line, int len) {
     errno = 0;
     ret = write(fd, line, len);
     if (ret < 0) {
+<<<<<<< HEAD
         ALOGE("%s: write() failed: %s (%d)", __FUNCTION__, strerror(errno),
+=======
+        LOGE("%s: write() failed: %s (%d)", __FUNCTION__, strerror(errno),
+>>>>>>> 54b6cfa... Initial Contribution
              errno);
         return -1;
     }
     if (ret != len) {
+<<<<<<< HEAD
         ALOGE("%s: write() only wrote %d of %d bytes", __FUNCTION__, ret, len);
+=======
+        LOGE("%s: write() only wrote %d of %d bytes", __FUNCTION__, ret, len);
+>>>>>>> 54b6cfa... Initial Contribution
         return -1;
     }
     return 0;
@@ -96,6 +104,7 @@ static int send_line(int fd, const char* line) {
     return 0;
 }
 
+<<<<<<< HEAD
 static void mask_eighth_bit(char *line)
 {
    for (;;line++) {
@@ -104,6 +113,8 @@ static void mask_eighth_bit(char *line)
    }
 }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 static const char* get_line(int fd, char *buf, int len, int timeout_ms,
                             int *err) {
     char *bufit=buf;
@@ -115,9 +126,15 @@ again:
     pfd.fd = fd;
     pfd.events = POLLIN;
     *err = errno = 0;
+<<<<<<< HEAD
     int ret = TEMP_FAILURE_RETRY(poll(&pfd, 1, timeout_ms));
     if (ret < 0) {
         ALOGE("poll() error\n");
+=======
+    int ret = poll(&pfd, 1, timeout_ms);
+    if (ret < 0) {
+        LOGE("poll() error\n");
+>>>>>>> 54b6cfa... Initial Contribution
         *err = errno;
         return NULL;
     }
@@ -126,29 +143,48 @@ again:
     }
 
     if (pfd.revents & (POLLHUP | POLLERR | POLLNVAL)) {
+<<<<<<< HEAD
         ALOGW("RFCOMM poll() returned  success (%d), "
+=======
+        LOGW("RFCOMM poll() returned  success (%d), "
+>>>>>>> 54b6cfa... Initial Contribution
              "but with an unexpected revents bitmask: %#x\n", ret, pfd.revents);
         errno = EIO;
         *err = errno;
         return NULL;
     }
 
+<<<<<<< HEAD
     while ((int)(bufit - buf) < (len - 1))
     {
         errno = 0;
         int rc = TEMP_FAILURE_RETRY(read(fd, bufit, 1));
+=======
+    while ((int)(bufit - buf) < len)
+    {
+        errno = 0;
+        int rc = read(fd, bufit, 1);
+>>>>>>> 54b6cfa... Initial Contribution
 
         if (!rc)
             break;
 
         if (rc < 0) {
             if (errno == EBUSY) {
+<<<<<<< HEAD
                 ALOGI("read() error %s (%d): repeating read()...",
+=======
+                LOGI("read() error %s (%d): repeating read()...",
+>>>>>>> 54b6cfa... Initial Contribution
                      strerror(errno), errno);
                 goto again;
             }
             *err = errno;
+<<<<<<< HEAD
             ALOGE("read() error %s (%d)", strerror(errno), errno);
+=======
+            LOGE("read() error %s (%d)", strerror(errno), errno);
+>>>>>>> 54b6cfa... Initial Contribution
             return NULL;
         }
 
@@ -163,6 +199,7 @@ again:
             bufit++;
     }
 
+<<<<<<< HEAD
     *bufit = 0;
 
     // According to ITU V.250 section 5.1, IA5 7 bit chars are used, 
@@ -174,13 +211,21 @@ again:
     // 2 Audi 2010 A3, dial command use 0xAD (soft-hyphen) as number 
     //   formater, which was rejected by the AT handler
     mask_eighth_bit(buf);
+=======
+    *bufit = '\x0';
+    LOG(LOG_INFO, "Bluetooth AT recv", buf);
+>>>>>>> 54b6cfa... Initial Contribution
 
     return buf;
 }
 #endif
 
 static void classInitNative(JNIEnv* env, jclass clazz) {
+<<<<<<< HEAD
     ALOGV("%s", __FUNCTION__);
+=======
+    LOGV(__FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
 #ifdef HAVE_BLUETOOTH
     field_mNativeData = get_field(env, clazz, "mNativeData", "I");
     field_mAddress = get_field(env, clazz, "mAddress", "Ljava/lang/String;");
@@ -191,11 +236,19 @@ static void classInitNative(JNIEnv* env, jclass clazz) {
 
 static void initializeNativeDataNative(JNIEnv* env, jobject object,
                                        jint socketFd) {
+<<<<<<< HEAD
     ALOGV("%s", __FUNCTION__);
 #ifdef HAVE_BLUETOOTH
     native_data_t *nat = (native_data_t *)calloc(1, sizeof(native_data_t));
     if (NULL == nat) {
         ALOGE("%s: out of memory!", __FUNCTION__);
+=======
+    LOGV(__FUNCTION__);
+#ifdef HAVE_BLUETOOTH
+    native_data_t *nat = (native_data_t *)calloc(1, sizeof(native_data_t));
+    if (NULL == nat) {
+        LOGE("%s: out of memory!", __FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
         return;
     }
 
@@ -208,12 +261,20 @@ static void initializeNativeDataNative(JNIEnv* env, jobject object,
     nat->rfcomm_sock = socketFd;
     nat->rfcomm_connected = socketFd >= 0;
     if (nat->rfcomm_connected)
+<<<<<<< HEAD
         ALOGI("%s: ALREADY CONNECTED!", __FUNCTION__);
+=======
+        LOGI("%s: ALREADY CONNECTED!", __FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
 #endif
 }
 
 static void cleanupNativeDataNative(JNIEnv* env, jobject object) {
+<<<<<<< HEAD
     ALOGV("%s", __FUNCTION__);
+=======
+    LOGV(__FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
 #ifdef HAVE_BLUETOOTH
     native_data_t *nat =
         (native_data_t *)env->GetIntField(object, field_mNativeData);
@@ -226,7 +287,11 @@ static void cleanupNativeDataNative(JNIEnv* env, jobject object) {
 
 static jboolean connectNative(JNIEnv *env, jobject obj)
 {
+<<<<<<< HEAD
     ALOGV("%s", __FUNCTION__);
+=======
+    LOGV(__FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
 #ifdef HAVE_BLUETOOTH
     int lm;
     struct sockaddr_rc addr;
@@ -235,7 +300,11 @@ static jboolean connectNative(JNIEnv *env, jobject obj)
     nat->rfcomm_sock = socket(PF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
 
     if (nat->rfcomm_sock < 0) {
+<<<<<<< HEAD
         ALOGE("%s: Could not create RFCOMM socket: %s\n", __FUNCTION__,
+=======
+        LOGE("%s: Could not create RFCOMM socket: %s\n", __FUNCTION__,
+>>>>>>> 54b6cfa... Initial Contribution
              strerror(errno));
         return JNI_FALSE;
     }
@@ -248,7 +317,11 @@ static jboolean connectNative(JNIEnv *env, jobject obj)
 
     if (lm && setsockopt(nat->rfcomm_sock, SOL_RFCOMM, RFCOMM_LM, &lm,
                 sizeof(lm)) < 0) {
+<<<<<<< HEAD
         ALOGE("%s: Can't set RFCOMM link mode", __FUNCTION__);
+=======
+        LOGE("%s: Can't set RFCOMM link mode", __FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
         close(nat->rfcomm_sock);
         return JNI_FALSE;
     }
@@ -262,7 +335,11 @@ static jboolean connectNative(JNIEnv *env, jobject obj)
         if (connect(nat->rfcomm_sock, (struct sockaddr *)&addr,
                       sizeof(addr)) < 0) {
             if (errno == EINTR) continue;
+<<<<<<< HEAD
             ALOGE("%s: connect() failed: %s\n", __FUNCTION__, strerror(errno));
+=======
+            LOGE("%s: connect() failed: %s\n", __FUNCTION__, strerror(errno));
+>>>>>>> 54b6cfa... Initial Contribution
             close(nat->rfcomm_sock);
             nat->rfcomm_sock = -1;
             return JNI_FALSE;
@@ -277,15 +354,25 @@ static jboolean connectNative(JNIEnv *env, jobject obj)
 #endif
 }
 
+<<<<<<< HEAD
 static jint connectAsyncNative(JNIEnv *env, jobject obj) {
     ALOGV("%s", __FUNCTION__);
+=======
+static jboolean connectAsyncNative(JNIEnv *env, jobject obj) {
+    LOGV(__FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
 #ifdef HAVE_BLUETOOTH
     struct sockaddr_rc addr;
     native_data_t *nat = get_native_data(env, obj);
 
     if (nat->rfcomm_connected) {
+<<<<<<< HEAD
         ALOGV("RFCOMM socket is already connected or connection is in progress.");
         return 0;
+=======
+        LOGV("RFCOMM socket is already connected or connection is in progress.");
+        return JNI_TRUE;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     if (nat->rfcomm_sock < 0) {
@@ -293,9 +380,15 @@ static jint connectAsyncNative(JNIEnv *env, jobject obj) {
 
         nat->rfcomm_sock = socket(PF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
         if (nat->rfcomm_sock < 0) {
+<<<<<<< HEAD
             ALOGE("%s: Could not create RFCOMM socket: %s\n", __FUNCTION__,
                  strerror(errno));
             return -1;
+=======
+            LOGE("%s: Could not create RFCOMM socket: %s\n", __FUNCTION__,
+                 strerror(errno));
+            return JNI_FALSE;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         if (debug_no_encrypt()) {
@@ -306,11 +399,19 @@ static jint connectAsyncNative(JNIEnv *env, jobject obj) {
 
         if (lm && setsockopt(nat->rfcomm_sock, SOL_RFCOMM, RFCOMM_LM, &lm,
                     sizeof(lm)) < 0) {
+<<<<<<< HEAD
             ALOGE("%s: Can't set RFCOMM link mode", __FUNCTION__);
             close(nat->rfcomm_sock);
             return -1;
         }
         ALOGI("Created RFCOMM socket fd %d.", nat->rfcomm_sock);
+=======
+            LOGE("%s: Can't set RFCOMM link mode", __FUNCTION__);
+            close(nat->rfcomm_sock);
+            return JNI_FALSE;
+        }
+        LOGI("Created RFCOMM socket fd %d.", nat->rfcomm_sock);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     memset(&addr, 0, sizeof(struct sockaddr_rc));
@@ -330,12 +431,18 @@ static jint connectAsyncNative(JNIEnv *env, jobject obj) {
 
             if (rc >= 0) {
                 nat->rfcomm_connected = 1;
+<<<<<<< HEAD
                 ALOGI("async connect successful");
                 return 0;
+=======
+                LOGI("async connect successful");
+                return JNI_TRUE;
+>>>>>>> 54b6cfa... Initial Contribution
             }
             else if (rc < 0) {
                 if (errno == EINPROGRESS || errno == EAGAIN)
                 {
+<<<<<<< HEAD
                     ALOGI("async connect is in progress (%s)",
                          strerror(errno));
                     nat->rfcomm_connected = -1;
@@ -347,17 +454,38 @@ static jint connectAsyncNative(JNIEnv *env, jobject obj) {
                     close(nat->rfcomm_sock);
                     nat->rfcomm_sock = -1;
                     return -errno;
+=======
+                    LOGI("async connect is in progress (%s)",
+                         strerror(errno));
+                    nat->rfcomm_connected = -1;
+                    return JNI_TRUE;
+                }
+                else
+                {
+                    LOGE("async connect error: %s (%d)", strerror(errno), errno);
+                    close(nat->rfcomm_sock);
+                    nat->rfcomm_sock = -1;
+                    return JNI_FALSE;
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         } // fcntl(nat->rfcomm_sock ...)
     } // if (nat->rfcomm_sock_flags >= 0)
 #endif
+<<<<<<< HEAD
     return -1;
+=======
+    return JNI_FALSE;
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 static jint waitForAsyncConnectNative(JNIEnv *env, jobject obj,
                                            jint timeout_ms) {
+<<<<<<< HEAD
     ALOGV("%s", __FUNCTION__);
+=======
+    LOGV(__FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
 #ifdef HAVE_BLUETOOTH
     struct sockaddr_rc addr;
     native_data_t *nat = get_native_data(env, obj);
@@ -365,11 +493,16 @@ static jint waitForAsyncConnectNative(JNIEnv *env, jobject obj,
     env->SetIntField(obj, field_mTimeoutRemainingMs, timeout_ms);
 
     if (nat->rfcomm_connected > 0) {
+<<<<<<< HEAD
         ALOGI("RFCOMM is already connected!");
+=======
+        LOGI("RFCOMM is already connected!");
+>>>>>>> 54b6cfa... Initial Contribution
         return 1;
     }
 
     if (nat->rfcomm_sock >= 0 && nat->rfcomm_connected == 0) {
+<<<<<<< HEAD
         ALOGI("Re-opening RFCOMM socket.");
         close(nat->rfcomm_sock);
         nat->rfcomm_sock = -1;
@@ -379,6 +512,15 @@ static jint waitForAsyncConnectNative(JNIEnv *env, jobject obj,
     if (ret < 0) {
         ALOGI("Failed to re-open RFCOMM socket!");
         return ret;
+=======
+        LOGI("Re-opening RFCOMM socket.");
+        close(nat->rfcomm_sock);
+        nat->rfcomm_sock = -1;
+    }
+    if (JNI_FALSE == connectAsyncNative(env, obj)) {
+        LOGI("Failed to re-open RFCOMM socket!");
+        return -1;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     if (nat->rfcomm_sock >= 0) {
@@ -403,23 +545,38 @@ static jint waitForAsyncConnectNative(JNIEnv *env, jobject obj,
 
         if (timeout_ms > 0) {
             jint remaining = to.tv_sec*1000 + to.tv_usec/1000;
+<<<<<<< HEAD
             ALOGV("Remaining time %ldms", (long)remaining);
+=======
+            LOGV("Remaining time %ldms", (long)remaining);
+>>>>>>> 54b6cfa... Initial Contribution
             env->SetIntField(obj, field_mTimeoutRemainingMs,
                              remaining);
         }
 
         if (n <= 0) {
             if (n < 0)  {
+<<<<<<< HEAD
                 ALOGE("select() on RFCOMM socket: %s (%d)",
                      strerror(errno),
                      errno);
                 return -errno;
+=======
+                LOGE("select() on RFCOMM socket: %s (%d)",
+                     strerror(errno),
+                     errno);
+                return -1;
+>>>>>>> 54b6cfa... Initial Contribution
             }
             return 0;
         }
         /* n must be equal to 1 and either rset or wset must have the
            file descriptor set. */
+<<<<<<< HEAD
         ALOGV("select() returned %d.", n);
+=======
+        LOGV("select() returned %d.", n);
+>>>>>>> 54b6cfa... Initial Contribution
         if (FD_ISSET(nat->rfcomm_sock, &rset) ||
             FD_ISSET(nat->rfcomm_sock, &wset))
         {
@@ -427,13 +584,21 @@ static jint waitForAsyncConnectNative(JNIEnv *env, jobject obj,
             {
                 char ch;
                 errno = 0;
+<<<<<<< HEAD
                 int nr = TEMP_FAILURE_RETRY(read(nat->rfcomm_sock, &ch, 1));
+=======
+                int nr = read(nat->rfcomm_sock, &ch, 1);
+>>>>>>> 54b6cfa... Initial Contribution
                 /* It should be that nr != 1 because we just opened a socket
                    and we haven't sent anything over it for the other side to
                    respond... but one can't be paranoid enough.
                 */
                 if (nr >= 0 || errno != EAGAIN) {
+<<<<<<< HEAD
                     ALOGE("RFCOMM async connect() error: %s (%d), nr = %d\n",
+=======
+                    LOGE("RFCOMM async connect() error: %s (%d), nr = %d\n",
+>>>>>>> 54b6cfa... Initial Contribution
                          strerror(errno),
                          errno,
                          nr);
@@ -446,24 +611,40 @@ static jint waitForAsyncConnectNative(JNIEnv *env, jobject obj,
                     fcntl(nat->rfcomm_sock, F_SETFL, nat->rfcomm_sock_flags);
                     close(nat->rfcomm_sock);
                     nat->rfcomm_sock = -1;
+<<<<<<< HEAD
                     return -errno;
+=======
+                    return -1;
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
             /* Restore the blocking properties of the socket. */
             fcntl(nat->rfcomm_sock, F_SETFL, nat->rfcomm_sock_flags);
+<<<<<<< HEAD
             ALOGI("Successful RFCOMM socket connect.");
+=======
+            LOGI("Successful RFCOMM socket connect.");
+>>>>>>> 54b6cfa... Initial Contribution
             nat->rfcomm_connected = 1;
             return 1;
         }
     }
+<<<<<<< HEAD
     else ALOGE("RFCOMM socket file descriptor %d is bad!",
+=======
+    else LOGE("RFCOMM socket file descriptor %d is bad!",
+>>>>>>> 54b6cfa... Initial Contribution
               nat->rfcomm_sock);
 #endif
     return -1;
 }
 
 static void disconnectNative(JNIEnv *env, jobject obj) {
+<<<<<<< HEAD
     ALOGV("%s", __FUNCTION__);
+=======
+    LOGV(__FUNCTION__);
+>>>>>>> 54b6cfa... Initial Contribution
 #ifdef HAVE_BLUETOOTH
     native_data_t *nat = get_native_data(env, obj);
     if (nat->rfcomm_sock >= 0) {
@@ -494,7 +675,11 @@ static void pretty_log_urc(const char *urc) {
             }
         }
     }
+<<<<<<< HEAD
     IF_ALOGV() ALOG(LOG_VERBOSE, "Bluetooth AT sent", "%s", buf);
+=======
+    LOG(LOG_INFO, "Bluetooth AT sent", buf);
+>>>>>>> 54b6cfa... Initial Contribution
 
     free(buf);
 }
@@ -518,7 +703,11 @@ static jstring readNative(JNIEnv *env, jobject obj, jint timeout_ms) {
     {
         native_data_t *nat = get_native_data(env, obj);
         if (nat->rfcomm_connected) {
+<<<<<<< HEAD
             char buf[256];
+=======
+            char buf[128];
+>>>>>>> 54b6cfa... Initial Contribution
             const char *ret = get_line(nat->rfcomm_sock,
                                        buf, sizeof(buf),
                                        timeout_ms,
@@ -551,7 +740,11 @@ static JNINativeMethod sMethods[] = {
     {"initializeNativeDataNative", "(I)V", (void *)initializeNativeDataNative},
     {"cleanupNativeDataNative", "()V", (void *)cleanupNativeDataNative},
     {"connectNative", "()Z", (void *)connectNative},
+<<<<<<< HEAD
     {"connectAsyncNative", "()I", (void *)connectAsyncNative},
+=======
+    {"connectAsyncNative", "()Z", (void *)connectAsyncNative},
+>>>>>>> 54b6cfa... Initial Contribution
     {"waitForAsyncConnectNative", "(I)I", (void *)waitForAsyncConnectNative},
     {"disconnectNative", "()V", (void *)disconnectNative},
     {"sendURCNative", "(Ljava/lang/String;)Z", (void *)sendURCNative},

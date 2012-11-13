@@ -16,8 +16,15 @@
 
 package android.bluetooth;
 
+<<<<<<< HEAD
 /**
  * The result of execution of a single AT command.<p>
+=======
+import java.util.*;
+
+/**
+ * The result of execution of an single AT command.<p>
+>>>>>>> 54b6cfa... Initial Contribution
  *
  *
  * This class can represent the final response to an AT command line, and also

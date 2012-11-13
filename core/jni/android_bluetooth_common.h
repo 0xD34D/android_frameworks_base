@@ -24,9 +24,13 @@
 #include "utils/Log.h"
 
 #include <errno.h>
+<<<<<<< HEAD
 #include <pthread.h>
 #include <stdint.h>
 #include <sys/poll.h>
+=======
+#include <stdint.h>
+>>>>>>> 54b6cfa... Initial Contribution
 
 #ifdef HAVE_BLUETOOTH
 #include <dbus/dbus.h>
@@ -38,7 +42,10 @@ namespace android {
 #ifdef HAVE_BLUETOOTH
 #define BLUEZ_DBUS_BASE_PATH      "/org/bluez"
 #define BLUEZ_DBUS_BASE_IFC       "org.bluez"
+<<<<<<< HEAD
 #define BLUEZ_ERROR_IFC           "org.bluez.Error"
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 // It would be nicer to retrieve this from bluez using GetDefaultAdapter,
 // but this is only possible when the adapter is up (and hcid is running).
@@ -48,14 +55,18 @@ namespace android {
 
 #define BTADDR_SIZE 18   // size of BT address character array (including null)
 
+<<<<<<< HEAD
 // size of the dbus event loops pollfd structure, hopefully never to be grown
 #define DEFAULT_INITIAL_POLLFD_COUNT 8
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 jfieldID get_field(JNIEnv *env,
                    jclass clazz,
                    const char *member,
                    const char *mtype);
 
+<<<<<<< HEAD
 // ALOGE and free a D-Bus error
 // Using #define so that __FUNCTION__ resolves usefully
 #define LOG_AND_FREE_DBUS_ERROR_WITH_MSG(err, msg) \
@@ -98,13 +109,41 @@ struct _Properties {
     int type;
 };
 typedef struct _Properties Properties;
+=======
+// LOGE and free a D-Bus error
+// Using #define so that __FUNCTION__ resolves usefully
+#define LOG_AND_FREE_DBUS_ERROR_WITH_MSG(err, msg) \
+    {   LOGE("%s: D-Bus error in %s: %s (%s)", __FUNCTION__, \
+        dbus_message_get_member((msg)), (err)->name, (err)->message); \
+         dbus_error_free((err)); }
+#define LOG_AND_FREE_DBUS_ERROR(err) \
+    {   LOGE("%s: D-Bus error: %s (%s)", __FUNCTION__, \
+        (err)->name, (err)->message); \
+        dbus_error_free((err)); }
+
+dbus_bool_t dbus_func_args_async_valist(JNIEnv *env,
+                                        DBusConnection *conn,
+                                        int timeout_ms,
+                                        void (*reply)(DBusMessage *, void *),
+                                        void *user,
+                                        const char *path,
+                                        const char *ifc,
+                                        const char *func,
+                                        int first_arg_type,
+                                        va_list args);
+>>>>>>> 54b6cfa... Initial Contribution
 
 dbus_bool_t dbus_func_args_async(JNIEnv *env,
                                  DBusConnection *conn,
                                  int timeout_ms,
+<<<<<<< HEAD
                                  void (*reply)(DBusMessage *, void *, void *),
                                  void *user,
                                  void *nat,
+=======
+                                 void (*reply)(DBusMessage *, void *),
+                                 void *user,
+>>>>>>> 54b6cfa... Initial Contribution
                                  const char *path,
                                  const char *ifc,
                                  const char *func,
@@ -149,6 +188,7 @@ DBusMessage * dbus_func_args_timeout_valist(JNIEnv *env,
 
 jint dbus_returns_int32(JNIEnv *env, DBusMessage *reply);
 jint dbus_returns_uint32(JNIEnv *env, DBusMessage *reply);
+<<<<<<< HEAD
 jint dbus_returns_unixfd(JNIEnv *env, DBusMessage *reply);
 jstring dbus_returns_string(JNIEnv *env, DBusMessage *reply);
 jboolean dbus_returns_boolean(JNIEnv *env, DBusMessage *reply);
@@ -174,10 +214,19 @@ jobjectArray parse_health_device_property_change(JNIEnv *env, DBusMessage *msg);
 void append_dict_args(DBusMessage *reply, const char *first_key, ...);
 void append_variant(DBusMessageIter *iter, int type, void *val);
 int get_bdaddr(const char *str, bdaddr_t *ba);
+=======
+jstring dbus_returns_string(JNIEnv *env, DBusMessage *reply);
+jboolean dbus_returns_boolean(JNIEnv *env, DBusMessage *reply);
+jobjectArray dbus_returns_array_of_strings(JNIEnv *env, DBusMessage *reply);
+jbyteArray dbus_returns_array_of_bytes(JNIEnv *env, DBusMessage *reply);
+
+void get_bdaddr(const char *str, bdaddr_t *ba);
+>>>>>>> 54b6cfa... Initial Contribution
 void get_bdaddr_as_string(const bdaddr_t *ba, char *str);
 
 bool debug_no_encrypt();
 
+<<<<<<< HEAD
 
 // Result codes from Bluez DBus calls
 #define BOND_RESULT_ERROR                      -1
@@ -209,6 +258,8 @@ bool debug_no_encrypt();
 #define HEALTH_OPERATION_NOT_FOUND             6004
 #define HEALTH_OPERATION_NOT_ALLOWED           6005
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 #endif
 } /* namespace android */
 

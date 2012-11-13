@@ -18,13 +18,17 @@ package com.android.server.am;
 
 import android.content.IntentFilter;
 import android.util.PrintWriterPrinter;
+<<<<<<< HEAD
 import android.util.Printer;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.io.PrintWriter;
 
 class BroadcastFilter extends IntentFilter {
     // Back-pointer to the list this filter is in.
     final ReceiverList receiverList;
+<<<<<<< HEAD
     final String packageName;
     final String requiredPermission;
 
@@ -64,5 +68,30 @@ class BroadcastFilter extends IntentFilter {
         sb.append(receiverList);
         sb.append('}');
         return sb.toString();
+=======
+    final String requiredPermission;
+
+    BroadcastFilter(IntentFilter _filter, ReceiverList _receiverList,
+            String _requiredPermission) {
+        super(_filter);
+        receiverList = _receiverList;
+        requiredPermission = _requiredPermission;
+    }
+    
+    public void dumpLocal(PrintWriter pw, String prefix) {
+        super.dump(new PrintWriterPrinter(pw), prefix);
+    }
+    
+    public void dump(PrintWriter pw, String prefix) {
+        dumpLocal(pw, prefix);
+        pw.println(prefix + "requiredPermission=" + requiredPermission);
+        receiverList.dumpLocal(pw, prefix);
+    }
+    
+    public String toString() {
+        return "BroadcastFilter{"
+            + Integer.toHexString(System.identityHashCode(this))
+            + " " + receiverList + "}";
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

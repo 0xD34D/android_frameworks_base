@@ -16,6 +16,7 @@
 
 package com.android.commands.pm;
 
+<<<<<<< HEAD
 import com.android.internal.content.PackageHelper;
 
 import android.app.ActivityManagerNative;
@@ -40,10 +41,26 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Process;
+=======
+import android.content.pm.ApplicationInfo;
+import android.content.pm.IPackageDeleteObserver;
+import android.content.pm.IPackageInstallObserver;
+import android.content.pm.IPackageManager;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageItemInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageParser;
+import android.content.pm.PermissionGroupInfo;
+import android.content.pm.PermissionInfo;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.net.Uri;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.RemoteException;
 import android.os.ServiceManager;
 
 import java.io.File;
+<<<<<<< HEAD
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.security.InvalidAlgorithmParameterException;
@@ -75,6 +92,27 @@ public final class Pm {
         new Pm().run(args);
     }
 
+=======
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.WeakHashMap;
+
+public final class Pm {
+    IPackageManager mPm;
+    
+    private WeakHashMap<String, Resources> mResourceCache
+            = new WeakHashMap<String, Resources>();
+    
+    private String[] mArgs;
+    private int mNextArg;
+    private String mCurArgData;
+    
+    public static void main(String[] args) {
+        new Pm().run(args);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     public void run(String[] args) {
         boolean validCommand = false;
         if (args.length < 1) {
@@ -84,33 +122,55 @@ public final class Pm {
 
         mPm = IPackageManager.Stub.asInterface(ServiceManager.getService("package"));
         if (mPm == null) {
+<<<<<<< HEAD
             System.err.println(PM_NOT_RUNNING_ERR);
+=======
+            System.err.println("Error Type 1: Could not access the Package Manager!");
+            showUsage();
+>>>>>>> 54b6cfa... Initial Contribution
             return;
         }
 
         mArgs = args;
         String op = args[0];
         mNextArg = 1;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if ("list".equals(op)) {
             runList();
             return;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if ("path".equals(op)) {
             runPath();
             return;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if ("install".equals(op)) {
             runInstall();
             return;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if ("uninstall".equals(op)) {
             runUninstall();
             return;
         }
+<<<<<<< HEAD
 
         if ("clear".equals(op)) {
             runClear();
@@ -172,6 +232,9 @@ public final class Pm {
             return;
         }
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         try {
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("-l")) {
@@ -189,13 +252,17 @@ public final class Pm {
             }
         } finally {
             if (validCommand == false) {
+<<<<<<< HEAD
                 if (op != null) {
                     System.err.println("Error: unknown command '" + op + "'");
                 }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 showUsage();
             }
         }
     }
+<<<<<<< HEAD
 
     /**
      * Execute the list sub-command.
@@ -206,6 +273,11 @@ public final class Pm {
      * pm list features
      * pm list libraries
      * pm list instrumentation
+=======
+    
+    /**
+     * Execute the list sub-command.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     private void runList() {
         String type = nextArg();
@@ -220,6 +292,7 @@ public final class Pm {
             runListPermissionGroups();
         } else if ("permissions".equals(type)) {
             runListPermissions();
+<<<<<<< HEAD
         } else if ("features".equals(type)) {
             runListFeatures();
         } else if ("libraries".equals(type)) {
@@ -228,20 +301,29 @@ public final class Pm {
             runListInstrumentation();
         } else if ("users".equals(type)) {
             runListUsers();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         } else {
             System.err.println("Error: unknown list type '" + type + "'");
             showUsage();
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Lists all the installed packages.
      */
     private void runListPackages(boolean showApplicationPackage) {
+<<<<<<< HEAD
         int getFlags = 0;
         boolean listDisabled = false, listEnabled = false;
         boolean listSystem = false, listThirdParty = false;
         boolean listInstaller = false;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         try {
             String opt;
             while ((opt=nextOption()) != null) {
@@ -251,6 +333,7 @@ public final class Pm {
                     showApplicationPackage = true;
                 } else if (opt.equals("-f")) {
                     showApplicationPackage = true;
+<<<<<<< HEAD
                 } else if (opt.equals("-d")) {
                     listDisabled = true;
                 } else if (opt.equals("-e")) {
@@ -263,6 +346,8 @@ public final class Pm {
                     listInstaller = true;
                 } else if (opt.equals("-u")) {
                     getFlags |= PackageManager.GET_UNINSTALLED_PACKAGES;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 } else {
                     System.err.println("Error: Unknown option: " + opt);
                     showUsage();
@@ -274,6 +359,7 @@ public final class Pm {
             showUsage();
             return;
         }
+<<<<<<< HEAD
 
         String filter = nextArg();
 
@@ -460,13 +546,37 @@ public final class Pm {
         }
     }
 
+=======
+        
+        try {
+            List<PackageInfo> packages = mPm.getInstalledPackages(0 /* all */);
+            
+            int count = packages.size();
+            for (int p = 0 ; p < count ; p++) {
+                PackageInfo info = packages.get(p);
+                System.out.print("package:");
+                if (showApplicationPackage) {
+                    System.out.print(info.applicationInfo.sourceDir);
+                    System.out.print("=");
+                }
+                System.out.println(info.packageName);
+            }
+        } catch (RemoteException e) {
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Lists all the known permission groups.
      */
     private void runListPermissionGroups() {
         try {
             List<PermissionGroupInfo> pgs = mPm.getAllPermissionGroups(0);
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             int count = pgs.size();
             for (int p = 0 ; p < count ; p++) {
                 PermissionGroupInfo pgi = pgs.get(p);
@@ -474,15 +584,22 @@ public final class Pm {
                 System.out.println(pgi.name);
             }
         } catch (RemoteException e) {
+<<<<<<< HEAD
             System.err.println(e.toString());
             System.err.println(PM_NOT_RUNNING_ERR);
         }
     }
 
+=======
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private String loadText(PackageItemInfo pii, int res, CharSequence nonLocalized) {
         if (nonLocalized != null) {
             return nonLocalized.toString();
         }
+<<<<<<< HEAD
         if (res != 0) {
             Resources r = getResources(pii);
             if (r != null) {
@@ -492,6 +609,15 @@ public final class Pm {
         return null;
     }
 
+=======
+        Resources r = getResources(pii);
+        if (r != null) {
+            return r.getString(res);
+        }
+        return null;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Lists all the permissions in a group.
      */
@@ -522,7 +648,11 @@ public final class Pm {
                     return;
                 }
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             String grp = nextOption();
             ArrayList<String> groupList = new ArrayList<String>();
             if (groups) {
@@ -535,7 +665,11 @@ public final class Pm {
             } else {
                 groupList.add(grp);
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (dangerousOnly) {
                 System.out.println("Dangerous Permissions:");
                 System.out.println("");
@@ -562,11 +696,17 @@ public final class Pm {
                         -10000, 10000);
             }
         } catch (RemoteException e) {
+<<<<<<< HEAD
             System.err.println(e.toString());
             System.err.println(PM_NOT_RUNNING_ERR);
         }
     }
 
+=======
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private void doListPermissions(ArrayList<String> groupList,
             boolean groups, boolean labels, boolean summary,
             int startProtectionLevel, int endProtectionLevel)
@@ -586,7 +726,11 @@ public final class Pm {
                                     pgi.nonLocalizedLabel) + ": ");
                         } else {
                             System.out.print(pgi.name + ": ");
+<<<<<<< HEAD
 
+=======
+                            
+>>>>>>> 54b6cfa... Initial Contribution
                         }
                     } else {
                         System.out.println((labels ? "+ " : "")
@@ -619,9 +763,14 @@ public final class Pm {
                 if (groups && groupName == null && pi.group != null) {
                     continue;
                 }
+<<<<<<< HEAD
                 final int base = pi.protectionLevel & PermissionInfo.PROTECTION_MASK_BASE;
                 if (base < startProtectionLevel
                         || base > endProtectionLevel) {
+=======
+                if (pi.protectionLevel < startProtectionLevel
+                        || pi.protectionLevel > endProtectionLevel) {
+>>>>>>> 54b6cfa... Initial Contribution
                     continue;
                 }
                 if (summary) {
@@ -651,18 +800,45 @@ public final class Pm {
                                     + loadText(pi, pi.descriptionRes,
                                             pi.nonLocalizedDescription));
                         }
+<<<<<<< HEAD
                         System.out.println(prefix + "  protectionLevel:"
                                 + PermissionInfo.protectionToString(pi.protectionLevel));
                     }
                 }
             }
 
+=======
+                        String protLevel = "unknown";
+                        switch(pi.protectionLevel) {
+                            case PermissionInfo.PROTECTION_DANGEROUS:
+                                protLevel = "dangerous";
+                                break;
+                            case PermissionInfo.PROTECTION_NORMAL:
+                                protLevel = "normal";
+                                break;
+                            case PermissionInfo.PROTECTION_SIGNATURE:
+                                protLevel = "signature";
+                                break;
+                            case PermissionInfo.PROTECTION_SIGNATURE_OR_SYSTEM:
+                                protLevel = "signatureOrSystem";
+                                break;
+                        }
+                        System.out.println(prefix + "  protectionLevel:" + protLevel);
+                    }
+                }
+            }
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (summary) {
                 System.out.println("");
             }
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private void runPath() {
         String pkg = nextArg();
         if (pkg == null) {
@@ -672,7 +848,11 @@ public final class Pm {
         }
         displayPackageFilePath(pkg);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     class PackageInstallObserver extends IPackageInstallObserver.Stub {
         boolean finished;
         int result;
@@ -685,6 +865,7 @@ public final class Pm {
             }
         }
     }
+<<<<<<< HEAD
 
     /**
      * Converts a failure code into a string by using reflection to find a matching constant
@@ -840,6 +1021,88 @@ public final class Pm {
                     showUsage();
                     return;
                 }
+=======
+    
+    private String installFailureToString(int result) {
+        String s;
+        switch (result) {
+        case PackageManager.INSTALL_FAILED_ALREADY_EXISTS:
+            s = "INSTALL_FAILED_ALREADY_EXISTS";
+            break;
+        case PackageManager.INSTALL_FAILED_INVALID_APK:
+            s = "INSTALL_FAILED_INVALID_APK";
+            break;
+        case PackageManager.INSTALL_FAILED_INVALID_URI:
+            s = "INSTALL_FAILED_INVALID_URI";
+            break;
+        case PackageManager.INSTALL_FAILED_INSUFFICIENT_STORAGE:
+            s = "INSTALL_FAILED_INSUFFICIENT_STORAGE";
+            break;
+        case PackageManager.INSTALL_FAILED_DUPLICATE_PACKAGE:
+            s = "INSTALL_FAILED_DUPLICATE_PACKAGE";
+            break;
+        case PackageManager.INSTALL_FAILED_NO_SHARED_USER:
+            s = "INSTALL_FAILED_NO_SHARED_USER";
+            break;
+        case PackageManager.INSTALL_FAILED_UPDATE_INCOMPATIBLE:
+            s = "INSTALL_FAILED_UPDATE_INCOMPATIBLE";
+            break;
+        case PackageManager.INSTALL_FAILED_SHARED_USER_INCOMPATIBLE:
+            s = "INSTALL_FAILED_SHARED_USER_INCOMPATIBLE";
+            break;
+        case PackageManager.INSTALL_FAILED_MISSING_SHARED_LIBRARY:
+            s = "INSTALL_FAILED_MISSING_SHARED_LIBRARY";
+            break;
+        case PackageManager.INSTALL_FAILED_REPLACE_COULDNT_DELETE:
+            s = "INSTALL_FAILED_REPLACE_COULDNT_DELETE";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_NOT_APK:
+            s = "INSTALL_PARSE_FAILED_NOT_APK";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_BAD_MANIFEST:
+            s = "INSTALL_PARSE_FAILED_BAD_MANIFEST";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION:
+            s = "INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_NO_CERTIFICATES:
+            s = "INSTALL_PARSE_FAILED_NO_CERTIFICATES";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES:
+            s = "INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_CERTIFICATE_ENCODING:
+            s = "INSTALL_PARSE_FAILED_CERTIFICATE_ENCODING";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_BAD_PACKAGE_NAME:
+            s = "INSTALL_PARSE_FAILED_BAD_PACKAGE_NAME";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_BAD_SHARED_USER_ID:
+            s = "INSTALL_PARSE_FAILED_BAD_SHARED_USER_ID";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_MANIFEST_MALFORMED:
+            s = "INSTALL_PARSE_FAILED_MANIFEST_MALFORMED";
+            break;
+        case PackageManager.INSTALL_PARSE_FAILED_MANIFEST_EMPTY:
+            s = "INSTALL_PARSE_FAILED_MANIFEST_EMPTY";
+            break;
+        default:
+            s = Integer.toString(result);
+        break;
+        }
+        return s;
+    }
+    
+    private void runInstall() {
+        int installFlags = 0;
+
+        String opt;
+        while ((opt=nextOption()) != null) {
+            if (opt.equals("-l")) {
+                installFlags |= PackageManager.FORWARD_LOCK_PACKAGE;
+            } else if (opt.equals("-r")) {
+                installFlags |= PackageManager.REPLACE_EXISTING_PACKAGE;
+>>>>>>> 54b6cfa... Initial Contribution
             } else {
                 System.err.println("Error: Unknown option: " + opt);
                 showUsage();
@@ -847,6 +1110,7 @@ public final class Pm {
             }
         }
 
+<<<<<<< HEAD
         final ContainerEncryptionParams encryptionParams;
         if (algo != null || iv != null || key != null || macAlgo != null || macKey != null
                 || tag != null) {
@@ -894,11 +1158,17 @@ public final class Pm {
         if (apkFilePath != null) {
             apkURI = Uri.fromFile(new File(apkFilePath));
         } else {
+=======
+        String apkFilePath = nextArg();
+        System.err.println("\tpkg: " + apkFilePath);
+        if (apkFilePath == null) {
+>>>>>>> 54b6cfa... Initial Contribution
             System.err.println("Error: no package specified");
             showUsage();
             return;
         }
 
+<<<<<<< HEAD
         // Populate verificationURI, optionally present
         final String verificationFilePath = nextArg();
         if (verificationFilePath != null) {
@@ -913,6 +1183,12 @@ public final class Pm {
             mPm.installPackageWithVerification(apkURI, obs, installFlags, installerPackageName,
                     verificationURI, null, encryptionParams);
 
+=======
+        PackageInstallObserver obs = new PackageInstallObserver();
+        try {
+            mPm.installPackage(Uri.fromFile(new File(apkFilePath)), obs, installFlags);
+            
+>>>>>>> 54b6cfa... Initial Contribution
             synchronized (obs) {
                 while (!obs.finished) {
                     try {
@@ -929,6 +1205,7 @@ public final class Pm {
                 }
             }
         } catch (RemoteException e) {
+<<<<<<< HEAD
             System.err.println(e.toString());
             System.err.println(PM_NOT_RUNNING_ERR);
         }
@@ -1051,11 +1328,28 @@ public final class Pm {
             synchronized (this) {
                 finished = true;
                 result = returnCode == PackageManager.DELETE_SUCCEEDED;
+=======
+        }
+    }
+    
+    class PackageDeleteObserver extends IPackageDeleteObserver.Stub {
+        boolean finished;
+        boolean result;
+        
+        public void packageDeleted(boolean succeeded) {
+            synchronized (this) {
+                finished = true;
+                result = succeeded;
+>>>>>>> 54b6cfa... Initial Contribution
                 notifyAll();
             }
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private void runUninstall() {
         int unInstallFlags = 0;
 
@@ -1092,12 +1386,16 @@ public final class Pm {
                 }
             }
         } catch (RemoteException e) {
+<<<<<<< HEAD
             System.err.println(e.toString());
             System.err.println(PM_NOT_RUNNING_ERR);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
         return obs.result;
     }
 
+<<<<<<< HEAD
     class ClearDataObserver extends IPackageDataObserver.Stub {
         boolean finished;
         boolean result;
@@ -1272,18 +1570,25 @@ public final class Pm {
         }
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Displays the package file for a package.
      * @param pckg
      */
     private void displayPackageFilePath(String pckg) {
         try {
+<<<<<<< HEAD
             PackageInfo info = mPm.getPackageInfo(pckg, 0, 0);
+=======
+            PackageInfo info = mPm.getPackageInfo(pckg, 0);
+>>>>>>> 54b6cfa... Initial Contribution
             if (info != null && info.applicationInfo != null) {
                 System.out.print("package:");
                 System.out.println(info.applicationInfo.sourceDir);
             }
         } catch (RemoteException e) {
+<<<<<<< HEAD
             System.err.println(e.toString());
             System.err.println(PM_NOT_RUNNING_ERR);
         }
@@ -1295,18 +1600,37 @@ public final class Pm {
 
         try {
             ApplicationInfo ai = mPm.getApplicationInfo(pii.packageName, 0, 0);
+=======
+        }
+    }
+    
+    private Resources getResources(PackageItemInfo pii) {
+        Resources res = mResourceCache.get(pii.packageName);
+        if (res != null) return res;
+        
+        try {
+            ApplicationInfo ai = mPm.getApplicationInfo(pii.packageName, 0);
+>>>>>>> 54b6cfa... Initial Contribution
             AssetManager am = new AssetManager();
             am.addAssetPath(ai.publicSourceDir);
             res = new Resources(am, null, null);
             mResourceCache.put(pii.packageName, res);
             return res;
         } catch (RemoteException e) {
+<<<<<<< HEAD
             System.err.println(e.toString());
             System.err.println(PM_NOT_RUNNING_ERR);
             return null;
         }
     }
 
+=======
+            System.err.println("Package manager gone!");
+            return null;
+        }
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private String nextOption() {
         if (mNextArg >= mArgs.length) {
             return null;
@@ -1354,6 +1678,7 @@ public final class Pm {
     }
 
     private static void showUsage() {
+<<<<<<< HEAD
         System.err.println("usage: pm list packages [-f] [-d] [-e] [-s] [-3] [-i] [-u] [FILTER]");
         System.err.println("       pm list permission-groups");
         System.err.println("       pm list permissions [-g] [-f] [-d] [-u] [GROUP]");
@@ -1434,5 +1759,38 @@ public final class Pm {
         System.err.println("    0 [auto]: Let system decide the best location");
         System.err.println("    1 [internal]: Install on internal device storage");
         System.err.println("    2 [external]: Install on external media");
+=======
+        System.err.println("usage: pm [list|path|install|uninstall]");
+        System.err.println("       pm list packages [-f]");
+        System.err.println("       pm list permission-groups");
+        System.err.println("       pm list permissions [-g] [-f] [-d] [-u] [GROUP]");
+        System.err.println("       pm path PACKAGE");
+        System.err.println("       pm install [-l] [-r] PATH");
+        System.err.println("       pm uninstall [-k] PACKAGE");
+        System.err.println("");
+        System.err.println("The list packages command prints all packages.  Use");
+        System.err.println("the -f option to see their associated file.");
+        System.err.println("");
+        System.err.println("The list permission-groups command prints all known");
+        System.err.println("permission groups.");
+        System.err.println("");
+        System.err.println("The list permissions command prints all known");
+        System.err.println("permissions, optionally only those in GROUP.  Use");
+        System.err.println("the -g option to organize by group.  Use");
+        System.err.println("the -f option to print all information.  Use");
+        System.err.println("the -s option for a short summary.  Use");
+        System.err.println("the -d option to only list dangerous permissions.  Use");
+        System.err.println("the -u option to list only the permissions users will see.");
+        System.err.println("");
+        System.err.println("The path command prints the path to the .apk of a package.");
+        System.err.println("");
+        System.err.println("The install command installs a package to the system.  Use");
+        System.err.println("the -l option to install the package with FORWARD_LOCK. Use");
+        System.err.println("the -r option to reinstall an exisiting app, keeping its data.");
+        System.err.println("");
+        System.err.println("The uninstall command removes a package from the system. Use");
+        System.err.println("the -k option to keep the data and cache directories around");
+        System.err.println("after the package removal.");
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

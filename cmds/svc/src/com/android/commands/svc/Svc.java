@@ -16,6 +16,23 @@
 
 package com.android.commands.svc;
 
+<<<<<<< HEAD
+=======
+import android.app.ActivityManagerNative;
+import android.app.IActivityManager;
+import android.app.IInstrumentationWatcher;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.RemoteException;
+import android.os.Bundle;
+import android.os.ServiceManager;
+import android.view.IWindowManager;
+
+import java.util.Iterator;
+import java.util.Set;
+
+>>>>>>> 54b6cfa... Initial Contribution
 public class Svc {
 
     public static abstract class Command {
@@ -35,6 +52,16 @@ public class Svc {
     }
 
     public static void main(String[] args) {
+<<<<<<< HEAD
+=======
+        if (true) {
+            for (String a: args) {
+                System.err.print(a + " ");
+            }
+            System.err.println();
+        }
+
+>>>>>>> 54b6cfa... Initial Contribution
         if (args.length >= 1) {
             Command c = lookupCommand(args[0]);
             if (c != null) {
@@ -45,7 +72,11 @@ public class Svc {
         COMMAND_HELP.run(args);
     }
 
+<<<<<<< HEAD
     private static Command lookupCommand(String name) {
+=======
+    private static final Command lookupCommand(String name) {
+>>>>>>> 54b6cfa... Initial Contribution
         final int N = COMMANDS.length;
         for (int i=0; i<N; i++) {
             Command c = COMMANDS[i];
@@ -91,10 +122,15 @@ public class Svc {
     };
 
     public static final Command[] COMMANDS = new Command[] {
+<<<<<<< HEAD
             COMMAND_HELP,
             new PowerCommand(),
             new DataCommand(),
             new WifiCommand(),
             new UsbCommand()
+=======
+        COMMAND_HELP,
+        new PowerCommand(),
+>>>>>>> 54b6cfa... Initial Contribution
     };
 }

@@ -20,11 +20,16 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Bundle;
 
+<<<<<<< HEAD
 import java.io.Closeable;
+=======
+import java.util.Map;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * This interface provides random read-write access to the result set returned
  * by a database query.
+<<<<<<< HEAD
  *
  * Cursor implementations are not required to be synchronized so code using a Cursor from multiple
  * threads should perform its own synchronization when using the Cursor.
@@ -49,6 +54,10 @@ public interface Cursor extends Closeable {
     /** Value returned by {@link #getType(int)} if the specified column type is blob */
     static final int FIELD_TYPE_BLOB = 4;
 
+=======
+ */
+public interface Cursor {
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the numbers of rows in the cursor.
      *
@@ -165,6 +174,25 @@ public interface Cursor extends Closeable {
     boolean isAfterLast();
 
     /**
+<<<<<<< HEAD
+=======
+     * Removes the row at the current cursor position from the underlying data
+     * store. After this method returns the cursor will be pointing to the row
+     * after the row that is deleted. This has the side effect of decrementing
+     * the result of count() by one.
+     * <p>
+     * The query must have the row ID column in its selection, otherwise this
+     * call will fail.
+     * 
+     * @hide
+     * @return whether the record was successfully deleted.
+     * @deprecated use {@link ContentResolver#delete(Uri, String, String[])}
+     */
+    @Deprecated
+    boolean deleteRow();
+
+    /**
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns the zero-based index for the given column name, or -1 if the column doesn't exist.
      * If you expect the column to exist use {@link #getColumnIndexOrThrow(String)} instead, which
      * will make the error more clear.
@@ -214,9 +242,13 @@ public interface Cursor extends Closeable {
     /**
      * Returns the value of the requested column as a byte array.
      *
+<<<<<<< HEAD
      * <p>The result and whether this method throws an exception when the
      * column value is null or the column type is not a blob type is
      * implementation-defined.
+=======
+     * <p>If the native content of that column is not blob exception may throw
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param columnIndex the zero-based index of the target column.
      * @return the value of that column as a byte array.
@@ -226,9 +258,14 @@ public interface Cursor extends Closeable {
     /**
      * Returns the value of the requested column as a String.
      *
+<<<<<<< HEAD
      * <p>The result and whether this method throws an exception when the
      * column value is null or the column type is not a string type is
      * implementation-defined.
+=======
+     * <p>If the native content of that column is not text the result will be
+     * the result of passing the column value to String.valueOf(x).
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param columnIndex the zero-based index of the target column.
      * @return the value of that column as a String.
@@ -248,10 +285,15 @@ public interface Cursor extends Closeable {
     /**
      * Returns the value of the requested column as a short.
      *
+<<<<<<< HEAD
      * <p>The result and whether this method throws an exception when the
      * column value is null, the column type is not an integral type, or the
      * integer value is outside the range [<code>Short.MIN_VALUE</code>,
      * <code>Short.MAX_VALUE</code>] is implementation-defined.
+=======
+     * <p>If the native content of that column is not numeric the result will be
+     * the result of passing the column value to Short.valueOf(x).
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param columnIndex the zero-based index of the target column.
      * @return the value of that column as a short.
@@ -261,10 +303,15 @@ public interface Cursor extends Closeable {
     /**
      * Returns the value of the requested column as an int.
      *
+<<<<<<< HEAD
      * <p>The result and whether this method throws an exception when the
      * column value is null, the column type is not an integral type, or the
      * integer value is outside the range [<code>Integer.MIN_VALUE</code>,
      * <code>Integer.MAX_VALUE</code>] is implementation-defined.
+=======
+     * <p>If the native content of that column is not numeric the result will be
+     * the result of passing the column value to Integer.valueOf(x).
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param columnIndex the zero-based index of the target column.
      * @return the value of that column as an int.
@@ -274,10 +321,15 @@ public interface Cursor extends Closeable {
     /**
      * Returns the value of the requested column as a long.
      *
+<<<<<<< HEAD
      * <p>The result and whether this method throws an exception when the
      * column value is null, the column type is not an integral type, or the
      * integer value is outside the range [<code>Long.MIN_VALUE</code>,
      * <code>Long.MAX_VALUE</code>] is implementation-defined.
+=======
+     * <p>If the native content of that column is not numeric the result will be
+     * the result of passing the column value to Long.valueOf(x).
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param columnIndex the zero-based index of the target column.
      * @return the value of that column as a long.
@@ -287,10 +339,15 @@ public interface Cursor extends Closeable {
     /**
      * Returns the value of the requested column as a float.
      *
+<<<<<<< HEAD
      * <p>The result and whether this method throws an exception when the
      * column value is null, the column type is not a floating-point type, or the
      * floating-point value is not representable as a <code>float</code> value is
      * implementation-defined.
+=======
+     * <p>If the native content of that column is not numeric the result will be
+     * the result of passing the column value to Float.valueOf(x).
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param columnIndex the zero-based index of the target column.
      * @return the value of that column as a float.
@@ -300,10 +357,15 @@ public interface Cursor extends Closeable {
     /**
      * Returns the value of the requested column as a double.
      *
+<<<<<<< HEAD
      * <p>The result and whether this method throws an exception when the
      * column value is null, the column type is not a floating-point type, or the
      * floating-point value is not representable as a <code>double</code> value is
      * implementation-defined.
+=======
+     * <p>If the native content of that column is not numeric the result will be
+     * the result of passing the column value to Double.valueOf(x).
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param columnIndex the zero-based index of the target column.
      * @return the value of that column as a double.
@@ -311,6 +373,7 @@ public interface Cursor extends Closeable {
     double getDouble(int columnIndex);
 
     /**
+<<<<<<< HEAD
      * Returns data type of the given column's value.
      * The preferred type of the column is returned but the data may be converted to other types
      * as documented in the get-type methods such as {@link #getInt(int)}, {@link #getFloat(int)}
@@ -338,12 +401,205 @@ public interface Cursor extends Closeable {
      * @return whether the column value is null.
      */
     boolean isNull(int columnIndex);
+=======
+     * Returns <code>true</code> if the value in the indicated column is null.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @return whether the column value is null.
+     */
+    boolean isNull(int columnIndex);
+
+    /**
+     * Returns <code>true</code> if the cursor supports updates.
+     *
+     * @return whether the cursor supports updates.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean supportsUpdates();
+
+    /**
+     * Returns <code>true</code> if there are pending updates that have not yet been committed.
+     * 
+     * @return <code>true</code> if there are pending updates that have not yet been committed.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean hasUpdates();
+
+    /**
+     * Updates the value for the given column in the row the cursor is
+     * currently pointing at. Updates are not committed to the backing store
+     * until {@link #commitUpdates()} is called.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @param value the new value.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean updateBlob(int columnIndex, byte[] value);
+
+    /**
+     * Updates the value for the given column in the row the cursor is
+     * currently pointing at. Updates are not committed to the backing store
+     * until {@link #commitUpdates()} is called.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @param value the new value.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean updateString(int columnIndex, String value);
+
+    /**
+     * Updates the value for the given column in the row the cursor is
+     * currently pointing at. Updates are not committed to the backing store
+     * until {@link #commitUpdates()} is called.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @param value the new value.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean updateShort(int columnIndex, short value);
+
+    /**
+     * Updates the value for the given column in the row the cursor is
+     * currently pointing at. Updates are not committed to the backing store
+     * until {@link #commitUpdates()} is called.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @param value the new value.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean updateInt(int columnIndex, int value);
+
+    /**
+     * Updates the value for the given column in the row the cursor is
+     * currently pointing at. Updates are not committed to the backing store
+     * until {@link #commitUpdates()} is called.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @param value the new value.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean updateLong(int columnIndex, long value);
+
+    /**
+     * Updates the value for the given column in the row the cursor is
+     * currently pointing at. Updates are not committed to the backing store
+     * until {@link #commitUpdates()} is called.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @param value the new value.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean updateFloat(int columnIndex, float value);
+
+    /**
+     * Updates the value for the given column in the row the cursor is
+     * currently pointing at. Updates are not committed to the backing store
+     * until {@link #commitUpdates()} is called.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @param value the new value.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean updateDouble(int columnIndex, double value);
+
+    /**
+     * Removes the value for the given column in the row the cursor is
+     * currently pointing at. Updates are not committed to the backing store
+     * until {@link #commitUpdates()} is called.
+     *
+     * @param columnIndex the zero-based index of the target column.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean updateToNull(int columnIndex);
+
+    /**
+     * Atomically commits all updates to the backing store. After completion,
+     * this method leaves the data in an inconsistent state and you should call
+     * {@link #requery} before reading data from the cursor again.
+     *
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean commitUpdates();
+
+    /**
+     * Atomically commits all updates to the backing store, as well as the
+     * updates included in values. After completion,
+     * this method leaves the data in an inconsistent state and you should call
+     * {@link #requery} before reading data from the cursor again.
+     *
+     * @param values A map from row IDs to Maps associating column names with
+     *               updated values. A null value indicates the field should be
+                     removed.
+     * @return whether the operation succeeded.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    boolean commitUpdates(Map<? extends Long,
+            ? extends Map<String,Object>> values);
+
+    /**
+     * Reverts all updates made to the cursor since the last call to
+     * commitUpdates.
+     * @hide
+     * @deprecated use the {@link ContentResolver} update methods instead of the Cursor
+     * update methods
+     */
+    @Deprecated
+    void abortUpdates();
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Deactivates the Cursor, making all calls on it fail until {@link #requery} is called.
      * Inactive Cursors use fewer resources than active Cursors.
      * Calling {@link #requery} will make the cursor active again.
+<<<<<<< HEAD
      * @deprecated Since {@link #requery()} is deprecated, so too is this.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     void deactivate();
 
@@ -352,6 +608,7 @@ public interface Cursor extends Closeable {
      * contents. This may be done at any time, including after a call to {@link
      * #deactivate}.
      *
+<<<<<<< HEAD
      * Since this method could execute a query on the database and potentially take
      * a while, it could cause ANR if it is called on Main (UI) thread.
      * A warning is printed if this method is being executed on Main thread.
@@ -362,6 +619,11 @@ public interface Cursor extends Closeable {
      * asynchronously and update your list view once the new cursor comes back.
      */
     @Deprecated
+=======
+     * @return true if the requery succeeded, false if not, in which case the
+     *         cursor becomes invalid.
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     boolean requery();
 
     /**
@@ -436,8 +698,12 @@ public interface Cursor extends Closeable {
      * that are required to fetch data for the cursor.
      *
      * <p>These values may only change when requery is called.
+<<<<<<< HEAD
      * @return cursor-defined values, or {@link android.os.Bundle#EMPTY Bundle.EMPTY} if there
      *         are no values. Never <code>null</code>.
+=======
+     * @return cursor-defined values, or Bundle.EMTPY if there are no values. Never null.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     Bundle getExtras();
 
@@ -447,10 +713,15 @@ public interface Cursor extends Closeable {
      *
      * <p>One use of this is to tell a cursor that it should retry its network request after it
      * reported an error.
+<<<<<<< HEAD
      * @param extras extra values, or {@link android.os.Bundle#EMPTY Bundle.EMPTY}.
      *         Never <code>null</code>.
      * @return extra values, or {@link android.os.Bundle#EMPTY Bundle.EMPTY}.
      *         Never <code>null</code>.
+=======
+     * @param extras extra values, or Bundle.EMTPY. Never null.
+     * @return extra values, or Bundle.EMTPY. Never null.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     Bundle respond(Bundle extras);
 }

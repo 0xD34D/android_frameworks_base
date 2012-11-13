@@ -19,11 +19,15 @@ package com.android.layoutlib.bridge;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+<<<<<<< HEAD
 import android.view.Gravity;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.widget.TextView;
 
 /**
  * Base class for mocked views.
+<<<<<<< HEAD
  *
  * TODO: implement onDraw and draw a rectangle in a random color with the name of the class
  * (or better the id of the view).
@@ -36,6 +40,18 @@ public class MockView extends TextView {
         setText(this.getClass().getSimpleName());
         setTextColor(0xFF000000);
         setGravity(Gravity.CENTER);
+=======
+ * 
+ * TODO: implement onDraw and draw a rectangle in a random color with the name of the class (or better the id of the view).
+ */
+public class MockView extends TextView {
+    
+    public MockView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        
+        setText(this.getClass().getSimpleName());
+        setTextColor(0xFF000000);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override

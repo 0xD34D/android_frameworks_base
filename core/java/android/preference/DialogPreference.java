@@ -31,12 +31,19 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+<<<<<<< HEAD
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 /**
  * A base class for {@link Preference} objects that are
+=======
+import android.widget.TextView;
+
+/**
+ * The {@link DialogPreference} class is a base class for preferences that are
+>>>>>>> 54b6cfa... Initial Contribution
  * dialog-based. These preferences will, when clicked, open a dialog showing the
  * actual preference controls.
  * 
@@ -261,8 +268,11 @@ public abstract class DialogPreference extends Preference implements
     
     @Override
     protected void onClick() {
+<<<<<<< HEAD
         if (mDialog != null && mDialog.isShowing()) return;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         showDialog(null);
     }
 
@@ -276,7 +286,11 @@ public abstract class DialogPreference extends Preference implements
     protected void showDialog(Bundle state) {
         Context context = getContext();
 
+<<<<<<< HEAD
         mWhichButtonClicked = DialogInterface.BUTTON_NEGATIVE;
+=======
+        mWhichButtonClicked = DialogInterface.BUTTON2;
+>>>>>>> 54b6cfa... Initial Contribution
         
         mBuilder = new AlertDialog.Builder(context)
             .setTitle(mDialogTitle)
@@ -301,6 +315,7 @@ public abstract class DialogPreference extends Preference implements
         if (state != null) {
             dialog.onRestoreInstanceState(state);
         }
+<<<<<<< HEAD
         if (needInputMethod()) {
             requestInputMethod(dialog);
         }
@@ -326,6 +341,12 @@ public abstract class DialogPreference extends Preference implements
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
+=======
+        dialog.setOnDismissListener(this);
+        dialog.show();
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Creates the content view for the dialog (if a custom content view is
      * required). By default, it inflates the dialog layout resource if it is
@@ -339,7 +360,12 @@ public abstract class DialogPreference extends Preference implements
             return null;
         }
         
+<<<<<<< HEAD
         LayoutInflater inflater = LayoutInflater.from(mBuilder.getContext());
+=======
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+>>>>>>> 54b6cfa... Initial Contribution
         return inflater.inflate(mDialogLayoutResId, null);
     }
     
@@ -380,7 +406,11 @@ public abstract class DialogPreference extends Preference implements
         getPreferenceManager().unregisterOnActivityDestroyListener(this);
         
         mDialog = null;
+<<<<<<< HEAD
         onDialogClosed(mWhichButtonClicked == DialogInterface.BUTTON_POSITIVE);
+=======
+        onDialogClosed(mWhichButtonClicked == DialogInterface.BUTTON1);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -394,6 +424,7 @@ public abstract class DialogPreference extends Preference implements
     }
 
     /**
+<<<<<<< HEAD
      * Gets the dialog that is shown by this preference.
      * 
      * @return The dialog, or null if a dialog is not being shown.
@@ -403,6 +434,8 @@ public abstract class DialogPreference extends Preference implements
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * {@inheritDoc}
      */
     public void onActivityDestroy() {

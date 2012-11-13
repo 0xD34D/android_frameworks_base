@@ -16,7 +16,10 @@
 
 package android.net.http;
 
+<<<<<<< HEAD
 import java.io.EOFException;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -34,7 +37,10 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+<<<<<<< HEAD
 import org.apache.http.HttpVersion;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import org.apache.http.ParseException;
 import org.apache.http.ProtocolVersion;
 
@@ -68,15 +74,24 @@ class Request {
     /** Set if I'm using a proxy server */
     HttpHost mProxyHost;
 
+<<<<<<< HEAD
+=======
+    /** True if request is .html, .js, .css */
+    boolean mHighPriority;
+
+>>>>>>> 54b6cfa... Initial Contribution
     /** True if request has been cancelled */
     volatile boolean mCancelled = false;
 
     int mFailCount = 0;
 
+<<<<<<< HEAD
     // This will be used to set the Range field if we retry a connection. This
     // is http/1.1 feature.
     private int mReceivedBytes = 0;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private InputStream mBodyProvider;
     private int mBodyLength;
 
@@ -87,9 +102,12 @@ class Request {
     /* Used to synchronize waitUntilComplete() requests */
     private final Object mClientResource = new Object();
 
+<<<<<<< HEAD
     /** True if loading should be paused **/
     private boolean mLoadingPaused = false;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Processor used to set content-length and transfer-encoding
      * headers.
@@ -107,29 +125,49 @@ class Request {
      * @param eventHandler request will make progress callbacks on
      * this interface
      * @param headers reqeust headers
+<<<<<<< HEAD
+=======
+     * @param highPriority true for .html, css, .cs
+>>>>>>> 54b6cfa... Initial Contribution
      */
     Request(String method, HttpHost host, HttpHost proxyHost, String path,
             InputStream bodyProvider, int bodyLength,
             EventHandler eventHandler,
+<<<<<<< HEAD
             Map<String, String> headers) {
+=======
+            Map<String, String> headers, boolean highPriority) {
+>>>>>>> 54b6cfa... Initial Contribution
         mEventHandler = eventHandler;
         mHost = host;
         mProxyHost = proxyHost;
         mPath = path;
+<<<<<<< HEAD
         mBodyProvider = bodyProvider;
         mBodyLength = bodyLength;
 
         if (bodyProvider == null && !"POST".equalsIgnoreCase(method)) {
+=======
+        mHighPriority = highPriority;
+        mBodyProvider = bodyProvider;
+        mBodyLength = bodyLength;
+
+        if (bodyProvider == null) {
+>>>>>>> 54b6cfa... Initial Contribution
             mHttpRequest = new BasicHttpRequest(method, getUri());
         } else {
             mHttpRequest = new BasicHttpEntityEnclosingRequest(
                     method, getUri());
+<<<<<<< HEAD
             // it is ok to have null entity for BasicHttpEntityEnclosingRequest.
             // By using BasicHttpEntityEnclosingRequest, it will set up the
             // correct content-length, content-type and content-encoding.
             if (bodyProvider != null) {
                 setBodyProvider(bodyProvider, bodyLength);
             }
+=======
+            setBodyProvider(bodyProvider, bodyLength);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         addHeader(HOST_HEADER, getHostPort());
 
@@ -141,6 +179,7 @@ class Request {
     }
 
     /**
+<<<<<<< HEAD
      * @param pause True if the load should be paused.
      */
     synchronized void setLoadingPaused(boolean pause) {
@@ -153,6 +192,8 @@ class Request {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @param connection Request served by this connection
      */
     void setConnection(Connection connection) {
@@ -246,6 +287,10 @@ class Request {
 
         StatusLine statusLine = null;
         boolean hasBody = false;
+<<<<<<< HEAD
+=======
+        boolean reuse = false;
+>>>>>>> 54b6cfa... Initial Contribution
         httpClientConnection.flush();
         int statusCode = 0;
 
@@ -268,19 +313,25 @@ class Request {
         if (hasBody)
             entity = httpClientConnection.receiveResponseEntity(header);
 
+<<<<<<< HEAD
         // restrict the range request to the servers claiming that they are
         // accepting ranges in bytes
         boolean supportPartialContent = "bytes".equalsIgnoreCase(header
                 .getAcceptRanges());
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (entity != null) {
             InputStream is = entity.getContent();
 
             // process gzip content encoding
             Header contentEncoding = entity.getContentEncoding();
             InputStream nis = null;
+<<<<<<< HEAD
             byte[] buf = null;
             int count = 0;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             try {
                 if (contentEncoding != null &&
                     contentEncoding.getValue().equals("gzip")) {
@@ -291,6 +342,7 @@ class Request {
 
                 /* accumulate enough data to make it worth pushing it
                  * up the stack */
+<<<<<<< HEAD
                 buf = mConnection.getBuf();
                 int len = 0;
                 int lowWater = buf.length / 2;
@@ -316,6 +368,16 @@ class Request {
                     if (len != -1) {
                         count += len;
                         if (supportPartialContent) mReceivedBytes += len;
+=======
+                byte[] buf = mConnection.getBuf();
+                int len = 0;
+                int count = 0;
+                int lowWater = buf.length / 2;
+                while (len != -1) {
+                    len = nis.read(buf, count, buf.length - count);
+                    if (len != -1) {
+                        count += len;
+>>>>>>> 54b6cfa... Initial Contribution
                     }
                     if (len == -1 || count >= lowWater) {
                         if (HttpLog.LOGV) HttpLog.v("Request.readResponse() " + count);
@@ -323,6 +385,7 @@ class Request {
                         count = 0;
                     }
                 }
+<<<<<<< HEAD
             } catch (EOFException e) {
                 /* InflaterInputStream throws an EOFException when the
                    server truncates gzipped content.  Handle this case
@@ -341,6 +404,11 @@ class Request {
                         // as we will continue the request
                         mEventHandler.data(buf, count);
                     }
+=======
+            } catch(IOException e) {
+                // don't throw if we have a non-OK status code
+                if (statusCode == HttpStatus.SC_OK) {
+>>>>>>> 54b6cfa... Initial Contribution
                     throw e;
                 }
             } finally {
@@ -364,6 +432,7 @@ class Request {
      *
      * Called by RequestHandle from non-network thread
      */
+<<<<<<< HEAD
     synchronized void cancel() {
         if (HttpLog.LOGV) {
             HttpLog.v("Request.cancel(): " + getUri());
@@ -374,6 +443,12 @@ class Request {
         mLoadingPaused = false;
         notify();
 
+=======
+    void cancel() {
+        if (HttpLog.LOGV) {
+            HttpLog.v("Request.cancel(): " + getUri());
+        }
+>>>>>>> 54b6cfa... Initial Contribution
         mCancelled = true;
         if (mConnection != null) {
             mConnection.cancel();
@@ -405,7 +480,11 @@ class Request {
      * for debugging
      */
     public String toString() {
+<<<<<<< HEAD
         return mPath;
+=======
+        return (mHighPriority ? "P*" : "") + mPath;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
 
@@ -427,6 +506,7 @@ class Request {
             }
             setBodyProvider(mBodyProvider, mBodyLength);
         }
+<<<<<<< HEAD
 
         if (mReceivedBytes > 0) {
             // reset the fail count as we continue the request
@@ -436,6 +516,8 @@ class Request {
             HttpLog.v("*** Request.reset() to range:" + mReceivedBytes);
             mHttpRequest.setHeader("Range", "bytes=" + mReceivedBytes + "-");
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -480,7 +562,12 @@ class Request {
         }
         return status >= HttpStatus.SC_OK
             && status != HttpStatus.SC_NO_CONTENT
+<<<<<<< HEAD
             && status != HttpStatus.SC_NOT_MODIFIED;
+=======
+            && status != HttpStatus.SC_NOT_MODIFIED
+            && status != HttpStatus.SC_RESET_CONTENT;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**

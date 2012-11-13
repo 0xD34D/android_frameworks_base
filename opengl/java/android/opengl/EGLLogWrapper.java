@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -14,6 +15,8 @@
  * limitations under the License.
  */
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 package android.opengl;
 
 import java.io.IOException;
@@ -314,6 +317,7 @@ class EGLLogWrapper implements EGL11 {
         checkError();
         return result;
     }
+<<<<<<< HEAD
     
     /** @hide **/
     public boolean eglReleaseThread() {
@@ -324,6 +328,8 @@ class EGLLogWrapper implements EGL11 {
         checkError();
         return result;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     public boolean eglSwapBuffers(EGLDisplay display, EGLSurface surface) {
         begin("eglInitialize");

@@ -21,14 +21,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+<<<<<<< HEAD
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.RemoteViews.RemoteView;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.util.Map;
 
 /**
  * <p>
+<<<<<<< HEAD
  * Displays a button with an image (instead of text) that can be pressed 
  * or clicked by the user. By default, an ImageButton looks like a regular 
  * {@link android.widget.Button}, with the standard button background
@@ -66,6 +70,11 @@ import java.util.Map;
  *
  * <p>See the <a href="{@docRoot}guide/topics/ui/controls/button.html">Buttons</a>
  * guide.</p>
+=======
+ * An image button displays an image that can be pressed, or clicked, by the
+ * user.
+ * </p>
+>>>>>>> 54b6cfa... Initial Contribution
  *
  * <p><strong>XML attributes</strong></p>
  * <p>
@@ -73,7 +82,10 @@ import java.util.Map;
  * {@link android.R.styleable#View View Attributes}
  * </p>
  */
+<<<<<<< HEAD
 @RemoteView
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 public class ImageButton extends ImageView {
     public ImageButton(Context context) {
         this(context, null);
@@ -92,6 +104,7 @@ public class ImageButton extends ImageView {
     protected boolean onSetAlpha(int alpha) {
         return false;
     }
+<<<<<<< HEAD
 
     @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
@@ -104,4 +117,6 @@ public class ImageButton extends ImageView {
         super.onInitializeAccessibilityNodeInfo(info);
         info.setClassName(ImageButton.class.getName());
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

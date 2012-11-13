@@ -5,6 +5,7 @@
 //
 #include "Main.h"
 #include "Bundle.h"
+<<<<<<< HEAD
 #include "ResourceFilter.h"
 #include "ResourceTable.h"
 #include "XMLNode.h"
@@ -13,6 +14,13 @@
 #include <utils/threads.h>
 #include <utils/List.h>
 #include <utils/Errors.h>
+=======
+#include "ResourceTable.h"
+#include "XMLNode.h"
+
+#include <utils.h>
+#include <utils/ZipFile.h>
+>>>>>>> 54b6cfa... Initial Contribution
 
 #include <fcntl.h>
 #include <errno.h>
@@ -142,9 +150,15 @@ int doList(Bundle* bundle)
     if (bundle->getVerbose()) {
         printf("Archive:  %s\n", zipFileName);
         printf(
+<<<<<<< HEAD
             " Length   Method    Size  Ratio   Offset      Date  Time  CRC-32    Name\n");
         printf(
             "--------  ------  ------- -----  -------      ----  ----  ------    ----\n");
+=======
+            " Length   Method    Size  Ratio   Date   Time   CRC-32    Name\n");
+        printf(
+            "--------  ------  ------- -----   ----   ----   ------    ----\n");
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     totalUncLen = totalCompLen = 0;
@@ -160,13 +174,20 @@ int doList(Bundle* bundle)
             strftime(dateBuf, sizeof(dateBuf), "%m-%d-%y %H:%M",
                 localtime(&when));
 
+<<<<<<< HEAD
             printf("%8ld  %-7.7s %7ld %3d%%  %8zd  %s  %08lx  %s\n",
+=======
+            printf("%8ld  %-7.7s %7ld %3d%%  %s  %08lx  %s\n",
+>>>>>>> 54b6cfa... Initial Contribution
                 (long) entry->getUncompressedLen(),
                 compressionName(entry->getCompressionMethod()),
                 (long) entry->getCompressedLen(),
                 calcPercent(entry->getUncompressedLen(),
                             entry->getCompressedLen()),
+<<<<<<< HEAD
                 (size_t) entry->getLFHOffset(),
+=======
+>>>>>>> 54b6cfa... Initial Contribution
                 dateBuf,
                 entry->getCRC32(),
                 entry->getFileName());
@@ -194,17 +215,28 @@ int doList(Bundle* bundle)
             fprintf(stderr, "ERROR: list -a failed because assets could not be loaded\n");
             goto bail;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         const ResTable& res = assets.getResources(false);
         if (&res == NULL) {
             printf("\nNo resource table found.\n");
         } else {
+<<<<<<< HEAD
 #ifndef HAVE_ANDROID_OS
             printf("\nResource table:\n");
             res.print(false);
 #endif
         }
 
+=======
+            printf("\nResource table:\n");
+            res.print();
+        }
+        
+>>>>>>> 54b6cfa... Initial Contribution
         Asset* manifestAsset = assets.openNonAsset("AndroidManifest.xml",
                                                    Asset::ACCESS_BUFFER);
         if (manifestAsset == NULL) {
@@ -218,7 +250,11 @@ int doList(Bundle* bundle)
         }
         delete manifestAsset;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     result = 0;
 
 bail:
@@ -237,7 +273,11 @@ static ssize_t indexOfAttribute(const ResXMLTree& tree, uint32_t attrRes)
     return -1;
 }
 
+<<<<<<< HEAD
 String8 getAttribute(const ResXMLTree& tree, const char* ns,
+=======
+static String8 getAttribute(const ResXMLTree& tree, const char* ns,
+>>>>>>> 54b6cfa... Initial Contribution
                             const char* attr, String8* outError)
 {
     ssize_t idx = tree.indexOfAttribute(ns, attr);
@@ -274,6 +314,7 @@ static String8 getAttribute(const ResXMLTree& tree, uint32_t attrRes, String8* o
     return str ? String8(str, len) : String8();
 }
 
+<<<<<<< HEAD
 static int32_t getIntegerAttribute(const ResXMLTree& tree, uint32_t attrRes,
         String8* outError, int32_t defValue = -1)
 {
@@ -308,6 +349,19 @@ static int32_t getResolvedIntegerAttribute(const ResTable* resTable, const ResXM
                 || value.dataType > Res_value::TYPE_LAST_INT) {
             if (outError != NULL) *outError = "attribute is not an integer value";
             return defValue;
+=======
+static int32_t getIntegerAttribute(const ResXMLTree& tree, uint32_t attrRes, String8* outError)
+{
+    ssize_t idx = indexOfAttribute(tree, attrRes);
+    if (idx < 0) {
+        return -1;
+    }
+    Res_value value;
+    if (tree.getAttributeValue(idx, &value) != NO_ERROR) {
+        if (value.dataType != Res_value::TYPE_INT_DEC) {
+            if (outError != NULL) *outError = "attribute is not an integer value";
+            return -1;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
     return value.data;
@@ -342,6 +396,7 @@ static String8 getResolvedAttribute(const ResTable* resTable, const ResXMLTree& 
 // These are attribute resource constants for the platform, as found
 // in android.R.attr
 enum {
+<<<<<<< HEAD
     LABEL_ATTR = 0x01010001,
     ICON_ATTR = 0x01010002,
     NAME_ATTR = 0x01010003,
@@ -427,20 +482,41 @@ static void printCompatibleScreens(ResXMLTree& tree) {
  * Handle the "dump" command, to extract select data from an archive.
  */
 extern char CONSOLE_DATA[2925]; // see EOF
+=======
+    NAME_ATTR = 0x01010003,
+    VERSION_CODE_ATTR = 0x0101021b,
+    VERSION_NAME_ATTR = 0x0101021c,
+    LABEL_ATTR = 0x01010001,
+    ICON_ATTR = 0x01010002,
+};
+
+/*
+ * Handle the "dump" command, to extract select data from an archive.
+ */
+>>>>>>> 54b6cfa... Initial Contribution
 int doDump(Bundle* bundle)
 {
     status_t result = UNKNOWN_ERROR;
     Asset* asset = NULL;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     if (bundle->getFileSpecCount() < 1) {
         fprintf(stderr, "ERROR: no dump option specified\n");
         return 1;
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     if (bundle->getFileSpecCount() < 2) {
         fprintf(stderr, "ERROR: no dump file specified\n");
         return 1;
     }
+<<<<<<< HEAD
 
     const char* option = bundle->getFileSpecEntry(0);
     const char* filename = bundle->getFileSpecEntry(1);
@@ -470,11 +546,24 @@ int doDump(Bundle* bundle)
     config.smallestScreenWidthDp = 320;
     assets.setConfiguration(config);
 
+=======
+    
+    const char* option = bundle->getFileSpecEntry(0);
+    const char* filename = bundle->getFileSpecEntry(1);
+    
+    AssetManager assets;
+    if (!assets.addAssetPath(String8(filename), NULL)) {
+        fprintf(stderr, "ERROR: dump failed because assets could not be loaded\n");
+        return 1;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     const ResTable& res = assets.getResources(false);
     if (&res == NULL) {
         fprintf(stderr, "ERROR: dump failed because no resource table was found\n");
         goto bail;
     }
+<<<<<<< HEAD
 
     if (strcmp("resources", option) == 0) {
 #ifndef HAVE_ANDROID_OS
@@ -485,21 +574,38 @@ int doDump(Bundle* bundle)
         const ResStringPool* pool = res.getTableStringBlock(0);
         printStringPool(pool);
 
+=======
+    
+    if (strcmp("resources", option) == 0) {
+        res.print();
+        
+>>>>>>> 54b6cfa... Initial Contribution
     } else if (strcmp("xmltree", option) == 0) {
         if (bundle->getFileSpecCount() < 3) {
             fprintf(stderr, "ERROR: no dump xmltree resource file specified\n");
             goto bail;
         }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
         for (int i=2; i<bundle->getFileSpecCount(); i++) {
             const char* resname = bundle->getFileSpecEntry(i);
             ResXMLTree tree;
             asset = assets.openNonAsset(resname, Asset::ACCESS_BUFFER);
             if (asset == NULL) {
+<<<<<<< HEAD
                 fprintf(stderr, "ERROR: dump failed because resource %s found\n", resname);
                 goto bail;
             }
 
+=======
+                fprintf(stderr, "ERROR: dump failed because resource %p found\n", resname);
+                goto bail;
+            }
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (tree.setTo(asset->getBuffer(true),
                            asset->getLength()) != NO_ERROR) {
                 fprintf(stderr, "ERROR: Resource %s is corrupt\n", resname);
@@ -507,26 +613,44 @@ int doDump(Bundle* bundle)
             }
             tree.restart();
             printXMLBlock(&tree);
+<<<<<<< HEAD
             tree.uninit();
             delete asset;
             asset = NULL;
         }
 
+=======
+            delete asset;
+            asset = NULL;
+        }
+        
+>>>>>>> 54b6cfa... Initial Contribution
     } else if (strcmp("xmlstrings", option) == 0) {
         if (bundle->getFileSpecCount() < 3) {
             fprintf(stderr, "ERROR: no dump xmltree resource file specified\n");
             goto bail;
         }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
         for (int i=2; i<bundle->getFileSpecCount(); i++) {
             const char* resname = bundle->getFileSpecEntry(i);
             ResXMLTree tree;
             asset = assets.openNonAsset(resname, Asset::ACCESS_BUFFER);
             if (asset == NULL) {
+<<<<<<< HEAD
                 fprintf(stderr, "ERROR: dump failed because resource %s found\n", resname);
                 goto bail;
             }
 
+=======
+                fprintf(stderr, "ERROR: dump failed because resource %p found\n", resname);
+                goto bail;
+            }
+            
+>>>>>>> 54b6cfa... Initial Contribution
             if (tree.setTo(asset->getBuffer(true),
                            asset->getLength()) != NO_ERROR) {
                 fprintf(stderr, "ERROR: Resource %s is corrupt\n", resname);
@@ -536,7 +660,11 @@ int doDump(Bundle* bundle)
             delete asset;
             asset = NULL;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
     } else {
         ResXMLTree tree;
         asset = assets.openNonAsset("AndroidManifest.xml",
@@ -545,14 +673,22 @@ int doDump(Bundle* bundle)
             fprintf(stderr, "ERROR: dump failed because no AndroidManifest.xml found\n");
             goto bail;
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if (tree.setTo(asset->getBuffer(true),
                        asset->getLength()) != NO_ERROR) {
             fprintf(stderr, "ERROR: AndroidManifest.xml is corrupt\n");
             goto bail;
         }
         tree.restart();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         if (strcmp("permissions", option) == 0) {
             size_t len;
             ResXMLTree::event_code_t code;
@@ -594,6 +730,7 @@ int doDump(Bundle* bundle)
                 }
             }
         } else if (strcmp("badging", option) == 0) {
+<<<<<<< HEAD
             Vector<String8> locales;
             res.getLocales(&locales);
 
@@ -607,6 +744,8 @@ int doDump(Bundle* bundle)
                 densities.add(dens);
             }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             size_t len;
             ResXMLTree::event_code_t code;
             int depth = 0;
@@ -614,6 +753,7 @@ int doDump(Bundle* bundle)
             bool withinActivity = false;
             bool isMainActivity = false;
             bool isLauncherActivity = false;
+<<<<<<< HEAD
             bool isSearchable = false;
             bool withinApplication = false;
             bool withinReceiver = false;
@@ -748,6 +888,14 @@ int doDump(Bundle* bundle)
                         }
                         withinIntentFilter = false;
                     }
+=======
+            String8 activityName;
+            String8 activityLabel;
+            String8 activityIcon;
+            while ((code=tree.next()) != ResXMLTree::END_DOCUMENT && code != ResXMLTree::BAD_DOCUMENT) {
+                if (code == ResXMLTree::END_TAG) {
+                    depth--;
+>>>>>>> 54b6cfa... Initial Contribution
                     continue;
                 }
                 if (code != ResXMLTree::START_TAG) {
@@ -755,13 +903,21 @@ int doDump(Bundle* bundle)
                 }
                 depth++;
                 String8 tag(tree.getElementName(&len));
+<<<<<<< HEAD
                 //printf("Depth %d,  %s\n", depth, tag.string());
+=======
+                //printf("Depth %d tag %s\n", depth, tag.string());
+>>>>>>> 54b6cfa... Initial Contribution
                 if (depth == 1) {
                     if (tag != "manifest") {
                         fprintf(stderr, "ERROR: manifest does not start with <manifest> tag\n");
                         goto bail;
                     }
+<<<<<<< HEAD
                     pkg = getAttribute(tree, NULL, "package", NULL);
+=======
+                    String8 pkg = getAttribute(tree, NULL, "package", NULL);
+>>>>>>> 54b6cfa... Initial Contribution
                     printf("package: name='%s' ", pkg.string());
                     int32_t versionCode = getIntegerAttribute(tree, VERSION_CODE_ATTR, &error);
                     if (error != "") {
@@ -773,12 +929,17 @@ int doDump(Bundle* bundle)
                     } else {
                         printf("versionCode='' ");
                     }
+<<<<<<< HEAD
                     String8 versionName = getResolvedAttribute(&res, tree, VERSION_NAME_ATTR, &error);
+=======
+                    String8 versionName = getAttribute(tree, VERSION_NAME_ATTR, &error);
+>>>>>>> 54b6cfa... Initial Contribution
                     if (error != "") {
                         fprintf(stderr, "ERROR getting 'android:versionName' attribute: %s\n", error.string());
                         goto bail;
                     }
                     printf("versionName='%s'\n", versionName.string());
+<<<<<<< HEAD
                 } else if (depth == 2) {
                     withinApplication = false;
                     if (tag == "application") {
@@ -1148,10 +1309,52 @@ int doDump(Bundle* bundle)
                     String8 action;
                     if (tag == "action") {
                         action = getAttribute(tree, NAME_ATTR, &error);
+=======
+                } else if (depth == 2 && tag == "application") {
+                    String8 label = getResolvedAttribute(&res, tree, LABEL_ATTR, &error);
+                    if (error != "") {
+                        fprintf(stderr, "ERROR getting 'android:label' attribute: %s\n", error.string());
+                        goto bail;
+                    }
+                    printf("application: label='%s' ", label.string());
+
+                    String8 icon = getResolvedAttribute(&res, tree, ICON_ATTR, &error);
+                    if (error != "") {
+                        fprintf(stderr, "ERROR getting 'android:icon' attribute: %s\n", error.string());
+                        goto bail;
+                    }
+                    printf("icon='%s'\n", icon.string());
+                } else if (depth == 3 && tag == "activity") {
+                    withinActivity = true;
+                    //printf("LOG: withinActivity==true\n");
+
+                    activityName = getAttribute(tree, NAME_ATTR, &error);
+                    if (error != "") {
+                        fprintf(stderr, "ERROR getting 'android:name' attribute: %s\n", error.string());
+                        goto bail;
+                    }
+
+                    activityLabel = getResolvedAttribute(&res, tree, LABEL_ATTR, &error);
+                    if (error != "") {
+                        fprintf(stderr, "ERROR getting 'android:label' attribute: %s\n", error.string());
+                        goto bail;
+                    }
+
+                    activityIcon = getResolvedAttribute(&res, tree, ICON_ATTR, &error);
+                    if (error != "") {
+                        fprintf(stderr, "ERROR getting 'android:icon' attribute: %s\n", error.string());
+                        goto bail;
+                    }
+                } else if (depth == 5 && withinActivity) {
+                    if (tag == "action") {
+                        //printf("LOG: action tag\n");
+                        String8 action = getAttribute(tree, NAME_ATTR, &error);
+>>>>>>> 54b6cfa... Initial Contribution
                         if (error != "") {
                             fprintf(stderr, "ERROR getting 'android:name' attribute: %s\n", error.string());
                             goto bail;
                         }
+<<<<<<< HEAD
                         if (withinActivity) {
                             if (action == "android.intent.action.MAIN") {
                                 isMainActivity = true;
@@ -1174,11 +1377,19 @@ int doDump(Bundle* bundle)
                     }
 
                     if (tag == "category") {
+=======
+                        if (action == "android.intent.action.MAIN") {
+                            isMainActivity = true;
+                            //printf("LOG: isMainActivity==true\n");
+                        }
+                    } else if (tag == "category") {
+>>>>>>> 54b6cfa... Initial Contribution
                         String8 category = getAttribute(tree, NAME_ATTR, &error);
                         if (error != "") {
                             fprintf(stderr, "ERROR getting 'name' attribute: %s\n", error.string());
                             goto bail;
                         }
+<<<<<<< HEAD
                         if (withinActivity) {
                             if (category == "android.intent.category.LAUNCHER") {
                                 isLauncherActivity = true;
@@ -1481,6 +1692,33 @@ int doDump(Bundle* bundle)
             }
         } else if (strcmp("badger", option) == 0) {
             printf("%s", CONSOLE_DATA);
+=======
+                        if (category == "android.intent.category.LAUNCHER") {
+                            isLauncherActivity = true;
+                            //printf("LOG: isLauncherActivity==true\n");
+                       }
+                    }
+                }
+
+                if (depth < 3) {
+                    //if (withinActivity) printf("LOG: withinActivity==false\n");
+                    withinActivity = false;
+                }
+
+                if (depth < 5) {
+                    //if (isMainActivity) printf("LOG: isMainActivity==false\n");
+                    //if (isLauncherActivity) printf("LOG: isLauncherActivity==false\n");
+                    isMainActivity = false;
+                    isLauncherActivity = false;
+                }
+
+                if (withinActivity && isMainActivity && isLauncherActivity) {
+                    printf("launchable activity: name='%s' label='%s' icon='%s'\n",
+                           activityName.string(), activityLabel.string(),
+                           activityIcon.string());
+                }
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         } else if (strcmp("configurations", option) == 0) {
             Vector<ResTable_config> configs;
             res.getConfigurations(&configs);
@@ -1495,7 +1733,11 @@ int doDump(Bundle* bundle)
     }
 
     result = NO_ERROR;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
 bail:
     if (asset) {
         delete asset;
@@ -1544,6 +1786,7 @@ int doAdd(Bundle* bundle)
             printf(" '%s'... (from gzip)\n", fileName);
             result = zip->addGzip(fileName, String8(fileName).getBasePath().string(), NULL);
         } else {
+<<<<<<< HEAD
             if (bundle->getJunkPath()) {
                 String8 storageName = String8(fileName).getPathLeaf();
                 printf(" '%s' as '%s'...\n", fileName, storageName.string());
@@ -1553,6 +1796,10 @@ int doAdd(Bundle* bundle)
                 printf(" '%s'...\n", fileName);
                 result = zip->add(fileName, bundle->getCompressionMethod(), NULL);
             }
+=======
+            printf(" '%s'...\n", fileName);
+            result = zip->add(fileName, bundle->getCompressionMethod(), NULL);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         if (result != NO_ERROR) {
             fprintf(stderr, "Unable to add '%s' to '%s'", bundle->getFileSpecEntry(i), zipFileName);
@@ -1639,8 +1886,11 @@ int doPackage(Bundle* bundle)
     status_t err;
     sp<AaptAssets> assets;
     int N;
+<<<<<<< HEAD
     FILE* fp;
     String8 dependencyFile;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     // -c zz_ZZ means do pseudolocalization
     ResourceFilter filter;
@@ -1653,7 +1903,11 @@ int doPackage(Bundle* bundle)
     }
 
     N = bundle->getFileSpecCount();
+<<<<<<< HEAD
     if (N < 1 && bundle->getResourceSourceDirs().size() == 0 && bundle->getJarFiles().size() == 0
+=======
+    if (N < 1 && bundle->getResourceSourceDir() == NULL && bundle->getJarFiles().size() == 0
+>>>>>>> 54b6cfa... Initial Contribution
             && bundle->getAndroidManifestFile() == NULL && bundle->getAssetSourceDir() == NULL) {
         fprintf(stderr, "ERROR: no input files\n");
         goto bail;
@@ -1675,6 +1929,7 @@ int doPackage(Bundle* bundle)
 
     // Load the assets.
     assets = new AaptAssets();
+<<<<<<< HEAD
 
     // Set up the resource gathering in assets if we're going to generate
     // dependency files. Every time we encounter a resource while slurping
@@ -1687,17 +1942,27 @@ int doPackage(Bundle* bundle)
         assets->setFullAssetPaths(assetPathStore);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     err = assets->slurpFromArgs(bundle);
     if (err < 0) {
         goto bail;
     }
 
     if (bundle->getVerbose()) {
+<<<<<<< HEAD
         assets->print(String8());
     }
 
     // If they asked for any fileAs that need to be compiled, do so.
     if (bundle->getResourceSourceDirs().size() || bundle->getAndroidManifestFile()) {
+=======
+        assets->print();
+    }
+
+    // If they asked for any files that need to be compiled, do so.
+    if (bundle->getResourceSourceDir() || bundle->getAndroidManifestFile()) {
+>>>>>>> 54b6cfa... Initial Contribution
         err = buildResources(bundle, assets);
         if (err != 0) {
             goto bail;
@@ -1710,6 +1975,7 @@ int doPackage(Bundle* bundle)
         goto bail;
     }
 
+<<<<<<< HEAD
     // Update symbols with information about which ones are needed as Java symbols.
     assets->applyJavaSymbols();
     if (SourcePos::hasErrors()) {
@@ -1766,6 +2032,14 @@ int doPackage(Bundle* bundle)
             }
             libs.unlockBuffer();
         }
+=======
+    // Write out R.java constants
+    if (assets->getPackage() == assets->getSymbolsPrivatePackage()) {
+        err = writeResourceSymbols(bundle, assets, assets->getPackage(), true);
+        if (err < 0) {
+            goto bail;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     } else {
         err = writeResourceSymbols(bundle, assets, assets->getPackage(), false);
         if (err < 0) {
@@ -1777,12 +2051,15 @@ int doPackage(Bundle* bundle)
         }
     }
 
+<<<<<<< HEAD
     // Write out the ProGuard file
     err = writeProguardFile(bundle, assets);
     if (err < 0) {
         goto bail;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // Write the apk
     if (outputAPKFile) {
         err = writeAPK(bundle, assets, String8(outputAPKFile));
@@ -1792,6 +2069,7 @@ int doPackage(Bundle* bundle)
         }
     }
 
+<<<<<<< HEAD
     // If we've been asked to generate a dependency file, we need to finish up here.
     // the writeResourceSymbols and writeAPK functions have already written the target
     // half of the dependency file, now we need to write the prerequisites. (files that
@@ -1809,6 +2087,8 @@ int doPackage(Bundle* bundle)
         fclose(fp);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     retVal = 0;
 bail:
     if (SourcePos::hasErrors()) {
@@ -1816,6 +2096,7 @@ bail:
     }
     return retVal;
 }
+<<<<<<< HEAD
 
 /*
  * Do PNG Crunching
@@ -2004,3 +2285,5 @@ char CONSOLE_DATA[2925] = {
     32, 32, 46, 32, 32, 46, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
     32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 10
   };
+=======
+>>>>>>> 54b6cfa... Initial Contribution

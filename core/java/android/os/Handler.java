@@ -54,11 +54,19 @@ import java.lang.reflect.Modifier;
  * <p>When a
  * process is created for your application, its main thread is dedicated to
  * running a message queue that takes care of managing the top-level
+<<<<<<< HEAD
  * application objects (activities, broadcast receivers, etc) and any windows
  * they create.  You can create your own threads, and communicate back with
  * the main application thread through a Handler.  This is done by calling
  * the same <em>post</em> or <em>sendMessage</em> methods as before, but from
  * your new thread.  The given Runnable or Message will then be scheduled
+=======
+ * application objects (activities, intent receivers, etc) and any windows
+ * they create.  You can create your own threads, and communicate back with
+ * the main application thread through a Handler.  This is done by calling
+ * the same <em>post</em> or <em>sendMessage</em> methods as before, but from
+ * your new thread.  The given Runnable or Message will than be scheduled
+>>>>>>> 54b6cfa... Initial Contribution
  * in the Handler's message queue and processed when appropriate.
  */
 public class Handler {
@@ -71,6 +79,7 @@ public class Handler {
     private static final String TAG = "Handler";
 
     /**
+<<<<<<< HEAD
      * Callback interface you can use when instantiating a Handler to avoid
      * having to implement your own subclass of Handler.
      */
@@ -82,11 +91,18 @@ public class Handler {
      * Subclasses must implement this to receive messages.
      */
     public void handleMessage(Message msg) {
+=======
+     * Subclasses must implement this to receive messages.
+     */
+    public void handleMessage(Message msg)
+    {
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
      * Handle system messages here.
      */
+<<<<<<< HEAD
     public void dispatchMessage(Message msg) {
         if (msg.callback != null) {
             handleCallback(msg);
@@ -96,6 +112,13 @@ public class Handler {
                     return;
                 }
             }
+=======
+    public void dispatchMessage(Message msg)
+    {
+        if (msg.callback != null) {
+            handleCallback(msg);
+        } else {
+>>>>>>> 54b6cfa... Initial Contribution
             handleMessage(msg);
         }
     }
@@ -106,6 +129,7 @@ public class Handler {
      *
      * If there isn't one, this handler won't be able to receive messages.
      */
+<<<<<<< HEAD
     public Handler() {
         if (FIND_POTENTIAL_LEAKS) {
             final Class<? extends Handler> klass = getClass();
@@ -131,6 +155,10 @@ public class Handler {
      * messages.
      */
     public Handler(Callback callback) {
+=======
+    public Handler()
+    {
+>>>>>>> 54b6cfa... Initial Contribution
         if (FIND_POTENTIAL_LEAKS) {
             final Class<? extends Handler> klass = getClass();
             if ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &&
@@ -146,12 +174,16 @@ public class Handler {
                 "Can't create handler inside thread that has not called Looper.prepare()");
         }
         mQueue = mLooper.mQueue;
+<<<<<<< HEAD
         mCallback = callback;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Use the provided queue instead of the default one.
      */
+<<<<<<< HEAD
     public Handler(Looper looper) {
         mLooper = looper;
         mQueue = looper.mQueue;
@@ -181,6 +213,12 @@ public class Handler {
             return message.callback.getClass().getName();
         }
         return "0x" + Integer.toHexString(message.what);
+=======
+    public Handler(Looper looper)
+    {
+        mLooper = looper;
+        mQueue = looper.mQueue;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -361,8 +399,12 @@ public class Handler {
 
     /**
      * Remove any pending posts of Runnable <var>r</var> with Object
+<<<<<<< HEAD
      * <var>token</var> that are in the message queue.  If <var>token</var> is null,
      * all callbacks will be removed.
+=======
+     * <var>token</var> that are in the message queue.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final void removeCallbacks(Runnable r, Object token)
     {
@@ -513,22 +555,37 @@ public class Handler {
      * message queue.
      */
     public final void removeMessages(int what) {
+<<<<<<< HEAD
         mQueue.removeMessages(this, what, null);
+=======
+        mQueue.removeMessages(this, what, null, true);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Remove any pending posts of messages with code 'what' and whose obj is
+<<<<<<< HEAD
      * 'object' that are in the message queue.  If <var>object</var> is null,
      * all messages will be removed.
      */
     public final void removeMessages(int what, Object object) {
         mQueue.removeMessages(this, what, object);
+=======
+     * 'object' that are in the message queue.
+     */
+    public final void removeMessages(int what, Object object) {
+        mQueue.removeMessages(this, what, object, true);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Remove any pending posts of callbacks and sent messages whose
+<<<<<<< HEAD
      * <var>obj</var> is <var>token</var>.  If <var>token</var> is null,
      * all callbacks and messages will be removed.
+=======
+     * <var>obj</var> is <var>token</var>.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public final void removeCallbacksAndMessages(Object token) {
         mQueue.removeCallbacksAndMessages(this, token);
@@ -539,7 +596,11 @@ public class Handler {
      * the message queue.
      */
     public final boolean hasMessages(int what) {
+<<<<<<< HEAD
         return mQueue.hasMessages(this, what, null);
+=======
+        return mQueue.removeMessages(this, what, null, false);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -547,6 +608,7 @@ public class Handler {
      * whose obj is 'object' in the message queue.
      */
     public final boolean hasMessages(int what, Object object) {
+<<<<<<< HEAD
         return mQueue.hasMessages(this, what, object);
     }
 
@@ -558,6 +620,9 @@ public class Handler {
      */
     public final boolean hasCallbacks(Runnable r) {
         return mQueue.hasMessages(this, r, null);
+=======
+        return mQueue.removeMessages(this, what, object, false);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     // if we can get rid of this method, the handler need not remember its loop
@@ -577,7 +642,11 @@ public class Handler {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return "Handler (" + getClass().getName() + ") {"
+=======
+        return "Handler{"
+>>>>>>> 54b6cfa... Initial Contribution
         + Integer.toHexString(System.identityHashCode(this))
         + "}";
     }
@@ -591,32 +660,52 @@ public class Handler {
             return mMessenger;
         }
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private final class MessengerImpl extends IMessenger.Stub {
         public void send(Message msg) {
             Handler.this.sendMessage(msg);
         }
     }
+<<<<<<< HEAD
 
     private static Message getPostMessage(Runnable r) {
+=======
+    
+    private final Message getPostMessage(Runnable r) {
+>>>>>>> 54b6cfa... Initial Contribution
         Message m = Message.obtain();
         m.callback = r;
         return m;
     }
 
+<<<<<<< HEAD
     private static Message getPostMessage(Runnable r, Object token) {
+=======
+    private final Message getPostMessage(Runnable r, Object token) {
+>>>>>>> 54b6cfa... Initial Contribution
         Message m = Message.obtain();
         m.obj = token;
         m.callback = r;
         return m;
     }
 
+<<<<<<< HEAD
     private static void handleCallback(Message message) {
+=======
+    private final void handleCallback(Message message) {
+>>>>>>> 54b6cfa... Initial Contribution
         message.callback.run();
     }
 
     final MessageQueue mQueue;
     final Looper mLooper;
+<<<<<<< HEAD
     final Callback mCallback;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     IMessenger mMessenger;
 }

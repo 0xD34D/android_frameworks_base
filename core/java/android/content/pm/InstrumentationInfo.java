@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2007 The Android Open Source Project
  *
@@ -14,6 +15,8 @@
  * limitations under the License.
  */
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 package android.content.pm;
 
 import android.os.Parcel;
@@ -50,6 +53,7 @@ public class InstrumentationInfo extends PackageItemInfo implements Parcelable {
      * data.
      */
     public String dataDir;
+<<<<<<< HEAD
 
     /**
      * Full path to the directory where the native JNI libraries are stored.
@@ -58,6 +62,9 @@ public class InstrumentationInfo extends PackageItemInfo implements Parcelable {
      */
     public String nativeLibraryDir;
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Specifies whether or not this instrumentation will handle profiling.
      */
@@ -75,7 +82,10 @@ public class InstrumentationInfo extends PackageItemInfo implements Parcelable {
         sourceDir = orig.sourceDir;
         publicSourceDir = orig.publicSourceDir;
         dataDir = orig.dataDir;
+<<<<<<< HEAD
         nativeLibraryDir = orig.nativeLibraryDir;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         handleProfiling = orig.handleProfiling;
         functionalTest = orig.functionalTest;
     }
@@ -96,9 +106,13 @@ public class InstrumentationInfo extends PackageItemInfo implements Parcelable {
         dest.writeString(sourceDir);
         dest.writeString(publicSourceDir);
         dest.writeString(dataDir);
+<<<<<<< HEAD
         dest.writeString(nativeLibraryDir);
         dest.writeInt((handleProfiling == false) ? 0 : 1);
         dest.writeInt((functionalTest == false) ? 0 : 1);
+=======
+        dest.writeInt((handleProfiling == false) ? 0 : 1);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public static final Parcelable.Creator<InstrumentationInfo> CREATOR
@@ -117,8 +131,12 @@ public class InstrumentationInfo extends PackageItemInfo implements Parcelable {
         sourceDir = source.readString();
         publicSourceDir = source.readString();
         dataDir = source.readString();
+<<<<<<< HEAD
         nativeLibraryDir = source.readString();
         handleProfiling = source.readInt() != 0;
         functionalTest = source.readInt() != 0;
+=======
+        handleProfiling = source.readInt() != 0;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 }

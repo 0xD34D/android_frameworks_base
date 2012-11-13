@@ -20,6 +20,11 @@ package com.android.tools.layoutlib.create;
 
 import static org.junit.Assert.assertArrayEquals;
 
+<<<<<<< HEAD
+=======
+import com.android.tools.layoutlib.create.LogTest.MockLog;
+
+>>>>>>> 54b6cfa... Initial Contribution
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,9 +47,15 @@ public class AsmGeneratorTest {
 
     @Before
     public void setUp() throws Exception {
+<<<<<<< HEAD
         mLog = new MockLog();
         URL url = this.getClass().getClassLoader().getResource("data/mock_android.jar");
 
+=======
+        mLog = new LogTest.MockLog();
+        URL url = this.getClass().getClassLoader().getResource("data/mock_android.jar");
+        
+>>>>>>> 54b6cfa... Initial Contribution
         mOsJarPath = new ArrayList<String>();
         mOsJarPath.add(url.getFile());
 
@@ -63,6 +74,7 @@ public class AsmGeneratorTest {
 
     @Test
     public void testClassRenaming() throws IOException, LogAbortException {
+<<<<<<< HEAD
 
         ICreateInfo ci = new ICreateInfo() {
             @Override
@@ -104,6 +116,18 @@ public class AsmGeneratorTest {
         };
 
         AsmGenerator agen = new AsmGenerator(mLog, mOsDestJar, ci);
+=======
+        
+        AsmGenerator agen = new AsmGenerator(mLog, mOsDestJar,
+            null, // classes to inject in the final JAR
+            null,  // methods to force override
+            new String[] {  // classes to rename (so that we can replace them)
+                "mock_android.view.View", "mock_android.view._Original_View",
+                "not.an.actual.ClassName", "anoter.fake.NewClassName",
+            },
+            null // methods deleted from their return type.
+            );
+>>>>>>> 54b6cfa... Initial Contribution
 
         AsmAnalyzer aa = new AsmAnalyzer(mLog, mOsJarPath, agen,
                 null,                 // derived from
@@ -112,7 +136,11 @@ public class AsmGeneratorTest {
                 });
         aa.analyze();
         agen.generate();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 54b6cfa... Initial Contribution
         Set<String> notRenamed = agen.getClassesNotRenamed();
         assertArrayEquals(new String[] { "not/an/actual/ClassName" }, notRenamed.toArray());
     }

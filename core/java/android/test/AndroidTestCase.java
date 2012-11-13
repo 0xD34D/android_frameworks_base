@@ -16,6 +16,7 @@
 
 package android.test;
 
+<<<<<<< HEAD
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -24,13 +25,24 @@ import junit.framework.TestCase;
 
 import java.lang.reflect.Field;
 
+=======
+import android.content.Context;
+
+import java.lang.reflect.Field;
+
+import junit.framework.TestCase;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * Extend this if you need to access Resources or other things that depend on Activity Context.
  */
 public class AndroidTestCase extends TestCase {
 
     protected Context mContext;
+<<<<<<< HEAD
     private Context mTestContext;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     @Override
     protected void setUp() throws Exception {
@@ -44,7 +56,11 @@ public class AndroidTestCase extends TestCase {
 
     public void testAndroidTestCaseSetupProperly() {
         assertNotNull("Context is null. setContext should be called before tests are run",
+<<<<<<< HEAD
                 mContext);
+=======
+                mContext);        
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     public void setContext(Context context) {
@@ -56,6 +72,7 @@ public class AndroidTestCase extends TestCase {
     }
 
     /**
+<<<<<<< HEAD
      * Test context can be used to access resources from the test's own package
      * as opposed to the resources from the test target package. Access to the
      * latter is provided by the context set with the {@link #setContext}
@@ -141,13 +158,21 @@ public class AndroidTestCase extends TestCase {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * This function is called by various TestCase implementations, at tearDown() time, in order
      * to scrub out any class variables.  This protects against memory leaks in the case where a
      * test case creates a non-static inner class (thus referencing the test case) and gives it to
      * someone else to hold onto.
+<<<<<<< HEAD
      *
      * @param testCaseClass The class of the derived TestCase implementation.
      *
+=======
+     * 
+     * @param testCaseClass The class of the derived TestCase implementation.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @throws IllegalAccessException
      */
     protected void scrubClass(final Class<?> testCaseClass)

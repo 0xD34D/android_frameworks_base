@@ -18,7 +18,10 @@ package android.os;
 
 import android.util.Log;
 
+<<<<<<< HEAD
 import java.io.FileDescriptor;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -28,7 +31,11 @@ import java.io.OutputStream;
  * MemoryFile is a wrapper for the Linux ashmem driver.
  * MemoryFiles are backed by shared memory, which can be optionally
  * set to be purgeable.
+<<<<<<< HEAD
  * Purgeable files may have their contents reclaimed by the kernel
+=======
+ * Purgeable files may have their contents reclaimed by the kernel 
+>>>>>>> 54b6cfa... Initial Contribution
  * in low memory conditions (only if allowPurging is set to true).
  * After a file is purged, attempts to read or write the file will
  * cause an IOException to be thrown.
@@ -36,6 +43,7 @@ import java.io.OutputStream;
 public class MemoryFile
 {
     private static String TAG = "MemoryFile";
+<<<<<<< HEAD
 
     // mmap(2) protection flags from <sys/mman.h>
     private static final int PROT_READ = 0x1;
@@ -55,11 +63,27 @@ public class MemoryFile
     private static native int native_get_size(FileDescriptor fd) throws IOException;
 
     private FileDescriptor mFD;        // ashmem file descriptor
+=======
+ 
+    // returns fd
+    private native int native_open(String name, int length);
+    // returns memory address for ashmem region
+    private native int native_mmap(int fd, int length);
+    private native void native_close(int fd);
+    private native int native_read(int fd, int address, byte[] buffer, 
+            int srcOffset, int destOffset, int count, boolean isUnpinned);
+    private native void native_write(int fd, int address, byte[] buffer, 
+            int srcOffset, int destOffset, int count, boolean isUnpinned);
+    private native void native_pin(int fd, boolean pin);
+
+    private int mFD;        // ashmem file descriptor
+>>>>>>> 54b6cfa... Initial Contribution
     private int mAddress;   // address of ashmem memory
     private int mLength;    // total length of our ashmem region
     private boolean mAllowPurging = false;  // true if our ashmem region is unpinned
 
     /**
+<<<<<<< HEAD
      * Allocates a new ashmem region. The region is initially not purgable.
      *
      * @param name optional name for the file (can be null).
@@ -122,11 +146,41 @@ public class MemoryFile
     @Override
     protected void finalize() {
         if (!isClosed()) {
+=======
+     * MemoryFile constructor.
+     *
+     * @param name optional name for the file (can be null).
+     * @param length of the memory file in bytes.
+     */
+    public MemoryFile(String name, int length) {
+        mLength = length;
+        mFD = native_open(name, length);
+        mAddress = native_mmap(mFD, length);
+    }
+
+    /**
+     * Closes and releases all resources for the memory file.
+     */
+    public void close() {
+        if (mFD > 0) {
+            native_close(mFD);
+            mFD = 0;
+        }
+    }
+
+    @Override
+    protected void finalize() {
+        if (mFD > 0) {
+>>>>>>> 54b6cfa... Initial Contribution
             Log.e(TAG, "MemoryFile.finalize() called while ashmem still open");
             close();
         }
     }
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the length of the memory file.
      *
@@ -176,6 +230,10 @@ public class MemoryFile
      @return OutputStream
      */
      public OutputStream getOutputStream() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
         return new MemoryOutputStream();
     }
 
@@ -188,6 +246,7 @@ public class MemoryFile
      * @param destOffset offset into the byte array buffer to read into.
      * @param count number of bytes to read.
      * @return number of bytes read.
+<<<<<<< HEAD
      * @throws IOException if the memory file has been purged or deactivated.
      */
     public int readBytes(byte[] buffer, int srcOffset, int destOffset, int count)
@@ -195,6 +254,11 @@ public class MemoryFile
         if (isDeactivated()) {
             throw new IOException("Can't read from deactivated memory file.");
         }
+=======
+     */
+    public int readBytes(byte[] buffer, int srcOffset, int destOffset, int count) 
+            throws IOException {
+>>>>>>> 54b6cfa... Initial Contribution
         if (destOffset < 0 || destOffset > buffer.length || count < 0
                 || count > buffer.length - destOffset
                 || srcOffset < 0 || srcOffset > mLength
@@ -212,6 +276,7 @@ public class MemoryFile
      * @param srcOffset offset into the byte array buffer to write from.
      * @param destOffset offset  into the memory file to write to.
      * @param count number of bytes to write.
+<<<<<<< HEAD
      * @throws IOException if the memory file has been purged or deactivated.
      */
     public void writeBytes(byte[] buffer, int srcOffset, int destOffset, int count)
@@ -219,6 +284,11 @@ public class MemoryFile
         if (isDeactivated()) {
             throw new IOException("Can't write to deactivated memory file.");
         }
+=======
+     */
+    public void writeBytes(byte[] buffer, int srcOffset, int destOffset, int count)
+            throws IOException {
+>>>>>>> 54b6cfa... Initial Contribution
         if (srcOffset < 0 || srcOffset > buffer.length || count < 0
                 || count > buffer.length - srcOffset
                 || destOffset < 0 || destOffset > mLength
@@ -228,6 +298,7 @@ public class MemoryFile
         native_write(mFD, mAddress, buffer, srcOffset, destOffset, count, mAllowPurging);
     }
 
+<<<<<<< HEAD
     /**
      * Gets a FileDescriptor for the memory file.
      *
@@ -253,6 +324,8 @@ public class MemoryFile
         return native_get_size(fd);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private class MemoryInputStream extends InputStream {
 
         private int mMark = 0;
@@ -289,13 +362,18 @@ public class MemoryFile
             }
             int result = read(mSingleByte, 0, 1);
             if (result != 1) {
+<<<<<<< HEAD
                 return -1;
+=======
+                throw new IOException("read() failed");
+>>>>>>> 54b6cfa... Initial Contribution
             }
             return mSingleByte[0];
         }
 
         @Override
         public int read(byte buffer[], int offset, int count) throws IOException {
+<<<<<<< HEAD
             if (offset < 0 || count < 0 || offset + count > buffer.length) {
                 // readBytes() also does this check, but we need to do it before
                 // changing count.
@@ -305,6 +383,8 @@ public class MemoryFile
             if (count < 1) {
                 return -1;
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             int result = readBytes(buffer, mOffset, offset, count);
             if (result > 0) {
                 mOffset += result;
@@ -330,7 +410,10 @@ public class MemoryFile
         @Override
         public void write(byte buffer[], int offset, int count) throws IOException {
             writeBytes(buffer, offset, mOffset, count);
+<<<<<<< HEAD
             mOffset += count;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         @Override

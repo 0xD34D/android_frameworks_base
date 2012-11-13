@@ -18,10 +18,14 @@ package android.text.style;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;
+<<<<<<< HEAD
 import android.os.Parcel;
 import android.text.ParcelableSpan;
 import android.text.TextPaint;
 import android.text.TextUtils;
+=======
+import android.text.TextPaint;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * 
@@ -31,9 +35,15 @@ import android.text.TextUtils;
  * you get bold italic.  You can't turn off a style from the base style.
  *
  */
+<<<<<<< HEAD
 public class StyleSpan extends MetricAffectingSpan implements ParcelableSpan {
 
 	private final int mStyle;
+=======
+public class StyleSpan extends MetricAffectingSpan {
+
+	private int mStyle;
+>>>>>>> 54b6cfa... Initial Contribution
 
 	/**
 	 * 
@@ -45,6 +55,7 @@ public class StyleSpan extends MetricAffectingSpan implements ParcelableSpan {
 		mStyle = style;
 	}
 
+<<<<<<< HEAD
     public StyleSpan(Parcel src) {
         mStyle = src.readInt();
     }
@@ -61,6 +72,8 @@ public class StyleSpan extends MetricAffectingSpan implements ParcelableSpan {
         dest.writeInt(mStyle);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 	/**
 	 * Returns the style constant defined in {@link android.graphics.Typeface}. 
 	 */

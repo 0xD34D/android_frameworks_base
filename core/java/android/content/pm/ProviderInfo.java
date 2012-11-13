@@ -28,7 +28,10 @@ import android.os.PatternMatcher;
  */
 public final class ProviderInfo extends ComponentInfo
         implements Parcelable {
+<<<<<<< HEAD
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /** The name provider is published under content:// */
     public String authority = null;
     
@@ -57,6 +60,7 @@ public final class ProviderInfo extends ComponentInfo
      */
     public PatternMatcher[] uriPermissionPatterns = null;
     
+<<<<<<< HEAD
     /**
      * If non-null, these are path-specific permissions that are allowed for
      * accessing the provider.  Any permissions listed here will allow a
@@ -65,6 +69,8 @@ public final class ProviderInfo extends ComponentInfo
      */
     public PathPermission[] pathPermissions = null;
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /** If true, this content provider allows multiple instances of itself
      *  to run in different process.  If false, a single instances is always
      *  run in {@link #processName}. */
@@ -74,12 +80,16 @@ public final class ProviderInfo extends ComponentInfo
      *  running in the same process.  Higher goes first. */
     public int initOrder = 0;
     
+<<<<<<< HEAD
     /**
      * Whether or not this provider is syncable.
      * @deprecated This flag is now being ignored. The current way to make a provider
      * syncable is to provide a SyncAdapter service for a given provider/account type. 
      */
     @Deprecated
+=======
+    /** Whether or not this provider is syncable. */
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean isSyncable = false;
 
     public ProviderInfo() {
@@ -92,7 +102,10 @@ public final class ProviderInfo extends ComponentInfo
         writePermission = orig.writePermission;
         grantUriPermissions = orig.grantUriPermissions;
         uriPermissionPatterns = orig.uriPermissionPatterns;
+<<<<<<< HEAD
         pathPermissions = orig.pathPermissions;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         multiprocess = orig.multiprocess;
         initOrder = orig.initOrder;
         isSyncable = orig.isSyncable;
@@ -109,7 +122,10 @@ public final class ProviderInfo extends ComponentInfo
         out.writeString(writePermission);
         out.writeInt(grantUriPermissions ? 1 : 0);
         out.writeTypedArray(uriPermissionPatterns, parcelableFlags);
+<<<<<<< HEAD
         out.writeTypedArray(pathPermissions, parcelableFlags);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         out.writeInt(multiprocess ? 1 : 0);
         out.writeInt(initOrder);
         out.writeInt(isSyncable ? 1 : 0);
@@ -138,7 +154,10 @@ public final class ProviderInfo extends ComponentInfo
         writePermission = in.readString();
         grantUriPermissions = in.readInt() != 0;
         uriPermissionPatterns = in.createTypedArray(PatternMatcher.CREATOR);
+<<<<<<< HEAD
         pathPermissions = in.createTypedArray(PathPermission.CREATOR);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         multiprocess = in.readInt() != 0;
         initOrder = in.readInt();
         isSyncable = in.readInt() != 0;

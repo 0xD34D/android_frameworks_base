@@ -18,11 +18,15 @@ package android.net.wifi;
 
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
+<<<<<<< HEAD
 import android.content.Context;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.net.DhcpInfo;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.Handler;
+<<<<<<< HEAD
 import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
@@ -32,6 +36,11 @@ import android.util.SparseArray;
 
 import com.android.internal.util.AsyncChannel;
 import com.android.internal.util.Protocol;
+=======
+import android.os.RemoteException;
+
+import com.android.internal.os.RuntimeInit;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.util.List;
 
@@ -68,7 +77,11 @@ public class WifiManager {
      * Broadcast intent action indicating that Wi-Fi has been enabled, disabled,
      * enabling, disabling, or unknown. One extra provides this state as an int.
      * Another extra provides the previous state, if available.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #EXTRA_WIFI_STATE
      * @see #EXTRA_PREVIOUS_WIFI_STATE
      */
@@ -79,7 +92,11 @@ public class WifiManager {
      * The lookup key for an int that indicates whether Wi-Fi is enabled,
      * disabled, enabling, disabling, or unknown.  Retrieve it with
      * {@link android.content.Intent#getIntExtra(String,int)}.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #WIFI_STATE_DISABLED
      * @see #WIFI_STATE_DISABLING
      * @see #WIFI_STATE_ENABLED
@@ -89,6 +106,7 @@ public class WifiManager {
     public static final String EXTRA_WIFI_STATE = "wifi_state";
     /**
      * The previous Wi-Fi state.
+<<<<<<< HEAD
      *
      * @see #EXTRA_WIFI_STATE
      */
@@ -98,13 +116,28 @@ public class WifiManager {
      * Wi-Fi is currently being disabled. The state will change to {@link #WIFI_STATE_DISABLED} if
      * it finishes successfully.
      *
+=======
+     * 
+     * @see #EXTRA_WIFI_STATE
+     */
+    public static final String EXTRA_PREVIOUS_WIFI_STATE = "previous_wifi_state";
+    
+    /**
+     * Wi-Fi is currently being disabled. The state will change to {@link #WIFI_STATE_DISABLED} if
+     * it finishes successfully.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #WIFI_STATE_CHANGED_ACTION
      * @see #getWifiState()
      */
     public static final int WIFI_STATE_DISABLING = 0;
     /**
      * Wi-Fi is disabled.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #WIFI_STATE_CHANGED_ACTION
      * @see #getWifiState()
      */
@@ -112,14 +145,22 @@ public class WifiManager {
     /**
      * Wi-Fi is currently being enabled. The state will change to {@link #WIFI_STATE_ENABLED} if
      * it finishes successfully.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #WIFI_STATE_CHANGED_ACTION
      * @see #getWifiState()
      */
     public static final int WIFI_STATE_ENABLING = 2;
     /**
      * Wi-Fi is enabled.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #WIFI_STATE_CHANGED_ACTION
      * @see #getWifiState()
      */
@@ -127,11 +168,16 @@ public class WifiManager {
     /**
      * Wi-Fi is in an unknown state. This state will occur when an error happens while enabling
      * or disabling.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #WIFI_STATE_CHANGED_ACTION
      * @see #getWifiState()
      */
     public static final int WIFI_STATE_UNKNOWN = 4;
+<<<<<<< HEAD
 
     /**
      * Broadcast intent action indicating that Wi-Fi AP has been enabled, disabled,
@@ -213,6 +259,9 @@ public class WifiManager {
      */
     public static final int WIFI_AP_STATE_FAILED = 14;
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Broadcast intent action indicating that a connection to the supplicant has
      * been established (and it is now possible
@@ -234,6 +283,7 @@ public class WifiManager {
     /**
      * Broadcast intent action indicating that the state of Wi-Fi connectivity
      * has changed. One extra provides the new state
+<<<<<<< HEAD
      * in the form of a {@link android.net.NetworkInfo} object. If the new
      * state is CONNECTED, additional extras may provide the BSSID and WifiInfo of
      * the access point.
@@ -241,6 +291,13 @@ public class WifiManager {
      * @see #EXTRA_NETWORK_INFO
      * @see #EXTRA_BSSID
      * @see #EXTRA_WIFI_INFO
+=======
+     * in the form of a {@link android.net.NetworkInfo} object. If the new state is
+     * CONNECTED, a second extra may provide the BSSID of the access point,
+     * as a {@code String}.
+     * @see #EXTRA_NETWORK_INFO
+     * @see #EXTRA_BSSID
+>>>>>>> 54b6cfa... Initial Contribution
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String NETWORK_STATE_CHANGED_ACTION = "android.net.wifi.STATE_CHANGE";
@@ -258,6 +315,7 @@ public class WifiManager {
      */
     public static final String EXTRA_BSSID = "bssid";
     /**
+<<<<<<< HEAD
      * The lookup key for a {@link android.net.wifi.WifiInfo} object giving the
      * information about the access point to which we are connected. Only present
      * when the new state is CONNECTED.  Retrieve with
@@ -265,6 +323,8 @@ public class WifiManager {
      */
     public static final String EXTRA_WIFI_INFO = "wifiInfo";
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Broadcast intent action indicating that the state of establishing a connection to
      * an access point has changed.One extra provides the new
      * {@link SupplicantState}. Note that the supplicant state is Wi-Fi specific, and
@@ -293,6 +353,7 @@ public class WifiManager {
     public static final String EXTRA_SUPPLICANT_ERROR = "supplicantError";
 
     /**
+<<<<<<< HEAD
      * Broadcast intent action indicating that the configured networks changed.
      * This can be as a result of adding/updating/deleting a network. If
      * {@link #EXTRA_MULTIPLE_NETWORKS_CHANGED} is set to true the new configuration
@@ -341,6 +402,8 @@ public class WifiManager {
      */
     public static final int CHANGE_REASON_CONFIG_CHANGE = 2;
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * An access point scan has completed, and results are available from the supplicant.
      * Call {@link #getScanResults()} to obtain the results.
      */
@@ -358,6 +421,7 @@ public class WifiManager {
     public static final String EXTRA_NEW_RSSI = "newRssi";
 
     /**
+<<<<<<< HEAD
      * Broadcast intent action indicating that the link configuration
      * changed on wifi.
      * @hide
@@ -382,11 +446,17 @@ public class WifiManager {
     public static final String EXTRA_LINK_CAPABILITIES = "linkCapabilities";
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * The network IDs of the configured networks could have changed.
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String NETWORK_IDS_CHANGED_ACTION = "android.net.wifi.NETWORK_IDS_CHANGED";
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Activity Action: Pick a Wi-Fi network to connect to.
      * <p>Input: Nothing.
@@ -395,6 +465,7 @@ public class WifiManager {
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_PICK_WIFI_NETWORK = "android.net.wifi.PICK_WIFI_NETWORK";
 
+<<<<<<< HEAD
     /**
      * In this Wi-Fi lock mode, Wi-Fi will be kept active,
      * and will behave normally, i.e., it will attempt to automatically
@@ -492,6 +563,20 @@ public class WifiManager {
 
     /* Number of currently active WifiLocks and MulticastLocks */
     private int mActiveLockCount;
+=======
+    /** Anything worse than or equal to this will show 0 bars. */
+    private static final int MIN_RSSI = -100;
+    
+    /** Anything better than or equal to this will show the max bars. */
+    private static final int MAX_RSSI = -55;
+    
+    IWifiManager mService;
+    Handler mHandler;
+
+    /** Don't allow use of default constructor */
+    private WifiManager() {
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Create a new WifiManager instance.
@@ -500,7 +585,11 @@ public class WifiManager {
      * the standard {@link android.content.Context#WIFI_SERVICE Context.WIFI_SERVICE}.
      * @param service the Binder interface
      * @param handler target for messages
+<<<<<<< HEAD
      * @hide - hide this because it takes in a parameter of type IWifiManager, which
+=======
+     * {@hide} - hide this because it takes in a parameter of type IWifiManager, which
+>>>>>>> 54b6cfa... Initial Contribution
      * is a system private class.
      */
     public WifiManager(IWifiManager service, Handler handler) {
@@ -541,7 +630,11 @@ public class WifiManager {
      * <p/>
      * The new network will be marked DISABLED by default. To enable it,
      * called {@link #enableNetwork}.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param config the set of variables that describe the configuration,
      *            contained in a {@link WifiConfiguration} object.
      * @return the ID of the newly created network description. This is used in
@@ -581,7 +674,11 @@ public class WifiManager {
     /**
      * Internal method for doing the RPC that creates a new network description
      * or updates an existing one.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param config The possibly sparse object containing the variables that
      *         are to set or updated in the network description.
      * @return the ID of the network on success, {@code -1} on failure.
@@ -652,8 +749,12 @@ public class WifiManager {
      */
     public boolean disconnect() {
         try {
+<<<<<<< HEAD
             mService.disconnect();
             return true;
+=======
+            return mService.disconnect();
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             return false;
         }
@@ -667,8 +768,12 @@ public class WifiManager {
      */
     public boolean reconnect() {
         try {
+<<<<<<< HEAD
             mService.reconnect();
             return true;
+=======
+            return mService.reconnect();
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             return false;
         }
@@ -682,8 +787,12 @@ public class WifiManager {
      */
     public boolean reassociate() {
         try {
+<<<<<<< HEAD
             mService.reassociate();
             return true;
+=======
+            return mService.reassociate();
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             return false;
         }
@@ -710,6 +819,7 @@ public class WifiManager {
      * on completion of the scan.
      * @return {@code true} if the operation succeeded, i.e., the scan was initiated
      */
+<<<<<<< HEAD
     public boolean startScan() {
         try {
             mService.startScan(false);
@@ -733,6 +843,11 @@ public class WifiManager {
         try {
             mService.startScan(true);
             return true;
+=======
+    public boolean  startScan() {
+        try {
+            return mService.startScan();
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             return false;
         }
@@ -768,7 +883,11 @@ public class WifiManager {
      * Note: It is possible for this method to change the network IDs of
      * existing networks. You should assume the network IDs can be different
      * after calling this method.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @return {@code true} if the operation succeeded
      */
     public boolean saveConfiguration() {
@@ -780,6 +899,7 @@ public class WifiManager {
     }
 
     /**
+<<<<<<< HEAD
      * Set the country code.
      * @param countryCode country code in ISO 3166 format.
      * @param persist {@code true} if this needs to be remembered
@@ -838,6 +958,8 @@ public class WifiManager {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Return the DHCP-assigned addresses from the last successful DHCP request,
      * if any.
      * @return the DHCP information
@@ -874,25 +996,43 @@ public class WifiManager {
      */
     public int getWifiState() {
         try {
+<<<<<<< HEAD
             return mService.getWifiEnabledState();
+=======
+            return mService.getWifiState();
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             return WIFI_STATE_UNKNOWN;
         }
     }
+<<<<<<< HEAD
 
     /**
      * Return whether Wi-Fi is enabled or disabled.
+=======
+    
+    /**
+     * Return whether Wi-Fi is enabled or disabled. 
+>>>>>>> 54b6cfa... Initial Contribution
      * @return {@code true} if Wi-Fi is enabled
      * @see #getWifiState()
      */
     public boolean isWifiEnabled() {
         return getWifiState() == WIFI_STATE_ENABLED;
     }
+<<<<<<< HEAD
 
     /**
      * Calculates the level of the signal. This should be used any time a signal
      * is being shown.
      *
+=======
+    
+    /**
+     * Calculates the level of the signal. This should be used any time a signal
+     * is being shown.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param rssi The power of the signal measured in RSSI.
      * @param numLevels The number of levels to consider in the calculated
      *            level.
@@ -905,6 +1045,7 @@ public class WifiManager {
         } else if (rssi >= MAX_RSSI) {
             return numLevels - 1;
         } else {
+<<<<<<< HEAD
             float inputRange = (MAX_RSSI - MIN_RSSI);
             float outputRange = (numLevels - 1);
             return (int)((float)(rssi - MIN_RSSI) * outputRange / inputRange);
@@ -914,6 +1055,16 @@ public class WifiManager {
     /**
      * Compares two signal strengths.
      *
+=======
+            int partitionSize = (MAX_RSSI - MIN_RSSI) / (numLevels - 1);
+            return (rssi - MIN_RSSI) / partitionSize;
+        }
+    }
+    
+    /**
+     * Compares two signal strengths.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param rssiA The power of the first signal measured in RSSI.
      * @param rssiB The power of the second signal measured in RSSI.
      * @return Returns <0 if the first signal is weaker than the second signal,
@@ -925,6 +1076,7 @@ public class WifiManager {
     }
 
     /**
+<<<<<<< HEAD
      * Start AccessPoint mode with the specified
      * configuration. If the radio is already running in
      * AP mode, update the new configuration
@@ -1603,6 +1755,87 @@ public class WifiManager {
                     throw new RuntimeException("WifiLock under-locked " + mTag);
                 }
             }
+=======
+     * Allows an application to keep the Wi-Fi radio awake.
+     * Normally the Wi-Fi radio may turn off when the user has not used the device in a while.
+     * Acquiring a WifiLock will keep the radio on until the lock is released.  Multiple 
+     * applications may hold WifiLocks, and the radio will only be allowed to turn off when no
+     * WifiLocks are held in any application.
+     *
+     * Before using a WifiLock, consider carefully if your application requires Wi-Fi access, or
+     * could function over a mobile network, if available.  A program that needs to download large
+     * files should hold a WifiLock to ensure that the download will complete, but a program whose
+     * network usage is occasional or low-bandwidth should not hold a WifiLock to avoid adversely
+     * affecting battery life.
+     *
+     * Note that WifiLocks cannot override the user-level "Wi-Fi Enabled" setting, nor Airplane
+     * Mode.  They simply keep the radio from turning off when Wi-Fi is already on but the device
+     * is idle.
+     */
+    public class WifiLock {
+        private String mTag;
+        private IBinder mBinder;
+        private int mRefCount;
+        private boolean mRefCounted;
+        private boolean mHeld;
+
+        private WifiLock(String tag) {
+            mTag = tag;
+            mBinder = new Binder();
+            mRefCount = 0;
+            mRefCounted = true;
+            mHeld = false;
+        }
+
+        /**
+         * Locks the Wi-Fi radio on until {@link #release} is called.
+         *
+         * If this WifiLock is reference-counted, each call to {@link #acquire} will increment the
+         * reference count, and the radio will remain locked as long as the reference count is 
+         * above zero.
+         *
+         * If this WifiLock is not reference-counted, the first call to {@link #acquire} will lock
+         * the radio, but subsequent calls will be ignored.  Only one call to {@link #release}
+         * will be required, regardless of the number of times that {@link #acquire} is called.
+         */
+        public void acquire() {
+            synchronized (mBinder) {
+                if (mRefCounted ? (++mRefCount > 0) : (!mHeld)) {
+                    try {
+                        mService.acquireWifiLock(mBinder, mTag);
+                    } catch (RemoteException e) {
+                    }
+                    mHeld = true;
+                }
+            }
+        }
+
+        /**
+         * Unlocks the Wi-Fi radio, allowing it to turn off when the device is idle.
+         *
+         * If this WifiLock is reference-counted, each call to {@link #release} will decrement the
+         * reference count, and the radio will be unlocked only when the reference count reaches
+         * zero.  If the reference count goes below zero (that is, if {@link #release} is called 
+         * a greater number of times than {@link #acquire}), an exception is thrown.
+         *
+         * If this WifiLock is not reference-counted, the first call to {@link #release} (after
+         * the radio was locked using {@link #acquire}) will unlock the radio, and subsequent
+         * calls will be ignored.
+         */
+        public void release() {
+            synchronized (mBinder) {
+                if (mRefCounted ? (--mRefCount == 0) : (mHeld)) {
+                    try {
+                        mService.releaseWifiLock(mBinder);
+                    } catch (RemoteException e) {
+                    }
+                    mHeld = false;
+                }
+                if (mRefCount < 0) {
+                    throw new RuntimeException("WifiLock under-locked " + mTag);
+                }
+            }
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         /**
@@ -1631,6 +1864,7 @@ public class WifiManager {
             }
         }
 
+<<<<<<< HEAD
         public void setWorkSource(WorkSource ws) {
             synchronized (mBinder) {
                 if (ws != null && ws.size() == 0) {
@@ -1657,6 +1891,8 @@ public class WifiManager {
             }
         }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         public String toString() {
             String s1, s2, s3;
             synchronized (mBinder) {
@@ -1673,16 +1909,26 @@ public class WifiManager {
 
         @Override
         protected void finalize() throws Throwable {
+<<<<<<< HEAD
             super.finalize();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             synchronized (mBinder) {
                 if (mHeld) {
                     try {
                         mService.releaseWifiLock(mBinder);
+<<<<<<< HEAD
                         synchronized (WifiManager.this) {
                             mActiveLockCount--;
                         }
                     } catch (RemoteException ignore) {
                     }
+=======
+                    } catch (RemoteException e) {
+                    }
+                    RuntimeInit.crash("WifiLock", new Exception(
+                            "WifiLock finalized while still held: " + mTag));
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -1691,6 +1937,7 @@ public class WifiManager {
     /**
      * Creates a new WifiLock.
      *
+<<<<<<< HEAD
      * @param lockType the type of lock to create. See {@link #WIFI_MODE_FULL},
      * {@link #WIFI_MODE_FULL_HIGH_PERF} and {@link #WIFI_MODE_SCAN_ONLY} for
      * descriptions of the types of Wi-Fi locks.
@@ -1712,6 +1959,10 @@ public class WifiManager {
      *
      * @param tag a tag for the WifiLock to identify it in debugging messages.  This string is
      *            never shown to the user under normal conditions, but should be descriptive
+=======
+     * @param tag a tag for the WifiLock to identify it in debugging messages.  This string is 
+     *            never shown to the user under normal conditions, but should be descriptive 
+>>>>>>> 54b6cfa... Initial Contribution
      *            enough to identify your application and the specific WifiLock within it, if it
      *            holds multiple WifiLocks.
      *
@@ -1720,6 +1971,7 @@ public class WifiManager {
      * @see WifiLock
      */
     public WifiLock createWifiLock(String tag) {
+<<<<<<< HEAD
         return new WifiLock(WIFI_MODE_FULL, tag);
     }
 
@@ -1926,4 +2178,9 @@ public class WifiManager {
              return false;
         }
     }
+=======
+        return new WifiLock(tag);
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
 }

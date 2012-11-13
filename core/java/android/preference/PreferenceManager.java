@@ -16,7 +16,16 @@
 
 package android.preference;
 
+<<<<<<< HEAD
 import android.app.Activity;
+=======
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import android.app.Activity;
+import android.app.Dialog;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,12 +38,17 @@ import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.util.Log;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 /**
  * Used to help create {@link Preference} hierarchies
+=======
+/**
+ * The {@link PreferenceManager} is used to help create preference hierarchies
+>>>>>>> 54b6cfa... Initial Contribution
  * from activities or XML.
  * <p>
  * In most cases, clients should use
@@ -60,11 +74,14 @@ public class PreferenceManager {
     private Activity mActivity;
 
     /**
+<<<<<<< HEAD
      * Fragment that owns this instance.
      */
     private PreferenceFragment mFragment;
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * The context to use. This should always be set.
      * 
      * @see #mActivity
@@ -162,6 +179,7 @@ public class PreferenceManager {
         
         setSharedPreferencesName(getDefaultSharedPreferencesName(context));
     }
+<<<<<<< HEAD
 
     /**
      * Sets the owning preference fragment
@@ -177,6 +195,9 @@ public class PreferenceManager {
         return mFragment;
     }
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns a list of {@link Activity} (indirectly) that match a given
      * {@link Intent}.
@@ -258,9 +279,14 @@ public class PreferenceManager {
      *            hierarchies into.
      * @return The root hierarchy (if one was not provided, the new hierarchy's
      *         root).
+<<<<<<< HEAD
      * @hide
      */
     public PreferenceScreen inflateFromResource(Context context, int resId,
+=======
+     */
+    PreferenceScreen inflateFromResource(Context context, int resId,
+>>>>>>> 54b6cfa... Initial Contribution
             PreferenceScreen rootPreferences) {
         // Block commits
         setNoCommit(true);
@@ -415,6 +441,7 @@ public class PreferenceManager {
     }
     
     /**
+<<<<<<< HEAD
      * Sets the default values from an XML preference file by reading the values defined
      * by each {@link Preference} item's {@code android:defaultValue} attribute. This should
      * be called by the application's main activity.
@@ -429,6 +456,21 @@ public class PreferenceManager {
      * preferences file is false). To attempt to set the default values again
      * bypassing this check, set {@code readAgain} to true.
      *            <p class="note">
+=======
+     * Sets the default values from a preference hierarchy in XML. This should
+     * be called by the application's main activity.
+     * <p>
+     * If {@code readAgain} is false, this will only set the default values if this
+     * method has never been called in the past (or the
+     * {@link #KEY_HAS_SET_DEFAULT_VALUES} in the default value shared
+     * preferences file is false). To attempt to set the default values again
+     * bypassing this check, set {@code readAgain} to true.
+     * 
+     * @param context The context of the shared preferences.
+     * @param resId The resource ID of the preference hierarchy XML file.
+     * @param readAgain Whether to re-read the default values.
+     *            <p>
+>>>>>>> 54b6cfa... Initial Contribution
      *            Note: this will NOT reset preferences back to their default
      *            values. For that functionality, use
      *            {@link PreferenceManager#getDefaultSharedPreferences(Context)}
@@ -446,6 +488,7 @@ public class PreferenceManager {
      * Similar to {@link #setDefaultValues(Context, int, boolean)} but allows
      * the client to provide the filename and mode of the shared preferences
      * file.
+<<<<<<< HEAD
      *
      * @param context The context of the shared preferences.
      * @param sharedPreferencesName A custom name for the shared preferences file.
@@ -465,6 +508,8 @@ public class PreferenceManager {
      *            {@link PreferenceManager#getDefaultSharedPreferences(Context)}
      *            and clear it followed by a call to this method with this
      *            parameter set to true.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * 
      * @see #setDefaultValues(Context, int, boolean)
      * @see #setSharedPreferencesName(String)
@@ -481,6 +526,7 @@ public class PreferenceManager {
             pm.setSharedPreferencesMode(sharedPreferencesMode);
             pm.inflateFromResource(context, resId, null);
 
+<<<<<<< HEAD
             SharedPreferences.Editor editor =
                     defaultValueSp.edit().putBoolean(KEY_HAS_SET_DEFAULT_VALUES, true);
             try {
@@ -491,6 +537,9 @@ public class PreferenceManager {
                 // an apply method.
                 editor.commit();
             }
+=======
+            defaultValueSp.edit().putBoolean(KEY_HAS_SET_DEFAULT_VALUES, true).commit();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
     
@@ -525,6 +574,7 @@ public class PreferenceManager {
     boolean shouldCommit() {
         return !mNoCommit;
     }
+<<<<<<< HEAD
 
     private void setNoCommit(boolean noCommit) {
         if (!noCommit && mEditor != null) {
@@ -540,6 +590,17 @@ public class PreferenceManager {
         mNoCommit = noCommit;
     }
 
+=======
+    
+    private void setNoCommit(boolean noCommit) {
+        if (!noCommit && mEditor != null) {
+            mEditor.commit();
+        }
+        
+        mNoCommit = noCommit;
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the activity that shows the preferences. This is useful for doing
      * managed queries, but in most cases the use of {@link #getContext()} is
@@ -697,6 +758,7 @@ public class PreferenceManager {
      * event.
      */
     void dispatchActivityDestroy() {
+<<<<<<< HEAD
         List<OnActivityDestroyListener> list = null;
         
         synchronized (this) {
@@ -714,6 +776,19 @@ public class PreferenceManager {
 
         // Dismiss any PreferenceScreens still showing
         dismissAllScreens();
+=======
+        List<OnActivityDestroyListener> list;
+        
+        synchronized (this) {
+            if (mActivityDestroyListeners == null) return;
+            list = new ArrayList<OnActivityDestroyListener>(mActivityDestroyListeners);
+        }
+
+        final int N = list.size();
+        for (int i = 0; i < N; i++) {
+            list.get(i).onActivityDestroy();
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -757,6 +832,7 @@ public class PreferenceManager {
      * @param intent The new Intent.
      */
     void dispatchNewIntent(Intent intent) {
+<<<<<<< HEAD
         dismissAllScreens();
     }
 
@@ -764,6 +840,12 @@ public class PreferenceManager {
         // Remove any of the previously shown preferences screens
         ArrayList<DialogInterface> screensToDismiss;
 
+=======
+
+        // Remove any of the previously shown preferences screens
+        ArrayList<DialogInterface> screensToDismiss;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         synchronized (this) {
             
             if (mPreferencesScreens == null) {
@@ -778,7 +860,11 @@ public class PreferenceManager {
             screensToDismiss.get(i).dismiss();
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Sets the callback to be invoked when a {@link Preference} in the
      * hierarchy rooted at this {@link PreferenceManager} is clicked.

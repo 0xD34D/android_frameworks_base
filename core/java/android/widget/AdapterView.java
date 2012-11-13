@@ -18,11 +18,16 @@ package android.widget;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+<<<<<<< HEAD
+=======
+import android.os.Handler;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.ContextMenu;
+<<<<<<< HEAD
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.SoundEffectConstants;
 import android.view.View;
@@ -32,6 +37,14 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityNodeProvider;
+=======
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewDebug;
+import android.view.SoundEffectConstants;
+import android.view.ContextMenu.ContextMenuInfo;
+
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * An AdapterView is a view whose children are determined by an {@link Adapter}.
@@ -39,12 +52,15 @@ import android.view.accessibility.AccessibilityNodeProvider;
  * <p>
  * See {@link ListView}, {@link GridView}, {@link Spinner} and
  *      {@link Gallery} for commonly used subclasses of AdapterView.
+<<<<<<< HEAD
  *
  * <div class="special reference">
  * <h3>Developer Guides</h3>
  * <p>For more information about using AdapterView, read the
  * <a href="{@docRoot}guide/topics/ui/binding.html">Binding to Data with AdapterView</a>
  * developer guide.</p></div>
+=======
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public abstract class AdapterView<T extends Adapter> extends ViewGroup {
 
@@ -63,7 +79,11 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
     /**
      * The position of the first child displayed
      */
+<<<<<<< HEAD
     @ViewDebug.ExportedProperty(category = "scrolling")
+=======
+    @ViewDebug.ExportedProperty
+>>>>>>> 54b6cfa... Initial Contribution
     int mFirstPosition = 0;
 
     /**
@@ -148,7 +168,11 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
      * The position within the adapter's data set of the item to select
      * during the next layout.
      */
+<<<<<<< HEAD
     @ViewDebug.ExportedProperty(category = "list")
+=======
+    @ViewDebug.ExportedProperty
+>>>>>>> 54b6cfa... Initial Contribution
     int mNextSelectedPosition = INVALID_POSITION;
 
     /**
@@ -159,7 +183,11 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
     /**
      * The position within the adapter's data set of the currently selected item.
      */
+<<<<<<< HEAD
     @ViewDebug.ExportedProperty(category = "list")
+=======
+    @ViewDebug.ExportedProperty
+>>>>>>> 54b6cfa... Initial Contribution
     int mSelectedPosition = INVALID_POSITION;
 
     /**
@@ -170,16 +198,28 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
     /**
      * View to show if there are no items to show.
      */
+<<<<<<< HEAD
     private View mEmptyView;
+=======
+    View mEmptyView;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * The number of items in the current adapter.
      */
+<<<<<<< HEAD
     @ViewDebug.ExportedProperty(category = "list")
     int mItemCount;
 
     /**
      * The number of items in the adapter before a data changed event occurred.
+=======
+    @ViewDebug.ExportedProperty
+    int mItemCount;
+
+    /**
+     * The number of items in the adapter before a data changed event occured.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     int mOldItemCount;
 
@@ -233,6 +273,7 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
 
     public AdapterView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+<<<<<<< HEAD
 
         // If not explicitly specified this view is important for accessibility.
         if (getImportantForAccessibility() == IMPORTANT_FOR_ACCESSIBILITY_AUTO) {
@@ -240,6 +281,11 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
         }
     }
 
+=======
+    }
+
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Interface definition for a callback to be invoked when an item in this
      * AdapterView has been clicked.
@@ -292,9 +338,12 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
     public boolean performItemClick(View view, int position, long id) {
         if (mOnItemClickListener != null) {
             playSoundEffect(SoundEffectConstants.CLICK);
+<<<<<<< HEAD
             if (view != null) {
                 view.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
             }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             mOnItemClickListener.onItemClick(this, view, position, id);
             return true;
         }
@@ -352,10 +401,15 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
      */
     public interface OnItemSelectedListener {
         /**
+<<<<<<< HEAD
          * <p>Callback method to be invoked when an item in this view has been
          * selected. This callback is invoked only when the newly selected
          * position is different from the previously selected position or if
          * there was no selected item.</p>
+=======
+         * Callback method to be invoked when an item in this view has been
+         * selected.
+>>>>>>> 54b6cfa... Initial Contribution
          *
          * Impelmenters can call getItemAtPosition(position) if they need to access the
          * data associated with the selected item.
@@ -537,7 +591,10 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
      *
      * @return int Position (starting at 0), or {@link #INVALID_POSITION} if there is nothing selected.
      */
+<<<<<<< HEAD
     @ViewDebug.CapturedViewProperty
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getSelectedItemPosition() {
         return mNextSelectedPosition;
     }
@@ -546,7 +603,10 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
      * @return The id corresponding to the currently selected item, or {@link #INVALID_ROW_ID}
      * if nothing is selected.
      */
+<<<<<<< HEAD
     @ViewDebug.CapturedViewProperty
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public long getSelectedItemId() {
         return mNextSelectedRowId;
     }
@@ -574,9 +634,14 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
     /**
      * @return The number of items owned by the Adapter associated with this
      *         AdapterView. (This is the number of data items, which may be
+<<<<<<< HEAD
      *         larger than the number of visible views.)
      */
     @ViewDebug.CapturedViewProperty
+=======
+     *         larger than the number of visible view.)
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public int getCount() {
         return mItemCount;
     }
@@ -635,9 +700,13 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
     }
 
     /**
+<<<<<<< HEAD
      * Sets the currently selected item. To support accessibility subclasses that
      * override this method must invoke the overriden super method first.
      *
+=======
+     * Sets the currently selected item
+>>>>>>> 54b6cfa... Initial Contribution
      * @param position Index (starting at 0) of the data item to be selected.
      */
     public abstract void setSelection(int position);
@@ -645,6 +714,7 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
     /**
      * Sets the view to show if the adapter is empty
      */
+<<<<<<< HEAD
     @android.view.RemotableViewMethod
     public void setEmptyView(View emptyView) {
         mEmptyView = emptyView;
@@ -655,6 +725,11 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
             emptyView.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
         }
 
+=======
+    public void setEmptyView(View emptyView) {
+        mEmptyView = emptyView;
+
+>>>>>>> 54b6cfa... Initial Contribution
         final T adapter = getAdapter();
         final boolean empty = ((adapter == null) || adapter.isEmpty());
         updateEmptyStatus(empty);
@@ -831,6 +906,10 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
             mNextSelectedPosition = INVALID_POSITION;
             mNextSelectedRowId = INVALID_ROW_ID;
             mNeedSync = false;
+<<<<<<< HEAD
+=======
+            checkSelectionChanged();
+>>>>>>> 54b6cfa... Initial Contribution
 
             checkFocus();
             requestLayout();
@@ -841,6 +920,7 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
         }
     }
 
+<<<<<<< HEAD
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -848,24 +928,37 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
     }
 
     private class SelectionNotifier implements Runnable {
+=======
+    private class SelectionNotifier extends Handler implements Runnable {
+>>>>>>> 54b6cfa... Initial Contribution
         public void run() {
             if (mDataChanged) {
                 // Data has changed between when this SelectionNotifier
                 // was posted and now. We need to wait until the AdapterView
                 // has been synched to the new data.
+<<<<<<< HEAD
                 if (getAdapter() != null) {
                     post(this);
                 }
             } else {
                 fireOnSelected();
                 performAccessibilityActionsOnSelected();
+=======
+                post(this);
+            } else {
+                fireOnSelected();
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
     void selectionChanged() {
+<<<<<<< HEAD
         if (mOnItemSelectedListener != null
                 || AccessibilityManager.getInstance(mContext).isEnabled()) {
+=======
+        if (mOnItemSelectedListener != null) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (mInLayout || mBlockLayoutRequests) {
                 // If we are in a layout traversal, defer notification
                 // by posting. This ensures that the view tree is
@@ -874,19 +967,32 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
                 if (mSelectionNotifier == null) {
                     mSelectionNotifier = new SelectionNotifier();
                 }
+<<<<<<< HEAD
                 post(mSelectionNotifier);
             } else {
                 fireOnSelected();
                 performAccessibilityActionsOnSelected();
+=======
+                mSelectionNotifier.post(mSelectionNotifier);
+            } else {
+                fireOnSelected();
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
 
     private void fireOnSelected() {
+<<<<<<< HEAD
         if (mOnItemSelectedListener == null) {
             return;
         }
         final int selection = getSelectedItemPosition();
+=======
+        if (mOnItemSelectedListener == null)
+            return;
+
+        int selection = this.getSelectedItemPosition();
+>>>>>>> 54b6cfa... Initial Contribution
         if (selection >= 0) {
             View v = getSelectedView();
             mOnItemSelectedListener.onItemSelected(this, v, selection,
@@ -896,6 +1002,7 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
         }
     }
 
+<<<<<<< HEAD
     private void performAccessibilityActionsOnSelected() {
         if (!AccessibilityManager.getInstance(mContext).isEnabled()) {
             return;
@@ -967,6 +1074,8 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
         return false;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     @Override
     protected boolean canAnimate() {
         return super.canAnimate() && mItemCount > 0;
@@ -1033,9 +1142,12 @@ public abstract class AdapterView<T extends Adapter> extends ViewGroup {
             mNeedSync = false;
             checkSelectionChanged();
         }
+<<<<<<< HEAD
 
         //TODO: Hmm, we do not know the old state so this is sub-optimal
         notifyAccessibilityStateChanged();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     void checkSelectionChanged() {

@@ -27,10 +27,13 @@ public class AndroidRuntimeException extends RuntimeException {
         super(name);
     }
 
+<<<<<<< HEAD
     public AndroidRuntimeException(String name, Throwable cause) {
         super(name, cause);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public AndroidRuntimeException(Exception cause) {
         super(cause);
     }

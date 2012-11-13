@@ -25,11 +25,17 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+<<<<<<< HEAD
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RemoteViews.RemoteView;
+=======
+import android.util.AttributeSet;
+import android.view.View;
+import android.pim.Time;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import java.util.TimeZone;
 
@@ -37,7 +43,10 @@ import java.util.TimeZone;
  * This widget display an analogic clock with two hands for hours and
  * minutes.
  */
+<<<<<<< HEAD
 @RemoteView
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 public class AnalogClock extends View {
     private Time mCalendar;
 
@@ -49,6 +58,10 @@ public class AnalogClock extends View {
     private int mDialHeight;
 
     private boolean mAttached;
+<<<<<<< HEAD
+=======
+    private long mLastTime;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private final Handler mHandler = new Handler();
     private float mMinutes;
@@ -96,6 +109,10 @@ public class AnalogClock extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
+<<<<<<< HEAD
+=======
+        onTimeChanged();
+>>>>>>> 54b6cfa... Initial Contribution
         if (!mAttached) {
             mAttached = true;
             IntentFilter filter = new IntentFilter();
@@ -106,6 +123,7 @@ public class AnalogClock extends View {
 
             getContext().registerReceiver(mIntentReceiver, filter, null, mHandler);
         }
+<<<<<<< HEAD
 
         // NOTE: It's safe to do these after registering the receiver since the receiver always runs
         // in the main thread, therefore the receiver can't run before this method returns.
@@ -115,6 +133,8 @@ public class AnalogClock extends View {
 
         // Make sure we update to the current time
         onTimeChanged();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -147,8 +167,13 @@ public class AnalogClock extends View {
 
         float scale = Math.min(hScale, vScale);
 
+<<<<<<< HEAD
         setMeasuredDimension(resolveSizeAndState((int) (mDialWidth * scale), widthMeasureSpec, 0),
                 resolveSizeAndState((int) (mDialHeight * scale), heightMeasureSpec, 0));
+=======
+        setMeasuredDimension(resolveSize((int) (mDialWidth * scale), widthMeasureSpec),
+                resolveSize((int) (mDialHeight * scale), heightMeasureSpec));
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     @Override
@@ -220,7 +245,13 @@ public class AnalogClock extends View {
     }
 
     private void onTimeChanged() {
+<<<<<<< HEAD
         mCalendar.setToNow();
+=======
+        long time = System.currentTimeMillis();
+        mCalendar.set(time);
+        mLastTime = time;
+>>>>>>> 54b6cfa... Initial Contribution
 
         int hour = mCalendar.hour;
         int minute = mCalendar.minute;
@@ -229,8 +260,11 @@ public class AnalogClock extends View {
         mMinutes = minute + second / 60.0f;
         mHour = hour + mMinutes / 60.0f;
         mChanged = true;
+<<<<<<< HEAD
 
         updateContentDescription(mCalendar);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
@@ -239,6 +273,11 @@ public class AnalogClock extends View {
             if (intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
                 String tz = intent.getStringExtra("time-zone");
                 mCalendar = new Time(TimeZone.getTimeZone(tz).getID());
+<<<<<<< HEAD
+=======
+            } else {
+                mCalendar = new Time(); 
+>>>>>>> 54b6cfa... Initial Contribution
             }
 
             onTimeChanged();
@@ -246,6 +285,7 @@ public class AnalogClock extends View {
             invalidate();
         }
     };
+<<<<<<< HEAD
 
     private void updateContentDescription(Time time) {
         final int flags = DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_24HOUR;
@@ -253,4 +293,6 @@ public class AnalogClock extends View {
                 time.toMillis(false), flags);
         setContentDescription(contentDescription);
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

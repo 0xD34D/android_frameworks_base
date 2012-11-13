@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -14,6 +15,8 @@
  * limitations under the License.
  */
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 package android.content.pm;
 
 import android.graphics.drawable.Drawable;
@@ -43,6 +46,7 @@ public class ComponentInfo extends PackageItemInfo {
     public String processName;
 
     /**
+<<<<<<< HEAD
      * A string resource identifier (in the package's resources) containing
      * a user-readable description of the component.  From the "description"
      * attribute or, if not set, 0.
@@ -50,6 +54,8 @@ public class ComponentInfo extends PackageItemInfo {
     public int descriptionRes;
     
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Indicates whether or not this component may be instantiated.  Note that this value can be
      * overriden by the one in its parent {@link ApplicationInfo}.
      */
@@ -70,7 +76,10 @@ public class ComponentInfo extends PackageItemInfo {
         super(orig);
         applicationInfo = orig.applicationInfo;
         processName = orig.processName;
+<<<<<<< HEAD
         descriptionRes = orig.descriptionRes;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         enabled = orig.enabled;
         exported = orig.exported;
     }
@@ -98,12 +107,32 @@ public class ComponentInfo extends PackageItemInfo {
         }
         return name;
     }
+<<<<<<< HEAD
 
     /**
      * Return whether this component and its enclosing application are enabled.
      */
     public boolean isEnabled() {
         return enabled && applicationInfo.enabled;
+=======
+    
+    @Override public Drawable loadIcon(PackageManager pm) {
+        ApplicationInfo ai = applicationInfo;
+        Drawable dr;
+        if (icon != 0) {
+            dr = pm.getDrawable(packageName, icon, ai);
+            if (dr != null) {
+                return dr;
+            }
+        }
+        if (ai.icon != 0) {
+            dr = pm.getDrawable(packageName, ai.icon, ai);
+            if (dr != null) {
+                return dr;
+            }
+        }
+        return pm.getDefaultActivityIcon();
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     /**
@@ -121,9 +150,12 @@ public class ComponentInfo extends PackageItemInfo {
         super.dumpFront(pw, prefix);
         pw.println(prefix + "enabled=" + enabled + " exported=" + exported
                 + " processName=" + processName);
+<<<<<<< HEAD
         if (descriptionRes != 0) {
             pw.println(prefix + "description=" + descriptionRes);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     protected void dumpBack(Printer pw, String prefix) {
@@ -140,15 +172,23 @@ public class ComponentInfo extends PackageItemInfo {
         super.writeToParcel(dest, parcelableFlags);
         applicationInfo.writeToParcel(dest, parcelableFlags);
         dest.writeString(processName);
+<<<<<<< HEAD
         dest.writeInt(descriptionRes);
         dest.writeInt(enabled ? 1 : 0);
         dest.writeInt(exported ? 1 : 0);
     }
     
+=======
+        dest.writeInt(enabled ? 1 : 0);
+        dest.writeInt(exported ? 1 : 0);
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     protected ComponentInfo(Parcel source) {
         super(source);
         applicationInfo = ApplicationInfo.CREATOR.createFromParcel(source);
         processName = source.readString();
+<<<<<<< HEAD
         descriptionRes = source.readInt();
         enabled = (source.readInt() != 0);
         exported = (source.readInt() != 0);
@@ -175,4 +215,9 @@ public class ComponentInfo extends PackageItemInfo {
     @Override protected ApplicationInfo getApplicationInfo() {
         return applicationInfo;
     }
+=======
+        enabled = (source.readInt() != 0);
+        exported = (source.readInt() != 0);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
 }

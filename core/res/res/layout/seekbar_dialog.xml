@@ -15,8 +15,13 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+=======
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+>>>>>>> 54b6cfa... Initial Contribution
         android:orientation="vertical"
         android:gravity="center_horizontal">
         
@@ -26,7 +31,11 @@
             android:paddingTop="20dip" />
             
     <SeekBar android:id="@+id/seekbar"
+<<<<<<< HEAD
             android:layout_width="match_parent"
+=======
+            android:layout_width="fill_parent"
+>>>>>>> 54b6cfa... Initial Contribution
             android:layout_height="wrap_content"
             android:padding="20dip" />
         

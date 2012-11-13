@@ -20,19 +20,36 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Binder;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.util.Log;
+=======
+import android.util.Config;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.view.Window;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.Map;
 
 /**
  * <p>Helper class for managing multiple running embedded activities in the same
+=======
+import java.util.Iterator;
+import java.util.Map;
+
+/**
+ * Helper class for managing multiple running embedded activities in the same
+>>>>>>> 54b6cfa... Initial Contribution
  * process. This class is not normally used directly, but rather created for
  * you as part of the {@link android.app.ActivityGroup} implementation.
  *
  * @see ActivityGroup
+<<<<<<< HEAD
  *
  * @deprecated Use the new {@link Fragment} and {@link FragmentManager} APIs
  * instead; these are also
@@ -42,6 +59,12 @@ import java.util.Map;
 public class LocalActivityManager {
     private static final String TAG = "LocalActivityManager";
     private static final boolean localLOGV = false;
+=======
+ */
+public class LocalActivityManager {
+    private static final String TAG = "LocalActivityManager";
+    private static final boolean localLOGV = false || Config.LOGV;
+>>>>>>> 54b6cfa... Initial Contribution
 
     // Internal token for an Activity being managed by LocalActivityManager.
     private static class LocalActivityRecord extends Binder {
@@ -114,6 +137,7 @@ public class LocalActivityManager {
         }
         
         if (r.curState == INITIALIZING) {
+<<<<<<< HEAD
             // Get the lastNonConfigurationInstance for the activity
             HashMap<String, Object> lastNonConfigurationInstances =
                     mParent.getLastNonConfigurationChildInstances();
@@ -127,13 +151,19 @@ public class LocalActivityManager {
                 instance.activity = instanceObj;
             }
             
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             // We need to have always created the activity.
             if (localLOGV) Log.v(TAG, r.id + ": starting " + r.intent);
             if (r.activityInfo == null) {
                 r.activityInfo = mActivityThread.resolveActivityInfo(r.intent);
             }
             r.activity = mActivityThread.startActivityNow(
+<<<<<<< HEAD
                     mParent, r.id, r.intent, r.activityInfo, r, r.instanceState, instance);
+=======
+                    mParent, r.id, r.intent, r.activityInfo, r, r.instanceState);
+>>>>>>> 54b6cfa... Initial Contribution
             if (r.activity == null) {
                 return;
             }
@@ -181,7 +211,11 @@ public class LocalActivityManager {
                 }
                 if (desiredState == CREATED) {
                     if (localLOGV) Log.v(TAG, r.id + ": stopping");
+<<<<<<< HEAD
                     mActivityThread.performStopActivity(r, false);
+=======
+                    mActivityThread.performStopActivity(r);
+>>>>>>> 54b6cfa... Initial Contribution
                     r.curState = CREATED;
                 }
                 return;
@@ -196,7 +230,11 @@ public class LocalActivityManager {
                     if (localLOGV) Log.v(TAG, r.id + ": pausing");
                     performPause(r, mFinishing);
                     if (localLOGV) Log.v(TAG, r.id + ": stopping");
+<<<<<<< HEAD
                     mActivityThread.performStopActivity(r, false);
+=======
+                    mActivityThread.performStopActivity(r);
+>>>>>>> 54b6cfa... Initial Contribution
                     r.curState = CREATED;
                 }
                 return;
@@ -301,6 +339,10 @@ public class LocalActivityManager {
             // It's a brand new world.
             mActivities.put(id, r);
             mActivityArray.add(r);
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 54b6cfa... Initial Contribution
         } else if (r.activityInfo != null) {
             // If the new activity is the same as the current one, then
             // we may be able to reuse it.
@@ -354,7 +396,11 @@ public class LocalActivityManager {
     }
 
     private Window performDestroy(LocalActivityRecord r, boolean finish) {
+<<<<<<< HEAD
         Window win;
+=======
+        Window win = null;
+>>>>>>> 54b6cfa... Initial Contribution
         win = r.window;
         if (r.curState == RESUMED && !finish) {
             performPause(r, finish);
@@ -388,8 +434,12 @@ public class LocalActivityManager {
         if (r != null) {
             win = performDestroy(r, finish);
             if (finish) {
+<<<<<<< HEAD
                 mActivities.remove(id);
                 mActivityArray.remove(r);
+=======
+                mActivities.remove(r);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
         return win;
@@ -450,8 +500,15 @@ public class LocalActivityManager {
      */
     public void dispatchCreate(Bundle state) {
         if (state != null) {
+<<<<<<< HEAD
             for (String id : state.keySet()) {
                 try {
+=======
+            final Iterator<String> i = state.keySet().iterator();
+            while (i.hasNext()) {
+                try {
+                    final String id = i.next();
+>>>>>>> 54b6cfa... Initial Contribution
                     final Bundle astate = state.getBundle(id);
                     LocalActivityRecord r = mActivities.get(id);
                     if (r != null) {
@@ -464,7 +521,13 @@ public class LocalActivityManager {
                     }
                 } catch (Exception e) {
                     // Recover from -all- app errors.
+<<<<<<< HEAD
                     Log.e(TAG, "Exception thrown when restoring LocalActivityManager state", e);
+=======
+                    Log.e(TAG,
+                          "Exception thrown when restoring LocalActivityManager state",
+                          e);
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -498,7 +561,11 @@ public class LocalActivityManager {
                 // We need to save the state now, if we don't currently
                 // already have it or the activity is currently resumed.
                 final Bundle childState = new Bundle();
+<<<<<<< HEAD
                 r.activity.performSaveInstanceState(childState);
+=======
+                r.activity.onSaveInstanceState(childState);
+>>>>>>> 54b6cfa... Initial Contribution
                 r.instanceState = childState;
             }
             if (r.instanceState != null) {
@@ -577,6 +644,7 @@ public class LocalActivityManager {
             moveToState(r, CREATED);
         }
     }
+<<<<<<< HEAD
     
     /**
      * Call onRetainNonConfigurationInstance on each child activity and store the
@@ -603,6 +671,8 @@ public class LocalActivityManager {
         }
         return instanceMap;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Remove all activities from this LocalActivityManager, performing an

@@ -17,12 +17,18 @@
 package com.android.internal.telephony;
 
 import android.os.Bundle;
+<<<<<<< HEAD
 import java.util.List;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.CellInfo;
 
 /**
  * Interface used to interact with the phone.  Mostly this is used by the
+=======
+
+/**
+ * Interface used to interact with the phone.  Mostly this is used by the 
+>>>>>>> 54b6cfa... Initial Contribution
  * TelephonyManager class.  A few places are still using this directly.
  * Please clean them up if possible and use TelephonyManager insteadl.
  *
@@ -39,13 +45,18 @@ interface ITelephony {
     void dial(String number);
 
     /**
+<<<<<<< HEAD
      * Place a call to the specified number.
+=======
+     * Place a call to the numer.
+>>>>>>> 54b6cfa... Initial Contribution
      * @param number the number to be called.
      */
     void call(String number);
 
     /**
      * If there is currently a call in progress, show the call screen.
+<<<<<<< HEAD
      * The DTMF dialpad may or may not be visible initially, depending on
      * whether it was up when the user last exited the InCallScreen.
      *
@@ -68,12 +79,21 @@ interface ITelephony {
 
     /**
      * End call if there is a call in progress, otherwise does nothing.
+=======
+     * Returns true if the call screen was shown.
+     */
+    boolean showCallScreen();
+    
+    /**
+     * End call or go to the Home screen
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @return whether it hung up
      */
     boolean endCall();
 
     /**
+<<<<<<< HEAD
      * Answer the currently-ringing call.
      *
      * If there's already a current active call, that call will be
@@ -104,6 +124,8 @@ interface ITelephony {
     void silenceRinger();
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Check if we are in either an active or holding call
      * @return true if the phone state is OFFHOOK.
      */
@@ -136,7 +158,11 @@ interface ITelephony {
     /**
      * Cancels the missed calls notification.
      */
+<<<<<<< HEAD
     void cancelMissedCallsNotification();
+=======
+    void cancelMissedCallsNotification(); 
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Supply a pin to unlock the SIM.  Blocks until a result is determined.
@@ -146,6 +172,7 @@ interface ITelephony {
     boolean supplyPin(String pin);
 
     /**
+<<<<<<< HEAD
      * Supply puk to unlock the SIM and set SIM pin to new pin.
      *  Blocks until a result is determined.
      * @param puk The puk to check.
@@ -158,6 +185,11 @@ interface ITelephony {
      * Handles PIN MMI commands (PIN/PIN2/PUK/PUK2), which are initiated
      * without SEND (so <code>dial</code> is not appropriate).
      *
+=======
+     * Handles PIN MMI commands (PIN/PIN2/PUK/PUK2), which are initiated
+     * without SEND (so <code>dial</code> is not appropriate).
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param dialString the MMI command to be executed.
      * @return true if MMI command is executed.
      */
@@ -215,6 +247,7 @@ interface ITelephony {
 
     Bundle getCellLocation();
 
+<<<<<<< HEAD
     /**
      * Returns the neighboring cell information of the device.
      */
@@ -286,3 +319,9 @@ interface ITelephony {
     List<CellInfo> getAllCellInfo();
 }
 
+=======
+     int getCallState();
+     int getDataActivity();
+     int getDataState();
+}
+>>>>>>> 54b6cfa... Initial Contribution

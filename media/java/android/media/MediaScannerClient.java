@@ -21,14 +21,24 @@ package android.media;
  */
 public interface MediaScannerClient
 {    
+<<<<<<< HEAD
     public void scanFile(String path, long lastModified, long fileSize,
             boolean isDirectory, boolean noMedia);
+=======
+    public void scanFile(String path, long lastModified, long fileSize);
+    
+    public void scanFile(String path, String mimeType, long lastModified, long fileSize);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Called by native code to return metadata extracted from media files.
      */
     public void handleStringTag(String name, String value);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Called by native code to return mime type extracted from DRM content.
      */

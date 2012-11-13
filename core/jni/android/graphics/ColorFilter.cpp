@@ -21,6 +21,7 @@
 
 #include "SkColorFilter.h"
 #include "SkColorMatrixFilter.h"
+<<<<<<< HEAD
 #include "SkPorterDuff.h"
 
 #include <SkiaColorFilter.h>
@@ -96,6 +97,30 @@ public:
     }
 
     static SkColorFilter* CreateColorMatrixFilter(JNIEnv* env, jobject, jfloatArray jarray) {
+=======
+
+namespace android {
+
+class SkColorFilterGlue {
+public:
+
+    static void finalizer(JNIEnv* env, jobject clazz, SkColorFilter* obj) {
+        obj->safeUnref();
+    }
+
+    static SkColorFilter* CreatePorterDuffFilter(JNIEnv* env, jobject,
+                            jint srcColor, SkPorterDuff::Mode porterDuffMode) {
+        return SkColorFilter::CreatePorterDuffFilter(srcColor, porterDuffMode);
+    }
+ 
+    static SkColorFilter* CreateLightingFilter(JNIEnv* env, jobject,
+                                               jint mul, jint add) {
+        return SkColorFilter::CreateLightingFilter(mul, add);
+    }
+    
+    static SkColorFilter* CreateColorMatrixFilter(JNIEnv* env, jobject,
+                                                  jfloatArray jarray) {
+>>>>>>> 54b6cfa... Initial Contribution
         AutoJavaFloatArray autoArray(env, jarray, 20);
         const float* src = autoArray.ptr();
 
@@ -109,6 +134,7 @@ public:
         return new SkColorMatrixFilter(src);
 #endif
     }
+<<<<<<< HEAD
 };
 
 static JNINativeMethod colorfilter_methods[] = {
@@ -128,6 +154,28 @@ static JNINativeMethod lighting_methods[] = {
 static JNINativeMethod colormatrix_methods[] = {
     { "nativeColorMatrixFilter", "([F)I", (void*) SkColorFilterGlue::CreateColorMatrixFilter   },
     { "nColorMatrixFilter",      "(I[F)I", (void*) SkColorFilterGlue::glCreateColorMatrixFilter }
+=======
+ 
+};
+
+static JNINativeMethod colorfilter_methods[] = {
+    {"finalizer", "(I)V", (void*) SkColorFilterGlue::finalizer}
+};
+
+static JNINativeMethod porterduff_methods[] = {
+    {"native_CreatePorterDuffFilter","(II)I",
+        (void*) SkColorFilterGlue::CreatePorterDuffFilter}
+};
+
+static JNINativeMethod lighting_methods[] = {
+    {"native_CreateLightingFilter","(II)I",
+        (void*) SkColorFilterGlue::CreateLightingFilter}
+};
+
+static JNINativeMethod colormatrix_methods[] = {
+    {"nativeColorMatrixFilter","([F)I",
+        (void*) SkColorFilterGlue::CreateColorMatrixFilter}
+>>>>>>> 54b6cfa... Initial Contribution
 };
 
 #define REG(env, name, array) \
@@ -135,6 +183,10 @@ static JNINativeMethod colormatrix_methods[] = {
                                                     SK_ARRAY_COUNT(array));  \
     if (result < 0) return result
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
 int register_android_graphics_ColorFilter(JNIEnv* env) {
     int result;
     

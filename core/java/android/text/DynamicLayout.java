@@ -20,8 +20,11 @@ import android.graphics.Paint;
 import android.text.style.UpdateLayout;
 import android.text.style.WrapTogetherSpan;
 
+<<<<<<< HEAD
 import com.android.internal.util.ArrayUtils;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import java.lang.ref.WeakReference;
 
 /**
@@ -32,10 +35,17 @@ import java.lang.ref.WeakReference;
  * {@link android.graphics.Canvas#drawText(java.lang.CharSequence, int, int, float, float, android.graphics.Paint)
  *  Canvas.drawText()} directly.</p>
  */
+<<<<<<< HEAD
 public class DynamicLayout extends Layout
 {
     private static final int PRIORITY = 128;
     private static final int BLOCK_MINIMUM_CHARACTER_LENGTH = 400;
+=======
+public class DynamicLayout
+extends Layout
+{
+    private static final int PRIORITY = 128;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Make a layout for the specified text that will be updated as
@@ -77,6 +87,7 @@ public class DynamicLayout extends Layout
                          float spacingmult, float spacingadd,
                          boolean includepad,
                          TextUtils.TruncateAt ellipsize, int ellipsizedWidth) {
+<<<<<<< HEAD
         this(base, display, paint, width, align, TextDirectionHeuristics.FIRSTSTRONG_LTR,
                 spacingmult, spacingadd, includepad, ellipsize, ellipsizedWidth);
     }
@@ -102,6 +113,14 @@ public class DynamicLayout extends Layout
                     ? new SpannedEllipsizer(display)
                     : new Ellipsizer(display),
               paint, width, align, textDir, spacingmult, spacingadd);
+=======
+        super((ellipsize == null) 
+                ? display 
+                : (display instanceof Spanned) 
+                    ? new SpannedEllipsizer(display) 
+                    : new Ellipsizer(display),
+              paint, width, align, spacingmult, spacingadd);
+>>>>>>> 54b6cfa... Initial Contribution
 
         mBase = base;
         mDisplay = display;
@@ -113,7 +132,11 @@ public class DynamicLayout extends Layout
         } else {
             mInts = new PackedIntVector(COLUMNS_NORMAL);
             mEllipsizedWidth = width;
+<<<<<<< HEAD
             mEllipsizeAt = null;
+=======
+            mEllipsizeAt = ellipsize;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         mObjects = new PackedObjectVector<Directions>(1);
@@ -167,6 +190,10 @@ public class DynamicLayout extends Layout
         mObjects.insertAt(0, dirs);
 
         // Update from 0 characters to whatever the real text is
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
         reflow(base, 0, 0, base.length());
 
         if (base instanceof Spannable) {
@@ -275,6 +302,7 @@ public class DynamicLayout extends Layout
             sStaticLayout = null;
         }
 
+<<<<<<< HEAD
         if (reflowed == null) {
             reflowed = new StaticLayout(null);
         } else {
@@ -285,16 +313,35 @@ public class DynamicLayout extends Layout
                 getPaint(), getWidth(), getTextDirectionHeuristic(), getSpacingMultiplier(),
                 getSpacingAdd(), false,
                 true, mEllipsizedWidth, mEllipsizeAt);
+=======
+        if (reflowed == null)
+            reflowed = new StaticLayout(true);
+
+        reflowed.generate(text, where, where + after,
+                                      getPaint(), getWidth(), getAlignment(),
+                                      getSpacingMultiplier(), getSpacingAdd(),
+                                      false, true, mEllipsize,
+                                      mEllipsizedWidth, mEllipsizeAt);
+>>>>>>> 54b6cfa... Initial Contribution
         int n = reflowed.getLineCount();
 
         // If the new layout has a blank line at the end, but it is not
         // the very end of the buffer, then we already have a line that
         // starts there, so disregard the blank line.
 
+<<<<<<< HEAD
         if (where + after != len && reflowed.getLineStart(n - 1) == where + after)
             n--;
 
         // remove affected lines from old layout
+=======
+        if (where + after != len &&
+            reflowed.getLineStart(n - 1) == where + after)
+            n--;
+
+        // remove affected lines from old layout
+
+>>>>>>> 54b6cfa... Initial Contribution
         mInts.deleteAt(startline, endline - startline);
         mObjects.deleteAt(startline, endline - startline);
 
@@ -330,6 +377,10 @@ public class DynamicLayout extends Layout
 
         Directions[] objects = new Directions[1];
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
         for (int i = 0; i < n; i++) {
             ints[START] = reflowed.getLineStart(i) |
                           (reflowed.getParagraphDirection(i) << DIR_SHIFT) |
@@ -356,6 +407,7 @@ public class DynamicLayout extends Layout
             mObjects.insertAt(startline + i, objects);
         }
 
+<<<<<<< HEAD
         updateBlocks(startline, endline - 1, n);
 
         synchronized (sLock) {
@@ -560,46 +612,94 @@ public class DynamicLayout extends Layout
     }
 
     @Override
+=======
+        synchronized (sLock) {
+            sStaticLayout = reflowed;
+        }
+    }
+
+    private void dump(boolean show) {
+        int n = getLineCount();
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("line " + i + ": " + getLineStart(i) + " to " + getLineEnd(i) + " ");
+
+            if (show) {
+                System.out.print(getText().subSequence(getLineStart(i),
+                                                       getLineEnd(i)));
+            }
+
+            System.out.println("");
+        }
+
+        System.out.println("");
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public int getLineCount() {
         return mInts.size() - 1;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getLineTop(int line) {
         return mInts.getValue(line, TOP);
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getLineDescent(int line) {
         return mInts.getValue(line, DESCENT);
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getLineStart(int line) {
         return mInts.getValue(line, START) & START_MASK;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public boolean getLineContainsTab(int line) {
         return (mInts.getValue(line, TAB) & TAB_MASK) != 0;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getParagraphDirection(int line) {
         return mInts.getValue(line, DIR) >> DIR_SHIFT;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public final Directions getLineDirections(int line) {
         return mObjects.getValue(line, 0);
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getTopPadding() {
         return mTopPadding;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getBottomPadding() {
         return mBottomPadding;
     }
@@ -609,6 +709,7 @@ public class DynamicLayout extends Layout
         return mEllipsizedWidth;
     }
 
+<<<<<<< HEAD
     private static class ChangeWatcher implements TextWatcher, SpanWatcher {
         public ChangeWatcher(DynamicLayout layout) {
             mLayout = new WeakReference<DynamicLayout>(layout);
@@ -616,6 +717,17 @@ public class DynamicLayout extends Layout
 
         private void reflow(CharSequence s, int where, int before, int after) {
             DynamicLayout ml = mLayout.get();
+=======
+    private static class ChangeWatcher
+    implements TextWatcher, SpanWatcher
+    {
+        public ChangeWatcher(DynamicLayout layout) {
+            mLayout = new WeakReference(layout);
+        }
+
+        private void reflow(CharSequence s, int where, int before, int after) {
+            DynamicLayout ml = (DynamicLayout) mLayout.get();
+>>>>>>> 54b6cfa... Initial Contribution
 
             if (ml != null)
                 ml.reflow(s, where, before, after);
@@ -623,16 +735,30 @@ public class DynamicLayout extends Layout
                 ((Spannable) s).removeSpan(this);
         }
 
+<<<<<<< HEAD
         public void beforeTextChanged(CharSequence s, int where, int before, int after) {
             // Intentionally empty
         }
 
         public void onTextChanged(CharSequence s, int where, int before, int after) {
+=======
+        public void beforeTextChanged(CharSequence s,
+                                      int where, int before, int after) {
+            ;
+        }
+
+        public void onTextChanged(CharSequence s,
+                                  int where, int before, int after) {
+>>>>>>> 54b6cfa... Initial Contribution
             reflow(s, where, before, after);
         }
 
         public void afterTextChanged(Editable s) {
+<<<<<<< HEAD
             // Intentionally empty
+=======
+            ;
+>>>>>>> 54b6cfa... Initial Contribution
         }
 
         public void onSpanAdded(Spannable s, Object o, int start, int end) {
@@ -645,17 +771,28 @@ public class DynamicLayout extends Layout
                 reflow(s, start, end - start, end - start);
         }
 
+<<<<<<< HEAD
         public void onSpanChanged(Spannable s, Object o, int start, int end, int nstart, int nend) {
+=======
+        public void onSpanChanged(Spannable s, Object o, int start, int end,
+                                  int nstart, int nend) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (o instanceof UpdateLayout) {
                 reflow(s, start, end - start, end - start);
                 reflow(s, nstart, nend - nstart, nend - nstart);
             }
         }
 
+<<<<<<< HEAD
         private WeakReference<DynamicLayout> mLayout;
     }
 
     @Override
+=======
+        private WeakReference mLayout;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public int getEllipsisStart(int line) {
         if (mEllipsizeAt == null) {
             return 0;
@@ -664,7 +801,10 @@ public class DynamicLayout extends Layout
         return mInts.getValue(line, ELLIPSIS_START);
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public int getEllipsisCount(int line) {
         if (mEllipsizeAt == null) {
             return 0;
@@ -684,6 +824,7 @@ public class DynamicLayout extends Layout
     private PackedIntVector mInts;
     private PackedObjectVector<Directions> mObjects;
 
+<<<<<<< HEAD
     /**
      * Value used in mBlockIndices when a block has been created or recycled and indicating that its
      * display list needs to be re-created.
@@ -703,6 +844,12 @@ public class DynamicLayout extends Layout
     private static StaticLayout sStaticLayout = new StaticLayout(null);
 
     private static final Object[] sLock = new Object[0];
+=======
+    private int mTopPadding, mBottomPadding;
+
+    private static StaticLayout sStaticLayout = new StaticLayout(true);
+    private static Object sLock = new Object();
+>>>>>>> 54b6cfa... Initial Contribution
 
     private static final int START = 0;
     private static final int DIR = START;
@@ -716,6 +863,10 @@ public class DynamicLayout extends Layout
     private static final int COLUMNS_ELLIPSIZE = 5;
 
     private static final int START_MASK = 0x1FFFFFFF;
+<<<<<<< HEAD
+=======
+    private static final int DIR_MASK   = 0xC0000000;
+>>>>>>> 54b6cfa... Initial Contribution
     private static final int DIR_SHIFT  = 30;
     private static final int TAB_MASK   = 0x20000000;
 

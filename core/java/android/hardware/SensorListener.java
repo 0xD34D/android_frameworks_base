@@ -19,6 +19,7 @@ package android.hardware;
 /**
  * Used for receiving notifications from the SensorManager when
  * sensor values have changed.
+<<<<<<< HEAD
  * 
  * @deprecated Use 
  * {@link android.hardware.SensorEventListener SensorEventListener} instead.
@@ -86,6 +87,20 @@ public interface SensorListener {
      *  
      * @param sensor The ID of the sensor being monitored
      * @param values The new values for the sensor.
+=======
+ */
+public interface SensorListener {
+
+    /**
+     * Called when sensor values have changed.
+     * The length and contents of the values array vary
+     * depending on which sensor is being monitored.
+     * See {@link android.hardware.SensorManager SensorManager}
+     * for details on possible sensor types and values.
+     *
+     * @param sensor The ID of the sensor being monitored
+     * @param values The new values for the sensor
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void onSensorChanged(int sensor, float[] values);
 
@@ -95,7 +110,11 @@ public interface SensorListener {
      * for details.
      *
      * @param sensor The ID of the sensor being monitored
+<<<<<<< HEAD
      * @param accuracy The new accuracy of this sensor.
+=======
+     * @param accuracy The new accuracy of this sensor
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void onAccuracyChanged(int sensor, int accuracy);    
 }

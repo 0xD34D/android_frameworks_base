@@ -16,11 +16,17 @@
 
 package android.opengl;
 
+<<<<<<< HEAD
 import android.graphics.Bitmap;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGL11;
 
+=======
+import javax.microedition.khronos.opengles.GL10;
+import android.graphics.Bitmap;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  *
  * Utility class to help bridging OpenGL ES and Android APIs.
@@ -42,6 +48,10 @@ public final class GLUtils {
 
     /**
      * return the internal format as defined by OpenGL ES of the supplied bitmap.
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> 54b6cfa... Initial Contribution
      * @param bitmap
      * @return the internal format of the bitmap.
      */
@@ -49,6 +59,7 @@ public final class GLUtils {
         if (bitmap == null) {
             throw new NullPointerException("getInternalFormat can't be used with a null Bitmap");
         }
+<<<<<<< HEAD
         if (bitmap.isRecycled()) {
             throw new IllegalArgumentException("bitmap is recycled");
         }
@@ -66,11 +77,28 @@ public final class GLUtils {
      * @throws IllegalArgumentException if the bitmap does not have a type.
      * @param bitmap
      * @return the OpenGL ES type of the bitmap.
+=======
+        switch (bitmap.getConfig()) {
+            case ALPHA_8:
+                return GL10.GL_ALPHA;
+            case ARGB_4444:
+            case ARGB_8888:
+                return GL10.GL_RGBA;
+            case RGB_565:
+                return GL10.GL_RGB;
+        }
+        throw new IllegalArgumentException("Unknown internalformat");
+    }
+
+    /**
+     * Return the type as defined by OpenGL ES of the supplied bitmap.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static int getType(Bitmap bitmap) {
         if (bitmap == null) {
             throw new NullPointerException("getType can't be used with a null Bitmap");
         }
+<<<<<<< HEAD
         if (bitmap.isRecycled()) {
             throw new IllegalArgumentException("bitmap is recycled");
         }
@@ -79,6 +107,23 @@ public final class GLUtils {
             throw new IllegalArgumentException("Unknown type");
         }
         return result;
+=======
+        int type;
+        switch(bitmap.getConfig()) {
+            case ARGB_4444:
+                type = GL10.GL_UNSIGNED_SHORT_4_4_4_4;
+                break;
+            case RGB_565:
+                type = GL10.GL_UNSIGNED_SHORT_5_6_5;
+                break;
+            case ALPHA_8:
+            case ARGB_8888:
+            default:
+                type = GL10.GL_UNSIGNED_BYTE;
+                break;
+        }
+        return type;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -108,19 +153,28 @@ public final class GLUtils {
         if (bitmap == null) {
             throw new NullPointerException("texImage2D can't be used with a null Bitmap");
         }
+<<<<<<< HEAD
         if (bitmap.isRecycled()) {
             throw new IllegalArgumentException("bitmap is recycled");
         }
         if (native_texImage2D(target, level, internalformat, bitmap, -1, border)!=0) {
+=======
+        int type = getType(bitmap);
+        if (native_texImage2D(target, level, internalformat, bitmap, type, border)!=0) {
+>>>>>>> 54b6cfa... Initial Contribution
             throw new IllegalArgumentException("invalid Bitmap format");
         }
     }
 
     /**
      * A version of texImage2D() that takes an explicit type parameter
+<<<<<<< HEAD
      * as defined by the OpenGL ES specification. The actual type and
      * internalformat of the bitmap must be compatible with the specified
      * type and internalformat parameters.
+=======
+     * as defined by the OpenGL ES specification.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param target
      * @param level
@@ -134,17 +188,24 @@ public final class GLUtils {
         if (bitmap == null) {
             throw new NullPointerException("texImage2D can't be used with a null Bitmap");
         }
+<<<<<<< HEAD
         if (bitmap.isRecycled()) {
             throw new IllegalArgumentException("bitmap is recycled");
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (native_texImage2D(target, level, internalformat, bitmap, type, border)!=0) {
             throw new IllegalArgumentException("invalid Bitmap format");
         }
     }
 
     /**
+<<<<<<< HEAD
      * A version of texImage2D that determines the internalFormat and type
      * automatically.
+=======
+     * A version of texImage2D that determines the internalFormat automatically.
+>>>>>>> 54b6cfa... Initial Contribution
      *
      * @param target
      * @param level
@@ -156,10 +217,15 @@ public final class GLUtils {
         if (bitmap == null) {
             throw new NullPointerException("texImage2D can't be used with a null Bitmap");
         }
+<<<<<<< HEAD
         if (bitmap.isRecycled()) {
             throw new IllegalArgumentException("bitmap is recycled");
         }
         if (native_texImage2D(target, level, -1, bitmap, -1, border)!=0) {
+=======
+        int type = getType(bitmap);
+        if (native_texImage2D(target, level, -1, bitmap, type, border)!=0) {
+>>>>>>> 54b6cfa... Initial Contribution
             throw new IllegalArgumentException("invalid Bitmap format");
         }
     }
@@ -191,9 +257,12 @@ public final class GLUtils {
         if (bitmap == null) {
             throw new NullPointerException("texSubImage2D can't be used with a null Bitmap");
         }
+<<<<<<< HEAD
         if (bitmap.isRecycled()) {
             throw new IllegalArgumentException("bitmap is recycled");
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         int type = getType(bitmap);
         if (native_texSubImage2D(target, level, xoffset, yoffset, bitmap, -1, type)!=0) {
             throw new IllegalArgumentException("invalid Bitmap format");
@@ -216,14 +285,18 @@ public final class GLUtils {
         if (bitmap == null) {
             throw new NullPointerException("texSubImage2D can't be used with a null Bitmap");
         }
+<<<<<<< HEAD
         if (bitmap.isRecycled()) {
             throw new IllegalArgumentException("bitmap is recycled");
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (native_texSubImage2D(target, level, xoffset, yoffset, bitmap, format, type)!=0) {
             throw new IllegalArgumentException("invalid Bitmap format");
         }
     }
 
+<<<<<<< HEAD
     /**
      * Return a string for the EGL error code, or the hex representation
      * if the error is unknown.
@@ -281,9 +354,16 @@ public final class GLUtils {
 
     native private static int native_getInternalFormat(Bitmap bitmap);
     native private static int native_getType(Bitmap bitmap);
+=======
+    native private static void nativeClassInit();
+
+>>>>>>> 54b6cfa... Initial Contribution
     native private static int native_texImage2D(int target, int level, int internalformat,
             Bitmap bitmap, int type, int border);
     native private static int native_texSubImage2D(int target, int level, int xoffset, int yoffset,
             Bitmap bitmap, int format, int type);
+<<<<<<< HEAD
     native private static void native_enableTracing();
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

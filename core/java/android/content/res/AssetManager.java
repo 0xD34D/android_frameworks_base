@@ -17,13 +17,21 @@
 package android.content.res;
 
 import android.os.ParcelFileDescriptor;
+<<<<<<< HEAD
+=======
+import android.util.Config;
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 import android.util.TypedValue;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+<<<<<<< HEAD
 import java.util.HashMap;
+=======
+import java.util.Locale;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * Provides access to an application's raw asset files; see {@link Resources}
@@ -57,6 +65,7 @@ public final class AssetManager {
     public static final int ACCESS_BUFFER = 3;
 
     private static final String TAG = "AssetManager";
+<<<<<<< HEAD
     private static final boolean localLOGV = false || false;
     
     private static final boolean DEBUG_REFS = false;
@@ -70,13 +79,30 @@ public final class AssetManager {
     // For communication with native code.
     private int mObject;
     private int mNObject;  // used by the NDK
+=======
+    private static final boolean localLOGV = Config.LOGV || false;
+    
+    private static final Object mSync = new Object();
+    private static final TypedValue mValue = new TypedValue();
+    private static final long[] mOffsets = new long[2];
+    private static AssetManager mSystem = null;
+
+    // For communication with native code.
+    private int mObject;
+>>>>>>> 54b6cfa... Initial Contribution
 
     private StringBlock mStringBlocks[] = null;
     
     private int mNumRefs = 1;
     private boolean mOpen = true;
+<<<<<<< HEAD
     private HashMap<Integer, RuntimeException> mRefStacks; 
  
+=======
+    private String mAssetDir;
+    private String mAppName;
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Create a new AssetManager containing only the basic system assets.
      * Applications will not generally use this method, instead retrieving the
@@ -85,11 +111,15 @@ public final class AssetManager {
      * {@hide}
      */
     public AssetManager() {
+<<<<<<< HEAD
         synchronized (this) {
             if (DEBUG_REFS) {
                 mNumRefs = 0;
                 incRefsLocked(this.hashCode());
             }
+=======
+        synchronized (mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
             init();
             if (localLOGV) Log.v(TAG, "New asset manager: " + this);
             ensureSystemAssets();
@@ -97,22 +127,33 @@ public final class AssetManager {
     }
 
     private static void ensureSystemAssets() {
+<<<<<<< HEAD
         synchronized (sSync) {
             if (sSystem == null) {
                 AssetManager system = new AssetManager(true);
                 system.makeStringBlocks(false);
                 sSystem = system;
+=======
+        synchronized (mSync) {
+            if (mSystem == null) {
+                AssetManager system = new AssetManager(true);
+                system.makeStringBlocks(false);
+                mSystem = system;
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
     
     private AssetManager(boolean isSystem) {
+<<<<<<< HEAD
         if (DEBUG_REFS) {
             synchronized (this) {
                 mNumRefs = 0;
                 incRefsLocked(this.hashCode());
             }
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         init();
         if (localLOGV) Log.v(TAG, "New asset manager: " + this);
     }
@@ -124,19 +165,31 @@ public final class AssetManager {
      */
     public static AssetManager getSystem() {
         ensureSystemAssets();
+<<<<<<< HEAD
         return sSystem;
+=======
+        return mSystem;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Close this asset manager.
      */
     public void close() {
+<<<<<<< HEAD
         synchronized(this) {
+=======
+        synchronized(mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
             //System.out.println("Release: num=" + mNumRefs
             //                   + ", released=" + mReleased);
             if (mOpen) {
                 mOpen = false;
+<<<<<<< HEAD
                 decRefsLocked(this.hashCode());
+=======
+                decRefsLocked();
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
     }
@@ -146,9 +199,15 @@ public final class AssetManager {
      * identifier for the current configuration / skin.
      */
     /*package*/ final CharSequence getResourceText(int ident) {
+<<<<<<< HEAD
         synchronized (this) {
             TypedValue tmpValue = mValue;
             int block = loadResourceValue(ident, (short) 0, tmpValue, true);
+=======
+        synchronized (mSync) {
+            TypedValue tmpValue = mValue;
+            int block = loadResourceValue(ident, tmpValue, true);
+>>>>>>> 54b6cfa... Initial Contribution
             if (block >= 0) {
                 if (tmpValue.type == TypedValue.TYPE_STRING) {
                     return mStringBlocks[block].get(tmpValue.data);
@@ -164,7 +223,11 @@ public final class AssetManager {
      * identifier for the current configuration / skin.
      */
     /*package*/ final CharSequence getResourceBagText(int ident, int bagEntryId) {
+<<<<<<< HEAD
         synchronized (this) {
+=======
+        synchronized (mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
             TypedValue tmpValue = mValue;
             int block = loadResourceBagValue(ident, bagEntryId, tmpValue, true);
             if (block >= 0) {
@@ -189,11 +252,18 @@ public final class AssetManager {
 
 
     /*package*/ final boolean getResourceValue(int ident,
+<<<<<<< HEAD
                                                int density,
                                                TypedValue outValue,
                                                boolean resolveRefs)
     {
         int block = loadResourceValue(ident, (short) density, outValue, resolveRefs);
+=======
+                                               TypedValue outValue,
+                                               boolean resolveRefs)
+    {
+        int block = loadResourceValue(ident, outValue, resolveRefs);
+>>>>>>> 54b6cfa... Initial Contribution
         if (block >= 0) {
             if (outValue.type != TypedValue.TYPE_STRING) {
                 return true;
@@ -234,7 +304,10 @@ public final class AssetManager {
             StringBlock[] blocks = mStringBlocks;
             if (blocks == null) {
                 ensureStringBlocks();
+<<<<<<< HEAD
                 blocks = mStringBlocks;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
             }
             outValue.string = blocks[block].get(outValue.data);
             return true;
@@ -244,7 +317,11 @@ public final class AssetManager {
 
     /*package*/ final void ensureStringBlocks() {
         if (mStringBlocks == null) {
+<<<<<<< HEAD
             synchronized (this) {
+=======
+            synchronized (mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
                 if (mStringBlocks == null) {
                     makeStringBlocks(true);
                 }
@@ -252,15 +329,24 @@ public final class AssetManager {
         }
     }
 
+<<<<<<< HEAD
     /*package*/ final void makeStringBlocks(boolean copyFromSystem) {
         final int sysNum = copyFromSystem ? sSystem.mStringBlocks.length : 0;
+=======
+    private final void makeStringBlocks(boolean copyFromSystem) {
+        final int sysNum = copyFromSystem ? mSystem.mStringBlocks.length : 0;
+>>>>>>> 54b6cfa... Initial Contribution
         final int num = getStringBlockCount();
         mStringBlocks = new StringBlock[num];
         if (localLOGV) Log.v(TAG, "Making string blocks for " + this
                 + ": " + num);
         for (int i=0; i<num; i++) {
             if (i < sysNum) {
+<<<<<<< HEAD
                 mStringBlocks[i] = sSystem.mStringBlocks[i];
+=======
+                mStringBlocks[i] = mSystem.mStringBlocks[i];
+>>>>>>> 54b6cfa... Initial Contribution
             } else {
                 mStringBlocks[i] = new StringBlock(getNativeStringBlock(i), true);
             }
@@ -308,15 +394,24 @@ public final class AssetManager {
      */
     public final InputStream open(String fileName, int accessMode)
         throws IOException {
+<<<<<<< HEAD
         synchronized (this) {
+=======
+        synchronized (mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mOpen) {
                 throw new RuntimeException("Assetmanager has been closed");
             }
             int asset = openAsset(fileName, accessMode);
             if (asset != 0) {
+<<<<<<< HEAD
                 AssetInputStream res = new AssetInputStream(asset);
                 incRefsLocked(res.hashCode());
                 return res;
+=======
+                mNumRefs++;
+                return new AssetInputStream(asset);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
         throw new FileNotFoundException("Asset file: " + fileName);
@@ -324,7 +419,11 @@ public final class AssetManager {
 
     public final AssetFileDescriptor openFd(String fileName)
             throws IOException {
+<<<<<<< HEAD
         synchronized (this) {
+=======
+        synchronized (mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mOpen) {
                 throw new RuntimeException("Assetmanager has been closed");
             }
@@ -400,15 +499,24 @@ public final class AssetManager {
      */
     public final InputStream openNonAsset(int cookie, String fileName, int accessMode)
         throws IOException {
+<<<<<<< HEAD
         synchronized (this) {
+=======
+        synchronized (mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mOpen) {
                 throw new RuntimeException("Assetmanager has been closed");
             }
             int asset = openNonAssetNative(cookie, fileName, accessMode);
             if (asset != 0) {
+<<<<<<< HEAD
                 AssetInputStream res = new AssetInputStream(asset);
                 incRefsLocked(res.hashCode());
                 return res;
+=======
+                mNumRefs++;
+                return new AssetInputStream(asset);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
         throw new FileNotFoundException("Asset absolute file: " + fileName);
@@ -421,7 +529,11 @@ public final class AssetManager {
     
     public final AssetFileDescriptor openNonAssetFd(int cookie,
             String fileName) throws IOException {
+<<<<<<< HEAD
         synchronized (this) {
+=======
+        synchronized (mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mOpen) {
                 throw new RuntimeException("Assetmanager has been closed");
             }
@@ -480,27 +592,43 @@ public final class AssetManager {
      */
     /*package*/ final XmlBlock openXmlBlockAsset(int cookie, String fileName)
         throws IOException {
+<<<<<<< HEAD
         synchronized (this) {
+=======
+        synchronized (mSync) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (!mOpen) {
                 throw new RuntimeException("Assetmanager has been closed");
             }
             int xmlBlock = openXmlAssetNative(cookie, fileName);
             if (xmlBlock != 0) {
+<<<<<<< HEAD
                 XmlBlock res = new XmlBlock(this, xmlBlock);
                 incRefsLocked(res.hashCode());
                 return res;
+=======
+                mNumRefs++;
+                return new XmlBlock(this, xmlBlock);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
         throw new FileNotFoundException("Asset XML file: " + fileName);
     }
 
+<<<<<<< HEAD
     /*package*/ void xmlBlockGone(int id) {
         synchronized (this) {
             decRefsLocked(id);
+=======
+    /*package*/ void xmlBlockGone() {
+        synchronized (mSync) {
+            decRefsLocked();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /*package*/ final int createTheme() {
+<<<<<<< HEAD
         synchronized (this) {
             if (!mOpen) {
                 throw new RuntimeException("Assetmanager has been closed");
@@ -508,17 +636,32 @@ public final class AssetManager {
             int res = newTheme();
             incRefsLocked(res);
             return res;
+=======
+        synchronized (mSync) {
+            if (!mOpen) {
+                throw new RuntimeException("Assetmanager has been closed");
+            }
+            mNumRefs++;
+            return newTheme();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /*package*/ final void releaseTheme(int theme) {
+<<<<<<< HEAD
         synchronized (this) {
             deleteTheme(theme);
             decRefsLocked(theme);
+=======
+        synchronized (mSync) {
+            deleteTheme(theme);
+            decRefsLocked();
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     protected void finalize() throws Throwable {
+<<<<<<< HEAD
         try {
             if (DEBUG_REFS && mNumRefs != 0) {
                 Log.w(TAG, "AssetManager " + this
@@ -533,6 +676,9 @@ public final class AssetManager {
         } finally {
             super.finalize();
         }
+=======
+        destroy();
+>>>>>>> 54b6cfa... Initial Contribution
     }
     
     public final class AssetInputStream extends InputStream {
@@ -555,11 +701,19 @@ public final class AssetManager {
             return len > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int)len;
         }
         public final void close() throws IOException {
+<<<<<<< HEAD
             synchronized (AssetManager.this) {
                 if (mAsset != 0) {
                     destroyAsset(mAsset);
                     mAsset = 0;
                     decRefsLocked(hashCode());
+=======
+            synchronized (AssetManager.mSync) {
+                if (mAsset != 0) {
+                    destroyAsset(mAsset);
+                    mAsset = 0;
+                    decRefsLocked();
+>>>>>>> 54b6cfa... Initial Contribution
                 }
             }
         }
@@ -598,13 +752,19 @@ public final class AssetManager {
 
     /**
      * Add an additional set of assets to the asset manager.  This can be
+<<<<<<< HEAD
      * either a directory or ZIP file.  Not for use by applications.  Returns
      * the cookie of the added asset, or 0 on failure.
+=======
+     * either a directory or ZIP file.  Not for use by applications.  A
+     * zero return value indicates failure.
+>>>>>>> 54b6cfa... Initial Contribution
      * {@hide}
      */
     public native final int addAssetPath(String path);
 
     /**
+<<<<<<< HEAD
      * Add multiple sets of assets to the asset manager at once.  See
      * {@link #addAssetPath(String)} for more information.  Returns array of
      * cookies for each added asset with 0 indicating failure, or null if
@@ -625,6 +785,8 @@ public final class AssetManager {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Determine whether the state in this asset manager is up-to-date with
      * the files on the filesystem.  If false is returned, you need to
      * instantiate a new AssetManager class to see the new data.
@@ -652,8 +814,12 @@ public final class AssetManager {
     public native final void setConfiguration(int mcc, int mnc, String locale,
             int orientation, int touchscreen, int density, int keyboard,
             int keyboardHidden, int navigation, int screenWidth, int screenHeight,
+<<<<<<< HEAD
             int smallestScreenWidthDp, int screenWidthDp, int screenHeightDp,
             int screenLayout, int uiMode, int majorVersion);
+=======
+            int majorVersion);
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Retrieve the resource identifier for the given resource name.
@@ -683,19 +849,31 @@ public final class AssetManager {
 
     /** Returns true if the resource was found, filling in mRetStringBlock and
      *  mRetData. */
+<<<<<<< HEAD
     private native final int loadResourceValue(int ident, short density, TypedValue outValue,
             boolean resolve);
+=======
+    private native final int loadResourceValue(int ident, TypedValue outValue,
+                                               boolean resolve);
+>>>>>>> 54b6cfa... Initial Contribution
     /** Returns true if the resource was found, filling in mRetStringBlock and
      *  mRetData. */
     private native final int loadResourceBagValue(int ident, int bagEntryId, TypedValue outValue,
                                                boolean resolve);
+<<<<<<< HEAD
     /*package*/ static final int STYLE_NUM_ENTRIES = 6;
+=======
+    /*package*/ static final int STYLE_NUM_ENTRIES = 5;
+>>>>>>> 54b6cfa... Initial Contribution
     /*package*/ static final int STYLE_TYPE = 0;
     /*package*/ static final int STYLE_DATA = 1;
     /*package*/ static final int STYLE_ASSET_COOKIE = 2;
     /*package*/ static final int STYLE_RESOURCE_ID = 3;
     /*package*/ static final int STYLE_CHANGING_CONFIGURATIONS = 4;
+<<<<<<< HEAD
     /*package*/ static final int STYLE_DENSITY = 5;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /*package*/ native static final boolean applyStyle(int theme,
             int defStyleAttr, int defStyleRes, int xmlParser,
             int[] inAttrs, int[] outValues, int[] outIndices);
@@ -719,11 +897,14 @@ public final class AssetManager {
     /**
      * {@hide}
      */
+<<<<<<< HEAD
     public native static final String getAssetAllocations();
     
     /**
      * {@hide}
      */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public native static final int getGlobalAssetManagerCount();
     
     private native final int newTheme();
@@ -744,6 +925,7 @@ public final class AssetManager {
     private native final void init();
     private native final void destroy();
 
+<<<<<<< HEAD
     private final void incRefsLocked(int id) {
         if (DEBUG_REFS) {
             if (mRefStacks == null) {
@@ -760,6 +942,9 @@ public final class AssetManager {
         if (DEBUG_REFS && mRefStacks != null) {
             mRefStacks.remove(id);
         }
+=======
+    private final void decRefsLocked() {
+>>>>>>> 54b6cfa... Initial Contribution
         mNumRefs--;
         //System.out.println("Dec streams: mNumRefs=" + mNumRefs
         //                   + " mReleased=" + mReleased);

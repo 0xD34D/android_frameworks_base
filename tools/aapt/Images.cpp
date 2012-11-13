@@ -8,7 +8,11 @@
 
 #include "Images.h"
 
+<<<<<<< HEAD
 #include <androidfw/ResourceTypes.h>
+=======
+#include <utils/ResourceTypes.h>
+>>>>>>> 54b6cfa... Initial Contribution
 #include <utils/ByteOrder.h>
 
 #include <png.h>
@@ -33,7 +37,11 @@ png_flush_aapt_file(png_structp png_ptr)
 // This holds an image as 8bpp RGBA.
 struct image_info
 {
+<<<<<<< HEAD
     image_info() : rows(NULL), is9Patch(false), allocRows(NULL) { }
+=======
+    image_info() : rows(NULL), hasTransparency(true), is9Patch(false), allocRows(NULL) { }
+>>>>>>> 54b6cfa... Initial Contribution
     ~image_info() {
         if (rows && rows != allocRows) {
             free(rows);
@@ -44,19 +52,28 @@ struct image_info
             }
             free(allocRows);
         }
+<<<<<<< HEAD
         free(info9Patch.xDivs);
         free(info9Patch.yDivs);
         free(info9Patch.colors);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     png_uint_32 width;
     png_uint_32 height;
     png_bytepp rows;
 
+<<<<<<< HEAD
+=======
+    bool hasTransparency;
+
+>>>>>>> 54b6cfa... Initial Contribution
     // 9-patch info.
     bool is9Patch;
     Res_png_9patch info9Patch;
 
+<<<<<<< HEAD
     // Layout padding, if relevant
     bool haveLayoutBounds;
     int32_t layoutBoundsLeft;
@@ -64,6 +81,8 @@ struct image_info
     int32_t layoutBoundsRight;
     int32_t layoutBoundsBottom;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     png_uint_32 allocHeight;
     png_bytepp allocRows;
 };
@@ -136,6 +155,7 @@ static void read_png(const char* imageName,
        &interlace_type, &compression_type, NULL);
 }
 
+<<<<<<< HEAD
 #define COLOR_TRANSPARENT 0
 #define COLOR_WHITE 0xFFFFFFFF
 #define COLOR_TICK  0xFF000000
@@ -172,11 +192,28 @@ static int tick_type(png_bytep p, bool transparent, const char** outError)
             *outError = "Ticks in transparent frame must be black or red";
         }
         return TICK_TYPE_TICK;
+=======
+static bool is_tick(png_bytep p, bool transparent, const char** outError)
+{
+    if (transparent) {
+        if (p[3] == 0) {
+            return false;
+        }
+        if (p[3] != 0xff) {
+            *outError = "Frame pixels must be either solid or transparent (not intermediate alphas)";
+            return false;
+        }
+        if (p[0] != 0 || p[1] != 0 || p[2] != 0) {
+            *outError = "Ticks in transparent frame must be black";
+        }
+        return true;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     if (p[3] != 0xFF) {
         *outError = "White frame must be a solid color (no alpha)";
     }
+<<<<<<< HEAD
     if (color == COLOR_WHITE) {
         return TICK_TYPE_NONE;
     }
@@ -192,6 +229,16 @@ static int tick_type(png_bytep p, bool transparent, const char** outError)
         return TICK_TYPE_NONE;
     }
     return TICK_TYPE_TICK;
+=======
+    if (p[0] == 0xFF && p[1] == 0xFF && p[2] == 0xFF) {
+        return false;
+    }
+    if (p[0] != 0 || p[1] != 0 || p[2] != 0) {
+        *outError = "Ticks in white frame must be black";
+        return false;
+    }
+    return true;
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 enum {
@@ -211,7 +258,11 @@ static status_t get_horizontal_ticks(
     bool found = false;
 
     for (i=1; i<width-1; i++) {
+<<<<<<< HEAD
         if (TICK_TYPE_TICK == tick_type(row+i*4, transparent, outError)) {
+=======
+        if (is_tick(row+i*4, transparent, outError)) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (state == TICK_START ||
                 (state == TICK_OUTSIDE_1 && multipleAllowed)) {
                 *outLeft = i-1;
@@ -260,7 +311,11 @@ static status_t get_vertical_ticks(
     bool found = false;
 
     for (i=1; i<height-1; i++) {
+<<<<<<< HEAD
         if (TICK_TYPE_TICK == tick_type(rows[i]+offset, transparent, outError)) {
+=======
+        if (is_tick(rows[i]+offset, transparent, outError)) {
+>>>>>>> 54b6cfa... Initial Contribution
             if (state == TICK_START ||
                 (state == TICK_OUTSIDE_1 && multipleAllowed)) {
                 *outTop = i-1;
@@ -298,6 +353,7 @@ static status_t get_vertical_ticks(
     return NO_ERROR;
 }
 
+<<<<<<< HEAD
 static status_t get_horizontal_layout_bounds_ticks(
         png_bytep row, int width, bool transparent, bool required,
         int32_t* outLeft, int32_t* outRight, const char** outError)
@@ -375,6 +431,8 @@ static status_t get_vertical_layout_bounds_ticks(
 }
 
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 static uint32_t get_color(
     png_bytepp rows, int left, int top, int right, int bottom)
 {
@@ -440,6 +498,25 @@ static uint32_t get_color(image_info* image, int hpatch, int vpatch)
     return c;
 }
 
+<<<<<<< HEAD
+=======
+static void examine_image(image_info* image)
+{
+    bool hasTrans = false;
+    for (int i=0; i<(int)image->height && !hasTrans; i++) {
+        png_bytep p = image->rows[i];
+        for (int j=0; j<(int)image->width; j++) {
+            if (p[(j*4)+3] != 0xFF) {
+                hasTrans = true;
+                break;
+            }
+        }
+    }
+
+    image->hasTransparency = hasTrans;
+}
+
+>>>>>>> 54b6cfa... Initial Contribution
 static status_t do_9patch(const char* imageName, image_info* image)
 {
     image->is9Patch = true;
@@ -448,8 +525,13 @@ static status_t do_9patch(const char* imageName, image_info* image)
     int H = image->height;
     int i, j;
 
+<<<<<<< HEAD
     int maxSizeXDivs = W * sizeof(int32_t);
     int maxSizeYDivs = H * sizeof(int32_t);
+=======
+    int maxSizeXDivs = (W / 2 + 1) * sizeof(int32_t);
+    int maxSizeYDivs = (H / 2 + 1) * sizeof(int32_t);
+>>>>>>> 54b6cfa... Initial Contribution
     int32_t* xDivs = (int32_t*) malloc(maxSizeXDivs);
     int32_t* yDivs = (int32_t*) malloc(maxSizeYDivs);
     uint8_t  numXDivs = 0;
@@ -466,16 +548,23 @@ static status_t do_9patch(const char* imageName, image_info* image)
     image->info9Patch.paddingLeft = image->info9Patch.paddingRight =
         image->info9Patch.paddingTop = image->info9Patch.paddingBottom = -1;
 
+<<<<<<< HEAD
     image->layoutBoundsLeft = image->layoutBoundsRight =
         image->layoutBoundsTop = image->layoutBoundsBottom = 0;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     png_bytep p = image->rows[0];
     bool transparent = p[3] == 0;
     bool hasColor = false;
 
     const char* errorMsg = NULL;
     int errorPixel = -1;
+<<<<<<< HEAD
     const char* errorEdge = NULL;
+=======
+    const char* errorEdge = "";
+>>>>>>> 54b6cfa... Initial Contribution
 
     int colorIndex = 0;
 
@@ -524,6 +613,7 @@ static status_t do_9patch(const char* imageName, image_info* image)
         goto getout;
     }
 
+<<<<<<< HEAD
     // Find left and right of layout padding...
     get_horizontal_layout_bounds_ticks(image->rows[H-1], W, transparent, false,
                                         &image->layoutBoundsLeft,
@@ -543,6 +633,8 @@ static status_t do_9patch(const char* imageName, image_info* image)
                 image->layoutBoundsRight, image->layoutBoundsBottom));
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     // Copy patch data into image
     image->info9Patch.numXDivs = numXDivs;
     image->info9Patch.numYDivs = numYDivs;
@@ -598,6 +690,7 @@ static status_t do_9patch(const char* imageName, image_info* image)
     if (yDivs[numYDivs - 1] == H) {
         numRows--;
     }
+<<<<<<< HEAD
 
     // Make sure the amount of rows and columns will fit in the number of
     // colors we can use in the 9-patch format.
@@ -606,6 +699,8 @@ static status_t do_9patch(const char* imageName, image_info* image)
         goto getout;
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     numColors = numRows * numCols;
     image->info9Patch.numColors = numColors;
     image->info9Patch.colors = (uint32_t*)malloc(numColors * sizeof(uint32_t));
@@ -676,6 +771,7 @@ getout:
         fprintf(stderr,
             "ERROR: 9-patch image %s malformed.\n"
             "       %s.\n", imageName, errorMsg);
+<<<<<<< HEAD
         if (errorEdge != NULL) {
             if (errorPixel >= 0) {
                 fprintf(stderr,
@@ -684,6 +780,14 @@ getout:
                 fprintf(stderr,
                     "       Found along %s edge.\n", errorEdge);
             }
+=======
+        if (errorPixel >= 0) {
+            fprintf(stderr,
+            "       Found at pixel #%d along %s edge.\n", errorPixel, errorEdge);
+        } else {
+            fprintf(stderr,
+            "       Found along %s edge.\n", errorEdge);
+>>>>>>> 54b6cfa... Initial Contribution
         }
         return UNKNOWN_ERROR;
     }
@@ -692,16 +796,22 @@ getout:
 
 static void checkNinePatchSerialization(Res_png_9patch* inPatch,  void * data)
 {
+<<<<<<< HEAD
     if (sizeof(void*) != sizeof(int32_t)) {
         // can't deserialize on a non-32 bit system
         return;
     }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     size_t patchSize = inPatch->serializedSize();
     void * newData = malloc(patchSize);
     memcpy(newData, data, patchSize);
     Res_png_9patch* outPatch = inPatch->deserialize(newData);
+<<<<<<< HEAD
     // deserialization is done in place, so outPatch == newData
     assert(outPatch == newData);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     assert(outPatch->numXDivs == inPatch->numXDivs);
     assert(outPatch->numYDivs == inPatch->numYDivs);
     assert(outPatch->paddingLeft == inPatch->paddingLeft);
@@ -717,7 +827,10 @@ static void checkNinePatchSerialization(Res_png_9patch* inPatch,  void * data)
     for (int i = 0; i < outPatch->numColors; i++) {
         assert(outPatch->colors[i] == inPatch->colors[i]);
     }
+<<<<<<< HEAD
     free(newData);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }
 
 static bool patch_equals(Res_png_9patch& patch1, Res_png_9patch& patch2) {
@@ -748,6 +861,7 @@ static bool patch_equals(Res_png_9patch& patch1, Res_png_9patch& patch2) {
     return true;
 }
 
+<<<<<<< HEAD
 static void dump_image(int w, int h, png_bytepp rows, int color_type)
 {
     int i, j, rr, gg, bb, aa;
@@ -975,11 +1089,18 @@ static void write_png(const char* imageName,
                       image_info& imageInfo, int grayscaleTolerance)
 {
     bool optimize = true;
+=======
+static void write_png(const char* imageName,
+                      png_structp write_ptr, png_infop write_info,
+                      image_info& imageInfo)
+{
+>>>>>>> 54b6cfa... Initial Contribution
     png_uint_32 width, height;
     int color_type;
     int bit_depth, interlace_type, compression_type;
     int i;
 
+<<<<<<< HEAD
     png_unknown_chunk unknowns[2];
     unknowns[0].data = NULL;
     unknowns[1].data = NULL;
@@ -1035,12 +1156,22 @@ static void write_png(const char* imageName,
     case PNG_COLOR_TYPE_RGB_ALPHA:
         NOISY(printf("Image %s is RGB + alpha, using PNG_COLOR_TYPE_RGB_ALPHA\n", imageName));
         break;
+=======
+    png_unknown_chunk unknowns[1];
+
+    png_set_compression_level(write_ptr, Z_BEST_COMPRESSION);
+
+    color_type = PNG_COLOR_MASK_COLOR;
+    if (imageInfo.hasTransparency) {
+        color_type |= PNG_COLOR_MASK_ALPHA;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     png_set_IHDR(write_ptr, write_info, imageInfo.width, imageInfo.height,
                  8, color_type, PNG_INTERLACE_NONE,
                  PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
 
+<<<<<<< HEAD
     if (color_type == PNG_COLOR_TYPE_PALETTE) {
         png_set_PLTE(write_ptr, write_info, rgbPalette, paletteEntries);
         if (hasTransparency) {
@@ -1076,12 +1207,25 @@ static void write_png(const char* imageName,
         png_set_keep_unknown_chunks(write_ptr, PNG_HANDLE_CHUNK_ALWAYS,
                                     chunk_names, chunk_count);
         png_set_unknown_chunks(write_ptr, write_info, unknowns, chunk_count);
+=======
+    if (imageInfo.is9Patch) {
+        NOISY(printf("Adding 9-patch info...\n"));
+        strcpy((char*)unknowns[0].name, "npTc");
+        unknowns[0].data = (png_byte*)imageInfo.info9Patch.serialize();
+        unknowns[0].size = imageInfo.info9Patch.serializedSize();
+        // TODO: remove the check below when everything works
+        checkNinePatchSerialization(&imageInfo.info9Patch, unknowns[0].data);
+        png_set_keep_unknown_chunks(write_ptr, PNG_HANDLE_CHUNK_ALWAYS,
+                                    (png_byte*)"npTc", 1);
+        png_set_unknown_chunks(write_ptr, write_info, unknowns, 1);
+>>>>>>> 54b6cfa... Initial Contribution
         // XXX I can't get this to work without forcibly changing
         // the location to what I want...  which apparently is supposed
         // to be a private API, but everything else I have tried results
         // in the location being set to what I -last- wrote so I never
         // get written. :p
         png_set_unknown_chunk_location(write_ptr, write_info, 0, PNG_HAVE_PLTE);
+<<<<<<< HEAD
         if (imageInfo.haveLayoutBounds) {
             png_set_unknown_chunk_location(write_ptr, write_info, 1, PNG_HAVE_PLTE);
         }
@@ -1111,6 +1255,20 @@ static void write_png(const char* imageName,
     free(unknowns[0].data);
     free(unknowns[1].data);
 
+=======
+    }
+
+    png_write_info(write_ptr, write_info);
+
+    if (!imageInfo.hasTransparency) {
+        png_set_filler(write_ptr, 0, PNG_FILLER_AFTER);
+    }
+
+    png_write_image(write_ptr, imageInfo.rows);
+
+    png_write_end(write_ptr, write_info);
+
+>>>>>>> 54b6cfa... Initial Contribution
     png_get_IHDR(write_ptr, write_info, &width, &height,
        &bit_depth, &color_type, &interlace_type,
        &compression_type, NULL);
@@ -1120,7 +1278,11 @@ static void write_png(const char* imageName,
                  compression_type));
 }
 
+<<<<<<< HEAD
 status_t preProcessImage(const Bundle* bundle, const sp<AaptAssets>& assets,
+=======
+status_t preProcessImage(Bundle* bundle, const sp<AaptAssets>& assets,
+>>>>>>> 54b6cfa... Initial Contribution
                          const sp<AaptFile>& file, String8* outNewLeafName)
 {
     String8 ext(file->getPath().getPathExtension());
@@ -1130,6 +1292,7 @@ status_t preProcessImage(const Bundle* bundle, const sp<AaptAssets>& assets,
         return NO_ERROR;
     }
 
+<<<<<<< HEAD
     // Example of renaming a file:
     //*outNewLeafName = file->getPath().getBasePath().getFileName();
     //outNewLeafName->append(".nupng");
@@ -1140,6 +1303,14 @@ status_t preProcessImage(const Bundle* bundle, const sp<AaptAssets>& assets,
         printf("Processing image: %s\n", printableName.string());
     }
 
+=======
+    // Example of renaming a file:	
+    //*outNewLeafName = file->getPath().getBasePath().getFileName();	
+    //outNewLeafName->append(".nupng");	
+
+    String8 printableName(file->getPrintableSource());
+
+>>>>>>> 54b6cfa... Initial Contribution
     png_structp read_ptr = NULL;
     png_infop read_info = NULL;
     FILE* fp;
@@ -1178,6 +1349,11 @@ status_t preProcessImage(const Bundle* bundle, const sp<AaptAssets>& assets,
 
     read_png(printableName.string(), read_ptr, read_info, &imageInfo);
 
+<<<<<<< HEAD
+=======
+    examine_image(&imageInfo);
+
+>>>>>>> 54b6cfa... Initial Contribution
     if (nameLen > 6) {
         const char* name = file->getPath().string();
         if (name[nameLen-5] == '9' && name[nameLen-6] == '.') {
@@ -1208,8 +1384,12 @@ status_t preProcessImage(const Bundle* bundle, const sp<AaptAssets>& assets,
         goto bail;
     }
 
+<<<<<<< HEAD
     write_png(printableName.string(), write_ptr, write_info, imageInfo,
               bundle->getGrayscaleTolerance());
+=======
+    write_png(printableName.string(), write_ptr, write_info, imageInfo);
+>>>>>>> 54b6cfa... Initial Contribution
 
     error = NO_ERROR;
 
@@ -1240,6 +1420,7 @@ bail:
     return error;
 }
 
+<<<<<<< HEAD
 status_t preProcessImageToCache(const Bundle* bundle, const String8& source, const String8& dest)
 {
     png_structp read_ptr = NULL;
@@ -1366,6 +1547,9 @@ status_t preProcessImageToCache(const Bundle* bundle, const String8& source, con
 
     return NO_ERROR;
 }
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
 
 status_t postProcessImage(const sp<AaptAssets>& assets,
                           ResourceTable* table, const sp<AaptFile>& file)

@@ -16,6 +16,7 @@
 
 package android.content.res;
 
+<<<<<<< HEAD
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
@@ -23,6 +24,11 @@ import android.os.Parcelable;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+=======
+import android.os.ParcelFileDescriptor;
+
+import java.io.FileDescriptor;
+>>>>>>> 54b6cfa... Initial Contribution
 import java.io.IOException;
 
 /**
@@ -30,6 +36,7 @@ import java.io.IOException;
  * opened FileDescriptor that can be used to read the data, as well as the
  * offset and length of that entry's data in the file.
  */
+<<<<<<< HEAD
 public class AssetFileDescriptor implements Parcelable {
     /**
      * Length used with {@link #AssetFileDescriptor(ParcelFileDescriptor, long, long)}
@@ -38,12 +45,16 @@ public class AssetFileDescriptor implements Parcelable {
      */
     public static final long UNKNOWN_LENGTH = -1;
     
+=======
+public class AssetFileDescriptor {
+>>>>>>> 54b6cfa... Initial Contribution
     private final ParcelFileDescriptor mFd;
     private final long mStartOffset;
     private final long mLength;
     
     /**
      * Create a new AssetFileDescriptor from the given values.
+<<<<<<< HEAD
      * @param fd The underlying file descriptor.
      * @param startOffset The location within the file that the asset starts.
      * This must be 0 if length is UNKNOWN_LENGTH.
@@ -59,6 +70,11 @@ public class AssetFileDescriptor implements Parcelable {
             throw new IllegalArgumentException(
                     "startOffset must be 0 when using UNKNOWN_LENGTH");
         }
+=======
+     */
+    public AssetFileDescriptor(ParcelFileDescriptor fd, long startOffset,
+            long length) {
+>>>>>>> 54b6cfa... Initial Contribution
         mFd = fd;
         mStartOffset = startOffset;
         mLength = length;
@@ -89,6 +105,7 @@ public class AssetFileDescriptor implements Parcelable {
     }
     
     /**
+<<<<<<< HEAD
      * Returns the total number of bytes of this asset entry's data.  May be
      * {@link #UNKNOWN_LENGTH} if the asset extends to the end of the file.
      * If the AssetFileDescriptor was constructed with {@link #UNKNOWN_LENGTH},
@@ -116,6 +133,11 @@ public class AssetFileDescriptor implements Parcelable {
      * @see #getDeclaredLength()
      */
     public long getDeclaredLength() {
+=======
+     * Returns the total number of bytes of this asset entry's data.
+     */
+    public long getLength() {
+>>>>>>> 54b6cfa... Initial Contribution
         return mLength;
     }
     
@@ -125,6 +147,7 @@ public class AssetFileDescriptor implements Parcelable {
     public void close() throws IOException {
         mFd.close();
     }
+<<<<<<< HEAD
 
     /**
      * Create and return a new auto-close input stream for this asset.  This
@@ -334,4 +357,6 @@ public class AssetFileDescriptor implements Parcelable {
         }
     };
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 }

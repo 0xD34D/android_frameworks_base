@@ -16,7 +16,10 @@
 
 package android.media;
 
+<<<<<<< HEAD
 import android.util.AndroidRuntimeException;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import android.util.Log;
 import java.io.File;
 import java.io.FileDescriptor;
@@ -26,6 +29,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import java.io.IOException;
 
+<<<<<<< HEAD
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -101,12 +105,17 @@ import android.os.Message;
  * in use and then set the SoundPool reference to null. If the player starts
  * another level, a new SoundPool is created, sounds are loaded, and play
  * resumes.</p>
+=======
+/*
+ * The SoundPool class manages and plays audio resources for applications.
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class SoundPool
 {
     static { System.loadLibrary("soundpool"); }
 
     private final static String TAG = "SoundPool";
+<<<<<<< HEAD
     private final static boolean DEBUG = false;
 
     private int mNativeContext; // accessed by native methods
@@ -151,6 +160,15 @@ public class SoundPool
      *                 a value of 1 for future compatibility.
      * @return a sound ID. This value can be used to play or unload the sound.
      */
+=======
+
+    private int mNativeContext; // accessed by native methods
+
+    public SoundPool(int maxStreams, int streamType, int srcQuality) {
+        native_setup(new WeakReference<SoundPool>(this), maxStreams, streamType, srcQuality);
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public int load(String path, int priority)
     {
         // pass network streams to player
@@ -161,6 +179,7 @@ public class SoundPool
         int id = 0;
         try {
             File f = new File(path);
+<<<<<<< HEAD
             ParcelFileDescriptor fd = ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);
             if (fd != null) {
                 id = _load(fd.getFileDescriptor(), 0, f.length(), priority);
@@ -187,12 +206,30 @@ public class SoundPool
      *                 a value of 1 for future compatibility.
      * @return a sound ID. This value can be used to play or unload the sound.
      */
+=======
+            if (f != null) {
+                ParcelFileDescriptor fd = ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);
+                if (fd != null) {
+                    id = _load(fd.getFileDescriptor(), 0, f.length(), priority);
+                    //Log.v(TAG, "close fd");
+                    fd.close();
+                }
+            }
+        } catch (java.io.IOException e) {}
+        return id;
+    }
+
+>>>>>>> 54b6cfa... Initial Contribution
     public int load(Context context, int resId, int priority) {
         AssetFileDescriptor afd = context.getResources().openRawResourceFd(resId);
         int id = 0;
         if (afd != null) {
             id = _load(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength(), priority);
             try {
+<<<<<<< HEAD
+=======
+                //Log.v(TAG, "close fd");
+>>>>>>> 54b6cfa... Initial Contribution
                 afd.close();
             } catch (java.io.IOException ex) {
                 //Log.d(TAG, "close failed:", ex);
@@ -201,6 +238,7 @@ public class SoundPool
         return id;
     }
 
+<<<<<<< HEAD
     /**
      * Load the sound from an asset file descriptor.
      *
@@ -239,10 +277,13 @@ public class SoundPool
         return _load(fd, offset, length, priority);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     private native final int _load(String uri, int priority);
 
     private native final int _load(FileDescriptor fd, long offset, long length, int priority);
 
+<<<<<<< HEAD
     /**
      * Unload a sound from a sound ID.
      *
@@ -484,3 +525,33 @@ public class SoundPool
 
     protected void finalize() { release(); }
 }
+=======
+    public native final boolean unload(int soundID);
+
+    public native final int play(int soundID, float leftVolume, float rightVolume,
+            int priority, int loop, float rate);
+
+    public native final void pause(int streamID);
+
+    public native final void resume(int streamID);
+
+    public native final void stop(int streamID);
+
+    public native final void setVolume(int streamID,
+            float leftVolume, float rightVolume);
+
+    public native final void setPriority(int streamID, int priority);
+
+    public native final void setLoop(int streamID, int loop);
+
+    public native final void setRate(int streamID, float rate);
+
+    public native final void release();
+
+    private native final void native_setup(Object mediaplayer_this,
+            int maxStreams, int streamType, int srcQuality);
+
+    protected void finalize() { release(); }
+}
+
+>>>>>>> 54b6cfa... Initial Contribution

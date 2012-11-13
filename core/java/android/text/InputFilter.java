@@ -33,11 +33,14 @@ public interface InputFilter
      * as this is what happens when you delete text.  Also beware that
      * you should not attempt to make any changes to <code>dest</code>
      * from this method; you may only examine it for context.
+<<<<<<< HEAD
      * 
      * Note: If <var>source</var> is an instance of {@link Spanned} or
      * {@link Spannable}, the span objects in the <var>source</var> should be 
      * copied into the filtered result (i.e. the non-null return value). 
      * {@link TextUtils#copySpansFrom} can be used for convenience.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public CharSequence filter(CharSequence source, int start, int end,
                                Spanned dest, int dstart, int dend);
@@ -88,6 +91,7 @@ public interface InputFilter
             } else if (keep >= end - start) {
                 return null; // keep original
             } else {
+<<<<<<< HEAD
                 keep += start;
                 if (Character.isHighSurrogate(source.charAt(keep - 1))) {
                     --keep;
@@ -96,6 +100,9 @@ public interface InputFilter
                     }
                 }
                 return source.subSequence(start, keep);
+=======
+                return source.subSequence(start, start + keep);
+>>>>>>> 54b6cfa... Initial Contribution
             }
         }
 

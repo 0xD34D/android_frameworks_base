@@ -20,6 +20,7 @@ import org.apache.harmony.dalvik.ddmc.Chunk;
 import org.apache.harmony.dalvik.ddmc.ChunkHandler;
 import org.apache.harmony.dalvik.ddmc.DdmServer;
 import org.apache.harmony.dalvik.ddmc.DdmVmInternal;
+<<<<<<< HEAD
 import android.os.Debug;
 import android.util.Log;
 import java.io.IOException;
@@ -27,13 +28,24 @@ import java.nio.ByteBuffer;
 
 /**
  * Handle native and virtual heap requests.
+=======
+import android.util.Config;
+import android.util.Log;
+import java.nio.ByteBuffer;
+
+/**
+ * Handle thread-related traffic.
+>>>>>>> 54b6cfa... Initial Contribution
  */
 public class DdmHandleHeap extends ChunkHandler {
 
     public static final int CHUNK_HPIF = type("HPIF");
     public static final int CHUNK_HPSG = type("HPSG");
+<<<<<<< HEAD
     public static final int CHUNK_HPDU = type("HPDU");
     public static final int CHUNK_HPDS = type("HPDS");
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int CHUNK_NHSG = type("NHSG");
     public static final int CHUNK_HPGC = type("HPGC");
     public static final int CHUNK_REAE = type("REAE");
@@ -52,8 +64,11 @@ public class DdmHandleHeap extends ChunkHandler {
     public static void register() {
         DdmServer.registerHandler(CHUNK_HPIF, mInstance);
         DdmServer.registerHandler(CHUNK_HPSG, mInstance);
+<<<<<<< HEAD
         DdmServer.registerHandler(CHUNK_HPDU, mInstance);
         DdmServer.registerHandler(CHUNK_HPDS, mInstance);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         DdmServer.registerHandler(CHUNK_NHSG, mInstance);
         DdmServer.registerHandler(CHUNK_HPGC, mInstance);
         DdmServer.registerHandler(CHUNK_REAE, mInstance);
@@ -77,7 +92,11 @@ public class DdmHandleHeap extends ChunkHandler {
      * Handle a chunk of data.
      */
     public Chunk handleChunk(Chunk request) {
+<<<<<<< HEAD
         if (false)
+=======
+        if (Config.LOGV)
+>>>>>>> 54b6cfa... Initial Contribution
             Log.v("ddm-heap", "Handling " + name(request.type) + " chunk");
         int type = request.type;
 
@@ -85,10 +104,13 @@ public class DdmHandleHeap extends ChunkHandler {
             return handleHPIF(request);
         } else if (type == CHUNK_HPSG) {
             return handleHPSGNHSG(request, false);
+<<<<<<< HEAD
         } else if (type == CHUNK_HPDU) {
             return handleHPDU(request);
         } else if (type == CHUNK_HPDS) {
             return handleHPDS(request);
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         } else if (type == CHUNK_NHSG) {
             return handleHPSGNHSG(request, true);
         } else if (type == CHUNK_HPGC) {
@@ -106,13 +128,21 @@ public class DdmHandleHeap extends ChunkHandler {
     }
 
     /*
+<<<<<<< HEAD
      * Handle a "HeaP InFo" request.
+=======
+     * Handle a "HeaP InFo request".
+>>>>>>> 54b6cfa... Initial Contribution
      */
     private Chunk handleHPIF(Chunk request) {
         ByteBuffer in = wrapChunk(request);
 
         int when = in.get();
+<<<<<<< HEAD
         if (false)
+=======
+        if (Config.LOGV)
+>>>>>>> 54b6cfa... Initial Contribution
             Log.v("ddm-heap", "Heap segment enable: when=" + when);
 
         boolean ok = DdmVmInternal.heapInfoNotify(when);
@@ -131,7 +161,11 @@ public class DdmHandleHeap extends ChunkHandler {
 
         int when = in.get();
         int what = in.get();
+<<<<<<< HEAD
         if (false)
+=======
+        if (Config.LOGV)
+>>>>>>> 54b6cfa... Initial Contribution
             Log.v("ddm-heap", "Heap segment enable: when=" + when
                 + ", what=" + what + ", isNative=" + isNative);
 
@@ -146,6 +180,7 @@ public class DdmHandleHeap extends ChunkHandler {
     }
 
     /*
+<<<<<<< HEAD
      * Handle a "HeaP DUmp" request.
      *
      * This currently just returns a result code.  We could pull up
@@ -212,12 +247,18 @@ public class DdmHandleHeap extends ChunkHandler {
     }
 
     /*
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Handle a "HeaP Garbage Collection" request.
      */
     private Chunk handleHPGC(Chunk request) {
         //ByteBuffer in = wrapChunk(request);
 
+<<<<<<< HEAD
         if (false)
+=======
+        if (Config.LOGD)
+>>>>>>> 54b6cfa... Initial Contribution
             Log.d("ddm-heap", "Heap GC request");
         System.gc();
 
@@ -233,7 +274,11 @@ public class DdmHandleHeap extends ChunkHandler {
 
         enable = (in.get() != 0);
 
+<<<<<<< HEAD
         if (false)
+=======
+        if (Config.LOGD)
+>>>>>>> 54b6cfa... Initial Contribution
             Log.d("ddm-heap", "Recent allocation enable request: " + enable);
 
         DdmVmInternal.enableRecentAllocations(enable);
@@ -258,7 +303,11 @@ public class DdmHandleHeap extends ChunkHandler {
     private Chunk handleREAL(Chunk request) {
         //ByteBuffer in = wrapChunk(request);
 
+<<<<<<< HEAD
         if (false)
+=======
+        if (Config.LOGD)
+>>>>>>> 54b6cfa... Initial Contribution
             Log.d("ddm-heap", "Recent allocations request");
 
         /* generate the reply in a ready-to-go format */

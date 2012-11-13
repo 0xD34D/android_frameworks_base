@@ -18,6 +18,7 @@ package android.media;
 
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
+<<<<<<< HEAD
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
@@ -37,6 +38,17 @@ import android.view.KeyEvent;
 import android.view.VolumePanel;
 
 import java.util.HashMap;
+=======
+import android.content.Context;
+import android.database.ContentObserver;
+import android.os.Binder;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.provider.Settings;
+import android.util.Log;
+>>>>>>> 54b6cfa... Initial Contribution
 
 /**
  * AudioManager provides access to volume and ringer mode control.
@@ -47,6 +59,7 @@ import java.util.HashMap;
 public class AudioManager {
 
     private final Context mContext;
+<<<<<<< HEAD
     private long mVolumeKeyUpTime;
     private final boolean mUseMasterVolume;
     private static String TAG = "AudioManager";
@@ -63,25 +76,49 @@ public class AudioManager {
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String ACTION_AUDIO_BECOMING_NOISY = "android.media.AUDIO_BECOMING_NOISY";
+=======
+    private final Handler mHandler;
+
+    // used to listen for updates to the sound effects settings so we don't
+    // poll it for every UI sound
+    private ContentObserver mContentObserver;
+
+
+    private static String TAG = "AudioManager";
+    private static boolean DEBUG = false;
+    private static boolean localLOGV = DEBUG || android.util.Config.LOGV;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Sticky broadcast intent action indicating that the ringer mode has
      * changed. Includes the new ringer mode.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #EXTRA_RINGER_MODE
      */
     @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
     public static final String RINGER_MODE_CHANGED_ACTION = "android.media.RINGER_MODE_CHANGED";
+<<<<<<< HEAD
 
     /**
      * The new ringer mode.
      *
+=======
+    
+    /**
+     * The new ringer mode.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #RINGER_MODE_CHANGED_ACTION
      * @see #RINGER_MODE_NORMAL
      * @see #RINGER_MODE_SILENT
      * @see #RINGER_MODE_VIBRATE
      */
     public static final String EXTRA_RINGER_MODE = "android.media.EXTRA_RINGER_MODE";
+<<<<<<< HEAD
 
     /**
      * Broadcast intent action indicating that the vibrate setting has
@@ -134,11 +171,28 @@ public class AudioManager {
     /**
      * The new vibrate setting for a particular type.
      *
+=======
+    
+    /**
+     * Broadcast intent action indicating that the vibrate setting has
+     * changed. Includes the vibrate type and its new setting.
+     * 
+     * @see #EXTRA_VIBRATE_TYPE
+     * @see #EXTRA_VIBRATE_SETTING
+     */
+    @SdkConstant(SdkConstantType.BROADCAST_INTENT_ACTION)
+    public static final String VIBRATE_SETTING_CHANGED_ACTION = "android.media.VIBRATE_SETTING_CHANGED";
+    
+    /**
+     * The new vibrate setting for a particular type.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #VIBRATE_SETTING_CHANGED_ACTION
      * @see #EXTRA_VIBRATE_TYPE
      * @see #VIBRATE_SETTING_ON
      * @see #VIBRATE_SETTING_OFF
      * @see #VIBRATE_SETTING_ONLY_SILENT
+<<<<<<< HEAD
      * @deprecated Applications should maintain their own vibrate policy based on
      * current ringer mode and listen to {@link #RINGER_MODE_CHANGED_ACTION} instead.
      */
@@ -193,16 +247,35 @@ public class AudioManager {
     public static final String EXTRA_MASTER_VOLUME_MUTED =
         "android.media.EXTRA_MASTER_VOLUME_MUTED";
 
+=======
+     */
+    public static final String EXTRA_VIBRATE_SETTING = "android.media.EXTRA_VIBRATE_SETTING";
+    
+    /**
+     * The vibrate type whose setting has changed.
+     * 
+     * @see #VIBRATE_SETTING_CHANGED_ACTION
+     * @see #VIBRATE_TYPE_NOTIFICATION
+     * @see #VIBRATE_TYPE_RINGER
+     */
+    public static final String EXTRA_VIBRATE_TYPE = "android.media.EXTRA_VIBRATE_TYPE";
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /** The audio stream for phone calls */
     public static final int STREAM_VOICE_CALL = AudioSystem.STREAM_VOICE_CALL;
     /** The audio stream for system sounds */
     public static final int STREAM_SYSTEM = AudioSystem.STREAM_SYSTEM;
+<<<<<<< HEAD
     /** The audio stream for the phone ring */
+=======
+    /** The audio stream for the phone ring and message alerts */
+>>>>>>> 54b6cfa... Initial Contribution
     public static final int STREAM_RING = AudioSystem.STREAM_RING;
     /** The audio stream for music playback */
     public static final int STREAM_MUSIC = AudioSystem.STREAM_MUSIC;
     /** The audio stream for alarms */
     public static final int STREAM_ALARM = AudioSystem.STREAM_ALARM;
+<<<<<<< HEAD
     /** The audio stream for notifications */
     public static final int STREAM_NOTIFICATION = AudioSystem.STREAM_NOTIFICATION;
     /** @hide The audio stream for phone calls when connected to bluetooth */
@@ -237,6 +310,33 @@ public class AudioManager {
     /**
      * Increase the ringer volume.
      *
+=======
+    /** Number of audio streams */
+    public static final int NUM_STREAMS = AudioSystem.NUM_STREAMS;
+
+
+    /** @hide Maximum volume index values for audio streams */
+    public static final int[] MAX_STREAM_VOLUME = new int[] {
+        6,  // STREAM_VOICE_CALL
+        8,  // STREAM_SYSTEM
+        8,  // STREAM_RING
+        16,  // STREAM_MUSIC
+        8  // STREAM_ALARM
+    }; 
+    
+    /**  @hide Default volume index values for audio streams */
+    public static final int[] DEFAULT_STREAM_VOLUME = new int[] {
+        4,  // STREAM_VOICE_CALL
+        5,  // STREAM_SYSTEM
+        5,  // STREAM_RING
+        11, // STREAM_MUSIC
+        6   // STREAM_ALARM
+    }; 
+    
+    /**
+     * Increase the ringer volume.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #adjustVolume(int, int)
      * @see #adjustStreamVolume(int, int, int)
      */
@@ -244,7 +344,11 @@ public class AudioManager {
 
     /**
      * Decrease the ringer volume.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #adjustVolume(int, int)
      * @see #adjustStreamVolume(int, int, int)
      */
@@ -253,17 +357,28 @@ public class AudioManager {
     /**
      * Maintain the previous ringer volume. This may be useful when needing to
      * show the volume toast without actually modifying the volume.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #adjustVolume(int, int)
      * @see #adjustStreamVolume(int, int, int)
      */
     public static final int ADJUST_SAME = 0;
 
     // Flags should be powers of 2!
+<<<<<<< HEAD
 
     /**
      * Show a toast containing the current volume.
      *
+=======
+    
+    /**
+     * Show a toast containing the current volume.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #adjustStreamVolume(int, int, int)
      * @see #adjustVolume(int, int)
      * @see #setStreamVolume(int, int, int)
@@ -274,6 +389,7 @@ public class AudioManager {
     /**
      * Whether to include ringer modes as possible options when changing volume.
      * For example, if true and volume level is 0 and the volume is adjusted
+<<<<<<< HEAD
      * with {@link #ADJUST_LOWER}, then the ringer mode may switch the silent or
      * vibrate mode.
      * <p>
@@ -281,11 +397,25 @@ public class AudioManager {
      * this behavior will be present regardless of the stream type being
      * affected by the ringer mode.
      *
+=======
+     * with {@link #ADJUST_LOWER}, then the ringer mode may switch the silent
+     * or vibrate mode.
+     * <p>
+     * By default this is on for stream types that are affected by the ringer
+     * mode (for example, the ring stream type). If this flag is included, this
+     * behavior will be present regardless of the stream type being affected by
+     * the ringer mode.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #adjustVolume(int, int)
      * @see #adjustStreamVolume(int, int, int)
      */
     public static final int FLAG_ALLOW_RINGER_MODES = 1 << 1;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Whether to play a sound when changing the volume.
      * <p>
@@ -294,28 +424,48 @@ public class AudioManager {
      * in some cases (for example, the decided stream type is not
      * {@link AudioManager#STREAM_RING}, or the volume is being adjusted
      * downward).
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #adjustStreamVolume(int, int, int)
      * @see #adjustVolume(int, int)
      * @see #setStreamVolume(int, int, int)
      */
     public static final int FLAG_PLAY_SOUND = 1 << 2;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Removes any sounds/vibrate that may be in the queue, or are playing (related to
      * changing volume).
      */
     public static final int FLAG_REMOVE_SOUND_AND_VIBRATE = 1 << 3;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Whether to vibrate if going into the vibrate ringer mode.
      */
     public static final int FLAG_VIBRATE = 1 << 4;
+<<<<<<< HEAD
 
     /**
      * Ringer mode that will be silent and will not vibrate. (This overrides the
      * vibrate setting.)
      *
+=======
+    
+    /**
+     * Ringer mode that will be silent and will not vibrate. (This overrides the
+     * vibrate setting.)
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #setRingerMode(int)
      * @see #getRingerMode()
      */
@@ -325,7 +475,11 @@ public class AudioManager {
      * Ringer mode that will be silent and will vibrate. (This will cause the
      * phone ringer to always vibrate, but the notification vibrate to only
      * vibrate if set.)
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #setRingerMode(int)
      * @see #getRingerMode()
      */
@@ -335,12 +489,17 @@ public class AudioManager {
      * Ringer mode that may be audible and may vibrate. It will be audible if
      * the volume before changing out of this mode was audible. It will vibrate
      * if the vibrate setting is on.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @see #setRingerMode(int)
      * @see #getRingerMode()
      */
     public static final int RINGER_MODE_NORMAL = 2;
 
+<<<<<<< HEAD
     // maximum valid ringer mode value. Values must start from 0 and be contiguous.
     private static final int RINGER_MODE_MAX = RINGER_MODE_NORMAL;
 
@@ -397,12 +556,61 @@ public class AudioManager {
      */
     public static final int VIBRATE_SETTING_ONLY_SILENT = 2;
 
+=======
+    /**
+     * Vibrate type that corresponds to the ringer.
+     * 
+     * @see #setVibrateSetting(int, int)
+     * @see #getVibrateSetting(int)
+     * @see #shouldVibrate(int)
+     */
+    public static final int VIBRATE_TYPE_RINGER = 0;
+    
+    /**
+     * Vibrate type that corresponds to notifications.
+     * 
+     * @see #setVibrateSetting(int, int)
+     * @see #getVibrateSetting(int)
+     * @see #shouldVibrate(int)
+     */
+    public static final int VIBRATE_TYPE_NOTIFICATION = 1;
+    
+    /**
+     * Vibrate setting that suggests to never vibrate.
+     * 
+     * @see #setVibrateSetting(int, int)
+     * @see #getVibrateSetting(int)
+     */
+    public static final int VIBRATE_SETTING_OFF = 0;
+    
+    /**
+     * Vibrate setting that suggests to vibrate when possible.
+     * 
+     * @see #setVibrateSetting(int, int)
+     * @see #getVibrateSetting(int)
+     */
+    public static final int VIBRATE_SETTING_ON = 1;
+    
+    /**
+     * Vibrate setting that suggests to only vibrate when in the vibrate ringer
+     * mode.
+     * 
+     * @see #setVibrateSetting(int, int)
+     * @see #getVibrateSetting(int)
+     */
+    public static final int VIBRATE_SETTING_ONLY_SILENT = 2;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Suggests using the default stream type. This may not be used in all
      * places a stream type is needed.
      */
     public static final int USE_DEFAULT_STREAM_TYPE = Integer.MIN_VALUE;
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 54b6cfa... Initial Contribution
     private static IAudioService sService;
 
     /**
@@ -410,8 +618,12 @@ public class AudioManager {
      */
     public AudioManager(Context context) {
         mContext = context;
+<<<<<<< HEAD
         mUseMasterVolume = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_useMasterVolume);
+=======
+        mHandler = new Handler(context.getMainLooper());
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     private static IAudioService getService()
@@ -425,6 +637,7 @@ public class AudioManager {
     }
 
     /**
+<<<<<<< HEAD
      * @hide
      */
     public void preDispatchKeyEvent(KeyEvent event, int stream) {
@@ -526,6 +739,11 @@ public class AudioManager {
      * management of audio settings or the main telephony application.
      *
      * @param streamType The stream type to adjust. One of {@link #STREAM_VOICE_CALL},
+=======
+     * Adjusts the volume of a particular stream by one step in a direction.
+     * 
+     * @param streamType The stream type to adjust. One of {@link #STREAM_VOICE_CALL}, 
+>>>>>>> 54b6cfa... Initial Contribution
      * {@link #STREAM_SYSTEM}, {@link #STREAM_RING}, {@link #STREAM_MUSIC} or
      * {@link #STREAM_ALARM}
      * @param direction The direction to adjust the volume. One of
@@ -538,11 +756,15 @@ public class AudioManager {
     public void adjustStreamVolume(int streamType, int direction, int flags) {
         IAudioService service = getService();
         try {
+<<<<<<< HEAD
             if (mUseMasterVolume) {
                 service.adjustMasterVolume(direction, flags);
             } else {
                 service.adjustStreamVolume(streamType, direction, flags);
             }
+=======
+            service.adjustStreamVolume(streamType, direction, flags);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in adjustStreamVolume", e);
         }
@@ -553,10 +775,14 @@ public class AudioManager {
      * active, it will have the highest priority regardless of if the in-call
      * screen is showing. Another example, if music is playing in the background
      * and a call is not active, the music stream will be adjusted.
+<<<<<<< HEAD
      * <p>
      * This method should only be used by applications that replace the platform-wide
      * management of audio settings or the main telephony application.
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param direction The direction to adjust the volume. One of
      *            {@link #ADJUST_LOWER}, {@link #ADJUST_RAISE}, or
      *            {@link #ADJUST_SAME}.
@@ -568,11 +794,15 @@ public class AudioManager {
     public void adjustVolume(int direction, int flags) {
         IAudioService service = getService();
         try {
+<<<<<<< HEAD
             if (mUseMasterVolume) {
                 service.adjustMasterVolume(direction, flags);
             } else {
                 service.adjustVolume(direction, flags);
             }
+=======
+            service.adjustVolume(direction, flags);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in adjustVolume", e);
         }
@@ -581,10 +811,14 @@ public class AudioManager {
     /**
      * Adjusts the volume of the most relevant stream, or the given fallback
      * stream.
+<<<<<<< HEAD
      * <p>
      * This method should only be used by applications that replace the platform-wide
      * management of audio settings or the main telephony application.
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param direction The direction to adjust the volume. One of
      *            {@link #ADJUST_LOWER}, {@link #ADJUST_RAISE}, or
      *            {@link #ADJUST_SAME}.
@@ -598,6 +832,7 @@ public class AudioManager {
     public void adjustSuggestedStreamVolume(int direction, int suggestedStreamType, int flags) {
         IAudioService service = getService();
         try {
+<<<<<<< HEAD
             if (mUseMasterVolume) {
                 service.adjustMasterVolume(direction, flags);
             } else {
@@ -629,6 +864,17 @@ public class AudioManager {
     /**
      * Returns the current ringtone mode.
      *
+=======
+            service.adjustSuggestedStreamVolume(direction, suggestedStreamType, flags);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in adjustVolume", e);
+        }
+    }
+    
+    /**
+     * Returns the current ringtone mode.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @return The current ringtone mode, one of {@link #RINGER_MODE_NORMAL},
      *         {@link #RINGER_MODE_SILENT}, or {@link #RINGER_MODE_VIBRATE}.
      * @see #setRingerMode(int)
@@ -644,6 +890,7 @@ public class AudioManager {
     }
 
     /**
+<<<<<<< HEAD
      * Checks valid ringer mode values.
      *
      * @return true if the ringer mode indicated is valid, false otherwise.
@@ -661,6 +908,10 @@ public class AudioManager {
     /**
      * Returns the maximum volume index for a particular stream.
      *
+=======
+     * Returns the maximum volume index for a particular stream.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param streamType The stream type whose maximum volume index is returned.
      * @return The maximum valid volume index for the stream.
      * @see #getStreamVolume(int)
@@ -668,11 +919,15 @@ public class AudioManager {
     public int getStreamMaxVolume(int streamType) {
         IAudioService service = getService();
         try {
+<<<<<<< HEAD
             if (mUseMasterVolume) {
                 return service.getMasterMaxVolume();
             } else {
                 return service.getStreamMaxVolume(streamType);
             }
+=======
+            return service.getStreamMaxVolume(streamType);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in getStreamMaxVolume", e);
             return 0;
@@ -681,7 +936,11 @@ public class AudioManager {
 
     /**
      * Returns the current volume index for a particular stream.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param streamType The stream type whose volume index is returned.
      * @return The current volume index for the stream.
      * @see #getStreamMaxVolume(int)
@@ -690,11 +949,15 @@ public class AudioManager {
     public int getStreamVolume(int streamType) {
         IAudioService service = getService();
         try {
+<<<<<<< HEAD
             if (mUseMasterVolume) {
                 return service.getMasterVolume();
             } else {
                 return service.getStreamVolume(streamType);
             }
+=======
+            return service.getStreamVolume(streamType);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in getStreamVolume", e);
             return 0;
@@ -702,6 +965,7 @@ public class AudioManager {
     }
 
     /**
+<<<<<<< HEAD
      * Get last audible volume before stream was muted.
      *
      * @hide
@@ -736,20 +1000,29 @@ public class AudioManager {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Sets the ringer mode.
      * <p>
      * Silent mode will mute the volume and will not vibrate. Vibrate mode will
      * mute the volume and vibrate. Normal mode will be audible and may vibrate
      * according to user settings.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param ringerMode The ringer mode, one of {@link #RINGER_MODE_NORMAL},
      *            {@link #RINGER_MODE_SILENT}, or {@link #RINGER_MODE_VIBRATE}.
      * @see #getRingerMode()
      */
     public void setRingerMode(int ringerMode) {
+<<<<<<< HEAD
         if (!isValidRingerMode(ringerMode)) {
             return;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         IAudioService service = getService();
         try {
             service.setRingerMode(ringerMode);
@@ -760,7 +1033,11 @@ public class AudioManager {
 
     /**
      * Sets the volume index for a particular stream.
+<<<<<<< HEAD
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param streamType The stream whose volume index should be set.
      * @param index The volume index to set. See
      *            {@link #getStreamMaxVolume(int)} for the largest valid value.
@@ -771,15 +1048,20 @@ public class AudioManager {
     public void setStreamVolume(int streamType, int index, int flags) {
         IAudioService service = getService();
         try {
+<<<<<<< HEAD
             if (mUseMasterVolume) {
                 service.setMasterVolume(index, flags);
             } else {
                 service.setStreamVolume(streamType, index, flags);
             }
+=======
+            service.setStreamVolume(streamType, index, flags);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in setStreamVolume", e);
         }
     }
+<<<<<<< HEAD
 
     /**
      * Returns the maximum volume index for master volume.
@@ -846,6 +1128,9 @@ public class AudioManager {
         }
     }
 
+=======
+     
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Solo or unsolo a particular stream. All other streams are muted.
      * <p>
@@ -853,6 +1138,7 @@ public class AudioManager {
      * with an active solo request on a stream dies, all streams that were muted
      * because of this request will be unmuted automatically.
      * <p>
+<<<<<<< HEAD
      * The solo requests for a given stream are cumulative: the AudioManager
      * can receive several solo requests from one or more clients and the stream
      * will be unsoloed only when the same number of unsolo requests are received.
@@ -860,6 +1146,15 @@ public class AudioManager {
      * For a better user experience, applications MUST unsolo a soloed stream
      * in onPause() and solo is again in onResume() if appropriate.
      *
+=======
+     * The solo requests for a given stream are cumulative: the AudioManager 
+     * can receive several solo requests from one or more clients and the stream
+     * will be unsoloed only when the same number of unsolo requests are received.
+     * <p>
+     * For a better user experience, applications MUST unsolo a soloed stream 
+     * in onPause() and solo is again in onResume() if appropriate.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param streamType The stream to be soloed/unsoloed.
      * @param state The required solo state: true for solo ON, false for solo OFF
      */
@@ -871,7 +1166,11 @@ public class AudioManager {
             Log.e(TAG, "Dead object in setStreamSolo", e);
         }
     }
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Mute or unmute an audio stream.
      * <p>
@@ -879,6 +1178,7 @@ public class AudioManager {
      * with an active mute request on a stream dies, this stream will be unmuted
      * automatically.
      * <p>
+<<<<<<< HEAD
      * The mute requests for a given stream are cumulative: the AudioManager
      * can receive several mute requests from one or more clients and the stream
      * will be unmuted only when the same number of unmute requests are received.
@@ -889,6 +1189,15 @@ public class AudioManager {
      * This method should only be used by applications that replace the platform-wide
      * management of audio settings or the main telephony application.
      *
+=======
+     * The mute requests for a given stream are cumulative: the AudioManager 
+     * can receive several mute requests from one or more clients and the stream
+     * will be unmuted only when the same number of unmute requests are received.
+     * <p>
+     * For a better user experience, applications MUST unmute a muted stream 
+     * in onPause() and mute is again in onResume() if appropriate.
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param streamType The stream to be muted/unmuted.
      * @param state The required mute state: true for mute ON, false for mute OFF
      */
@@ -902,6 +1211,7 @@ public class AudioManager {
     }
 
     /**
+<<<<<<< HEAD
      * get stream mute state.
      *
      * @hide
@@ -1023,15 +1333,69 @@ public class AudioManager {
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in getVibrateSetting", e);
             return VIBRATE_SETTING_OFF;
+=======
+     * Returns whether a particular type should vibrate according to user
+     * settings and the current ringer mode.
+     * <p>
+     * This shouldn't be needed by most clients that use notifications to
+     * vibrate. The notification manager will not vibrate if the policy doesn't
+     * allow it, so the client should always set a vibrate pattern and let the
+     * notification manager control whether or not to actually vibrate.
+     * 
+     * @param vibrateType The type of vibrate. One of
+     *            {@link #VIBRATE_TYPE_NOTIFICATION} or
+     *            {@link #VIBRATE_TYPE_RINGER}.
+     * @return Whether the type should vibrate at the instant this method is
+     *         called.
+     * @see #setVibrateSetting(int, int)
+     * @see #getVibrateSetting(int)
+     */
+    public boolean shouldVibrate(int vibrateType) {
+        IAudioService service = getService();
+        try {
+            return service.shouldVibrate(vibrateType);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in shouldVibrate", e);
+            return false;
+        }
+    }
+    
+    /**
+     * Returns whether the user's vibrate setting for a vibrate type.
+     * <p>
+     * This shouldn't be needed by most clients that want to vibrate, instead
+     * see {@link #shouldVibrate(int)}.
+     * 
+     * @param vibrateType The type of vibrate. One of
+     *            {@link #VIBRATE_TYPE_NOTIFICATION} or
+     *            {@link #VIBRATE_TYPE_RINGER}.
+     * @return The vibrate setting, one of {@link #VIBRATE_SETTING_ON},
+     *         {@link #VIBRATE_SETTING_OFF}, or
+     *         {@link #VIBRATE_SETTING_ONLY_SILENT}.
+     * @see #setVibrateSetting(int, int)
+     * @see #shouldVibrate(int)
+     */
+    public int getVibrateSetting(int vibrateType) {
+        IAudioService service = getService();
+        try {
+            return service.getVibrateSetting(vibrateType);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in getVibrateSetting", e);
+            return VIBRATE_SETTING_OFF;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
     /**
      * Sets the setting for when the vibrate type should vibrate.
+<<<<<<< HEAD
      * <p>
      * This method should only be used by applications that replace the platform-wide
      * management of audio settings or the main telephony application.
      *
+=======
+     * 
+>>>>>>> 54b6cfa... Initial Contribution
      * @param vibrateType The type of vibrate. One of
      *            {@link #VIBRATE_TYPE_NOTIFICATION} or
      *            {@link #VIBRATE_TYPE_RINGER}.
@@ -1041,8 +1405,11 @@ public class AudioManager {
      *            {@link #VIBRATE_SETTING_ONLY_SILENT}.
      * @see #getVibrateSetting(int)
      * @see #shouldVibrate(int)
+<<<<<<< HEAD
      * @deprecated Applications should maintain their own vibrate policy based on
      * current ringer mode that can be queried via {@link #getRingerMode()}.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void setVibrateSetting(int vibrateType, int vibrateSetting) {
         IAudioService service = getService();
@@ -1052,6 +1419,7 @@ public class AudioManager {
             Log.e(TAG, "Dead object in setVibrateSetting", e);
         }
     }
+<<<<<<< HEAD
 
     /**
      * Sets the speakerphone on or off.
@@ -1069,6 +1437,17 @@ public class AudioManager {
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in setSpeakerphoneOn", e);
         }
+=======
+    
+    /**
+     * Sets the speakerphone on or off.
+     *
+     * @param on set <var>true</var> to turn on speakerphone; 
+     *           <var>false</var> to turn it off
+     */
+    public void setSpeakerphoneOn(boolean on){
+        setRouting(MODE_IN_CALL, on ? ROUTE_SPEAKER : ROUTE_EARPIECE, ROUTE_ALL);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1077,6 +1456,7 @@ public class AudioManager {
      * @return true if speakerphone is on, false if it's off
      */
     public boolean isSpeakerphoneOn() {
+<<<<<<< HEAD
         IAudioService service = getService();
         try {
             return service.isSpeakerphoneOn();
@@ -1324,10 +1704,34 @@ public class AudioManager {
         } else {
             return true;
         }
+=======
+        return (getRouting(MODE_IN_CALL) & ROUTE_SPEAKER) == 0 ? false : true;
+     }
+
+    /**
+     * Sets audio routing to the Bluetooth headset on or off.
+     *
+     * @param on set <var>true</var> to route SCO (voice) audio to/from Bluetooth 
+     *           headset; <var>false</var> to route audio to/from phone earpiece
+     */
+    public void setBluetoothScoOn(boolean on){
+        setRouting(MODE_IN_CALL, on ? ROUTE_BLUETOOTH : ROUTE_EARPIECE, ROUTE_ALL);
+    }
+
+    /**
+     * Checks whether audio routing to the Bluetooth headset is on or off.
+     *
+     * @return true if SCO audio is being routed to/from Bluetooth headset;
+     *         false if otherwise
+     */
+    public boolean isBluetoothScoOn() {
+        return (getRouting(MODE_IN_CALL) & ROUTE_BLUETOOTH) == 0 ? false : true;
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Sets the microphone mute on or off.
+<<<<<<< HEAD
      * <p>
      * This method should only be used by applications that replace the platform-wide
      * management of audio settings or the main telephony application.
@@ -1337,6 +1741,19 @@ public class AudioManager {
      */
     public void setMicrophoneMute(boolean on){
         AudioSystem.muteMicrophone(on);
+=======
+     *
+     * @param on set <var>true</var> to mute the microphone; 
+     *           <var>false</var> to turn mute off
+     */
+    public void setMicrophoneMute(boolean on){
+        IAudioService service = getService();
+        try {
+            service.setMicrophoneMute(on);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in setMicrophoneMute", e);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1345,11 +1762,22 @@ public class AudioManager {
      * @return true if microphone is muted, false if it's not
      */
     public boolean isMicrophoneMute() {
+<<<<<<< HEAD
         return AudioSystem.isMicrophoneMuted();
+=======
+        IAudioService service = getService();
+        try {
+            return service.isMicrophoneMute();
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in isMicrophoneMute", e);
+            return false;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
      * Sets the audio mode.
+<<<<<<< HEAD
      * <p>
      * The audio mode encompasses audio routing AND the behavior of
      * the telephony layer. Therefore this method should only be used by applications that
@@ -1360,13 +1788,21 @@ public class AudioManager {
      *
      * @param mode  the requested audio mode ({@link #MODE_NORMAL}, {@link #MODE_RINGTONE},
      *              {@link #MODE_IN_CALL} or {@link #MODE_IN_COMMUNICATION}).
+=======
+     *
+     * @param mode  the requested audio mode (NORMAL, RINGTONE, or IN_CALL).
+>>>>>>> 54b6cfa... Initial Contribution
      *              Informs the HAL about the current audio state so that
      *              it can route the audio appropriately.
      */
     public void setMode(int mode) {
         IAudioService service = getService();
         try {
+<<<<<<< HEAD
             service.setMode(mode, mICallBack);
+=======
+            service.setMode(mode);
+>>>>>>> 54b6cfa... Initial Contribution
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in setMode", e);
         }
@@ -1375,8 +1811,12 @@ public class AudioManager {
     /**
      * Returns the current audio mode.
      *
+<<<<<<< HEAD
      * @return      the current audio mode ({@link #MODE_NORMAL}, {@link #MODE_RINGTONE},
      *              {@link #MODE_IN_CALL} or {@link #MODE_IN_COMMUNICATION}).
+=======
+     * @return      the current audio mode (NORMAL, RINGTONE, or IN_CALL).
+>>>>>>> 54b6cfa... Initial Contribution
      *              Returns the current current audio state from the HAL.
      */
     public int getMode() {
@@ -1391,6 +1831,7 @@ public class AudioManager {
 
     /* modes for setMode/getMode/setRoute/getRoute */
     /**
+<<<<<<< HEAD
      * Audio harware modes.
      */
     /**
@@ -1417,10 +1858,35 @@ public class AudioManager {
      * In communication audio mode. An audio/video chat or VoIP call is established.
      */
     public static final int MODE_IN_COMMUNICATION   = AudioSystem.MODE_IN_COMMUNICATION;
+=======
+     * Audio harware modes. 
+     */    
+    /**
+     * Invalid audio mode. 
+     */    
+    public static final int MODE_INVALID            = AudioSystem.MODE_INVALID;
+    /**
+     * Current audio mode. Used to apply audio routing to current mode.
+     */    
+    public static final int MODE_CURRENT            = AudioSystem.MODE_CURRENT;
+    /**
+     * Normal audio mode: not ringing and no call established.
+     */    
+    public static final int MODE_NORMAL             = AudioSystem.MODE_NORMAL;
+    /**
+     * Ringing audio mode. An incoming is being signaled.
+     */    
+    public static final int MODE_RINGTONE           = AudioSystem.MODE_RINGTONE;
+    /**
+     * In call audio mode. A call is established.
+     */    
+    public static final int MODE_IN_CALL            = AudioSystem.MODE_IN_CALL;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /* Routing bits for setRouting/getRouting API */
     /**
      * Routing audio output to earpiece
+<<<<<<< HEAD
      * @deprecated   Do not set audio routing directly, use setSpeakerphoneOn(),
      * setBluetoothScoOn() methods instead.
      */
@@ -1461,6 +1927,26 @@ public class AudioManager {
      * setBluetoothScoOn() methods instead.
      */
     @Deprecated public static final int ROUTE_ALL               = AudioSystem.ROUTE_ALL;
+=======
+     */        
+    public static final int ROUTE_EARPIECE          = AudioSystem.ROUTE_EARPIECE;
+    /**
+     * Routing audio output to spaker
+     */        
+    public static final int ROUTE_SPEAKER           = AudioSystem.ROUTE_SPEAKER;
+    /**
+     * Routing audio output to bluetooth
+     */        
+    public static final int ROUTE_BLUETOOTH         = AudioSystem.ROUTE_BLUETOOTH;
+    /**
+     * Routing audio output to headset
+     */        
+    public static final int ROUTE_HEADSET           = AudioSystem.ROUTE_HEADSET;
+    /**
+     * Used for mask parameter of {@link #setRouting(int,int,int)}.
+     */        
+    public static final int ROUTE_ALL               = AudioSystem.ROUTE_ALL;
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * Sets the audio routing for a specified mode
@@ -1470,12 +1956,23 @@ public class AudioManager {
      *               more of ROUTE_xxx types. Set bits indicate that route should be on
      * @param mask   bit vector of routes to change, created from one or more of
      * ROUTE_xxx types. Unset bits indicate the route should be left unchanged
+<<<<<<< HEAD
      *
      * @deprecated   Do not set audio routing directly, use setSpeakerphoneOn(),
      * setBluetoothScoOn() methods instead.
      */
     @Deprecated
     public void setRouting(int mode, int routes, int mask) {
+=======
+     */
+    public void setRouting(int mode, int routes, int mask) {
+        IAudioService service = getService();
+        try {
+            service.setRouting(mode, routes, mask);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in setRouting", e);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1484,12 +1981,24 @@ public class AudioManager {
      * @param mode audio mode to get route (e.g., MODE_RINGTONE)
      * @return an audio route bit vector that can be compared with ROUTE_xxx
      * bits
+<<<<<<< HEAD
      * @deprecated   Do not query audio routing directly, use isSpeakerphoneOn(),
      * isBluetoothScoOn(), isBluetoothA2dpOn() and isWiredHeadsetOn() methods instead.
      */
     @Deprecated
     public int getRouting(int mode) {
         return -1;
+=======
+     */
+    public int getRouting(int mode) {
+        IAudioService service = getService();
+        try {
+            return service.getRouting(mode);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in getRouting", e);
+            return -1;
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1498,6 +2007,7 @@ public class AudioManager {
      * @return true if any music tracks are active.
      */
     public boolean isMusicActive() {
+<<<<<<< HEAD
         return AudioSystem.isStreamActive(STREAM_MUSIC, 0);
     }
 
@@ -1516,6 +2026,14 @@ public class AudioManager {
             service.adjustLocalOrRemoteStreamVolume(streamType, direction);
         } catch (RemoteException e) {
             Log.e(TAG, "Dead object in adjustLocalOrRemoteStreamVolume", e);
+=======
+        IAudioService service = getService();
+        try {
+            return service.isMusicActive();
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in isMusicActive", e);
+            return false;
+>>>>>>> 54b6cfa... Initial Contribution
         }
     }
 
@@ -1532,6 +2050,7 @@ public class AudioManager {
      */
     /**
      * @hide
+<<<<<<< HEAD
      * @deprecated Use {@link #setPrameters(String)} instead
      */
     @Deprecated public void setParameter(String key, String value) {
@@ -1558,12 +2077,23 @@ public class AudioManager {
      */
     public String getParameters(String keys) {
         return AudioSystem.getParameters(keys);
+=======
+     */
+    public void setParameter(String key, String value) {
+        IAudioService service = getService();
+        try {
+            service.setParameter(key, value);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Dead object in setParameter", e);
+        }
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /* Sound effect identifiers */
     /**
      * Keyboard and direction pad click sound
      * @see #playSoundEffect(int)
+<<<<<<< HEAD
      */
     public static final int FX_KEY_CLICK = 0;
     /**
@@ -1611,6 +2141,35 @@ public class AudioManager {
      */
     public static final int NUM_SOUND_EFFECTS = 9;
 
+=======
+     */        
+    public static final int FX_KEY_CLICK = 0;
+    /**
+     * Focuse has moved up
+     * @see #playSoundEffect(int)
+     */        
+    public static final int FX_FOCUS_NAVIGATION_UP = 1;
+    /**
+     * Focuse has moved down
+     * @see #playSoundEffect(int)
+     */        
+    public static final int FX_FOCUS_NAVIGATION_DOWN = 2;
+    /**
+     * Focuse has moved left
+     * @see #playSoundEffect(int)
+     */        
+    public static final int FX_FOCUS_NAVIGATION_LEFT = 3;
+    /**
+     * Focuse has moved right
+     * @see #playSoundEffect(int)
+     */        
+    public static final int FX_FOCUS_NAVIGATION_RIGHT = 4;
+    /**
+     * @hide Number of sound effects 
+     */ 
+    public static final int NUM_SOUND_EFFECTS = 5;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Plays a sound effect (Key clicks, lid open/close...)
      * @param effectType The type of sound effect. One of
@@ -1619,12 +2178,15 @@ public class AudioManager {
      *            {@link #FX_FOCUS_NAVIGATION_DOWN},
      *            {@link #FX_FOCUS_NAVIGATION_LEFT},
      *            {@link #FX_FOCUS_NAVIGATION_RIGHT},
+<<<<<<< HEAD
      *            {@link #FX_KEYPRESS_STANDARD},
      *            {@link #FX_KEYPRESS_SPACEBAR},
      *            {@link #FX_KEYPRESS_DELETE},
      *            {@link #FX_KEYPRESS_RETURN},
      * NOTE: This version uses the UI settings to determine
      * whether sounds are heard or not.
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public void  playSoundEffect(int effectType) {
         if (effectType < 0 || effectType >= NUM_SOUND_EFFECTS) {
@@ -1644,6 +2206,7 @@ public class AudioManager {
     }
 
     /**
+<<<<<<< HEAD
      * Plays a sound effect (Key clicks, lid open/close...)
      * @param effectType The type of sound effect. One of
      *            {@link #FX_KEY_CLICK},
@@ -1676,14 +2239,24 @@ public class AudioManager {
 
     /**
      * Settings has an in memory cache, so this is fast.
+=======
+     * Settings has an in memory cache, so this is fast.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     private boolean querySoundEffectsEnabled() {
         return Settings.System.getInt(mContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0) != 0;
     }
+<<<<<<< HEAD
 
 
     /**
      *  Load Sound effects.
+=======
+    
+    
+    /**
+     *  Load Sound effects. 
+>>>>>>> 54b6cfa... Initial Contribution
      *  This method must be called when sound effects are enabled.
      */
     public void loadSoundEffects() {
@@ -1694,9 +2267,15 @@ public class AudioManager {
             Log.e(TAG, "Dead object in loadSoundEffects"+e);
         }
     }
+<<<<<<< HEAD
 
     /**
      *  Unload Sound effects.
+=======
+    
+    /**
+     *  Unload Sound effects. 
+>>>>>>> 54b6cfa... Initial Contribution
      *  This method can be called to free some memory when
      *  sound effects are disabled.
      */
@@ -1709,6 +2288,7 @@ public class AudioManager {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Used to indicate a gain of audio focus, or a request of audio focus, of unknown duration.
      * @see OnAudioFocusChangeListener#onAudioFocusChange(int)
@@ -2427,4 +3007,10 @@ public class AudioManager {
             return null;
         }
     }
+=======
+     /**
+      * {@hide}
+      */
+     private IBinder mICallBack = new Binder();
+>>>>>>> 54b6cfa... Initial Contribution
 }

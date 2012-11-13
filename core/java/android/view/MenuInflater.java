@@ -18,6 +18,11 @@ package android.view;
 
 import com.android.internal.view.menu.MenuItemImpl;
 
+<<<<<<< HEAD
+=======
+import java.io.IOException;
+
+>>>>>>> 54b6cfa... Initial Contribution
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -26,6 +31,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
+<<<<<<< HEAD
 import android.util.Log;
 import android.util.Xml;
 
@@ -33,6 +39,10 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
+=======
+import android.util.Xml;
+
+>>>>>>> 54b6cfa... Initial Contribution
 /**
  * This class is used to instantiate menu XML files into Menu objects.
  * <p>
@@ -43,8 +53,11 @@ import java.lang.reflect.Method;
  * <em>something</em> file.)
  */
 public class MenuInflater {
+<<<<<<< HEAD
     private static final String LOG_TAG = "MenuInflater";
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /** Menu tag name in XML. */
     private static final String XML_MENU = "menu";
     
@@ -56,6 +69,7 @@ public class MenuInflater {
 
     private static final int NO_ID = 0;
     
+<<<<<<< HEAD
     private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] {Context.class};
 
     private static final Class<?>[] ACTION_PROVIDER_CONSTRUCTOR_SIGNATURE = ACTION_VIEW_CONSTRUCTOR_SIGNATURE;
@@ -67,6 +81,10 @@ public class MenuInflater {
     private Context mContext;
     private Object mRealOwner;
 
+=======
+    private Context mContext;
+    
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Constructs a menu inflater.
      * 
@@ -74,6 +92,7 @@ public class MenuInflater {
      */
     public MenuInflater(Context context) {
         mContext = context;
+<<<<<<< HEAD
         mRealOwner = context;
         mActionViewConstructorArguments = new Object[] {context};
         mActionProviderConstructorArguments = mActionViewConstructorArguments;
@@ -90,6 +109,8 @@ public class MenuInflater {
         mRealOwner = realOwner;
         mActionViewConstructorArguments = new Object[] {context};
         mActionProviderConstructorArguments = mActionViewConstructorArguments;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -181,12 +202,16 @@ public class MenuInflater {
                         // Add the item if it hasn't been added (if the item was
                         // a submenu, it would have been added already)
                         if (!menuState.hasAddedItem()) {
+<<<<<<< HEAD
                             if (menuState.itemActionProvider != null &&
                                     menuState.itemActionProvider.hasSubMenu()) {
                                 menuState.addSubMenuItem();
                             } else {
                                 menuState.addItem();
                             }
+=======
+                            menuState.addItem();
+>>>>>>> 54b6cfa... Initial Contribution
                         }
                     } else if (tagName.equals(XML_MENU)) {
                         reachedEndOfMenu = true;
@@ -201,6 +226,7 @@ public class MenuInflater {
         }
     }
     
+<<<<<<< HEAD
     private static class InflatedOnMenuItemClickListener
             implements MenuItem.OnMenuItemClickListener {
         private static final Class<?>[] PARAM_TYPES = new Class[] { MenuItem.class };
@@ -236,6 +262,8 @@ public class MenuInflater {
         }
     }
     
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * State for the current menu.
      * <p>
@@ -259,8 +287,13 @@ public class MenuInflater {
         private boolean itemAdded;
         private int itemId;
         private int itemCategoryOrder;
+<<<<<<< HEAD
         private CharSequence itemTitle;
         private CharSequence itemTitleCondensed;
+=======
+        private String itemTitle;
+        private String itemTitleCondensed;
+>>>>>>> 54b6cfa... Initial Contribution
         private int itemIconResId;
         private char itemAlphabeticShortcut;
         private char itemNumericShortcut;
@@ -275,6 +308,7 @@ public class MenuInflater {
         private boolean itemVisible;
         private boolean itemEnabled;
         
+<<<<<<< HEAD
         /**
          * Sync to attrs.xml enum, values in MenuItem:
          * - 0: never
@@ -292,6 +326,8 @@ public class MenuInflater {
         
         private ActionProvider itemActionProvider;
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         private static final int defaultGroupId = NO_ID;
         private static final int defaultItemId = NO_ID;
         private static final int defaultItemCategory = 0;
@@ -345,8 +381,13 @@ public class MenuInflater {
             final int category = a.getInt(com.android.internal.R.styleable.MenuItem_menuCategory, groupCategory);
             final int order = a.getInt(com.android.internal.R.styleable.MenuItem_orderInCategory, groupOrder);
             itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
+<<<<<<< HEAD
             itemTitle = a.getText(com.android.internal.R.styleable.MenuItem_title);
             itemTitleCondensed = a.getText(com.android.internal.R.styleable.MenuItem_titleCondensed);
+=======
+            itemTitle = a.getString(com.android.internal.R.styleable.MenuItem_title);
+            itemTitleCondensed = a.getString(com.android.internal.R.styleable.MenuItem_titleCondensed);
+>>>>>>> 54b6cfa... Initial Contribution
             itemIconResId = a.getResourceId(com.android.internal.R.styleable.MenuItem_icon, 0);
             itemAlphabeticShortcut =
                     getShortcut(a.getString(com.android.internal.R.styleable.MenuItem_alphabeticShortcut));
@@ -363,6 +404,7 @@ public class MenuInflater {
             itemChecked = a.getBoolean(com.android.internal.R.styleable.MenuItem_checked, defaultItemChecked);
             itemVisible = a.getBoolean(com.android.internal.R.styleable.MenuItem_visible, groupVisible);
             itemEnabled = a.getBoolean(com.android.internal.R.styleable.MenuItem_enabled, groupEnabled);
+<<<<<<< HEAD
             itemShowAsAction = a.getInt(com.android.internal.R.styleable.MenuItem_showAsAction, -1);
             itemListenerMethodName = a.getString(com.android.internal.R.styleable.MenuItem_onClick);
             itemActionViewLayout = a.getResourceId(com.android.internal.R.styleable.MenuItem_actionLayout, 0);
@@ -384,6 +426,11 @@ public class MenuInflater {
 
             a.recycle();
 
+=======
+            
+            a.recycle();
+            
+>>>>>>> 54b6cfa... Initial Contribution
             itemAdded = false;
         }
 
@@ -404,6 +451,7 @@ public class MenuInflater {
                 .setIcon(itemIconResId)
                 .setAlphabeticShortcut(itemAlphabeticShortcut)
                 .setNumericShortcut(itemNumericShortcut);
+<<<<<<< HEAD
             
             if (itemShowAsAction >= 0) {
                 item.setShowAsAction(itemShowAsAction);
@@ -446,6 +494,14 @@ public class MenuInflater {
             }
         }
 
+=======
+
+            if (itemCheckable >= 2) {
+                ((MenuItemImpl) item).setExclusiveCheckable(true);
+            }
+        }
+        
+>>>>>>> 54b6cfa... Initial Contribution
         public void addItem() {
             itemAdded = true;
             setItem(menu.add(groupId, itemId, itemCategoryOrder, itemTitle));
@@ -461,6 +517,7 @@ public class MenuInflater {
         public boolean hasAddedItem() {
             return itemAdded;
         }
+<<<<<<< HEAD
 
         @SuppressWarnings("unchecked")
         private <T> T newInstance(String className, Class<?>[] constructorSignature,
@@ -475,4 +532,8 @@ public class MenuInflater {
             return null;
         }
     }
+=======
+    }
+    
+>>>>>>> 54b6cfa... Initial Contribution
 }

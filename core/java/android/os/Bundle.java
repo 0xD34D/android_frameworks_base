@@ -54,7 +54,10 @@ public final class Bundle implements Parcelable, Cloneable {
 
     private boolean mHasFds = false;
     private boolean mFdsKnown = true;
+<<<<<<< HEAD
     private boolean mAllowFds = true;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 
     /**
      * The ClassLoader used when unparcelling data from mParcelledData.
@@ -79,10 +82,13 @@ public final class Bundle implements Parcelable, Cloneable {
         readFromParcel(parcelledData);
     }
 
+<<<<<<< HEAD
     /* package */ Bundle(Parcel parcelledData, int length) {
         readFromParcelInner(parcelledData, length);
     }
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Constructs a new, empty Bundle that uses a specific ClassLoader for
      * instantiating Parcelable and Serializable objects.
@@ -133,6 +139,7 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+<<<<<<< HEAD
      * Make a Bundle for a single key/value pair.
      *
      * @hide
@@ -172,6 +179,8 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Changes the ClassLoader this Bundle uses when instantiating objects.
      *
      * @param loader An explicit ClassLoader to use when instantiating objects
@@ -182,6 +191,7 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+<<<<<<< HEAD
      * Return the ClassLoader currently associated with this Bundle.
      */
     public ClassLoader getClassLoader() {
@@ -196,6 +206,8 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Clones the current Bundle. The internal map is cloned, but the keys and
      * values to which it refers are copied by reference.
      */
@@ -213,6 +225,7 @@ public final class Bundle implements Parcelable, Cloneable {
             return;
         }
 
+<<<<<<< HEAD
         int N = mParcelledData.readInt();
         if (N < 0) {
             return;
@@ -221,11 +234,21 @@ public final class Bundle implements Parcelable, Cloneable {
             mMap = new HashMap<String, Object>();
         }
         mParcelledData.readMapInternal(mMap, N, mClassLoader);
+=======
+        mParcelledData.setDataPosition(0);
+        Bundle b = mParcelledData.readBundleUnpacked(mClassLoader);
+        mMap = b.mMap;
+
+        mHasFds = mParcelledData.hasFileDescriptors();
+        mFdsKnown = true;
+        
+>>>>>>> 54b6cfa... Initial Contribution
         mParcelledData.recycle();
         mParcelledData = null;
     }
 
     /**
+<<<<<<< HEAD
      * @hide
      */
     public boolean isParcelled() {
@@ -233,6 +256,8 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns the number of mappings contained in this Bundle.
      *
      * @return the number of mappings as an int.
@@ -586,6 +611,7 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+<<<<<<< HEAD
      * Inserts an ArrayList<CharSequence> value into the mapping of this Bundle, replacing
      * any existing value for the given key.  Either key or value may be null.
      *
@@ -598,6 +624,8 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Inserts a Serializable value into the mapping of this Bundle, replacing
      * any existing value for the given key.  Either key or value may be null.
      *
@@ -718,6 +746,7 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+<<<<<<< HEAD
      * Inserts a CharSequence array value into the mapping of this Bundle, replacing
      * any existing value for the given key.  Either key or value may be null.
      *
@@ -730,6 +759,8 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Inserts a Bundle value into the mapping of this Bundle, replacing
      * any existing value for the given key.  Either key or value may be null.
      *
@@ -1043,6 +1074,10 @@ public final class Bundle implements Parcelable, Cloneable {
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Returns the value associated with the given key, or null if
      * no mapping of the desired type exists for the given key or a null
@@ -1066,6 +1101,7 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+<<<<<<< HEAD
      * Returns the value associated with the given key, or defaultValue if
      * no mapping of the desired type exists for the given key.
      *
@@ -1088,6 +1124,8 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns the value associated with the given key, or null if
      * no mapping of the desired type exists for the given key or a null
      * value is explicitly associated with the key.
@@ -1110,6 +1148,7 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+<<<<<<< HEAD
      * Returns the value associated with the given key, or defaultValue if
      * no mapping of the desired type exists for the given key.
      *
@@ -1132,6 +1171,8 @@ public final class Bundle implements Parcelable, Cloneable {
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns the value associated with the given key, or null if
      * no mapping of the desired type exists for the given key or a null
      * value is explicitly associated with the key.
@@ -1314,6 +1355,7 @@ public final class Bundle implements Parcelable, Cloneable {
      * value is explicitly associated with the key.
      *
      * @param key a String, or null
+<<<<<<< HEAD
      * @return an ArrayList<CharSequence> value, or null
      */
     public ArrayList<CharSequence> getCharSequenceArrayList(String key) {
@@ -1336,6 +1378,8 @@ public final class Bundle implements Parcelable, Cloneable {
      * value is explicitly associated with the key.
      *
      * @param key a String, or null
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @return a boolean[] value, or null
      */
     public boolean[] getBooleanArray(String key) {
@@ -1534,6 +1578,7 @@ public final class Bundle implements Parcelable, Cloneable {
      * value is explicitly associated with the key.
      *
      * @param key a String, or null
+<<<<<<< HEAD
      * @return a CharSequence[] value, or null
      */
     public CharSequence[] getCharSequenceArray(String key) {
@@ -1556,6 +1601,8 @@ public final class Bundle implements Parcelable, Cloneable {
      * value is explicitly associated with the key.
      *
      * @param key a String, or null
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * @return an IBinder value, or null
      *
      * @deprecated
@@ -1604,6 +1651,7 @@ public final class Bundle implements Parcelable, Cloneable {
      * @param parcel The parcel to copy this bundle to.
      */
     public void writeToParcel(Parcel parcel, int flags) {
+<<<<<<< HEAD
         final boolean oldAllowFds = parcel.pushAllowFds(mAllowFds);
         try {
             if (mParcelledData != null) {
@@ -1628,6 +1676,9 @@ public final class Bundle implements Parcelable, Cloneable {
         } finally {
             parcel.restoreAllowFds(oldAllowFds);
         }
+=======
+        parcel.writeBundle(this);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -1636,6 +1687,7 @@ public final class Bundle implements Parcelable, Cloneable {
      * @param parcel The parcel to overwrite this bundle from.
      */
     public void readFromParcel(Parcel parcel) {
+<<<<<<< HEAD
         int length = parcel.readInt();
         if (length < 0) {
             throw new RuntimeException("Bad length in parcel: " + length);
@@ -1663,6 +1715,10 @@ public final class Bundle implements Parcelable, Cloneable {
         
         mParcelledData = p;
         mHasFds = p.hasFileDescriptors();
+=======
+        mParcelledData = parcel;
+        mHasFds = mParcelledData.hasFileDescriptors();
+>>>>>>> 54b6cfa... Initial Contribution
         mFdsKnown = true;
     }
 

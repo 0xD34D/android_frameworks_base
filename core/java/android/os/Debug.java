@@ -16,6 +16,7 @@
 
 package android.os;
 
+<<<<<<< HEAD
 import com.android.internal.util.TypedProperties;
 
 import android.util.Log;
@@ -34,31 +35,50 @@ import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+=======
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+>>>>>>> 54b6cfa... Initial Contribution
 
 import org.apache.harmony.dalvik.ddmc.Chunk;
 import org.apache.harmony.dalvik.ddmc.ChunkHandler;
 import org.apache.harmony.dalvik.ddmc.DdmServer;
 
+<<<<<<< HEAD
 import dalvik.bytecode.OpcodeInfo;
+=======
+>>>>>>> 54b6cfa... Initial Contribution
 import dalvik.bytecode.Opcodes;
 import dalvik.system.VMDebug;
 
 
+<<<<<<< HEAD
 /**
  * Provides various debugging functions for Android applications, including
+=======
+/** Provides various debugging functions for Android applications, including
+>>>>>>> 54b6cfa... Initial Contribution
  * tracing and allocation counts.
  * <p><strong>Logging Trace Files</strong></p>
  * <p>Debug can create log files that give details about an application, such as
  * a call stack and start/stop times for any running methods. See <a
+<<<<<<< HEAD
 href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Log Viewer</a> for
+=======
+href="{@docRoot}reference/traceview.html">Running the Traceview Debugging Program</a> for
+>>>>>>> 54b6cfa... Initial Contribution
  * information about reading trace files. To start logging trace files, call one
  * of the startMethodTracing() methods. To stop tracing, call
  * {@link #stopMethodTracing()}.
  */
 public final class Debug
 {
+<<<<<<< HEAD
     private static final String TAG = "Debug";
 
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     /**
      * Flags for startMethodTracing().  These can be ORed together.
      *
@@ -94,8 +114,12 @@ public final class Debug
     /**
      * Default trace file path and file
      */
+<<<<<<< HEAD
     private static final String DEFAULT_TRACE_PATH_PREFIX =
         Environment.getExternalStorageDirectory().getPath() + "/";
+=======
+    private static final String DEFAULT_TRACE_PATH_PREFIX = "/sdcard/";
+>>>>>>> 54b6cfa... Initial Contribution
     private static final String DEFAULT_TRACE_BODY = "dmtrace";
     private static final String DEFAULT_TRACE_EXTENSION = ".trace";
     private static final String DEFAULT_TRACE_FILE_PATH =
@@ -107,7 +131,11 @@ public final class Debug
      * This class is used to retrieved various statistics about the memory mappings for this
      * process. The returns info broken down by dalvik, native, and other. All results are in kB.
      */
+<<<<<<< HEAD
     public static class MemoryInfo implements Parcelable {
+=======
+    public static class MemoryInfo {
+>>>>>>> 54b6cfa... Initial Contribution
         /** The proportional set size for dalvik. */
         public int dalvikPss;
         /** The private dirty pages used by dalvik. */
@@ -128,6 +156,7 @@ public final class Debug
         public int otherPrivateDirty;
         /** The shared dirty pages used by everything else. */
         public int otherSharedDirty;
+<<<<<<< HEAD
 
         /** @hide */
         public static final int NUM_OTHER_STATS = 9;
@@ -232,6 +261,8 @@ public final class Debug
         private MemoryInfo(Parcel source) {
             readFromParcel(source);
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
 
@@ -241,10 +272,13 @@ public final class Debug
      * waitForDebugger() call if you want to start tracing immediately.
      */
     public static void waitForDebugger() {
+<<<<<<< HEAD
         if (!VMDebug.isDebuggingEnabled()) {
             //System.out.println("debugging not enabled, not waiting");
             return;
         }
+=======
+>>>>>>> 54b6cfa... Initial Contribution
         if (isDebuggerConnected())
             return;
 
@@ -306,6 +340,7 @@ public final class Debug
     }
 
     /**
+<<<<<<< HEAD
      * Returns an array of strings that identify VM features.  This is
      * used by DDMS to determine what sorts of operations the VM can
      * perform.
@@ -322,6 +357,13 @@ public final class Debug
      * @deprecated no longer needed or useful
      */
     @Deprecated
+=======
+     * Change the JDWP port -- this is a temporary measure.
+     *
+     * If a debugger is currently attached the change may not happen
+     * until after the debugger disconnects.
+     */
+>>>>>>> 54b6cfa... Initial Contribution
     public static void changeDebugPort(int port) {}
 
     /**
@@ -420,7 +462,11 @@ public final class Debug
 
     /**
      * Start method tracing with default log name and buffer size. See <a
+<<<<<<< HEAD
 href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Log Viewer</a> for
+=======
+href="{@docRoot}reference/traceview.html">Running the Traceview Debugging Program</a> for
+>>>>>>> 54b6cfa... Initial Contribution
      * information about reading these files. Call stopMethodTracing() to stop
      * tracing.
      */
@@ -432,7 +478,11 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
      * Start method tracing, specifying the trace log file name.  The trace
      * file will be put under "/sdcard" unless an absolute path is given.
      * See <a
+<<<<<<< HEAD
        href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Log Viewer</a> for
+=======
+       href="{@docRoot}reference/traceview.html">Running the Traceview Debugging Program</a> for
+>>>>>>> 54b6cfa... Initial Contribution
      * information about reading trace files.
      *
      * @param traceName Name for the trace log file to create.
@@ -448,7 +498,11 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
      * Start method tracing, specifying the trace log file name and the
      * buffer size. The trace files will be put under "/sdcard" unless an
      * absolute path is given. See <a
+<<<<<<< HEAD
        href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Log Viewer</a> for
+=======
+       href="{@docRoot}reference/traceview.html">Running the Traceview Debugging Program</a> for
+>>>>>>> 54b6cfa... Initial Contribution
      * information about reading trace files.
      * @param traceName    Name for the trace log file to create.
      * If no name argument is given, this value defaults to "/sdcard/dmtrace.trace".
@@ -465,7 +519,11 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
      * Start method tracing, specifying the trace log file name and the
      * buffer size. The trace files will be put under "/sdcard" unless an
      * absolute path is given. See <a
+<<<<<<< HEAD
        href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Log Viewer</a> for
+=======
+       href="{@docRoot}reference/traceview.html">Running the Traceview Debugging Program</a> for
+>>>>>>> 54b6cfa... Initial Contribution
      * information about reading trace files.
      *
      * <p>
@@ -497,6 +555,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     }
 
     /**
+<<<<<<< HEAD
      * Like startMethodTracing(String, int, int), but taking an already-opened
      * FileDescriptor in which the trace is written.  The file name is also
      * supplied simply for logging.  Makes a dup of the file descriptor.
@@ -530,6 +589,8 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Stop method tracing.
      */
     public static void stopMethodTracing() {
@@ -552,6 +613,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     }
 
     /**
+<<<<<<< HEAD
      * Start counting the number and aggregate size of memory allocations.
      *
      * <p>The {@link #startAllocCounting() start} function resets the counts and enables counting.
@@ -563,16 +625,32 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
      * <p>Counts are kept for the system as a whole and for each thread.
      * The per-thread counts for threads other than the current thread
      * are not cleared by the "reset" or "start" calls.</p>
+=======
+     * Count the number and aggregate size of memory allocations between
+     * two points.
+     *
+     * The "start" function resets the counts and enables counting.  The
+     * "stop" function disables the counting so that the analysis code
+     * doesn't cause additional allocations.  The "get" function returns
+     * the specified value.
+     *
+     * Counts are kept for the system as a whole and for each thread.
+     * The per-thread counts for threads other than the current thread
+     * are not cleared by the "reset" or "start" calls.
+>>>>>>> 54b6cfa... Initial Contribution
      */
     public static void startAllocCounting() {
         VMDebug.startAllocCounting();
     }
+<<<<<<< HEAD
 
     /**
      * Stop counting the number and aggregate size of memory allocations.
      *
      * @see #startAllocCounting()
      */
+=======
+>>>>>>> 54b6cfa... Initial Contribution
     public static void stopAllocCounting() {
         VMDebug.stopAllocCounting();
     }
@@ -589,6 +667,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     public static int getGlobalFreedSize() {
         return VMDebug.getAllocCount(VMDebug.KIND_GLOBAL_FREED_BYTES);
     }
+<<<<<<< HEAD
     public static int getGlobalClassInitCount() {
         /* number of classes that have been successfully initialized */
         return VMDebug.getAllocCount(VMDebug.KIND_GLOBAL_CLASS_INIT_COUNT);
@@ -648,6 +727,20 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
         return 0;
     }
 
+=======
+    public static int getGlobalExternalAllocCount() {
+        return VMDebug.getAllocCount(VMDebug.KIND_GLOBAL_EXT_ALLOCATED_OBJECTS);
+    }
+    public static int getGlobalExternalAllocSize() {
+        return VMDebug.getAllocCount(VMDebug.KIND_GLOBAL_EXT_ALLOCATED_BYTES);
+    }
+    public static int getGlobalExternalFreedCount() {
+        return VMDebug.getAllocCount(VMDebug.KIND_GLOBAL_EXT_FREED_OBJECTS);
+    }
+    public static int getGlobalExternalFreedSize() {
+        return VMDebug.getAllocCount(VMDebug.KIND_GLOBAL_EXT_FREED_BYTES);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
     public static int getGlobalGcInvocationCount() {
         return VMDebug.getAllocCount(VMDebug.KIND_GLOBAL_GC_INVOCATIONS);
     }
@@ -657,6 +750,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     public static int getThreadAllocSize() {
         return VMDebug.getAllocCount(VMDebug.KIND_THREAD_ALLOCATED_BYTES);
     }
+<<<<<<< HEAD
 
     /**
      * Returns the count of external allocation requests made by the
@@ -683,6 +777,14 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
         return 0;
     }
 
+=======
+    public static int getThreadExternalAllocCount() {
+        return VMDebug.getAllocCount(VMDebug.KIND_THREAD_EXT_ALLOCATED_OBJECTS);
+    }
+    public static int getThreadExternalAllocSize() {
+        return VMDebug.getAllocCount(VMDebug.KIND_THREAD_EXT_ALLOCATED_BYTES);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
     public static int getThreadGcInvocationCount() {
         return VMDebug.getAllocCount(VMDebug.KIND_THREAD_GC_INVOCATIONS);
     }
@@ -699,6 +801,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     public static void resetGlobalFreedSize() {
         VMDebug.resetAllocCount(VMDebug.KIND_GLOBAL_FREED_BYTES);
     }
+<<<<<<< HEAD
     public static void resetGlobalClassInitCount() {
         VMDebug.resetAllocCount(VMDebug.KIND_GLOBAL_CLASS_INIT_COUNT);
     }
@@ -747,6 +850,20 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     @Deprecated
     public static void resetGlobalExternalFreedSize() {}
 
+=======
+    public static void resetGlobalExternalAllocCount() {
+        VMDebug.resetAllocCount(VMDebug.KIND_GLOBAL_EXT_ALLOCATED_OBJECTS);
+    }
+    public static void resetGlobalExternalAllocSize() {
+        VMDebug.resetAllocCount(VMDebug.KIND_GLOBAL_EXT_ALLOCATED_BYTES);
+    }
+    public static void resetGlobalExternalFreedCount() {
+        VMDebug.resetAllocCount(VMDebug.KIND_GLOBAL_EXT_FREED_OBJECTS);
+    }
+    public static void resetGlobalExternalFreedSize() {
+        VMDebug.resetAllocCount(VMDebug.KIND_GLOBAL_EXT_FREED_BYTES);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
     public static void resetGlobalGcInvocationCount() {
         VMDebug.resetAllocCount(VMDebug.KIND_GLOBAL_GC_INVOCATIONS);
     }
@@ -756,6 +873,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     public static void resetThreadAllocSize() {
         VMDebug.resetAllocCount(VMDebug.KIND_THREAD_ALLOCATED_BYTES);
     }
+<<<<<<< HEAD
 
     /**
      * Resets the count of external allocation requests made by the
@@ -779,6 +897,14 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     @Deprecated
     public static void resetThreadExternalAllocSize() {}
 
+=======
+    public static void resetThreadExternalAllocCount() {
+        VMDebug.resetAllocCount(VMDebug.KIND_THREAD_EXT_ALLOCATED_OBJECTS);
+    }
+    public static void resetThreadExternalAllocSize() {
+        VMDebug.resetAllocCount(VMDebug.KIND_THREAD_EXT_ALLOCATED_BYTES);
+    }
+>>>>>>> 54b6cfa... Initial Contribution
     public static void resetThreadGcInvocationCount() {
         VMDebug.resetAllocCount(VMDebug.KIND_THREAD_GC_INVOCATIONS);
     }
@@ -811,6 +937,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     public static native void getMemoryInfo(MemoryInfo memoryInfo);
 
     /**
+<<<<<<< HEAD
      * Note: currently only works when the requested pid has the same UID
      * as the caller.
      * @hide
@@ -854,6 +981,52 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     @Deprecated
     public static int setGlobalAllocationLimit(int limit) {
         return -1;
+=======
+     * Establish an object allocation limit in the current thread.  Useful
+     * for catching regressions in code that is expected to operate
+     * without causing any allocations.
+     *
+     * Pass in the maximum number of allowed allocations.  Use -1 to disable
+     * the limit.  Returns the previous limit.
+     *
+     * The preferred way to use this is:
+     *
+     *  int prevLimit = -1;
+     *  try {
+     *      prevLimit = Debug.setAllocationLimit(0);
+     *      ... do stuff that's not expected to allocate memory ...
+     *  } finally {
+     *      Debug.setAllocationLimit(prevLimit);
+     *  }
+     *
+     * This allows limits to be nested.  The try/finally ensures that the
+     * limit is reset if something fails.
+     *
+     * Exceeding the limit causes a dalvik.system.AllocationLimitError to
+     * be thrown from a memory allocation call.  The limit is reset to -1
+     * when this happens.
+     *
+     * The feature may be disabled in the VM configuration.  If so, this
+     * call has no effect, and always returns -1.
+     */
+    public static int setAllocationLimit(int limit) {
+        return VMDebug.setAllocationLimit(limit);
+    }
+
+    /**
+     * Establish a global object allocation limit.  This is similar to
+     * {@link #setAllocationLimit(int)} but applies to all threads in
+     * the VM.  It will coexist peacefully with per-thread limits.
+     *
+     * [ The value of "limit" is currently restricted to 0 (no allocations
+     *   allowed) or -1 (no global limit).  This may be changed in a future
+     *   release. ]
+     */
+    public static int setGlobalAllocationLimit(int limit) {
+        if (limit != 0 && limit != -1)
+            throw new IllegalArgumentException("limit must be 0 or -1");
+        return VMDebug.setGlobalAllocationLimit(limit);
+>>>>>>> 54b6cfa... Initial Contribution
     }
 
     /**
@@ -874,6 +1047,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     }
 
     /**
+<<<<<<< HEAD
      * Dump "hprof" data to the specified file.  This may cause a GC.
      *
      * @param fileName Full pathname of output file (e.g. "/sdcard/dump.hprof").
@@ -927,6 +1101,8 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     }
 
     /**
+=======
+>>>>>>> 54b6cfa... Initial Contribution
      * Returns the number of sent transactions from this process.
      * @return The number of sent transactions or -1 if it could not read t.
      */
@@ -957,6 +1133,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     public static final native int getBinderDeathObjectCount();
 
     /**
+<<<<<<< HEAD
      * Primes the register map cache.
      *
      * Only works for classes in the bootstrap class loader.  Does not
@@ -990,6 +1167,11 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
      *
      * Example usage:
      * <pre>
+=======
+     * API for gathering and querying instruction counts.
+     *
+     * Example usage:
+>>>>>>> 54b6cfa... Initial Contribution
      *   Debug.InstructionCount icount = new Debug.InstructionCount();
      *   icount.resetAndStart();
      *    [... do lots of stuff ...]
@@ -999,11 +1181,17 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
      *       System.out.println("Method invocations: "
      *           + icount.globalMethodInvocations());
      *   }
+<<<<<<< HEAD
      * </pre>
      */
     public static class InstructionCount {
         private static final int NUM_INSTR =
             OpcodeInfo.MAXIMUM_PACKED_VALUE + 1;
+=======
+     */
+    public static class InstructionCount {
+        private static final int NUM_INSTR = 256;
+>>>>>>> 54b6cfa... Initial Contribution
 
         private int[] mCounts;
 
@@ -1047,11 +1235,16 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
          */
         public int globalTotal() {
             int count = 0;
+<<<<<<< HEAD
 
             for (int i = 0; i < NUM_INSTR; i++) {
                 count += mCounts[i];
             }
 
+=======
+            for (int i = 0; i < NUM_INSTR; i++)
+                count += mCounts[i];
+>>>>>>> 54b6cfa... Initial Contribution
             return count;
         }
 
@@ -1062,6 +1255,7 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
         public int globalMethodInvocations() {
             int count = 0;
 
+<<<<<<< HEAD
             for (int i = 0; i < NUM_INSTR; i++) {
                 if (OpcodeInfo.isInvoke(i)) {
                     count += mCounts[i];
@@ -1369,4 +1563,25 @@ href="{@docRoot}guide/developing/tools/traceview.html">Traceview: A Graphical Lo
     public static String getCaller() {
         return getCaller(Thread.currentThread().getStackTrace(), 0);
     }
+=======
+            //count += mCounts[Opcodes.OP_EXECUTE_INLINE];
+            count += mCounts[Opcodes.OP_INVOKE_VIRTUAL];
+            count += mCounts[Opcodes.OP_INVOKE_SUPER];
+            count += mCounts[Opcodes.OP_INVOKE_DIRECT];
+            count += mCounts[Opcodes.OP_INVOKE_STATIC];
+            count += mCounts[Opcodes.OP_INVOKE_INTERFACE];
+            count += mCounts[Opcodes.OP_INVOKE_VIRTUAL_RANGE];
+            count += mCounts[Opcodes.OP_INVOKE_SUPER_RANGE];
+            count += mCounts[Opcodes.OP_INVOKE_DIRECT_RANGE];
+            count += mCounts[Opcodes.OP_INVOKE_STATIC_RANGE];
+            count += mCounts[Opcodes.OP_INVOKE_INTERFACE_RANGE];
+            //count += mCounts[Opcodes.OP_INVOKE_DIRECT_EMPTY];
+            count += mCounts[Opcodes.OP_INVOKE_VIRTUAL_QUICK];
+            count += mCounts[Opcodes.OP_INVOKE_VIRTUAL_QUICK_RANGE];
+            count += mCounts[Opcodes.OP_INVOKE_SUPER_QUICK];
+            count += mCounts[Opcodes.OP_INVOKE_SUPER_QUICK_RANGE];
+            return count;
+        }
+    };
+>>>>>>> 54b6cfa... Initial Contribution
 }
